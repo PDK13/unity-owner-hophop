@@ -7,19 +7,17 @@ public class IsometricManager : MonoBehaviour
 {
     #region Enum
 
-    public enum IsoType { XY, H, None, }
+    public enum IsoRendererType { XY, H, None, }
 
     #endregion
 
     #region Varible: World Manager
 
     [SerializeField] private string m_name = "";
-    [SerializeField] private IsoType m_renderer = IsoType.H;
-    [SerializeField] private IsoVector m_scale = new IsoVector(1f, 1f, 1f);
+    [SerializeField] private IsoDataScene m_scene = new IsoDataScene();
 
     public string WorldName => m_name;
-    public IsoType WorldRenderer => m_renderer;
-    public IsoVector WorldScale => m_scale;
+    public IsoDataScene Scene => m_scene;
 
     private List<(int PosH, List<IsometricBlock> Block)> m_worldPosH = new List<(int PosH, List<IsometricBlock> Block)>();
 
