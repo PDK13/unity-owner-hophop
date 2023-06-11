@@ -1,14 +1,8 @@
 #if UNITY_EDITOR
 
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Tilemaps;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
-using UnityEditor;
 using QuickMethode;
-using IsometricMethode;
+using UnityEditor;
+using UnityEngine;
 
 public class IsometricTool : EditorWindow
 {
