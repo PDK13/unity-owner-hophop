@@ -10,7 +10,6 @@ using System.Globalization;
 using System.Security.Cryptography;
 using UnityEngine.UI;
 using UnityEngine.Events;
-using UnityEngine.EventSystems;
 using Random = UnityEngine.Random;
 #if UNITY_EDITOR
 using UnityEditor;

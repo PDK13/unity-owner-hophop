@@ -1,9 +1,5 @@
-using System;
-using System.Collections.Generic;
-using UnityEngine;
 using QuickMethode;
-using System.Collections;
-using IsometricMethode;
+using UnityEngine;
 
 [ExecuteAlways]
 public class IsometricBlock : MonoBehaviour
@@ -19,7 +15,7 @@ public class IsometricBlock : MonoBehaviour
     #region Varible: World Manager
 
     [Header("World Manager")]
-    [SerializeField] private IsoType m_renderer = IsoType.H;
+    [SerializeField] private IsometricManager.IsoType m_renderer = IsometricManager.IsoType.H;
     [SerializeField] private IsoVector m_pos = new IsoVector();
 
     private IsoVector m_posPrimary = new IsoVector();
@@ -68,7 +64,7 @@ public class IsometricBlock : MonoBehaviour
 
     #region ================================================================== World Manager
 
-    public IsoType Renderer { get => m_renderer; set => m_renderer = value; }
+    public IsometricManager.IsoType Renderer { get => m_renderer; set => m_renderer = value; }
 
     public IsoVector Pos { get => m_pos; set { m_pos = value; SetIsoTransform(); } }
 
@@ -93,7 +89,7 @@ public class IsometricBlock : MonoBehaviour
     {
         switch (m_renderer)
         {
-            case IsoType.H:
+            case IsometricManager.IsoType.H:
                 {
                     IsoVector PosWorldFinal = new IsoVector(PosWorld);
                     PosWorldFinal.X *= m_scale.X * 0.5f * -1;
@@ -106,7 +102,7 @@ public class IsometricBlock : MonoBehaviour
 
                     return new Vector3(PosX, PosY, PosZ);
                 }
-            case IsoType.XY:
+            case IsometricManager.IsoType.XY:
                 {
                     IsoVector PosWorldFinal = new IsoVector(PosWorld);
                     PosWorldFinal.X *= m_scale.X * 0.5f * -1;
@@ -119,7 +115,7 @@ public class IsometricBlock : MonoBehaviour
 
                     return new Vector3(PosX, PosY, PosZ);
                 }
-            case IsoType.None:
+            case IsometricManager.IsoType.None:
                 {
                     //Testing
                     IsoVector PosWorldFinal = new IsoVector(PosWorld);
