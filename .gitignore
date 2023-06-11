@@ -64,3 +64,6 @@ HopHop/Assets/Plugins.meta
 HopHop/Assets/DOTween.meta
 HopHop/Assets/Resources/
 HopHop/Assets/Resources.meta
+*.ini
+HopHop/Assets/TextMesh Pro/
+HopHop/Assets/TextMesh Pro.meta
