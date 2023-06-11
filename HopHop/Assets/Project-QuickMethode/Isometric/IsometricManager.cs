@@ -136,20 +136,40 @@ public class IsometricManager : MonoBehaviour
         return null;
     }
 
-    public IsometricBlock GetWorldBlockCurrent(IsoVector Pos, string TagFind = "")
+    public IsometricBlock GetWorldBlockCurrent(IsoVector Pos, params string[] TagFind)
     {
-        int IndexTag = GetIndexWorldTag(TagFind);
-        if (IndexTag == -1)
-            return null;
-
-        for (int i = m_worldTag[IndexTag].Block.Count - 1; i >= 0; i--)
+        if (TagFind.Length > 0)
         {
-            if (m_worldTag[IndexTag].Block[i].Pos != Pos)
-                continue;
+            //Find all Block with know tag - More Quickly!!
+            foreach(string Tag in TagFind)
+            {
+                int IndexTag = GetIndexWorldTag(Tag);
+                if (IndexTag == -1)
+                    //Not exist Tag in Tag List!
+                    return null;
 
-            return m_worldTag[IndexTag].Block[i];
+                for (int i = m_worldTag[IndexTag].Block.Count - 1; i >= 0; i--)
+                {
+                    if (m_worldTag[IndexTag].Block[i].Pos != Pos)
+                        continue;
+
+                    return m_worldTag[IndexTag].Block[i];
+                }
+            }
         }
-        return null;
+        else
+        {
+            //Find all block with unknow tag - More slower!!
+            foreach(var PosH in m_worldPosH)
+            {
+                foreach(IsometricBlock Block in PosH.Block)
+                {
+                    if (Block.Pos == Pos)
+                        return Block;
+                }
+            }
+        }
+        return null; //Block not found!!
     }
 
     #endregion

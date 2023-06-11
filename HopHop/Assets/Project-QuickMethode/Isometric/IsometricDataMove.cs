@@ -15,12 +15,12 @@ public struct IsoDataBlockMoveSingle
 {
     public const char KEY_VALUE_ENCYPT = '|';
 
-    public IsoVector.IsoDir Dir;
+    public IsoDir Dir;
     public int Length;
 
     public string Encypt => QEncypt.GetEncypt(KEY_VALUE_ENCYPT, (int)Dir, Length);
 
-    public IsoDataBlockMoveSingle(IsoVector.IsoDir Dir, int Length)
+    public IsoDataBlockMoveSingle(IsoDir Dir, int Length)
     {
         this.Dir = Dir;
         this.Length = Length;
@@ -29,6 +29,6 @@ public struct IsoDataBlockMoveSingle
     public static IsoDataBlockMoveSingle GetDencypt(string Value)
     {
         List<int> DataString = QEncypt.GetDencyptInt(KEY_VALUE_ENCYPT, Value);
-        return new IsoDataBlockMoveSingle((IsoVector.IsoDir)DataString[0], DataString[1]);
+        return new IsoDataBlockMoveSingle((IsoDir)DataString[0], DataString[1]);
     }
 }
