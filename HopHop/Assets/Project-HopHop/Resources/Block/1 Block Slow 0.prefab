@@ -98,23 +98,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88b51ca1839d85a47a182808b3636847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_free: 0
   m_tag: Block
-  m_desciption: 
-  m_renderer: 1
   m_pos:
     X: 0
     Y: 0
     H: 0
   m_data:
-    JoinData: {fileID: 0}
-    MoveKey: Move
     MoveData: []
-    CommandKey: Command
-    CommandData: []
-  m_scale:
-    X: 1
-    Y: 1
-    H: 1
+    EventData: []
+    TeleportData: []
+  m_scene:
+    Renderer: 1
+    Scale:
+      X: 1
+      Y: 1
+      H: 1
   m_centre: {x: 0, y: 0, z: 0}
   WorldManager: {fileID: 0}
 --- !u!114 &4121248006547329875

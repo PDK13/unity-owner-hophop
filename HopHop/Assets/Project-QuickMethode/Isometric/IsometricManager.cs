@@ -48,9 +48,6 @@ public class IsometricManager : MonoBehaviour
             return null;
         }
 
-        //Delete
-        SetWorldBlockRemovePrimary(Pos);
-
         //Create
         GameObject BlockObject = QGameObject.SetCreate(BlockPrefab);
 
@@ -70,31 +67,41 @@ public class IsometricManager : MonoBehaviour
             BlockRenderer.SetSpriteJoin(Pos);
         }
 
-        //World
-        int IndexPosH = GetIndexWorldPosH(Pos.HInt);
-        if (IndexPosH != -1)
+        if (Block.Free && Application.isPlaying)
         {
-            m_worldPosH[IndexPosH].Block.Add(Block);
+            //When in playing, FREE Block's Pos Primary will not be track, so just can be find by it own Tag!
         }
         else
         {
-            m_worldPosH.Add((Pos.HInt, new List<IsometricBlock>()));
-            IndexPosH = m_worldPosH.Count - 1;
-            m_worldPosH[IndexPosH].Block.Add(Block);
+            //Delete
+            SetWorldBlockRemovePrimary(Pos);
+
+            //World
+            int IndexPosH = GetIndexWorldPosH(Pos.HInt);
+            if (IndexPosH != -1)
+            {
+                m_worldPosH[IndexPosH].Block.Add(Block);
+            }
+            else
+            {
+                m_worldPosH.Add((Pos.HInt, new List<IsometricBlock>()));
+                IndexPosH = m_worldPosH.Count - 1;
+                m_worldPosH[IndexPosH].Block.Add(Block);
+            }
         }
 
         //Tag
-        string Tag = Block.GetComponent<IsometricBlock>().Tag;
-        int IndexTag = GetIndexWorldTag(Tag);
-        if (IndexTag != -1)
+        string TagFind = Block.GetComponent<IsometricBlock>().Tag;
+        int TagIndex = GetIndexWorldTag(TagFind);
+        if (TagIndex != -1)
         {
-            this.m_worldTag[IndexTag].Block.Add(Block);
+            this.m_worldTag[TagIndex].Block.Add(Block);
         }
         else
         {
-            this.m_worldTag.Add((Tag, new List<IsometricBlock>()));
-            IndexPosH = this.m_worldTag.Count - 1;
-            this.m_worldTag[IndexPosH].Block.Add(Block);
+            this.m_worldTag.Add((TagFind, new List<IsometricBlock>()));
+            TagIndex = this.m_worldTag.Count - 1;
+            this.m_worldTag[TagIndex].Block.Add(Block);
         }
 
         //Scene
@@ -134,24 +141,26 @@ public class IsometricManager : MonoBehaviour
         return null;
     }
 
-    public IsometricBlock GetWorldBlockCurrent(IsoVector Pos, params string[] TagFind)
+    public List<IsometricBlock> GetWorldBlockCurrent(IsoVector Pos, params string[] Tag)
     {
-        if (TagFind.Length > 0)
+        List<IsometricBlock> List = new List<IsometricBlock>();
+
+        if (Tag.Length > 0)
         {
             //Find all Block with know tag - More Quickly!!
-            foreach(string Tag in TagFind)
+            foreach(string TagFind in Tag)
             {
-                int IndexTag = GetIndexWorldTag(Tag);
-                if (IndexTag == -1)
+                int TagIndex = GetIndexWorldTag(TagFind);
+                if (TagIndex == -1)
                     //Not exist Tag in Tag List!
-                    return null;
+                    continue;
 
-                for (int i = m_worldTag[IndexTag].Block.Count - 1; i >= 0; i--)
+                for (int BlockIndex = 0; BlockIndex < m_worldTag[TagIndex].Block.Count; BlockIndex++)
                 {
-                    if (m_worldTag[IndexTag].Block[i].Pos != Pos)
+                    if (m_worldTag[TagIndex].Block[BlockIndex].Pos != Pos)
                         continue;
 
-                    return m_worldTag[IndexTag].Block[i];
+                    List.Add(m_worldTag[TagIndex].Block[BlockIndex]);
                 }
             }
         }
@@ -162,12 +171,15 @@ public class IsometricManager : MonoBehaviour
             {
                 foreach(IsometricBlock Block in PosH.Block)
                 {
-                    if (Block.Pos == Pos)
-                        return Block;
+                    if (Block.Pos != Pos)
+                        continue;
+
+                    List.Add(Block);
                 }
             }
         }
-        return null; //Block not found!!
+
+        return List;
     }
 
     #endregion
@@ -194,13 +206,13 @@ public class IsometricManager : MonoBehaviour
                 m_worldPosH.RemoveAt(IndexPosH);
 
             //Tag
-            string Tag = Block.Tag;
-            int IndexTag = GetIndexWorldTag(Tag);
-            if (IndexTag != -1)
+            string TagFind = Block.Tag;
+            int TagIndex = GetIndexWorldTag(TagFind);
+            if (TagIndex != -1)
             {
-                m_worldTag[IndexTag].Block.Remove(Block);
-                if (m_worldTag[IndexTag].Block.Count == 0)
-                    m_worldTag.RemoveAt(IndexTag);
+                m_worldTag[TagIndex].Block.Remove(Block);
+                if (m_worldTag[TagIndex].Block.Count == 0)
+                    m_worldTag.RemoveAt(TagIndex);
             }
 
             //Scene
@@ -213,43 +225,96 @@ public class IsometricManager : MonoBehaviour
         }
     }
 
-    public void SetWorldBlockRemoveCurrent(IsoVector Pos, string TagFind = "")
+    public void SetWorldBlockRemoveInstant(IsometricBlock Block)
     {
+        //World
+        m_worldPosH[GetIndexWorldPosH(Block.Pos.HInt)].Block.Remove(Block);
+
         //Tag
-        int IndexTag = GetIndexWorldTag(TagFind);
-        if (IndexTag == -1)
-            return;
+        m_worldTag[GetIndexWorldTag(Block.tag)].Block.Remove(Block);
 
-        for (int i = m_worldTag[IndexTag].Block.Count - 1; i >= 0; i--)
+        //Scene
+        if (Application.isEditor)
+            DestroyImmediate(Block.gameObject);
+        else
+            Destroy(Block.gameObject);
+    } //Should use!!
+
+    public void SetWorldBlockRemoveCurrent(IsoVector Pos, bool All, params string[] Tag)
+    {
+        if (Tag.Length > 0)
         {
-            if (m_worldTag[IndexTag].Block[i].Pos != Pos)
-                continue;
-
-            IsometricBlock Block = m_worldTag[IndexTag].Block[i];
-
-            //World
-            int IndexPosH = GetIndexWorldPosH(Pos.HInt);
-            if (IndexPosH != -1)
+            foreach (string TagFind in Tag)
             {
-                m_worldPosH[IndexPosH].Block.Remove(Block);
-                if (m_worldPosH[IndexPosH].Block.Count == 0)
-                    m_worldPosH.RemoveAt(IndexPosH);
+                //Tag
+                int TagIndex = GetIndexWorldTag(TagFind);
+                if (TagIndex == -1)
+                    continue;
+
+                for (int BlockIndex = m_worldTag[TagIndex].Block.Count - 1; BlockIndex >= 0; BlockIndex--)
+                {
+                    if (m_worldTag[TagIndex].Block[BlockIndex].Pos != Pos)
+                        continue;
+
+                    IsometricBlock Block = m_worldTag[TagIndex].Block[BlockIndex];
+
+                    //World
+                    int IndexPosH = GetIndexWorldPosH(Pos.HInt);
+                    if (IndexPosH != -1)
+                    {
+                        m_worldPosH[IndexPosH].Block.Remove(Block);
+                        if (m_worldPosH[IndexPosH].Block.Count == 0)
+                            m_worldPosH.RemoveAt(IndexPosH);
+                    }
+
+                    //Tag
+                    m_worldTag[TagIndex].Block.Remove(Block);
+                    if (m_worldTag[TagIndex].Block.Count == 0)
+                        m_worldTag.RemoveAt(TagIndex);
+
+                    //Scene
+                    if (Application.isEditor)
+                        DestroyImmediate(Block.gameObject);
+                    else
+                        Destroy(Block.gameObject);
+
+                    if (!All)
+                        return;
+                }
             }
-
-            //Tag
-            m_worldTag[IndexTag].Block.Remove(Block);
-            if (m_worldTag[IndexTag].Block.Count == 0)
-                m_worldTag.RemoveAt(IndexTag);
-
-            //Scene
-            if (Application.isEditor)
-                DestroyImmediate(Block.gameObject);
-            else
-                Destroy(Block.gameObject);
-
-            break;
         }
-    }
+        else
+        {
+            //Find all block with unknow tag - More slower!!
+            foreach (var PosH in m_worldPosH)
+            {
+                foreach (IsometricBlock Block in PosH.Block)
+                {
+                    if (Block.Pos != Pos)
+                        continue;
+
+                    //Tag
+                    string TagFind = Block.Tag;
+                    int TagIndex = GetIndexWorldTag(TagFind);
+                    if (TagIndex != -1)
+                    {
+                        m_worldTag[TagIndex].Block.Remove(Block);
+                        if (m_worldTag[TagIndex].Block.Count == 0)
+                            m_worldTag.RemoveAt(TagIndex);
+                    }
+
+                    //Scene
+                    if (Application.isEditor)
+                        DestroyImmediate(Block.gameObject);
+                    else
+                        Destroy(Block.gameObject);
+
+                    if (!All)
+                        return;
+                }
+            }
+        }
+    } //Shouldn't use!!
 
     #endregion
 
@@ -318,15 +383,15 @@ public class IsometricManager : MonoBehaviour
         }
 
         //Tag
-        string Tag = Block.GetComponent<IsometricBlock>().Tag;
-        int IndexTag = GetIndexWorldTag(Tag);
-        if (IndexTag != -1)
+        string TagFind = Block.GetComponent<IsometricBlock>().Tag;
+        int TagIndex = GetIndexWorldTag(TagFind);
+        if (TagIndex != -1)
         {
-            this.m_worldTag[IndexTag].Block.Add(Block);
+            this.m_worldTag[TagIndex].Block.Add(Block);
         }
         else
         {
-            this.m_worldTag.Add((Tag, new List<IsometricBlock>()));
+            this.m_worldTag.Add((TagFind, new List<IsometricBlock>()));
             IndexPosH = this.m_worldTag.Count - 1;
             this.m_worldTag[IndexPosH].Block.Add(Block);
         }
@@ -429,17 +494,17 @@ public class IsometricManager : MonoBehaviour
                 continue;
             }
 
-            string Tag = BlockPrefab.GetComponent<IsometricBlock>().Tag;
-            int IndexTag = GetIndexBlockListTag(Tag);
-            if (IndexTag != -1)
+            string TagFind = BlockPrefab.GetComponent<IsometricBlock>().Tag;
+            int TagIndex = GetIndexBlockListTag(TagFind);
+            if (TagIndex != -1)
             {
-                this.BlockList[IndexTag].Block.Add(BlockPrefab);
+                this.BlockList[TagIndex].Block.Add(BlockPrefab);
             }
             else
             {
-                this.BlockList.Add((Tag, new List<GameObject>()));
-                IndexTag = this.BlockList.Count - 1;
-                this.BlockList[IndexTag].Block.Add(BlockPrefab);
+                this.BlockList.Add((TagFind, new List<GameObject>()));
+                TagIndex = this.BlockList.Count - 1;
+                this.BlockList[TagIndex].Block.Add(BlockPrefab);
             }
         }
     }

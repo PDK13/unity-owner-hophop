@@ -1,4 +1,5 @@
 using QuickMethode;
+using System.Collections.Generic;
 using UnityEngine;
 
 [ExecuteAlways]
@@ -6,9 +7,8 @@ public class IsometricBlock : MonoBehaviour
 {
     #region Varible: Block Manager
 
-    [SerializeField] private bool m_primaryTrack = true;
+    [SerializeField] private bool m_free = false;
     [SerializeField] private string m_tag = "";
-    [SerializeField] private string m_desciption = "";
     
     #endregion
 
@@ -50,11 +50,11 @@ public class IsometricBlock : MonoBehaviour
 
     #region ================================================================== World Manager
 
+    public bool Free => m_free;
+
     public string Name => QGameObject.GetNameReplaceClone(this.name);
 
     public string Tag => m_tag;
-
-    public string Desciption => (m_desciption != "") ? m_desciption : "...";
 
     #endregion
 
@@ -63,11 +63,6 @@ public class IsometricBlock : MonoBehaviour
     public IsoVector Pos { get => m_pos; set { m_pos = value; SetIsoTransform(); } }
 
     public IsoVector PosPrimary { get => m_posPrimary; set => m_posPrimary = value; }
-
-    public void SetPosBackPrimary()
-    {
-        Pos = PosPrimary;
-    }
 
     #endregion
 
@@ -143,12 +138,12 @@ public class IsometricBlock : MonoBehaviour
 
     #region ================================================================== Check
 
-    public IsometricBlock GetCheck(IsoVector Dir)
+    public List<IsometricBlock> GetCheck(IsoVector Dir)
     {
         return WorldManager.GetWorldBlockCurrent(Pos.Fixed + Dir);
     }
 
-    public IsometricBlock GetCheck(IsoVector Dir, params string[] TagFind)
+    public List<IsometricBlock> GetCheck(IsoVector Dir, params string[] TagFind)
     {
         return WorldManager.GetWorldBlockCurrent(Pos.Fixed + Dir, TagFind);
     }
