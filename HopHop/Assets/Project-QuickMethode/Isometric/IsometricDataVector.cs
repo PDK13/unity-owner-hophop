@@ -3,15 +3,11 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum IsoDir { None = 0, Up = 1, Down = 2, Left = 3, Right = 4, Top = 5, Bot = 6 }
+
 [Serializable]
 public struct IsoVector
 {
-    #region Enum
-
-    public enum IsoDir { None = 0, Up = 1, Down = 2, Left = 3, Right = 4, Top = 5, Bot = 6 }
-
-    #endregion
-
     #region Primary
 
     public IsoVector(float XUD, float YLR, float HTB)
@@ -41,6 +37,8 @@ public struct IsoVector
     public int YInt => Mathf.RoundToInt(Y); //Direction Left & Right
 
     public int HInt => Mathf.RoundToInt(H); //Direction Top & Bot
+
+    public IsoVector Fixed => new IsoVector(XInt, YInt, HInt);
 
     #endregion
 
