@@ -24,6 +24,13 @@ public struct IsoVector
         H = IsoVector.H;
     }
 
+    public IsoVector(Vector3 Vector)
+    {
+        X = Vector.x;
+        Y = Vector.y;
+        H = Vector.z;
+    }
+
     public float X; //Direction Up & Down
     public float Y; //Direction Left & Right
     public float H; //Direction Top & Bot
@@ -50,6 +57,26 @@ public struct IsoVector
     public static IsoVector Right => new IsoVector(0, 1, 0);
     public static IsoVector Top => new IsoVector(0, 0, 1);
     public static IsoVector Bot => new IsoVector(0, 0, -1);
+
+    public static Vector3 GetVectorDir(IsoDir Dir)
+    {
+        switch (Dir)
+        {
+            case IsoDir.Up:
+                return Vector3.right;
+            case IsoDir.Down:
+                return Vector3.left;
+            case IsoDir.Left:
+                return Vector3.down;
+            case IsoDir.Right:
+                return Vector3.up;
+            case IsoDir.Top:
+                return Vector3.forward;
+            case IsoDir.Bot:
+                return Vector3.back;
+        }
+        return Vector3.zero;
+    }
 
     #endregion
 
