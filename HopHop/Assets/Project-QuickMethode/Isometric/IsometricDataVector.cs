@@ -57,6 +57,7 @@ public struct IsoVector
     public static IsoVector Right => new IsoVector(0, 1, 0);
     public static IsoVector Top => new IsoVector(0, 0, 1);
     public static IsoVector Bot => new IsoVector(0, 0, -1);
+    public static IsoVector None => new IsoVector(0, 0, 0);
 
     public static Vector3 GetVectorDir(IsoDir Dir)
     {
@@ -76,6 +77,26 @@ public struct IsoVector
                 return Vector3.back;
         }
         return Vector3.zero;
+    }
+
+    public static IsoVector GetDir(IsoDir Dir)
+    {
+        switch (Dir)
+        {
+            case IsoDir.Up:
+                return Up;
+            case IsoDir.Down:
+                return Down;
+            case IsoDir.Left:
+                return Left;
+            case IsoDir.Right:
+                return Right;
+            case IsoDir.Top:
+                return Top;
+            case IsoDir.Bot:
+                return Bot;
+        }
+        return None;
     }
 
     #endregion
