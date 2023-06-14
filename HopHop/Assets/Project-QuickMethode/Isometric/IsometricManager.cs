@@ -179,7 +179,18 @@ public class IsometricManager : MonoBehaviour
             }
         }
 
-        return List;
+        return List.Count > 0 ? List : null;
+    }
+
+    public List<IsometricBlock> GetWorldBlockCurrentTag(string Tag)
+    {
+        foreach (var Check in m_worldTag)
+        {
+            if (Check.Tag != Tag)
+                continue;
+            return Check.Block;
+        }
+        return null;
     }
 
     #endregion
@@ -238,83 +249,7 @@ public class IsometricManager : MonoBehaviour
             DestroyImmediate(Block.gameObject);
         else
             Destroy(Block.gameObject);
-    } //Should use!!
-
-    public void SetWorldBlockRemoveCurrent(IsoVector Pos, bool All, params string[] Tag)
-    {
-        if (Tag.Length > 0)
-        {
-            foreach (string TagFind in Tag)
-            {
-                //Tag
-                int TagIndex = GetIndexWorldTag(TagFind);
-                if (TagIndex == -1)
-                    continue;
-
-                for (int BlockIndex = m_worldTag[TagIndex].Block.Count - 1; BlockIndex >= 0; BlockIndex--)
-                {
-                    if (m_worldTag[TagIndex].Block[BlockIndex].Pos != Pos)
-                        continue;
-
-                    IsometricBlock Block = m_worldTag[TagIndex].Block[BlockIndex];
-
-                    //World
-                    int IndexPosH = GetIndexWorldPosH(Pos.HInt);
-                    if (IndexPosH != -1)
-                    {
-                        m_worldPosH[IndexPosH].Block.Remove(Block);
-                        if (m_worldPosH[IndexPosH].Block.Count == 0)
-                            m_worldPosH.RemoveAt(IndexPosH);
-                    }
-
-                    //Tag
-                    m_worldTag[TagIndex].Block.Remove(Block);
-                    if (m_worldTag[TagIndex].Block.Count == 0)
-                        m_worldTag.RemoveAt(TagIndex);
-
-                    //Scene
-                    if (Application.isEditor)
-                        DestroyImmediate(Block.gameObject);
-                    else
-                        Destroy(Block.gameObject);
-
-                    if (!All)
-                        return;
-                }
-            }
-        }
-        else
-        {
-            //Find all block with unknow tag - More slower!!
-            foreach (var PosH in m_worldPosH)
-            {
-                foreach (IsometricBlock Block in PosH.Block)
-                {
-                    if (Block.Pos != Pos)
-                        continue;
-
-                    //Tag
-                    string TagFind = Block.Tag;
-                    int TagIndex = GetIndexWorldTag(TagFind);
-                    if (TagIndex != -1)
-                    {
-                        m_worldTag[TagIndex].Block.Remove(Block);
-                        if (m_worldTag[TagIndex].Block.Count == 0)
-                            m_worldTag.RemoveAt(TagIndex);
-                    }
-
-                    //Scene
-                    if (Application.isEditor)
-                        DestroyImmediate(Block.gameObject);
-                    else
-                        Destroy(Block.gameObject);
-
-                    if (!All)
-                        return;
-                }
-            }
-        }
-    } //Shouldn't use!!
+    }
 
     #endregion
 
@@ -477,16 +412,38 @@ public class IsometricManager : MonoBehaviour
 
     #region Read
 
-    public void SetBlockList(params string[] PathChild)
+    public void SetBlockList(List<IsometricBlock> BlockList)
     {
-        if (BlockList == null)
-            BlockList = new List<(string Tag, List<GameObject> Block)>();
+        if (this.BlockList == null)
+            this.BlockList = new List<(string Tag, List<GameObject> Block)>();
         else
-            BlockList.Clear();
+            this.BlockList.Clear();
 
-        List<GameObject> ListPrefab = QResources.GetPrefab(PathChild);
+        foreach (IsometricBlock BlockPrefab in BlockList)
+        {
+            string TagFind = BlockPrefab.GetComponent<IsometricBlock>().Tag;
+            int TagIndex = GetIndexBlockListTag(TagFind);
+            if (TagIndex != -1)
+            {
+                this.BlockList[TagIndex].Block.Add(BlockPrefab.gameObject);
+            }
+            else
+            {
+                this.BlockList.Add((TagFind, new List<GameObject>()));
+                TagIndex = this.BlockList.Count - 1;
+                this.BlockList[TagIndex].Block.Add(BlockPrefab.gameObject);
+            }
+        }
+    }
 
-        foreach (GameObject BlockPrefab in ListPrefab)
+    public void SetBlockList(List<GameObject> BlockList)
+    {
+        if (this.BlockList == null)
+            this.BlockList = new List<(string Tag, List<GameObject> Block)>();
+        else
+            this.BlockList.Clear();
+
+        foreach (GameObject BlockPrefab in BlockList)
         {
             if (BlockPrefab.GetComponent<IsometricBlock>() == null)
             {
@@ -509,13 +466,45 @@ public class IsometricManager : MonoBehaviour
         }
     }
 
-    public GameObject GetBlockList(string BlockName, string BlockTag = "")
+    public void SetBlockList(params string[] PathChildInResources)
     {
-        if (BlockTag != "")
+        if (this.BlockList == null)
+            this.BlockList = new List<(string Tag, List<GameObject> Block)>();
+        else
+            this.BlockList.Clear();
+
+        List<GameObject> BlockList = QResources.GetPrefab(PathChildInResources);
+
+        foreach (GameObject BlockPrefab in BlockList)
+        {
+            if (BlockPrefab.GetComponent<IsometricBlock>() == null)
+            {
+                Debug.LogWarningFormat("Prefab {0} not found IsometricBlock to Read!", BlockPrefab.name);
+                continue;
+            }
+
+            string TagFind = BlockPrefab.GetComponent<IsometricBlock>().Tag;
+            int TagIndex = GetIndexBlockListTag(TagFind);
+            if (TagIndex != -1)
+            {
+                this.BlockList[TagIndex].Block.Add(BlockPrefab);
+            }
+            else
+            {
+                this.BlockList.Add((TagFind, new List<GameObject>()));
+                TagIndex = this.BlockList.Count - 1;
+                this.BlockList[TagIndex].Block.Add(BlockPrefab);
+            }
+        }
+    }
+
+    public GameObject GetBlockList(string BlockName, string Tag = "")
+    {
+        if (Tag != "")
         {
             for (int i = 0; i < BlockList.Count; i++)
             {
-                if (BlockList[i].Tag != BlockTag)
+                if (BlockList[i].Tag != Tag)
                     continue;
 
                 foreach (GameObject BlockPrefab in BlockList[i].Block)
@@ -564,22 +553,13 @@ public class IsometricManager : MonoBehaviour
 
     #region Fild Save
 
-    public void SetWorldFileSave(params string[] PathChildInResources)
+    public void SetWorldFileSave(QPath.PathType PathType, params string[] PathChild)
     {
         QFileIO FileIO = new QFileIO();
 
         SetWorldFileWrite(FileIO);
 
-        FileIO.SetWriteStart(QPath.GetPath(QPath.PathType.Resources, PathChildInResources));
-    }
-
-    public void SetWorldFileSave(QPath.PathType PathType, params string[] PathChildInResources)
-    {
-        QFileIO FileIO = new QFileIO();
-
-        SetWorldFileWrite(FileIO);
-
-        FileIO.SetWriteStart(QPath.GetPath(PathType, PathChildInResources));
+        FileIO.SetWriteStart(QPath.GetPath(PathType, PathChild));
     }
 
     private void SetWorldFileWrite(QFileIO FileIO)
@@ -647,20 +627,13 @@ public class IsometricManager : MonoBehaviour
 
     #region File Read
 
-    public void SetWorldFileRead(params string[] PathChildInResources)
+    //File Path
+
+    public void SetWorldFileRead(QPath.PathType PathType, params string[] PathChild)
     {
         QFileIO FileIO = new QFileIO();
 
-        FileIO.SetReadStart(QResources.GetTextAsset(PathChildInResources)[0]);
-
-        SetWorldFileRead(FileIO);
-    }
-
-    public void SetWorldFileRead(QPath.PathType PathType, params string[] PathChildInResources)
-    {
-        QFileIO FileIO = new QFileIO();
-
-        FileIO.SetReadStart(QPath.GetPath(PathType, PathChildInResources));
+        FileIO.SetReadStart(QPath.GetPath(PathType, PathChild));
 
         SetWorldFileRead(FileIO);
     }
@@ -730,6 +703,17 @@ public class IsometricManager : MonoBehaviour
 
             SetWorldBlockCreate(PosPrimary, GetBlockList(Name), Data);
         }
+    }
+
+    //File Text
+
+    public void SetWorldFileRead(TextAsset WorldFile)
+    {
+        QFileIO FileIO = new QFileIO();
+
+        FileIO.SetReadStart(WorldFile);
+
+        SetWorldFileRead(FileIO);
     }
 
     #endregion

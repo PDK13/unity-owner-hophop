@@ -200,7 +200,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &8842394
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -332,7 +331,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &10056749
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -462,7 +460,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &28959929
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -592,7 +589,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &38423395
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -722,7 +718,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &49095388
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -852,7 +847,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &52362625
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -982,7 +976,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &52552643
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1114,7 +1107,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &53018857
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1244,7 +1236,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &65609412
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1374,7 +1365,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &72130836
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1504,7 +1494,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &79825878
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1634,7 +1623,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &88828419
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1764,7 +1752,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &93174451
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1894,7 +1881,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &123964786
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2023,7 +2009,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &146099863
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2153,7 +2138,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &146170445
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2283,7 +2267,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &157910151
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2413,7 +2396,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &168457992
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2543,7 +2525,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &185566888
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2673,7 +2654,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &195120878
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2803,7 +2783,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &213245037
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2933,7 +2912,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &223546003
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3063,7 +3041,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &249092480
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3193,7 +3170,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &260565013
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3360,7 +3336,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!1 &288469741
 GameObject:
   m_ObjectHideFlags: 0
@@ -3438,7 +3413,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &288469745
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3568,7 +3542,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &305842758
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3698,7 +3671,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &310770991
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3830,7 +3802,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &317562276
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4026,7 +3997,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &370445480
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4158,7 +4128,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &373611262
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4290,7 +4259,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &401981541
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4420,7 +4388,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &498499666
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4550,7 +4517,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &519055141
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4680,7 +4646,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &560290008
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4812,7 +4777,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &563059748
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4942,7 +4906,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &565353689
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5072,7 +5035,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &573165820
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5202,7 +5164,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &605037784
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5332,7 +5293,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &609490693
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5462,7 +5422,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &633126665
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5592,7 +5551,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &664154076
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5722,7 +5680,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &671008530
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5852,7 +5809,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &704445507
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5984,7 +5940,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &755173175
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6114,7 +6069,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &823819114
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6244,7 +6198,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &848232658
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6374,7 +6327,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &879212498
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6504,7 +6456,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &881946201
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6636,7 +6587,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &899076506
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6766,7 +6716,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &943000419
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6896,7 +6845,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &947891029
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7026,7 +6974,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &950128715
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7158,7 +7105,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &963205416
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7288,7 +7234,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &966822461
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7418,7 +7363,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1019400058
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7548,7 +7492,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1022953208
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7678,7 +7621,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1027696632
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7808,7 +7750,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1051048563
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -7938,7 +7879,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1066000367
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8068,7 +8008,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1073736592
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8198,7 +8137,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1088803311
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8330,7 +8268,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1094820343
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8462,7 +8399,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1133947379
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8594,7 +8530,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1143008899
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8726,7 +8661,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1154255630
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8856,7 +8790,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1212435173
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8988,7 +8921,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1217606801
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -9120,7 +9052,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1222251673
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -9252,7 +9183,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1262708349
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -9384,7 +9314,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1276844644
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -9514,7 +9443,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1283376021
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -9644,7 +9572,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1284911488
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -9833,6 +9760,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20dfe5cac98ae8f44870f7ba416fb601, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_gameConfig: {fileID: 11400000, guid: 121794dcf8ec4c1409ce28859f38b51a, type: 2}
 --- !u!1 &1325604419
 GameObject:
   m_ObjectHideFlags: 0
@@ -9910,7 +9838,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1325604423
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -10042,7 +9969,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1331592517
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -10172,7 +10098,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1345243951
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -10302,7 +10227,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1398196593
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -10434,7 +10358,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1405880625
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -10564,7 +10487,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1407552199
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -10694,7 +10616,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1413886516
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -10874,7 +10795,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1468372776
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -11004,7 +10924,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1471148741
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -11134,7 +11053,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1501368927
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -11264,7 +11182,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1502031735
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -11394,7 +11311,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1552392988
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -11553,7 +11469,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1553672283
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -11685,7 +11600,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1565763122
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -11815,7 +11729,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1569956565
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -12050,7 +11963,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1624786434
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -12180,7 +12092,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1630805337
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -12312,7 +12223,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1631475934
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -12442,7 +12352,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1636915824
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -12574,7 +12483,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1661179480
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -12706,7 +12614,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1662316510
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -12836,7 +12743,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1673171259
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -12966,7 +12872,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1673466050
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -13096,7 +13001,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1683328945
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -13226,7 +13130,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1700216469
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -13356,7 +13259,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1700758457
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -13486,7 +13388,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1710276863
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -13616,7 +13517,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1739464759
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -13746,7 +13646,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1744439399
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -13876,7 +13775,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1759056342
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -14006,7 +13904,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1761970882
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -14136,7 +14033,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1767423803
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -14266,7 +14162,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1827172299
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -14396,7 +14291,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1827902652
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -14526,7 +14420,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1861817758
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -14656,7 +14549,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1876560664
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -14786,7 +14678,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1880410594
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -14916,7 +14807,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1881445919
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -15048,7 +14938,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1898927818
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -15178,7 +15067,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1900537566
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -15308,7 +15196,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1907937709
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -15440,7 +15327,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1921794492
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -15570,7 +15456,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1923486395
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -15700,7 +15585,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &1981118700
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -15830,7 +15714,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &2019124881
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -15960,7 +15843,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &2026401068
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -16090,7 +15972,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &2032118531
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -16220,7 +16101,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &2064421845
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -16350,7 +16230,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &2089551246
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -16480,7 +16359,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &2132848634
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -16610,7 +16488,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &2135327577
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -16740,7 +16617,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &2142332350
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -16872,7 +16748,6 @@ MonoBehaviour:
       Y: 128
       H: 128
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 1321004997}
 --- !u!212 &2143252463
 SpriteRenderer:
   m_ObjectHideFlags: 0

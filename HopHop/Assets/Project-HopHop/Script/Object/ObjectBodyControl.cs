@@ -13,12 +13,12 @@ public class ObjectBodyControl : MonoBehaviour
     {
         m_block = GetComponent<IsometricBlock>();
 
-        GameManager.onMove += SetMove;
+        GameEvent.onMove += SetMove;
     }
 
     private void OnDestroy()
     {
-        GameManager.onMove -= SetMove;
+        GameEvent.onMove -= SetMove;
     }
 
     private void SetMove(string Key, IsoDir Dir)
@@ -26,13 +26,13 @@ public class ObjectBodyControl : MonoBehaviour
         if (Key != m_key)
             return;
 
-        if (m_block.WorldManager.GetWorldBlockCurrent(m_block.Pos + IsoVector.GetDir(Dir)).Count > 0)
+        if (m_block.WorldManager.GetWorldBlockCurrent(m_block.Pos + IsoVector.GetDir(Dir)) != null)
             return;
 
         GameManager.SetOnPlayerMoveSuccess(true);
 
         Vector3 Pos = new Vector3(m_block.Pos.X, m_block.Pos.Y, m_block.Pos.H);
-        DOTween.To(() => Pos, x => Pos = x, Pos + IsoVector.GetVectorDir(Dir), 1f).SetEase(Ease.Linear).OnUpdate(() =>
+        DOTween.To(() => Pos, x => Pos = x, Pos + IsoVector.GetVectorDir(Dir), GameData.m_timeMove).SetEase(Ease.Linear).OnUpdate(() =>
         {
             m_block.Pos = new IsoVector(Pos);
         }).OnComplete(() =>

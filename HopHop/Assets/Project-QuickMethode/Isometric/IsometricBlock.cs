@@ -33,7 +33,7 @@ public class IsometricBlock : MonoBehaviour
 
     #endregion
 
-    [HideInInspector] public IsometricManager WorldManager;
+    private IsometricManager m_worldManager;
 
     #region ================================================================== Mono
 
@@ -55,6 +55,8 @@ public class IsometricBlock : MonoBehaviour
     public string Name => QGameObject.GetNameReplaceClone(this.name);
 
     public string Tag => m_tag;
+
+    public IsometricManager WorldManager { get => m_worldManager; set => m_worldManager = value; }
 
     #endregion
 

@@ -2342,7 +2342,7 @@ namespace QuickMethode
         {
             try
             {
-                string ReadRun = FileTest.text;
+                string ReadRun = FileTest.text.Replace("\r\n", "\n");
                 List<string> TextRead = QEncypt.GetDencyptString('\n', ReadRun);
                 return TextRead;
             }

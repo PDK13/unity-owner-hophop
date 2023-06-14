@@ -5,26 +5,35 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    #region Event: Game
+    [SerializeField] private GameConfig m_gameConfig;
 
-    public static Action<string, IsoDir> onMove; //Key, Dir
+    [HideInInspector] private IsometricManager m_isoManager;
 
-    #endregion
-
-    #region Varible: Game
-
-    private static TypeTurn m_turnGame = TypeTurn.PlayerControl;
-
-    #endregion
-
-    private void Start()
+    private void Awake()
     {
-        
+        m_isoManager = GetComponent<IsometricManager>();
+    }
+
+    private IEnumerator Start()
+    {
+        m_isoManager.SetBlockList();
+
+        yield return new WaitForSeconds(1f);
+
+        m_isoManager.SetWorldRead(this.transform);
+
+        yield return new WaitForSeconds(1f);
+
+        m_isoManager.SetWorldRemove();
+
+        yield return new WaitForSeconds(1f);
+
+        m_isoManager.SetWorldFileRead(m_gameConfig.m_level[0].Level[0]);
     }
 
     private void Update()
     {
-        switch (m_turnGame)
+        switch (GameData.m_turnControl)
         {
             case TypeTurn.Wait:
                 //...
@@ -32,13 +41,13 @@ public class GameManager : MonoBehaviour
             case TypeTurn.PlayerControl:
                 //Keyboard Control
                 if (Input.GetKey(KeyCode.UpArrow))
-                    SetOnMove(GameKey.PLAYER, IsoDir.Up);
+                    GameEvent.SetOnMove(GameKey.PLAYER, IsoDir.Up);
                 if (Input.GetKey(KeyCode.DownArrow))
-                    SetOnMove(GameKey.PLAYER, IsoDir.Down);
+                    GameEvent.SetOnMove(GameKey.PLAYER, IsoDir.Down);
                 if (Input.GetKey(KeyCode.LeftArrow))
-                    SetOnMove(GameKey.PLAYER, IsoDir.Left);
+                    GameEvent.SetOnMove(GameKey.PLAYER, IsoDir.Left);
                 if (Input.GetKey(KeyCode.RightArrow))
-                    SetOnMove(GameKey.PLAYER, IsoDir.Right);
+                    GameEvent.SetOnMove(GameKey.PLAYER, IsoDir.Right);
                 //Keyboard Control
                 break;
         }
@@ -48,17 +57,12 @@ public class GameManager : MonoBehaviour
 
     //Primary
 
-    private void SetOnMove(string Key, IsoDir Dir)
-    {
-        onMove?.Invoke(Key, Dir);
-    }
-
     public static void SetOnMoveDone(string Key)
     {
         switch (Key)
         {
             case GameKey.PLAYER:
-                m_turnGame = TypeTurn.PlayerControl;
+                GameData.m_turnControl = TypeTurn.PlayerControl;
                 break;
         }
     }
@@ -68,7 +72,7 @@ public class GameManager : MonoBehaviour
     public static void SetOnPlayerMoveSuccess(bool Success)
     {
         if (Success)
-            m_turnGame = TypeTurn.Wait;
+            GameData.m_turnControl = TypeTurn.Wait;
     }
 
     public static void SetOnPlayerCharacter(TypeCharacter Character)
