@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 44393240911007886}
   - component: {fileID: 44393240911007887}
   - component: {fileID: 44393240911007880}
-  - component: {fileID: 5574894428397143547}
+  - component: {fileID: -745954965868369799}
   m_Layer: 0
   m_Name: 6 Object Tree C10
   m_TagString: Untagged
@@ -115,8 +115,7 @@ MonoBehaviour:
       Y: 1
       H: 1
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 0}
---- !u!114 &5574894428397143547
+--- !u!114 &-745954965868369799
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

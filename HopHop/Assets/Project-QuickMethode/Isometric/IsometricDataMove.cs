@@ -1,22 +1,25 @@
 using QuickMethode;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 [Serializable]
 public class IsoDataBlockMove
 {
     public string KeyStart = "Move-Start";
     public string KeyEnd = "Move-End";
+    public bool Loop = false;
     public List<IsoDataBlockMoveSingle> Data;
+    [HideInInspector] public int Index = 0;
 }
 
 [Serializable]
-public struct IsoDataBlockMoveSingle
+public class IsoDataBlockMoveSingle
 {
     public const char KEY_VALUE_ENCYPT = '|';
 
-    public IsoDir Dir;
-    public int Length;
+    public IsoDir Dir = IsoDir.None;
+    public int Length = 1;
 
     public string Encypt => QEncypt.GetEncypt(KEY_VALUE_ENCYPT, (int)Dir, Length);
 

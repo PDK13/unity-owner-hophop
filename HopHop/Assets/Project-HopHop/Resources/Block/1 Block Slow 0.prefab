@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1831744179654619827}
   - component: {fileID: 1831744179654619826}
   - component: {fileID: 1831744179654619829}
-  - component: {fileID: 4121248006547329875}
+  - component: {fileID: -7114442891503038348}
   m_Layer: 0
   m_Name: 1 Block Slow 0
   m_TagString: Untagged
@@ -115,8 +115,7 @@ MonoBehaviour:
       Y: 1
       H: 1
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 0}
---- !u!114 &4121248006547329875
+--- !u!114 &-7114442891503038348
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -429,30 +429,16 @@
 [-2;-2;1]
 0 Block Normal 0
 <MOVE DATA>
-2
+1
 Move Start
 Move End
 2
 1|1
-2|2
-Move Now
-Move End
-3
-5|3
-6|4
-6|4
+2|1
 <EVENT DATA>
-1
-Event Start
-Event End
-1
-Mei|Hello
+0
 <TELEPORT DATA>
-1
-Teleport-Start
-Teleport-End
-1
-New World|[1;2;3]
+0
 
 [-3;-2;1]
 6 Object Flower 0

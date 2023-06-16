@@ -1,6 +1,7 @@
 public class GameKey
 {
     public const string PLAYER = "Player";
+    public const string OBJECT = "Object";
 }
 
 public enum TypeCharacter
@@ -16,4 +17,5 @@ public enum TypeTurn
 {
     Wait,
     PlayerControl,
+    ObjectControl,
 }

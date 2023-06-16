@@ -17,17 +17,11 @@ public class GameManager : MonoBehaviour
     private IEnumerator Start()
     {
         m_isoManager.SetBlockList();
-
-        yield return new WaitForSeconds(1f);
-
+        yield return null;
         m_isoManager.SetWorldRead(this.transform);
-
-        yield return new WaitForSeconds(1f);
-
+        yield return null;
         m_isoManager.SetWorldRemove();
-
-        yield return new WaitForSeconds(1f);
-
+        yield return null;
         m_isoManager.SetWorldFileRead(m_gameConfig.m_level[0].Level[0]);
     }
 
@@ -41,44 +35,19 @@ public class GameManager : MonoBehaviour
             case TypeTurn.PlayerControl:
                 //Keyboard Control
                 if (Input.GetKey(KeyCode.UpArrow))
-                    GameEvent.SetOnMove(GameKey.PLAYER, IsoDir.Up);
+                    GameEvent.SetOnPlayerMove(IsoDir.Up);
                 if (Input.GetKey(KeyCode.DownArrow))
-                    GameEvent.SetOnMove(GameKey.PLAYER, IsoDir.Down);
+                    GameEvent.SetOnPlayerMove(IsoDir.Down);
                 if (Input.GetKey(KeyCode.LeftArrow))
-                    GameEvent.SetOnMove(GameKey.PLAYER, IsoDir.Left);
+                    GameEvent.SetOnPlayerMove(IsoDir.Left);
                 if (Input.GetKey(KeyCode.RightArrow))
-                    GameEvent.SetOnMove(GameKey.PLAYER, IsoDir.Right);
+                    GameEvent.SetOnPlayerMove(IsoDir.Right);
                 //Keyboard Control
                 break;
         }
     }
 
     #region Game
-
-    //Primary
-
-    public static void SetOnMoveDone(string Key)
-    {
-        switch (Key)
-        {
-            case GameKey.PLAYER:
-                GameData.m_turnControl = TypeTurn.PlayerControl;
-                break;
-        }
-    }
-
-    //Player
-
-    public static void SetOnPlayerMoveSuccess(bool Success)
-    {
-        if (Success)
-            GameData.m_turnControl = TypeTurn.Wait;
-    }
-
-    public static void SetOnPlayerCharacter(TypeCharacter Character)
-    {
-
-    }
 
     #endregion
 }

@@ -11,7 +11,7 @@ public class IsoDataBlockEvent
 }
 
 [Serializable]
-public struct IsoDataBlockEventSingle
+public class IsoDataBlockEventSingle
 {
     public const char KEY_VALUE_ENCYPT = '|';
 

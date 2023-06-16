@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 44393240911007886}
   - component: {fileID: 44393240911007887}
   - component: {fileID: 44393240911007880}
-  - component: {fileID: 739916631858466203}
+  - component: {fileID: -3540911451109795030}
   m_Layer: 0
   m_Name: 6 Object Flower 1
   m_TagString: Untagged
@@ -115,8 +115,7 @@ MonoBehaviour:
       Y: 1
       H: 1
   m_centre: {x: 0, y: 0, z: 0}
-  WorldManager: {fileID: 0}
---- !u!114 &739916631858466203
+--- !u!114 &-3540911451109795030
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -128,7 +127,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 356b48384d910eb46b3cb82542ab9418, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_spriteJoin:
-  - {fileID: 1927596961, guid: 85178faa3a43b81449c0de5bbe76d9d6, type: 3}
-  - {fileID: 2009489890, guid: 85178faa3a43b81449c0de5bbe76d9d6, type: 3}
+  m_spriteJoin: []
   m_blockTop: []

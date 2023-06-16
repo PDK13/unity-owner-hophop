@@ -11,7 +11,7 @@ public class IsoDataBlockTeleport
 }
 
 [Serializable]
-public struct IsoDataBlockTeleportSingle
+public class IsoDataBlockTeleportSingle
 {
     public const char KEY_VALUE_ENCYPT = '|';
 

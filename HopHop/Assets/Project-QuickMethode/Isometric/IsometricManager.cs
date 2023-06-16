@@ -166,15 +166,15 @@ public class IsometricManager : MonoBehaviour
         }
         else
         {
-            //Find all block with unknow tag - More slower!!
-            foreach(var PosH in m_worldPosH)
+            //Find all block with unknow tag - More slower!! (But always found Block)
+            foreach (var TagCheck in m_worldTag)
             {
-                foreach(IsometricBlock Block in PosH.Block)
+                foreach(var BlockCheck in TagCheck.Block)
                 {
-                    if (Block.Pos != Pos)
+                    if (BlockCheck.Pos != Pos)
                         continue;
 
-                    List.Add(Block);
+                    List.Add(BlockCheck);
                 }
             }
         }
@@ -588,6 +588,7 @@ public class IsometricManager : MonoBehaviour
             {
                 FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.MoveData[MoveIndex].KeyStart);
                 FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.MoveData[MoveIndex].KeyEnd);
+                FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.MoveData[MoveIndex].Loop);
                 FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.MoveData[MoveIndex].Data.Count);
                 for (int DataIndex = 0; DataIndex < WorldBlocks[BlockIndex].Data.MoveData[MoveIndex].Data.Count; DataIndex++)
                 {
@@ -661,6 +662,7 @@ public class IsometricManager : MonoBehaviour
                 Data.MoveData.Add(new IsoDataBlockMove());
                 Data.MoveData[MoveIndex].KeyStart = FileIO.GetReadAutoString();
                 Data.MoveData[MoveIndex].KeyEnd = FileIO.GetReadAutoString();
+                Data.MoveData[MoveIndex].Loop = FileIO.GetReadAutoBool();
                 Data.MoveData[MoveIndex].Data = new List<IsoDataBlockMoveSingle>();
                 int DataCount = FileIO.GetReadAutoInt();
                 for (int DataIndex = 0; DataIndex < DataCount; DataIndex++)
@@ -721,6 +723,8 @@ public class IsometricManager : MonoBehaviour
     #endregion
 
     #region ======================================================================== Editor
+
+    //Required "IsoBlockRenderer.cs" component for each Block!
 
     public bool SetEditorMask(IsoVector Pos, Color Mask, Color UnMask, Color Centre)
     {
