@@ -7,7 +7,7 @@ public class IsoDataBlockEvent
 {
     public string KeyStart = "Event-Start";
     public string KeyEnd = "Event-End";
-    public List<IsoDataBlockEventSingle> Data;
+    public List<IsoDataBlockEventSingle> Data = new List<IsoDataBlockEventSingle>();
 }
 
 [Serializable]

@@ -99,7 +99,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_free: 0
-  m_tag: Flower
+  m_tag:
+  - Object
   m_pos:
     X: 0
     Y: 0

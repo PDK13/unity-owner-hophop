@@ -24,6 +24,7 @@ public class GameEvent
         {
             case GameKey.PLAYER:
                 SetOnTurn(TypeTurn.ObjectControl);
+                SetOnObjectTurn(GameKey.OBJECT);
                 break;
             case GameKey.OBJECT:
                 GameData.m_objectControlCount++;
@@ -31,6 +32,7 @@ public class GameEvent
                 {
                     GameData.m_objectControlDone = 0;
                     SetOnTurn(TypeTurn.PlayerControl);
+                    SetOnObjectTurn(GameKey.PLAYER);
                 }
                 break;
         }

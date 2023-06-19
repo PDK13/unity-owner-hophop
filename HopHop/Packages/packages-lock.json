@@ -195,6 +195,12 @@
         "com.unity.modules.imgui": "1.0.0"
       }
     },
+    "com.unity.uiextensions": {
+      "version": "file:C:/Users/Admin/Code/Unity-Package/UIExtensions",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {}
+    },
     "com.unity.visualscripting": {
       "version": "1.8.0",
       "depth": 0,

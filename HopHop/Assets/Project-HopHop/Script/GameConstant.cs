@@ -4,6 +4,11 @@ public class GameKey
     public const string OBJECT = "Object";
 }
 
+public class GameTag
+{
+    public const string MOVE = "Move";
+}
+
 public enum TypeCharacter
 {
     Angle,

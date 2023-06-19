@@ -7,7 +7,7 @@ public class IsoDataBlockTeleport
 {
     public string KeyStart = "Teleport-Start";
     public string KeyEnd = "Teleport-End";
-    public List<IsoDataBlockTeleportSingle> Data;
+    public List<IsoDataBlockTeleportSingle> Data = new List<IsoDataBlockTeleportSingle>();
 }
 
 [Serializable]

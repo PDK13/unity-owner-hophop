@@ -5,7 +5,7 @@ public class IsoDataBlock
 {
     public IsoVector PosPrimary;
     public string Name;
-    public IsoDataBlockSingle Data;
+    public IsoDataBlockSingle Data = new IsoDataBlockSingle();
 
     public IsoDataBlock(IsoVector Pos, string Name, IsoDataBlockSingle Data)
     {
@@ -18,7 +18,7 @@ public class IsoDataBlock
 [Serializable]
 public class IsoDataBlockSingle
 {
-    public List<IsoDataBlockMove> MoveData;
-    public List<IsoDataBlockEvent> EventData;
-    public List<IsoDataBlockTeleport> TeleportData;
+    public List<IsoDataBlockMove> MoveData = new List<IsoDataBlockMove>();
+    public List<IsoDataBlockEvent> EventData = new List<IsoDataBlockEvent>();
+    public List<IsoDataBlockTeleport> TeleportData = new List<IsoDataBlockTeleport>();
 }
