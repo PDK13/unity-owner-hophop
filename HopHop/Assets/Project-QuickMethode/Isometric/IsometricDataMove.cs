@@ -8,19 +8,9 @@ public class IsoDataBlockMove
 {
     public string KeyStart = "Move-Start";
     public string KeyEnd = "Move-End";
-<<<<<<< HEAD
-    public bool Loop = false;
-    public List<IsoDataBlockMoveSingle> Data;
-    [HideInInspector] public int Index = 0;
-=======
-<<<<<<< Updated upstream
-    public List<IsoDataBlockMoveSingle> Data;
-=======
     public bool Loop = false;
     public List<IsoDataBlockMoveSingle> Data = new List<IsoDataBlockMoveSingle>();
     [HideInInspector] public int Index = 0;
->>>>>>> Stashed changes
->>>>>>> Player
 }
 
 [Serializable]
