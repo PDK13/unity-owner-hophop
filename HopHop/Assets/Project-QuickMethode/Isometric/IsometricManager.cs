@@ -42,9 +42,15 @@ public class IsometricManager : MonoBehaviour
 
     public IsometricBlock SetWorldBlockCreate(IsoVector Pos, GameObject BlockPrefab, IsoDataBlockSingle Data = null)
     {
+        if (BlockPrefab == null)
+        {
+            Debug.LogWarningFormat("Block {0} not found!", Pos.Encypt);
+            return null;
+        }
+
         if (BlockPrefab.GetComponent<IsometricBlock>() == null)
         {
-            Debug.LogWarningFormat("Prefab {0} not found IsometricBlock to Create!", BlockPrefab.name);
+            Debug.LogWarningFormat("Block {0} {1} not found IsometricBlock!", Pos.Encypt, BlockPrefab.name);
             return null;
         }
 
@@ -78,30 +84,46 @@ public class IsometricManager : MonoBehaviour
 
             //World
             int IndexPosH = GetIndexWorldPosH(Pos.HInt);
-            if (IndexPosH != -1)
-            {
-                m_worldPosH[IndexPosH].Block.Add(Block);
-            }
-            else
+            if (IndexPosH == -1)
             {
                 m_worldPosH.Add((Pos.HInt, new List<IsometricBlock>()));
                 IndexPosH = m_worldPosH.Count - 1;
                 m_worldPosH[IndexPosH].Block.Add(Block);
             }
+            else
+                m_worldPosH[IndexPosH].Block.Add(Block);
         }
 
         //Tag
-        string TagFind = Block.GetComponent<IsometricBlock>().Tag;
-        int TagIndex = GetIndexWorldTag(TagFind);
-        if (TagIndex != -1)
+        List<string> TagFind = Block.GetComponent<IsometricBlock>().Tag;
+        if (TagFind.Count == 0)
         {
-            this.m_worldTag[TagIndex].Block.Add(Block);
+            //None Tag!
+            int TagIndex = GetIndexWorldTag("");
+            if (TagIndex == -1)
+            {
+                this.m_worldTag.Add(("", new List<IsometricBlock>()));
+                TagIndex = this.m_worldTag.Count - 1;
+                this.m_worldTag[TagIndex].Block.Add(Block);
+            }
+            else
+                this.m_worldTag[TagIndex].Block.Add(Block);
         }
         else
         {
-            this.m_worldTag.Add((TagFind, new List<IsometricBlock>()));
-            TagIndex = this.m_worldTag.Count - 1;
-            this.m_worldTag[TagIndex].Block.Add(Block);
+            //Got Tag!
+            foreach (string TagCheck in TagFind)
+            {
+                int TagIndex = GetIndexWorldTag(TagCheck);
+                if (TagIndex == -1)
+                {
+                    this.m_worldTag.Add((TagCheck, new List<IsometricBlock>()));
+                    TagIndex = this.m_worldTag.Count - 1;
+                    this.m_worldTag[TagIndex].Block.Add(Block);
+                }
+                else
+                    this.m_worldTag[TagIndex].Block.Add(Block);
+            }
         }
 
         //Scene
@@ -217,13 +239,16 @@ public class IsometricManager : MonoBehaviour
                 m_worldPosH.RemoveAt(IndexPosH);
 
             //Tag
-            string TagFind = Block.Tag;
-            int TagIndex = GetIndexWorldTag(TagFind);
-            if (TagIndex != -1)
+            List<string> TagFind = Block.Tag;
+            foreach(string TagCheck in TagFind)
             {
-                m_worldTag[TagIndex].Block.Remove(Block);
-                if (m_worldTag[TagIndex].Block.Count == 0)
-                    m_worldTag.RemoveAt(TagIndex);
+                int TagIndex = GetIndexWorldTag(TagCheck);
+                if (TagIndex != -1)
+                {
+                    m_worldTag[TagIndex].Block.Remove(Block);
+                    if (m_worldTag[TagIndex].Block.Count == 0)
+                        m_worldTag.RemoveAt(TagIndex);
+                }
             }
 
             //Scene
@@ -306,29 +331,28 @@ public class IsometricManager : MonoBehaviour
 
         //World
         int IndexPosH = GetIndexWorldPosH(Block.Pos.HInt);
-        if (IndexPosH != -1)
-        {
-            m_worldPosH[IndexPosH].Block.Add(Block);
-        }
-        else
+        if (IndexPosH == -1)
         {
             m_worldPosH.Add((Block.Pos.HInt, new List<IsometricBlock>()));
             IndexPosH = m_worldPosH.Count - 1;
             m_worldPosH[IndexPosH].Block.Add(Block);
         }
+        else
+            m_worldPosH[IndexPosH].Block.Add(Block);
 
         //Tag
-        string TagFind = Block.GetComponent<IsometricBlock>().Tag;
-        int TagIndex = GetIndexWorldTag(TagFind);
-        if (TagIndex != -1)
+        List<string> TagFind = Block.GetComponent<IsometricBlock>().Tag;
+        foreach(string TagCheck in TagFind)
         {
-            this.m_worldTag[TagIndex].Block.Add(Block);
-        }
-        else
-        {
-            this.m_worldTag.Add((TagFind, new List<IsometricBlock>()));
-            IndexPosH = this.m_worldTag.Count - 1;
-            this.m_worldTag[IndexPosH].Block.Add(Block);
+            int TagIndex = GetIndexWorldTag(TagCheck);
+            if (TagIndex == -1)
+            {
+                this.m_worldTag.Add((TagCheck, new List<IsometricBlock>()));
+                IndexPosH = this.m_worldTag.Count - 1;
+                this.m_worldTag[IndexPosH].Block.Add(Block);
+            }
+            else
+                this.m_worldTag[TagIndex].Block.Add(Block);
         }
 
         //Scene
@@ -421,17 +445,18 @@ public class IsometricManager : MonoBehaviour
 
         foreach (IsometricBlock BlockPrefab in BlockList)
         {
-            string TagFind = BlockPrefab.GetComponent<IsometricBlock>().Tag;
-            int TagIndex = GetIndexBlockListTag(TagFind);
-            if (TagIndex != -1)
+            List<string> TagFind = BlockPrefab.GetComponent<IsometricBlock>().Tag;
+            foreach(string TagCheck in TagFind)
             {
-                this.BlockList[TagIndex].Block.Add(BlockPrefab.gameObject);
-            }
-            else
-            {
-                this.BlockList.Add((TagFind, new List<GameObject>()));
-                TagIndex = this.BlockList.Count - 1;
-                this.BlockList[TagIndex].Block.Add(BlockPrefab.gameObject);
+                int TagIndex = GetIndexBlockListTag(TagCheck);
+                if (TagIndex == -1)
+                {
+                    this.BlockList.Add((TagCheck, new List<GameObject>()));
+                    TagIndex = this.BlockList.Count - 1;
+                    this.BlockList[TagIndex].Block.Add(BlockPrefab.gameObject);
+                }
+                else
+                    this.BlockList[TagIndex].Block.Add(BlockPrefab.gameObject);
             }
         }
     }
@@ -451,17 +476,18 @@ public class IsometricManager : MonoBehaviour
                 continue;
             }
 
-            string TagFind = BlockPrefab.GetComponent<IsometricBlock>().Tag;
-            int TagIndex = GetIndexBlockListTag(TagFind);
-            if (TagIndex != -1)
+            List<string> TagFind = BlockPrefab.GetComponent<IsometricBlock>().Tag;
+            foreach(string TagCheck in TagFind)
             {
-                this.BlockList[TagIndex].Block.Add(BlockPrefab);
-            }
-            else
-            {
-                this.BlockList.Add((TagFind, new List<GameObject>()));
-                TagIndex = this.BlockList.Count - 1;
-                this.BlockList[TagIndex].Block.Add(BlockPrefab);
+                int TagIndex = GetIndexBlockListTag(TagCheck);
+                if (TagIndex == -1)
+                {
+                    this.BlockList.Add((TagCheck, new List<GameObject>()));
+                    TagIndex = this.BlockList.Count - 1;
+                    this.BlockList[TagIndex].Block.Add(BlockPrefab);
+                }
+                else
+                    this.BlockList[TagIndex].Block.Add(BlockPrefab);
             }
         }
     }
@@ -483,17 +509,33 @@ public class IsometricManager : MonoBehaviour
                 continue;
             }
 
-            string TagFind = BlockPrefab.GetComponent<IsometricBlock>().Tag;
-            int TagIndex = GetIndexBlockListTag(TagFind);
-            if (TagIndex != -1)
+            List<string> TagFind = BlockPrefab.GetComponent<IsometricBlock>().Tag;
+            if (TagFind.Count == 0)
             {
-                this.BlockList[TagIndex].Block.Add(BlockPrefab);
+                int TagIndex = GetIndexBlockListTag("");
+                if (TagIndex == -1)
+                {
+                    this.BlockList.Add(("", new List<GameObject>()));
+                    TagIndex = this.BlockList.Count - 1;
+                    this.BlockList[TagIndex].Block.Add(BlockPrefab);
+                }
+                else
+                    this.BlockList[TagIndex].Block.Add(BlockPrefab);
             }
             else
             {
-                this.BlockList.Add((TagFind, new List<GameObject>()));
-                TagIndex = this.BlockList.Count - 1;
-                this.BlockList[TagIndex].Block.Add(BlockPrefab);
+                foreach (string TagCheck in TagFind)
+                {
+                    int TagIndex = GetIndexBlockListTag(TagCheck);
+                    if (TagIndex == -1)
+                    {
+                        this.BlockList.Add((TagCheck, new List<GameObject>()));
+                        TagIndex = this.BlockList.Count - 1;
+                        this.BlockList[TagIndex].Block.Add(BlockPrefab);
+                    }
+                    else
+                        this.BlockList[TagIndex].Block.Add(BlockPrefab);
+                }
             }
         }
     }

@@ -7,7 +7,13 @@ public class IsoDataBlockMove
 {
     public string KeyStart = "Move-Start";
     public string KeyEnd = "Move-End";
+<<<<<<< Updated upstream
     public List<IsoDataBlockMoveSingle> Data;
+=======
+    public bool Loop = false;
+    public List<IsoDataBlockMoveSingle> Data = new List<IsoDataBlockMoveSingle>();
+    [HideInInspector] public int Index = 0;
+>>>>>>> Stashed changes
 }
 
 [Serializable]

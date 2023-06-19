@@ -29,6 +29,9 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
 
         m_isoManager.SetWorldFileRead(m_gameConfig.m_level[0].Level[0]);
+        yield return null;
+        GameData.m_objectControlCount = m_isoManager.GetWorldBlockCurrentTag(GameTag.MOVE).Count;
+        Debug.Log("[Debug] Object Count " + GameData.m_objectControlCount);
     }
 
     private void Update()

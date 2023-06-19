@@ -11,7 +11,12 @@ GameObject:
   - component: {fileID: 1455909166595997228}
   - component: {fileID: 1455909166595997231}
   - component: {fileID: 1455909166595997230}
+<<<<<<< Updated upstream
   - component: {fileID: 5107995648719443772}
+=======
+  - component: {fileID: 6029373403107576411}
+  - component: {fileID: -1987422944426555367}
+>>>>>>> Stashed changes
   m_Layer: 0
   m_Name: 2 Block Slip 0
   m_TagString: Untagged
@@ -99,7 +104,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_free: 0
-  m_tag: Block
+  m_tag:
+  - Block
+  - Move
   m_pos:
     X: 0
     Y: 0
@@ -130,3 +137,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_spriteJoin: []
   m_blockTop: []
+--- !u!114 &-1987422944426555367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1455909166595997217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfc287c449558124f998392227ca3361, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

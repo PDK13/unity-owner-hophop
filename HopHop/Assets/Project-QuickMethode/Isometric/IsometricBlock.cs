@@ -8,7 +8,7 @@ public class IsometricBlock : MonoBehaviour
     #region Varible: Block Manager
 
     [SerializeField] private bool m_free = false;
-    [SerializeField] private string m_tag = "";
+    [SerializeField] private List<string> m_tag = new List<string>();
     
     #endregion
 
@@ -54,7 +54,7 @@ public class IsometricBlock : MonoBehaviour
 
     public string Name => QGameObject.GetNameReplaceClone(this.name);
 
-    public string Tag => m_tag;
+    public List<string> Tag => m_tag;
 
     public IsometricManager WorldManager { get => m_worldManager; set => m_worldManager = value; }
 
