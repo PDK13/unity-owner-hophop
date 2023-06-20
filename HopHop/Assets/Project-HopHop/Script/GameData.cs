@@ -16,7 +16,7 @@ public class GameData
     public static TypeTurn m_turnControl = TypeTurn.PlayerControl;
 
     public static int m_objectControlCount = 0;
-    public static int m_objectControlDone = 0;
+    public static int m_objectControlEnd = 0;
 
-    public static bool ObjectControlDone => m_objectControlCount == m_objectControlDone;
+    public static bool ObjectControlEnd => m_objectControlCount == m_objectControlEnd;
 }

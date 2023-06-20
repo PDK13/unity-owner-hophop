@@ -11,6 +11,7 @@ public class IsoDataBlockMove
     public bool Loop = false;
     public List<IsoDataBlockMoveSingle> Data = new List<IsoDataBlockMoveSingle>();
     [HideInInspector] public int Index = 0;
+    [HideInInspector] public int Dir = 1;
 }
 
 [Serializable]

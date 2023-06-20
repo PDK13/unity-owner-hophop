@@ -59,42 +59,42 @@ public struct IsoVector
     public static IsoVector Bot => new IsoVector(0, 0, -1);
     public static IsoVector None => new IsoVector(0, 0, 0);
 
-    public static Vector3 GetVectorDir(IsoDir Dir)
+    public static Vector3 GetVectorDir(IsoDir Dir, bool Revert = false)
     {
         switch (Dir)
         {
             case IsoDir.Up:
-                return Vector3.right;
+                return !Revert ? Vector3.right : Vector3.left;
             case IsoDir.Down:
-                return Vector3.left;
+                return !Revert ? Vector3.left : Vector3.right;
             case IsoDir.Left:
-                return Vector3.down;
+                return !Revert ? Vector3.down : Vector3.up;
             case IsoDir.Right:
-                return Vector3.up;
+                return !Revert ? Vector3.up : Vector3.down;
             case IsoDir.Top:
-                return Vector3.forward;
+                return !Revert ? Vector3.forward : Vector3.back;
             case IsoDir.Bot:
-                return Vector3.back;
+                return !Revert ? Vector3.back : Vector3.forward;
         }
         return Vector3.zero;
     }
 
-    public static IsoVector GetDir(IsoDir Dir)
+    public static IsoVector GetDir(IsoDir Dir, bool Revert = false)
     {
         switch (Dir)
         {
             case IsoDir.Up:
-                return Up;
+                return !Revert ? Up : Down;
             case IsoDir.Down:
-                return Down;
+                return !Revert ? Down : Up;
             case IsoDir.Left:
-                return Left;
+                return !Revert ? Left : Right;
             case IsoDir.Right:
-                return Right;
+                return !Revert ? Right : Left;
             case IsoDir.Top:
-                return Top;
+                return !Revert ? Top : Bot;
             case IsoDir.Bot:
-                return Bot;
+                return !Revert ? Bot : Top;
         }
         return None;
     }

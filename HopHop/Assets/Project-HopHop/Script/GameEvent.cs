@@ -5,58 +5,30 @@ using UnityEngine;
 
 public class GameEvent
 {
-    public static Action<TypeTurn> onTurn; //Turn
+    public static Action<string> onTriggerStart; //Key
+    public static Action<string> onTriggerEnd; //Key
 
-    public static Action<string> onControlDone; //Key
-
-    public static Action<IsoDir> onPlayerMove; //Dir
-    public static Action<string> onObjectTurn; //Key
-
-    public static void SetOnTurn(TypeTurn Turn)
+    public static void SetTriggerStart(string Key)
     {
-        GameData.m_turnControl = Turn;
-        onTurn?.Invoke(Turn);
+        onTriggerStart?.Invoke(Key);
     }
 
-    public static void SetOnControlDone(string Key)
+    public static void SetTriggerEnd(string Key)
     {
         switch (Key)
         {
             case GameKey.PLAYER:
-                SetOnTurn(TypeTurn.ObjectControl);
-                SetOnObjectTurn(GameKey.OBJECT);
+                SetTriggerStart(GameKey.OBJECT);
                 break;
             case GameKey.OBJECT:
-                GameData.m_objectControlCount++;
-                if (GameData.ObjectControlDone)
+                GameData.m_objectControlEnd++;
+                if (GameData.ObjectControlEnd)
                 {
-                    GameData.m_objectControlDone = 0;
-                    SetOnTurn(TypeTurn.PlayerControl);
-                    SetOnObjectTurn(GameKey.PLAYER);
+                    GameData.m_objectControlEnd = 0;
+                    SetTriggerStart(GameKey.PLAYER);
                 }
                 break;
         }
-        onControlDone?.Invoke(Key);
-    }
-
-    public static void SetOnPlayerMove(IsoDir Dir)
-    {
-        onPlayerMove?.Invoke(Dir);
-    }
-
-    public static void SetOnPlayerMoveSuccess(bool Success)
-    {
-        if (Success)
-            GameData.m_turnControl = TypeTurn.Wait;
-    }
-
-    public static void SetOnObjectTurn(string Key)
-    {
-        onObjectTurn?.Invoke(Key);
-    }
-
-    public static void SetOnPlayerCharacter(TypeCharacter Character)
-    {
-
+        onTriggerEnd?.Invoke(Key);
     }
 }

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1455909166595997231}
   - component: {fileID: 1455909166595997230}
   - component: {fileID: 666339635119812730}
+  - component: {fileID: -2552397259376407979}
   m_Layer: 0
   m_Name: 5 Block Break 0
   m_TagString: Untagged
@@ -131,3 +132,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_spriteJoin: []
   m_blockTop: []
+--- !u!114 &-2552397259376407979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1455909166595997217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfc287c449558124f998392227ca3361, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_keyStart: Object
+  m_keyEnd: Object
