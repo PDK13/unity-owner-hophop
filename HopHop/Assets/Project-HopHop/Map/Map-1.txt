@@ -1,7 +1,7 @@
 [WORLD NAME]
 ...
 [WORLD BLOCK]
-43
+42
 
 [2;2;1]
 6 Object Flower 0
@@ -148,77 +148,6 @@
 0
 
 [-2;-2;1]
-<<<<<<< Updated upstream
-0 Block Normal 0
-<MOVE DATA>
-1
-Move Start
-Move End
-2
-1|1
-2|1
-<EVENT DATA>
-0
-<TELEPORT DATA>
-0
-
-[-3;-2;1]
-6 Object Flower 0
-<MOVE DATA>
-0
-<EVENT DATA>
-0
-<TELEPORT DATA>
-0
-
-[2;-3;1]
-0 Block Normal 0
-<MOVE DATA>
-0
-<EVENT DATA>
-0
-<TELEPORT DATA>
-0
-
-[1;-3;1]
-0 Block Normal 0
-<MOVE DATA>
-0
-<EVENT DATA>
-0
-<TELEPORT DATA>
-0
-
-[0;-3;1]
-0 Block Normal 0
-<MOVE DATA>
-0
-<EVENT DATA>
-0
-<TELEPORT DATA>
-0
-
-[-1;-3;1]
-6 Object Flower 0
-<MOVE DATA>
-0
-<EVENT DATA>
-0
-<TELEPORT DATA>
-0
-
-[-2;-3;1]
-6 Object Flower 0
-<MOVE DATA>
-0
-<EVENT DATA>
-0
-<TELEPORT DATA>
-0
-
-[-3;-3;1]
-=======
->>>>>>> Stashed changes
 6 Object Flower 0
 <MOVE DATA>
 0
@@ -447,23 +376,6 @@ Move End
 0 Block Normal 0
 <MOVE DATA>
 0
-<EVENT DATA>
-0
-<TELEPORT DATA>
-0
-
-[1;-3;0]
-1 Block Slow 0
-<MOVE DATA>
-1
-Object
-Object
-True
-4
-2|1
-2|1
-1|1
-1|1
 <EVENT DATA>
 0
 <TELEPORT DATA>

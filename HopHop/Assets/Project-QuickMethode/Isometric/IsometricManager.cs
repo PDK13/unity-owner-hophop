@@ -64,7 +64,7 @@ public class IsometricManager : MonoBehaviour
         Block.PosPrimary = Pos;
 
         //Block Data
-        Block.Data = Data;
+        Block.Data = Data != null ? Data : new IsoDataBlockSingle();
 
         //Block Renderer
         IsometricRenderer BlockRenderer = BlockObject.GetComponent<IsometricRenderer>();

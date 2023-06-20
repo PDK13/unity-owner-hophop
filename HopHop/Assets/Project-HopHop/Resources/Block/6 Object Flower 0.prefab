@@ -128,5 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 356b48384d910eb46b3cb82542ab9418, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_spriteJoin: []
+  m_spriteJoin:
+  - {fileID: 1601151698, guid: 85178faa3a43b81449c0de5bbe76d9d6, type: 3}
+  - {fileID: -1464945343, guid: 85178faa3a43b81449c0de5bbe76d9d6, type: 3}
   m_blockTop: []
