@@ -83,5 +83,5 @@ public class ObjectMoveControl : MonoBehaviour
         {
             GameEvent.SetTriggerEnd(GameKey.OBJECT);
         });
-    }
+    } //Move!!
 }
