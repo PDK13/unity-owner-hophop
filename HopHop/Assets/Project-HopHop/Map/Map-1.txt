@@ -386,7 +386,6 @@
 <MOVE DATA>
 1
 Object
-Object
 True
 4
 2|1
