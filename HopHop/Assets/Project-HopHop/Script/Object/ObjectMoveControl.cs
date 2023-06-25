@@ -5,9 +5,6 @@ using UnityEngine;
 
 public class ObjectMoveControl : MonoBehaviour
 {
-    [SerializeField] private string m_keyStart = GameKey.OBJECT;
-    [SerializeField] private string m_keyEnd = GameKey.OBJECT;
-
     private IsoDataBlockMove m_dataMove;
 
     private IsometricBlock m_block;
@@ -23,7 +20,7 @@ public class ObjectMoveControl : MonoBehaviour
     {
         foreach (var MoveCheck in m_block.Data.MoveData)
         {
-            if (MoveCheck.KeyStart != m_keyStart || MoveCheck.KeyStart != m_keyEnd)
+            if (MoveCheck.Name != GameKey.OBJECT)
                 continue;
             m_dataMove = MoveCheck;
             GameData.m_objectControlCount++;
@@ -47,9 +44,9 @@ public class ObjectMoveControl : MonoBehaviour
 
     private void SetTriggerStart(string Key)
     {
-        if (Key == m_keyStart && m_dataMove != null)
+        if (Key == GameKey.OBJECT && m_dataMove != null)
         {
-            SetMove(m_dataMove.Data[m_dataMove.Index].Dir, m_dataMove.Data[m_dataMove.Index].Length, m_dataMove.Dir == -1);
+            SetMove(m_dataMove.Data[m_dataMove.Index].Dir, m_dataMove.Data[m_dataMove.Index].Value, m_dataMove.Dir == -1);
             m_dataMove.Index += m_dataMove.Dir;
             if (m_dataMove.Loop && (m_dataMove.Index < 0 || m_dataMove.Index > m_dataMove.Data.Count - 1))
             {
@@ -61,9 +58,9 @@ public class ObjectMoveControl : MonoBehaviour
 
         foreach (var MoveCheck in m_block.Data.MoveData)
         {
-            if (Key != MoveCheck.KeyStart)
+            if (Key != MoveCheck.Name)
                 continue;
-            SetMove(MoveCheck.Data[MoveCheck.Index].Dir, MoveCheck.Data[MoveCheck.Index].Length, MoveCheck.Dir == -1);
+            SetMove(MoveCheck.Data[MoveCheck.Index].Dir, MoveCheck.Data[MoveCheck.Index].Value, MoveCheck.Dir == -1);
             MoveCheck.Index += m_dataMove.Dir;
             if (MoveCheck.Loop && (MoveCheck.Index < 0 || MoveCheck.Index > MoveCheck.Data.Count - 1))
             {

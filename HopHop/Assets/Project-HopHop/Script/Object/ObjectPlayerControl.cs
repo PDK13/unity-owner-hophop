@@ -5,9 +5,6 @@ using DG.Tweening;
 
 public class ObjectPlayerControl : MonoBehaviour
 {
-    [SerializeField] private string m_keyStart = GameKey.PLAYER;
-    [SerializeField] private string m_keyEnd = GameKey.PLAYER;
-
     private bool m_controlInput = false;
 
     private IsometricBlock m_block;
@@ -41,7 +38,7 @@ public class ObjectPlayerControl : MonoBehaviour
 
     private void SetTriggerStart(string Key)
     {
-        if (Key != m_keyStart)
+        if (Key != GameKey.PLAYER)
             return;
 
         m_controlInput = true;
@@ -62,7 +59,7 @@ public class ObjectPlayerControl : MonoBehaviour
             m_block.Pos = new IsoVector(Pos);
         }).OnComplete(() =>
         {
-            GameEvent.SetTriggerEnd(m_keyEnd);
+            GameEvent.SetTriggerEnd(GameKey.PLAYER);
         });
     } //Move!!
 }

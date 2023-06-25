@@ -628,8 +628,7 @@ public class IsometricManager : MonoBehaviour
             FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.MoveData.Count);
             for (int MoveIndex = 0; MoveIndex < WorldBlocks[BlockIndex].Data.MoveData.Count; MoveIndex++)
             {
-                FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.MoveData[MoveIndex].KeyStart);
-                FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.MoveData[MoveIndex].KeyEnd);
+                FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.MoveData[MoveIndex].Name);
                 FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.MoveData[MoveIndex].Loop);
                 FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.MoveData[MoveIndex].Data.Count);
                 for (int DataIndex = 0; DataIndex < WorldBlocks[BlockIndex].Data.MoveData[MoveIndex].Data.Count; DataIndex++)
@@ -642,8 +641,7 @@ public class IsometricManager : MonoBehaviour
             FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.EventData.Count);
             for (int JoinIndex = 0; JoinIndex < WorldBlocks[BlockIndex].Data.EventData.Count; JoinIndex++)
             {
-                FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.EventData[JoinIndex].KeyStart);
-                FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.EventData[JoinIndex].KeyEnd);
+                FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.EventData[JoinIndex].Name);
                 FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.EventData[JoinIndex].Data.Count);
                 for (int DataIndex = 0; DataIndex < WorldBlocks[BlockIndex].Data.EventData[JoinIndex].Data.Count; DataIndex++)
                 {
@@ -655,8 +653,7 @@ public class IsometricManager : MonoBehaviour
             FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.TeleportData.Count);
             for (int JoinIndex = 0; JoinIndex < WorldBlocks[BlockIndex].Data.TeleportData.Count; JoinIndex++)
             {
-                FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.TeleportData[JoinIndex].KeyStart);
-                FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.TeleportData[JoinIndex].KeyEnd);
+                FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.TeleportData[JoinIndex].Name);
                 FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.TeleportData[JoinIndex].Data.Count);
                 for (int DataIndex = 0; DataIndex < WorldBlocks[BlockIndex].Data.TeleportData[JoinIndex].Data.Count; DataIndex++)
                 {
@@ -702,8 +699,7 @@ public class IsometricManager : MonoBehaviour
             for (int MoveIndex = 0; MoveIndex < MoveCount; MoveIndex++)
             {
                 Data.MoveData.Add(new IsoDataBlockMove());
-                Data.MoveData[MoveIndex].KeyStart = FileIO.GetReadAutoString();
-                Data.MoveData[MoveIndex].KeyEnd = FileIO.GetReadAutoString();
+                Data.MoveData[MoveIndex].Name = FileIO.GetReadAutoString();
                 Data.MoveData[MoveIndex].Loop = FileIO.GetReadAutoBool();
                 Data.MoveData[MoveIndex].Data = new List<IsoDataBlockMoveSingle>();
                 int DataCount = FileIO.GetReadAutoInt();
@@ -719,8 +715,7 @@ public class IsometricManager : MonoBehaviour
             for (int EventIndex = 0; EventIndex < EventCount; EventIndex++)
             {
                 Data.EventData.Add(new IsoDataBlockEvent());
-                Data.EventData[EventIndex].KeyStart = FileIO.GetReadAutoString();
-                Data.EventData[EventIndex].KeyEnd = FileIO.GetReadAutoString();
+                Data.EventData[EventIndex].Name = FileIO.GetReadAutoString();
                 Data.EventData[EventIndex].Data = new List<IsoDataBlockEventSingle>();
                 int DataCount = FileIO.GetReadAutoInt();
                 for (int DataIndex = 0; DataIndex < DataCount; DataIndex++)
@@ -735,8 +730,7 @@ public class IsometricManager : MonoBehaviour
             for (int TeleportIndex = 0; TeleportIndex < TeleportCount; TeleportIndex++)
             {
                 Data.TeleportData.Add(new IsoDataBlockTeleport());
-                Data.TeleportData[TeleportIndex].KeyStart = FileIO.GetReadAutoString();
-                Data.TeleportData[TeleportIndex].KeyEnd = FileIO.GetReadAutoString();
+                Data.TeleportData[TeleportIndex].Name = FileIO.GetReadAutoString();
                 Data.TeleportData[TeleportIndex].Data = new List<IsoDataBlockTeleportSingle>();
                 int DataCount = FileIO.GetReadAutoInt();
                 for (int DataIndex = 0; DataIndex < DataCount; DataIndex++)

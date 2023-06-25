@@ -5,8 +5,7 @@ using System.Collections.Generic;
 [Serializable]
 public class IsoDataBlockEvent
 {
-    public string KeyStart = "Event-Start";
-    public string KeyEnd = "Event-End";
+    public string Name = "Event";
     public List<IsoDataBlockEventSingle> Data = new List<IsoDataBlockEventSingle>();
 }
 

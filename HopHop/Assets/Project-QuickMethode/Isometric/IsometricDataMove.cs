@@ -6,8 +6,7 @@ using UnityEngine;
 [Serializable]
 public class IsoDataBlockMove
 {
-    public string KeyStart = "Move-Start";
-    public string KeyEnd = "Move-End";
+    public string Name = "Move";
     public bool Loop = false;
     public List<IsoDataBlockMoveSingle> Data = new List<IsoDataBlockMoveSingle>();
     [HideInInspector] public int Index = 0;
@@ -20,14 +19,14 @@ public class IsoDataBlockMoveSingle
     public const char KEY_VALUE_ENCYPT = '|';
 
     public IsoDir Dir = IsoDir.None;
-    public int Length = 1;
+    public int Value = 1;
 
-    public string Encypt => QEncypt.GetEncypt(KEY_VALUE_ENCYPT, (int)Dir, Length);
+    public string Encypt => QEncypt.GetEncypt(KEY_VALUE_ENCYPT, (int)Dir, Value);
 
-    public IsoDataBlockMoveSingle(IsoDir Dir, int Length)
+    public IsoDataBlockMoveSingle(IsoDir Dir, int Value)
     {
         this.Dir = Dir;
-        this.Length = Length;
+        this.Value = Value;
     }
 
     public static IsoDataBlockMoveSingle GetDencypt(string Value)
