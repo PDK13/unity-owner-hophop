@@ -325,7 +325,7 @@ public class IsometricTool : EditorWindow
                             break;
                         //Block Curson!!
                         case KeyCode.Home:
-                            m_manager.SetWorldBlockCreate(m_curson.Pos, m_manager.BlockList[m_indexTag].Block[m_indexName]);
+                            m_manager.SetWorldBlockCreate(m_curson.Pos, m_manager.BlockList[m_indexTag].Block[m_indexName].gameObject);
                             m_event.Use();
                             break;
                         case KeyCode.End:

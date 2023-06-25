@@ -1,10 +1,10 @@
 [WORLD NAME]
 ...
 [WORLD BLOCK]
-43
+65
 
 [2;2;1]
-6 Object Flower 0
+Object Flower 0
 <MOVE DATA>
 0
 <EVENT DATA>
@@ -13,7 +13,7 @@
 0
 
 [1;2;1]
-6 Object Flower 0
+Object Flower 0
 <MOVE DATA>
 0
 <EVENT DATA>
@@ -22,7 +22,7 @@
 0
 
 [0;2;1]
-6 Object Flower 0
+Object Flower 0
 <MOVE DATA>
 0
 <EVENT DATA>
@@ -31,7 +31,7 @@
 0
 
 [-1;2;1]
-6 Object Flower 0
+Object Flower 0
 <MOVE DATA>
 0
 <EVENT DATA>
@@ -40,7 +40,7 @@
 0
 
 [-2;2;1]
-6 Object Flower 0
+Object Flower 0
 <MOVE DATA>
 0
 <EVENT DATA>
@@ -49,7 +49,16 @@
 0
 
 [2;1;1]
-6 Object Flower 0
+Object Flower 0
+<MOVE DATA>
+0
+<EVENT DATA>
+0
+<TELEPORT DATA>
+0
+
+[1;1;1]
+Object Tree 0
 <MOVE DATA>
 0
 <EVENT DATA>
@@ -58,7 +67,7 @@
 0
 
 [-2;1;1]
-6 Object Flower 0
+Object Flower 0
 <MOVE DATA>
 0
 <EVENT DATA>
@@ -67,16 +76,7 @@
 0
 
 [2;0;1]
-6 Object Flower 0
-<MOVE DATA>
-0
-<EVENT DATA>
-0
-<TELEPORT DATA>
-0
-
-[0;0;1]
-0-Character-Angle
+Object Flower 0
 <MOVE DATA>
 0
 <EVENT DATA>
@@ -85,7 +85,7 @@
 0
 
 [-2;0;1]
-6 Object Flower 0
+Object Flower 0
 <MOVE DATA>
 0
 <EVENT DATA>
@@ -94,7 +94,25 @@
 0
 
 [2;-1;1]
-6 Object Flower 0
+Object Flower 0
+<MOVE DATA>
+0
+<EVENT DATA>
+0
+<TELEPORT DATA>
+0
+
+[1;-1;1]
+Character Angle
+<MOVE DATA>
+0
+<EVENT DATA>
+0
+<TELEPORT DATA>
+0
+
+[0;-1;1]
+Object Flower 0
 <MOVE DATA>
 0
 <EVENT DATA>
@@ -103,7 +121,7 @@
 0
 
 [-2;-1;1]
-6 Object Flower 0
+Object Flower 0
 <MOVE DATA>
 0
 <EVENT DATA>
@@ -112,7 +130,7 @@
 0
 
 [2;-2;1]
-6 Object Flower 0
+Object Flower 0
 <MOVE DATA>
 0
 <EVENT DATA>
@@ -121,7 +139,7 @@
 0
 
 [1;-2;1]
-6 Object Flower 0
+Object Flower 0
 <MOVE DATA>
 0
 <EVENT DATA>
@@ -130,7 +148,7 @@
 0
 
 [0;-2;1]
-6 Object Flower 0
+Object Flower 0
 <MOVE DATA>
 0
 <EVENT DATA>
@@ -139,7 +157,7 @@
 0
 
 [-1;-2;1]
-6 Object Flower 0
+Object Flower 0
 <MOVE DATA>
 0
 <EVENT DATA>
@@ -148,7 +166,7 @@
 0
 
 [-2;-2;1]
-6 Object Flower 0
+Object Flower 0
 <MOVE DATA>
 0
 <EVENT DATA>
@@ -157,7 +175,7 @@
 0
 
 [2;2;0]
-0 Block Normal 0
+Block Normal 0
 <MOVE DATA>
 0
 <EVENT DATA>
@@ -166,7 +184,7 @@
 0
 
 [1;2;0]
-0 Block Normal 0
+Block Normal 0
 <MOVE DATA>
 0
 <EVENT DATA>
@@ -175,7 +193,7 @@
 0
 
 [0;2;0]
-0 Block Normal 0
+Block Normal 0
 <MOVE DATA>
 0
 <EVENT DATA>
@@ -184,7 +202,7 @@
 0
 
 [-1;2;0]
-0 Block Normal 0
+Block Normal 0
 <MOVE DATA>
 0
 <EVENT DATA>
@@ -193,7 +211,7 @@
 0
 
 [-2;2;0]
-0 Block Normal 0
+Block Normal 0
 <MOVE DATA>
 0
 <EVENT DATA>
@@ -202,7 +220,7 @@
 0
 
 [2;1;0]
-0 Block Normal 0
+Block Normal 0
 <MOVE DATA>
 0
 <EVENT DATA>
@@ -211,25 +229,7 @@
 0
 
 [1;1;0]
-0 Block Normal 0
-<MOVE DATA>
-0
-<EVENT DATA>
-0
-<TELEPORT DATA>
-0
-
-[0;1;0]
-0 Block Normal 0
-<MOVE DATA>
-0
-<EVENT DATA>
-0
-<TELEPORT DATA>
-0
-
-[-1;1;0]
-0 Block Normal 0
+Block Normal 0
 <MOVE DATA>
 0
 <EVENT DATA>
@@ -238,7 +238,7 @@
 0
 
 [-2;1;0]
-0 Block Normal 0
+Block Normal 0
 <MOVE DATA>
 0
 <EVENT DATA>
@@ -247,7 +247,7 @@
 0
 
 [2;0;0]
-0 Block Normal 0
+Block Normal 0
 <MOVE DATA>
 0
 <EVENT DATA>
@@ -256,25 +256,7 @@
 0
 
 [1;0;0]
-0 Block Normal 0
-<MOVE DATA>
-0
-<EVENT DATA>
-0
-<TELEPORT DATA>
-0
-
-[0;0;0]
-0 Block Normal 0
-<MOVE DATA>
-0
-<EVENT DATA>
-0
-<TELEPORT DATA>
-0
-
-[-1;0;0]
-0 Block Normal 0
+Block Normal 0
 <MOVE DATA>
 0
 <EVENT DATA>
@@ -283,7 +265,7 @@
 0
 
 [-2;0;0]
-0 Block Normal 0
+Block Normal 0
 <MOVE DATA>
 0
 <EVENT DATA>
@@ -292,7 +274,7 @@
 0
 
 [2;-1;0]
-0 Block Normal 0
+Block Normal 0
 <MOVE DATA>
 0
 <EVENT DATA>
@@ -301,7 +283,7 @@
 0
 
 [1;-1;0]
-0 Block Normal 0
+Block Normal 0
 <MOVE DATA>
 0
 <EVENT DATA>
@@ -310,7 +292,7 @@
 0
 
 [0;-1;0]
-0 Block Normal 0
+Block Normal 0
 <MOVE DATA>
 0
 <EVENT DATA>
@@ -319,7 +301,7 @@
 0
 
 [-1;-1;0]
-0 Block Normal 0
+Block Normal 0
 <MOVE DATA>
 0
 <EVENT DATA>
@@ -328,7 +310,7 @@
 0
 
 [-2;-1;0]
-0 Block Normal 0
+Block Normal 0
 <MOVE DATA>
 0
 <EVENT DATA>
@@ -337,7 +319,7 @@
 0
 
 [2;-2;0]
-0 Block Normal 0
+Block Normal 0
 <MOVE DATA>
 0
 <EVENT DATA>
@@ -346,7 +328,7 @@
 0
 
 [1;-2;0]
-0 Block Normal 0
+Block Normal 0
 <MOVE DATA>
 0
 <EVENT DATA>
@@ -355,7 +337,7 @@
 0
 
 [0;-2;0]
-0 Block Normal 0
+Block Normal 0
 <MOVE DATA>
 0
 <EVENT DATA>
@@ -364,7 +346,7 @@
 0
 
 [-1;-2;0]
-0 Block Normal 0
+Block Normal 0
 <MOVE DATA>
 0
 <EVENT DATA>
@@ -373,7 +355,7 @@
 0
 
 [-2;-2;0]
-0 Block Normal 0
+Block Normal 0
 <MOVE DATA>
 0
 <EVENT DATA>
@@ -381,17 +363,226 @@
 <TELEPORT DATA>
 0
 
-[2;-3;0]
-1 Block Slow 0
+[2;2;-1]
+Block Normal 0
 <MOVE DATA>
-1
-Object
-True
-4
-2|1
-2|1
-2|1
-2|1
+0
+<EVENT DATA>
+0
+<TELEPORT DATA>
+0
+
+[1;2;-1]
+Block Normal 0
+<MOVE DATA>
+0
+<EVENT DATA>
+0
+<TELEPORT DATA>
+0
+
+[0;2;-1]
+Block Normal 0
+<MOVE DATA>
+0
+<EVENT DATA>
+0
+<TELEPORT DATA>
+0
+
+[-1;2;-1]
+Block Normal 0
+<MOVE DATA>
+0
+<EVENT DATA>
+0
+<TELEPORT DATA>
+0
+
+[-2;2;-1]
+Block Normal 0
+<MOVE DATA>
+0
+<EVENT DATA>
+0
+<TELEPORT DATA>
+0
+
+[2;1;-1]
+Block Normal 0
+<MOVE DATA>
+0
+<EVENT DATA>
+0
+<TELEPORT DATA>
+0
+
+[1;1;-1]
+Block Slow 0
+<MOVE DATA>
+0
+<EVENT DATA>
+0
+<TELEPORT DATA>
+0
+
+[0;1;-1]
+Block Slow 0
+<MOVE DATA>
+0
+<EVENT DATA>
+0
+<TELEPORT DATA>
+0
+
+[-1;1;-1]
+Block Slow 0
+<MOVE DATA>
+0
+<EVENT DATA>
+0
+<TELEPORT DATA>
+0
+
+[-2;1;-1]
+Block Normal 0
+<MOVE DATA>
+0
+<EVENT DATA>
+0
+<TELEPORT DATA>
+0
+
+[2;0;-1]
+Block Normal 0
+<MOVE DATA>
+0
+<EVENT DATA>
+0
+<TELEPORT DATA>
+0
+
+[1;0;-1]
+Block Slow 0
+<MOVE DATA>
+0
+<EVENT DATA>
+0
+<TELEPORT DATA>
+0
+
+[0;0;-1]
+Block Slow 0
+<MOVE DATA>
+0
+<EVENT DATA>
+0
+<TELEPORT DATA>
+0
+
+[-1;0;-1]
+Block Slow 0
+<MOVE DATA>
+0
+<EVENT DATA>
+0
+<TELEPORT DATA>
+0
+
+[-2;0;-1]
+Block Normal 0
+<MOVE DATA>
+0
+<EVENT DATA>
+0
+<TELEPORT DATA>
+0
+
+[2;-1;-1]
+Block Normal 0
+<MOVE DATA>
+0
+<EVENT DATA>
+0
+<TELEPORT DATA>
+0
+
+[1;-1;-1]
+Block Normal 0
+<MOVE DATA>
+0
+<EVENT DATA>
+0
+<TELEPORT DATA>
+0
+
+[0;-1;-1]
+Block Normal 0
+<MOVE DATA>
+0
+<EVENT DATA>
+0
+<TELEPORT DATA>
+0
+
+[-1;-1;-1]
+Block Normal 0
+<MOVE DATA>
+0
+<EVENT DATA>
+0
+<TELEPORT DATA>
+0
+
+[-2;-1;-1]
+Block Normal 0
+<MOVE DATA>
+0
+<EVENT DATA>
+0
+<TELEPORT DATA>
+0
+
+[2;-2;-1]
+Block Normal 0
+<MOVE DATA>
+0
+<EVENT DATA>
+0
+<TELEPORT DATA>
+0
+
+[1;-2;-1]
+Block Normal 0
+<MOVE DATA>
+0
+<EVENT DATA>
+0
+<TELEPORT DATA>
+0
+
+[0;-2;-1]
+Block Normal 0
+<MOVE DATA>
+0
+<EVENT DATA>
+0
+<TELEPORT DATA>
+0
+
+[-1;-2;-1]
+Block Normal 0
+<MOVE DATA>
+0
+<EVENT DATA>
+0
+<TELEPORT DATA>
+0
+
+[-2;-2;-1]
+Block Normal 0
+<MOVE DATA>
+0
 <EVENT DATA>
 0
 <TELEPORT DATA>

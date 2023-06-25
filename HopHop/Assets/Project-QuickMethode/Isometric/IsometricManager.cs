@@ -27,7 +27,7 @@ public class IsometricManager : MonoBehaviour
 
     #region Varible: Block Manager
 
-    public List<(string Tag, List<GameObject> Block)> BlockList = new List<(string Tag, List<GameObject> Block)>();
+    public List<(string Tag, List<IsometricBlock> Block)> BlockList = new List<(string Tag, List<IsometricBlock> Block)>();
 
     #endregion
 
@@ -439,24 +439,24 @@ public class IsometricManager : MonoBehaviour
     public void SetBlockList(List<IsometricBlock> BlockList)
     {
         if (this.BlockList == null)
-            this.BlockList = new List<(string Tag, List<GameObject> Block)>();
+            this.BlockList = new List<(string Tag, List<IsometricBlock> Block)>();
         else
             this.BlockList.Clear();
 
-        foreach (IsometricBlock BlockPrefab in BlockList)
+        foreach (IsometricBlock BlockCheck in BlockList)
         {
-            List<string> TagFind = BlockPrefab.GetComponent<IsometricBlock>().Tag;
+            List<string> TagFind = BlockCheck.GetComponent<IsometricBlock>().Tag;
             foreach(string TagCheck in TagFind)
             {
                 int TagIndex = GetIndexBlockListTag(TagCheck);
                 if (TagIndex == -1)
                 {
-                    this.BlockList.Add((TagCheck, new List<GameObject>()));
+                    this.BlockList.Add((TagCheck, new List<IsometricBlock>()));
                     TagIndex = this.BlockList.Count - 1;
-                    this.BlockList[TagIndex].Block.Add(BlockPrefab.gameObject);
+                    this.BlockList[TagIndex].Block.Add(BlockCheck);
                 }
                 else
-                    this.BlockList[TagIndex].Block.Add(BlockPrefab.gameObject);
+                    this.BlockList[TagIndex].Block.Add(BlockCheck);
             }
         }
     }
@@ -464,30 +464,31 @@ public class IsometricManager : MonoBehaviour
     public void SetBlockList(List<GameObject> BlockList)
     {
         if (this.BlockList == null)
-            this.BlockList = new List<(string Tag, List<GameObject> Block)>();
+            this.BlockList = new List<(string Tag, List<IsometricBlock> Block)>();
         else
             this.BlockList.Clear();
 
-        foreach (GameObject BlockPrefab in BlockList)
+        foreach (GameObject BlockCheck in BlockList)
         {
-            if (BlockPrefab.GetComponent<IsometricBlock>() == null)
+            IsometricBlock Block = BlockCheck.GetComponent<IsometricBlock>();
+            if (Block == null)
             {
-                Debug.LogWarningFormat("Prefab {0} not found IsometricBlock to Read!", BlockPrefab.name);
+                Debug.LogWarningFormat("Prefab {0} not found IsometricBlock to Read!", BlockCheck.name);
                 continue;
             }
 
-            List<string> TagFind = BlockPrefab.GetComponent<IsometricBlock>().Tag;
+            List<string> TagFind = BlockCheck.GetComponent<IsometricBlock>().Tag;
             foreach(string TagCheck in TagFind)
             {
                 int TagIndex = GetIndexBlockListTag(TagCheck);
                 if (TagIndex == -1)
                 {
-                    this.BlockList.Add((TagCheck, new List<GameObject>()));
+                    this.BlockList.Add((TagCheck, new List<IsometricBlock>()));
                     TagIndex = this.BlockList.Count - 1;
-                    this.BlockList[TagIndex].Block.Add(BlockPrefab);
+                    this.BlockList[TagIndex].Block.Add(Block);
                 }
                 else
-                    this.BlockList[TagIndex].Block.Add(BlockPrefab);
+                    this.BlockList[TagIndex].Block.Add(Block);
             }
         }
     }
@@ -495,7 +496,7 @@ public class IsometricManager : MonoBehaviour
     public void SetBlockList(params string[] PathChildInResources)
     {
         if (this.BlockList == null)
-            this.BlockList = new List<(string Tag, List<GameObject> Block)>();
+            this.BlockList = new List<(string Tag, List<IsometricBlock> Block)>();
         else
             this.BlockList.Clear();
 
@@ -503,7 +504,8 @@ public class IsometricManager : MonoBehaviour
 
         foreach (GameObject BlockPrefab in BlockList)
         {
-            if (BlockPrefab.GetComponent<IsometricBlock>() == null)
+            IsometricBlock Block = BlockPrefab.GetComponent<IsometricBlock>();
+            if (Block == null)
             {
                 Debug.LogWarningFormat("Prefab {0} not found IsometricBlock to Read!", BlockPrefab.name);
                 continue;
@@ -515,12 +517,12 @@ public class IsometricManager : MonoBehaviour
                 int TagIndex = GetIndexBlockListTag("");
                 if (TagIndex == -1)
                 {
-                    this.BlockList.Add(("", new List<GameObject>()));
+                    this.BlockList.Add(("", new List<IsometricBlock>()));
                     TagIndex = this.BlockList.Count - 1;
-                    this.BlockList[TagIndex].Block.Add(BlockPrefab);
+                    this.BlockList[TagIndex].Block.Add(Block);
                 }
                 else
-                    this.BlockList[TagIndex].Block.Add(BlockPrefab);
+                    this.BlockList[TagIndex].Block.Add(Block);
             }
             else
             {
@@ -529,12 +531,12 @@ public class IsometricManager : MonoBehaviour
                     int TagIndex = GetIndexBlockListTag(TagCheck);
                     if (TagIndex == -1)
                     {
-                        this.BlockList.Add((TagCheck, new List<GameObject>()));
+                        this.BlockList.Add((TagCheck, new List<IsometricBlock>()));
                         TagIndex = this.BlockList.Count - 1;
-                        this.BlockList[TagIndex].Block.Add(BlockPrefab);
+                        this.BlockList[TagIndex].Block.Add(Block);
                     }
                     else
-                        this.BlockList[TagIndex].Block.Add(BlockPrefab);
+                        this.BlockList[TagIndex].Block.Add(Block);
                 }
             }
         }
@@ -549,11 +551,11 @@ public class IsometricManager : MonoBehaviour
                 if (BlockList[i].Tag != Tag)
                     continue;
 
-                foreach (GameObject BlockPrefab in BlockList[i].Block)
+                foreach (IsometricBlock BlockCheck in BlockList[i].Block)
                 {
-                    if (BlockPrefab.name != BlockName)
+                    if (BlockCheck.Name != BlockName)
                         continue;
-                    return BlockPrefab;
+                    return BlockCheck.gameObject;
                 }
             }
         }
@@ -561,11 +563,11 @@ public class IsometricManager : MonoBehaviour
         {
             for (int i = 0; i < BlockList.Count; i++)
             {
-                foreach (GameObject BlockPrefab in BlockList[i].Block)
+                foreach (IsometricBlock BlockCheck in BlockList[i].Block)
                 {
-                    if (BlockPrefab.name != BlockName)
+                    if (BlockCheck.Name != BlockName)
                         continue;
-                    return BlockPrefab;
+                    return BlockCheck.gameObject;
                 }
             }
         }

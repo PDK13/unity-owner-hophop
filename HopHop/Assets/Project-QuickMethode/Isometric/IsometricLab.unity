@@ -220,16 +220,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88b51ca1839d85a47a182808b3636847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_name: 
   m_free: 0
   m_tag: []
   m_pos:
     X: 2
     Y: -3
     H: 0
-  m_data:
-    MoveData: []
-    EventData: []
-    TeleportData: []
+  MoveData: []
+  EventData: []
+  TeleportData: []
   m_scene:
     Renderer: 1
     Scale:
@@ -425,7 +425,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2119707658
 Transform:
   m_ObjectHideFlags: 0

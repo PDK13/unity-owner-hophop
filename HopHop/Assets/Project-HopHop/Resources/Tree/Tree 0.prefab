@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 44393240911007886}
   - component: {fileID: 44393240911007887}
   - component: {fileID: 44393240911007880}
-  - component: {fileID: -1318212669474501758}
+  - component: {fileID: -6658357733041342050}
+  - component: {fileID: -4520355567304084842}
   m_Layer: 0
-  m_Name: Character Devil
+  m_Name: Tree 0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,12 +76,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 640757855, guid: 449e25ad76b53f94c81413bae2dbf84f, type: 3}
+  m_Sprite: {fileID: -1115168318, guid: d36a9e18a92729848be59b459505aa83, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.0026041, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -98,17 +99,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88b51ca1839d85a47a182808b3636847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_free: 1
+  m_name: Object Tree 0
+  m_free: 0
   m_tag:
-  - Character
+  - Object
   m_pos:
     X: 0
     Y: 0
     H: 0
-  m_data:
-    MoveData: []
-    EventData: []
-    TeleportData: []
+  MoveData: []
+  EventData: []
+  TeleportData: []
   m_scene:
     Renderer: 1
     Scale:
@@ -116,7 +117,7 @@ MonoBehaviour:
       Y: 1
       H: 1
   m_centre: {x: 0, y: 0, z: 0}
---- !u!114 &-1318212669474501758
+--- !u!114 &-6658357733041342050
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,3 +131,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_spriteJoin: []
   m_blockTop: []
+--- !u!114 &-4520355567304084842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 44393240911007885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfc287c449558124f998392227ca3361, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

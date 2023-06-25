@@ -7,13 +7,16 @@ public class IsometricBlock : MonoBehaviour
 {
     #region Varible: Block Manager
 
+    [Header("Manager")]
+    [SerializeField] private string m_name = "";
     [SerializeField] private bool m_free = false;
     [SerializeField] private List<string> m_tag = new List<string>();
-    
+
     #endregion
 
     #region Varible: World Manager
 
+    [Header("World")]
     [SerializeField] private IsoVector m_pos = new IsoVector();
 
     private IsoVector m_posPrimary = new IsoVector();
@@ -22,12 +25,16 @@ public class IsometricBlock : MonoBehaviour
 
     #region Varible: Data Manager
 
-    [SerializeField] private IsoDataBlockSingle m_data = new IsoDataBlockSingle();
+    [Header("Data")]
+    [SerializeField] private List<IsoDataBlockMove> MoveData = new List<IsoDataBlockMove>();
+    [SerializeField] private List<IsoDataBlockEvent> EventData = new List<IsoDataBlockEvent>();
+    [SerializeField] private List<IsoDataBlockTeleport> TeleportData = new List<IsoDataBlockTeleport>();
 
     #endregion
 
     #region Varible: Scene Manager
 
+    [Header("Scene")]
     [SerializeField] private IsoDataScene m_scene = new IsoDataScene();
     [SerializeField] private Vector3 m_centre = new Vector3();
 
@@ -52,7 +59,7 @@ public class IsometricBlock : MonoBehaviour
 
     public bool Free => m_free;
 
-    public string Name => QGameObject.GetNameReplaceClone(this.name);
+    public string Name => m_name != "" ? m_name : QGameObject.GetNameReplaceClone(this.name);
 
     public List<string> Tag => m_tag;
 
@@ -70,7 +77,23 @@ public class IsometricBlock : MonoBehaviour
 
     #region ================================================================== Data Manager
 
-    public IsoDataBlockSingle Data { get => m_data; set => m_data = value; }
+    public IsoDataBlockSingle Data 
+    {
+        get 
+        {
+            IsoDataBlockSingle Data = new IsoDataBlockSingle();
+            Data.MoveData = MoveData;
+            Data.EventData = EventData;
+            Data.TeleportData = TeleportData;
+            return Data;
+        }
+        set
+        {
+            MoveData = value.MoveData;
+            EventData = value.EventData;
+            TeleportData = value.TeleportData;
+        }
+    }
 
     #endregion
 
