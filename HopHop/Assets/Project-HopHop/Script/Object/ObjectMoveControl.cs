@@ -21,16 +21,12 @@ public class ObjectMoveControl : MonoBehaviour
 
     private void Start()
     {
-        SetFindMovePrimary();
-    }
-
-    private void SetFindMovePrimary()
-    {
         foreach (var MoveCheck in m_block.Data.MoveData)
         {
             if (MoveCheck.KeyStart != m_keyStart || MoveCheck.KeyStart != m_keyEnd)
                 continue;
             m_dataMove = MoveCheck;
+            GameData.m_objectControlCount++;
             return;
         }
     }
@@ -38,6 +34,15 @@ public class ObjectMoveControl : MonoBehaviour
     private void OnDestroy()
     {
         GameEvent.onTriggerStart -= SetTriggerStart;
+
+        if (m_dataMove != null)
+            GameData.m_objectControlCount--;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.L) && m_dataMove != null)
+            Destroy(this.gameObject);
     }
 
     private void SetTriggerStart(string Key)
@@ -79,7 +84,7 @@ public class ObjectMoveControl : MonoBehaviour
     private void SetMove(IsoDir Dir, int Length, bool Revert)
     {
         Vector3 Pos = new Vector3(m_block.Pos.X, m_block.Pos.Y, m_block.Pos.H);
-        DOTween.To(() => Pos, x => Pos = x, Pos + IsoVector.GetVectorDir(Dir, Revert) * Length, GameData.m_timeMove).SetEase(Ease.Linear).OnUpdate(() =>
+        DOTween.To(() => Pos, x => Pos = x, Pos + IsoVector.GetVectorDir(Dir, Revert) * Length, GameData.TimeMove).SetEase(Ease.Linear).OnUpdate(() =>
         {
             m_block.Pos = new IsoVector(Pos);
         }).OnComplete(() =>

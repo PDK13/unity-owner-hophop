@@ -57,7 +57,7 @@ public class ObjectPlayerControl : MonoBehaviour
         m_controlInput = false;
 
         Vector3 Pos = new Vector3(m_block.Pos.X, m_block.Pos.Y, m_block.Pos.H);
-        DOTween.To(() => Pos, x => Pos = x, Pos + IsoVector.GetVectorDir(Dir) * Length, GameData.m_timeMove).SetEase(Ease.Linear).OnUpdate(() =>
+        DOTween.To(() => Pos, x => Pos = x, Pos + IsoVector.GetVectorDir(Dir) * Length, GameData.TimeMove).SetEase(Ease.Linear).OnUpdate(() =>
         {
             m_block.Pos = new IsoVector(Pos);
         }).OnComplete(() =>

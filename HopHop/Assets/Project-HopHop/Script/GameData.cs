@@ -11,9 +11,7 @@ public class GameData
 
     public static float TimeMove => m_timeMove * m_timeRatio;
 
-    //Turn Move
-
-    public static TypeTurn m_turnControl = TypeTurn.PlayerControl;
+    //Object Control
 
     public static int m_objectControlCount = 0;
     public static int m_objectControlEnd = 0;

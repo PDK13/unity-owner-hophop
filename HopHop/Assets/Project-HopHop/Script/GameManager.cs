@@ -24,8 +24,6 @@ public class GameManager : MonoBehaviour
         yield return null;
         m_isoManager.SetWorldFileRead(m_gameConfig.m_level[0].Level[0]);
         yield return null;
-        GameData.m_objectControlCount = m_isoManager.GetWorldBlockCurrentTag(GameTag.MOVE).Count;
-        yield return null;
         GameEvent.SetTriggerStart(GameKey.PLAYER);
     }
 }

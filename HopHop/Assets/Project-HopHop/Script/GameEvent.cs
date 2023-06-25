@@ -18,7 +18,10 @@ public class GameEvent
         switch (Key)
         {
             case GameKey.PLAYER:
-                SetTriggerStart(GameKey.OBJECT);
+                if (GameData.m_objectControlCount > 0)
+                    SetTriggerStart(GameKey.OBJECT);
+                else
+                    SetTriggerStart(GameKey.PLAYER);
                 break;
             case GameKey.OBJECT:
                 GameData.m_objectControlEnd++;
