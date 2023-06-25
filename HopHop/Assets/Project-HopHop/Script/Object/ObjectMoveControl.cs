@@ -47,36 +47,28 @@ public class ObjectMoveControl : MonoBehaviour
 
     private void SetTriggerStart(string Key)
     {
-        if (Key == m_keyStart)
+        if (Key == m_keyStart && m_dataMove != null)
         {
-            if (m_dataMove != null)
+            SetMove(m_dataMove.Data[m_dataMove.Index].Dir, m_dataMove.Data[m_dataMove.Index].Length, m_dataMove.Dir == -1);
+            m_dataMove.Index += m_dataMove.Dir;
+            if (m_dataMove.Loop && (m_dataMove.Index < 0 || m_dataMove.Index > m_dataMove.Data.Count - 1))
             {
-                SetMove(m_dataMove.Data[m_dataMove.Index].Dir, m_dataMove.Data[m_dataMove.Index].Length, m_dataMove.Dir == -1);
+                m_dataMove.Dir *= -1;
                 m_dataMove.Index += m_dataMove.Dir;
-                if (m_dataMove.Loop && (m_dataMove.Index < 0 || m_dataMove.Index > m_dataMove.Data.Count - 1))
-                {
-                    m_dataMove.Dir *= -1;
-                    m_dataMove.Index += m_dataMove.Dir;
-                }
             }
-            else
-            {
-                GameEvent.SetTriggerEnd(GameKey.OBJECT);
-            }
+            return;
         }
-        else
+
+        foreach (var MoveCheck in m_block.Data.MoveData)
         {
-            foreach (var MoveCheck in m_block.Data.MoveData)
+            if (Key != MoveCheck.KeyStart)
+                continue;
+            SetMove(MoveCheck.Data[MoveCheck.Index].Dir, MoveCheck.Data[MoveCheck.Index].Length, MoveCheck.Dir == -1);
+            MoveCheck.Index += m_dataMove.Dir;
+            if (MoveCheck.Loop && (MoveCheck.Index < 0 || MoveCheck.Index > MoveCheck.Data.Count - 1))
             {
-                if (Key != MoveCheck.KeyStart)
-                    continue;
-                SetMove(MoveCheck.Data[MoveCheck.Index].Dir, MoveCheck.Data[MoveCheck.Index].Length, MoveCheck.Dir == -1);
+                MoveCheck.Dir *= -1;
                 MoveCheck.Index += m_dataMove.Dir;
-                if (MoveCheck.Loop && (MoveCheck.Index < 0 || MoveCheck.Index > MoveCheck.Data.Count - 1))
-                {
-                    MoveCheck.Dir *= -1;
-                    MoveCheck.Index += m_dataMove.Dir;
-                }
             }
         }
     }

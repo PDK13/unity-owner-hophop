@@ -41,7 +41,7 @@ public class ObjectPlayerControl : MonoBehaviour
 
     private void SetTriggerStart(string Key)
     {
-        if (Key != GameKey.PLAYER)
+        if (Key != m_keyStart)
             return;
 
         m_controlInput = true;
@@ -62,7 +62,7 @@ public class ObjectPlayerControl : MonoBehaviour
             m_block.Pos = new IsoVector(Pos);
         }).OnComplete(() =>
         {
-            GameEvent.SetTriggerEnd(GameKey.PLAYER);
+            GameEvent.SetTriggerEnd(m_keyEnd);
         });
     } //Move!!
 }
