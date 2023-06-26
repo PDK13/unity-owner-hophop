@@ -1,7 +1,7 @@
 [WORLD NAME]
 ...
 [WORLD BLOCK]
-65
+64
 
 [2;2;1]
 Object Flower 0
@@ -50,15 +50,6 @@ Object Flower 0
 
 [2;1;1]
 Object Flower 0
-<MOVE DATA>
-0
-<EVENT DATA>
-0
-<TELEPORT DATA>
-0
-
-[1;1;1]
-Object Tree 0
 <MOVE DATA>
 0
 <EVENT DATA>

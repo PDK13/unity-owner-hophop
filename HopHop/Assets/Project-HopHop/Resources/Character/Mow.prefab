@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 44393240911007886}
   - component: {fileID: 44393240911007887}
-  - component: {fileID: 3126118641290503908}
+  - component: {fileID: 8373056385654926143}
   - component: {fileID: 44393240911007880}
-  - component: {fileID: 1527358849077709513}
+  - component: {fileID: -8828584118407691171}
   m_Layer: 0
-  m_Name: Cat
+  m_Name: Mow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -220825898, guid: 33f3d55067887144f9064e82557ec7dd, type: 3}
+  m_Sprite: {fileID: 873272090, guid: 21585573013a44340a963d315aad9e28, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -87,7 +87,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &3126118641290503908
+--- !u!95 &8373056385654926143
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -97,7 +97,7 @@ Animator:
   m_GameObject: {fileID: 44393240911007885}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 749e0e36477407f48872a6aa0fa7ece2, type: 2}
+  m_Controller: {fileID: 9100000, guid: 7858792880c898348a62da4a27e1ad99, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -120,7 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88b51ca1839d85a47a182808b3636847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_name: Character Cat
+  m_name: Character Buffalo
   m_free: 1
   m_tag:
   - Character
@@ -138,7 +138,7 @@ MonoBehaviour:
       Y: 1
       H: 1
   m_centre: {x: 0, y: 0, z: 0}
---- !u!114 &1527358849077709513
+--- !u!114 &-8828584118407691171
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
