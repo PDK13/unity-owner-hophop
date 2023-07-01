@@ -467,6 +467,20 @@ public class IsometricTool : EditorWindow
     private void SetGUIGroupBlock()
     {
         QEditor.SetLabel("BLOCK", QEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QEditor.GetGUILayoutWidth(this));
+        {
+            QEditor.SetHorizontalBegin();
+            if (QEditor.SetButton(" - ", null, QEditor.GetGUIWidth(20f)))
+            {
+                if (m_countNameHorizontal > 1)
+                    m_countNameHorizontal--;
+            }
+            QEditor.SetLabel(m_countNameHorizontal.ToString(), QEditor.GetGUILabel(FontStyle.Normal, TextAnchor.MiddleCenter), QEditor.GetGUIWidth(20));
+            if (QEditor.SetButton(" + ", null, QEditor.GetGUIWidth(20f)))
+            {
+                m_countNameHorizontal++;
+            }
+            QEditor.SetHorizontalEnd();
+        }
         m_scrollBlock = QEditor.SetScrollViewBegin(m_scrollBlock);
         int BlockIndex = 0;
         while (BlockIndex <= m_manager.BlockList[m_indexTag].Block.Count - 1)
@@ -495,7 +509,7 @@ public class IsometricTool : EditorWindow
         return QEditor.SetButton(
             m_manager.BlockList[m_indexTag].Block[Index].GetComponent<SpriteRenderer>().sprite,
             QEditor.GetGUILayoutWidth(this, 1f / m_countNameHorizontal),
-            QEditor.GetGUILayoutHeight(this, 1f / m_countNameHorizontal, 0, true));
+            QEditor.GetGUILayoutHeightBaseWidth(this, 1f / m_countNameHorizontal));
     }
 
     #endregion

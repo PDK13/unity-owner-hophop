@@ -3964,7 +3964,7 @@ namespace QuickMethode
 
         #endregion
 
-        #region Chance Check
+        #region ------------------------------------ Chance Check
 
         public static void SetChanceCheckBegin()
         {
@@ -4000,14 +4000,24 @@ namespace QuickMethode
 
         private static float WIDTH_OFFSET = 4f;
 
-        public static GUILayoutOption GetGUILayoutWidth(EditorWindow This, float WidthPercent = 1, float WidthOffset = 0, bool HeightBase = false)
+        public static GUILayoutOption GetGUILayoutWidth(EditorWindow This, float WidthPercent = 1, float WidthOffset = 0)
         {
-            return GetGUIWidth((!HeightBase ? GetWindowWidth(This) : GetWindowHeight(This)) * WidthPercent - WidthOffset - WIDTH_OFFSET);
+            return GetGUIWidth(GetWindowWidth(This) * WidthPercent - WidthOffset - WIDTH_OFFSET);
         }
 
-        public static GUILayoutOption GetGUILayoutHeight(EditorWindow This, float HeightPercent = 1, float HeightOffset = 0, bool WidthBase = false)
+        public static GUILayoutOption GetGUILayoutWidthBaseHeight(EditorWindow This, float HeightPercent = 1, float HeightOffset = 0)
         {
-            return GetGUIHeight((!WidthBase ? GetWindowHeight(This) : GetWindowWidth(This)) * HeightPercent - HeightOffset);
+            return GetGUIWidth(GetWindowHeight(This) * HeightPercent - HeightOffset - WIDTH_OFFSET);
+        }
+
+        public static GUILayoutOption GetGUILayoutHeight(EditorWindow This, float HeightPercent = 1, float HeightOffset = 0)
+        {
+            return GetGUIHeight(GetWindowHeight(This) * HeightPercent - HeightOffset);
+        }
+
+        public static GUILayoutOption GetGUILayoutHeightBaseWidth(EditorWindow This, float WidthPercent = 1, float WidthOffset = 0)
+        {
+            return GetGUIHeight(GetWindowWidth(This) * WidthPercent - WidthOffset);
         }
 
         #endregion
@@ -4028,12 +4038,12 @@ namespace QuickMethode
 
         #region ------------------------------------ GUI Panel Size Value
 
-        public static GUILayoutOption GetGUIWidth(float Width)
+        public static GUILayoutOption GetGUIWidth(float Width = 10f)
         {
             return GUILayout.Width(Width);
         }
 
-        public static GUILayoutOption GetGUIHeight(float Height)
+        public static GUILayoutOption GetGUIHeight(float Height = 10)
         {
             return GUILayout.Height(Height);
         }
