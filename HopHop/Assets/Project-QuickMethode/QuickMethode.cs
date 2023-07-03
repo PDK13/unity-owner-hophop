@@ -17,6 +17,8 @@ using UnityEditor;
 
 namespace QuickMethode
 {
+    #region Primary
+
     public class QVector
     {
         //'Vector().magnitude' mean Length & 'Vector.Distance()' mean Distance
@@ -279,68 +281,6 @@ namespace QuickMethode
         #endregion
     }
 
-    public class QTrajectory
-    {
-        public static List<Vector3> GetTrajectory(Vector3 From, float Deg, float Force, float GravityScale, float VelocityDrag = 0f)
-        {
-            //NOTE:
-            //- Can be used for LineRenderer Component.
-            //- Can be used for Bullet GameObject with Rigidbody and Rigidbody2D Componenet.
-
-            List<Vector3> TrajectoryPath = new List<Vector3>();
-
-            Vector3 GravityGolbal = Vector3.down * (-Physics2D.gravity);
-            float Step = Time.fixedDeltaTime / Physics.defaultSolverVelocityIterations;
-            Vector3 Accel = GravityGolbal * GravityScale * Step * Step;
-            float Drag = 1f - Step * VelocityDrag;
-            Vector3 Dir = QCircle.GetPosXY(Deg, 1f).normalized * Force;
-            Vector3 Move = Dir * Step;
-
-            Vector3 Pos = From;
-            TrajectoryPath.Add(Pos);
-            for (int i = 0; i < 500; i++)
-            {
-                Move += Accel;
-                Move *= Drag;
-                Pos += Move;
-                TrajectoryPath.Add(Pos);
-            }
-
-            return TrajectoryPath;
-        }
-
-        public static float? GetDegToTarget(Vector3 From, Vector3 To, float Force, float GravityScale, bool DegHigh = true)
-        {
-            //Get the Deg to hit Target!
-
-            Vector3 Dir = To - From;
-            float HeightY = Dir.y;
-            Dir.y = 0f;
-            float LengthX = Dir.magnitude;
-            float Gravity = -Physics2D.gravity.y * GravityScale;
-            float SpeedSQR = Force * Force;
-            float UnderSQR = (SpeedSQR * SpeedSQR) - Gravity * (Gravity * LengthX * LengthX + 2 * HeightY * SpeedSQR);
-            if (UnderSQR >= 0)
-            {
-                float UnderSQRT = Mathf.Sqrt(UnderSQR);
-                float AngleHigh = SpeedSQR + UnderSQRT;
-                float AngleLow = SpeedSQR - UnderSQRT;
-
-                return DegHigh ? Mathf.Atan2(AngleHigh, Gravity * LengthX) * Mathf.Rad2Deg : Mathf.Atan2(AngleLow, Gravity * LengthX) * Mathf.Rad2Deg;
-            }
-
-            return null;
-        }
-
-        public static void SetForceToBullet(Rigidbody2D Body, float Deg, float Force, float GravityScale, float VelocityDrag = 0f)
-        {
-            Body.gameObject.SetActive(true);
-            Body.velocity = QCircle.GetPosXY(Deg, 1f).normalized * Force;
-            Body.gravityScale = GravityScale;
-            Body.drag = VelocityDrag;
-        }
-    }
-
     public class QGeometry
     {
         public static List<Vector2> GetGeometry(int Point, float Radius, float Deg)
@@ -367,6 +307,172 @@ namespace QuickMethode
             return Points;
         }
     }
+
+    public class QColor
+    {
+        #region ==================================== Color
+
+        //Key "ref" use to immediately save value to primary varible param!
+
+        public static void SetColor(ref Color Color, float A)
+        {
+            Color = new Color(Color.r, Color.g, Color.b, A);
+        }
+
+        public static Color GetColor(Color Color, float A)
+        {
+            return new Color(Color.r, Color.g, Color.b, A);
+        }
+
+        #endregion
+
+        #region ==================================== Color - Hex Color
+
+        private static string GetColorHex(Color Color)
+        {
+            return ColorUtility.ToHtmlStringRGB(Color);
+        }
+
+        public static string GetColorHexCode(Color Color)
+        {
+            string ColorHex = GetColorHex(Color);
+            string ColorHexCode = string.Format("#{0}", ColorHex);
+            return ColorHexCode;
+        }
+
+        public static string GetColorHexFormat(Color Color, string Text)
+        {
+            string ColorHex = GetColorHex(Color);
+            string TextFormat = string.Format("<#{0}>{1}</color>", ColorHex, Text);
+            return TextFormat;
+        }
+
+        #endregion
+
+        #region ==================================== Color - Mesh Renderer & Material
+
+        //Can be applied to Spine Material!!
+
+        public static void SetMaterial(MeshRenderer MessRenderer, float Alpha)
+        {
+            if (!MessRenderer.sharedMaterial.HasProperty("_Color"))
+                return;
+
+            Color Color = MessRenderer.material.color;
+            SetColor(ref Color, Alpha);
+            MessRenderer.material.color = Color;
+        }
+
+        public static void SetMaterial(MeshRenderer MessRenderer, Color Color, float Alpha)
+        {
+            if (!MessRenderer.sharedMaterial.HasProperty("_Color"))
+                return;
+
+            SetColor(ref Color, Alpha);
+            MessRenderer.material.color = Color;
+        }
+
+        public static void SetMaterialTint(MeshRenderer MessRenderer, Color Color)
+        {
+            //Shader of Material must set to "Tint"!!
+
+            MaterialPropertyBlock MaterialPropertyBlock = new MaterialPropertyBlock();
+
+            MessRenderer.GetPropertyBlock(MaterialPropertyBlock);
+
+            int IdColor = Shader.PropertyToID("_Color");
+            int IdBlack = Shader.PropertyToID("_Black");
+
+            MaterialPropertyBlock.SetColor(IdColor, Color);
+            MaterialPropertyBlock.SetColor(IdBlack, Color.black); //Should be "Color.black"!!
+
+            MessRenderer.SetPropertyBlock(MaterialPropertyBlock);
+        }
+
+        public static void SetMaterialTint(MeshRenderer MessRenderer, Color Color, Color Black)
+        {
+            //Shader of Material must set to "Tint"!!
+
+            MaterialPropertyBlock MaterialPropertyBlock = new MaterialPropertyBlock();
+
+            MessRenderer.GetPropertyBlock(MaterialPropertyBlock);
+
+            int IdColor = Shader.PropertyToID("_Color");
+            int IdBlack = Shader.PropertyToID("_Black");
+
+            MaterialPropertyBlock.SetColor(IdColor, Color);
+            MaterialPropertyBlock.SetColor(IdBlack, Black); //Should be "Color.black"!!
+
+            MessRenderer.SetPropertyBlock(MaterialPropertyBlock);
+        }
+
+        public static void SetMaterialFill(MeshRenderer MessRenderer, Color FillColor, float FillPhase = 1)
+        {
+            //Shader of Material must set to "Fill"!!
+
+            MaterialPropertyBlock MaterialPropertyBlock = new MaterialPropertyBlock();
+
+            MessRenderer.GetPropertyBlock(MaterialPropertyBlock);
+
+            int IdFillColor = Shader.PropertyToID("_FillColor");
+            int IdFillPhase = Shader.PropertyToID("_FillPhase");
+
+            MaterialPropertyBlock.SetColor(IdFillColor, FillColor);
+            MaterialPropertyBlock.SetFloat(IdFillPhase, FillPhase);
+
+            MessRenderer.SetPropertyBlock(MaterialPropertyBlock);
+        }
+
+        #endregion
+
+        #region ==================================== Color - SpriteRenderer
+
+        public static void SetSprite(SpriteRenderer SpriteRenderer, float Alpha)
+        {
+            Color Color = SpriteRenderer.color;
+            SetColor(ref Color, Alpha);
+            SpriteRenderer.color = Color;
+        }
+
+        public static void SetSprite(SpriteRenderer SpriteRenderer, Color Color, float Alpha)
+        {
+            SetColor(ref Color, Alpha);
+            SpriteRenderer.color = Color;
+        }
+
+        #endregion
+
+        #region ==================================== Color - Image
+
+        public static void SetSprite(Image Image, float Alpha)
+        {
+            Color Color = Image.color;
+            SetColor(ref Color, Alpha);
+            Image.color = Color;
+        }
+
+        public static void SetSprite(Image Image, Color Color, float Alpha)
+        {
+            SetColor(ref Color, Alpha);
+            Image.color = Color;
+        }
+
+        #endregion
+    }
+
+    public class QMath
+    {
+        public static (double Value, String String) GetDiscountPercent(double PrimaryValue, double DiscoundValue)
+        {
+            //Ex: Primary-Value = 40 & Discound-Value = 20 >> Mean Discound-Percent = 50%
+            double DiscountPercent = (PrimaryValue - DiscoundValue) / PrimaryValue * 100;
+            return (DiscountPercent, "-" + DiscountPercent.ToString() + "%");
+        }
+    }
+
+    #endregion
+
+    #region Transform & RecTransform
 
     public class QTransform
     {
@@ -544,267 +650,49 @@ namespace QuickMethode
         #endregion
     }
 
-    public class QCollider2D
+    public class QRecTransform
     {
-        #region ==================================== Border
-
-        public static Vector2 GetBorderPos(Collider2D Collider, params Direction[] Bound)
+        private static Vector2 GetPosAnchorPivotOffset(RectTransform From, Vector2 ToPivot)
         {
-            //Primary Value: Collider
-            Vector2 Pos = Collider.bounds.center;
-            Vector2 Size = Collider.bounds.size;
-            float Edge = 0f;
-
-            BoxCollider2D ColliderBox = Collider.GetComponent<BoxCollider2D>();
-            if (ColliderBox != null)
-            {
-                Edge = ColliderBox.edgeRadius;
-
-                //Option Value: Auto Tilling
-                if (ColliderBox.autoTiling)
-                {
-                    SpriteRenderer Sprite = Collider.GetComponent<SpriteRenderer>();
-                    if (Sprite != null)
-                        Size = Sprite.bounds.size;
-                }
-            }
-
-            //Caculate Position from Value Data
-            foreach (Direction DirBound in Bound)
-            {
-                switch (DirBound)
-                {
-                    case Direction.Up:
-                        Pos.y += (Size.y / 2) + Edge;
-                        break;
-                    case Direction.Down:
-                        Pos.y -= (Size.y / 2) + Edge;
-                        break;
-                    case Direction.Left:
-                        Pos.x -= (Size.x / 2) + Edge;
-                        break;
-                    case Direction.Right:
-                        Pos.x += (Size.x / 2) + Edge;
-                        break;
-                }
-            }
-            return Pos;
+            //Pivot is the centre point UI, which is the Anchor Pos of UI!
+            Vector2 PivotOffset = new Vector2((From.pivot.x - ToPivot.x) * From.sizeDelta.x, (From.pivot.y - ToPivot.y) * From.sizeDelta.y);
+            return PivotOffset;
         }
 
-        public static Vector2 GetBorderPos(Collider2D Collider, params DirectionX[] Bound)
+        private static Vector2 GetAnchorPosPrimary(RectTransform From)
         {
-            //Primary Value: Collider
-            Vector2 Pos = Collider.bounds.center;
-            Vector2 Size = Collider.bounds.size;
-            float Edge = 0f;
-
-            BoxCollider2D ColliderBox = Collider.GetComponent<BoxCollider2D>();
-            if (ColliderBox != null)
-            {
-                Edge = ColliderBox.edgeRadius;
-
-                //Option Value: Auto Tilling
-                if (ColliderBox.autoTiling)
-                {
-                    SpriteRenderer Sprite = Collider.GetComponent<SpriteRenderer>();
-                    if (Sprite != null)
-                        Size = Sprite.bounds.size;
-                }
-            }
-
-            //Caculate Position from Value Data
-            foreach (DirectionX DirBound in Bound)
-            {
-                switch (DirBound)
-                {
-                    case DirectionX.Left:
-                        Pos.x -= (Size.x / 2) + Edge;
-                        break;
-                    case DirectionX.Right:
-                        Pos.x += (Size.x / 2) + Edge;
-                        break;
-                }
-            }
-            return Pos;
+            //Anchor Primary mean Anchor Min(0;0) and Max(0;0) or at the BL of screen!
+            Vector2 AnchorPos = From.anchoredPosition;
+            Vector2 ScreenSize = QCamera.GetCameraSizePixel();
+            Vector2 AnchorPosMin = new Vector2(ScreenSize.x * From.anchorMin.x, ScreenSize.y * From.anchorMin.y);
+            Vector2 AnchorPosMax = new Vector2(ScreenSize.x * From.anchorMax.x, ScreenSize.y * From.anchorMax.y);
+            Vector2 AnchorPosBD = AnchorPos + (AnchorPosMax - AnchorPosMin) * 0.5f + AnchorPosMin;
+            return AnchorPosBD;
         }
 
-        public static Vector2 GetBorderPos(Collider2D Collider, params DirectionY[] Bound)
+        private static Vector2 GetPosAnchorCentre(Vector2 FromAnchorPosPrimary, Vector2 ToAnchorsMin, Vector2 ToAnchorsMax)
         {
-            //Primary Value: Collider
-            Vector2 Pos = Collider.bounds.center;
-            Vector2 Size = Collider.bounds.size;
-            float Edge = 0f;
-
-            BoxCollider2D ColliderBox = Collider.GetComponent<BoxCollider2D>();
-            if (ColliderBox != null)
-            {
-                Edge = ColliderBox.edgeRadius;
-
-                //Option Value: Auto Tilling
-                if (ColliderBox.autoTiling)
-                {
-                    SpriteRenderer Sprite = Collider.GetComponent<SpriteRenderer>();
-                    if (Sprite != null)
-                        Size = Sprite.bounds.size;
-                }
-            }
-
-            //Caculate Position from Value Data
-            foreach (DirectionY DirBound in Bound)
-            {
-                switch (DirBound)
-                {
-                    case DirectionY.Up:
-                        Pos.y += (Size.y / 2) + Edge;
-                        break;
-                    case DirectionY.Down:
-                        Pos.y -= (Size.y / 2) + Edge;
-                        break;
-                }
-            }
-            return Pos;
+            //Anchor Primary mean Anchor Min(0;0) and Max(0;0) or at the BL of screen!
+            //Anchor Centre mean Anchor Min(0.5;0.5) and Max(0.5;0.5) or at the centre of screen!
+            Vector2 ScreenSize = QCamera.GetCameraSizePixel();
+            Vector2 AnchorPosMin = new Vector2(ScreenSize.x * ToAnchorsMin.x, ScreenSize.y * ToAnchorsMin.y);
+            Vector2 AnchorPosMax = new Vector2(ScreenSize.x * ToAnchorsMax.x, ScreenSize.y * ToAnchorsMax.y);
+            Vector2 AnchorPos = (AnchorPosMax - AnchorPosMin) * 0.5f + AnchorPosMin - FromAnchorPosPrimary;
+            return AnchorPos;
         }
 
-        #endregion
-
-        #region ==================================== Sprite Renderer
-
-        public static void SetMatch(BoxCollider2D Collider, SpriteRenderer SpriteRenderer) //Check again when Rotation!!
+        public static Vector2 GetAnchorPos(RectTransform From, Vector2 ToPivot, Vector2 ToAnchorsMin, Vector2 ToAnchorsMax)
         {
-            Vector2 PosPrimary = Collider.transform.position;
-            Vector2 PosRenderer = SpriteRenderer.bounds.center;
-            Vector2 Offset = PosRenderer - PosPrimary;
-
-            Collider.size = SpriteRenderer.bounds.size;
-            Collider.offset = Offset;
+            Vector2 AnchorPosPivotOffset = GetPosAnchorPivotOffset(From, ToPivot);
+            Vector2 AnchorPosPrimary = GetAnchorPosPrimary(From);
+            Vector2 AnchorPosCentre = GetPosAnchorCentre(AnchorPosPrimary, ToAnchorsMin, ToAnchorsMax);
+            return (AnchorPosCentre + AnchorPosPivotOffset) * (-1);
         }
-
-        #endregion
-
-        #region ==================================== Composite Collider
-
-        public static List<Vector2> GetPointsCenterPos(CompositeCollider2D Collider)
-        {
-            //NOTE: Composite Collider split Points into Group if they're not contact with each other!!
-            List<Vector2> PointCenter = new List<Vector2>();
-            for (int i = 0; i < Collider.pathCount; i++)
-            {
-                //Get Points of this Group!!
-                Vector2[] Points = new Vector2[Collider.GetPathPointCount(i)];
-                Collider.GetPath(i, Points);
-                //Caculate CenterPoint of this Group!!
-                float CenterX = 0f;
-                float CenterY = 0f;
-                for (int j = 0; j < Points.GetLength(0); j++)
-                {
-                    CenterX += Points[j].x;
-                    CenterY += Points[j].y;
-                }
-                Vector2 Pos = new Vector2(CenterX / Points.GetLength(0), CenterY / Points.GetLength(0));
-                PointCenter.Add(Pos);
-                //Done caculate Point Center of current Group!!
-            }
-
-            //Result local pos Center of Collider!!
-            return PointCenter;
-        }
-
-        public static List<List<Vector2>> GetPointsBorderPos(CompositeCollider2D Collider, bool WorldPos, bool Square = true)
-        {
-            Vector2 TileCenter = WorldPos ? Collider.transform.position : Vector3.zero;
-
-            //NOTE: Composite Collider split Points into Group if they're not contact with each other!!
-            List<List<Vector2>> PointsBorder = new List<List<Vector2>>();
-            for (int Group = 0; Group < Collider.pathCount; Group++)
-            {
-                //Generate a new Group!!
-                PointsBorder.Add(new List<Vector2>());
-                //Get Points of this Group!!
-                Vector2[] Points = new Vector2[Collider.GetPathPointCount(Group)];
-                Collider.GetPath(Group, Points);
-                for (int Index = 0; Index < Points.Length; Index++)
-                {
-                    //Generate new Points into each Group!!
-                    if (Square)
-                    {
-                        Vector2Int Pos = new Vector2Int(Mathf.RoundToInt(Points[Index].x), Mathf.RoundToInt(Points[Index].y));
-                        if (Points.Contains(Pos))
-                            continue;
-                        PointsBorder[Group].Add(TileCenter + Pos);
-                    }
-                    else
-                    {
-                        PointsBorder[Group].Add(TileCenter + Points[Index]);
-                    }
-                }
-                //Done Generate current Group!!
-            }
-
-            //Result local pos Points of Collider!!
-            return PointsBorder;
-        }
-
-        #endregion
-
-        #region ==================================== Platform
-
-        public static List<(Vector2 Center, float Length)> GetPlatform(CompositeCollider2D Collider, bool WorldPos)
-        {
-            Vector2 TileCenter = WorldPos ? Collider.transform.position : Vector3.zero;
-
-            //NOTE: Caculate Platform Pos and Length of Collider on each Group!!
-            List<(Vector2 Center, float Length)> Platform = new List<(Vector2 Center, float Length)>();
-
-            List<List<Vector2>> Points = GetPointsBorderPos(Collider, false);
-            for (int Group = 0; Group < Points.Count; Group++)
-            {
-                //Find a highest Point of this Group!!
-                int IndexStart = 0;
-                float HighStart = 0;
-                for (int Index = 0; Index < Points[Group].Count; Index++)
-                {
-                    if (Points[Group][Index].y <= HighStart)
-                        continue;
-                    IndexStart = Index;
-                    HighStart = Points[Group][Index].y;
-                }
-                //Check where can Stand!!
-                //Check from Left to Right mean Stand, else not Stand!!
-                int IndexNext = IndexStart;
-                int IndexPrev = IndexNext - 1 >= 0 ? IndexNext - 1 : Points[Group].Count - 1;
-                do
-                {
-                    //Index Run!!
-                    IndexNext++;
-                    IndexPrev++;
-                    if (IndexNext >= Points[Group].Count)
-                        IndexNext = 0;
-                    if (IndexPrev >= Points[Group].Count)
-                        IndexPrev = 0;
-                    //Check Start - End Index?!
-                    if (IndexNext == IndexStart)
-                        break;
-                    //Check at Index!!
-                    if (Points[Group][IndexPrev].y != Points[Group][IndexNext].y)
-                        continue;
-                    if (Points[Group][IndexPrev].x <= Points[Group][IndexNext].x)
-                        continue;
-                    Vector2 PointA = Points[Group][IndexPrev];
-                    Vector2 PointB = Points[Group][IndexNext];
-                    Vector2 Center = QVector.GetMiddlePoint(PointA, PointB);
-                    float Length = QVector.GetDistanceX2D(PointA, PointB);
-                    Platform.Add((TileCenter + Center, Length));
-                }
-                while (IndexNext != IndexStart);
-                //Done Check current Group!!
-            }
-
-            //Result local Center of Platform!!
-            return Platform;
-        }
-
-        #endregion
     }
+
+    #endregion
+
+    #region Rigidbody & Collider
 
     public class QLayer
     {
@@ -1359,207 +1247,30 @@ namespace QuickMethode
         #endregion
     }
 
-    public class QRecTransform
+    public class QCollider2D
     {
-        private static Vector2 GetPosAnchorPivotOffset(RectTransform From, Vector2 ToPivot)
-        {
-            //Pivot is the centre point UI, which is the Anchor Pos of UI!
-            Vector2 PivotOffset = new Vector2((From.pivot.x - ToPivot.x) * From.sizeDelta.x, (From.pivot.y - ToPivot.y) * From.sizeDelta.y);
-            return PivotOffset;
-        }
-
-        private static Vector2 GetAnchorPosPrimary(RectTransform From)
-        {
-            //Anchor Primary mean Anchor Min(0;0) and Max(0;0) or at the BL of screen!
-            Vector2 AnchorPos = From.anchoredPosition;
-            Vector2 ScreenSize = QCamera.GetCameraSizePixel();
-            Vector2 AnchorPosMin = new Vector2(ScreenSize.x * From.anchorMin.x, ScreenSize.y * From.anchorMin.y);
-            Vector2 AnchorPosMax = new Vector2(ScreenSize.x * From.anchorMax.x, ScreenSize.y * From.anchorMax.y);
-            Vector2 AnchorPosBD = AnchorPos + (AnchorPosMax - AnchorPosMin) * 0.5f + AnchorPosMin;
-            return AnchorPosBD;
-        }
-
-        private static Vector2 GetPosAnchorCentre(Vector2 FromAnchorPosPrimary, Vector2 ToAnchorsMin, Vector2 ToAnchorsMax)
-        {
-            //Anchor Primary mean Anchor Min(0;0) and Max(0;0) or at the BL of screen!
-            //Anchor Centre mean Anchor Min(0.5;0.5) and Max(0.5;0.5) or at the centre of screen!
-            Vector2 ScreenSize = QCamera.GetCameraSizePixel();
-            Vector2 AnchorPosMin = new Vector2(ScreenSize.x * ToAnchorsMin.x, ScreenSize.y * ToAnchorsMin.y);
-            Vector2 AnchorPosMax = new Vector2(ScreenSize.x * ToAnchorsMax.x, ScreenSize.y * ToAnchorsMax.y);
-            Vector2 AnchorPos = (AnchorPosMax - AnchorPosMin) * 0.5f + AnchorPosMin - FromAnchorPosPrimary;
-            return AnchorPos;
-        }
-
-        public static Vector2 GetAnchorPos(RectTransform From, Vector2 ToPivot, Vector2 ToAnchorsMin, Vector2 ToAnchorsMax)
-        {
-            Vector2 AnchorPosPivotOffset = GetPosAnchorPivotOffset(From, ToPivot);
-            Vector2 AnchorPosPrimary = GetAnchorPosPrimary(From);
-            Vector2 AnchorPosCentre = GetPosAnchorCentre(AnchorPosPrimary, ToAnchorsMin, ToAnchorsMax);
-            return (AnchorPosCentre + AnchorPosPivotOffset) * (-1);
-        }
-    }
-
-    public class QCamera
-    {
-        //Required only ONE Main Camera (with tag Main Camera) for the true result!!
-
-        #region ==================================== Pos of World & Canvas
-
-        public static Vector3 GetPosMouseToWorld()
-        {
-            return Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        }
-
-        public static Vector2 GetPosMouseToCanvas()
-        {
-            //NOTE: The value just apply for RecTransform got Anchors Centre and Pivot Centre!
-            return GetPosWorldToCanvas(GetPosMouseToWorld());
-        }
-
-        public static Vector2 GetPosWorldToCanvas(Vector3 PosWorld)
-        {
-            //NOTE: The value just apply for RecTransform got Anchors Centre and Pivot Centre!
-            return (Vector2)Camera.main.WorldToScreenPoint(PosWorld) - GetCameraSizePixel() * 0.5f;
-        }
-
-        #endregion
-
-        #region ==================================== Camera
-
-        //CAMERA mode ORTHOGRAPHIC - SIZE is a HALF number of UNIT WORLD HEIGHT from Scene to Screen.
-        //EX: If Camera orthographic Size is 1, mean need 2 Square 1x1 Unit world to fill full HEIGHT of screen.
-
-        public static Vector2 GetCameraSizePixel()
-        {
-            return GetCameraSizePixel(Camera.main);
-        }
-
-        public static Vector2 GetCameraSizeUnit()
-        {
-            return GetCameraSizeUnit(Camera.main);
-        }
-
-        public static Vector2 GetCameraSizePixel(Camera Camera)
-        {
-            return new Vector2(Camera.pixelWidth, Camera.pixelHeight);
-        }
-
-        public static Vector2 GetCameraSizeUnit(Camera Camera)
-        {
-            Vector2 SizePixel = GetCameraSizePixel(Camera);
-            float HeightUnit = Camera.orthographicSize * 2;
-            float WidthUnit = HeightUnit * (SizePixel.x / SizePixel.y);
-
-            return new Vector2(WidthUnit, HeightUnit);
-        }
-
-        #endregion
-
-        #region ==================================== Screen
-
-        public static Vector2 GetScreenSizePixel()
-        {
-            return new Vector2(Screen.width, Screen.height);
-        }
-
-        #endregion
-    } //Note: Current ORTHOGRAPHIC 2D only!!
-
-    public class QResolution
-    {
-        #region ==================================== Convert
-
-        public enum UnitScaleType { Width, Height, Span, Primary, Tarket, }
-
-        public static Vector2 GetSizeUnitScaled(Sprite SpritePrimary, Sprite SpriteTarket, UnitScaleType SpriteScale)
-        {
-            return GetSizeUnitScaled(QSprite.GetSpriteSizeUnit(SpritePrimary), QSprite.GetSpriteSizeUnit(SpriteTarket), SpriteScale);
-        }
-
-        public static Vector2 GetSizeUnitScaled(Vector2 SizeUnitPrimary, Vector2 SizeUnitTarket, UnitScaleType SpriteScale)
-        {
-            Vector2 SizeUnitFinal = new Vector2();
-
-            switch (SpriteScale)
-            {
-                case UnitScaleType.Width:
-                    {
-                        float OffsetX = SizeUnitTarket.x / SizeUnitPrimary.x;
-                        float SizeUnitFinalX = SizeUnitPrimary.x * OffsetX;
-                        float SizeUnitFinalY = SizeUnitPrimary.y * OffsetX;
-                        SizeUnitFinal = new Vector2(SizeUnitFinalX, SizeUnitFinalY);
-                    }
-                    break;
-                case UnitScaleType.Height:
-                    {
-                        float OffsetY = SizeUnitTarket.y / SizeUnitPrimary.y;
-                        float SizeUnitFinalX = SizeUnitPrimary.x * OffsetY;
-                        float SizeUnitFinalY = SizeUnitPrimary.y * OffsetY;
-                        SizeUnitFinal = new Vector2(SizeUnitFinalX, SizeUnitFinalY);
-                    }
-                    break;
-                case UnitScaleType.Span:
-                    {
-                        float OffsetX = SizeUnitTarket.x / SizeUnitPrimary.x;
-                        float OffsetY = SizeUnitTarket.y / SizeUnitPrimary.y;
-                        if (OffsetX < OffsetY)
-                        {
-                            SizeUnitFinal = GetSizeUnitScaled(SizeUnitPrimary, SizeUnitTarket, UnitScaleType.Height);
-                        }
-                        else
-                        {
-                            SizeUnitFinal = GetSizeUnitScaled(SizeUnitPrimary, SizeUnitTarket, UnitScaleType.Width);
-                        }
-                    }
-                    break;
-                case UnitScaleType.Primary:
-                    SizeUnitFinal = SizeUnitPrimary;
-                    break;
-                case UnitScaleType.Tarket:
-                    SizeUnitFinal = SizeUnitTarket;
-                    break;
-            }
-
-            return SizeUnitFinal;
-        }
-
-        #endregion
-    }
-
-    public class QSprite
-    {
-        #region ==================================== Sprite
-
-        public static Vector2 GetSpriteSizePixel(Sprite Sprite)
-        {
-            return GetSpriteSizeUnit(Sprite) * GetSpritePixelPerUnit(Sprite) * 1.0f;
-        }
-
-        public static Vector2 GetSpriteSizeUnit(Sprite Sprite)
-        {
-            return Sprite.bounds.size * 1.0f;
-        }
-
-        public static float GetSpritePixelPerUnit(Sprite Sprite)
-        {
-            return Sprite.pixelsPerUnit * 1.0f;
-        }
-
-        #endregion
-
-        #region ==================================== Sprite Renderer
-
-        //...
-
-        #endregion
-
         #region ==================================== Border
 
-        public static Vector2 GetBorderPos(SpriteRenderer SpriteRenderer, params Direction[] Bound)
+        public static Vector2 GetBorderPos(Collider2D Collider, params Direction[] Bound)
         {
             //Primary Value: Collider
-            Vector2 Pos = SpriteRenderer.bounds.center;
-            Vector2 Size = SpriteRenderer.bounds.size;
+            Vector2 Pos = Collider.bounds.center;
+            Vector2 Size = Collider.bounds.size;
+            float Edge = 0f;
+
+            BoxCollider2D ColliderBox = Collider.GetComponent<BoxCollider2D>();
+            if (ColliderBox != null)
+            {
+                Edge = ColliderBox.edgeRadius;
+
+                //Option Value: Auto Tilling
+                if (ColliderBox.autoTiling)
+                {
+                    SpriteRenderer Sprite = Collider.GetComponent<SpriteRenderer>();
+                    if (Sprite != null)
+                        Size = Sprite.bounds.size;
+                }
+            }
 
             //Caculate Position from Value Data
             foreach (Direction DirBound in Bound)
@@ -1567,27 +1278,42 @@ namespace QuickMethode
                 switch (DirBound)
                 {
                     case Direction.Up:
-                        Pos.y += Size.y / 2;
+                        Pos.y += (Size.y / 2) + Edge;
                         break;
                     case Direction.Down:
-                        Pos.y -= Size.y / 2;
+                        Pos.y -= (Size.y / 2) + Edge;
                         break;
                     case Direction.Left:
-                        Pos.x -= Size.x / 2;
+                        Pos.x -= (Size.x / 2) + Edge;
                         break;
                     case Direction.Right:
-                        Pos.x += Size.x / 2;
+                        Pos.x += (Size.x / 2) + Edge;
                         break;
                 }
             }
             return Pos;
         }
 
-        public static Vector2 GetBorderPos(SpriteRenderer SpriteRenderer, params DirectionX[] Bound)
+        public static Vector2 GetBorderPos(Collider2D Collider, params DirectionX[] Bound)
         {
             //Primary Value: Collider
-            Vector2 Pos = SpriteRenderer.bounds.center;
-            Vector2 Size = SpriteRenderer.bounds.size;
+            Vector2 Pos = Collider.bounds.center;
+            Vector2 Size = Collider.bounds.size;
+            float Edge = 0f;
+
+            BoxCollider2D ColliderBox = Collider.GetComponent<BoxCollider2D>();
+            if (ColliderBox != null)
+            {
+                Edge = ColliderBox.edgeRadius;
+
+                //Option Value: Auto Tilling
+                if (ColliderBox.autoTiling)
+                {
+                    SpriteRenderer Sprite = Collider.GetComponent<SpriteRenderer>();
+                    if (Sprite != null)
+                        Size = Sprite.bounds.size;
+                }
+            }
 
             //Caculate Position from Value Data
             foreach (DirectionX DirBound in Bound)
@@ -1595,21 +1321,36 @@ namespace QuickMethode
                 switch (DirBound)
                 {
                     case DirectionX.Left:
-                        Pos.x -= Size.x / 2;
+                        Pos.x -= (Size.x / 2) + Edge;
                         break;
                     case DirectionX.Right:
-                        Pos.x += Size.x / 2;
+                        Pos.x += (Size.x / 2) + Edge;
                         break;
                 }
             }
             return Pos;
         }
 
-        public static Vector2 GetBorderPos(SpriteRenderer SpriteRenderer, params DirectionY[] Bound)
+        public static Vector2 GetBorderPos(Collider2D Collider, params DirectionY[] Bound)
         {
             //Primary Value: Collider
-            Vector2 Pos = SpriteRenderer.bounds.center;
-            Vector2 Size = SpriteRenderer.bounds.size;
+            Vector2 Pos = Collider.bounds.center;
+            Vector2 Size = Collider.bounds.size;
+            float Edge = 0f;
+
+            BoxCollider2D ColliderBox = Collider.GetComponent<BoxCollider2D>();
+            if (ColliderBox != null)
+            {
+                Edge = ColliderBox.edgeRadius;
+
+                //Option Value: Auto Tilling
+                if (ColliderBox.autoTiling)
+                {
+                    SpriteRenderer Sprite = Collider.GetComponent<SpriteRenderer>();
+                    if (Sprite != null)
+                        Size = Sprite.bounds.size;
+                }
+            }
 
             //Caculate Position from Value Data
             foreach (DirectionY DirBound in Bound)
@@ -1617,10 +1358,10 @@ namespace QuickMethode
                 switch (DirBound)
                 {
                     case DirectionY.Up:
-                        Pos.y += Size.y / 2;
+                        Pos.y += (Size.y / 2) + Edge;
                         break;
                     case DirectionY.Down:
-                        Pos.y -= Size.y / 2;
+                        Pos.y -= (Size.y / 2) + Edge;
                         break;
                 }
             }
@@ -1629,42 +1370,210 @@ namespace QuickMethode
 
         #endregion
 
-        #region ==================================== Texture
+        #region ==================================== Sprite Renderer
 
-        //Texture can be used for Window Editor (Button)
-
-        //Ex:
-        //Window Editor:
-        //Texture2D Texture = QSprite.GetTextureConvert(Sprite);
-        //GUIContent Content = new GUIContent("", (Texture)Texture);
-        //GUILayout.Button(Content());
-
-        public static Texture2D GetTextureConvert(Sprite Sprite)
+        public static void SetMatch(BoxCollider2D Collider, SpriteRenderer SpriteRenderer) //Check again when Rotation!!
         {
-            if (Sprite.texture.isReadable == false)
-            {
-                return null;
-            }
+            Vector2 PosPrimary = Collider.transform.position;
+            Vector2 PosRenderer = SpriteRenderer.bounds.center;
+            Vector2 Offset = PosRenderer - PosPrimary;
 
-            Texture2D Texture = new Texture2D((int)Sprite.rect.width, (int)Sprite.rect.height);
-
-            Color[] ColorPixel = Sprite.texture.GetPixels(
-                (int)Sprite.textureRect.x,
-                (int)Sprite.textureRect.y,
-                (int)Sprite.textureRect.width,
-                (int)Sprite.textureRect.height);
-            Texture.SetPixels(ColorPixel);
-            Texture.Apply();
-            return Texture;
+            Collider.size = SpriteRenderer.bounds.size;
+            Collider.offset = Offset;
         }
 
-        public static string GetTextureConvertName(Sprite Sprite)
+        #endregion
+
+        #region ==================================== Composite Collider
+
+        public static List<Vector2> GetPointsCenterPos(CompositeCollider2D Collider)
         {
-            return GetTextureConvert(Sprite).name;
+            //NOTE: Composite Collider split Points into Group if they're not contact with each other!!
+            List<Vector2> PointCenter = new List<Vector2>();
+            for (int i = 0; i < Collider.pathCount; i++)
+            {
+                //Get Points of this Group!!
+                Vector2[] Points = new Vector2[Collider.GetPathPointCount(i)];
+                Collider.GetPath(i, Points);
+                //Caculate CenterPoint of this Group!!
+                float CenterX = 0f;
+                float CenterY = 0f;
+                for (int j = 0; j < Points.GetLength(0); j++)
+                {
+                    CenterX += Points[j].x;
+                    CenterY += Points[j].y;
+                }
+                Vector2 Pos = new Vector2(CenterX / Points.GetLength(0), CenterY / Points.GetLength(0));
+                PointCenter.Add(Pos);
+                //Done caculate Point Center of current Group!!
+            }
+
+            //Result local pos Center of Collider!!
+            return PointCenter;
+        }
+
+        public static List<List<Vector2>> GetPointsBorderPos(CompositeCollider2D Collider, bool WorldPos, bool Square = true)
+        {
+            Vector2 TileCenter = WorldPos ? Collider.transform.position : Vector3.zero;
+
+            //NOTE: Composite Collider split Points into Group if they're not contact with each other!!
+            List<List<Vector2>> PointsBorder = new List<List<Vector2>>();
+            for (int Group = 0; Group < Collider.pathCount; Group++)
+            {
+                //Generate a new Group!!
+                PointsBorder.Add(new List<Vector2>());
+                //Get Points of this Group!!
+                Vector2[] Points = new Vector2[Collider.GetPathPointCount(Group)];
+                Collider.GetPath(Group, Points);
+                for (int Index = 0; Index < Points.Length; Index++)
+                {
+                    //Generate new Points into each Group!!
+                    if (Square)
+                    {
+                        Vector2Int Pos = new Vector2Int(Mathf.RoundToInt(Points[Index].x), Mathf.RoundToInt(Points[Index].y));
+                        if (Points.Contains(Pos))
+                            continue;
+                        PointsBorder[Group].Add(TileCenter + Pos);
+                    }
+                    else
+                    {
+                        PointsBorder[Group].Add(TileCenter + Points[Index]);
+                    }
+                }
+                //Done Generate current Group!!
+            }
+
+            //Result local pos Points of Collider!!
+            return PointsBorder;
+        }
+
+        #endregion
+
+        #region ==================================== Platform
+
+        public static List<(Vector2 Center, float Length)> GetPlatform(CompositeCollider2D Collider, bool WorldPos)
+        {
+            Vector2 TileCenter = WorldPos ? Collider.transform.position : Vector3.zero;
+
+            //NOTE: Caculate Platform Pos and Length of Collider on each Group!!
+            List<(Vector2 Center, float Length)> Platform = new List<(Vector2 Center, float Length)>();
+
+            List<List<Vector2>> Points = GetPointsBorderPos(Collider, false);
+            for (int Group = 0; Group < Points.Count; Group++)
+            {
+                //Find a highest Point of this Group!!
+                int IndexStart = 0;
+                float HighStart = 0;
+                for (int Index = 0; Index < Points[Group].Count; Index++)
+                {
+                    if (Points[Group][Index].y <= HighStart)
+                        continue;
+                    IndexStart = Index;
+                    HighStart = Points[Group][Index].y;
+                }
+                //Check where can Stand!!
+                //Check from Left to Right mean Stand, else not Stand!!
+                int IndexNext = IndexStart;
+                int IndexPrev = IndexNext - 1 >= 0 ? IndexNext - 1 : Points[Group].Count - 1;
+                do
+                {
+                    //Index Run!!
+                    IndexNext++;
+                    IndexPrev++;
+                    if (IndexNext >= Points[Group].Count)
+                        IndexNext = 0;
+                    if (IndexPrev >= Points[Group].Count)
+                        IndexPrev = 0;
+                    //Check Start - End Index?!
+                    if (IndexNext == IndexStart)
+                        break;
+                    //Check at Index!!
+                    if (Points[Group][IndexPrev].y != Points[Group][IndexNext].y)
+                        continue;
+                    if (Points[Group][IndexPrev].x <= Points[Group][IndexNext].x)
+                        continue;
+                    Vector2 PointA = Points[Group][IndexPrev];
+                    Vector2 PointB = Points[Group][IndexNext];
+                    Vector2 Center = QVector.GetMiddlePoint(PointA, PointB);
+                    float Length = QVector.GetDistanceX2D(PointA, PointB);
+                    Platform.Add((TileCenter + Center, Length));
+                }
+                while (IndexNext != IndexStart);
+                //Done Check current Group!!
+            }
+
+            //Result local Center of Platform!!
+            return Platform;
         }
 
         #endregion
     }
+
+    public class QTrajectory
+    {
+        public static List<Vector3> GetTrajectory(Vector3 From, float Deg, float Force, float GravityScale, float VelocityDrag = 0f)
+        {
+            //NOTE:
+            //- Can be used for LineRenderer Component.
+            //- Can be used for Bullet GameObject with Rigidbody and Rigidbody2D Componenet.
+
+            List<Vector3> TrajectoryPath = new List<Vector3>();
+
+            Vector3 GravityGolbal = Vector3.down * (-Physics2D.gravity);
+            float Step = Time.fixedDeltaTime / Physics.defaultSolverVelocityIterations;
+            Vector3 Accel = GravityGolbal * GravityScale * Step * Step;
+            float Drag = 1f - Step * VelocityDrag;
+            Vector3 Dir = QCircle.GetPosXY(Deg, 1f).normalized * Force;
+            Vector3 Move = Dir * Step;
+
+            Vector3 Pos = From;
+            TrajectoryPath.Add(Pos);
+            for (int i = 0; i < 500; i++)
+            {
+                Move += Accel;
+                Move *= Drag;
+                Pos += Move;
+                TrajectoryPath.Add(Pos);
+            }
+
+            return TrajectoryPath;
+        }
+
+        public static float? GetDegToTarget(Vector3 From, Vector3 To, float Force, float GravityScale, bool DegHigh = true)
+        {
+            //Get the Deg to hit Target!
+
+            Vector3 Dir = To - From;
+            float HeightY = Dir.y;
+            Dir.y = 0f;
+            float LengthX = Dir.magnitude;
+            float Gravity = -Physics2D.gravity.y * GravityScale;
+            float SpeedSQR = Force * Force;
+            float UnderSQR = (SpeedSQR * SpeedSQR) - Gravity * (Gravity * LengthX * LengthX + 2 * HeightY * SpeedSQR);
+            if (UnderSQR >= 0)
+            {
+                float UnderSQRT = Mathf.Sqrt(UnderSQR);
+                float AngleHigh = SpeedSQR + UnderSQRT;
+                float AngleLow = SpeedSQR - UnderSQRT;
+
+                return DegHigh ? Mathf.Atan2(AngleHigh, Gravity * LengthX) * Mathf.Rad2Deg : Mathf.Atan2(AngleLow, Gravity * LengthX) * Mathf.Rad2Deg;
+            }
+
+            return null;
+        }
+
+        public static void SetForceToBullet(Rigidbody2D Body, float Deg, float Force, float GravityScale, float VelocityDrag = 0f)
+        {
+            Body.gameObject.SetActive(true);
+            Body.velocity = QCircle.GetPosXY(Deg, 1f).normalized * Force;
+            Body.gravityScale = GravityScale;
+            Body.drag = VelocityDrag;
+        }
+    }
+
+    #endregion
+
+    #region Game Object & Componenet
 
     public class QGameObject
     {
@@ -1814,6 +1723,150 @@ namespace QuickMethode
 
         #endregion
     }
+
+    public class QSprite
+    {
+        #region ==================================== Sprite
+
+        public static Vector2 GetSpriteSizePixel(Sprite Sprite)
+        {
+            return GetSpriteSizeUnit(Sprite) * GetSpritePixelPerUnit(Sprite) * 1.0f;
+        }
+
+        public static Vector2 GetSpriteSizeUnit(Sprite Sprite)
+        {
+            return Sprite.bounds.size * 1.0f;
+        }
+
+        public static float GetSpritePixelPerUnit(Sprite Sprite)
+        {
+            return Sprite.pixelsPerUnit * 1.0f;
+        }
+
+        #endregion
+
+        #region ==================================== Sprite Renderer
+
+        //...
+
+        #endregion
+
+        #region ==================================== Border
+
+        public static Vector2 GetBorderPos(SpriteRenderer SpriteRenderer, params Direction[] Bound)
+        {
+            //Primary Value: Collider
+            Vector2 Pos = SpriteRenderer.bounds.center;
+            Vector2 Size = SpriteRenderer.bounds.size;
+
+            //Caculate Position from Value Data
+            foreach (Direction DirBound in Bound)
+            {
+                switch (DirBound)
+                {
+                    case Direction.Up:
+                        Pos.y += Size.y / 2;
+                        break;
+                    case Direction.Down:
+                        Pos.y -= Size.y / 2;
+                        break;
+                    case Direction.Left:
+                        Pos.x -= Size.x / 2;
+                        break;
+                    case Direction.Right:
+                        Pos.x += Size.x / 2;
+                        break;
+                }
+            }
+            return Pos;
+        }
+
+        public static Vector2 GetBorderPos(SpriteRenderer SpriteRenderer, params DirectionX[] Bound)
+        {
+            //Primary Value: Collider
+            Vector2 Pos = SpriteRenderer.bounds.center;
+            Vector2 Size = SpriteRenderer.bounds.size;
+
+            //Caculate Position from Value Data
+            foreach (DirectionX DirBound in Bound)
+            {
+                switch (DirBound)
+                {
+                    case DirectionX.Left:
+                        Pos.x -= Size.x / 2;
+                        break;
+                    case DirectionX.Right:
+                        Pos.x += Size.x / 2;
+                        break;
+                }
+            }
+            return Pos;
+        }
+
+        public static Vector2 GetBorderPos(SpriteRenderer SpriteRenderer, params DirectionY[] Bound)
+        {
+            //Primary Value: Collider
+            Vector2 Pos = SpriteRenderer.bounds.center;
+            Vector2 Size = SpriteRenderer.bounds.size;
+
+            //Caculate Position from Value Data
+            foreach (DirectionY DirBound in Bound)
+            {
+                switch (DirBound)
+                {
+                    case DirectionY.Up:
+                        Pos.y += Size.y / 2;
+                        break;
+                    case DirectionY.Down:
+                        Pos.y -= Size.y / 2;
+                        break;
+                }
+            }
+            return Pos;
+        }
+
+        #endregion
+
+        #region ==================================== Texture
+
+        //Texture can be used for Window Editor (Button)
+
+        //Ex:
+        //Window Editor:
+        //Texture2D Texture = QSprite.GetTextureConvert(Sprite);
+        //GUIContent Content = new GUIContent("", (Texture)Texture);
+        //GUILayout.Button(Content());
+
+        public static Texture2D GetTextureConvert(Sprite Sprite)
+        {
+            if (Sprite.texture.isReadable == false)
+            {
+                return null;
+            }
+
+            Texture2D Texture = new Texture2D((int)Sprite.rect.width, (int)Sprite.rect.height);
+
+            Color[] ColorPixel = Sprite.texture.GetPixels(
+                (int)Sprite.textureRect.x,
+                (int)Sprite.textureRect.y,
+                (int)Sprite.textureRect.width,
+                (int)Sprite.textureRect.height);
+            Texture.SetPixels(ColorPixel);
+            Texture.Apply();
+            return Texture;
+        }
+
+        public static string GetTextureConvertName(Sprite Sprite)
+        {
+            return GetTextureConvert(Sprite).name;
+        }
+
+        #endregion
+    }
+
+    #endregion
+
+    #region Data & Varible
 
     public class QPlayerPrefs
     {
@@ -2046,552 +2099,6 @@ namespace QuickMethode
         #endregion
     }
 
-    public class QResources
-    {
-        //NOTE:
-        //Folder(s) "Resources" can be created everywhere from root "Assests/*", that can be access by Unity or Application
-
-        //BEWARD:
-        //All content(s) in folder(s) "Resources" will be builded to Application, even they ightn't be used in Build-Game Application
-
-        #region ==================================== Prefab
-
-        public static List<GameObject> GetPrefab(params string[] PathChildInResources)
-        {
-            string PathInResources = QPath.GetPath(QPath.PathType.None, PathChildInResources);
-            GameObject[] LoadArray = Resources.LoadAll<GameObject>(PathInResources);
-            List<GameObject> LoadList = new List<GameObject>();
-            LoadList.AddRange(LoadArray);
-            return LoadList;
-        }
-
-        #endregion
-
-        #region ==================================== Sprite
-
-        public static List<Sprite> GetSprite(params string[] PathChildInResources)
-        {
-            string PathInResources = QPath.GetPath(QPath.PathType.None, PathChildInResources);
-            Sprite[] LoadArray = Resources.LoadAll<Sprite>(PathInResources);
-            List<Sprite> LoadList = new List<Sprite>();
-            LoadList.AddRange(LoadArray);
-            return LoadList;
-        }
-
-        #endregion
-
-        #region ==================================== Text Asset
-
-        public static List<TextAsset> GetTextAsset(params string[] PathChildInResources)
-        {
-            string PathInResources = QPath.GetPath(QPath.PathType.None, PathChildInResources);
-            TextAsset[] LoadArray = Resources.LoadAll<TextAsset>(PathInResources);
-            List<TextAsset> LoadList = new List<TextAsset>();
-            LoadList.AddRange(LoadArray);
-            return LoadList;
-        }
-
-        #endregion
-    }
-
-    public class QPath
-    {
-        public const string ExamplePath = @"D:/ClassFileIO.txt";
-
-        #region ==================================== Path Get
-
-        public enum PathType { None, Persistent, Assets, Resources, Document, Picture, Music, Video, }
-
-        public static string GetPath(PathType PathType, params string[] PathChild)
-        {
-            string PathFinal = "";
-
-            switch (PathType)
-            {
-                case PathType.Persistent:
-                    PathFinal = Application.persistentDataPath;
-                    break;
-                case PathType.Assets:
-                    PathFinal = Application.dataPath;
-                    break;
-                case PathType.Resources:
-                    PathFinal = Application.dataPath + @"/resources";
-                    break;
-                case PathType.Document:
-                    PathFinal = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-                    break;
-                case PathType.Picture:
-                    PathFinal = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
-                    break;
-                case PathType.Music:
-                    PathFinal = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic);
-                    break;
-                case PathType.Video:
-                    PathFinal = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos);
-                    break;
-            }
-
-            foreach (string PathChildAdd in PathChild)
-                QEncypt.GetEncyptAdd('/', PathFinal, PathChildAdd, out PathFinal);
-
-            return PathFinal;
-        }
-
-        #endregion
-
-        #region ==================================== Path Pannel
-
-#if UNITY_EDITOR
-
-        //Open
-
-        ///<summary>
-        ///Caution: Unity Editor only!
-        ///</summary>
-        public static (bool Result, string Path, string Name) GetPathFolderOpenPanel(string Title, string PathPrimary = "")
-        {
-            string Path = EditorUtility.OpenFolderPanel(Title, (PathPrimary == "") ? GetPath(PathType.Assets) : PathPrimary, "");
-            List<string> PathDencypt = QEncypt.GetDencyptString('/', Path);
-            return (Path != "", Path, (PathDencypt.Count > 0) ? PathDencypt[PathDencypt.Count - 1] : "");
-        }
-
-        ///<summary>
-        ///Caution: Unity Editor only!
-        ///</summary>
-        public static (bool Result, string Path, string Name) GetPathFileOpenPanel(string Title, string Extension, string PathPrimary = "")
-        {
-            string Path = EditorUtility.OpenFilePanel(Title, (PathPrimary == "") ? GetPath(PathType.Assets) : PathPrimary, Extension);
-            List<string> PathDencypt = QEncypt.GetDencyptString('/', Path);
-            return (Path != "", Path, (PathDencypt.Count > 0) ? PathDencypt[PathDencypt.Count - 1] : "");
-        }
-
-        //Save
-
-        ///<summary>
-        ///Caution: Unity Editor only!
-        ///</summary>
-        public static (bool Result, string Path, string Name) GetPathFolderSavePanel(string Title, string PathPrimary = "")
-        {
-            string Path = EditorUtility.SaveFolderPanel(Title, (PathPrimary == "") ? GetPath(PathType.Assets) : PathPrimary, "");
-            List<string> PathDencypt = QEncypt.GetDencyptString('/', Path);
-            return (Path != "", Path, (PathDencypt.Count > 0) ? PathDencypt[PathDencypt.Count - 1] : "");
-        }
-
-        ///<summary>
-        ///Caution: Unity Editor only!
-        ///</summary>
-        public static (bool Result, string Path, string Name) GetPathFileSavePanel(string Title, string Extension, string PathPrimary = "")
-        {
-            string Path = EditorUtility.SaveFilePanel(Title, (PathPrimary == "") ? GetPath(PathType.Assets) : PathPrimary, "", Extension);
-            List<string> PathDencypt = QEncypt.GetDencyptString('/', Path);
-            return (Path != "", Path, (PathDencypt.Count > 0) ? PathDencypt[PathDencypt.Count - 1] : "");
-        }
-
-#endif
-
-        #endregion
-
-        #region ==================================== Path File Exist
-
-        public static bool GetPathFileExist(string PathFile)
-        {
-            return File.Exists(PathFile);
-        }
-
-        public static bool GetPathFileExist(PathType PathType, params string[] PathChild)
-        {
-            return File.Exists(GetPath(PathType, PathChild));
-        }
-
-        #endregion
-
-        #region ==================================== Path Folder Exist
-
-        public static bool GetPathFolderExist(string PathFolder)
-        {
-            return Directory.Exists(PathFolder);
-        }
-
-        public static bool GetPathFolderExist(PathType PathType, params string[] PathChild)
-        {
-            return Directory.Exists(GetPath(PathType, PathChild));
-        }
-
-        #endregion
-    }
-
-    public class QFileIO : QPath
-    {
-        #region ==================================== File IO Write 
-
-        private string TextWrite = "";
-
-        #region ------------------------------------ Write Start
-
-        public void SetWriteStart(string Path)
-        {
-            SetWriteToFile(Path, GetWriteString());
-        } //Call Last
-
-        private void SetWriteToFile(string Path, string Data)
-        {
-            try
-            {
-                using (FileStream Stream = File.Create(Path))
-                {
-                    byte[] Info = new UTF8Encoding(true).GetBytes(Data);
-                    Stream.Write(Info, 0, Info.Length);
-                }
-            }
-            catch
-            {
-                Debug.LogErrorFormat("[Error] File Write Fail: {0}", Path);
-            }
-        }
-
-        public void SetWriteClear()
-        {
-            TextWrite = "";
-        }
-
-        #endregion
-
-        #region ------------------------------------ Write Add
-
-        public void SetWriteAdd()
-        {
-            if (TextWrite.Length != 0)
-            {
-                TextWrite += "\n";
-            }
-
-            TextWrite += "";
-        }
-
-        public void SetWriteAdd(string DataAdd)
-        {
-            if (TextWrite.Length != 0)
-            {
-                TextWrite += "\n";
-            }
-
-            TextWrite += DataAdd;
-        }
-
-        public void SetWriteAdd(char Key, params string[] DataAdd)
-        {
-            if (TextWrite.Length != 0)
-            {
-                TextWrite += "\n";
-            }
-
-            TextWrite += QEncypt.GetEncypt(Key, DataAdd);
-        }
-
-        public void SetWriteAdd(char Key, params int[] DataAdd)
-        {
-            if (TextWrite.Length != 0)
-            {
-                TextWrite += "\n";
-            }
-
-            TextWrite += QEncypt.GetEncypt(Key, DataAdd);
-        }
-
-        public void SetWriteAdd(char Key, params float[] DataAdd)
-        {
-            if (TextWrite.Length != 0)
-            {
-                TextWrite += "\n";
-            }
-
-            TextWrite += QEncypt.GetEncypt(Key, DataAdd);
-        }
-
-        public void SetWriteAdd(char Key, params bool[] DataAdd)
-        {
-            if (TextWrite.Length != 0)
-            {
-                TextWrite += "\n";
-            }
-
-            TextWrite += QEncypt.GetEncypt(Key, DataAdd);
-        }
-
-        public void SetWriteAdd(int DataAdd)
-        {
-            if (TextWrite.Length != 0)
-            {
-                TextWrite += "\n";
-            }
-
-            TextWrite += DataAdd.ToString();
-        }
-
-        public void SetWriteAdd(float DataAdd)
-        {
-            if (TextWrite.Length != 0)
-            {
-                TextWrite += "\n";
-            }
-
-            TextWrite += DataAdd.ToString();
-        }
-
-        public void SetWriteAdd(double DataAdd)
-        {
-            if (TextWrite.Length != 0)
-            {
-                TextWrite += "\n";
-            }
-
-            TextWrite += DataAdd.ToString();
-        }
-
-        public void SetWriteAdd(bool DataAdd)
-        {
-            if (TextWrite.Length != 0)
-            {
-                TextWrite += "\n";
-            }
-
-            TextWrite += ((DataAdd) ? "True" : "False");
-        }
-
-        public void SetWriteAdd(char Key, Vector2 DataAdd)
-        {
-            SetWriteAdd(QEncypt.GetEncyptVector2(Key, DataAdd));
-        }
-
-        public void SetWriteAdd(char Key, Vector2Int DataAdd)
-        {
-            SetWriteAdd(QEncypt.GetEncyptVector2Int(Key, DataAdd));
-        }
-
-        public void SetWriteAdd(char Key, Vector3 DataAdd)
-        {
-            SetWriteAdd(QEncypt.GetEncyptVector3(Key, DataAdd));
-        }
-
-        public void SetWriteAdd(char Key, Vector3Int DataAdd)
-        {
-            SetWriteAdd(QEncypt.GetEncyptVector3Int(Key, DataAdd));
-        }
-
-        public string GetWriteString()
-        {
-            return TextWrite;
-        }
-
-        #endregion
-
-        #endregion
-
-        #region ==================================== File IO Read
-
-        private List<string> TextRead = new List<string>();
-        private int ReadRun = -1;
-
-        #region ------------------------------------ Read Start
-
-        public void SetReadStart(string Path)
-        {
-            TextRead = GetReadFromFile(Path);
-        } //Call First
-
-        public void SetReadStart(TextAsset FileTest)
-        {
-            TextRead = GetReadFromFile(FileTest);
-        } //Call First
-
-        private List<string> GetReadFromFile(string Path)
-        {
-            try
-            {
-                List<string> TextRead = new List<string>();
-                using (StreamReader Stream = File.OpenText(Path))
-                {
-                    string ReadRun = "";
-                    while ((ReadRun = Stream.ReadLine()) != null)
-                    {
-                        TextRead.Add(ReadRun);
-                    }
-                }
-                return TextRead;
-            }
-            catch
-            {
-                Debug.LogErrorFormat("[Error] File Read Fail: {0}", Path);
-                return null;
-            }
-        }
-
-        private List<string> GetReadFromFile(TextAsset FileTest)
-        {
-            try
-            {
-                string ReadRun = FileTest.text.Replace("\r\n", "\n");
-                List<string> TextRead = QEncypt.GetDencyptString('\n', ReadRun);
-                return TextRead;
-            }
-            catch
-            {
-                Debug.LogErrorFormat("[Error] File Read Fail: {0}", FileTest.name);
-                return null;
-            }
-        }
-
-        public void SetReadClear()
-        {
-            TextRead = new List<string>();
-            ReadRun = -1;
-        }
-
-        #endregion
-
-        #region ------------------------------------ Read Auto
-
-        public void GetReadAuto()
-        {
-            if (ReadRun >= TextRead.Count - 1) return;
-            ReadRun++;
-        }
-
-        public string GetReadAutoString()
-        {
-            if (ReadRun >= TextRead.Count - 1) return "";
-            ReadRun++;
-            return TextRead[ReadRun];
-        }
-
-        public List<string> GetReadAutoString(char Key)
-        {
-            if (ReadRun >= TextRead.Count - 1) return new List<string>();
-            ReadRun++;
-            return QEncypt.GetDencyptString(Key, TextRead[ReadRun]);
-        }
-
-        public List<int> GetReadAutoInt(char Key)
-        {
-            if (ReadRun >= TextRead.Count - 1) return new List<int>();
-            ReadRun++;
-            return QEncypt.GetDencyptInt(Key, TextRead[ReadRun]);
-        }
-
-        public List<float> GetReadAutoFloat(char Key)
-        {
-            if (ReadRun >= TextRead.Count - 1) return new List<float>();
-            ReadRun++;
-            return QEncypt.GetDencyptFloat(Key, TextRead[ReadRun]);
-        }
-
-        public List<bool> GetReadAutoBool(char Key)
-        {
-            if (ReadRun >= TextRead.Count - 1) return new List<bool>();
-            ReadRun++;
-            return QEncypt.GetDencyptBool(Key, TextRead[ReadRun]);
-        }
-
-        public int GetReadAutoInt()
-        {
-            if (ReadRun >= TextRead.Count - 1) return 0;
-            ReadRun++;
-            return int.Parse(TextRead[ReadRun]);
-        }
-
-        public float GetReadAutoFloat()
-        {
-            if (ReadRun >= TextRead.Count - 1) return 0f;
-            ReadRun++;
-            return float.Parse(TextRead[ReadRun]);
-        }
-
-        public double GetReadAutoDouble()
-        {
-            if (ReadRun >= TextRead.Count - 1) return 0f;
-            ReadRun++;
-            return double.Parse(TextRead[ReadRun]);
-        }
-
-        public bool GetReadAutoBool()
-        {
-            if (ReadRun >= TextRead.Count - 1) return false;
-            ReadRun++;
-            return TextRead[ReadRun] == "True";
-        }
-
-        public Vector2 GetReadAutoVector2(char Key)
-        {
-            if (ReadRun >= TextRead.Count - 1) return new Vector2();
-            ReadRun++;
-            return QEncypt.GetDencyptVector2(Key, TextRead[ReadRun]);
-        }
-
-        public Vector2Int GetReadAutoVector2Int(char Key)
-        {
-            if (ReadRun >= TextRead.Count - 1) return new Vector2Int();
-            ReadRun++;
-            return QEncypt.GetDencyptVector2Int(Key, TextRead[ReadRun]);
-        }
-
-        public Vector3 GetReadAutoVector3(char Key)
-        {
-            if (ReadRun >= TextRead.Count - 1) return new Vector3();
-            ReadRun++;
-            return QEncypt.GetDencyptVector3(Key, TextRead[ReadRun]);
-        }
-
-        public Vector3Int GetReadAutoVector3Int(char Key)
-        {
-            if (ReadRun >= TextRead.Count - 1) return new Vector3Int();
-            ReadRun++;
-            return QEncypt.GetDencyptVector3Int(Key, TextRead[ReadRun]);
-        }
-
-        public bool GetReadAutoEnd()
-        {
-            return ReadRun >= TextRead.Count - 1;
-        }
-
-        public int GetReadAutoCurrent()
-        {
-            return ReadRun;
-        }
-
-        public List<string> GetRead()
-        {
-            return TextRead;
-        }
-
-        #endregion
-
-        #endregion
-    }
-
-    public class QJSON
-    {
-        //NOTE:
-        //Type "TextAsset" is a "Text Document" File or "*.txt" File
-
-        //SAMPLE:
-        //ClassData Data = ClassFileIO.GetDatafromJson<ClassData>(JsonDataTextDocument);
-
-        public static ClassData GetDataJson<ClassData>(TextAsset JsonDataTextDocument)
-        {
-            return GetDataJson<ClassData>(JsonDataTextDocument.text);
-        }
-
-        public static ClassData GetDataJson<ClassData>(string JsonData)
-        {
-            return JsonUtility.FromJson<ClassData>(JsonData);
-        }
-
-        public static string GetDataJson(object JsonDataClass)
-        {
-            return JsonUtility.ToJson(JsonDataClass);
-        }
-    }
-
     public class QEnum
     {
         #region ==================================== Name
@@ -2632,156 +2139,146 @@ namespace QuickMethode
         #endregion
     }
 
-    public class QColor
+    public class QList
     {
-        #region ==================================== Color
+        #region Get Data
 
-        //Key "ref" use to immediately save value to primary varible param!
-
-        public static void SetColor(ref Color Color, float A)
+        public static List<T> GetData<T>(List<T> Data)
         {
-            Color = new Color(Color.r, Color.g, Color.b, A);
+            //Use to Get Data from List, not it's Memory Pointer!!
+            List<T> DataGet = new List<T>();
+            foreach (T Value in Data)
+                DataGet.Add(Value);
+            return DataGet;
         }
 
-        public static Color GetColor(Color Color, float A)
+        public static T[] GetData<T>(T[] Data)
         {
-            return new Color(Color.r, Color.g, Color.b, A);
-        }
-
-        #endregion
-
-        #region ==================================== Color - Hex Color
-
-        private static string GetColorHex(Color Color)
-        {
-            return ColorUtility.ToHtmlStringRGB(Color);
-        }
-
-        public static string GetColorHexCode(Color Color)
-        {
-            string ColorHex = GetColorHex(Color);
-            string ColorHexCode = string.Format("#{0}", ColorHex);
-            return ColorHexCode;
-        }
-
-        public static string GetColorHexFormat(Color Color, string Text)
-        {
-            string ColorHex = GetColorHex(Color);
-            string TextFormat = string.Format("<#{0}>{1}</color>", ColorHex, Text);
-            return TextFormat;
+            //Use to Get Data from List, not it's Memory Pointer!!
+            T[] DataGet = new T[Data.Length];
+            for (int i = 0; i < Data.Length; i++)
+                DataGet[i] = Data[i];
+            return DataGet;
         }
 
         #endregion
 
-        #region ==================================== Color - Mesh Renderer & Material
+        #region Find Data
 
-        //Can be applied to Spine Material!!
-
-        public static void SetMaterial(MeshRenderer MessRenderer, float Alpha)
+        public static T GetComponent<T>(List<GameObject> DataList, GameObject DataFind)
         {
-            if (!MessRenderer.sharedMaterial.HasProperty("_Color"))
-                return;
-
-            Color Color = MessRenderer.material.color;
-            SetColor(ref Color, Alpha);
-            MessRenderer.material.color = Color;
+            return DataList.Find(t => DataFind).GetComponent<T>();
         }
 
-        public static void SetMaterial(MeshRenderer MessRenderer, Color Color, float Alpha)
+        public static T GetComponent<T>(List<Transform> DataList, Transform DataFind)
         {
-            if (!MessRenderer.sharedMaterial.HasProperty("_Color"))
-                return;
-
-            SetColor(ref Color, Alpha);
-            MessRenderer.material.color = Color;
-        }
-
-        public static void SetMaterialTint(MeshRenderer MessRenderer, Color Color)
-        {
-            //Shader of Material must set to "Tint"!!
-
-            MaterialPropertyBlock MaterialPropertyBlock = new MaterialPropertyBlock();
-
-            MessRenderer.GetPropertyBlock(MaterialPropertyBlock);
-
-            int IdColor = Shader.PropertyToID("_Color");
-            int IdBlack = Shader.PropertyToID("_Black");
-
-            MaterialPropertyBlock.SetColor(IdColor, Color);
-            MaterialPropertyBlock.SetColor(IdBlack, Color.black); //Should be "Color.black"!!
-
-            MessRenderer.SetPropertyBlock(MaterialPropertyBlock);
-        }
-
-        public static void SetMaterialTint(MeshRenderer MessRenderer, Color Color, Color Black)
-        {
-            //Shader of Material must set to "Tint"!!
-
-            MaterialPropertyBlock MaterialPropertyBlock = new MaterialPropertyBlock();
-
-            MessRenderer.GetPropertyBlock(MaterialPropertyBlock);
-
-            int IdColor = Shader.PropertyToID("_Color");
-            int IdBlack = Shader.PropertyToID("_Black");
-
-            MaterialPropertyBlock.SetColor(IdColor, Color);
-            MaterialPropertyBlock.SetColor(IdBlack, Black); //Should be "Color.black"!!
-
-            MessRenderer.SetPropertyBlock(MaterialPropertyBlock);
-        }
-
-        public static void SetMaterialFill(MeshRenderer MessRenderer, Color FillColor, float FillPhase = 1)
-        {
-            //Shader of Material must set to "Fill"!!
-
-            MaterialPropertyBlock MaterialPropertyBlock = new MaterialPropertyBlock();
-
-            MessRenderer.GetPropertyBlock(MaterialPropertyBlock);
-
-            int IdFillColor = Shader.PropertyToID("_FillColor");
-            int IdFillPhase = Shader.PropertyToID("_FillPhase");
-
-            MaterialPropertyBlock.SetColor(IdFillColor, FillColor);
-            MaterialPropertyBlock.SetFloat(IdFillPhase, FillPhase);
-
-            MessRenderer.SetPropertyBlock(MaterialPropertyBlock);
+            return DataList.Find(t => DataFind).GetComponent<T>();
         }
 
         #endregion
 
-        #region ==================================== Color - SpriteRenderer
+        #region Random
 
-        public static void SetSprite(SpriteRenderer SpriteRenderer, float Alpha)
+        public static int GetIndexRandom(params int[] Percent)
         {
-            Color Color = SpriteRenderer.color;
-            SetColor(ref Color, Alpha);
-            SpriteRenderer.color = Color;
-        }
+            //Get random index from percent index list!
+            List<(int Index, int Percent)> ListPercent = new List<(int Index, int Percent)>();
 
-        public static void SetSprite(SpriteRenderer SpriteRenderer, Color Color, float Alpha)
-        {
-            SetColor(ref Color, Alpha);
-            SpriteRenderer.color = Color;
+            int MaxPercent = 0;
+            int MaxIndex = -1;
+
+            int SumPercent = 0;
+            for (int i = 0; i < Percent.Length; i++)
+            {
+                if (Percent[i] >= 100)
+                    return i; //Get index of 100% percent!
+
+                ListPercent.Add((i, Percent[i]));
+                SumPercent += Percent[i];
+
+                if (Percent[i] > MaxPercent)
+                {
+                    MaxPercent = Percent[i];
+                    MaxIndex = i;
+                }
+            }
+
+            int SumFixed = 100 - SumPercent;
+            if (SumFixed != 0)
+            {
+                for (int i = 0; i < ListPercent.Count; i++)
+                {
+                    int ChildPercent = ListPercent[i].Percent + (int)(1.0f * SumFixed / ListPercent.Count);
+                    ListPercent[i] = (ListPercent[i].Index, ChildPercent);
+                }
+            }
+
+            ListPercent = ListPercent.OrderBy(t => t.Percent).ToList(); //Order by!
+
+            int RandomPercent;
+            int RandomLast = -1;
+            for (int i = 0; i < 10; i++)
+            {
+                int RandomCurrent = Random.Range(0, 100);
+
+                if (RandomLast == -1)
+                    RandomLast = RandomCurrent;
+                else
+                if (RandomLast == RandomCurrent)
+                    continue;
+                else
+                    RandomLast = RandomCurrent;
+            }
+            RandomPercent = RandomLast;
+
+            int randomNumber = 0;
+            int lastNumber = -1;
+            int maxAttempts = 10;
+            for (int i = 0; randomNumber == lastNumber && i < maxAttempts; i++)
+            {
+                randomNumber = Random.Range(0, 10);
+            }
+            lastNumber = randomNumber;
+
+            int CheckPercent = 0;
+            foreach (var Child in ListPercent)
+            {
+                CheckPercent += Child.Percent;
+
+                if (CheckPercent < RandomPercent)
+                    continue;
+
+                return Child.Index; //Get index of higher than random percent!
+            }
+
+            return MaxIndex; //Get index of highest percent!
         }
 
         #endregion
+    }
 
-        #region ==================================== Color - Image
+    public class QJSON
+    {
+        //NOTE:
+        //Type "TextAsset" is a "Text Document" File or "*.txt" File
 
-        public static void SetSprite(Image Image, float Alpha)
+        //SAMPLE:
+        //ClassData Data = ClassFileIO.GetDatafromJson<ClassData>(JsonDataTextDocument);
+
+        public static ClassData GetDataJson<ClassData>(TextAsset JsonDataTextDocument)
         {
-            Color Color = Image.color;
-            SetColor(ref Color, Alpha);
-            Image.color = Color;
+            return GetDataJson<ClassData>(JsonDataTextDocument.text);
         }
 
-        public static void SetSprite(Image Image, Color Color, float Alpha)
+        public static ClassData GetDataJson<ClassData>(string JsonData)
         {
-            SetColor(ref Color, Alpha);
-            Image.color = Color;
+            return JsonUtility.FromJson<ClassData>(JsonData);
         }
 
-        #endregion
+        public static string GetDataJson(object JsonDataClass)
+        {
+            return JsonUtility.ToJson(JsonDataClass);
+        }
     }
 
     public class QEncypt
@@ -3129,1202 +2626,6 @@ namespace QuickMethode
 
         #endregion
     }
-
-    public class QList
-    {
-        #region Get Data
-
-        public static List<T> GetData<T>(List<T> Data)
-        {
-            //Use to Get Data from List, not it's Memory Pointer!!
-            List<T> DataGet = new List<T>();
-            foreach (T Value in Data)
-                DataGet.Add(Value);
-            return DataGet;
-        }
-
-        public static T[] GetData<T>(T[] Data)
-        {
-            //Use to Get Data from List, not it's Memory Pointer!!
-            T[] DataGet = new T[Data.Length];
-            for (int i = 0; i < Data.Length; i++)
-                DataGet[i] = Data[i];
-            return DataGet;
-        }
-
-        #endregion
-
-        #region Find Data
-
-        public static T GetComponent<T>(List<GameObject> DataList, GameObject DataFind)
-        {
-            return DataList.Find(t => DataFind).GetComponent<T>();
-        }
-
-        public static T GetComponent<T>(List<Transform> DataList, Transform DataFind)
-        {
-            return DataList.Find(t => DataFind).GetComponent<T>();
-        }
-
-        #endregion
-
-        #region Random
-
-        public static int GetIndexRandom(params int[] Percent)
-        {
-            //Get random index from percent index list!
-            List<(int Index, int Percent)> ListPercent = new List<(int Index, int Percent)>();
-
-            int MaxPercent = 0;
-            int MaxIndex = -1;
-
-            int SumPercent = 0;
-            for (int i = 0; i < Percent.Length; i++)
-            {
-                if (Percent[i] >= 100)
-                    return i; //Get index of 100% percent!
-
-                ListPercent.Add((i, Percent[i]));
-                SumPercent += Percent[i];
-
-                if (Percent[i] > MaxPercent)
-                {
-                    MaxPercent = Percent[i];
-                    MaxIndex = i;
-                }
-            }
-
-            int SumFixed = 100 - SumPercent;
-            if (SumFixed != 0)
-            {
-                for (int i = 0; i < ListPercent.Count; i++)
-                {
-                    int ChildPercent = ListPercent[i].Percent + (int)(1.0f * SumFixed / ListPercent.Count);
-                    ListPercent[i] = (ListPercent[i].Index, ChildPercent);
-                }
-            }
-
-            ListPercent = ListPercent.OrderBy(t => t.Percent).ToList(); //Order by!
-
-            int RandomPercent;
-            int RandomLast = -1;
-            for (int i = 0; i < 10; i++)
-            {
-                int RandomCurrent = Random.Range(0, 100);
-
-                if (RandomLast == -1)
-                    RandomLast = RandomCurrent;
-                else
-                if (RandomLast == RandomCurrent)
-                    continue;
-                else
-                    RandomLast = RandomCurrent;
-            }
-            RandomPercent = RandomLast;
-
-            int randomNumber = 0;
-            int lastNumber = -1;
-            int maxAttempts = 10;
-            for (int i = 0; randomNumber == lastNumber && i < maxAttempts; i++)
-            {
-                randomNumber = Random.Range(0, 10);
-            }
-            lastNumber = randomNumber;
-
-            int CheckPercent = 0;
-            foreach (var Child in ListPercent)
-            {
-                CheckPercent += Child.Percent;
-
-                if (CheckPercent < RandomPercent)
-                    continue;
-
-                return Child.Index; //Get index of higher than random percent!
-            }
-
-            return MaxIndex; //Get index of highest percent!
-        }
-
-        #endregion
-    }
-
-    public class QApplication
-    {
-        public static void SetTimeScale(float TimeScale = 1)
-        {
-            Time.timeScale = TimeScale;
-        }
-
-        public static void SetFrameRateTarget(int FrameRateTarget = 60)
-        {
-            Application.targetFrameRate = FrameRateTarget;
-        }
-
-        public static void SetPhysicSimulation(SimulationMode2D Mode)
-        {
-            //From Editor Unity Window: Edit/Project Setting/Physic 2D/Simulation Mode.
-            //Mode Fixed Update: Physic will be caculated every Fixed Delta Time, after FixedUpdate methode called (By Default of Unity).
-            //Mode Update: Physic will caculated every Delta Time, after every Update methode called (Higher Frame Rate, higher correct Physic caculated, but consumed more CPU resources).
-            //Mode Script: Unknow?
-            Physics2D.simulationMode = Mode;
-        }
-    }
-
-    public class QScene
-    {
-        public static void SetSceneChance(string SceneName, LoadSceneMode LoadSceneMode = LoadSceneMode.Single)
-        {
-            SceneManager.LoadScene(SceneName, LoadSceneMode);
-        }
-
-        public static (int Index, string Name) GetSceneCurrent()
-        {
-            return (GetSceneCurrentBuildIndex(), GetSceneCurrentName());
-        }
-
-        public static string GetSceneCurrentName()
-        {
-            return SceneManager.GetActiveScene().name;
-        }
-
-        public static int GetSceneCurrentBuildIndex()
-        {
-            return SceneManager.GetActiveScene().buildIndex;
-        }
-    }
-
-    public class QControl
-    {
-        #region ==================================== Mouse
-
-        public static void SetMouseVisible(bool MouseVisble)
-        {
-            Cursor.visible = MouseVisble;
-        }
-
-        #endregion
-
-        #region ==================================== Keyboard
-
-        public static string GetKeyboardSimple(KeyCode KeyCode)
-        {
-            switch (KeyCode)
-            {
-                case KeyCode.Escape:
-                    return "Esc";
-                case KeyCode.Return:
-                    return "Enter";
-                case KeyCode.Delete:
-                    return "Del";
-                case KeyCode.Backspace:
-                    return "B-Space";
-
-                case KeyCode.Mouse0:
-                    return "L-Mouse";
-                case KeyCode.Mouse1:
-                    return "R-Mouse";
-                case KeyCode.Mouse2:
-                    return "M-Mouse";
-
-                case KeyCode.LeftBracket:
-                    return "[";
-                case KeyCode.RightBracket:
-                    return "]";
-
-                case KeyCode.LeftCurlyBracket:
-                    return "{";
-                case KeyCode.RightCurlyBracket:
-                    return "}";
-
-                case KeyCode.LeftParen:
-                    return "(";
-                case KeyCode.RightParen:
-                    return ")";
-
-                case KeyCode.LeftShift:
-                    return "L-Shift";
-                case KeyCode.RightShift:
-                    return "R-Shift";
-
-                case KeyCode.LeftAlt:
-                    return "L-Alt";
-                case KeyCode.RightAlt:
-                    return "R-Alt";
-
-                case KeyCode.PageUp:
-                    return "Page-U";
-                case KeyCode.PageDown:
-                    return "Page-D";
-            }
-
-            return KeyCode.ToString();
-        }
-
-        #endregion
-
-        #region ==================================== Device (?)
-
-        #region Vibrator
-
-        public static bool VibrateHandle = true;
-
-#if UNITY_ANDROID && !UNITY_EDITOR
-        public static AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
-        public static AndroidJavaObject currentActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
-        public static AndroidJavaObject vibrator = currentActivity.Call<AndroidJavaObject>("getSystemService", "vibrator");
-#else
-        public static AndroidJavaClass unityPlayer;
-        public static AndroidJavaObject currentActivity;
-        public static AndroidJavaObject vibrator;
-#endif
-
-        public static void SetDeviceVibrate()
-        {
-            if (VibrateHandle)
-            {
-                Handheld.Vibrate();
-            }
-            else
-            {
-                if (Application.platform == RuntimePlatform.Android && !Application.isEditor)
-                    vibrator.Call("vibrate");
-                else
-                    Handheld.Vibrate();
-            }
-        }
-
-        public static void SetDeviceVibrate(float TimeMilisecond)
-        {
-            if (VibrateHandle)
-            {
-                Handheld.Vibrate();
-            }
-            else
-            {
-                if (Application.platform == RuntimePlatform.Android && !Application.isEditor)
-                    vibrator.Call("vibrate", TimeMilisecond);
-                else
-                    Handheld.Vibrate();
-            }
-        }
-
-        public static void SetDeviceVibrate(float[] Pattern, int Repeat) //???
-        {
-            if (VibrateHandle)
-            {
-                Handheld.Vibrate();
-            }
-            else
-            {
-                if (Application.platform == RuntimePlatform.Android && !Application.isEditor)
-                    vibrator.Call("vibrate", Pattern, Repeat);
-                else
-                    Handheld.Vibrate();
-            }
-        }
-
-        public static void SetDeviceVibrateCancel()
-        {
-            if (VibrateHandle)
-            {
-                //...
-            }
-            else
-            {
-                if (Application.platform == RuntimePlatform.Android && !Application.isEditor)
-                    vibrator.Call("cancel");
-            }
-        }
-
-        #endregion
-
-        #endregion
-    }
-
-    public class QGizmos
-    {
-        #region ==================================== Primary
-
-        public static void SetLine(Vector3 PosA, Vector3 PosB, Color Color, float SizePoint = 0f)
-        {
-            Gizmos.color = Color;
-            Gizmos.DrawLine(PosA, PosB);
-
-            if (SizePoint != 0)
-            {
-                SetWireSphere(PosA, SizePoint, Color);
-                SetWireSphere(PosB, SizePoint, Color);
-            }
-        }
-
-        public static void SetRay(Vector3 Pos, Vector3 Dir, float Distance, Color Color, float SizePoint = 0f)
-        {
-            Vector3 PosA = Pos;
-            Vector3 PosB = PosA + Dir.normalized * Distance;
-
-            Gizmos.color = Color;
-            Gizmos.DrawLine(PosA, PosB);
-
-            if (SizePoint != 0)
-            {
-                SetWireSphere(PosA, SizePoint, Color);
-                SetWireSphere(PosB, SizePoint, Color);
-            }
-        }
-
-        public static void SetWireCube(Vector3 Pos, Vector3 Size, Color Color)
-        {
-            Gizmos.color = Color;
-            Gizmos.DrawWireCube(Pos, Size);
-        }
-
-        public static void SetWireCube(Vector2 Pos, Vector3 Size, Color Color)
-        {
-            Gizmos.color = Color;
-            Gizmos.DrawWireCube(Pos, Size);
-        }
-
-        public static void SetWireSphere(Vector3 Pos, float Size, Color Color)
-        {
-            Gizmos.color = Color;
-            Gizmos.DrawWireSphere(Pos, Size);
-        }
-
-        public static void SetWireSphere(Vector2 Pos, float Size, Color Color)
-        {
-            Gizmos.color = Color;
-            Gizmos.DrawWireSphere(Pos, Size);
-        }
-
-        #endregion
-
-        #region ==================================== Cast
-
-        public static void SetBoxcast(Vector3 PosStart, Vector3 PosEnd, Vector3 Size, Color Color)
-        {
-            SetLine(PosStart, PosEnd, Color);
-            SetWireCube(PosEnd, Size, Color);
-        }
-
-        public static void SetBoxcast(Vector3 PosStart, Vector3 PosEnd, Vector3 Size, float Distance, Color Color)
-        {
-            Vector3 Dir = (PosEnd - PosStart).normalized;
-            SetLine(PosStart, PosStart + Dir * Distance, Color);
-            SetWireCube(PosStart + Dir * Distance, Size, Color);
-        }
-
-        public static void SetBoxcastDir(Vector3 PosStart, Vector3 Dir, Vector3 Size, float Distance, Color Color)
-        {
-            SetLine(PosStart, PosStart + Dir * Distance, Color);
-            SetWireCube(PosStart + Dir * Distance, Size, Color);
-        }
-
-        public static void SetSpherecast(Vector3 PosStart, Vector3 PosEnd, float Size, Color Color)
-        {
-            SetLine(PosStart, PosEnd, Color);
-            SetWireSphere(PosEnd, Size, Color);
-        }
-
-        public static void SetSpherecast(Vector3 PosStart, Vector3 PosEnd, float Size, float Distance, Color Color)
-        {
-            Vector3 Dir = (PosEnd - PosStart).normalized;
-            SetLine(PosStart, PosStart + Dir * Distance, Color);
-            SetWireSphere(PosStart + Dir * Distance, Size, Color);
-        }
-
-        public static void SetSpherecastDir(Vector3 PosStart, Vector3 Dir, float Size, float Distance, Color Color)
-        {
-            SetLine(PosStart, PosStart + Dir * Distance, Color);
-            SetWireSphere(PosStart + Dir * Distance, Size, Color);
-        }
-
-        #endregion
-
-        #region ==================================== Camera
-
-        public static void SetCamera(Color Color)
-        {
-            SetCamera(UnityEngine.Camera.main, Color);
-        }
-
-        public static void SetCamera(Camera Camera, Color Color)
-        {
-            Gizmos.color = Color;
-
-            Vector2 Resolution = QCamera.GetCameraSizeUnit();
-            Gizmos.DrawWireCube((Vector2)Camera.transform.position, Resolution);
-        }
-
-        #endregion
-
-        #region ==================================== Sprite
-
-        public static void SetSprite2D(SpriteRenderer SpriteRenderer, Color Color)
-        {
-            Vector2 Size = QSprite.GetSpriteSizeUnit(SpriteRenderer.sprite);
-            Vector2 Pos = (Vector2)SpriteRenderer.transform.position;
-
-            Vector2 TL = Vector2.up * Size.y / 2 + Vector2.left * Size.x / 2;
-            Vector2 TR = Vector2.up * Size.y / 2 + Vector2.right * Size.x / 2;
-            Vector2 BL = Vector2.down * Size.y / 2 + Vector2.left * Size.x / 2;
-            Vector2 BR = Vector2.down * Size.y / 2 + Vector2.right * Size.x / 2;
-
-            SetLine(Pos + TL, Pos + TR, Color);
-            SetLine(Pos + TR, Pos + BR, Color);
-            SetLine(Pos + BR, Pos + BL, Color);
-            SetLine(Pos + BL, Pos + TL, Color);
-        }
-
-        #endregion
-
-        #region ==================================== Collider
-
-        #region Collider Pos Self
-
-        public static void SetCollider2D(Collider2D Collider, Color Color)
-        {
-            SetWireCube(Collider.bounds.center, (Vector2)Collider.bounds.size, Color);
-        }
-
-        public static void SetCollider2D(BoxCollider2D Collider, Color Color)
-        {
-            SetWireCube(Collider.bounds.center, (Vector2)Collider.bounds.size + Vector2.one * Collider.edgeRadius * 2, Color);
-        }
-
-        public static void SetCollider2D(CircleCollider2D Collider, Color Color)
-        {
-            SetWireSphere(Collider.bounds.center, Collider.radius, Color);
-        }
-
-        public static void SetCollider2D(PolygonCollider2D Collider, Color Color)
-        {
-            Gizmos.color = Color;
-
-            for (int i = 1; i < Collider.points.Length; i++)
-            {
-                Gizmos.DrawLine(Collider.points[i - 1], Collider.points[i]);
-            }
-            Gizmos.DrawLine(Collider.points[0], Collider.points[Collider.points.Length - 1]);
-        }
-
-        public static void SetCollider2D(CompositeCollider2D Collider, bool Square, Color Color)
-        {
-            List<List<Vector2>> Points = QCollider2D.GetPointsBorderPos(Collider, Square);
-
-            if (Points.Count == 0)
-                return;
-
-            Vector2 Center = Collider.transform.position;
-
-            for (int Group = 0; Group < Points.Count; Group++)
-            {
-                for (int Index = 1; Index < Points[Group].Count; Index++)
-                    SetLine(Center + Points[Group][Index - 1], Center + Points[Group][Index], Color.red, 0.1f);
-                SetLine(Center + Points[Group][0], Center + Points[Group][Points[Group].Count - 1], Color.red, 0.1f);
-            }
-        }
-
-        #endregion
-
-        #region Collider Pos Free
-
-        public static void SetCollider2D(Vector2 Pos, Collider2D Collider, Color Color)
-        {
-            SetWireCube(Pos, (Vector2)Collider.bounds.size, Color);
-        }
-
-        public static void SetCollider2D(Vector2 Pos, BoxCollider2D Collider, Color Color)
-        {
-            SetWireCube(Pos, (Vector2)Collider.bounds.size + Vector2.one * Collider.edgeRadius * 2, Color);
-        }
-
-        public static void SetCollider2D(Vector2 Pos, CircleCollider2D Collider, Color Color)
-        {
-            SetWireSphere(Pos, Collider.radius, Color);
-        }
-
-        #endregion
-
-        #endregion
-    }
-
-    public class QDateTime
-    {
-        public const string DD_MM_YYYY = "dd/MM/yyyy";
-        public const string YYYY_MM_DD = "yyyy/MM/dd";
-
-        public const string DDD_DD_MM_YYYY = "ddd dd/MM/yyyy";
-
-        public const string HH_MM_SS = "HH:mm:ss";
-        public const string HH_MM_SS_TT = "hh:mm:ss tt";
-
-        public const string DDD_DD_MM_YYYY_HH_MM_SS_TT = "ddd dd/MM/yyyy hh:mm:ss tt";
-
-        public static DateTime Now => DateTime.Now;
-
-        #region ==================================== Time Format
-
-        public static string GetFormat(DateTime Time, string FormatTime, string Special = "en-US")
-        {
-            if (Special != "")
-                return Time.ToString(FormatTime, CultureInfo.CreateSpecificCulture(Special));
-            else
-                return Time.ToString(FormatTime, DateTimeFormatInfo.InvariantInfo);
-        }
-
-        public static DateTime GetConvert(string Time, string FormatTime, string Special = "en-US")
-        {
-            if (Special != "")
-                return DateTime.ParseExact(Time, FormatTime, CultureInfo.CreateSpecificCulture(Special));
-            else
-                return DateTime.ParseExact(Time, FormatTime, CultureInfo.InvariantCulture);
-        }
-
-        #endregion
-
-        #region ==================================== Time Compare
-
-        public static (bool Prev, bool Equa, bool Next) GetCompare(DateTime TimeFrom, DateTime TimeTo)
-        {
-            if (TimeFrom < TimeTo)
-                return (true, false, false); //Past Time!!
-
-            if (TimeFrom > TimeTo)
-                return (false, false, true); //Future Time!!
-
-            return (false, true, false); //Now Time (Maybe not)!!
-        }
-
-        public static (bool Prev, bool Equa, bool Next) GetCompareDay(DateTime TimeFrom, DateTime TimeTo)
-        {
-            if (TimeFrom.Year > TimeTo.Year)
-                return (false, false, true); //Future Time!!
-            if (TimeFrom.Year < TimeTo.Year)
-                return (true, false, false); //Past Time!!
-
-            if (TimeFrom.Month > TimeTo.Month)
-                return (false, false, true); //Future Time!!
-            if (TimeFrom.Month < TimeTo.Month)
-                return (true, false, false); //Past Time!!
-
-            if (TimeFrom.Day > TimeTo.Day)
-                return (false, false, true); //Future Time!!
-            if (TimeFrom.Day < TimeTo.Day)
-                return (true, false, false); //Past Time!!
-
-            return (false, true, false); //Now Time (Maybe not)!!
-        }
-
-        public static int GetDay(DateTime From, DateTime To)
-        {
-            return (To - From).Days;
-        }
-
-        #endregion
-    }
-
-    public class QTimeSpan
-    {
-        public const string HH_MM_SS = @"hh\:mm\:ss";
-        public const string HH_MM = @"hh\:mm";
-        public const string MM_SS = @"mm\:ss";
-        public const string SS = @"ss";
-
-        #region ==================================== Count Format
-
-        public static string GetCountFormat(double Second, string FormatCount)
-        {
-            TimeSpan TimeConvert = TimeSpan.FromSeconds(Second);
-            return TimeConvert.ToString(FormatCount);
-        }
-
-        public static long GetCountConvertSecond(int Second = 0, int Minute = 0, int Hour = 0)
-        {
-            return Second + (60 * Minute) + (60 * 60 * Hour);
-        }
-
-        #endregion
-    }
-
-    public class QTimeCountdown
-    {
-        #region ==================================== Time Value
-
-        public bool Active;
-        public string Name;
-
-        public double TimeRemain; //Second!!
-
-        public string TimeShow; //Primary "hh:mm:ss"!!
-
-        public QTimeCountdown(string Name, bool Active, double TimeRemain, string TimeShow)
-        {
-            this.Name = Name;
-            this.Active = Active;
-            this.TimeRemain = (int)TimeRemain;
-            this.TimeShow = TimeShow;
-        }
-
-        #endregion
-
-        #region ==================================== Time Function
-
-        private const string PREF_START = "QTime-Start-";
-        private const string PREF_COUNT = "QTime-Count-";
-
-        public static IEnumerator ISetTime(long SecondMax, string Name, Action<QTimeCountdown> Active, string FormatCount = QTimeSpan.HH_MM_SS)
-        {
-            string REF_START_TIME = PREF_START + Name;
-            string REF_COUNT_DOWN = PREF_COUNT + Name;
-
-            DateTime StartTime = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-            DateTime TimeNow = DateTime.UtcNow;
-            double Time = (TimeNow - StartTime).TotalSeconds;
-            double TimeStart = double.Parse(QPlayerPrefs.GetValueString(REF_START_TIME, Time.ToString()));
-            long TimeCount = (long)double.Parse(QPlayerPrefs.GetValueString(REF_COUNT_DOWN, SecondMax.ToString()));
-
-            QPlayerPrefs.SetValue(REF_START_TIME, TimeStart.ToString());
-            QPlayerPrefs.SetValue(REF_COUNT_DOWN, TimeCount.ToString());
-
-            TimeCount -= (long)(TimeNow - StartTime.AddSeconds(TimeStart)).TotalSeconds;
-            Debug.LogFormat("[Debug] QTime: {0} remain {1} second(s)!!", Name, TimeCount);
-
-            while (TimeCount > 0)
-            {
-                string TimeShow = QTimeSpan.GetCountFormat(TimeCount, FormatCount);
-                Active?.Invoke(new QTimeCountdown(Name, true, TimeCount, TimeShow));
-
-                yield return new WaitForSeconds(1f);
-                TimeCount--;
-            }
-
-            QPlayerPrefs.SetValueClear(REF_START_TIME);
-            QPlayerPrefs.SetValueClear(REF_COUNT_DOWN);
-
-            Active?.Invoke(new QTimeCountdown(Name, false, 0, ""));
-        }
-
-        public static bool GetTimeExist(string Name)
-        {
-            return QPlayerPrefs.GetValueExist(PREF_START + Name);
-        }
-
-        public static void SetTimeClear(string Name)
-        {
-            QPlayerPrefs.SetValueClear(PREF_START + Name);
-            QPlayerPrefs.SetValueClear(PREF_COUNT + Name);
-        }
-
-        #endregion
-    }
-
-#if UNITY_EDITOR
-
-    ///<summary>
-    ///Caution: Unity Editor only!
-    ///</summary>
-    public class QEditor
-    {
-        //Can be use for EditorWindow & Editor Script!!
-
-        #region ==================================== GUI Primary
-
-        #region ------------------------------------ Label
-
-        public static void SetLabel(string Label, GUIStyle GUIStyle = null, params GUILayoutOption[] GUILayoutOption)
-        {
-            if (GUIStyle == null)
-                GUILayout.Label(Label, GUILayoutOption);
-            else
-                GUILayout.Label(Label, GUIStyle, GUILayoutOption);
-        }
-
-        public static void SetLabel(Sprite Sprite, params GUILayoutOption[] GUILayoutOption)
-        {
-            GUILayout.Label(GetImage(Sprite), GUILayoutOption);
-        }
-
-        #endregion
-
-        #region ------------------------------------ Button
-
-        public static bool SetButton(string Label, GUIStyle GUIStyle = null, params GUILayoutOption[] GUILayoutOption)
-        {
-            if (GUIStyle == null)
-                return GUILayout.Button(Label, GUILayoutOption);
-            else
-                return GUILayout.Button(Label, GUIStyle, GUILayoutOption);
-        }
-
-        public static bool SetButton(Sprite Sprite, params GUILayoutOption[] GUILayoutOption)
-        {
-            return GUILayout.Button(GetImage(Sprite), GUILayoutOption);
-        }
-
-        #endregion
-
-        #region ------------------------------------ Field
-
-        #region Field Text
-
-        //String
-
-        public static string SetField(string Value, GUIStyle GUIStyle = null, params GUILayoutOption[] GUILayoutOption)
-        {
-            if (GUIStyle == null)
-                return EditorGUILayout.TextField("", Value, GUILayoutOption);
-            else
-                return EditorGUILayout.TextField("", Value, GUIStyle, GUILayoutOption);
-        }
-
-        public static string SetFieldPassword(string Value, GUIStyle GUIStyle = null, params GUILayoutOption[] GUILayoutOption)
-        {
-            if (GUIStyle == null)
-                return EditorGUILayout.PasswordField("", Value, GUILayoutOption);
-            else
-                return EditorGUILayout.PasswordField("", Value, GUIStyle, GUILayoutOption);
-        }
-
-        //Number
-
-        public static int SetField(int Value, GUIStyle GUIStyle = null, params GUILayoutOption[] GUILayoutOption)
-        {
-            if (GUIStyle == null)
-                return EditorGUILayout.IntField("", Value, GUILayoutOption);
-            else
-                return EditorGUILayout.IntField("", Value, GUIStyle, GUILayoutOption);
-        }
-
-        public static long SetField(long Value, GUIStyle GUIStyle = null, params GUILayoutOption[] GUILayoutOption)
-        {
-            if (GUIStyle == null)
-                return EditorGUILayout.LongField("", Value, GUILayoutOption);
-            else
-                return EditorGUILayout.LongField("", Value, GUIStyle, GUILayoutOption);
-        }
-
-        public static float SetField(float Value, GUIStyle GUIStyle = null, params GUILayoutOption[] GUILayoutOption)
-        {
-            if (GUIStyle == null)
-                return EditorGUILayout.FloatField("", Value, GUILayoutOption);
-            else
-                return EditorGUILayout.FloatField("", Value, GUIStyle, GUILayoutOption);
-        }
-
-        public static double SetField(double Value, GUIStyle GUIStyle = null, params GUILayoutOption[] GUILayoutOption)
-        {
-            if (GUIStyle == null)
-                return EditorGUILayout.DoubleField("", Value, GUILayoutOption);
-            else
-                return EditorGUILayout.DoubleField("", Value, GUIStyle, GUILayoutOption);
-        }
-
-        #endregion
-
-        #region Field Vector
-
-        //Vector2
-
-        public static Vector2 SetField(Vector2 Value, params GUILayoutOption[] GUILayoutOption)
-        {
-            return EditorGUILayout.Vector2Field("", Value, GUILayoutOption);
-        }
-
-        public static Vector2Int SetField(Vector2Int Value, params GUILayoutOption[] GUILayoutOption)
-        {
-            return EditorGUILayout.Vector2IntField("", Value, GUILayoutOption);
-        }
-
-        //Vector3
-
-        public static Vector3 SetField(Vector3 Value, params GUILayoutOption[] GUILayoutOption)
-        {
-            return EditorGUILayout.Vector2Field("", Value, GUILayoutOption);
-        }
-
-        public static Vector3Int SetField(Vector3Int Value, params GUILayoutOption[] GUILayoutOption)
-        {
-            return EditorGUILayout.Vector3IntField("", Value, GUILayoutOption);
-        }
-
-        #endregion
-
-        #region Field Else
-
-        public static Color SetField(Color Value, params GUILayoutOption[] GUILayoutOption)
-        {
-            return EditorGUILayout.ColorField(Value, GUILayoutOption);
-        }
-
-        public static GameObject SetField(GameObject Value, params GUILayoutOption[] GUILayoutOption)
-        {
-            return (GameObject)EditorGUILayout.ObjectField("", Value, typeof(GameObject), true, GUILayoutOption);
-        }
-
-        #endregion
-
-        #endregion
-
-        #region ------------------------------------ Horizontal
-
-        public static void SetHorizontalBegin()
-        {
-            GUILayout.BeginHorizontal();
-        }
-
-        public static void SetHorizontalEnd()
-        {
-            GUILayout.EndHorizontal();
-        }
-
-        #endregion
-
-        #region ------------------------------------ Vertical
-
-        public static void SetVerticalBegin()
-        {
-            GUILayout.BeginVertical();
-        }
-
-        public static void SetVerticalEnd()
-        {
-            GUILayout.EndVertical();
-        }
-
-        #endregion
-
-        #region ------------------------------------ Scroll View
-
-        public static Vector2 SetScrollViewBegin(Vector2 ScrollPos, params GUILayoutOption[] GUILayoutOption)
-        {
-            return EditorGUILayout.BeginScrollView(ScrollPos, GUILayoutOption);
-        }
-
-        public static void SetScrollViewEnd()
-        {
-            EditorGUILayout.EndScrollView();
-        }
-
-        #endregion
-
-        #region ------------------------------------ Popup
-
-        public static int SetPopup(int IndexChoice, string[] ListChoice, params GUILayoutOption[] GUILayoutOption)
-        {
-            return EditorGUILayout.Popup("", IndexChoice, ListChoice, GUILayoutOption);
-        }
-
-        public static int SetPopup(int IndexChoice, List<string> ListChoice, params GUILayoutOption[] GUILayoutOption)
-        {
-            return EditorGUILayout.Popup("", IndexChoice, ListChoice.ToArray(), GUILayoutOption);
-        }
-
-        public static int SetPopup<EnumType>(int IndexChoice, params GUILayoutOption[] GUILayoutOption)
-        {
-            return EditorGUILayout.Popup("", IndexChoice, QEnum.GetEnumList<EnumType>().ToArray(), GUILayoutOption);
-        }
-
-        #endregion
-
-        #region ------------------------------------ Chance Check
-
-        public static void SetChanceCheckBegin()
-        {
-            EditorGUI.BeginChangeCheck();
-        }
-
-        public static bool SetChanceCheckEnd()
-        {
-            return EditorGUI.EndChangeCheck();
-        }
-
-        #endregion
-
-        #region ------------------------------------ Else
-
-        public static void SetBackground(Color Color)
-        {
-            GUI.backgroundColor = Color;
-        }
-
-        public static void SetSpace(float Space)
-        {
-            GUILayout.Space(Space);
-        }
-
-        #endregion
-
-        #endregion
-
-        #region ==================================== GUI Varible
-
-        #region ------------------------------------ GUI Layout Option
-
-        private static float WIDTH_OFFSET = 4f;
-
-        public static GUILayoutOption GetGUILayoutWidth(EditorWindow This, float WidthPercent = 1, float WidthOffset = 0)
-        {
-            return GetGUIWidth(GetWindowWidth(This) * WidthPercent - WidthOffset - WIDTH_OFFSET);
-        }
-
-        public static GUILayoutOption GetGUILayoutWidthBaseHeight(EditorWindow This, float HeightPercent = 1, float HeightOffset = 0)
-        {
-            return GetGUIWidth(GetWindowHeight(This) * HeightPercent - HeightOffset - WIDTH_OFFSET);
-        }
-
-        public static GUILayoutOption GetGUILayoutHeight(EditorWindow This, float HeightPercent = 1, float HeightOffset = 0)
-        {
-            return GetGUIHeight(GetWindowHeight(This) * HeightPercent - HeightOffset);
-        }
-
-        public static GUILayoutOption GetGUILayoutHeightBaseWidth(EditorWindow This, float WidthPercent = 1, float WidthOffset = 0)
-        {
-            return GetGUIHeight(GetWindowWidth(This) * WidthPercent - WidthOffset);
-        }
-
-        #endregion
-
-        #region ------------------------------------ GUI Panel Size
-
-        public static float GetWindowWidth(EditorWindow This)
-        {
-            return This.position.width;
-        }
-
-        public static float GetWindowHeight(EditorWindow This)
-        {
-            return This.position.height;
-        }
-
-        #endregion
-
-        #region ------------------------------------ GUI Panel Size Value
-
-        public static GUILayoutOption GetGUIWidth(float Width = 10f)
-        {
-            return GUILayout.Width(Width);
-        }
-
-        public static GUILayoutOption GetGUIHeight(float Height = 10)
-        {
-            return GUILayout.Height(Height);
-        }
-
-        #endregion
-
-        #region ------------------------------------ GUI Style
-
-        public static GUIStyle GetGUILabel(FontStyle FontStyle, TextAnchor Alignment)
-        {
-            GUIStyle GUIStyle = new GUIStyle(GUI.skin.label)
-            {
-                fontStyle = FontStyle,
-                alignment = Alignment,
-            };
-            return GUIStyle;
-        }
-
-        public static GUIStyle GetGUITextField(FontStyle FontStyle, TextAnchor Alignment)
-        {
-            GUIStyle GUIStyle = new GUIStyle(GUI.skin.textField)
-            {
-                fontStyle = FontStyle,
-                alignment = Alignment,
-            };
-            return GUIStyle;
-        }
-
-        public static GUIStyle GetGUITextArea(FontStyle FontStyle, TextAnchor Alignment)
-        {
-            GUIStyle GUIStyle = new GUIStyle(GUI.skin.textArea)
-            {
-                fontStyle = FontStyle,
-                alignment = Alignment,
-            };
-            return GUIStyle;
-        }
-
-        public static GUIStyle GetGUIButton(FontStyle FontStyle, TextAnchor Alignment)
-        {
-            GUIStyle GUIStyle = new GUIStyle(GUI.skin.button)
-            {
-                fontStyle = FontStyle,
-                alignment = Alignment,
-            };
-            return GUIStyle;
-        }
-
-        #endregion
-
-        #region ------------------------------------ GUI Image
-
-        public static GUIContent GetImage(Sprite Sprite)
-        {
-            Texture2D Texture = QSprite.GetTextureConvert(Sprite);
-
-            if (Texture != null)
-            {
-                return new GUIContent("", (Texture)Texture);
-            }
-            else
-            {
-                return new GUIContent("");
-            }
-        }
-
-        #endregion
-
-        #endregion
-
-        #region ==================================== GUI Control
-
-        public static void SetUnFocus()
-        {
-            //Call will Lost Focus when Editor Focus on Typing or etc!!
-            GUIUtility.keyboardControl = 0;
-        }
-
-        #endregion
-    }
-
-#endif
-
-#if UNITY_EDITOR
-
-    ///<summary>
-    ///Caution: Unity Editor only!
-    ///</summary>
-    public class QAssetsDatabase: QPath
-    {
-        //Folder "Assets" is the main root of all assets in project, that can find any assets from it.
-
-        public const string ExamplePathAssets = "Assets/Scene";
-
-        #region ==================================== Create Folder
-
-        public static string SetCreateFolder(params string[] PathChildInAssets)
-        {
-            List<string> Path = new List<string>();
-
-            string PathString = "";
-
-            for (int i = 0; i < PathChildInAssets.Length; i++)
-            {
-                Path.Add(PathChildInAssets[i]);
-
-                QEncypt.GetEncyptAdd('/', PathString, PathChildInAssets[i], out PathString);
-
-                SetCreateFolderExist(Path.ToArray());
-            }
-
-            return PathString;
-        }
-
-        private static string SetCreateFolderExist(params string[] PathChildInAssets)
-        {
-            //If Root Folder not Exist, then can't Create new Folder from that Root Folder
-
-            string PathInAssets = "Assets";
-
-            for (int i = 0; i < PathChildInAssets.Length - 1; i++)
-            {
-                QEncypt.GetEncyptAdd('/', PathInAssets, PathChildInAssets[i], out PathInAssets);
-            }
-
-            string PathFolderInAssets = PathChildInAssets[PathChildInAssets.Length - 1];
-
-            if (QPath.GetPathFolderExist(PathType.Assets, PathChildInAssets))
-            {
-                //Debug.LogWarningFormat("[Debug] Folder Exist!!\n{0}", PathInAssets + "/" + PathFolderInAssets);
-
-                return "";
-            }
-
-            try
-            {
-                string PathString = AssetDatabase.CreateFolder(PathInAssets, PathFolderInAssets);
-
-                SetRefresh();
-
-                return AssetDatabase.GUIDToAssetPath(PathString);
-            }
-            catch
-            {
-                //Debug.LogWarningFormat("[Debug] Root Folder not Exist!!\n{0}", PathInAssets + "/" + PathFolderInAssets);
-
-                return "";
-            }
-        }
-
-        #endregion
-
-        #region ==================================== Delete
-
-        public static void SetDelete(PathType PathType, params string[] PathChild)
-        {
-            FileUtil.DeleteFileOrDirectory(QPath.GetPath(PathType, PathChild) + ".meta");
-            FileUtil.DeleteFileOrDirectory(QPath.GetPath(PathType, PathChild));
-
-            SetRefresh();
-        }
-
-        #endregion
-
-        #region ==================================== Refresh
-
-        public static void SetRefresh()
-        {
-            AssetDatabase.Refresh();
-        }
-
-        #endregion
-
-        #region ==================================== Get
-
-        public static List<GameObject> GetPrefab(params string[] PathChildInAssets)
-        {
-            string Path = QPath.GetPath(PathType.Assets, PathChildInAssets);
-
-            if (!GetPathFolderExist(Path)) return new List<GameObject>();
-
-            List<GameObject> ObjectsFound = new List<GameObject>();
-
-            string[] GUIDPathUnityFound = AssetDatabase.FindAssets("t:prefab", new string[] { Path });
-
-            foreach (string GUIDPath in GUIDPathUnityFound)
-            {
-                string AssetsSinglePath = AssetDatabase.GUIDToAssetPath(GUIDPath);
-                GameObject ObjectFound = AssetDatabase.LoadAssetAtPath<GameObject>(AssetsSinglePath);
-                ObjectsFound.Add(ObjectFound);
-            }
-
-            return ObjectsFound;
-        }
-
-        public static List<Sprite> GetSprite(params string[] PathChildInAssets)
-        {
-            string Path = QPath.GetPath(PathType.Assets, PathChildInAssets);
-
-            if (!GetPathFolderExist(Path)) return new List<Sprite>();
-
-            List<Sprite> ObjectsFound = new List<Sprite>();
-
-            string[] GUIDPathUnityFound = AssetDatabase.FindAssets("t:sprite", new string[] { Path });
-
-            foreach (string GUIDPath in GUIDPathUnityFound)
-            {
-                string AssetsSinglePath = AssetDatabase.GUIDToAssetPath(GUIDPath);
-                Sprite ObjectFound = AssetDatabase.LoadAssetAtPath<Sprite>(AssetsSinglePath);
-                ObjectsFound.Add(ObjectFound);
-            }
-
-            return ObjectsFound;
-        }
-
-        #endregion
-    }
-
-#endif
 
     public class QEncypt256Bit
     {
@@ -5302,15 +3603,1037 @@ namespace QuickMethode
         }
     }
 
-    public class QMath
+    #endregion
+
+    #region Camera & Resolution
+
+    public class QCamera
     {
-        public static (double Value, String String) GetDiscountPercent(double PrimaryValue, double DiscoundValue)
+        //Required only ONE Main Camera (with tag Main Camera) for the true result!!
+
+        #region ==================================== Pos of World & Canvas
+
+        public static Vector3 GetPosMouseToWorld()
         {
-            //Ex: Primary-Value = 40 & Discound-Value = 20 >> Mean Discound-Percent = 50%
-            double DiscountPercent = (PrimaryValue - DiscoundValue) / PrimaryValue * 100;
-            return (DiscountPercent, "-" + DiscountPercent.ToString() + "%");
+            return Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        }
+
+        public static Vector2 GetPosMouseToCanvas()
+        {
+            //NOTE: The value just apply for RecTransform got Anchors Centre and Pivot Centre!
+            return GetPosWorldToCanvas(GetPosMouseToWorld());
+        }
+
+        public static Vector2 GetPosWorldToCanvas(Vector3 PosWorld)
+        {
+            //NOTE: The value just apply for RecTransform got Anchors Centre and Pivot Centre!
+            return (Vector2)Camera.main.WorldToScreenPoint(PosWorld) - GetCameraSizePixel() * 0.5f;
+        }
+
+        #endregion
+
+        #region ==================================== Camera
+
+        //CAMERA mode ORTHOGRAPHIC - SIZE is a HALF number of UNIT WORLD HEIGHT from Scene to Screen.
+        //EX: If Camera orthographic Size is 1, mean need 2 Square 1x1 Unit world to fill full HEIGHT of screen.
+
+        public static Vector2 GetCameraSizePixel()
+        {
+            return GetCameraSizePixel(Camera.main);
+        }
+
+        public static Vector2 GetCameraSizeUnit()
+        {
+            return GetCameraSizeUnit(Camera.main);
+        }
+
+        public static Vector2 GetCameraSizePixel(Camera Camera)
+        {
+            return new Vector2(Camera.pixelWidth, Camera.pixelHeight);
+        }
+
+        public static Vector2 GetCameraSizeUnit(Camera Camera)
+        {
+            Vector2 SizePixel = GetCameraSizePixel(Camera);
+            float HeightUnit = Camera.orthographicSize * 2;
+            float WidthUnit = HeightUnit * (SizePixel.x / SizePixel.y);
+
+            return new Vector2(WidthUnit, HeightUnit);
+        }
+
+        #endregion
+
+        #region ==================================== Screen
+
+        public static Vector2 GetScreenSizePixel()
+        {
+            return new Vector2(Screen.width, Screen.height);
+        }
+
+        #endregion
+    } //Note: Current ORTHOGRAPHIC 2D only!!
+
+    public class QResolution
+    {
+        #region ==================================== Convert
+
+        public enum UnitScaleType { Width, Height, Span, Primary, Tarket, }
+
+        public static Vector2 GetSizeUnitScaled(Sprite SpritePrimary, Sprite SpriteTarket, UnitScaleType SpriteScale)
+        {
+            return GetSizeUnitScaled(QSprite.GetSpriteSizeUnit(SpritePrimary), QSprite.GetSpriteSizeUnit(SpriteTarket), SpriteScale);
+        }
+
+        public static Vector2 GetSizeUnitScaled(Vector2 SizeUnitPrimary, Vector2 SizeUnitTarket, UnitScaleType SpriteScale)
+        {
+            Vector2 SizeUnitFinal = new Vector2();
+
+            switch (SpriteScale)
+            {
+                case UnitScaleType.Width:
+                    {
+                        float OffsetX = SizeUnitTarket.x / SizeUnitPrimary.x;
+                        float SizeUnitFinalX = SizeUnitPrimary.x * OffsetX;
+                        float SizeUnitFinalY = SizeUnitPrimary.y * OffsetX;
+                        SizeUnitFinal = new Vector2(SizeUnitFinalX, SizeUnitFinalY);
+                    }
+                    break;
+                case UnitScaleType.Height:
+                    {
+                        float OffsetY = SizeUnitTarket.y / SizeUnitPrimary.y;
+                        float SizeUnitFinalX = SizeUnitPrimary.x * OffsetY;
+                        float SizeUnitFinalY = SizeUnitPrimary.y * OffsetY;
+                        SizeUnitFinal = new Vector2(SizeUnitFinalX, SizeUnitFinalY);
+                    }
+                    break;
+                case UnitScaleType.Span:
+                    {
+                        float OffsetX = SizeUnitTarket.x / SizeUnitPrimary.x;
+                        float OffsetY = SizeUnitTarket.y / SizeUnitPrimary.y;
+                        if (OffsetX < OffsetY)
+                        {
+                            SizeUnitFinal = GetSizeUnitScaled(SizeUnitPrimary, SizeUnitTarket, UnitScaleType.Height);
+                        }
+                        else
+                        {
+                            SizeUnitFinal = GetSizeUnitScaled(SizeUnitPrimary, SizeUnitTarket, UnitScaleType.Width);
+                        }
+                    }
+                    break;
+                case UnitScaleType.Primary:
+                    SizeUnitFinal = SizeUnitPrimary;
+                    break;
+                case UnitScaleType.Tarket:
+                    SizeUnitFinal = SizeUnitTarket;
+                    break;
+            }
+
+            return SizeUnitFinal;
+        }
+
+        #endregion
+    }
+
+    #endregion
+
+    #region Assets & File
+
+    public class QResources
+    {
+        //NOTE:
+        //Folder(s) "Resources" can be created everywhere from root "Assests/*", that can be access by Unity or Application
+
+        //BEWARD:
+        //All content(s) in folder(s) "Resources" will be builded to Application, even they ightn't be used in Build-Game Application
+
+        #region ==================================== Prefab
+
+        public static List<GameObject> GetPrefab(params string[] PathChildInResources)
+        {
+            string PathInResources = QPath.GetPath(QPath.PathType.None, PathChildInResources);
+            GameObject[] LoadArray = Resources.LoadAll<GameObject>(PathInResources);
+            List<GameObject> LoadList = new List<GameObject>();
+            LoadList.AddRange(LoadArray);
+            return LoadList;
+        }
+
+        #endregion
+
+        #region ==================================== Sprite
+
+        public static List<Sprite> GetSprite(params string[] PathChildInResources)
+        {
+            string PathInResources = QPath.GetPath(QPath.PathType.None, PathChildInResources);
+            Sprite[] LoadArray = Resources.LoadAll<Sprite>(PathInResources);
+            List<Sprite> LoadList = new List<Sprite>();
+            LoadList.AddRange(LoadArray);
+            return LoadList;
+        }
+
+        #endregion
+
+        #region ==================================== Text Asset
+
+        public static List<TextAsset> GetTextAsset(params string[] PathChildInResources)
+        {
+            string PathInResources = QPath.GetPath(QPath.PathType.None, PathChildInResources);
+            TextAsset[] LoadArray = Resources.LoadAll<TextAsset>(PathInResources);
+            List<TextAsset> LoadList = new List<TextAsset>();
+            LoadList.AddRange(LoadArray);
+            return LoadList;
+        }
+
+        #endregion
+    }
+
+    public class QPath
+    {
+        public const string ExamplePath = @"D:/ClassFileIO.txt";
+
+        #region ==================================== Path Get
+
+        public enum PathType { None, Persistent, Assets, Resources, Document, Picture, Music, Video, }
+
+        public static string GetPath(PathType PathType, params string[] PathChild)
+        {
+            string PathFinal = "";
+
+            switch (PathType)
+            {
+                case PathType.Persistent:
+                    PathFinal = Application.persistentDataPath;
+                    break;
+                case PathType.Assets:
+                    PathFinal = Application.dataPath;
+                    break;
+                case PathType.Resources:
+                    PathFinal = Application.dataPath + @"/resources";
+                    break;
+                case PathType.Document:
+                    PathFinal = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                    break;
+                case PathType.Picture:
+                    PathFinal = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+                    break;
+                case PathType.Music:
+                    PathFinal = Environment.GetFolderPath(Environment.SpecialFolder.MyMusic);
+                    break;
+                case PathType.Video:
+                    PathFinal = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos);
+                    break;
+            }
+
+            foreach (string PathChildAdd in PathChild)
+                QEncypt.GetEncyptAdd('/', PathFinal, PathChildAdd, out PathFinal);
+
+            return PathFinal;
+        }
+
+        #endregion
+
+        #region ==================================== Path Pannel
+
+#if UNITY_EDITOR
+
+        //Open
+
+        ///<summary>
+        ///Caution: Unity Editor only!
+        ///</summary>
+        public static (bool Result, string Path, string Name) GetPathFolderOpenPanel(string Title, string PathPrimary = "")
+        {
+            string Path = EditorUtility.OpenFolderPanel(Title, (PathPrimary == "") ? GetPath(PathType.Assets) : PathPrimary, "");
+            List<string> PathDencypt = QEncypt.GetDencyptString('/', Path);
+            return (Path != "", Path, (PathDencypt.Count > 0) ? PathDencypt[PathDencypt.Count - 1] : "");
+        }
+
+        ///<summary>
+        ///Caution: Unity Editor only!
+        ///</summary>
+        public static (bool Result, string Path, string Name) GetPathFileOpenPanel(string Title, string Extension, string PathPrimary = "")
+        {
+            string Path = EditorUtility.OpenFilePanel(Title, (PathPrimary == "") ? GetPath(PathType.Assets) : PathPrimary, Extension);
+            List<string> PathDencypt = QEncypt.GetDencyptString('/', Path);
+            return (Path != "", Path, (PathDencypt.Count > 0) ? PathDencypt[PathDencypt.Count - 1] : "");
+        }
+
+        //Save
+
+        ///<summary>
+        ///Caution: Unity Editor only!
+        ///</summary>
+        public static (bool Result, string Path, string Name) GetPathFolderSavePanel(string Title, string PathPrimary = "")
+        {
+            string Path = EditorUtility.SaveFolderPanel(Title, (PathPrimary == "") ? GetPath(PathType.Assets) : PathPrimary, "");
+            List<string> PathDencypt = QEncypt.GetDencyptString('/', Path);
+            return (Path != "", Path, (PathDencypt.Count > 0) ? PathDencypt[PathDencypt.Count - 1] : "");
+        }
+
+        ///<summary>
+        ///Caution: Unity Editor only!
+        ///</summary>
+        public static (bool Result, string Path, string Name) GetPathFileSavePanel(string Title, string Extension, string PathPrimary = "")
+        {
+            string Path = EditorUtility.SaveFilePanel(Title, (PathPrimary == "") ? GetPath(PathType.Assets) : PathPrimary, "", Extension);
+            List<string> PathDencypt = QEncypt.GetDencyptString('/', Path);
+            return (Path != "", Path, (PathDencypt.Count > 0) ? PathDencypt[PathDencypt.Count - 1] : "");
+        }
+
+#endif
+
+        #endregion
+
+        #region ==================================== Path File Exist
+
+        public static bool GetPathFileExist(string PathFile)
+        {
+            return File.Exists(PathFile);
+        }
+
+        public static bool GetPathFileExist(PathType PathType, params string[] PathChild)
+        {
+            return File.Exists(GetPath(PathType, PathChild));
+        }
+
+        #endregion
+
+        #region ==================================== Path Folder Exist
+
+        public static bool GetPathFolderExist(string PathFolder)
+        {
+            return Directory.Exists(PathFolder);
+        }
+
+        public static bool GetPathFolderExist(PathType PathType, params string[] PathChild)
+        {
+            return Directory.Exists(GetPath(PathType, PathChild));
+        }
+
+        #endregion
+    }
+
+    public class QFileIO : QPath
+    {
+        #region ==================================== File IO Write 
+
+        private string TextWrite = "";
+
+        #region ------------------------------------ Write Start
+
+        public void SetWriteStart(string Path)
+        {
+            SetWriteToFile(Path, GetWriteString());
+        } //Call Last
+
+        private void SetWriteToFile(string Path, string Data)
+        {
+            try
+            {
+                using (FileStream Stream = File.Create(Path))
+                {
+                    byte[] Info = new UTF8Encoding(true).GetBytes(Data);
+                    Stream.Write(Info, 0, Info.Length);
+                }
+            }
+            catch
+            {
+                Debug.LogErrorFormat("[Error] File Write Fail: {0}", Path);
+            }
+        }
+
+        public void SetWriteClear()
+        {
+            TextWrite = "";
+        }
+
+        #endregion
+
+        #region ------------------------------------ Write Add
+
+        public void SetWriteAdd()
+        {
+            if (TextWrite.Length != 0)
+            {
+                TextWrite += "\n";
+            }
+
+            TextWrite += "";
+        }
+
+        public void SetWriteAdd(string DataAdd)
+        {
+            if (TextWrite.Length != 0)
+            {
+                TextWrite += "\n";
+            }
+
+            TextWrite += DataAdd;
+        }
+
+        public void SetWriteAdd(char Key, params string[] DataAdd)
+        {
+            if (TextWrite.Length != 0)
+            {
+                TextWrite += "\n";
+            }
+
+            TextWrite += QEncypt.GetEncypt(Key, DataAdd);
+        }
+
+        public void SetWriteAdd(char Key, params int[] DataAdd)
+        {
+            if (TextWrite.Length != 0)
+            {
+                TextWrite += "\n";
+            }
+
+            TextWrite += QEncypt.GetEncypt(Key, DataAdd);
+        }
+
+        public void SetWriteAdd(char Key, params float[] DataAdd)
+        {
+            if (TextWrite.Length != 0)
+            {
+                TextWrite += "\n";
+            }
+
+            TextWrite += QEncypt.GetEncypt(Key, DataAdd);
+        }
+
+        public void SetWriteAdd(char Key, params bool[] DataAdd)
+        {
+            if (TextWrite.Length != 0)
+            {
+                TextWrite += "\n";
+            }
+
+            TextWrite += QEncypt.GetEncypt(Key, DataAdd);
+        }
+
+        public void SetWriteAdd(int DataAdd)
+        {
+            if (TextWrite.Length != 0)
+            {
+                TextWrite += "\n";
+            }
+
+            TextWrite += DataAdd.ToString();
+        }
+
+        public void SetWriteAdd(float DataAdd)
+        {
+            if (TextWrite.Length != 0)
+            {
+                TextWrite += "\n";
+            }
+
+            TextWrite += DataAdd.ToString();
+        }
+
+        public void SetWriteAdd(double DataAdd)
+        {
+            if (TextWrite.Length != 0)
+            {
+                TextWrite += "\n";
+            }
+
+            TextWrite += DataAdd.ToString();
+        }
+
+        public void SetWriteAdd(bool DataAdd)
+        {
+            if (TextWrite.Length != 0)
+            {
+                TextWrite += "\n";
+            }
+
+            TextWrite += ((DataAdd) ? "True" : "False");
+        }
+
+        public void SetWriteAdd(char Key, Vector2 DataAdd)
+        {
+            SetWriteAdd(QEncypt.GetEncyptVector2(Key, DataAdd));
+        }
+
+        public void SetWriteAdd(char Key, Vector2Int DataAdd)
+        {
+            SetWriteAdd(QEncypt.GetEncyptVector2Int(Key, DataAdd));
+        }
+
+        public void SetWriteAdd(char Key, Vector3 DataAdd)
+        {
+            SetWriteAdd(QEncypt.GetEncyptVector3(Key, DataAdd));
+        }
+
+        public void SetWriteAdd(char Key, Vector3Int DataAdd)
+        {
+            SetWriteAdd(QEncypt.GetEncyptVector3Int(Key, DataAdd));
+        }
+
+        public string GetWriteString()
+        {
+            return TextWrite;
+        }
+
+        #endregion
+
+        #endregion
+
+        #region ==================================== File IO Read
+
+        private List<string> TextRead = new List<string>();
+        private int ReadRun = -1;
+
+        #region ------------------------------------ Read Start
+
+        public void SetReadStart(string Path)
+        {
+            TextRead = GetReadFromFile(Path);
+        } //Call First
+
+        public void SetReadStart(TextAsset FileTest)
+        {
+            TextRead = GetReadFromFile(FileTest);
+        } //Call First
+
+        private List<string> GetReadFromFile(string Path)
+        {
+            try
+            {
+                List<string> TextRead = new List<string>();
+                using (StreamReader Stream = File.OpenText(Path))
+                {
+                    string ReadRun = "";
+                    while ((ReadRun = Stream.ReadLine()) != null)
+                    {
+                        TextRead.Add(ReadRun);
+                    }
+                }
+                return TextRead;
+            }
+            catch
+            {
+                Debug.LogErrorFormat("[Error] File Read Fail: {0}", Path);
+                return null;
+            }
+        }
+
+        private List<string> GetReadFromFile(TextAsset FileTest)
+        {
+            try
+            {
+                string ReadRun = FileTest.text.Replace("\r\n", "\n");
+                List<string> TextRead = QEncypt.GetDencyptString('\n', ReadRun);
+                return TextRead;
+            }
+            catch
+            {
+                Debug.LogErrorFormat("[Error] File Read Fail: {0}", FileTest.name);
+                return null;
+            }
+        }
+
+        public void SetReadClear()
+        {
+            TextRead = new List<string>();
+            ReadRun = -1;
+        }
+
+        #endregion
+
+        #region ------------------------------------ Read Auto
+
+        public void GetReadAuto()
+        {
+            if (ReadRun >= TextRead.Count - 1) return;
+            ReadRun++;
+        }
+
+        public string GetReadAutoString()
+        {
+            if (ReadRun >= TextRead.Count - 1) return "";
+            ReadRun++;
+            return TextRead[ReadRun];
+        }
+
+        public List<string> GetReadAutoString(char Key)
+        {
+            if (ReadRun >= TextRead.Count - 1) return new List<string>();
+            ReadRun++;
+            return QEncypt.GetDencyptString(Key, TextRead[ReadRun]);
+        }
+
+        public List<int> GetReadAutoInt(char Key)
+        {
+            if (ReadRun >= TextRead.Count - 1) return new List<int>();
+            ReadRun++;
+            return QEncypt.GetDencyptInt(Key, TextRead[ReadRun]);
+        }
+
+        public List<float> GetReadAutoFloat(char Key)
+        {
+            if (ReadRun >= TextRead.Count - 1) return new List<float>();
+            ReadRun++;
+            return QEncypt.GetDencyptFloat(Key, TextRead[ReadRun]);
+        }
+
+        public List<bool> GetReadAutoBool(char Key)
+        {
+            if (ReadRun >= TextRead.Count - 1) return new List<bool>();
+            ReadRun++;
+            return QEncypt.GetDencyptBool(Key, TextRead[ReadRun]);
+        }
+
+        public int GetReadAutoInt()
+        {
+            if (ReadRun >= TextRead.Count - 1) return 0;
+            ReadRun++;
+            return int.Parse(TextRead[ReadRun]);
+        }
+
+        public float GetReadAutoFloat()
+        {
+            if (ReadRun >= TextRead.Count - 1) return 0f;
+            ReadRun++;
+            return float.Parse(TextRead[ReadRun]);
+        }
+
+        public double GetReadAutoDouble()
+        {
+            if (ReadRun >= TextRead.Count - 1) return 0f;
+            ReadRun++;
+            return double.Parse(TextRead[ReadRun]);
+        }
+
+        public bool GetReadAutoBool()
+        {
+            if (ReadRun >= TextRead.Count - 1) return false;
+            ReadRun++;
+            return TextRead[ReadRun] == "True";
+        }
+
+        public Vector2 GetReadAutoVector2(char Key)
+        {
+            if (ReadRun >= TextRead.Count - 1) return new Vector2();
+            ReadRun++;
+            return QEncypt.GetDencyptVector2(Key, TextRead[ReadRun]);
+        }
+
+        public Vector2Int GetReadAutoVector2Int(char Key)
+        {
+            if (ReadRun >= TextRead.Count - 1) return new Vector2Int();
+            ReadRun++;
+            return QEncypt.GetDencyptVector2Int(Key, TextRead[ReadRun]);
+        }
+
+        public Vector3 GetReadAutoVector3(char Key)
+        {
+            if (ReadRun >= TextRead.Count - 1) return new Vector3();
+            ReadRun++;
+            return QEncypt.GetDencyptVector3(Key, TextRead[ReadRun]);
+        }
+
+        public Vector3Int GetReadAutoVector3Int(char Key)
+        {
+            if (ReadRun >= TextRead.Count - 1) return new Vector3Int();
+            ReadRun++;
+            return QEncypt.GetDencyptVector3Int(Key, TextRead[ReadRun]);
+        }
+
+        public bool GetReadAutoEnd()
+        {
+            return ReadRun >= TextRead.Count - 1;
+        }
+
+        public int GetReadAutoCurrent()
+        {
+            return ReadRun;
+        }
+
+        public List<string> GetRead()
+        {
+            return TextRead;
+        }
+
+        #endregion
+
+        #endregion
+    }
+
+    #endregion
+
+    #region Time & Date
+
+    public class QDateTime
+    {
+        public const string DD_MM_YYYY = "dd/MM/yyyy";
+        public const string YYYY_MM_DD = "yyyy/MM/dd";
+
+        public const string DDD_DD_MM_YYYY = "ddd dd/MM/yyyy";
+
+        public const string HH_MM_SS = "HH:mm:ss";
+        public const string HH_MM_SS_TT = "hh:mm:ss tt";
+
+        public const string DDD_DD_MM_YYYY_HH_MM_SS_TT = "ddd dd/MM/yyyy hh:mm:ss tt";
+
+        public static DateTime Now => DateTime.Now;
+
+        #region ==================================== Time Format
+
+        public static string GetFormat(DateTime Time, string FormatTime, string Special = "en-US")
+        {
+            if (Special != "")
+                return Time.ToString(FormatTime, CultureInfo.CreateSpecificCulture(Special));
+            else
+                return Time.ToString(FormatTime, DateTimeFormatInfo.InvariantInfo);
+        }
+
+        public static DateTime GetConvert(string Time, string FormatTime, string Special = "en-US")
+        {
+            if (Special != "")
+                return DateTime.ParseExact(Time, FormatTime, CultureInfo.CreateSpecificCulture(Special));
+            else
+                return DateTime.ParseExact(Time, FormatTime, CultureInfo.InvariantCulture);
+        }
+
+        #endregion
+
+        #region ==================================== Time Compare
+
+        public static (bool Prev, bool Equa, bool Next) GetCompare(DateTime TimeFrom, DateTime TimeTo)
+        {
+            if (TimeFrom < TimeTo)
+                return (true, false, false); //Past Time!!
+
+            if (TimeFrom > TimeTo)
+                return (false, false, true); //Future Time!!
+
+            return (false, true, false); //Now Time (Maybe not)!!
+        }
+
+        public static (bool Prev, bool Equa, bool Next) GetCompareDay(DateTime TimeFrom, DateTime TimeTo)
+        {
+            if (TimeFrom.Year > TimeTo.Year)
+                return (false, false, true); //Future Time!!
+            if (TimeFrom.Year < TimeTo.Year)
+                return (true, false, false); //Past Time!!
+
+            if (TimeFrom.Month > TimeTo.Month)
+                return (false, false, true); //Future Time!!
+            if (TimeFrom.Month < TimeTo.Month)
+                return (true, false, false); //Past Time!!
+
+            if (TimeFrom.Day > TimeTo.Day)
+                return (false, false, true); //Future Time!!
+            if (TimeFrom.Day < TimeTo.Day)
+                return (true, false, false); //Past Time!!
+
+            return (false, true, false); //Now Time (Maybe not)!!
+        }
+
+        public static int GetDay(DateTime From, DateTime To)
+        {
+            return (To - From).Days;
+        }
+
+        #endregion
+    }
+
+    public class QTimeSpan
+    {
+        public const string HH_MM_SS = @"hh\:mm\:ss";
+        public const string HH_MM = @"hh\:mm";
+        public const string MM_SS = @"mm\:ss";
+        public const string SS = @"ss";
+
+        #region ==================================== Count Format
+
+        public static string GetCountFormat(double Second, string FormatCount)
+        {
+            TimeSpan TimeConvert = TimeSpan.FromSeconds(Second);
+            return TimeConvert.ToString(FormatCount);
+        }
+
+        public static long GetCountConvertSecond(int Second = 0, int Minute = 0, int Hour = 0)
+        {
+            return Second + (60 * Minute) + (60 * 60 * Hour);
+        }
+
+        #endregion
+    }
+
+    public class QTimeCountdown
+    {
+        #region ==================================== Time Value
+
+        public bool Active;
+        public string Name;
+
+        public double TimeRemain; //Second!!
+
+        public string TimeShow; //Primary "hh:mm:ss"!!
+
+        public QTimeCountdown(string Name, bool Active, double TimeRemain, string TimeShow)
+        {
+            this.Name = Name;
+            this.Active = Active;
+            this.TimeRemain = (int)TimeRemain;
+            this.TimeShow = TimeShow;
+        }
+
+        #endregion
+
+        #region ==================================== Time Function
+
+        private const string PREF_START = "QTime-Start-";
+        private const string PREF_COUNT = "QTime-Count-";
+
+        public static IEnumerator ISetTime(long SecondMax, string Name, Action<QTimeCountdown> Active, string FormatCount = QTimeSpan.HH_MM_SS)
+        {
+            string REF_START_TIME = PREF_START + Name;
+            string REF_COUNT_DOWN = PREF_COUNT + Name;
+
+            DateTime StartTime = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+            DateTime TimeNow = DateTime.UtcNow;
+            double Time = (TimeNow - StartTime).TotalSeconds;
+            double TimeStart = double.Parse(QPlayerPrefs.GetValueString(REF_START_TIME, Time.ToString()));
+            long TimeCount = (long)double.Parse(QPlayerPrefs.GetValueString(REF_COUNT_DOWN, SecondMax.ToString()));
+
+            QPlayerPrefs.SetValue(REF_START_TIME, TimeStart.ToString());
+            QPlayerPrefs.SetValue(REF_COUNT_DOWN, TimeCount.ToString());
+
+            TimeCount -= (long)(TimeNow - StartTime.AddSeconds(TimeStart)).TotalSeconds;
+            Debug.LogFormat("[Debug] QTime: {0} remain {1} second(s)!!", Name, TimeCount);
+
+            while (TimeCount > 0)
+            {
+                string TimeShow = QTimeSpan.GetCountFormat(TimeCount, FormatCount);
+                Active?.Invoke(new QTimeCountdown(Name, true, TimeCount, TimeShow));
+
+                yield return new WaitForSeconds(1f);
+                TimeCount--;
+            }
+
+            QPlayerPrefs.SetValueClear(REF_START_TIME);
+            QPlayerPrefs.SetValueClear(REF_COUNT_DOWN);
+
+            Active?.Invoke(new QTimeCountdown(Name, false, 0, ""));
+        }
+
+        public static bool GetTimeExist(string Name)
+        {
+            return QPlayerPrefs.GetValueExist(PREF_START + Name);
+        }
+
+        public static void SetTimeClear(string Name)
+        {
+            QPlayerPrefs.SetValueClear(PREF_START + Name);
+            QPlayerPrefs.SetValueClear(PREF_COUNT + Name);
+        }
+
+        #endregion
+    }
+
+    #endregion
+
+    #region Keyboard & Control
+
+    public class QApplication
+    {
+        public static void SetTimeScale(float TimeScale = 1)
+        {
+            Time.timeScale = TimeScale;
+        }
+
+        public static void SetFrameRateTarget(int FrameRateTarget = 60)
+        {
+            Application.targetFrameRate = FrameRateTarget;
+        }
+
+        public static void SetPhysicSimulation(SimulationMode2D Mode)
+        {
+            //From Editor Unity Window: Edit/Project Setting/Physic 2D/Simulation Mode.
+            //Mode Fixed Update: Physic will be caculated every Fixed Delta Time, after FixedUpdate methode called (By Default of Unity).
+            //Mode Update: Physic will caculated every Delta Time, after every Update methode called (Higher Frame Rate, higher correct Physic caculated, but consumed more CPU resources).
+            //Mode Script: Unknow?
+            Physics2D.simulationMode = Mode;
         }
     }
+
+    public class QScene
+    {
+        public static void SetSceneChance(string SceneName, LoadSceneMode LoadSceneMode = LoadSceneMode.Single)
+        {
+            SceneManager.LoadScene(SceneName, LoadSceneMode);
+        }
+
+        public static (int Index, string Name) GetSceneCurrent()
+        {
+            return (GetSceneCurrentBuildIndex(), GetSceneCurrentName());
+        }
+
+        public static string GetSceneCurrentName()
+        {
+            return SceneManager.GetActiveScene().name;
+        }
+
+        public static int GetSceneCurrentBuildIndex()
+        {
+            return SceneManager.GetActiveScene().buildIndex;
+        }
+    }
+
+    public class QControl
+    {
+        #region ==================================== Mouse
+
+        public static void SetMouseVisible(bool MouseVisble)
+        {
+            Cursor.visible = MouseVisble;
+        }
+
+        #endregion
+
+        #region ==================================== Keyboard
+
+        public static string GetKeyboardSimple(KeyCode KeyCode)
+        {
+            switch (KeyCode)
+            {
+                case KeyCode.Escape:
+                    return "Esc";
+                case KeyCode.Return:
+                    return "Enter";
+                case KeyCode.Delete:
+                    return "Del";
+                case KeyCode.Backspace:
+                    return "B-Space";
+
+                case KeyCode.Mouse0:
+                    return "L-Mouse";
+                case KeyCode.Mouse1:
+                    return "R-Mouse";
+                case KeyCode.Mouse2:
+                    return "M-Mouse";
+
+                case KeyCode.LeftBracket:
+                    return "[";
+                case KeyCode.RightBracket:
+                    return "]";
+
+                case KeyCode.LeftCurlyBracket:
+                    return "{";
+                case KeyCode.RightCurlyBracket:
+                    return "}";
+
+                case KeyCode.LeftParen:
+                    return "(";
+                case KeyCode.RightParen:
+                    return ")";
+
+                case KeyCode.LeftShift:
+                    return "L-Shift";
+                case KeyCode.RightShift:
+                    return "R-Shift";
+
+                case KeyCode.LeftAlt:
+                    return "L-Alt";
+                case KeyCode.RightAlt:
+                    return "R-Alt";
+
+                case KeyCode.PageUp:
+                    return "Page-U";
+                case KeyCode.PageDown:
+                    return "Page-D";
+            }
+
+            return KeyCode.ToString();
+        }
+
+        #endregion
+
+        #region ==================================== Device (?)
+
+        #region Vibrator
+
+        public static bool VibrateHandle = true;
+
+#if UNITY_ANDROID && !UNITY_EDITOR
+        public static AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+        public static AndroidJavaObject currentActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
+        public static AndroidJavaObject vibrator = currentActivity.Call<AndroidJavaObject>("getSystemService", "vibrator");
+#else
+        public static AndroidJavaClass unityPlayer;
+        public static AndroidJavaObject currentActivity;
+        public static AndroidJavaObject vibrator;
+#endif
+
+        public static void SetDeviceVibrate()
+        {
+            if (VibrateHandle)
+            {
+                Handheld.Vibrate();
+            }
+            else
+            {
+                if (Application.platform == RuntimePlatform.Android && !Application.isEditor)
+                    vibrator.Call("vibrate");
+                else
+                    Handheld.Vibrate();
+            }
+        }
+
+        public static void SetDeviceVibrate(float TimeMilisecond)
+        {
+            if (VibrateHandle)
+            {
+                Handheld.Vibrate();
+            }
+            else
+            {
+                if (Application.platform == RuntimePlatform.Android && !Application.isEditor)
+                    vibrator.Call("vibrate", TimeMilisecond);
+                else
+                    Handheld.Vibrate();
+            }
+        }
+
+        public static void SetDeviceVibrate(float[] Pattern, int Repeat) //???
+        {
+            if (VibrateHandle)
+            {
+                Handheld.Vibrate();
+            }
+            else
+            {
+                if (Application.platform == RuntimePlatform.Android && !Application.isEditor)
+                    vibrator.Call("vibrate", Pattern, Repeat);
+                else
+                    Handheld.Vibrate();
+            }
+        }
+
+        public static void SetDeviceVibrateCancel()
+        {
+            if (VibrateHandle)
+            {
+                //...
+            }
+            else
+            {
+                if (Application.platform == RuntimePlatform.Android && !Application.isEditor)
+                    vibrator.Call("cancel");
+            }
+        }
+
+        #endregion
+
+        #endregion
+    }
+
+    #endregion
+
+    #region Enum
 
     public enum Opption { Yes = 1, No = 0 }
 
@@ -5321,6 +4644,724 @@ namespace QuickMethode
     public enum DirectionY { Up = 1, Down = -1, None = 0 }
 
     public enum Axis { Up, Right, Forward, }
+
+    #endregion
+
+    #region Unity & Editor
+
+    public class QGizmos
+    {
+        #region ==================================== Primary
+
+        public static void SetLine(Vector3 PosA, Vector3 PosB, Color Color, float SizePoint = 0f)
+        {
+            Gizmos.color = Color;
+            Gizmos.DrawLine(PosA, PosB);
+
+            if (SizePoint != 0)
+            {
+                SetWireSphere(PosA, SizePoint, Color);
+                SetWireSphere(PosB, SizePoint, Color);
+            }
+        }
+
+        public static void SetRay(Vector3 Pos, Vector3 Dir, float Distance, Color Color, float SizePoint = 0f)
+        {
+            Vector3 PosA = Pos;
+            Vector3 PosB = PosA + Dir.normalized * Distance;
+
+            Gizmos.color = Color;
+            Gizmos.DrawLine(PosA, PosB);
+
+            if (SizePoint != 0)
+            {
+                SetWireSphere(PosA, SizePoint, Color);
+                SetWireSphere(PosB, SizePoint, Color);
+            }
+        }
+
+        public static void SetWireCube(Vector3 Pos, Vector3 Size, Color Color)
+        {
+            Gizmos.color = Color;
+            Gizmos.DrawWireCube(Pos, Size);
+        }
+
+        public static void SetWireCube(Vector2 Pos, Vector3 Size, Color Color)
+        {
+            Gizmos.color = Color;
+            Gizmos.DrawWireCube(Pos, Size);
+        }
+
+        public static void SetWireSphere(Vector3 Pos, float Size, Color Color)
+        {
+            Gizmos.color = Color;
+            Gizmos.DrawWireSphere(Pos, Size);
+        }
+
+        public static void SetWireSphere(Vector2 Pos, float Size, Color Color)
+        {
+            Gizmos.color = Color;
+            Gizmos.DrawWireSphere(Pos, Size);
+        }
+
+        #endregion
+
+        #region ==================================== Cast
+
+        public static void SetBoxcast(Vector3 PosStart, Vector3 PosEnd, Vector3 Size, Color Color)
+        {
+            SetLine(PosStart, PosEnd, Color);
+            SetWireCube(PosEnd, Size, Color);
+        }
+
+        public static void SetBoxcast(Vector3 PosStart, Vector3 PosEnd, Vector3 Size, float Distance, Color Color)
+        {
+            Vector3 Dir = (PosEnd - PosStart).normalized;
+            SetLine(PosStart, PosStart + Dir * Distance, Color);
+            SetWireCube(PosStart + Dir * Distance, Size, Color);
+        }
+
+        public static void SetBoxcastDir(Vector3 PosStart, Vector3 Dir, Vector3 Size, float Distance, Color Color)
+        {
+            SetLine(PosStart, PosStart + Dir * Distance, Color);
+            SetWireCube(PosStart + Dir * Distance, Size, Color);
+        }
+
+        public static void SetSpherecast(Vector3 PosStart, Vector3 PosEnd, float Size, Color Color)
+        {
+            SetLine(PosStart, PosEnd, Color);
+            SetWireSphere(PosEnd, Size, Color);
+        }
+
+        public static void SetSpherecast(Vector3 PosStart, Vector3 PosEnd, float Size, float Distance, Color Color)
+        {
+            Vector3 Dir = (PosEnd - PosStart).normalized;
+            SetLine(PosStart, PosStart + Dir * Distance, Color);
+            SetWireSphere(PosStart + Dir * Distance, Size, Color);
+        }
+
+        public static void SetSpherecastDir(Vector3 PosStart, Vector3 Dir, float Size, float Distance, Color Color)
+        {
+            SetLine(PosStart, PosStart + Dir * Distance, Color);
+            SetWireSphere(PosStart + Dir * Distance, Size, Color);
+        }
+
+        #endregion
+
+        #region ==================================== Camera
+
+        public static void SetCamera(Color Color)
+        {
+            SetCamera(UnityEngine.Camera.main, Color);
+        }
+
+        public static void SetCamera(Camera Camera, Color Color)
+        {
+            Gizmos.color = Color;
+
+            Vector2 Resolution = QCamera.GetCameraSizeUnit();
+            Gizmos.DrawWireCube((Vector2)Camera.transform.position, Resolution);
+        }
+
+        #endregion
+
+        #region ==================================== Sprite
+
+        public static void SetSprite2D(SpriteRenderer SpriteRenderer, Color Color)
+        {
+            Vector2 Size = QSprite.GetSpriteSizeUnit(SpriteRenderer.sprite);
+            Vector2 Pos = (Vector2)SpriteRenderer.transform.position;
+
+            Vector2 TL = Vector2.up * Size.y / 2 + Vector2.left * Size.x / 2;
+            Vector2 TR = Vector2.up * Size.y / 2 + Vector2.right * Size.x / 2;
+            Vector2 BL = Vector2.down * Size.y / 2 + Vector2.left * Size.x / 2;
+            Vector2 BR = Vector2.down * Size.y / 2 + Vector2.right * Size.x / 2;
+
+            SetLine(Pos + TL, Pos + TR, Color);
+            SetLine(Pos + TR, Pos + BR, Color);
+            SetLine(Pos + BR, Pos + BL, Color);
+            SetLine(Pos + BL, Pos + TL, Color);
+        }
+
+        #endregion
+
+        #region ==================================== Collider
+
+        #region Collider Pos Self
+
+        public static void SetCollider2D(Collider2D Collider, Color Color)
+        {
+            SetWireCube(Collider.bounds.center, (Vector2)Collider.bounds.size, Color);
+        }
+
+        public static void SetCollider2D(BoxCollider2D Collider, Color Color)
+        {
+            SetWireCube(Collider.bounds.center, (Vector2)Collider.bounds.size + Vector2.one * Collider.edgeRadius * 2, Color);
+        }
+
+        public static void SetCollider2D(CircleCollider2D Collider, Color Color)
+        {
+            SetWireSphere(Collider.bounds.center, Collider.radius, Color);
+        }
+
+        public static void SetCollider2D(PolygonCollider2D Collider, Color Color)
+        {
+            Gizmos.color = Color;
+
+            for (int i = 1; i < Collider.points.Length; i++)
+            {
+                Gizmos.DrawLine(Collider.points[i - 1], Collider.points[i]);
+            }
+            Gizmos.DrawLine(Collider.points[0], Collider.points[Collider.points.Length - 1]);
+        }
+
+        public static void SetCollider2D(CompositeCollider2D Collider, bool Square, Color Color)
+        {
+            List<List<Vector2>> Points = QCollider2D.GetPointsBorderPos(Collider, Square);
+
+            if (Points.Count == 0)
+                return;
+
+            Vector2 Center = Collider.transform.position;
+
+            for (int Group = 0; Group < Points.Count; Group++)
+            {
+                for (int Index = 1; Index < Points[Group].Count; Index++)
+                    SetLine(Center + Points[Group][Index - 1], Center + Points[Group][Index], Color.red, 0.1f);
+                SetLine(Center + Points[Group][0], Center + Points[Group][Points[Group].Count - 1], Color.red, 0.1f);
+            }
+        }
+
+        #endregion
+
+        #region Collider Pos Free
+
+        public static void SetCollider2D(Vector2 Pos, Collider2D Collider, Color Color)
+        {
+            SetWireCube(Pos, (Vector2)Collider.bounds.size, Color);
+        }
+
+        public static void SetCollider2D(Vector2 Pos, BoxCollider2D Collider, Color Color)
+        {
+            SetWireCube(Pos, (Vector2)Collider.bounds.size + Vector2.one * Collider.edgeRadius * 2, Color);
+        }
+
+        public static void SetCollider2D(Vector2 Pos, CircleCollider2D Collider, Color Color)
+        {
+            SetWireSphere(Pos, Collider.radius, Color);
+        }
+
+        #endregion
+
+        #endregion
+    }
+
+#if UNITY_EDITOR
+
+    ///<summary>
+    ///Caution: Unity Editor only!
+    ///</summary>
+    public class QEditor
+    {
+        //Can be use for EditorWindow & Editor Script!!
+
+        #region ==================================== GUI Primary
+
+        #region ------------------------------------ Label
+
+        public static void SetLabel(string Label, GUIStyle GUIStyle = null, params GUILayoutOption[] GUILayoutOption)
+        {
+            if (GUIStyle == null)
+                GUILayout.Label(Label, GUILayoutOption);
+            else
+                GUILayout.Label(Label, GUIStyle, GUILayoutOption);
+        }
+
+        public static void SetLabel(Sprite Sprite, params GUILayoutOption[] GUILayoutOption)
+        {
+            GUILayout.Label(GetImage(Sprite), GUILayoutOption);
+        }
+
+        #endregion
+
+        #region ------------------------------------ Button
+
+        public static bool SetButton(string Label, GUIStyle GUIStyle = null, params GUILayoutOption[] GUILayoutOption)
+        {
+            if (GUIStyle == null)
+                return GUILayout.Button(Label, GUILayoutOption);
+            else
+                return GUILayout.Button(Label, GUIStyle, GUILayoutOption);
+        }
+
+        public static bool SetButton(Sprite Sprite, params GUILayoutOption[] GUILayoutOption)
+        {
+            return GUILayout.Button(GetImage(Sprite), GUILayoutOption);
+        }
+
+        #endregion
+
+        #region ------------------------------------ Field
+
+        #region Field Text
+
+        //String
+
+        public static string SetField(string Value, GUIStyle GUIStyle = null, params GUILayoutOption[] GUILayoutOption)
+        {
+            if (GUIStyle == null)
+                return EditorGUILayout.TextField("", Value, GUILayoutOption);
+            else
+                return EditorGUILayout.TextField("", Value, GUIStyle, GUILayoutOption);
+        }
+
+        public static string SetFieldPassword(string Value, GUIStyle GUIStyle = null, params GUILayoutOption[] GUILayoutOption)
+        {
+            if (GUIStyle == null)
+                return EditorGUILayout.PasswordField("", Value, GUILayoutOption);
+            else
+                return EditorGUILayout.PasswordField("", Value, GUIStyle, GUILayoutOption);
+        }
+
+        //Number
+
+        public static int SetField(int Value, GUIStyle GUIStyle = null, params GUILayoutOption[] GUILayoutOption)
+        {
+            if (GUIStyle == null)
+                return EditorGUILayout.IntField("", Value, GUILayoutOption);
+            else
+                return EditorGUILayout.IntField("", Value, GUIStyle, GUILayoutOption);
+        }
+
+        public static long SetField(long Value, GUIStyle GUIStyle = null, params GUILayoutOption[] GUILayoutOption)
+        {
+            if (GUIStyle == null)
+                return EditorGUILayout.LongField("", Value, GUILayoutOption);
+            else
+                return EditorGUILayout.LongField("", Value, GUIStyle, GUILayoutOption);
+        }
+
+        public static float SetField(float Value, GUIStyle GUIStyle = null, params GUILayoutOption[] GUILayoutOption)
+        {
+            if (GUIStyle == null)
+                return EditorGUILayout.FloatField("", Value, GUILayoutOption);
+            else
+                return EditorGUILayout.FloatField("", Value, GUIStyle, GUILayoutOption);
+        }
+
+        public static double SetField(double Value, GUIStyle GUIStyle = null, params GUILayoutOption[] GUILayoutOption)
+        {
+            if (GUIStyle == null)
+                return EditorGUILayout.DoubleField("", Value, GUILayoutOption);
+            else
+                return EditorGUILayout.DoubleField("", Value, GUIStyle, GUILayoutOption);
+        }
+
+        #endregion
+
+        #region Field Vector
+
+        //Vector2
+
+        public static Vector2 SetField(Vector2 Value, params GUILayoutOption[] GUILayoutOption)
+        {
+            return EditorGUILayout.Vector2Field("", Value, GUILayoutOption);
+        }
+
+        public static Vector2Int SetField(Vector2Int Value, params GUILayoutOption[] GUILayoutOption)
+        {
+            return EditorGUILayout.Vector2IntField("", Value, GUILayoutOption);
+        }
+
+        //Vector3
+
+        public static Vector3 SetField(Vector3 Value, params GUILayoutOption[] GUILayoutOption)
+        {
+            return EditorGUILayout.Vector2Field("", Value, GUILayoutOption);
+        }
+
+        public static Vector3Int SetField(Vector3Int Value, params GUILayoutOption[] GUILayoutOption)
+        {
+            return EditorGUILayout.Vector3IntField("", Value, GUILayoutOption);
+        }
+
+        #endregion
+
+        #region Field Else
+
+        public static Color SetField(Color Value, params GUILayoutOption[] GUILayoutOption)
+        {
+            return EditorGUILayout.ColorField(Value, GUILayoutOption);
+        }
+
+        public static GameObject SetField(GameObject Value, params GUILayoutOption[] GUILayoutOption)
+        {
+            return (GameObject)EditorGUILayout.ObjectField("", Value, typeof(GameObject), true, GUILayoutOption);
+        }
+
+        #endregion
+
+        #endregion
+
+        #region ------------------------------------ Horizontal
+
+        public static void SetHorizontalBegin()
+        {
+            GUILayout.BeginHorizontal();
+        }
+
+        public static void SetHorizontalEnd()
+        {
+            GUILayout.EndHorizontal();
+        }
+
+        #endregion
+
+        #region ------------------------------------ Vertical
+
+        public static void SetVerticalBegin()
+        {
+            GUILayout.BeginVertical();
+        }
+
+        public static void SetVerticalEnd()
+        {
+            GUILayout.EndVertical();
+        }
+
+        #endregion
+
+        #region ------------------------------------ Scroll View
+
+        public static Vector2 SetScrollViewBegin(Vector2 ScrollPos, params GUILayoutOption[] GUILayoutOption)
+        {
+            return EditorGUILayout.BeginScrollView(ScrollPos, GUILayoutOption);
+        }
+
+        public static void SetScrollViewEnd()
+        {
+            EditorGUILayout.EndScrollView();
+        }
+
+        #endregion
+
+        #region ------------------------------------ Popup
+
+        public static int SetPopup(int IndexChoice, string[] ListChoice, params GUILayoutOption[] GUILayoutOption)
+        {
+            return EditorGUILayout.Popup("", IndexChoice, ListChoice, GUILayoutOption);
+        }
+
+        public static int SetPopup(int IndexChoice, List<string> ListChoice, params GUILayoutOption[] GUILayoutOption)
+        {
+            return EditorGUILayout.Popup("", IndexChoice, ListChoice.ToArray(), GUILayoutOption);
+        }
+
+        public static int SetPopup<EnumType>(int IndexChoice, params GUILayoutOption[] GUILayoutOption)
+        {
+            return EditorGUILayout.Popup("", IndexChoice, QEnum.GetEnumList<EnumType>().ToArray(), GUILayoutOption);
+        }
+
+        #endregion
+
+        #region ------------------------------------ Chance Check
+
+        public static void SetChanceCheckBegin()
+        {
+            EditorGUI.BeginChangeCheck();
+        }
+
+        public static bool SetChanceCheckEnd()
+        {
+            return EditorGUI.EndChangeCheck();
+        }
+
+        #endregion
+
+        #region ------------------------------------ Else
+
+        public static void SetBackground(Color Color)
+        {
+            GUI.backgroundColor = Color;
+        }
+
+        public static void SetSpace(float Space)
+        {
+            GUILayout.Space(Space);
+        }
+
+        #endregion
+
+        #endregion
+
+        #region ==================================== GUI Varible
+
+        #region ------------------------------------ GUI Layout Option
+
+        private static float WIDTH_OFFSET = 4f;
+
+        public static GUILayoutOption GetGUILayoutWidth(EditorWindow This, float WidthPercent = 1, float WidthOffset = 0)
+        {
+            return GetGUIWidth(GetWindowWidth(This) * WidthPercent - WidthOffset - WIDTH_OFFSET);
+        }
+
+        public static GUILayoutOption GetGUILayoutWidthBaseHeight(EditorWindow This, float HeightPercent = 1, float HeightOffset = 0)
+        {
+            return GetGUIWidth(GetWindowHeight(This) * HeightPercent - HeightOffset - WIDTH_OFFSET);
+        }
+
+        public static GUILayoutOption GetGUILayoutHeight(EditorWindow This, float HeightPercent = 1, float HeightOffset = 0)
+        {
+            return GetGUIHeight(GetWindowHeight(This) * HeightPercent - HeightOffset);
+        }
+
+        public static GUILayoutOption GetGUILayoutHeightBaseWidth(EditorWindow This, float WidthPercent = 1, float WidthOffset = 0)
+        {
+            return GetGUIHeight(GetWindowWidth(This) * WidthPercent - WidthOffset);
+        }
+
+        #endregion
+
+        #region ------------------------------------ GUI Panel Size
+
+        public static float GetWindowWidth(EditorWindow This)
+        {
+            return This.position.width;
+        }
+
+        public static float GetWindowHeight(EditorWindow This)
+        {
+            return This.position.height;
+        }
+
+        #endregion
+
+        #region ------------------------------------ GUI Panel Size Value
+
+        public static GUILayoutOption GetGUIWidth(float Width = 10f)
+        {
+            return GUILayout.Width(Width);
+        }
+
+        public static GUILayoutOption GetGUIHeight(float Height = 10)
+        {
+            return GUILayout.Height(Height);
+        }
+
+        #endregion
+
+        #region ------------------------------------ GUI Style
+
+        public static GUIStyle GetGUILabel(FontStyle FontStyle, TextAnchor Alignment)
+        {
+            GUIStyle GUIStyle = new GUIStyle(GUI.skin.label)
+            {
+                fontStyle = FontStyle,
+                alignment = Alignment,
+            };
+            return GUIStyle;
+        }
+
+        public static GUIStyle GetGUITextField(FontStyle FontStyle, TextAnchor Alignment)
+        {
+            GUIStyle GUIStyle = new GUIStyle(GUI.skin.textField)
+            {
+                fontStyle = FontStyle,
+                alignment = Alignment,
+            };
+            return GUIStyle;
+        }
+
+        public static GUIStyle GetGUITextArea(FontStyle FontStyle, TextAnchor Alignment)
+        {
+            GUIStyle GUIStyle = new GUIStyle(GUI.skin.textArea)
+            {
+                fontStyle = FontStyle,
+                alignment = Alignment,
+            };
+            return GUIStyle;
+        }
+
+        public static GUIStyle GetGUIButton(FontStyle FontStyle, TextAnchor Alignment)
+        {
+            GUIStyle GUIStyle = new GUIStyle(GUI.skin.button)
+            {
+                fontStyle = FontStyle,
+                alignment = Alignment,
+            };
+            return GUIStyle;
+        }
+
+        #endregion
+
+        #region ------------------------------------ GUI Image
+
+        public static GUIContent GetImage(Sprite Sprite)
+        {
+            Texture2D Texture = QSprite.GetTextureConvert(Sprite);
+
+            if (Texture != null)
+            {
+                return new GUIContent("", (Texture)Texture);
+            }
+            else
+            {
+                return new GUIContent("");
+            }
+        }
+
+        #endregion
+
+        #endregion
+
+        #region ==================================== GUI Control
+
+        public static void SetUnFocus()
+        {
+            //Call will Lost Focus when Editor Focus on Typing or etc!!
+            GUIUtility.keyboardControl = 0;
+        }
+
+        #endregion
+    }
+
+    ///<summary>
+    ///Caution: Unity Editor only!
+    ///</summary>
+    public class QAssetsDatabase : QPath
+    {
+        //Folder "Assets" is the main root of all assets in project, that can find any assets from it.
+
+        public const string ExamplePathAssets = "Assets/Scene";
+
+        #region ==================================== Create Folder
+
+        public static string SetCreateFolder(params string[] PathChildInAssets)
+        {
+            List<string> Path = new List<string>();
+
+            string PathString = "";
+
+            for (int i = 0; i < PathChildInAssets.Length; i++)
+            {
+                Path.Add(PathChildInAssets[i]);
+
+                QEncypt.GetEncyptAdd('/', PathString, PathChildInAssets[i], out PathString);
+
+                SetCreateFolderExist(Path.ToArray());
+            }
+
+            return PathString;
+        }
+
+        private static string SetCreateFolderExist(params string[] PathChildInAssets)
+        {
+            //If Root Folder not Exist, then can't Create new Folder from that Root Folder
+
+            string PathInAssets = "Assets";
+
+            for (int i = 0; i < PathChildInAssets.Length - 1; i++)
+            {
+                QEncypt.GetEncyptAdd('/', PathInAssets, PathChildInAssets[i], out PathInAssets);
+            }
+
+            string PathFolderInAssets = PathChildInAssets[PathChildInAssets.Length - 1];
+
+            if (QPath.GetPathFolderExist(PathType.Assets, PathChildInAssets))
+            {
+                //Debug.LogWarningFormat("[Debug] Folder Exist!!\n{0}", PathInAssets + "/" + PathFolderInAssets);
+
+                return "";
+            }
+
+            try
+            {
+                string PathString = AssetDatabase.CreateFolder(PathInAssets, PathFolderInAssets);
+
+                SetRefresh();
+
+                return AssetDatabase.GUIDToAssetPath(PathString);
+            }
+            catch
+            {
+                //Debug.LogWarningFormat("[Debug] Root Folder not Exist!!\n{0}", PathInAssets + "/" + PathFolderInAssets);
+
+                return "";
+            }
+        }
+
+        #endregion
+
+        #region ==================================== Delete
+
+        public static void SetDelete(PathType PathType, params string[] PathChild)
+        {
+            FileUtil.DeleteFileOrDirectory(QPath.GetPath(PathType, PathChild) + ".meta");
+            FileUtil.DeleteFileOrDirectory(QPath.GetPath(PathType, PathChild));
+
+            SetRefresh();
+        }
+
+        #endregion
+
+        #region ==================================== Refresh
+
+        public static void SetRefresh()
+        {
+            AssetDatabase.Refresh();
+        }
+
+        #endregion
+
+        #region ==================================== Get
+
+        public static List<GameObject> GetPrefab(params string[] PathChildInAssets)
+        {
+            string Path = QPath.GetPath(PathType.Assets, PathChildInAssets);
+
+            if (!GetPathFolderExist(Path)) return new List<GameObject>();
+
+            List<GameObject> ObjectsFound = new List<GameObject>();
+
+            string[] GUIDPathUnityFound = AssetDatabase.FindAssets("t:prefab", new string[] { Path });
+
+            foreach (string GUIDPath in GUIDPathUnityFound)
+            {
+                string AssetsSinglePath = AssetDatabase.GUIDToAssetPath(GUIDPath);
+                GameObject ObjectFound = AssetDatabase.LoadAssetAtPath<GameObject>(AssetsSinglePath);
+                ObjectsFound.Add(ObjectFound);
+            }
+
+            return ObjectsFound;
+        }
+
+        public static List<Sprite> GetSprite(params string[] PathChildInAssets)
+        {
+            string Path = QPath.GetPath(PathType.Assets, PathChildInAssets);
+
+            if (!GetPathFolderExist(Path)) return new List<Sprite>();
+
+            List<Sprite> ObjectsFound = new List<Sprite>();
+
+            string[] GUIDPathUnityFound = AssetDatabase.FindAssets("t:sprite", new string[] { Path });
+
+            foreach (string GUIDPath in GUIDPathUnityFound)
+            {
+                string AssetsSinglePath = AssetDatabase.GUIDToAssetPath(GUIDPath);
+                Sprite ObjectFound = AssetDatabase.LoadAssetAtPath<Sprite>(AssetsSinglePath);
+                ObjectsFound.Add(ObjectFound);
+            }
+
+            return ObjectsFound;
+        }
+
+        #endregion
+    }
+
+#endif
+
+
+    #endregion
 }
 
 //namespace QuickManager
