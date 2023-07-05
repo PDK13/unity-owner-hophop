@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectMoveControl : MonoBehaviour
+public class ObjMove : MonoBehaviour
 {
     private IsoDataBlockMove m_dataMove;
 
@@ -13,7 +13,7 @@ public class ObjectMoveControl : MonoBehaviour
     {
         m_block = GetComponent<IsometricBlock>();
 
-        GameEvent.onTriggerStart += SetTriggerStart;
+        GameEvent.onKeyStart += SetKeyStart;
     }
 
     private void Start()
@@ -30,19 +30,13 @@ public class ObjectMoveControl : MonoBehaviour
 
     private void OnDestroy()
     {
-        GameEvent.onTriggerStart -= SetTriggerStart;
+        GameEvent.onKeyStart -= SetKeyStart;
 
         if (m_dataMove != null)
             GameData.m_objectControlCount--;
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.L) && m_dataMove != null)
-            Destroy(this.gameObject);
-    }
-
-    private void SetTriggerStart(string Key)
+    private void SetKeyStart(string Key)
     {
         if (Key == GameKey.OBJECT && m_dataMove != null)
         {
@@ -72,13 +66,20 @@ public class ObjectMoveControl : MonoBehaviour
 
     private void SetMove(IsoDir Dir, int Length, bool Revert)
     {
-        Vector3 Pos = new Vector3(m_block.Pos.X, m_block.Pos.Y, m_block.Pos.H);
-        DOTween.To(() => Pos, x => Pos = x, Pos + IsoVector.GetVectorDir(Dir, Revert) * Length, GameData.TimeMove).SetEase(Ease.Linear).OnUpdate(() =>
-        {
-            m_block.Pos = new IsoVector(Pos);
-        }).OnComplete(() =>
-        {
-            GameEvent.SetTriggerEnd(GameKey.OBJECT);
-        });
+        Vector3 PosMove = new Vector3(m_block.Pos.X, m_block.Pos.Y, m_block.Pos.H);
+        DOTween.To(() => PosMove, x => PosMove = x, PosMove + IsoVector.GetVectorDir(Dir, Revert) * Length, GameData.TimeMove)
+            .SetEase(Ease.Linear)
+            .OnStart(() =>
+            {
+                GameEvent.SetForceMove(m_block.Pos + IsoVector.Top, Dir, Length, Revert);
+            })
+            .OnUpdate(() =>
+            {
+                m_block.Pos = new IsoVector(PosMove);
+            })
+            .OnComplete(() =>
+            {
+                GameEvent.SetKeyEnd(GameKey.OBJECT);
+            });
     } //Move!!
 }

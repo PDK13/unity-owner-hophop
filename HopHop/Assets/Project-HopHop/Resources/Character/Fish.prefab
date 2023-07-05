@@ -10,12 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 44393240911007886}
   - component: {fileID: 44393240911007887}
-  - component: {fileID: 3030197857352720323}
+  - component: {fileID: 8373056385654926143}
   - component: {fileID: 44393240911007880}
-  - component: {fileID: -1318212669474501758}
-  - component: {fileID: 4773145957543590805}
+  - component: {fileID: -8828584118407691171}
+  - component: {fileID: -4135383474517075355}
   m_Layer: 0
-  m_Name: Devil
+  m_Name: Fish
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 640757855, guid: 449e25ad76b53f94c81413bae2dbf84f, type: 3}
+  m_Sprite: {fileID: -1535749001, guid: c0c3da9dc95588244832b39b5e62c039, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -88,7 +88,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &3030197857352720323
+--- !u!95 &8373056385654926143
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
@@ -98,7 +98,7 @@ Animator:
   m_GameObject: {fileID: 44393240911007885}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 2c1359b7685f0d846bbe81782b50ca3d, type: 2}
+  m_Controller: {fileID: 9100000, guid: c0919eccbe83e884cbed7456ef4ad242, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88b51ca1839d85a47a182808b3636847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_name: Character Devil
+  m_name: Character Buffalo
   m_free: 1
   m_tag:
   - Character
@@ -139,7 +139,7 @@ MonoBehaviour:
       Y: 1
       H: 1
   m_centre: {x: 0, y: 0, z: 0}
---- !u!114 &-1318212669474501758
+--- !u!114 &-8828584118407691171
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -153,7 +153,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_spriteJoin: []
   m_blockTop: []
---- !u!114 &4773145957543590805
+--- !u!114 &-4135383474517075355
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

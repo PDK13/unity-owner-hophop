@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class ObjectPlayerControl : MonoBehaviour
+public class ObjPlayer : MonoBehaviour
 {
     private bool m_controlInput = false;
 
@@ -13,12 +13,12 @@ public class ObjectPlayerControl : MonoBehaviour
     {
         m_block = GetComponent<IsometricBlock>();
 
-        GameEvent.onTriggerStart += SetTriggerStart;
+        GameEvent.onKeyStart += SetKeyStart;
     }
 
     private void OnDestroy()
     {
-        GameEvent.onTriggerStart -= SetTriggerStart;
+        GameEvent.onKeyStart -= SetKeyStart;
     }
 
     private void Update()
@@ -34,9 +34,11 @@ public class ObjectPlayerControl : MonoBehaviour
             SetMove(IsoDir.Left);
         if (Input.GetKey(KeyCode.RightArrow))
             SetMove(IsoDir.Right);
+        if (Input.GetKeyDown(KeyCode.Space))
+            GameEvent.SetKeyEnd(GameKey.PLAYER);
     }
 
-    private void SetTriggerStart(string Key)
+    private void SetKeyStart(string Key)
     {
         if (Key != GameKey.PLAYER)
             return;
@@ -53,13 +55,16 @@ public class ObjectPlayerControl : MonoBehaviour
 
         m_controlInput = false;
 
-        Vector3 Pos = new Vector3(m_block.Pos.X, m_block.Pos.Y, m_block.Pos.H);
-        DOTween.To(() => Pos, x => Pos = x, Pos + IsoVector.GetVectorDir(Dir) * Length, GameData.TimeMove).SetEase(Ease.Linear).OnUpdate(() =>
-        {
-            m_block.Pos = new IsoVector(Pos);
-        }).OnComplete(() =>
-        {
-            GameEvent.SetTriggerEnd(GameKey.PLAYER);
-        });
+        Vector3 PosMove = new Vector3(m_block.Pos.X, m_block.Pos.Y, m_block.Pos.H);
+        DOTween.To(() => PosMove, x => PosMove = x, PosMove + IsoVector.GetVectorDir(Dir) * Length, GameData.TimeMove)
+            .SetEase(Ease.Linear)
+            .OnUpdate(() =>
+            {
+                m_block.Pos = new IsoVector(PosMove);
+            })
+            .OnComplete(() =>
+            {
+                GameEvent.SetKeyEnd(GameKey.PLAYER);
+            });
     } //Move!!
 }
