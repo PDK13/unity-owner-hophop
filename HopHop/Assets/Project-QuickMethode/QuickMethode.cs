@@ -21,44 +21,21 @@ namespace QuickMethode
 
     public class QVector
     {
-        //'Vector().magnitude' mean Length & 'Vector.Distance()' mean Distance
-
-        #region ==================================== Pos
-
-        //Middle (Trung điểm)
+        #region ==================================== Middle (Trung điểm)
 
         public static Vector2 GetMiddlePoint(Vector2 PointA, Vector2 PointB)
         {
-            float X = (PointA.x + PointB.x) / 2;
-            float Y = (PointA.y + PointB.y) / 2;
-            return new Vector2(X, Y);
+            return new Vector2((PointA.x + PointB.x) / 2, (PointA.y + PointB.y) / 2);
         }
 
         public static Vector3 GetMiddlePoint(Vector3 PointA, Vector3 PointB)
         {
-            float X = (PointA.x + PointB.x) / 2;
-            float Y = (PointA.y + PointB.y) / 2;
-            float Z = (PointA.z + PointB.z) / 2;
-            return new Vector3(X, Y, Z);
+            return new Vector3((PointA.x + PointB.x) / 2, (PointA.y + PointB.y) / 2, (PointA.z + PointB.z) / 2);
         }
 
         #endregion
 
-        #region ==================================== Dir
-
-        //Primary
-
-        public static Vector3 GetDir(Vector3 PosStart, Vector3 PosEnd)
-        {
-            return (PosEnd - PosStart).normalized;
-        }
-
-        public static Vector3 GetDir(Transform PointStart, Transform PointEnd)
-        {
-            return (PointEnd.position - PointStart.position).normalized;
-        }
-
-        //Reflech (Phản xạ)
+        #region ==================================== Reflech (Phản xạ)
 
         public static Vector2 GetDirReflect(Vector2 Dir, Collision2D Collision)
         {
@@ -66,70 +43,10 @@ namespace QuickMethode
             return Vector2.Reflect(Dir, Collision.contacts[0].normal);
         }
 
-        #endregion
-
-        #region ==================================== Distance
-
-        //3D
-
-        public static float GetDistanceX(Vector3 PointA, Vector3 PointB)
+        public static Vector3 GetDirReflect(Vector3 Dir, Collision Collision)
         {
-            Vector3 PointAZero = new Vector3(PointA.x, 0);
-            Vector3 PointBZero = new Vector3(PointB.x, 0);
-            return Vector3.Distance(PointAZero, PointBZero);
-        }
-
-        public static float GetDistanceY(Vector3 PointA, Vector3 PointB)
-        {
-            Vector3 PointAZero = new Vector3(0, PointA.y);
-            Vector3 PointBZero = new Vector3(0, PointB.y);
-            return Vector3.Distance(PointAZero, PointBZero);
-        }
-
-        public static float GetDistanceZ(Vector3 PointA, Vector3 PointB)
-        {
-            Vector3 PointAZero = new Vector3(0, 0, PointA.z);
-            Vector3 PointBZero = new Vector3(0, 0, PointB.z);
-            return Vector3.Distance(PointAZero, PointBZero);
-        }
-
-        //2D
-
-        public static float GetDistanceX2D(Vector2 PointA, Vector2 PointB)
-        {
-            Vector2 PointAZero = new Vector2(PointA.x, 0);
-            Vector2 PointBZero = new Vector2(PointB.x, 0);
-            return Vector2.Distance(PointAZero, PointBZero);
-        }
-
-        public static float GetDistanceY2D(Vector2 PointA, Vector2 PointB)
-        {
-            Vector2 PointAZero = new Vector2(0, PointA.y);
-            Vector2 PointBZero = new Vector2(0, PointB.y);
-            return Vector2.Distance(PointAZero, PointBZero);
-        }
-
-        //Transform
-
-        public static float GetDistanceX(Transform PointA, Transform PointB)
-        {
-            Vector3 PointAZero = new Vector3(PointA.position.x, 0);
-            Vector3 PointBZero = new Vector3(PointB.position.x, 0);
-            return Vector3.Distance(PointAZero, PointBZero);
-        }
-
-        public static float GetDistanceY(Transform PointA, Transform PointB)
-        {
-            Vector3 PointAZero = new Vector3(0, PointA.position.y);
-            Vector3 PointBZero = new Vector3(0, PointB.position.y);
-            return Vector3.Distance(PointAZero, PointBZero);
-        }
-
-        public static float GetDistanceZ(Transform PointA, Transform PointB)
-        {
-            Vector3 PointAZero = new Vector3(0, 0, PointA.position.z);
-            Vector3 PointBZero = new Vector3(0, 0, PointB.position.z);
-            return Vector3.Distance(PointAZero, PointBZero);
+            //Get Dir Reflect (Phản xạ) from Dir to!!
+            return Vector3.Reflect(Dir, Collision.contacts[0].normal);
         }
 
         #endregion
@@ -142,11 +59,59 @@ namespace QuickMethode
          * Deg Caculated from X-Axis Right of World.
          * Pos Caculated from Center Zero of World (Should use Local Pos instead World Pos).
          * Deg caculated from this class all base on 0 to 360 degree.
+         * Command "transform.eulerAngles" use Deg180 in Editor and Deg360 in Script.
         */
 
-        #region ==================================== Deg
+        #region ==================================== Primary
 
-        //Opposite (Đối diện)
+        public static float GetDeg180(float Deg360)
+        {
+            return Deg360 <= 180 ? Deg360 : -(360 - Deg360);
+        }
+
+        public static float GetDeg360(float Deg180)
+        {
+            return Deg180 <= 180 && Deg180 >= 0 ? Deg180 : 360 + Deg180;
+        }
+
+        #endregion
+
+        #region ==================================== Pos by Deg
+
+        public static Vector3 GetPosXY(float Deg360, float Radius)
+        {
+            //Get Pos from Center (0; 0)
+
+            return new Vector3(Mathf.Cos(Deg360 * Mathf.Deg2Rad), Mathf.Sin(Deg360 * Mathf.Deg2Rad), 0) * Radius;
+        }
+
+        public static Vector3 GetPosXZ(float Deg360, float Radius)
+        {
+            //Get Pos from Center (0; 0; 0)
+
+            return new Vector3(Mathf.Cos(Deg360 * Mathf.Deg2Rad), 0, Mathf.Sin(Deg360 * Mathf.Deg2Rad)) * Radius;
+        }
+
+        #endregion
+
+        #region ==================================== Deg by Pos & Dir
+
+        public static float GetDeg360(Vector2 Dir)
+        {
+            //Get Deg from Center (0; 0)
+            float Deg = Mathf.Atan2(Dir.y, Dir.x) * Mathf.Rad2Deg;
+            return Deg >= 0 ? Deg : 360 + Deg;
+        }
+
+        public static float GetDeg360(Vector2 Center, Vector2 Pos)
+        {
+            //Get Deg from Center
+            return GetDeg360(Pos - Center);
+        }
+
+        #endregion
+
+        #region ==================================== Opposite (Đối diện)
 
         public static float GetDegOppositeUD(float Deg360)
         {
@@ -206,63 +171,6 @@ namespace QuickMethode
 
             Debug.LogError("Sonething wrong here!");
             return 0f;
-        }
-
-        #endregion
-
-        #region ==================================== Pos by Deg
-
-        public static Vector3 GetPosXY(float Deg360, float Radius)
-        {
-            //Get Pos from Center (0; 0)
-
-            return new Vector3(Mathf.Cos(Deg360 * Mathf.Deg2Rad), Mathf.Sin(Deg360 * Mathf.Deg2Rad), 0) * Radius;
-        }
-
-        public static Vector3 GetPosXZ(float Deg360, float Radius)
-        {
-            //Get Pos from Center (0; 0; 0)
-
-            return new Vector3(Mathf.Cos(Deg360 * Mathf.Deg2Rad), 0, Mathf.Sin(Deg360 * Mathf.Deg2Rad)) * Radius;
-        }
-
-        #endregion
-
-        #region ==================================== Deg by Pos & Dir
-
-        public static float GetDeg(Vector2 Dir, bool ConvertDeg360 = true)
-        {
-            //Get Deg from Center (0; 0)
-
-            float Deg = Mathf.Atan2(Dir.y, Dir.x) * Mathf.Rad2Deg;
-
-            if (ConvertDeg360 && Deg < 0)
-                Deg = 360 + Deg;
-
-            return Deg;
-        }
-
-        public static float GetDeg(Vector2 Center, Vector2 Pos, bool ConvertDeg360 = true)
-        {
-            //Get Deg from Center
-
-            return GetDeg(Pos - Center, ConvertDeg360);
-        }
-
-        #endregion
-
-        #region ==================================== Euler & Quaternion
-
-        public static Quaternion GetEulerToQuaternion(Vector3 Deg)
-        {
-            Quaternion Quaternion = Quaternion.Euler(Deg);
-            return Quaternion;
-        }
-
-        public static Vector3 GetQuaternionToEuler(Quaternion Quaternion)
-        {
-            Vector3 EulerRotation = Quaternion.eulerAngles;
-            return EulerRotation;
         }
 
         #endregion
@@ -552,14 +460,14 @@ namespace QuickMethode
             if (World)
             {
                 Vector3 Dir = (PosTarget - Transform.position).normalized;
-                Vector3 Deg = new Vector3(0, 0, QCircle.GetDeg(Dir));
+                Vector3 Deg = new Vector3(0, 0, QCircle.GetDeg360(Dir));
                 Vector3 DegMove = Vector3.MoveTowards(Transform.eulerAngles, Deg, DeltaDeg);
                 Transform.eulerAngles = DegMove;
             }
             else
             {
                 Vector3 Dir = (PosTarget - Transform.position).normalized;
-                Vector3 Deg = new Vector3(0, 0, QCircle.GetDeg(Dir));
+                Vector3 Deg = new Vector3(0, 0, QCircle.GetDeg360(Dir));
                 Vector3 DegMove = Vector3.MoveTowards(Transform.localEulerAngles, Deg, DeltaDeg);
                 Transform.localEulerAngles = DegMove;
             }
@@ -571,14 +479,14 @@ namespace QuickMethode
             if (World)
             {
                 Vector3 Dir = (PosTarget - Transform.position).normalized;
-                Vector3 Deg = new Vector3(0, 0, QCircle.GetDeg(Dir));
+                Vector3 Deg = new Vector3(0, 0, QCircle.GetDeg360(Dir));
                 Vector3 DegMove = Vector3.Lerp(Transform.eulerAngles, Deg, DeltaDeg);
                 Transform.eulerAngles = DegMove;
             }
             else
             {
                 Vector3 Dir = (PosTarget - Transform.position).normalized;
-                Vector3 Deg = new Vector3(0, 0, QCircle.GetDeg(Dir));
+                Vector3 Deg = new Vector3(0, 0, QCircle.GetDeg360(Dir));
                 Vector3 DegMove = Vector3.Lerp(Transform.localEulerAngles, Deg, DeltaDeg);
                 Transform.localEulerAngles = DegMove;
             }
@@ -1554,7 +1462,7 @@ namespace QuickMethode
                     Vector2 PointA = Points[Group][IndexPrev];
                     Vector2 PointB = Points[Group][IndexNext];
                     Vector2 Center = QVector.GetMiddlePoint(PointA, PointB);
-                    float Length = QVector.GetDistanceX2D(PointA, PointB);
+                    float Length = Mathf.Abs(PointB.x - PointA.x);
                     Platform.Add((TileCenter + Center, Length));
                 }
                 while (IndexNext != IndexStart);
