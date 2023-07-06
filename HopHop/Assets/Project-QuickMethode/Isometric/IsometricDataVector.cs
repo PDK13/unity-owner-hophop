@@ -84,6 +84,29 @@ public struct IsoVector
         return Vector3Int.zero;
     }
 
+    public static IsoVector GetDir(Vector3Int Dir)
+    {
+        if (Dir.Equals(Vector3Int.right))
+            return Up;
+
+        if (Dir.Equals(Vector3Int.left))
+            return Down;
+
+        if (Dir.Equals(Vector3Int.down))
+            return Left;
+
+        if (Dir.Equals(Vector3Int.up))
+            return Right;
+
+        if (Dir.Equals(Vector3Int.forward))
+            return Top;
+
+        if (Dir.Equals(Vector3Int.back))
+            return Bot;
+
+        return None;
+    }
+
     public static IsoVector GetDir(IsoDir Dir)
     {
         switch (Dir)

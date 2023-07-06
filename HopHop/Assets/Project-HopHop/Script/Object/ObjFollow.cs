@@ -26,6 +26,9 @@ public class ObjFollow : MonoBehaviour
         if (m_block.Pos != Pos)
             return;
 
+        if (m_block.WorldManager.GetWorldBlockCurrent(m_block.Pos + IsoVector.GetDir(Dir) * Length) != null)
+            return;
+
         Vector3 PosStart = IsoVector.GetVector(m_block.Pos);
         Vector3 PosEnd = IsoVector.GetVector(m_block.Pos) + Dir * Length;
         DOTween.To(() => PosStart, x => PosEnd = x, PosEnd, GameData.TimeMove * Length)
