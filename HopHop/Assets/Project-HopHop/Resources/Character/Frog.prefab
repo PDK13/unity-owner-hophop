@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5562340488806216484}
   - component: {fileID: 44393240911007880}
   - component: {fileID: -7215319652255873254}
-  - component: {fileID: 4983354483600108170}
+  - component: {fileID: -5925903476987383496}
   m_Layer: 0
   m_Name: Frog
   m_TagString: Untagged
@@ -153,7 +153,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_spriteJoin: []
   m_blockTop: []
---- !u!114 &4983354483600108170
+--- !u!114 &-5925903476987383496
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -162,7 +162,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 44393240911007885}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dac62ac3b567d284791a856dca3ec58d, type: 3}
+  m_Script: {fileID: 11500000, guid: 19ee9a8a7098dfb489d74c2174becedf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_topForce: 0

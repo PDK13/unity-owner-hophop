@@ -40,13 +40,13 @@ public class ObjMove : MonoBehaviour
     {
         if (Key == GameKey.OBJECT && m_dataMove != null)
         {
-            Vector3Int MoveDir = IsoVector.GetVector(m_dataMove.Data[m_dataMove.Index].Dir);
-            SetMove(MoveDir * m_dataMove.Dir, m_dataMove.Data[m_dataMove.Index].Value);
-            m_dataMove.Index += m_dataMove.Dir;
+            SetMoveForce(IsoVector.GetDir(m_dataMove.Data[m_dataMove.Index].Dir) * m_dataMove.Quantity, m_dataMove.Data[m_dataMove.Index].Value);
+            SetMoveTop(IsoVector.GetDir(m_dataMove.Data[m_dataMove.Index].Dir) * m_dataMove.Quantity, m_dataMove.Data[m_dataMove.Index].Value);
+            m_dataMove.Index += m_dataMove.Quantity;
             if (m_dataMove.Loop && (m_dataMove.Index < 0 || m_dataMove.Index > m_dataMove.Data.Count - 1))
             {
-                m_dataMove.Dir *= -1;
-                m_dataMove.Index += m_dataMove.Dir;
+                m_dataMove.Quantity *= -1;
+                m_dataMove.Index += m_dataMove.Quantity;
             }
             return;
         }
@@ -55,34 +55,50 @@ public class ObjMove : MonoBehaviour
         {
             if (Key != MoveCheck.Name)
                 continue;
-            Vector3Int MoveDir = IsoVector.GetVector(MoveCheck.Data[MoveCheck.Index].Dir);
-            SetMove(MoveDir * MoveCheck.Dir, MoveCheck.Data[MoveCheck.Index].Value);
-            MoveCheck.Index += m_dataMove.Dir;
+            SetMoveForce(IsoVector.GetDir(MoveCheck.Data[MoveCheck.Index].Dir) * MoveCheck.Quantity, MoveCheck.Data[MoveCheck.Index].Value);
+            SetMoveTop(IsoVector.GetDir(MoveCheck.Data[MoveCheck.Index].Dir) * MoveCheck.Quantity, MoveCheck.Data[MoveCheck.Index].Value);
+            MoveCheck.Index += m_dataMove.Quantity;
             if (MoveCheck.Loop && (MoveCheck.Index < 0 || MoveCheck.Index > MoveCheck.Data.Count - 1))
             {
-                MoveCheck.Dir *= -1;
-                MoveCheck.Index += m_dataMove.Dir;
+                MoveCheck.Quantity *= -1;
+                MoveCheck.Index += m_dataMove.Quantity;
             }
         }
     }
 
-    private void SetMove(Vector3Int Dir, int Length)
+    #region Move
+
+    private void SetMoveForce(IsoVector Dir, int Length)
     {
-        Vector3 PosStart = IsoVector.GetVector(m_block.Pos);
-        Vector3 PosEnd = IsoVector.GetVector(m_block.Pos) + Dir * Length;
-        DOTween.To(() => PosStart, x => PosEnd = x, PosEnd, GameData.TimeMove * Length)
+        Vector3 MoveDir = IsoVector.GetVector(Dir);
+        Vector3 MoveStart = IsoVector.GetVector(m_block.Pos);
+        Vector3 MoveEnd = IsoVector.GetVector(m_block.Pos) + MoveDir * Length;
+        DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameData.TimeMove * Length)
             .SetEase(Ease.Linear)
-            .OnStart(() =>
-            {
-                GameEvent.SetMoveFollow(m_block.Pos + IsoVector.Top, Dir, Length);
-            })
             .OnUpdate(() =>
             {
-                m_block.Pos = new IsoVector(PosEnd);
+                m_block.Pos = new IsoVector(MoveEnd);
             })
             .OnComplete(() =>
             {
                 GameEvent.SetKeyEnd(GameKey.OBJECT);
             });
-    } //Move!!
+    }
+
+    private void SetMoveTop(IsoVector Dir, int Length)
+    {
+        List<IsometricBlock> Blocks = m_block.WorldManager.GetWorldBlockCurrentAll(m_block.Pos + IsoVector.Top);
+
+        foreach(IsometricBlock Block in Blocks)
+        {
+            ObjBody BlockBody = Block.GetComponent<ObjBody>();
+
+            if (BlockBody == null)
+                continue;
+
+            BlockBody.SetMovePush(Dir, Length);
+        }
+    }
+
+    #endregion
 }

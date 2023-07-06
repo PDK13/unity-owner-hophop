@@ -240,7 +240,7 @@ public class IsometricManager : MonoBehaviour
             }
         }
 
-        return List.Count > 0 ? List : null;
+        return List;
     }
 
     public List<IsometricBlock> GetWorldBlockCurrentAll(string Tag)

@@ -163,14 +163,14 @@ public class IsometricBlock : MonoBehaviour
 
     #region ================================================================== Check
 
-    public List<IsometricBlock> GetCheck(IsoVector Dir)
+    public List<IsometricBlock> GetCheck(IsoVector Dir, int Length)
     {
-        return WorldManager.GetWorldBlockCurrentAll(Pos.Fixed + Dir);
+        return WorldManager.GetWorldBlockCurrentAll(Pos.Fixed + Dir * Length);
     }
 
-    public List<IsometricBlock> GetCheck(IsoVector Dir, params string[] TagFind)
+    public List<IsometricBlock> GetCheck(IsoVector Dir, int Length, params string[] TagFind)
     {
-        return WorldManager.GetWorldBlockCurrentAll(Pos.Fixed + Dir, TagFind);
+        return WorldManager.GetWorldBlockCurrentAll(Pos.Fixed + Dir * Length, TagFind);
     }
 
     #endregion

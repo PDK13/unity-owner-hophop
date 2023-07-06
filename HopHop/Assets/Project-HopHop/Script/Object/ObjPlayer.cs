@@ -57,28 +57,29 @@ public class ObjPlayer : MonoBehaviour
             //There is a Block ahead!!
             //Check if can push this Block?!
             //
-            ObjPush BlockPush = BlockNext.GetComponent<ObjPush>();
-            if (BlockPush == null)
+            ObjBody BlockBody = BlockNext.GetComponent<ObjBody>();
+            if (BlockBody == null)
                 //Surely can't continue move to this Pos, because this Block can't be push!!
                 return;
-            IsometricBlock BlockNext2 = m_block.WorldManager.GetWorldBlockCurrent(m_block.Pos + IsoVector.GetDir(Dir) * (Length + 1));
-            if (BlockNext2 != null)
+            if (!BlockBody.GetCheckPush(IsoVector.GetDir(Dir)))
                 //Surely can't continue move to this Pos, because this Block can't be push to the Pos ahead!!
                 return;
             //
             //Fine to continue push this Block ahead!!
+            BlockBody.SetMovePush(IsoVector.GetDir(Dir), Length);
         }
         //Fine to continue move to pos ahead!!
 
         m_controlInput = false;
 
-        Vector3 PosStart = IsoVector.GetVector(m_block.Pos);
-        Vector3 PosEnd = IsoVector.GetVector(m_block.Pos) + IsoVector.GetVector(Dir) * Length;
-        DOTween.To(() => PosStart, x => PosEnd = x, PosEnd, GameData.TimeMove * Length)
+        Vector3 MoveDir = IsoVector.GetVector(Dir);
+        Vector3 MoveStart = IsoVector.GetVector(m_block.Pos);
+        Vector3 MoveEnd = IsoVector.GetVector(m_block.Pos) + MoveDir * Length;
+        DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameData.TimeMove * Length)
             .SetEase(Ease.Linear)
             .OnUpdate(() =>
             {
-                m_block.Pos = new IsoVector(PosEnd);
+                m_block.Pos = new IsoVector(MoveEnd);
             })
             .OnComplete(() =>
             {
