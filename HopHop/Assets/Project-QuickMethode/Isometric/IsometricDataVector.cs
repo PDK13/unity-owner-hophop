@@ -59,42 +59,47 @@ public struct IsoVector
     public static IsoVector Bot => new IsoVector(0, 0, -1);
     public static IsoVector None => new IsoVector(0, 0, 0);
 
-    public static Vector3 GetVectorDir(IsoDir Dir, bool Revert = false)
+    public static Vector3 GetVector(IsoVector Pos)
     {
-        switch (Dir)
-        {
-            case IsoDir.Up:
-                return !Revert ? Vector3.right : Vector3.left;
-            case IsoDir.Down:
-                return !Revert ? Vector3.left : Vector3.right;
-            case IsoDir.Left:
-                return !Revert ? Vector3.down : Vector3.up;
-            case IsoDir.Right:
-                return !Revert ? Vector3.up : Vector3.down;
-            case IsoDir.Top:
-                return !Revert ? Vector3.forward : Vector3.back;
-            case IsoDir.Bot:
-                return !Revert ? Vector3.back : Vector3.forward;
-        }
-        return Vector3.zero;
+        return new Vector3(Pos.X, Pos.Y, Pos.H);
     }
 
-    public static IsoVector GetDir(IsoDir Dir, bool Revert = false)
+    public static Vector3Int GetVector(IsoDir Dir)
     {
         switch (Dir)
         {
             case IsoDir.Up:
-                return !Revert ? Up : Down;
+                return Vector3Int.right;
             case IsoDir.Down:
-                return !Revert ? Down : Up;
+                return Vector3Int.left;
             case IsoDir.Left:
-                return !Revert ? Left : Right;
+                return Vector3Int.down;
             case IsoDir.Right:
-                return !Revert ? Right : Left;
+                return Vector3Int.up;
             case IsoDir.Top:
-                return !Revert ? Top : Bot;
+                return Vector3Int.forward;
             case IsoDir.Bot:
-                return !Revert ? Bot : Top;
+                return Vector3Int.back;
+        }
+        return Vector3Int.zero;
+    }
+
+    public static IsoVector GetDir(IsoDir Dir)
+    {
+        switch (Dir)
+        {
+            case IsoDir.Up:
+                return Up;
+            case IsoDir.Down:
+                return Down;
+            case IsoDir.Left:
+                return Left;
+            case IsoDir.Right:
+                return Right;
+            case IsoDir.Top:
+                return Top;
+            case IsoDir.Bot:
+                return Bot;
         }
         return None;
     }

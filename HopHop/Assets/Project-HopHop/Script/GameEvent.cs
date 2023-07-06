@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class GameEvent
 {
-    public static Action<string> onKeyStart;                            //[Key]
-    public static Action<string> onKeyEnd;                              //[Key]
-    public static Action<string, IsoDir> onKeyMove;                     //[Key, Dir]
+    public static Action<string> onKeyStart;
+    public static Action<string> onKeyEnd;
+    public static Action<string, IsoDir> onKeyMove;
 
-    public static Action<IsoVector, IsoDir, int, bool> onForceMove;     //[Pos, Dir, Length, Revert]
+    public static Action<IsoVector, Vector3Int, int> onForceMove;
 
     //Key
 
@@ -47,8 +47,8 @@ public class GameEvent
 
     //Force
 
-    public static void SetForceMove(IsoVector Pos, IsoDir Dir, int Length, bool Revert)
+    public static void SetForceMove(IsoVector Pos, Vector3Int Dir, int Length)
     {
-        onForceMove?.Invoke(Pos, Dir, Length, Revert);
+        onForceMove?.Invoke(Pos, Dir, Length);
     }
 }

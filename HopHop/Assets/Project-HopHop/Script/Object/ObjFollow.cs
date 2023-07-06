@@ -21,22 +21,23 @@ public class ObjFollow : MonoBehaviour
         GameEvent.onForceMove -= SetForceMove;
     }
 
-    private void SetForceMove(IsoVector Pos, IsoDir Dir, int Length, bool Revert)
+    private void SetForceMove(IsoVector Pos, Vector3Int Dir, int Length)
     {
         if (m_block.Pos != Pos)
             return;
 
-        Vector3 PosMove = new Vector3(m_block.Pos.X, m_block.Pos.Y, m_block.Pos.H);
-        DOTween.To(() => PosMove, x => PosMove = x, PosMove + IsoVector.GetVectorDir(Dir, Revert) * Length, GameData.TimeMove)
+        Vector3 PosStart = IsoVector.GetVector(m_block.Pos);
+        Vector3 PosEnd = IsoVector.GetVector(m_block.Pos) + Dir * Length;
+        DOTween.To(() => PosStart, x => PosEnd = x, PosEnd, GameData.TimeMove * Length)
             .SetEase(Ease.Linear)
             .OnStart(() =>
             {
                 if (m_topForce)
-                    GameEvent.SetForceMove(m_block.Pos + IsoVector.Top, Dir, Length, Revert);
+                    GameEvent.SetForceMove(m_block.Pos + IsoVector.Top, Dir, Length);
             })
             .OnUpdate(() =>
             {
-                m_block.Pos = new IsoVector(PosMove);
+                m_block.Pos = new IsoVector(PosEnd);
             });
     } //Move!!
 }

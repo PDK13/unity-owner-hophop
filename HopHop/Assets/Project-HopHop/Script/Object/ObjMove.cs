@@ -40,7 +40,8 @@ public class ObjMove : MonoBehaviour
     {
         if (Key == GameKey.OBJECT && m_dataMove != null)
         {
-            SetMove(m_dataMove.Data[m_dataMove.Index].Dir, m_dataMove.Data[m_dataMove.Index].Value, m_dataMove.Dir == -1);
+            Vector3Int MoveDir = IsoVector.GetVector(m_dataMove.Data[m_dataMove.Index].Dir);
+            SetMove(MoveDir * m_dataMove.Dir, m_dataMove.Data[m_dataMove.Index].Value);
             m_dataMove.Index += m_dataMove.Dir;
             if (m_dataMove.Loop && (m_dataMove.Index < 0 || m_dataMove.Index > m_dataMove.Data.Count - 1))
             {
@@ -54,7 +55,8 @@ public class ObjMove : MonoBehaviour
         {
             if (Key != MoveCheck.Name)
                 continue;
-            SetMove(MoveCheck.Data[MoveCheck.Index].Dir, MoveCheck.Data[MoveCheck.Index].Value, MoveCheck.Dir == -1);
+            Vector3Int MoveDir = IsoVector.GetVector(MoveCheck.Data[MoveCheck.Index].Dir);
+            SetMove(MoveDir * MoveCheck.Dir, MoveCheck.Data[MoveCheck.Index].Value);
             MoveCheck.Index += m_dataMove.Dir;
             if (MoveCheck.Loop && (MoveCheck.Index < 0 || MoveCheck.Index > MoveCheck.Data.Count - 1))
             {
@@ -64,18 +66,19 @@ public class ObjMove : MonoBehaviour
         }
     }
 
-    private void SetMove(IsoDir Dir, int Length, bool Revert)
+    private void SetMove(Vector3Int Dir, int Length)
     {
-        Vector3 PosMove = new Vector3(m_block.Pos.X, m_block.Pos.Y, m_block.Pos.H);
-        DOTween.To(() => PosMove, x => PosMove = x, PosMove + IsoVector.GetVectorDir(Dir, Revert) * Length, GameData.TimeMove)
+        Vector3 PosStart = IsoVector.GetVector(m_block.Pos);
+        Vector3 PosEnd = IsoVector.GetVector(m_block.Pos) + Dir * Length;
+        DOTween.To(() => PosStart, x => PosEnd = x, PosEnd, GameData.TimeMove * Length)
             .SetEase(Ease.Linear)
             .OnStart(() =>
             {
-                GameEvent.SetForceMove(m_block.Pos + IsoVector.Top, Dir, Length, Revert);
+                GameEvent.SetForceMove(m_block.Pos + IsoVector.Top, Dir, Length);
             })
             .OnUpdate(() =>
             {
-                m_block.Pos = new IsoVector(PosMove);
+                m_block.Pos = new IsoVector(PosEnd);
             })
             .OnComplete(() =>
             {
