@@ -7,17 +7,23 @@ public class ObjPlayer : MonoBehaviour
 {
     private bool m_controlInput = false;
 
+    private ObjBody m_body;
     private IsometricBlock m_block;
 
     private void Awake()
     {
+        m_body = GetComponent<ObjBody>();
         m_block = GetComponent<IsometricBlock>();
+
+        m_body.onGravity += SetGravity;
 
         GameEvent.onKey += SetKey;
     }
 
     private void OnDestroy()
     {
+        m_body.onGravity -= SetGravity;
+
         GameEvent.onKey -= SetKey;
     }
 
@@ -86,7 +92,21 @@ public class ObjPlayer : MonoBehaviour
             })
             .OnComplete(() =>
             {
-                GameEvent.SetKey(GameKey.PLAYER, false);
+                SetGravity();
             });
     } //Move!!
+
+    private void SetGravity()
+    {
+        if (!m_body.GetCheckBot())
+            m_body.SetGravity();
+        else
+            GameEvent.SetKey(GameKey.PLAYER, false);
+    }
+
+    private void SetGravity(bool State)
+    {
+        if (!State)
+            GameEvent.SetKey(GameKey.PLAYER, false);
+    }
 }

@@ -50,7 +50,7 @@ public class ObjBody : MonoBehaviour
 
     public void SetGravity()
     {
-        if (!GetCheckBot())
+        if (GetCheckBot())
         {
             onGravity?.Invoke(false);
             return;
