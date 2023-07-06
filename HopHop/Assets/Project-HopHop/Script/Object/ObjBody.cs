@@ -1,10 +1,13 @@
 using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjBody : MonoBehaviour
 {
+    public Action<bool> onMove;
+
     private IsometricBlock m_block;
 
     private void Awake()
@@ -30,6 +33,26 @@ public class ObjBody : MonoBehaviour
     public void SetMovePush(IsoVector Dir, int Length)
     {
         SetMoveForce(Dir, GetCheckPush(Dir, Length));
+    }
+
+    public void SetMoveGravity()
+    {
+        if (!GetCheckBot())
+            return;
+
+        Vector3 MoveDir = IsoVector.GetVector(IsoVector.Bot);
+        Vector3 MoveStart = IsoVector.GetVector(m_block.Pos);
+        Vector3 MoveEnd = IsoVector.GetVector(m_block.Pos) + MoveDir * 1;
+        DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameData.TimeMove * 1)
+            .SetEase(Ease.Linear)
+            .OnUpdate(() =>
+            {
+                m_block.Pos = new IsoVector(MoveEnd);
+            })
+            .OnComplete(() =>
+            {
+                SetMoveGravity();
+            });
     }
 
     #endregion

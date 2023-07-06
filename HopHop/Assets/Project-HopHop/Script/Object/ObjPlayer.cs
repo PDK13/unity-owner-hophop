@@ -13,12 +13,12 @@ public class ObjPlayer : MonoBehaviour
     {
         m_block = GetComponent<IsometricBlock>();
 
-        GameEvent.onKeyStart += SetKeyStart;
+        GameEvent.onKey += SetKey;
     }
 
     private void OnDestroy()
     {
-        GameEvent.onKeyStart -= SetKeyStart;
+        GameEvent.onKey -= SetKey;
     }
 
     private void Update()
@@ -35,11 +35,14 @@ public class ObjPlayer : MonoBehaviour
         if (Input.GetKey(KeyCode.RightArrow))
             SetMove(IsoDir.Right);
         if (Input.GetKeyDown(KeyCode.Space))
-            GameEvent.SetKeyEnd(GameKey.PLAYER);
+            GameEvent.SetKey(GameKey.PLAYER, false);
     }
 
-    private void SetKeyStart(string Key)
+    private void SetKey(string Key, bool State)
     {
+        if (!State)
+            return;
+
         if (Key != GameKey.PLAYER)
             return;
 
@@ -83,7 +86,7 @@ public class ObjPlayer : MonoBehaviour
             })
             .OnComplete(() =>
             {
-                GameEvent.SetKeyEnd(GameKey.PLAYER);
+                GameEvent.SetKey(GameKey.PLAYER, false);
             });
     } //Move!!
 }

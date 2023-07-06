@@ -24,6 +24,6 @@ public class GameManager : MonoBehaviour
         yield return null;
         m_isoManager.SetWorldFileRead(m_gameConfig.m_level[0].Level[0]);
         yield return null;
-        GameEvent.SetKeyStart(GameKey.PLAYER);
+        GameEvent.SetKey(GameKey.PLAYER, true);
     }
 }

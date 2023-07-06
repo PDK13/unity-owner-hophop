@@ -5,41 +5,37 @@ using UnityEngine;
 
 public class GameEvent
 {
-    public static Action<string> onKeyStart;
-    public static Action<string> onKeyEnd;
-    public static Action<string, IsoDir, int> onKeyMove;
+    public static Action<string, bool> onKey;
 
     //Key
 
-    public static void SetKeyStart(string Key)
+    public static void SetKey(string Key, bool State)
     {
-        onKeyStart?.Invoke(Key);
-    }
-
-    public static void SetKeyEnd(string Key)
-    {
-        switch (Key)
+        if (State)
         {
-            case GameKey.PLAYER:
-                if (GameData.m_objectControlCount > 0)
-                    SetKeyStart(GameKey.OBJECT);
-                else
-                    SetKeyStart(GameKey.PLAYER);
-                break;
-            case GameKey.OBJECT:
-                GameData.m_objectControlEnd++;
-                if (GameData.ObjectControlEnd)
-                {
-                    GameData.m_objectControlEnd = 0;
-                    SetKeyStart(GameKey.PLAYER);
-                }
-                break;
+            //...
         }
-        onKeyEnd?.Invoke(Key);
-    }
+        else
+        {
+            switch (Key)
+            {
+                case GameKey.PLAYER:
+                    if (GameData.m_objectControlCount > 0)
+                        SetKey(GameKey.OBJECT, true);
+                    else
+                        SetKey(GameKey.PLAYER, true);
+                    break;
+                case GameKey.OBJECT:
+                    GameData.m_objectControlEnd++;
+                    if (GameData.ObjectControlEnd)
+                    {
+                        GameData.m_objectControlEnd = 0;
+                        SetKey(GameKey.PLAYER, true);
+                    }
+                    break;
+            }
+        }
 
-    public static void SetKeyMove(string Key, IsoDir Dir, int Lenght)
-    {
-        onKeyMove?.Invoke(Key, Dir, Lenght);
+        onKey?.Invoke(Key, State);
     }
 }

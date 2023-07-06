@@ -13,7 +13,7 @@ public class ObjMove : MonoBehaviour
     {
         m_block = GetComponent<IsometricBlock>();
 
-        GameEvent.onKeyStart += SetKeyStart;
+        GameEvent.onKey += SetKey;
     }
 
     private void Start()
@@ -30,14 +30,17 @@ public class ObjMove : MonoBehaviour
 
     private void OnDestroy()
     {
-        GameEvent.onKeyStart -= SetKeyStart;
+        GameEvent.onKey -= SetKey;
 
         if (m_dataMove != null)
             GameData.m_objectControlCount--;
     }
 
-    private void SetKeyStart(string Key)
+    private void SetKey(string Key, bool State)
     {
+        if (!State)
+            return;
+
         if (Key == GameKey.OBJECT && m_dataMove != null)
         {
             SetMoveForce(IsoVector.GetDir(m_dataMove.Data[m_dataMove.Index].Dir) * m_dataMove.Quantity, m_dataMove.Data[m_dataMove.Index].Value);
@@ -81,7 +84,7 @@ public class ObjMove : MonoBehaviour
             })
             .OnComplete(() =>
             {
-                GameEvent.SetKeyEnd(GameKey.OBJECT);
+                GameEvent.SetKey(GameKey.OBJECT, false);
             });
     }
 
