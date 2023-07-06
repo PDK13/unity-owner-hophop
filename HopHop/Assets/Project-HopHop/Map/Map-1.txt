@@ -1,7 +1,7 @@
 [WORLD NAME]
 ...
 [WORLD BLOCK]
-11
+33
 
 [0;0;1]
 Character Angle
@@ -102,6 +102,209 @@ Block Normal 0
 Block Normal 0
 <MOVE DATA>
 0
+<EVENT DATA>
+0
+<TELEPORT DATA>
+0
+
+[1;1;-1]
+Block Normal 0
+<MOVE DATA>
+0
+<EVENT DATA>
+0
+<TELEPORT DATA>
+0
+
+[0;1;-1]
+Block Normal 0
+<MOVE DATA>
+0
+<EVENT DATA>
+0
+<TELEPORT DATA>
+0
+
+[-1;1;-1]
+Block Normal 0
+<MOVE DATA>
+0
+<EVENT DATA>
+0
+<TELEPORT DATA>
+0
+
+[-2;1;-1]
+Block Normal 0
+<MOVE DATA>
+0
+<EVENT DATA>
+0
+<TELEPORT DATA>
+0
+
+[1;0;-1]
+Block Normal 0
+<MOVE DATA>
+0
+<EVENT DATA>
+0
+<TELEPORT DATA>
+0
+
+[0;0;-1]
+Block Normal 0
+<MOVE DATA>
+0
+<EVENT DATA>
+0
+<TELEPORT DATA>
+0
+
+[-1;0;-1]
+Block Normal 0
+<MOVE DATA>
+0
+<EVENT DATA>
+0
+<TELEPORT DATA>
+0
+
+[1;-1;-1]
+Block Normal 0
+<MOVE DATA>
+0
+<EVENT DATA>
+0
+<TELEPORT DATA>
+0
+
+[0;-1;-1]
+Block Normal 0
+<MOVE DATA>
+0
+<EVENT DATA>
+0
+<TELEPORT DATA>
+0
+
+[-1;-1;-1]
+Block Normal 0
+<MOVE DATA>
+0
+<EVENT DATA>
+0
+<TELEPORT DATA>
+0
+
+[1;1;-2]
+Block Normal 0
+<MOVE DATA>
+0
+<EVENT DATA>
+0
+<TELEPORT DATA>
+0
+
+[0;1;-2]
+Block Normal 0
+<MOVE DATA>
+0
+<EVENT DATA>
+0
+<TELEPORT DATA>
+0
+
+[-1;1;-2]
+Block Normal 0
+<MOVE DATA>
+0
+<EVENT DATA>
+0
+<TELEPORT DATA>
+0
+
+[-2;1;-2]
+Block Normal 0
+<MOVE DATA>
+0
+<EVENT DATA>
+0
+<TELEPORT DATA>
+0
+
+[1;0;-2]
+Block Normal 0
+<MOVE DATA>
+0
+<EVENT DATA>
+0
+<TELEPORT DATA>
+0
+
+[0;0;-2]
+Block Normal 0
+<MOVE DATA>
+0
+<EVENT DATA>
+0
+<TELEPORT DATA>
+0
+
+[-1;0;-2]
+Block Normal 0
+<MOVE DATA>
+0
+<EVENT DATA>
+0
+<TELEPORT DATA>
+0
+
+[-2;0;-2]
+Block Normal 0
+<MOVE DATA>
+0
+<EVENT DATA>
+0
+<TELEPORT DATA>
+0
+
+[1;-1;-2]
+Block Normal 0
+<MOVE DATA>
+0
+<EVENT DATA>
+0
+<TELEPORT DATA>
+0
+
+[0;-1;-2]
+Block Normal 0
+<MOVE DATA>
+0
+<EVENT DATA>
+0
+<TELEPORT DATA>
+0
+
+[-1;-1;-2]
+Block Normal 0
+<MOVE DATA>
+0
+<EVENT DATA>
+0
+<TELEPORT DATA>
+0
+
+[-2;-1;-2]
+Block Move 0
+<MOVE DATA>
+1
+Object
+True
+2
+5|1
+5|1
 <EVENT DATA>
 0
 <TELEPORT DATA>
