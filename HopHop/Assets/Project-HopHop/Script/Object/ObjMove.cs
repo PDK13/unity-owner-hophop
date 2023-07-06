@@ -74,7 +74,7 @@ public class ObjMove : MonoBehaviour
             .SetEase(Ease.Linear)
             .OnStart(() =>
             {
-                GameEvent.SetForceMove(m_block.Pos + IsoVector.Top, Dir, Length);
+                GameEvent.SetMoveFollow(m_block.Pos + IsoVector.Top, Dir, Length);
             })
             .OnUpdate(() =>
             {

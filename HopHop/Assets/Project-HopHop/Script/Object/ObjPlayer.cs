@@ -50,8 +50,25 @@ public class ObjPlayer : MonoBehaviour
     {
         int Length = 1; //Follow Character
 
-        if (m_block.WorldManager.GetWorldBlockCurrent(m_block.Pos + IsoVector.GetDir(Dir) * Length) != null)
-            return;
+        //Check if there is a Block ahead?!
+        IsometricBlock BlockNext = m_block.WorldManager.GetWorldBlockCurrent(m_block.Pos + IsoVector.GetDir(Dir) * Length);
+        if (BlockNext != null)
+        {
+            //There is a Block ahead!!
+            //Check if can push this Block?!
+            //
+            ObjPush BlockPush = BlockNext.GetComponent<ObjPush>();
+            if (BlockPush == null)
+                //Surely can't continue move to this Pos, because this Block can't be push!!
+                return;
+            IsometricBlock BlockNext2 = m_block.WorldManager.GetWorldBlockCurrent(m_block.Pos + IsoVector.GetDir(Dir) * (Length + 1));
+            if (BlockNext2 != null)
+                //Surely can't continue move to this Pos, because this Block can't be push to the Pos ahead!!
+                return;
+            //
+            //Fine to continue push this Block ahead!!
+        }
+        //Fine to continue move to pos ahead!!
 
         m_controlInput = false;
 

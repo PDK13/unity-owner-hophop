@@ -9,7 +9,8 @@ public class GameEvent
     public static Action<string> onKeyEnd;
     public static Action<string, IsoDir> onKeyMove;
 
-    public static Action<IsoVector, Vector3Int, int> onForceMove;
+    public static Action<IsoVector, Vector3Int, int> onMoveFollow;
+    public static Action<IsoVector, Vector3Int, int> onMovePush;
 
     //Key
 
@@ -47,8 +48,13 @@ public class GameEvent
 
     //Force
 
-    public static void SetForceMove(IsoVector Pos, Vector3Int Dir, int Length)
+    public static void SetMoveFollow(IsoVector Pos, Vector3Int Dir, int Length)
     {
-        onForceMove?.Invoke(Pos, Dir, Length);
+        onMoveFollow?.Invoke(Pos, Dir, Length);
+    }
+
+    public static void SetMovePush(IsoVector Pos, Vector3Int Dir, int Length)
+    {
+        onMovePush?.Invoke(Pos, Dir, Length);
     }
 }

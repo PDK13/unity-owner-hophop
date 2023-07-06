@@ -3,22 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjFollow : MonoBehaviour
+public class ObjPush : MonoBehaviour
 {
-    [SerializeField] private bool m_topForce = false;
-
     private IsometricBlock m_block;
 
     private void Awake()
     {
         m_block = GetComponent<IsometricBlock>();
 
-        GameEvent.onMoveFollow += SetForceMove;
+        GameEvent.onMovePush += SetForceMove;
     }
 
     private void OnDestroy()
     {
-        GameEvent.onMoveFollow -= SetForceMove;
+        GameEvent.onMovePush -= SetForceMove;
     }
 
     private void SetForceMove(IsoVector Pos, Vector3Int Dir, int Length)
@@ -33,11 +31,6 @@ public class ObjFollow : MonoBehaviour
         Vector3 PosEnd = IsoVector.GetVector(m_block.Pos) + Dir * Length;
         DOTween.To(() => PosStart, x => PosEnd = x, PosEnd, GameData.TimeMove * Length)
             .SetEase(Ease.Linear)
-            .OnStart(() =>
-            {
-                if (m_topForce)
-                    GameEvent.SetMoveFollow(m_block.Pos + IsoVector.Top, Dir, Length);
-            })
             .OnUpdate(() =>
             {
                 m_block.Pos = new IsoVector(PosEnd);

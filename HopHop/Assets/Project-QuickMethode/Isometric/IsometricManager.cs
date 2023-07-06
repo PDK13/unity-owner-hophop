@@ -163,7 +163,46 @@ public class IsometricManager : MonoBehaviour
         return null;
     }
 
-    public List<IsometricBlock> GetWorldBlockCurrent(IsoVector Pos, params string[] Tag)
+    public IsometricBlock GetWorldBlockCurrent(IsoVector Pos, params string[] Tag)
+    {
+        if (Tag.Length > 0)
+        {
+            //Find all Block with know tag - More Quickly!!
+            foreach (string TagFind in Tag)
+            {
+                int TagIndex = GetIndexWorldTag(TagFind);
+                if (TagIndex == -1)
+                    //Not exist Tag in Tag List!
+                    continue;
+
+                for (int BlockIndex = 0; BlockIndex < m_worldTag[TagIndex].Block.Count; BlockIndex++)
+                {
+                    if (m_worldTag[TagIndex].Block[BlockIndex].Pos != Pos)
+                        continue;
+
+                    return m_worldTag[TagIndex].Block[BlockIndex];
+                }
+            }
+        }
+        else
+        {
+            //Find all block with unknow tag - More slower!! (But always found Block)
+            foreach (var TagCheck in m_worldTag)
+            {
+                foreach (var BlockCheck in TagCheck.Block)
+                {
+                    if (BlockCheck.Pos != Pos)
+                        continue;
+
+                    return BlockCheck;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    public List<IsometricBlock> GetWorldBlockCurrentAll(IsoVector Pos, params string[] Tag)
     {
         List<IsometricBlock> List = new List<IsometricBlock>();
 
@@ -204,7 +243,7 @@ public class IsometricManager : MonoBehaviour
         return List.Count > 0 ? List : null;
     }
 
-    public List<IsometricBlock> GetWorldBlockCurrentTag(string Tag)
+    public List<IsometricBlock> GetWorldBlockCurrentAll(string Tag)
     {
         foreach (var Check in m_worldTag)
         {
