@@ -7,6 +7,8 @@ public class ObjPlayer : MonoBehaviour
 {
     private bool m_controlInput = false;
 
+    private int m_fallCount = 0;
+
     private ObjBody m_body;
     private IsometricBlock m_block;
 
@@ -106,7 +108,12 @@ public class ObjPlayer : MonoBehaviour
 
     private void SetGravity(bool State)
     {
-        if (!State)
+        if (State)
+            m_fallCount++;
+        else
+        {
+            m_fallCount = 0;
             GameEvent.SetKey(GameKey.PLAYER, false);
+        }
     }
 }
