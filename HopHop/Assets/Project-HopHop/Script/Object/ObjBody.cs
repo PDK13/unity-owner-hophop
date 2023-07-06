@@ -7,6 +7,7 @@ using UnityEngine;
 public class ObjBody : MonoBehaviour
 {
     public Action<bool> onMove;
+    public Action<bool> onGravity;
 
     private IsometricBlock m_block;
 
@@ -24,9 +25,17 @@ public class ObjBody : MonoBehaviour
         Vector3 MoveEnd = IsoVector.GetVector(m_block.Pos) + MoveDir * Length;
         DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameData.TimeMove * Length)
             .SetEase(Ease.Linear)
+            .OnStart(()=> 
+            {
+                onMove?.Invoke(true);
+            })
             .OnUpdate(() =>
             {
                 m_block.Pos = new IsoVector(MoveEnd);
+            })
+            .OnComplete(()=> 
+            {
+                onMove?.Invoke(false);
             });
     }
 
@@ -35,23 +44,34 @@ public class ObjBody : MonoBehaviour
         SetMoveForce(Dir, GetCheckPush(Dir, Length));
     }
 
-    public void SetMoveGravity()
+    #endregion
+
+    #region Gravity
+
+    public void SetGravity()
     {
         if (!GetCheckBot())
+        {
+            onGravity?.Invoke(false);
             return;
+        }
 
         Vector3 MoveDir = IsoVector.GetVector(IsoVector.Bot);
         Vector3 MoveStart = IsoVector.GetVector(m_block.Pos);
         Vector3 MoveEnd = IsoVector.GetVector(m_block.Pos) + MoveDir * 1;
         DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameData.TimeMove * 1)
             .SetEase(Ease.Linear)
+            .OnStart(()=> 
+            {
+                onGravity?.Invoke(true);
+            })
             .OnUpdate(() =>
             {
                 m_block.Pos = new IsoVector(MoveEnd);
             })
             .OnComplete(() =>
             {
-                SetMoveGravity();
+                SetGravity();
             });
     }
 
