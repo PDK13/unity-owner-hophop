@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class ObjBody : MonoBehaviour
 {
+    [SerializeField] private bool m_top = false;
+
     public Action<bool> onMove;
     public Action<bool> onGravity;
 
@@ -20,6 +22,8 @@ public class ObjBody : MonoBehaviour
 
     public void SetMoveForce(IsoVector Dir, int Length)
     {
+        SetMovePushTop(Dir, Length);
+
         Vector3 MoveDir = IsoVector.GetVector(Dir);
         Vector3 MoveStart = IsoVector.GetVector(m_block.Pos);
         Vector3 MoveEnd = IsoVector.GetVector(m_block.Pos) + MoveDir * Length;
@@ -41,7 +45,26 @@ public class ObjBody : MonoBehaviour
 
     public void SetMovePush(IsoVector Dir, int Length)
     {
+        SetMovePushTop(Dir, Length);
         SetMoveForce(Dir, GetCheckPush(Dir, Length));
+    }
+
+    private void SetMovePushTop(IsoVector Dir, int Length)
+    {
+        if (!m_top)
+            return;
+
+        IsometricBlock BlockTop = GetCheckTop();
+
+        if (BlockTop == null)
+            return;
+
+        ObjBody BlockTopBody = BlockTop.GetComponent<ObjBody>();
+
+        if (BlockTopBody == null)
+            return;
+
+        BlockTopBody.SetMovePush(Dir, Length);
     }
 
     #endregion
@@ -50,7 +73,7 @@ public class ObjBody : MonoBehaviour
 
     public void SetGravity()
     {
-        if (GetCheckBot())
+        if (GetCheckBot() != null)
         {
             onGravity?.Invoke(false);
             return;
@@ -79,12 +102,12 @@ public class ObjBody : MonoBehaviour
 
     #region Check
 
-    public bool GetCheckTop()
+    public IsometricBlock GetCheckTop()
     {
         return m_block.WorldManager.GetWorldBlockCurrent(m_block.Pos + IsoVector.Top);
     }
 
-    public bool GetCheckBot()
+    public IsometricBlock GetCheckBot()
     {
         return m_block.WorldManager.GetWorldBlockCurrent(m_block.Pos + IsoVector.Bot);
     }

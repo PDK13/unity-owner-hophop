@@ -100,7 +100,7 @@ public class ObjPlayer : MonoBehaviour
 
     private void SetGravity()
     {
-        if (!m_body.GetCheckBot())
+        if (m_body.GetCheckBot() == null)
             m_body.SetGravity();
         else
             GameEvent.SetKey(GameKey.PLAYER, false);
