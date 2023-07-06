@@ -99,7 +99,10 @@ public class ObjMove : MonoBehaviour
             if (BlockBody == null)
                 continue;
 
-            BlockBody.SetMovePush(Dir, Length);
+            if (Dir == IsoVector.Bot || Dir == IsoVector.Top)
+                BlockBody.SetMoveForce(Dir, Length);
+            else
+                BlockBody.SetMovePush(Dir, Length);
         }
     }
 
