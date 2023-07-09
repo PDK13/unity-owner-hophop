@@ -20,18 +20,18 @@ public class GameEvent
         {
             switch (Key)
             {
-                case GameKey.TURN_PLAYER:
+                case ConstGameKey.TURN_PLAYER:
                     if (GameData.m_objectTurnCount > 0)
-                        SetKey(GameKey.TURN_OBJECT, true);
+                        SetKey(ConstGameKey.TURN_OBJECT, true);
                     else
-                        SetKey(GameKey.TURN_PLAYER, true);
+                        SetKey(ConstGameKey.TURN_PLAYER, true);
                     break;
-                case GameKey.TURN_OBJECT:
+                case ConstGameKey.TURN_OBJECT:
                     GameData.m_objectTurnEnd++;
                     if (GameData.ObjectControlEnd)
                     {
                         GameData.m_objectTurnEnd = 0;
-                        SetKey(GameKey.TURN_PLAYER, true);
+                        SetKey(ConstGameKey.TURN_PLAYER, true);
                     }
                     break;
             }

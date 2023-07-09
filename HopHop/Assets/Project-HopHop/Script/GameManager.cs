@@ -34,6 +34,6 @@ public class GameManager : MonoBehaviour
         yield return null;
         m_isometricManager.SetFileRead(WorldData);
         yield return null;
-        GameEvent.SetKey(GameKey.TURN_PLAYER, true);
+        GameEvent.SetKey(ConstGameKey.TURN_PLAYER, true);
     }
 }

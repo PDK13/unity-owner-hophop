@@ -51,7 +51,7 @@ public class ControllerPlayer : MonoBehaviour
         if (!State)
             return;
 
-        if (Key != GameKey.TURN_PLAYER)
+        if (Key != ConstGameKey.TURN_PLAYER)
             return;
 
         m_controlInput = true;
@@ -62,7 +62,7 @@ public class ControllerPlayer : MonoBehaviour
         if (Dir == IsoDir.None)
         {
             m_controlInput = false;
-            GameEvent.SetKey(GameKey.TURN_PLAYER, false);
+            GameEvent.SetKey(ConstGameKey.TURN_PLAYER, false);
             return;
         }
 
@@ -110,7 +110,7 @@ public class ControllerPlayer : MonoBehaviour
         if (m_body.GetCheckBot() == null)
             m_body.SetGravity();
         else
-            GameEvent.SetKey(GameKey.TURN_PLAYER, false);
+            GameEvent.SetKey(ConstGameKey.TURN_PLAYER, false);
     }
 
     private void SetGravity(bool State)
@@ -120,7 +120,7 @@ public class ControllerPlayer : MonoBehaviour
         else
         {
             m_fallCount = 0;
-            GameEvent.SetKey(GameKey.TURN_PLAYER, false);
+            GameEvent.SetKey(ConstGameKey.TURN_PLAYER, false);
         }
     }
 }

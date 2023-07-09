@@ -18,7 +18,7 @@ public class ControllerObject : MonoBehaviour
     private void Start()
     {
         m_dataMove = m_block.Data.MoveData;
-        m_dataFollow = m_block.Data.EventData.DataExist ? m_block.Data.EventData.Data.Find(t => t.Name == GameKey.EVENT_FOLLOW).Value : null;
+        m_dataFollow = m_block.Data.EventData.DataExist ? m_block.Data.EventData.Data.Find(t => t.Name == ConstGameKey.EVENT_FOLLOW).Value : null;
 
         if (m_dataMove.DataExist)
         {
@@ -53,7 +53,7 @@ public class ControllerObject : MonoBehaviour
         if (!State)
             return;
 
-        if (Key == GameKey.TURN_OBJECT)
+        if (Key == ConstGameKey.TURN_OBJECT)
             SetKeyTurn();
     }
 
@@ -100,7 +100,7 @@ public class ControllerObject : MonoBehaviour
             })
             .OnComplete(() =>
             {
-                GameEvent.SetKey(GameKey.TURN_OBJECT, false);
+                GameEvent.SetKey(ConstGameKey.TURN_OBJECT, false);
             });
     }
 

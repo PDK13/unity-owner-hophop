@@ -1,4 +1,4 @@
-public class GameKey
+public class ConstGameKey
 {
     public const string TURN_PLAYER = "turn-player";
     public const string TURN_OBJECT = "turn-object";
@@ -6,9 +6,8 @@ public class GameKey
     public const string EVENT_FOLLOW = "event-follow";
 }
 
-public class GameTag
+public class ConstDataKey
 {
-    public const string MOVE = "Move";
 }
 
 public enum TypeCharacter
