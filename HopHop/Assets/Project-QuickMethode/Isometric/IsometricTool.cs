@@ -406,7 +406,7 @@ public class IsometricTool : EditorWindow
             if (Path.Result)
             {
                 m_pathSave = Path.Path;
-                m_manager.SetFileSave(QPath.PathType.None, Path.Path);
+                m_manager.SetFileWrite(QPath.PathType.None, Path.Path);
                 QAssetsDatabase.SetRefresh();
             }
         }

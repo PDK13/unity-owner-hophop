@@ -20,10 +20,8 @@ public class DebugCanvas : MonoBehaviour
         m_text.text = "1";
         m_manager.SetList();
         yield return null;
-        //m_manager.SetWorldRead(m_manager.transform);
-        //yield return null;
-        //m_text.text = "2";
-        //m_manager.SetWorldClear(m_manager.transform);
+        m_text.text = "2";
+        m_manager.SetWorldRemove(m_manager.transform);
         yield return null;
         m_text.text = "3";
         m_manager.SetFileRead(m_gameConfig.m_level[0].Level[0]);
