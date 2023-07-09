@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class ObjPlayer : MonoBehaviour
+public class ControllerPlayer : MonoBehaviour
 {
     private bool m_controlInput = false;
 
     private int m_fallCount = 0;
 
-    private ObjBody m_body;
+    private ControllerBody m_body;
     private IsometricBlock m_block;
 
     private void Awake()
     {
-        m_body = GetComponent<ObjBody>();
+        m_body = GetComponent<ControllerBody>();
         m_block = GetComponent<IsometricBlock>();
 
         m_body.onGravity += SetGravity;
@@ -43,7 +43,7 @@ public class ObjPlayer : MonoBehaviour
         if (Input.GetKey(KeyCode.RightArrow))
             SetMove(IsoDir.Right);
         if (Input.GetKeyDown(KeyCode.Space))
-            GameEvent.SetKey(GameKey.PLAYER, false);
+            SetMove(IsoDir.None);
     }
 
     private void SetKey(string Key, bool State)
@@ -51,7 +51,7 @@ public class ObjPlayer : MonoBehaviour
         if (!State)
             return;
 
-        if (Key != GameKey.PLAYER)
+        if (Key != GameKey.TURN_PLAYER)
             return;
 
         m_controlInput = true;
@@ -59,6 +59,13 @@ public class ObjPlayer : MonoBehaviour
 
     private void SetMove(IsoDir Dir)
     {
+        if (Dir == IsoDir.None)
+        {
+            m_controlInput = false;
+            GameEvent.SetKey(GameKey.TURN_PLAYER, false);
+            return;
+        }
+
         int Length = 1; //Follow Character
 
         //Check if there is a Block ahead?!
@@ -68,7 +75,7 @@ public class ObjPlayer : MonoBehaviour
             //There is a Block ahead!!
             //Check if can push this Block?!
             //
-            ObjBody BlockBody = BlockNext.GetComponent<ObjBody>();
+            ControllerBody BlockBody = BlockNext.GetComponent<ControllerBody>();
             if (BlockBody == null)
                 //Surely can't continue move to this Pos, because this Block can't be push!!
                 return;
@@ -103,7 +110,7 @@ public class ObjPlayer : MonoBehaviour
         if (m_body.GetCheckBot() == null)
             m_body.SetGravity();
         else
-            GameEvent.SetKey(GameKey.PLAYER, false);
+            GameEvent.SetKey(GameKey.TURN_PLAYER, false);
     }
 
     private void SetGravity(bool State)
@@ -113,7 +120,7 @@ public class ObjPlayer : MonoBehaviour
         else
         {
             m_fallCount = 0;
-            GameEvent.SetKey(GameKey.PLAYER, false);
+            GameEvent.SetKey(GameKey.TURN_PLAYER, false);
         }
     }
 }

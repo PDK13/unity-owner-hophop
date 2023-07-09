@@ -18,7 +18,7 @@ public class IsoDataBlock
 [Serializable]
 public class IsoDataBlockSingle
 {
-    public List<IsoDataBlockMove> MoveData = new List<IsoDataBlockMove>();
-    public List<IsoDataBlockEvent> EventData = new List<IsoDataBlockEvent>();
-    public List<IsoDataBlockTeleport> TeleportData = new List<IsoDataBlockTeleport>();
+    public IsoDataBlockMove MoveData = new IsoDataBlockMove();
+    public IsoDataBlockEvent EventData = new IsoDataBlockEvent();
+    public IsoDataBlockTeleport TeleportData = new IsoDataBlockTeleport();
 }

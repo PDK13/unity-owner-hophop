@@ -4,10 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjBody : MonoBehaviour
+public class ControllerBody : MonoBehaviour
 {
-    [SerializeField] private bool m_top = false;
-
     public Action<bool> onMove;
     public Action<bool> onGravity;
 
@@ -29,7 +27,7 @@ public class ObjBody : MonoBehaviour
         Vector3 MoveEnd = IsoVector.GetVector(m_block.Pos) + MoveDir * Length;
         DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameData.TimeMove * Length)
             .SetEase(Ease.Linear)
-            .OnStart(()=> 
+            .OnStart(() =>
             {
                 onMove?.Invoke(true);
             })
@@ -37,7 +35,7 @@ public class ObjBody : MonoBehaviour
             {
                 m_block.Pos = new IsoVector(MoveEnd);
             })
-            .OnComplete(()=> 
+            .OnComplete(() =>
             {
                 onMove?.Invoke(false);
             });
@@ -51,15 +49,12 @@ public class ObjBody : MonoBehaviour
 
     private void SetMovePushTop(IsoVector Dir, int Length)
     {
-        if (!m_top)
-            return;
-
         IsometricBlock BlockTop = GetCheckTop();
 
         if (BlockTop == null)
             return;
 
-        ObjBody BlockTopBody = BlockTop.GetComponent<ObjBody>();
+        ControllerBody BlockTopBody = BlockTop.GetComponent<ControllerBody>();
 
         if (BlockTopBody == null)
             return;
@@ -84,7 +79,7 @@ public class ObjBody : MonoBehaviour
         Vector3 MoveEnd = IsoVector.GetVector(m_block.Pos) + MoveDir * 1;
         DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameData.TimeMove * 1)
             .SetEase(Ease.Linear)
-            .OnStart(()=> 
+            .OnStart(() =>
             {
                 onGravity?.Invoke(true);
             })

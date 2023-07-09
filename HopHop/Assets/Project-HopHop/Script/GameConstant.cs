@@ -1,7 +1,9 @@
 public class GameKey
 {
-    public const string PLAYER = "Player";
-    public const string OBJECT = "Object";
+    public const string TURN_PLAYER = "turn-player";
+    public const string TURN_OBJECT = "turn-object";
+
+    public const string EVENT_FOLLOW = "event-follow";
 }
 
 public class GameTag

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3430691712157824425}
   - component: {fileID: 1455909166595997230}
   - component: {fileID: -2893247825292862636}
+  - component: {fileID: 1476387243174801731}
   m_Layer: 0
   m_Name: Bubble 0
   m_TagString: Untagged
@@ -123,14 +124,24 @@ MonoBehaviour:
   m_name: Object Bubble 0
   m_free: 0
   m_tag:
-  - Object Static
+  - Trap
   m_pos:
     X: 0
     Y: 0
     H: 0
-  MoveData: []
-  EventData: []
-  TeleportData: []
+  MoveData:
+    Key: 
+    Loop: 0
+    Dir: 
+    Length: 
+    Index: 0
+    Quantity: 1
+  EventData:
+    Key: 
+    Data: []
+  TeleportData:
+    Key: 
+    Data: []
   m_scene:
     Renderer: 1
     Scale:
@@ -152,3 +163,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_spriteJoin: []
   m_blockTop: []
+--- !u!114 &1476387243174801731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1455909166595997217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfc287c449558124f998392227ca3361, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

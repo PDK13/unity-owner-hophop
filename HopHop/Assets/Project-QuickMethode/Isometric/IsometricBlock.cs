@@ -26,9 +26,9 @@ public class IsometricBlock : MonoBehaviour
     #region Varible: Data Manager
 
     [Header("Data")]
-    [SerializeField] private List<IsoDataBlockMove> MoveData = new List<IsoDataBlockMove>();
-    [SerializeField] private List<IsoDataBlockEvent> EventData = new List<IsoDataBlockEvent>();
-    [SerializeField] private List<IsoDataBlockTeleport> TeleportData = new List<IsoDataBlockTeleport>();
+    [SerializeField] private IsoDataBlockMove MoveData = new IsoDataBlockMove();
+    [SerializeField] private IsoDataBlockEvent EventData = new IsoDataBlockEvent();
+    [SerializeField] private IsoDataBlockTeleport TeleportData = new IsoDataBlockTeleport();
 
     #endregion
 

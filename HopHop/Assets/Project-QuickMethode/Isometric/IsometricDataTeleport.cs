@@ -5,8 +5,10 @@ using System.Collections.Generic;
 [Serializable]
 public class IsoDataBlockTeleport
 {
-    public string Name = "Teleport";
+    public string Key = "";
     public List<IsoDataBlockTeleportSingle> Data = new List<IsoDataBlockTeleportSingle>();
+
+    public bool DataExist => Data == null ? false : Data.Count == 0 ? false : true;
 }
 
 [Serializable]

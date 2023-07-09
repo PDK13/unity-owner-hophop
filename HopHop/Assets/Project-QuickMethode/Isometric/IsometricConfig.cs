@@ -35,6 +35,7 @@ public class IsometricConfig : ScriptableObject
     {
         foreach(var BlockListCheck in m_blockList)
         {
+            BlockListCheck.Block = BlockListCheck.Block.Where(x => x != null).ToList();
             BlockListCheck.Block = BlockListCheck.Block.OrderBy(t => t.name).ToList();
         }
     }

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum IsoDir { None = 0, Up = 1, Down = 2, Left = 3, Right = 4, Top = 5, Bot = 6 }
+public enum IsoDir { Stop = -1, None = 0, Up = 1, Down = 2, Left = 3, Right = 4, Top = 5, Bot = 6 }
 
 [Serializable]
 public struct IsoVector

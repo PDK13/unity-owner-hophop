@@ -13,8 +13,8 @@ public class GameData
 
     //Object Control
 
-    public static int m_objectControlCount = 0;
-    public static int m_objectControlEnd = 0;
+    public static int m_objectTurnCount = 0;
+    public static int m_objectTurnEnd = 0;
 
-    public static bool ObjectControlEnd => m_objectControlCount == m_objectControlEnd;
+    public static bool ObjectControlEnd => m_objectTurnCount == m_objectTurnEnd;
 }

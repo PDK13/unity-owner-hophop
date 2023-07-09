@@ -20,7 +20,6 @@ public class GameManager : MonoBehaviour
     {
         m_isometricManager.SetList(m_isometricConfig);
 
-
         SetWorldLoad(m_gameConfig.m_level[0].Level[0]);
     }
 
@@ -35,6 +34,6 @@ public class GameManager : MonoBehaviour
         yield return null;
         m_isometricManager.SetFileRead(WorldData);
         yield return null;
-        GameEvent.SetKey(GameKey.PLAYER, true);
+        GameEvent.SetKey(GameKey.TURN_PLAYER, true);
     }
 }

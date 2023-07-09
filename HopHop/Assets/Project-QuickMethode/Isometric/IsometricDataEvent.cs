@@ -5,8 +5,10 @@ using System.Collections.Generic;
 [Serializable]
 public class IsoDataBlockEvent
 {
-    public string Name = "Event";
+    public string Key = "";
     public List<IsoDataBlockEventSingle> Data = new List<IsoDataBlockEventSingle>();
+
+    public bool DataExist => Data == null ? false : Data.Count == 0 ? false : true;
 }
 
 [Serializable]

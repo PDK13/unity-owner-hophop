@@ -552,6 +552,12 @@ public class IsometricManager : MonoBehaviour
 
         foreach (IsometricBlock BlockCheck in BlockList)
         {
+            if (BlockCheck == null)
+            {
+                Debug.LogWarningFormat("Not found IsometricBlock to Read!");
+                continue;
+            }
+
             List<string> TagFind = BlockCheck.GetComponent<IsometricBlock>().Tag;
             foreach (string TagCheck in TagFind)
             {
@@ -740,41 +746,23 @@ public class IsometricManager : MonoBehaviour
             FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Name);
 
             FileIO.SetWriteAdd("<MOVE DATA>");
-            FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.MoveData.Count);
-            for (int MoveIndex = 0; MoveIndex < WorldBlocks[BlockIndex].Data.MoveData.Count; MoveIndex++)
-            {
-                FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.MoveData[MoveIndex].Name);
-                FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.MoveData[MoveIndex].Loop);
-                FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.MoveData[MoveIndex].Data.Count);
-                for (int DataIndex = 0; DataIndex < WorldBlocks[BlockIndex].Data.MoveData[MoveIndex].Data.Count; DataIndex++)
-                {
-                    FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.MoveData[MoveIndex].Data[DataIndex].Encypt);
-                }
-            }
+            FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.MoveData.Key);
+            FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.MoveData.Loop);
+            FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.MoveData.Data.Count);
+            for (int DataIndex = 0; DataIndex < WorldBlocks[BlockIndex].Data.MoveData.Data.Count; DataIndex++)
+                FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.MoveData.Data[DataIndex].Encypt);
 
             FileIO.SetWriteAdd("<EVENT DATA>");
-            FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.EventData.Count);
-            for (int JoinIndex = 0; JoinIndex < WorldBlocks[BlockIndex].Data.EventData.Count; JoinIndex++)
-            {
-                FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.EventData[JoinIndex].Name);
-                FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.EventData[JoinIndex].Data.Count);
-                for (int DataIndex = 0; DataIndex < WorldBlocks[BlockIndex].Data.EventData[JoinIndex].Data.Count; DataIndex++)
-                {
-                    FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.EventData[JoinIndex].Data[DataIndex].Encypt);
-                }
-            }
+            FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.EventData.Key);
+            FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.EventData.Data.Count);
+            for (int DataIndex = 0; DataIndex < WorldBlocks[BlockIndex].Data.EventData.Data.Count; DataIndex++)
+                FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.EventData.Data[DataIndex].Encypt);
 
             FileIO.SetWriteAdd("<TELEPORT DATA>");
-            FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.TeleportData.Count);
-            for (int JoinIndex = 0; JoinIndex < WorldBlocks[BlockIndex].Data.TeleportData.Count; JoinIndex++)
-            {
-                FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.TeleportData[JoinIndex].Name);
-                FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.TeleportData[JoinIndex].Data.Count);
-                for (int DataIndex = 0; DataIndex < WorldBlocks[BlockIndex].Data.TeleportData[JoinIndex].Data.Count; DataIndex++)
-                {
-                    FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.TeleportData[JoinIndex].Data[DataIndex].Encypt);
-                }
-            }
+            FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.TeleportData.Key);
+            FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.TeleportData.Data.Count);
+            for (int DataIndex = 0; DataIndex < WorldBlocks[BlockIndex].Data.TeleportData.Data.Count; DataIndex++)
+                FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.TeleportData.Data[DataIndex].Encypt);
         }
     }
 
@@ -818,50 +806,29 @@ public class IsometricManager : MonoBehaviour
             IsoDataBlockSingle Data = new IsoDataBlockSingle();
 
             FileIO.GetReadAuto();
-            Data.MoveData = new List<IsoDataBlockMove>();
+            Data.MoveData = new IsoDataBlockMove();
+            Data.MoveData.Key = FileIO.GetReadAutoString();
+            Data.MoveData.Loop = FileIO.GetReadAutoBool();
+            Data.MoveData.SetDataNew();
             int MoveCount = FileIO.GetReadAutoInt();
-            for (int MoveIndex = 0; MoveIndex < MoveCount; MoveIndex++)
-            {
-                Data.MoveData.Add(new IsoDataBlockMove());
-                Data.MoveData[MoveIndex].Name = FileIO.GetReadAutoString();
-                Data.MoveData[MoveIndex].Loop = FileIO.GetReadAutoBool();
-                Data.MoveData[MoveIndex].Data = new List<IsoDataBlockMoveSingle>();
-                int DataCount = FileIO.GetReadAutoInt();
-                for (int DataIndex = 0; DataIndex < DataCount; DataIndex++)
-                {
-                    Data.MoveData[MoveIndex].Data.Add(IsoDataBlockMoveSingle.GetDencypt(FileIO.GetReadAutoString()));
-                }
-            }
+            for (int DataIndex = 0; DataIndex < MoveCount; DataIndex++)
+                Data.MoveData.SetDataAdd(IsoDataBlockMoveSingle.GetDencypt(FileIO.GetReadAutoString()));
 
             FileIO.GetReadAuto();
-            Data.EventData = new List<IsoDataBlockEvent>();
+            Data.EventData = new IsoDataBlockEvent();
+            Data.EventData.Key = FileIO.GetReadAutoString();
+            Data.EventData.Data = new List<IsoDataBlockEventSingle>();
             int EventCount = FileIO.GetReadAutoInt();
-            for (int EventIndex = 0; EventIndex < EventCount; EventIndex++)
-            {
-                Data.EventData.Add(new IsoDataBlockEvent());
-                Data.EventData[EventIndex].Name = FileIO.GetReadAutoString();
-                Data.EventData[EventIndex].Data = new List<IsoDataBlockEventSingle>();
-                int DataCount = FileIO.GetReadAutoInt();
-                for (int DataIndex = 0; DataIndex < DataCount; DataIndex++)
-                {
-                    Data.EventData[EventIndex].Data.Add(IsoDataBlockEventSingle.GetDencypt(FileIO.GetReadAutoString()));
-                }
-            }
+            for (int DataIndex = 0; DataIndex < EventCount; DataIndex++)
+                Data.EventData.Data.Add(IsoDataBlockEventSingle.GetDencypt(FileIO.GetReadAutoString()));
 
             FileIO.GetReadAuto();
-            Data.TeleportData = new List<IsoDataBlockTeleport>();
+            Data.TeleportData = new IsoDataBlockTeleport();
+            Data.TeleportData.Key = FileIO.GetReadAutoString();
+            Data.TeleportData.Data = new List<IsoDataBlockTeleportSingle>();
             int TeleportCount = FileIO.GetReadAutoInt();
-            for (int TeleportIndex = 0; TeleportIndex < TeleportCount; TeleportIndex++)
-            {
-                Data.TeleportData.Add(new IsoDataBlockTeleport());
-                Data.TeleportData[TeleportIndex].Name = FileIO.GetReadAutoString();
-                Data.TeleportData[TeleportIndex].Data = new List<IsoDataBlockTeleportSingle>();
-                int DataCount = FileIO.GetReadAutoInt();
-                for (int DataIndex = 0; DataIndex < DataCount; DataIndex++)
-                {
-                    Data.TeleportData[TeleportIndex].Data.Add(IsoDataBlockTeleportSingle.GetDencypt(FileIO.GetReadAutoString()));
-                }
-            }
+            for (int DataIndex = 0; DataIndex < TeleportCount; DataIndex++)
+                Data.TeleportData.Data.Add(IsoDataBlockTeleportSingle.GetDencypt(FileIO.GetReadAutoString()));
 
             SetWorldBlockCreate(PosPrimary, GetList(Name), Data);
         }
