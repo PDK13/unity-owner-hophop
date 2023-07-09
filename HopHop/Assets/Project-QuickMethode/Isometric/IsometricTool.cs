@@ -6,12 +6,6 @@ using UnityEngine;
 
 public class IsometricTool : EditorWindow
 {
-    #region Const
-
-    public const string CURSON_NAME = "ISO-CURSON";
-
-    #endregion
-
     #region Enum
 
     private enum MainType { World, Block, }
@@ -238,11 +232,11 @@ public class IsometricTool : EditorWindow
     {
         if (m_curson == null)
         {
-            Transform Curson = m_manager.transform.Find(CURSON_NAME);
+            Transform Curson = m_manager.transform.Find(IsometricManager.CURSON_NAME);
 
             if (Curson == null)
             {
-                GameObject CursonClone = QGameObject.SetCreate(CURSON_NAME, m_manager.transform);
+                GameObject CursonClone = QGameObject.SetCreate(IsometricManager.CURSON_NAME, m_manager.transform);
                 m_curson = CursonClone.AddComponent<IsometricBlock>();
             }
             else
@@ -391,7 +385,7 @@ public class IsometricTool : EditorWindow
             m_indexTag = 0;
             m_indexName = 0;
 
-            m_manager.SetBlockList();
+            m_manager.SetList();
 
             m_manager.SetWorldRead(m_manager.transform);
 
@@ -412,7 +406,7 @@ public class IsometricTool : EditorWindow
             if (Path.Result)
             {
                 m_pathSave = Path.Path;
-                m_manager.SetWorldFileSave(QPath.PathType.None, Path.Path);
+                m_manager.SetFileSave(QPath.PathType.None, Path.Path);
                 QAssetsDatabase.SetRefresh();
             }
         }
@@ -422,7 +416,7 @@ public class IsometricTool : EditorWindow
             if (Path.Result)
             {
                 m_pathOpen = Path.Path;
-                m_manager.SetWorldFileRead(QPath.PathType.None, Path.Path);
+                m_manager.SetFileRead(QPath.PathType.None, Path.Path);
                 QAssetsDatabase.SetRefresh();
             }
         }

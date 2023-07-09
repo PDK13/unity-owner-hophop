@@ -1,10 +1,17 @@
 using QuickMethode;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 public class IsometricManager : MonoBehaviour
 {
+    #region Event
+
+    public static Action onWorldRead;
+
+    #endregion
+
     #region Enum
 
     public enum IsoRendererType { XY, H, None, }
@@ -31,12 +38,18 @@ public class IsometricManager : MonoBehaviour
 
     #endregion
 
+    #region Varible: Editor
+
+    public const string CURSON_NAME = "ISO-CURSON";
+
+    #endregion
+
     private void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
     }
 
-    #region ======================================================================== World & Block
+    #region ======================================================================== Block
 
     #region Block Create
 
@@ -83,7 +96,7 @@ public class IsometricManager : MonoBehaviour
             SetWorldBlockRemovePrimary(Pos);
 
             //World
-            int IndexPosH = GetIndexWorldPosH(Pos.HInt);
+            int IndexPosH = GetWorldIndexPosH(Pos.HInt);
             if (IndexPosH == -1)
             {
                 m_worldPosH.Add((Pos.HInt, new List<IsometricBlock>()));
@@ -99,7 +112,7 @@ public class IsometricManager : MonoBehaviour
         if (TagFind.Count == 0)
         {
             //None Tag!
-            int TagIndex = GetIndexWorldTag("");
+            int TagIndex = GetWorldIndexTag("");
             if (TagIndex == -1)
             {
                 this.m_worldTag.Add(("", new List<IsometricBlock>()));
@@ -114,7 +127,7 @@ public class IsometricManager : MonoBehaviour
             //Got Tag!
             foreach (string TagCheck in TagFind)
             {
-                int TagIndex = GetIndexWorldTag(TagCheck);
+                int TagIndex = GetWorldIndexTag(TagCheck);
                 if (TagIndex == -1)
                 {
                     this.m_worldTag.Add((TagCheck, new List<IsometricBlock>()));
@@ -127,14 +140,14 @@ public class IsometricManager : MonoBehaviour
         }
 
         //Scene
-        Transform ParentPosH = transform.Find(GetNameWorldPosH(Pos));
+        Transform ParentPosH = transform.Find(GetWorldNamePosH(Pos));
         if (ParentPosH != null)
         {
             Block.transform.SetParent(ParentPosH, true);
         }
         else
         {
-            ParentPosH = QGameObject.SetCreate(GetNameWorldPosH(Pos), transform).transform;
+            ParentPosH = QGameObject.SetCreate(GetWorldNamePosH(Pos), transform).transform;
             Block.transform.SetParent(ParentPosH, true);
         }
 
@@ -148,7 +161,7 @@ public class IsometricManager : MonoBehaviour
     public IsometricBlock GetWorldBlockPrimary(IsoVector Pos)
     {
         //World
-        int IndexPosH = GetIndexWorldPosH(Pos.HInt);
+        int IndexPosH = GetWorldIndexPosH(Pos.HInt);
         if (IndexPosH == -1)
             return null;
 
@@ -170,7 +183,7 @@ public class IsometricManager : MonoBehaviour
             //Find all Block with know tag - More Quickly!!
             foreach (string TagFind in Tag)
             {
-                int TagIndex = GetIndexWorldTag(TagFind);
+                int TagIndex = GetWorldIndexTag(TagFind);
                 if (TagIndex == -1)
                     //Not exist Tag in Tag List!
                     continue;
@@ -209,9 +222,9 @@ public class IsometricManager : MonoBehaviour
         if (Tag.Length > 0)
         {
             //Find all Block with know tag - More Quickly!!
-            foreach(string TagFind in Tag)
+            foreach (string TagFind in Tag)
             {
-                int TagIndex = GetIndexWorldTag(TagFind);
+                int TagIndex = GetWorldIndexTag(TagFind);
                 if (TagIndex == -1)
                     //Not exist Tag in Tag List!
                     continue;
@@ -230,7 +243,7 @@ public class IsometricManager : MonoBehaviour
             //Find all block with unknow tag - More slower!! (But always found Block)
             foreach (var TagCheck in m_worldTag)
             {
-                foreach(var BlockCheck in TagCheck.Block)
+                foreach (var BlockCheck in TagCheck.Block)
                 {
                     if (BlockCheck.Pos != Pos)
                         continue;
@@ -261,7 +274,7 @@ public class IsometricManager : MonoBehaviour
     public void SetWorldBlockRemovePrimary(IsoVector Pos)
     {
         //World
-        int IndexPosH = GetIndexWorldPosH(Pos.HInt);
+        int IndexPosH = GetWorldIndexPosH(Pos.HInt);
         if (IndexPosH == -1)
             return;
 
@@ -279,9 +292,9 @@ public class IsometricManager : MonoBehaviour
 
             //Tag
             List<string> TagFind = Block.Tag;
-            foreach(string TagCheck in TagFind)
+            foreach (string TagCheck in TagFind)
             {
-                int TagIndex = GetIndexWorldTag(TagCheck);
+                int TagIndex = GetWorldIndexTag(TagCheck);
                 if (TagIndex != -1)
                 {
                     m_worldTag[TagIndex].Block.Remove(Block);
@@ -291,7 +304,7 @@ public class IsometricManager : MonoBehaviour
             }
 
             //Scene
-            if (Application.isEditor)
+            if (Application.isEditor && !Application.isPlaying)
                 DestroyImmediate(Block.gameObject);
             else
                 Destroy(Block.gameObject);
@@ -303,19 +316,23 @@ public class IsometricManager : MonoBehaviour
     public void SetWorldBlockRemoveInstant(IsometricBlock Block)
     {
         //World
-        m_worldPosH[GetIndexWorldPosH(Block.Pos.HInt)].Block.Remove(Block);
+        m_worldPosH[GetWorldIndexPosH(Block.Pos.HInt)].Block.Remove(Block);
 
         //Tag
-        m_worldTag[GetIndexWorldTag(Block.tag)].Block.Remove(Block);
+        m_worldTag[GetWorldIndexTag(Block.tag)].Block.Remove(Block);
 
         //Scene
-        if (Application.isEditor)
+        if (Application.isEditor && !Application.isPlaying)
             DestroyImmediate(Block.gameObject);
         else
             Destroy(Block.gameObject);
     }
 
     #endregion
+
+    #endregion
+
+    #region ======================================================================== World
 
     #region World Read
 
@@ -329,7 +346,7 @@ public class IsometricManager : MonoBehaviour
         GameObject BlockStore = QGameObject.SetCreate("BlockStore");
         foreach (IsometricBlock Block in BlockFound)
         {
-            if (Block.gameObject.name == IsometricTool.CURSON_NAME)
+            if (Block.gameObject.name == CURSON_NAME)
                 continue;
 
             Block.transform.SetParent(BlockStore.transform);
@@ -338,10 +355,11 @@ public class IsometricManager : MonoBehaviour
         //Remove All GameObject!!
         for (int i = WorldManager.transform.childCount - 1; i >= 0; i--)
         {
-            if (WorldManager.GetChild(i).gameObject.name == IsometricTool.CURSON_NAME)
+#if UNITY_EDITOR
+            if (WorldManager.GetChild(i).gameObject.name == CURSON_NAME)
                 continue;
-
-            if (Application.isEditor)
+#endif
+            if (Application.isEditor && !Application.isPlaying)
                 DestroyImmediate(WorldManager.GetChild(i).gameObject);
             else
                 Destroy(WorldManager.GetChild(i).gameObject);
@@ -350,26 +368,26 @@ public class IsometricManager : MonoBehaviour
         //Add Block(s) Found!!
         foreach (IsometricBlock Block in BlockFound)
         {
-            if (Block.gameObject.name == IsometricTool.CURSON_NAME)
+            if (Block.gameObject.name == CURSON_NAME)
                 continue;
 
-            SetWorldBlockRead(Block);
+            SetWorldReadBlock(Block);
         }
 
         //Destroy Block(s) Store!!
-        if (Application.isEditor)
+        if (Application.isEditor && !Application.isPlaying)
             DestroyImmediate(BlockStore);
         else
             Destroy(BlockStore);
     }
 
-    public void SetWorldBlockRead(IsometricBlock Block)
+    public void SetWorldReadBlock(IsometricBlock Block)
     {
         Block.WorldManager = this;
         Block.PosPrimary = Block.Pos;
 
         //World
-        int IndexPosH = GetIndexWorldPosH(Block.Pos.HInt);
+        int IndexPosH = GetWorldIndexPosH(Block.Pos.HInt);
         if (IndexPosH == -1)
         {
             m_worldPosH.Add((Block.Pos.HInt, new List<IsometricBlock>()));
@@ -381,9 +399,9 @@ public class IsometricManager : MonoBehaviour
 
         //Tag
         List<string> TagFind = Block.GetComponent<IsometricBlock>().Tag;
-        foreach(string TagCheck in TagFind)
+        foreach (string TagCheck in TagFind)
         {
-            int TagIndex = GetIndexWorldTag(TagCheck);
+            int TagIndex = GetWorldIndexTag(TagCheck);
             if (TagIndex == -1)
             {
                 this.m_worldTag.Add((TagCheck, new List<IsometricBlock>()));
@@ -395,14 +413,14 @@ public class IsometricManager : MonoBehaviour
         }
 
         //Scene
-        Transform ParentPosH = transform.Find(GetNameWorldPosH(Block.Pos));
+        Transform ParentPosH = transform.Find(GetWorldNamePosH(Block.Pos));
         if (ParentPosH != null)
         {
             Block.transform.SetParent(ParentPosH, true);
         }
         else
         {
-            ParentPosH = QGameObject.SetCreate(GetNameWorldPosH(Block.Pos), transform).transform;
+            ParentPosH = QGameObject.SetCreate(GetWorldNamePosH(Block.Pos), this.transform).transform;
             Block.transform.SetParent(ParentPosH, true);
         }
     }
@@ -411,7 +429,7 @@ public class IsometricManager : MonoBehaviour
 
     #region World Remove
 
-    public void SetWorldRemove()
+    public void SetWorldRemove(bool Full = false)
     {
         for (int i = m_worldPosH.Count - 1; i >= 0; i--)
         {
@@ -419,21 +437,56 @@ public class IsometricManager : MonoBehaviour
             {
                 IsometricBlock Block = m_worldPosH[i].Block[j];
 
-                if (Application.isEditor)
+                if (Block == null)
+                    continue;
+
+                if (Application.isEditor && !Application.isPlaying)
                     DestroyImmediate(Block.gameObject);
                 else
                     Destroy(Block.gameObject);
             }
         }
         m_worldPosH.Clear();
+
+        for (int i = m_worldTag.Count - 1; i >= 0; i--)
+        {
+            for (int j = m_worldTag[i].Block.Count - 1; j >= 0; j--)
+            {
+                IsometricBlock Block = m_worldTag[i].Block[j];
+
+                if (Block == null)
+                    continue;
+
+                if (Application.isEditor && !Application.isPlaying)
+                    DestroyImmediate(Block.gameObject);
+                else
+                    Destroy(Block.gameObject);
+            }
+        }
         m_worldTag.Clear();
+
+        if (!Full)
+            return;
+
+        //Remove All GameObject!!
+        for (int i = this.transform.childCount - 1; i >= 0; i--)
+        {
+#if UNITY_EDITOR
+            if (this.transform.GetChild(i).gameObject.name == CURSON_NAME)
+                continue;
+#endif
+            if (Application.isEditor && !Application.isPlaying)
+                DestroyImmediate(this.transform.GetChild(i).gameObject);
+            else
+                Destroy(this.transform.GetChild(i).gameObject);
+        }
     }
 
     #endregion
 
     #region World Progess
 
-    private int GetIndexWorldPosH(int PosH)
+    private int GetWorldIndexPosH(int PosH)
     {
         for (int i = 0; i < m_worldPosH.Count; i++)
         {
@@ -444,7 +497,7 @@ public class IsometricManager : MonoBehaviour
         return -1;
     }
 
-    private int GetIndexWorldTag(string Tag)
+    private int GetWorldIndexTag(string Tag)
     {
         for (int i = 0; i < m_worldTag.Count; i++)
         {
@@ -455,12 +508,12 @@ public class IsometricManager : MonoBehaviour
         return -1;
     }
 
-    private string GetNameWorldPosH(IsoVector Pos)
+    private string GetWorldNamePosH(IsoVector Pos)
     {
         return Pos.HInt.ToString();
     }
 
-    public void SetOrderWorld()
+    public void SetWorldOrder()
     {
         m_worldPosH = m_worldPosH.OrderByDescending(h => h.PosH).ToList();
         for (int i = 0; i < m_worldPosH.Count; i++)
@@ -471,11 +524,11 @@ public class IsometricManager : MonoBehaviour
 
     #endregion
 
-    #region ======================================================================== List & Block
+    #region ======================================================================== List
 
     #region Read
 
-    public void SetBlockList(List<IsometricBlock> BlockList)
+    public void SetList(List<IsometricBlock> BlockList)
     {
         if (this.BlockList == null)
             this.BlockList = new List<(string Tag, List<IsometricBlock> Block)>();
@@ -485,9 +538,9 @@ public class IsometricManager : MonoBehaviour
         foreach (IsometricBlock BlockCheck in BlockList)
         {
             List<string> TagFind = BlockCheck.GetComponent<IsometricBlock>().Tag;
-            foreach(string TagCheck in TagFind)
+            foreach (string TagCheck in TagFind)
             {
-                int TagIndex = GetIndexBlockListTag(TagCheck);
+                int TagIndex = GetIndexListTag(TagCheck);
                 if (TagIndex == -1)
                 {
                     this.BlockList.Add((TagCheck, new List<IsometricBlock>()));
@@ -500,7 +553,7 @@ public class IsometricManager : MonoBehaviour
         }
     }
 
-    public void SetBlockList(List<GameObject> BlockList)
+    public void SetList(List<GameObject> BlockList)
     {
         if (this.BlockList == null)
             this.BlockList = new List<(string Tag, List<IsometricBlock> Block)>();
@@ -517,9 +570,9 @@ public class IsometricManager : MonoBehaviour
             }
 
             List<string> TagFind = BlockCheck.GetComponent<IsometricBlock>().Tag;
-            foreach(string TagCheck in TagFind)
+            foreach (string TagCheck in TagFind)
             {
-                int TagIndex = GetIndexBlockListTag(TagCheck);
+                int TagIndex = GetIndexListTag(TagCheck);
                 if (TagIndex == -1)
                 {
                     this.BlockList.Add((TagCheck, new List<IsometricBlock>()));
@@ -532,7 +585,7 @@ public class IsometricManager : MonoBehaviour
         }
     }
 
-    public void SetBlockList(params string[] PathChildInResources)
+    public void SetList(params string[] PathChildInResources)
     {
         if (this.BlockList == null)
             this.BlockList = new List<(string Tag, List<IsometricBlock> Block)>();
@@ -553,7 +606,7 @@ public class IsometricManager : MonoBehaviour
             List<string> TagFind = BlockPrefab.GetComponent<IsometricBlock>().Tag;
             if (TagFind.Count == 0)
             {
-                int TagIndex = GetIndexBlockListTag("");
+                int TagIndex = GetIndexListTag("");
                 if (TagIndex == -1)
                 {
                     this.BlockList.Add(("", new List<IsometricBlock>()));
@@ -567,7 +620,7 @@ public class IsometricManager : MonoBehaviour
             {
                 foreach (string TagCheck in TagFind)
                 {
-                    int TagIndex = GetIndexBlockListTag(TagCheck);
+                    int TagIndex = GetIndexListTag(TagCheck);
                     if (TagIndex == -1)
                     {
                         this.BlockList.Add((TagCheck, new List<IsometricBlock>()));
@@ -581,7 +634,7 @@ public class IsometricManager : MonoBehaviour
         }
     }
 
-    public GameObject GetBlockList(string BlockName, string Tag = "")
+    public GameObject GetList(string BlockName, string Tag = "")
     {
         if (Tag != "")
         {
@@ -617,7 +670,7 @@ public class IsometricManager : MonoBehaviour
 
     #region Progess
 
-    private int GetIndexBlockListTag(string Tag)
+    private int GetIndexListTag(string Tag)
     {
         for (int i = 0; i < BlockList.Count; i++)
         {
@@ -632,22 +685,22 @@ public class IsometricManager : MonoBehaviour
 
     #endregion
 
-    #region ======================================================================== Data & World
+    #region ======================================================================== File
 
     #region Fild Save
 
-    public void SetWorldFileSave(QPath.PathType PathType, params string[] PathChild)
+    public void SetFileSave(QPath.PathType PathType, params string[] PathChild)
     {
         QFileIO FileIO = new QFileIO();
 
-        SetWorldFileWrite(FileIO);
+        SetFileWrite(FileIO);
 
         FileIO.SetWriteStart(QPath.GetPath(PathType, PathChild));
     }
 
-    private void SetWorldFileWrite(QFileIO FileIO)
+    private void SetFileWrite(QFileIO FileIO)
     {
-        SetOrderWorld();
+        SetWorldOrder();
 
         List<IsoDataBlock> WorldBlocks = new List<IsoDataBlock>();
         for (int i = 0; i < m_worldPosH.Count; i++)
@@ -710,16 +763,16 @@ public class IsometricManager : MonoBehaviour
 
     //File Path
 
-    public void SetWorldFileRead(QPath.PathType PathType, params string[] PathChild)
+    public void SetFileRead(QPath.PathType PathType, params string[] PathChild)
     {
         QFileIO FileIO = new QFileIO();
 
         FileIO.SetReadStart(QPath.GetPath(PathType, PathChild));
 
-        SetWorldFileRead(FileIO);
+        SetFileRead(FileIO);
     }
 
-    private void SetWorldFileRead(QFileIO FileIO)
+    private void SetFileRead(QFileIO FileIO)
     {
         FileIO.GetReadAuto();
         m_name = FileIO.GetReadAutoString();
@@ -780,19 +833,19 @@ public class IsometricManager : MonoBehaviour
                 }
             }
 
-            SetWorldBlockCreate(PosPrimary, GetBlockList(Name), Data);
+            SetWorldBlockCreate(PosPrimary, GetList(Name), Data);
         }
     }
 
     //File Text
 
-    public void SetWorldFileRead(TextAsset WorldFile)
+    public void SetFileRead(TextAsset WorldFile)
     {
         QFileIO FileIO = new QFileIO();
 
         FileIO.SetReadStart(WorldFile);
 
-        SetWorldFileRead(FileIO);
+        SetFileRead(FileIO);
     }
 
     #endregion

@@ -1492,7 +1492,7 @@ namespace QuickMethode
         {
             if (Child.parent != null)
             {
-                if (Index < 0 || Index > Child.parent.childCount - 1) 
+                if (Index < 0 || Index > Child.parent.childCount - 1)
                     return;
             }
 
@@ -4414,18 +4414,19 @@ namespace QuickMethode
 
         public static bool VibrateHandle = true;
 
-#if UNITY_ANDROID && !UNITY_EDITOR
-        public static AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
-        public static AndroidJavaObject currentActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
-        public static AndroidJavaObject vibrator = currentActivity.Call<AndroidJavaObject>("getSystemService", "vibrator");
-#else
+#if UNITY_EDITOR
         public static AndroidJavaClass unityPlayer;
         public static AndroidJavaObject currentActivity;
         public static AndroidJavaObject vibrator;
+#elif UNITY_ANDROID
+        public static AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+        public static AndroidJavaObject currentActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
+        public static AndroidJavaObject vibrator = currentActivity.Call<AndroidJavaObject>("getSystemService", "vibrator");
 #endif
 
         public static void SetDeviceVibrate()
         {
+#if UNITY_ANDROID
             if (VibrateHandle)
             {
                 Handheld.Vibrate();
@@ -4437,10 +4438,12 @@ namespace QuickMethode
                 else
                     Handheld.Vibrate();
             }
+#endif
         }
 
         public static void SetDeviceVibrate(float TimeMilisecond)
         {
+#if UNITY_ANDROID
             if (VibrateHandle)
             {
                 Handheld.Vibrate();
@@ -4452,10 +4455,12 @@ namespace QuickMethode
                 else
                     Handheld.Vibrate();
             }
+#endif
         }
 
         public static void SetDeviceVibrate(float[] Pattern, int Repeat) //???
         {
+#if UNITY_ANDROID
             if (VibrateHandle)
             {
                 Handheld.Vibrate();
@@ -4467,10 +4472,12 @@ namespace QuickMethode
                 else
                     Handheld.Vibrate();
             }
+#endif
         }
 
         public static void SetDeviceVibrateCancel()
         {
+#if UNITY_ANDROID
             if (VibrateHandle)
             {
                 //...
@@ -4480,6 +4487,7 @@ namespace QuickMethode
                 if (Application.platform == RuntimePlatform.Android && !Application.isEditor)
                     vibrator.Call("cancel");
             }
+#endif
         }
 
         #endregion
@@ -5220,7 +5228,6 @@ namespace QuickMethode
     }
 
 #endif
-
 
     #endregion
 }

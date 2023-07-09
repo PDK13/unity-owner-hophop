@@ -7,23 +7,23 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameConfig m_gameConfig;
 
-    [HideInInspector] private IsometricManager m_isoManager;
+    [HideInInspector] private IsometricManager m_manager;
 
     private void Awake()
     {
-        m_isoManager = GetComponent<IsometricManager>();
+        m_manager = GetComponent<IsometricManager>();
     }
 
-    private IEnumerator Start()
-    {
-        m_isoManager.SetBlockList();
-        yield return null;
-        m_isoManager.SetWorldRead(this.transform);
-        yield return null;
-        m_isoManager.SetWorldRemove();
-        yield return null;
-        m_isoManager.SetWorldFileRead(m_gameConfig.m_level[0].Level[0]);
-        yield return null;
-        GameEvent.SetKey(GameKey.PLAYER, true);
-    }
+    //private IEnumerator Start()
+    //{
+    //    m_manager.SetList();
+    //    yield return null;
+    //    m_manager.SetWorldRead(m_manager.transform);
+    //    yield return null;
+    //    m_manager.SetWorldRemove();
+    //    yield return null;
+    //    m_manager.SetFileRead(m_gameConfig.m_level[0].Level[0]);
+    //    yield return null;
+    //    GameEvent.SetKey(GameKey.PLAYER, true);
+    //}
 }

@@ -9,10 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6e44cb60c14f1e408857608262b17c1, type: 3}
+  m_Script: {fileID: 11500000, guid: 17e3364c253c200459e80230879e8b8d, type: 3}
   m_Name: game-config
   m_EditorClassIdentifier: 
   m_level:
   - Name: Normal
     Level:
     - {fileID: 4900000, guid: aab0aa5e40d0d0b4bac8e5f7fd77ea3a, type: 3}
+  m_character:
+  - m_skin:
+    - {fileID: 9100000, guid: 27c4e6e3c49f36842a26726b301de8e2, type: 2}

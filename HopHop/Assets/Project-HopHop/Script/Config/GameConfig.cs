@@ -7,6 +7,8 @@ using System;
 public class GameConfig : ScriptableObject
 {
     public List<GroupLevel> m_level;
+
+    public List<ConfigCharacter> m_character;
 }
 
 [Serializable]
@@ -14,4 +16,10 @@ public class GroupLevel
 {
     public string Name = "";
     public List<TextAsset> Level;
+}
+
+[Serializable]
+public class ConfigCharacter
+{
+    public List<RuntimeAnimatorController> m_skin;
 }
