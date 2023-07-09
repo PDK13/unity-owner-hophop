@@ -6,24 +6,35 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameConfig m_gameConfig;
+    [SerializeField] private IsometricConfig m_isometricConfig;
 
-    [HideInInspector] private IsometricManager m_manager;
+    [Space]
+    [SerializeField] private IsometricManager m_isometricManager;
 
     private void Awake()
     {
-        m_manager = GetComponent<IsometricManager>();
+        DontDestroyOnLoad(this.gameObject);
     }
 
-    //private IEnumerator Start()
-    //{
-    //    m_manager.SetList();
-    //    yield return null;
-    //    m_manager.SetWorldRead(m_manager.transform);
-    //    yield return null;
-    //    m_manager.SetWorldRemove();
-    //    yield return null;
-    //    m_manager.SetFileRead(m_gameConfig.m_level[0].Level[0]);
-    //    yield return null;
-    //    GameEvent.SetKey(GameKey.PLAYER, true);
-    //}
+    private void Start()
+    {
+        m_isometricManager.SetList(m_isometricConfig);
+
+
+        SetWorldLoad(m_gameConfig.m_level[0].Level[0]);
+    }
+
+    private void SetWorldLoad(TextAsset WorldData)
+    {
+        StartCoroutine(ISetWorldLoad(WorldData));
+    }
+
+    private IEnumerator ISetWorldLoad(TextAsset WorldData)
+    {
+        m_isometricManager.SetWorldRemove(m_isometricManager.transform);
+        yield return null;
+        m_isometricManager.SetFileRead(WorldData);
+        yield return null;
+        GameEvent.SetKey(GameKey.PLAYER, true);
+    }
 }

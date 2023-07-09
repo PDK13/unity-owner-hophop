@@ -4325,6 +4325,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfa14a2f9f5cbb447ba73f2f8be7df34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_config: {fileID: 11400000, guid: 4b3dce31945c8fb4e9a56cc6aef6a2e1, type: 2}
   m_name: ...
   m_scene:
     Renderer: 1
@@ -4345,6 +4346,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_gameConfig: {fileID: 11400000, guid: 121794dcf8ec4c1409ce28859f38b51a, type: 2}
+  m_isometricConfig: {fileID: 11400000, guid: 4b3dce31945c8fb4e9a56cc6aef6a2e1, type: 2}
+  m_isometricManager: {fileID: 1321004997}
 --- !u!1 &1341562024
 GameObject:
   m_ObjectHideFlags: 0

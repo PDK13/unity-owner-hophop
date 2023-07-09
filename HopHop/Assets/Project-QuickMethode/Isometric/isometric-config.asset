@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bef13b7c523e1a942b94b81cb767a6ea, type: 3}
+  m_Name: isometric-config
+  m_EditorClassIdentifier: 
+  m_blockList:
+  - Name: Block
+    Block:
+    - {fileID: 44393240911007880, guid: 13c9193ea8592ec4f845a218ab55f6f7, type: 3}
+    - {fileID: 1455909166595997230, guid: bb5870aaf92d0724b9c435dbb3e62695, type: 3}
+    - {fileID: 1831744179654619829, guid: 561d5de6edcbf25469e7f738b6c4c372, type: 3}
+    - {fileID: 44393240911007880, guid: 3e2d62d527bf7e242a823596fc51f60e, type: 3}
+    - {fileID: 44393240911007880, guid: c31517f610b355d4ca42f51454f14015, type: 3}
+    - {fileID: 1455909166595997230, guid: 2475bad260741654186edf8fe15667d8, type: 3}
+    - {fileID: 44393240911007880, guid: dc639698b19ef444ca3a1988012e2506, type: 3}
+    - {fileID: 1455909166595997230, guid: f688cbcfe8c0f294ca7d99e0239eda7d, type: 3}
+    - {fileID: 1831744179654619829, guid: a5626bcded6a8e74db67959a80c2f493, type: 3}
+    - {fileID: 44393240911007880, guid: f852dd5ef6629984eb5b60401fb9ecb6, type: 3}
+    - {fileID: 44393240911007880, guid: 5a84e1888d2e3c249a15ec44aebb815c, type: 3}
+    - {fileID: 1455909166595997230, guid: 218a42f8b9ed39b42a68cce7d36b4e7c, type: 3}
+  - Name: Character
+    Block:
+    - {fileID: 44393240911007880, guid: c7dda824b32fcfe4c88c6bccf01ac4ed, type: 3}
+    - {fileID: 44393240911007880, guid: f0c0cb30ee59a974ea8fd0538a61e31d, type: 3}
+    - {fileID: 44393240911007880, guid: 71817dbe38197744d9fd64111af9f02e, type: 3}
+    - {fileID: 44393240911007880, guid: 41201b9a01fe0774a8de897f54735225, type: 3}
+    - {fileID: 44393240911007880, guid: 5ba21ecc26bac394f80e86589e67294f, type: 3}
+    - {fileID: 44393240911007880, guid: 72dadbf741f9a854c8f8da51d414bbb6, type: 3}
+    - {fileID: 44393240911007880, guid: cf6f55c23de10e94ebdcd83b2181fbda, type: 3}
+    - {fileID: 44393240911007880, guid: 0a6433aa93900ae468cfdf8fdc45328b, type: 3}
+  - Name: Trap
+    Block:
+    - {fileID: 1455909166595997230, guid: bb1d6f31074e38a4c82d0eaf4f95129c, type: 3}
+    - {fileID: 1455909166595997230, guid: cc00723f6326c324aaef48d0264f6f62, type: 3}
+    - {fileID: 1455909166595997230, guid: 7562d609315ef5e4484bb72b2d5ad439, type: 3}
+    - {fileID: 1455909166595997230, guid: a0a6d4a243c6f184cb77eb716722d78c, type: 3}
+  - Name: Object
+    Block:
+    - {fileID: 44393240911007880, guid: 376da905a3745de44aa5758eacd1167d, type: 3}
+    - {fileID: 44393240911007880, guid: 381915d1355f4b145ad52cfe6b536e1d, type: 3}
+    - {fileID: 44393240911007880, guid: 3a52f7adab0a0a546a53b79e1251424e, type: 3}
+    - {fileID: 44393240911007880, guid: 4d723acb8bc4b7243b9909ed90f662d3, type: 3}

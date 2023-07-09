@@ -8,9 +8,9 @@ public class IsometricManager : MonoBehaviour
 {
     #region Event
 
-    public static Action onWorldCreate;
-    public static Action onWorldRemove;
-    public static Action onListRead;
+    public Action onWorldCreate;
+    public Action onWorldRemove;
+    public Action onListRead;
 
     #endregion
 
@@ -20,8 +20,17 @@ public class IsometricManager : MonoBehaviour
 
     #endregion
 
+    #region Varible: Game Config
+
+    [SerializeField] private IsometricConfig m_config;
+
+    public IsometricConfig Config => m_config;
+
+    #endregion
+
     #region Varible: World Manager
 
+    [Space]
     [SerializeField] private string m_name = "";
     [SerializeField] private IsoDataScene m_scene = new IsoDataScene();
 
@@ -45,11 +54,6 @@ public class IsometricManager : MonoBehaviour
     public const string CURSON_NAME = "ISO-CURSON";
 
     #endregion
-
-    private void Awake()
-    {
-        DontDestroyOnLoad(this.gameObject);
-    }
 
     #region ======================================================================== Block
 
@@ -533,6 +537,11 @@ public class IsometricManager : MonoBehaviour
     #region ======================================================================== List
 
     #region Read
+
+    public void SetList(IsometricConfig IsometricConfig)
+    {
+        SetList(IsometricConfig.BlockList);
+    }
 
     public void SetList(List<IsometricBlock> BlockList)
     {

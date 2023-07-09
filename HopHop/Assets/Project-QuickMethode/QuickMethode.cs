@@ -4928,25 +4928,6 @@ namespace QuickMethode
 
         #endregion
 
-        #region ------------------------------------ Chance Check
-
-        public static void SetChanceCheckBegin()
-        {
-            EditorGUI.BeginChangeCheck();
-        }
-
-        public static bool SetChanceCheckEnd()
-        {
-            return EditorGUI.EndChangeCheck();
-        }
-
-        public static void SetApplyModifiedProperties(Editor This)
-        {
-            This.serializedObject.ApplyModifiedProperties();
-        }
-
-        #endregion
-
         #region ------------------------------------ Else
 
         public static void SetBackground(Color Color)
@@ -5090,6 +5071,58 @@ namespace QuickMethode
             //Call will Lost Focus when Editor Focus on Typing or etc!!
             GUIUtility.keyboardControl = 0;
         }
+
+        #endregion
+    }
+
+    ///<summary>
+    ///Caution: Unity Editor only!
+    ///</summary>
+    public class QCustomEditor
+    {
+        #region ==================================== GUI Primary
+
+        #region ------------------------------------ Get Field
+
+        public static SerializedProperty GetField(Editor This, string FieldName)
+        {
+            return This.serializedObject.FindProperty(FieldName);
+        }
+
+        #endregion
+
+        #region ------------------------------------ Set Field
+
+        public static void SetField(SerializedProperty Field)
+        {
+            EditorGUILayout.PropertyField(Field);
+        }
+
+        public static void SetField(SerializedProperty Field, params GUILayoutOption[] GUILayoutOption)
+        {
+            EditorGUILayout.PropertyField(Field, GUILayoutOption);
+        }
+
+        public static void SetApply(Editor This)
+        {
+            This.serializedObject.ApplyModifiedProperties();
+        }
+
+        #endregion
+
+        #region ------------------------------------ Chance Check
+
+        public static void SetChanceCheckBegin()
+        {
+            EditorGUI.BeginChangeCheck();
+        }
+
+        public static bool SetChanceCheckEnd()
+        {
+            return EditorGUI.EndChangeCheck();
+        }
+
+        #endregion
 
         #endregion
     }

@@ -385,7 +385,7 @@ public class IsometricTool : EditorWindow
             m_indexTag = 0;
             m_indexName = 0;
 
-            m_manager.SetList();
+            m_manager.SetList(m_manager.Config);
 
             m_manager.SetWorldRead(m_manager.transform);
 
