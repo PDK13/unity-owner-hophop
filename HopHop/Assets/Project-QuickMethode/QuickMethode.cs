@@ -4408,20 +4408,22 @@ namespace QuickMethode
 
         #endregion
 
-        #region ==================================== Device (?)
+        #region ==================================== Device
 
-        #region Vibrator
+        #region Android - Vibrator
 
         public static bool VibrateHandle = true;
 
+#if UNITY_ANDROID
 #if UNITY_EDITOR
         public static AndroidJavaClass unityPlayer;
         public static AndroidJavaObject currentActivity;
         public static AndroidJavaObject vibrator;
-#elif UNITY_ANDROID
+#else
         public static AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
         public static AndroidJavaObject currentActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
         public static AndroidJavaObject vibrator = currentActivity.Call<AndroidJavaObject>("getSystemService", "vibrator");
+#endif
 #endif
 
         public static void SetDeviceVibrate()
@@ -4458,7 +4460,7 @@ namespace QuickMethode
 #endif
         }
 
-        public static void SetDeviceVibrate(float[] Pattern, int Repeat) //???
+        public static void SetDeviceVibrate(float[] Pattern, int Repeat)
         {
 #if UNITY_ANDROID
             if (VibrateHandle)
