@@ -1,7 +1,7 @@
 [WORLD NAME]
 ...
 [WORLD BLOCK]
-35
+36
 
 [0;-1;1]
 Character Angle
@@ -9,6 +9,20 @@ Character Angle
 
 False
 0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[1;-2;1]
+Block Move 0
+<MOVE DATA>
+turn-object
+True
+1
+2|1
 <EVENT DATA>
 
 0
