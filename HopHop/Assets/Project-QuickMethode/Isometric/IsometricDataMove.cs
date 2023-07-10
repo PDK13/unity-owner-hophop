@@ -10,19 +10,23 @@ public class IsoDataBlockMove
     public bool Loop = false;
     public List<IsoDir> Dir = new List<IsoDir>();
     public List<int> Length = new List<int>();
-    [HideInInspector] public int Index = 0;
-    [HideInInspector] public int Quantity = 1;
+    /*[HideInInspector]*/
+    public int Index = 0;
+    /*[HideInInspector]*/
+    public int Quantity = 1;
 
     public List<IsoDataBlockMoveSingle> Data
     {
         get
         {
             List<IsoDataBlockMoveSingle> Data = new List<IsoDataBlockMoveSingle>();
-            for(int i=0; i < Dir.Count; i++)
+            for (int i = 0; i < Dir.Count; i++)
                 Data.Add(new IsoDataBlockMoveSingle(Dir[i], (Length.Count == Dir.Count ? Length[i] : 1)));
             return Data;
         }
     }
+
+    public int DataCount => Dir.Count;
 
     public void SetDataNew()
     {

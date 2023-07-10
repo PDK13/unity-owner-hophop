@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 44393240911007880}
   - component: {fileID: -5242618843703501710}
   - component: {fileID: 2165278642783256743}
+  - component: {fileID: 5422247370335319054}
   m_Layer: 0
   m_Name: Flower 1
   m_TagString: Untagged
@@ -107,9 +108,19 @@ MonoBehaviour:
     X: 0
     Y: 0
     H: 0
-  MoveData: []
-  EventData: []
-  TeleportData: []
+  MoveData:
+    Key: 
+    Loop: 0
+    Dir: 
+    Length: 
+    Index: 0
+    Quantity: 1
+  EventData:
+    Key: 
+    Data: []
+  TeleportData:
+    Key: 
+    Data: []
   m_scene:
     Renderer: 1
     Scale:
@@ -145,3 +156,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfc287c449558124f998392227ca3361, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5422247370335319054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 44393240911007885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19ee9a8a7098dfb489d74c2174becedf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_dynamic: 0

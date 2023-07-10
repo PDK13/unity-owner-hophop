@@ -130,9 +130,19 @@ MonoBehaviour:
     X: 0
     Y: 0
     H: 0
-  MoveData: []
-  EventData: []
-  TeleportData: []
+  MoveData:
+    Key: 
+    Loop: 0
+    Dir: 
+    Length: 
+    Index: 0
+    Quantity: 1
+  EventData:
+    Key: 
+    Data: []
+  TeleportData:
+    Key: 
+    Data: []
   m_scene:
     Renderer: 1
     Scale:
@@ -178,3 +188,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19ee9a8a7098dfb489d74c2174becedf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_dynamic: 1

@@ -21,6 +21,13 @@ public enum TypeCharacter
 
 public enum TypeTurn
 {
+    None,
     Player,
     Object,
+}
+
+public enum TypeDelay
+{
+    None,
+    Gravtiy,
 }

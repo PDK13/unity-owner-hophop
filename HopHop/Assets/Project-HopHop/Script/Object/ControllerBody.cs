@@ -6,8 +6,14 @@ using UnityEngine;
 
 public class ControllerBody : MonoBehaviour
 {
+    [SerializeField] private bool m_dynamic = false;
+
+    public bool Dynamic => m_dynamic;
+
     public Action<bool> onMove;
     public Action<bool> onGravity;
+
+    private bool m_checkGravity = false;
 
     private IsometricBlock m_block;
 
@@ -16,16 +22,49 @@ public class ControllerBody : MonoBehaviour
         m_block = GetComponent<IsometricBlock>();
     }
 
-    #region Move This
-
-    public void SetMoveForce(IsoVector Dir, int Length)
+    private void Start()
     {
-        SetMovePushTop(Dir, Length);
+        if (m_dynamic)
+            GameManager.SetObjectDelay(true);
+    }
 
+    private void OnDestroy()
+    {
+        if (m_dynamic)
+            GameManager.SetObjectDelay(false);
+    }
+
+    #region Move
+
+    public void SetMove(IsoVector Dir)
+    {
+        if (m_dynamic)
+        {
+            if (GetCheckDir(Dir) == null)
+            {
+                SetMovePush(Dir);
+                SetMoveTop(Dir);
+                SetMoveSide(Dir);
+            }
+            else
+            {
+                SetMovePush(IsoVector.None);
+            }
+        }
+        else
+        {
+            SetMovePush(Dir);
+            SetMoveTop(Dir);
+            SetMoveSide(Dir);
+        }
+    } //Move!!
+
+    private void SetMovePush(IsoVector Dir)
+    {
         Vector3 MoveDir = IsoVector.GetVector(Dir);
         Vector3 MoveStart = IsoVector.GetVector(m_block.Pos);
-        Vector3 MoveEnd = IsoVector.GetVector(m_block.Pos) + MoveDir * Length;
-        DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameData.TimeMove * Length)
+        Vector3 MoveEnd = IsoVector.GetVector(m_block.Pos) + MoveDir;
+        DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameManager.TimeMove)
             .SetEase(Ease.Linear)
             .OnStart(() =>
             {
@@ -38,22 +77,14 @@ public class ControllerBody : MonoBehaviour
             .OnComplete(() =>
             {
                 onMove?.Invoke(false);
+                if (m_dynamic)
+                    SetMoveGravity();
             });
     }
 
-    public void SetMoveForcePush(IsoVector Dir, int Length)
+    private void SetMoveTop(IsoVector Dir)
     {
-        SetMovePushTop(Dir, Length);
-        SetMoveForce(Dir, GetCheckPush(Dir, Length));
-    }
-
-    #endregion
-
-    #region Move Other
-
-    private void SetMovePushTop(IsoVector Dir, int Length)
-    {
-        IsometricBlock BlockTop = GetCheckTop();
+        IsometricBlock BlockTop = GetCheckDir(IsoVector.Top);
 
         if (BlockTop == null)
             return;
@@ -63,17 +94,32 @@ public class ControllerBody : MonoBehaviour
         if (BlockTopBody == null)
             return;
 
-        BlockTopBody.SetMoveForcePush(Dir, Length);
+        BlockTopBody.SetMove(Dir);
     }
 
-    #endregion
-
-    #region Gravity
-
-    public void SetGravity()
+    private void SetMoveSide(IsoVector Dir)
     {
-        if (GetCheckBot() != null)
+        if (Dir == IsoVector.Top && Dir == IsoVector.Bot)
+            return;
+
+        IsometricBlock BlockTop = GetCheckDir(Dir);
+
+        if (BlockTop == null)
+            return;
+
+        ControllerBody BlockTopBody = BlockTop.GetComponent<ControllerBody>();
+
+        if (BlockTopBody == null)
+            return;
+
+        BlockTopBody.SetMove(Dir);
+    }
+
+    private void SetMoveGravity()
+    {
+        if (GetCheckDir(IsoVector.Bot) != null)
         {
+            GameEvent.SetDelay(TypeDelay.Gravtiy, false);
             onGravity?.Invoke(false);
             return;
         }
@@ -81,7 +127,7 @@ public class ControllerBody : MonoBehaviour
         Vector3 MoveDir = IsoVector.GetVector(IsoVector.Bot);
         Vector3 MoveStart = IsoVector.GetVector(m_block.Pos);
         Vector3 MoveEnd = IsoVector.GetVector(m_block.Pos) + MoveDir * 1;
-        DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameData.TimeMove * 1)
+        DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameManager.TimeMove * 1)
             .SetEase(Ease.Linear)
             .OnStart(() =>
             {
@@ -93,41 +139,24 @@ public class ControllerBody : MonoBehaviour
             })
             .OnComplete(() =>
             {
-                SetGravity();
+                SetMoveGravity();
             });
+
+        SetMoveTop(IsoVector.Bot);
     }
 
     #endregion
 
     #region Check
 
-    public IsometricBlock GetCheckTop()
+    public IsometricBlock GetCheckDir(IsoVector Dir)
     {
-        return m_block.WorldManager.GetWorldBlockCurrent(m_block.Pos + IsoVector.Top);
+        return m_block.WorldManager.GetWorldBlockCurrent(m_block.Pos + Dir);
     }
 
-    public IsometricBlock GetCheckBot()
+    public IsometricBlock GetCheckDir(IsoVector Dir, IsoVector DirNext)
     {
-        return m_block.WorldManager.GetWorldBlockCurrent(m_block.Pos + IsoVector.Bot);
-    }
-
-    public bool GetCheckPush(IsoVector Dir)
-    {
-        return GetCheckPush(Dir, 1) == 1;
-    }
-
-    public int GetCheckPush(IsoVector Dir, int Length)
-    {
-        for (int LengthCheck = 1; LengthCheck <= Length; LengthCheck++)
-        {
-            IsometricBlock Block = m_block.WorldManager.GetWorldBlockCurrent(m_block.Pos + Dir * LengthCheck);
-
-            if (Block == null)
-                continue;
-
-            Length = LengthCheck - 1;
-        }
-        return Length;
+        return m_block.WorldManager.GetWorldBlockCurrent(m_block.Pos + Dir + DirNext);
     }
 
     #endregion

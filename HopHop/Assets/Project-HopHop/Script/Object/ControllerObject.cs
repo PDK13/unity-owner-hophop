@@ -6,15 +6,16 @@ using UnityEngine;
 public class ControllerObject : MonoBehaviour
 {
     private bool m_turnControl = false;
-    private bool m_turnDelay = false;
 
     private IsoDataBlockMove m_dataMove;
     private string m_dataFollow;
 
+    private ControllerBody m_body;
     private IsometricBlock m_block;
 
     private void Awake()
     {
+        m_body = GetComponent<ControllerBody>();
         m_block = GetComponent<IsometricBlock>();
     }
 
@@ -23,15 +24,22 @@ public class ControllerObject : MonoBehaviour
         m_dataMove = m_block.Data.MoveData;
         m_dataFollow = m_block.Data.EventData.DataExist ? m_block.Data.EventData.Data.Find(t => t.Name == ConstGameKey.EVENT_FOLLOW).Value : null;
 
-        if (m_dataMove.DataExist)
+        if (m_dataMove != null)
         {
-            GameData.m_objectTurnCount++;
-            GameEvent.onTurn += SetTurn;
-        }
-        else
-        if (m_dataFollow != null)
-        {
-            GameEvent.onKeyFollow += SetKeyFollow;
+            if (m_dataMove.DataExist)
+            {
+                GameManager.SetObjectTurn(true);
+
+                GameEvent.onTurn += SetTurn;
+                GameEvent.onDelay += SetDelay;
+
+                m_body.onMove += SetMove;
+            }
+            else
+            if (m_dataFollow != null)
+            {
+                GameEvent.onFollow += SetFollow;
+            }
         }
     }
 
@@ -41,13 +49,17 @@ public class ControllerObject : MonoBehaviour
         {
             if (m_dataMove.DataExist)
             {
-                GameData.m_objectTurnCount--;
+                GameManager.SetObjectTurn(false);
+
                 GameEvent.onTurn -= SetTurn;
+                GameEvent.onDelay -= SetDelay;
+
+                m_body.onMove -= SetMove;
             }
             else
             if (m_dataFollow != null)
             {
-                GameEvent.onKeyFollow -= SetKeyFollow;
+                GameEvent.onFollow -= SetFollow;
             }
         }
     }
@@ -56,124 +68,53 @@ public class ControllerObject : MonoBehaviour
 
     private void SetTurn(TypeTurn Turn, bool State)
     {
-        if (Turn == TypeTurn.Player && State)
-            SetKeyTurn();
-    }
-
-    private void SetKeyTurn()
-    {
         if (m_dataMove == null)
             return;
 
-        IsoVector Dir = IsoVector.GetDir(m_dataMove.Data[m_dataMove.Index].Dir) * m_dataMove.Quantity;
-        int Length = m_dataMove.Data[m_dataMove.Index].Length;
-        SetMoveForceTurn(Dir, Length);
-        SetMovePushTop(Dir, Length);
-        SetMovePushSide(Dir, Length);
-        SetMoveFollow(Dir, Length);
+        if (Turn != TypeTurn.Object)
+            return;
+
+        if (!State)
+            return;
+
+        SetMove();
+    }
+
+    private void SetDelay(TypeDelay Delay, bool State)
+    {
+
+    }
+
+    private void SetMove()
+    {
+        IsoVector Dir = IsoVector.GetDir(m_dataMove.Dir[m_dataMove.Index]) * m_dataMove.Quantity;
+        int Length = m_dataMove.Length[m_dataMove.Index];
+
+        m_body.SetMove(Dir);
+        GameEvent.SetFollow(m_dataFollow, Dir);
 
         m_dataMove.Index += m_dataMove.Quantity;
-        if (m_dataMove.Loop && (m_dataMove.Index < 0 || m_dataMove.Index > m_dataMove.Data.Count - 1))
+        if (m_dataMove.Loop && (m_dataMove.Index < 0 || m_dataMove.Index > m_dataMove.DataCount - 1))
         {
             m_dataMove.Quantity *= -1;
             m_dataMove.Index += m_dataMove.Quantity;
         }
     }
 
-    #endregion
-
-    #region Key
-
-    private void SetKeyFollow(string Value, IsoVector Dir, int Length)
+    private void SetFollow(string KeyFollow, IsoVector Dir)
     {
-        if (Value != m_dataFollow)
+        if (KeyFollow != m_dataFollow)
             return;
 
-        SetMoveForceFollow(Dir, Length);
-        SetMovePushTop(Dir, Length);
-        SetMovePushSide(Dir, Length);
-    }
+        m_body.SetMove(Dir);
+    } //Move!!
 
-    #endregion
-
-    #region Move This
-
-    private void SetMoveForceTurn(IsoVector Dir, int Length)
+    private void SetMove(bool State)
     {
-        Vector3 MoveDir = IsoVector.GetVector(Dir);
-        Vector3 MoveStart = IsoVector.GetVector(m_block.Pos);
-        Vector3 MoveEnd = IsoVector.GetVector(m_block.Pos) + MoveDir * Length;
-        DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameData.TimeMove * Length)
-            .SetEase(Ease.Linear)
-            .OnUpdate(() =>
-            {
-                m_block.Pos = new IsoVector(MoveEnd);
-            })
-            .OnComplete(() =>
-            {
-                GameEvent.SetTurn(TypeTurn.Object, false);
-            });
-    }
-
-    private void SetMoveForceFollow(IsoVector Dir, int Length)
-    {
-        Vector3 MoveDir = IsoVector.GetVector(Dir);
-        Vector3 MoveStart = IsoVector.GetVector(m_block.Pos);
-        Vector3 MoveEnd = IsoVector.GetVector(m_block.Pos) + MoveDir * Length;
-        DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameData.TimeMove * Length)
-            .SetEase(Ease.Linear)
-            .OnUpdate(() =>
-            {
-                m_block.Pos = new IsoVector(MoveEnd);
-            });
-    }
-
-    #endregion
-
-    #region Move Other
-
-    private void SetMovePushTop(IsoVector Dir, int Length)
-    {
-        List<IsometricBlock> Blocks = m_block.WorldManager.GetWorldBlockCurrentAll(m_block.Pos + IsoVector.Top);
-
-        foreach(IsometricBlock Block in Blocks)
-        {
-            ControllerBody BlockBody = Block.GetComponent<ControllerBody>();
-
-            if (BlockBody == null)
-                continue;
-
-            if (Dir == IsoVector.Bot || Dir == IsoVector.Top)
-                BlockBody.SetMoveForce(Dir, Length);
-            else
-                BlockBody.SetMoveForcePush(Dir, Length);
-        }
-    }
-
-    private void SetMovePushSide(IsoVector Dir, int Length)
-    {
-        if (Dir == IsoVector.Top || Dir == IsoVector.Bot)
+        if (State)
             return;
 
-        List<IsometricBlock> Blocks = m_block.WorldManager.GetWorldBlockCurrentAll(m_block.Pos + Dir);
-
-        foreach (IsometricBlock Block in Blocks)
-        {
-            ControllerBody BlockBody = Block.GetComponent<ControllerBody>();
-
-            if (BlockBody == null)
-                continue;
-
-            BlockBody.SetMoveForcePush(Dir, Length);
-        }
-    }
-
-    private void SetMoveFollow(IsoVector Dir, int Length)
-    {
-        if (m_dataFollow == null)
-            return;
-
-        GameEvent.SetKeyFollow(m_dataFollow, Dir, Length);
+        GameEvent.SetTurn(TypeTurn.Object, false);
     }
 
     #endregion
