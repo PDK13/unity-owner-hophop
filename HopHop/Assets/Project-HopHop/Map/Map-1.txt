@@ -21,7 +21,8 @@ Block Move 0
 <MOVE DATA>
 turn-object
 True
-1
+2
+2|1
 2|1
 <EVENT DATA>
 

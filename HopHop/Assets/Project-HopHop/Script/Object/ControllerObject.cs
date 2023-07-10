@@ -66,6 +66,7 @@ public class ControllerObject : MonoBehaviour
         int Length = m_dataMove.Data[m_dataMove.Index].Length;
         SetMoveTurn(Dir, Length);
         SetMoveForceTop(Dir, Length);
+        SetMoveForceSide(Dir, Length);
         SetMoveForceFollow(Dir, Length);
 
         m_dataMove.Index += m_dataMove.Quantity;
@@ -83,6 +84,7 @@ public class ControllerObject : MonoBehaviour
 
         SetMoveFollow(Dir, Length);
         SetMoveForceTop(Dir, Length);
+        SetMoveForceSide(Dir, Length);
     }
 
     #region Move
@@ -132,6 +134,24 @@ public class ControllerObject : MonoBehaviour
                 BlockBody.SetMoveForce(Dir, Length);
             else
                 BlockBody.SetMovePush(Dir, Length);
+        }
+    }
+
+    private void SetMoveForceSide(IsoVector Dir, int Length)
+    {
+        if (Dir == IsoVector.Top || Dir == IsoVector.Bot)
+            return;
+
+        List<IsometricBlock> Blocks = m_block.WorldManager.GetWorldBlockCurrentAll(m_block.Pos + Dir);
+
+        foreach (IsometricBlock Block in Blocks)
+        {
+            ControllerBody BlockBody = Block.GetComponent<ControllerBody>();
+
+            if (BlockBody == null)
+                continue;
+
+            BlockBody.SetMovePush(Dir, Length);
         }
     }
 
