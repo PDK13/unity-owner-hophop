@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class ControllerObject : MonoBehaviour
 {
+    private bool m_turnControl = false;
+    private bool m_turnDelay = false;
+
     private IsoDataBlockMove m_dataMove;
     private string m_dataFollow;
 
@@ -23,7 +26,7 @@ public class ControllerObject : MonoBehaviour
         if (m_dataMove.DataExist)
         {
             GameData.m_objectTurnCount++;
-            GameEvent.onKey += SetKey;
+            GameEvent.onTurn += SetTurn;
         }
         else
         if (m_dataFollow != null)
@@ -34,26 +37,26 @@ public class ControllerObject : MonoBehaviour
 
     private void OnDestroy()
     {
-        GameEvent.onKey -= SetKey;
-
-        if (m_dataMove.DataExist)
+        if (m_dataMove != null)
         {
-            GameData.m_objectTurnCount--;
-            GameEvent.onKey -= SetKey;
-        }
-        else
-        if (m_dataFollow != null)
-        {
-            GameEvent.onKeyFollow -= SetKeyFollow;
+            if (m_dataMove.DataExist)
+            {
+                GameData.m_objectTurnCount--;
+                GameEvent.onTurn -= SetTurn;
+            }
+            else
+            if (m_dataFollow != null)
+            {
+                GameEvent.onKeyFollow -= SetKeyFollow;
+            }
         }
     }
 
-    private void SetKey(string Key, bool State)
-    {
-        if (!State)
-            return;
+    #region Turn
 
-        if (Key == ConstGameKey.TURN_OBJECT)
+    private void SetTurn(TypeTurn Turn, bool State)
+    {
+        if (Turn == TypeTurn.Player && State)
             SetKeyTurn();
     }
 
@@ -64,10 +67,10 @@ public class ControllerObject : MonoBehaviour
 
         IsoVector Dir = IsoVector.GetDir(m_dataMove.Data[m_dataMove.Index].Dir) * m_dataMove.Quantity;
         int Length = m_dataMove.Data[m_dataMove.Index].Length;
-        SetMoveTurn(Dir, Length);
-        SetMoveForceTop(Dir, Length);
-        SetMoveForceSide(Dir, Length);
-        SetMoveForceFollow(Dir, Length);
+        SetMoveForceTurn(Dir, Length);
+        SetMovePushTop(Dir, Length);
+        SetMovePushSide(Dir, Length);
+        SetMoveFollow(Dir, Length);
 
         m_dataMove.Index += m_dataMove.Quantity;
         if (m_dataMove.Loop && (m_dataMove.Index < 0 || m_dataMove.Index > m_dataMove.Data.Count - 1))
@@ -77,19 +80,25 @@ public class ControllerObject : MonoBehaviour
         }
     }
 
+    #endregion
+
+    #region Key
+
     private void SetKeyFollow(string Value, IsoVector Dir, int Length)
     {
         if (Value != m_dataFollow)
             return;
 
-        SetMoveFollow(Dir, Length);
-        SetMoveForceTop(Dir, Length);
-        SetMoveForceSide(Dir, Length);
+        SetMoveForceFollow(Dir, Length);
+        SetMovePushTop(Dir, Length);
+        SetMovePushSide(Dir, Length);
     }
 
-    #region Move
+    #endregion
 
-    private void SetMoveTurn(IsoVector Dir, int Length)
+    #region Move This
+
+    private void SetMoveForceTurn(IsoVector Dir, int Length)
     {
         Vector3 MoveDir = IsoVector.GetVector(Dir);
         Vector3 MoveStart = IsoVector.GetVector(m_block.Pos);
@@ -102,11 +111,11 @@ public class ControllerObject : MonoBehaviour
             })
             .OnComplete(() =>
             {
-                GameEvent.SetKey(ConstGameKey.TURN_OBJECT, false);
+                GameEvent.SetTurn(TypeTurn.Object, false);
             });
     }
 
-    private void SetMoveFollow(IsoVector Dir, int Length)
+    private void SetMoveForceFollow(IsoVector Dir, int Length)
     {
         Vector3 MoveDir = IsoVector.GetVector(Dir);
         Vector3 MoveStart = IsoVector.GetVector(m_block.Pos);
@@ -119,7 +128,11 @@ public class ControllerObject : MonoBehaviour
             });
     }
 
-    private void SetMoveForceTop(IsoVector Dir, int Length)
+    #endregion
+
+    #region Move Other
+
+    private void SetMovePushTop(IsoVector Dir, int Length)
     {
         List<IsometricBlock> Blocks = m_block.WorldManager.GetWorldBlockCurrentAll(m_block.Pos + IsoVector.Top);
 
@@ -133,11 +146,11 @@ public class ControllerObject : MonoBehaviour
             if (Dir == IsoVector.Bot || Dir == IsoVector.Top)
                 BlockBody.SetMoveForce(Dir, Length);
             else
-                BlockBody.SetMovePush(Dir, Length);
+                BlockBody.SetMoveForcePush(Dir, Length);
         }
     }
 
-    private void SetMoveForceSide(IsoVector Dir, int Length)
+    private void SetMovePushSide(IsoVector Dir, int Length)
     {
         if (Dir == IsoVector.Top || Dir == IsoVector.Bot)
             return;
@@ -151,11 +164,11 @@ public class ControllerObject : MonoBehaviour
             if (BlockBody == null)
                 continue;
 
-            BlockBody.SetMovePush(Dir, Length);
+            BlockBody.SetMoveForcePush(Dir, Length);
         }
     }
 
-    private void SetMoveForceFollow(IsoVector Dir, int Length)
+    private void SetMoveFollow(IsoVector Dir, int Length)
     {
         if (m_dataFollow == null)
             return;

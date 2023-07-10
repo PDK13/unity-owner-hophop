@@ -11,10 +11,13 @@ public class GameData
 
     public static float TimeMove => m_timeMove * m_timeRatio;
 
-    //Object Control
+    //Object Move - Turn
 
     public static int m_objectTurnCount = 0;
     public static int m_objectTurnEnd = 0;
+    public static int m_objectGravityCount = 0;
+    public static int m_objectGravityEnd = 0;
 
-    public static bool ObjectControlEnd => m_objectTurnCount == m_objectTurnEnd;
+    public static bool ObjectTurnEnd => m_objectTurnCount == m_objectTurnEnd;
+    public static bool ObjectDelayEnd => m_objectGravityCount == m_objectGravityEnd;
 }

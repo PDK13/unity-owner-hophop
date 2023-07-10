@@ -16,7 +16,7 @@ public class ControllerBody : MonoBehaviour
         m_block = GetComponent<IsometricBlock>();
     }
 
-    #region Move
+    #region Move This
 
     public void SetMoveForce(IsoVector Dir, int Length)
     {
@@ -41,11 +41,15 @@ public class ControllerBody : MonoBehaviour
             });
     }
 
-    public void SetMovePush(IsoVector Dir, int Length)
+    public void SetMoveForcePush(IsoVector Dir, int Length)
     {
         SetMovePushTop(Dir, Length);
         SetMoveForce(Dir, GetCheckPush(Dir, Length));
     }
+
+    #endregion
+
+    #region Move Other
 
     private void SetMovePushTop(IsoVector Dir, int Length)
     {
@@ -59,7 +63,7 @@ public class ControllerBody : MonoBehaviour
         if (BlockTopBody == null)
             return;
 
-        BlockTopBody.SetMovePush(Dir, Length);
+        BlockTopBody.SetMoveForcePush(Dir, Length);
     }
 
     #endregion

@@ -5,7 +5,8 @@ using DG.Tweening;
 
 public class ControllerPlayer : MonoBehaviour
 {
-    private bool m_controlInput = false;
+    private bool m_turnControl = false;
+    private bool m_turnDelay = false;
 
     private int m_fallCount = 0;
 
@@ -19,50 +20,56 @@ public class ControllerPlayer : MonoBehaviour
 
         m_body.onGravity += SetGravity;
 
-        GameEvent.onKey += SetKey;
+        GameEvent.onTurn += SetTurn;
     }
 
     private void OnDestroy()
     {
         m_body.onGravity -= SetGravity;
 
-        GameEvent.onKey -= SetKey;
+        GameEvent.onTurn -= SetTurn;
     }
 
     private void Update()
     {
-        if (!m_controlInput)
+        if (!m_turnControl)
             return;
 
         if (Input.GetKey(KeyCode.UpArrow))
-            SetMove(IsoDir.Up);
+            SetMoveForceTurn(IsoDir.Up);
         if (Input.GetKey(KeyCode.DownArrow))
-            SetMove(IsoDir.Down);
+            SetMoveForceTurn(IsoDir.Down);
         if (Input.GetKey(KeyCode.LeftArrow))
-            SetMove(IsoDir.Left);
+            SetMoveForceTurn(IsoDir.Left);
         if (Input.GetKey(KeyCode.RightArrow))
-            SetMove(IsoDir.Right);
+            SetMoveForceTurn(IsoDir.Right);
         if (Input.GetKeyDown(KeyCode.Space))
-            SetMove(IsoDir.None);
+            SetMoveForceTurn(IsoDir.None);
     }
 
-    private void SetKey(string Key, bool State)
+    #region Turn
+
+    private void SetTurn(TypeTurn Turn, bool State)
     {
-        if (!State)
-            return;
-
-        if (Key != ConstGameKey.TURN_PLAYER)
-            return;
-
-        m_controlInput = true;
+        if (Turn == TypeTurn.Player && State)
+            SetKeyTurn();
     }
 
-    private void SetMove(IsoDir Dir)
+    private void SetKeyTurn()
+    {
+        m_turnControl = true;
+    }
+
+    #endregion
+
+    #region Move This
+
+    private void SetMoveForceTurn(IsoDir Dir)
     {
         if (Dir == IsoDir.None)
         {
-            m_controlInput = false;
-            GameEvent.SetKey(ConstGameKey.TURN_PLAYER, false);
+            m_turnControl = false;
+            GameEvent.SetTurn(TypeTurn.Player, false);
             return;
         }
 
@@ -84,11 +91,11 @@ public class ControllerPlayer : MonoBehaviour
                 return;
             //
             //Fine to continue push this Block ahead!!
-            BlockBody.SetMovePush(IsoVector.GetDir(Dir), Length);
+            BlockBody.SetMoveForcePush(IsoVector.GetDir(Dir), Length);
         }
         //Fine to continue move to pos ahead!!
 
-        m_controlInput = false;
+        m_turnControl = false;
 
         Vector3 MoveDir = IsoVector.GetVector(Dir);
         Vector3 MoveStart = IsoVector.GetVector(m_block.Pos);
@@ -101,17 +108,13 @@ public class ControllerPlayer : MonoBehaviour
             })
             .OnComplete(() =>
             {
-                SetGravity();
+                m_body.SetGravity();
             });
     } //Move!!
 
-    private void SetGravity()
-    {
-        if (m_body.GetCheckBot() == null)
-            m_body.SetGravity();
-        else
-            GameEvent.SetKey(ConstGameKey.TURN_PLAYER, false);
-    }
+    #endregion
+
+    #region Gravity
 
     private void SetGravity(bool State)
     {
@@ -120,7 +123,9 @@ public class ControllerPlayer : MonoBehaviour
         else
         {
             m_fallCount = 0;
-            GameEvent.SetKey(ConstGameKey.TURN_PLAYER, false);
+            GameEvent.SetTurn(TypeTurn.Player, false);
         }
     }
+
+    #endregion
 }

@@ -21,7 +21,6 @@ public enum TypeCharacter
 
 public enum TypeTurn
 {
-    Wait,
-    PlayerControl,
-    ObjectControl,
+    Player,
+    Object,
 }
