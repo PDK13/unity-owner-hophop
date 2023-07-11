@@ -11,21 +11,27 @@ public class GameTurn
 
     public class TurnSingle
     {
-        public TypeTurn Turn;
+        public TypeTurn Turn = TypeTurn.None;
+
         public int Count = 0;
-        public int End = 0;
+        public int EndMoveCount = 0;
+        public int EndTurnCount = 0;
+
+        public bool EndTurnRemove = false;
+
+        public bool EndMove => EndMoveCount == Count;
+        public bool EndTurn => EndTurnCount == Count;
 
         public TurnSingle (TypeTurn Turn)
         {
             this.Turn = Turn;
-            Count = 1;
         }
     }
 
-    private static List<TurnSingle> m_turn = new List<TurnSingle>();
+    private static TurnSingle m_turnCurrent;
+    private static List<TurnSingle> m_turnQueue = new List<TurnSingle>();
 
-    public static TypeTurn TurnCurrent => m_turn[0].Turn;
-    public static bool TurnFinish => m_turn[0].Count == m_turn[0].End;
+
 
     public static List<TypeTurn> TurnRemove = new List<TypeTurn>()
     {
@@ -33,68 +39,51 @@ public class GameTurn
         TypeTurn.Gravity,
     };
 
-    private static int m_objectTurnCount = 0;
-    private static int m_objectTurnEnd = 0;
-    private static int m_objectDelayCount = 0;
-    private static int m_objectDelayEnd = 0;
-
-    public static bool ObjectTurnDone => m_objectTurnCount == m_objectTurnEnd;
-    public static bool ObjectDelayDone => m_objectDelayCount == m_objectDelayEnd;
-
     public static void SetInit(TypeTurn Turn)
     {
-        if (TurnRemove.Contains(TurnCurrent))
-            return;
         //
-        for (int i = 0; i < m_turn.Count; i++)
+        for (int i = 0; i < m_turnQueue.Count; i++)
         {
-            if (m_turn[i].Turn != Turn)
+            if (m_turnQueue[i].Turn != Turn)
                 continue;
-            m_turn[i].Count++;
+            m_turnQueue[i].Count++;
             return;
         }
         //
-        m_turn.Add(new TurnSingle(Turn));
-        m_turn = m_turn.OrderBy(t => (int)t.Turn).ToList();
+        m_turnQueue.Add(new TurnSingle(Turn));
+        m_turnQueue = m_turnQueue.OrderBy(t => (int)t.Turn).ToList();
     }
 
-    public static void SetStart()
+    public static void SetEndMove()
     {
-        onTurn?.Invoke(TurnCurrent);
-    }
-
-    public static void SetNext()
-    {
-        if (TurnRemove.Contains(TurnCurrent))
-        {
-            m_turn.RemoveAt(0);
-        }
-        else
-        {
-            TurnSingle TurnCurrent = m_turn[0];
-            m_turn.RemoveAt(0);
-            m_turn.Add(TurnCurrent);
-        }
+        m_turnCurrent.EndMoveCount++;
         //
-        onTurn?.Invoke(TurnCurrent);
+        if (m_turnCurrent.EndMove)
+            SetCurrent();
     }
 
-    public static void SetNextInit(TypeTurn Turn, int After = 1)
+    public static void SetEndTurn()
     {
-        if (After == 0)
-        {
-            onTurn?.Invoke(Turn);
-        }
-        else
-        if (m_turn[After].Turn == Turn)
-        {
-            m_turn[After].Count++;
-        }
-        else
-        {
-            m_turn.Insert(After, new TurnSingle(Turn));
-        }
+        m_turnCurrent.EndTurnCount++;
         //
-        onAdd?.Invoke(Turn, After);
+        if (m_turnCurrent.EndTurn)
+        {
+            if (m_turnCurrent.EndTurnRemove)
+                m_turnQueue.Remove(m_turnCurrent);
+            SetCurrent();
+        }
+    }
+
+    private static void SetCurrent()
+    {
+        m_turnCurrent = m_turnQueue[0];
+    }
+
+    public static void SetAdd(TypeTurn Turn)
+    {
+        if (m_turnQueue[0].Turn == Turn)
+            m_turnQueue[0].Count++;
+        else
+            m_turnQueue.Insert(0, new TurnSingle(Turn));
     }
 }
