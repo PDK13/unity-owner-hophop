@@ -22,8 +22,11 @@ public enum TypeCharacter
 public enum TypeTurn
 {
     None,
+    //Turn Primary:
     Player,
     Object,
+    //Turn Add:
+    Gravity,
 }
 
 public enum TypeDelay

@@ -22,15 +22,7 @@ public class GameManager : MonoBehaviour
 
     #region Varible: Turn
 
-    public static TypeTurn m_turn = TypeTurn.None;
-
-    private static int m_objectTurnCount = 0;
-    private static int m_objectTurnEnd = 0;
-    private static int m_objectDelayCount = 0;
-    private static int m_objectDelayEnd = 0;
-
-    public static bool ObjectTurnDone => m_objectTurnCount == m_objectTurnEnd;
-    public static bool ObjectDelayDone => m_objectDelayCount == m_objectDelayEnd;
+    
 
     #endregion
 
