@@ -5,13 +5,24 @@ using DG.Tweening;
 
 public class ControllerPlayer : MonoBehaviour
 {
+    private const string ANIM_IDLE = "Idle";
+    private const string ANIM_MOVE = "Move";
+    private const string ANIM_JUMP = "Jump";
+    private const string ANIM_SIT = "Sit";
+    private const string ANIM_HURT = "Hurt";
+    private const string ANIM_DOWN = "Down";
+    private const string ANIM_SLEEP = "Sleep";
+    private const string ANIM_HAPPY = "Happy";
+
     private bool m_turnControl = false;
 
+    private Animator m_animator;
     private ControllerBody m_body;
     private IsometricBlock m_block;
 
     private void Awake()
     {
+        m_animator = GetComponent<Animator>();
         m_body = GetComponent<ControllerBody>();
         m_block = GetComponent<IsometricBlock>();
     }
@@ -48,6 +59,8 @@ public class ControllerPlayer : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
             SetControlMove(IsoVector.None);
     }
+
+    #region Move
 
     private void SetControlTurn(TypeTurn Turn)
     {
@@ -99,6 +112,8 @@ public class ControllerPlayer : MonoBehaviour
         //
         m_body.SetCheckGravity(Dir);
         //
+        SetControlAnimation(ANIM_MOVE);
+        //
         Vector3 MoveDir = IsoVector.GetVector(Dir);
         Vector3 MoveStart = IsoVector.GetVector(m_block.Pos);
         Vector3 MoveEnd = IsoVector.GetVector(m_block.Pos) + MoveDir * 1;
@@ -106,7 +121,7 @@ public class ControllerPlayer : MonoBehaviour
             .SetEase(Ease.Linear)
             .OnStart(() =>
             {
-                //Start Animation!!
+                //...
             })
             .OnUpdate(() =>
             {
@@ -114,10 +129,24 @@ public class ControllerPlayer : MonoBehaviour
             })
             .OnComplete(() =>
             {
-                //End Animation!!
+                SetControlAnimation(ANIM_IDLE);
+                //
                 //GameTurn.SetEndMove(TypeTurn.Player); //Follow Player (!)
                 GameTurn.SetEndTurn(TypeTurn.Player); //Follow Player (!)
-            });
+            })
+            .SetDelay(0.1f);
         //
     }
+
+    #endregion
+
+    #region Animation
+
+    private void SetControlAnimation(string Name)
+    {
+        m_animator.SetTrigger(Name);
+        //m_animator.ResetTrigger(Name);
+    }
+
+    #endregion
 }
