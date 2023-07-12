@@ -22,7 +22,9 @@ public class ControllerBody : MonoBehaviour
         m_block = GetComponent<IsometricBlock>();
     }
 
-    private void SetControlTurn(TypeTurn Turn)
+    #region Gravity
+
+    private void SetControlGravity(TypeTurn Turn)
     {
         if (Turn != TypeTurn.Gravity)
         {
@@ -35,14 +37,12 @@ public class ControllerBody : MonoBehaviour
         SetControlGravity();
     }
 
-    #region Gravity
-
     public void SetCheckGravity(IsoVector Dir)
     {
         if (GetCheckDir(Dir, IsoVector.Bot) == null)
         {
             GameTurn.SetAdd(TypeTurn.Gravity);
-            GameTurn.onTurn += SetControlTurn;
+            GameTurn.onTurn += SetControlGravity;
         }
     }
 
@@ -50,8 +50,10 @@ public class ControllerBody : MonoBehaviour
     {
         if (GetCheckDir(IsoVector.Bot) != null)
         {
+            //End Animation!!
+            //
             GameTurn.SetEndTurn(TypeTurn.Gravity); //Follow Object (!)
-            GameTurn.onTurn -= SetControlTurn;
+            GameTurn.onTurn -= SetControlGravity;
             //
             onGravity?.Invoke(false);
             //
@@ -66,6 +68,8 @@ public class ControllerBody : MonoBehaviour
             .SetEase(Ease.Linear)
             .OnStart(() =>
             {
+                //Start Animation!!
+                //
                 onGravity?.Invoke(true);
             })
             .OnUpdate(() =>
@@ -77,6 +81,34 @@ public class ControllerBody : MonoBehaviour
                 //GameTurn.SetEndMove(TypeTurn.Object); //Follow Object (!)
                 SetControlGravity();
             });
+    }
+
+    #endregion
+
+    #region Push
+
+    public void SetControlPush(IsoVector Dir)
+    {
+        SetCheckGravity(Dir);
+        //
+        Vector3 MoveDir = IsoVector.GetVector(Dir);
+        Vector3 MoveStart = IsoVector.GetVector(m_block.Pos);
+        Vector3 MoveEnd = IsoVector.GetVector(m_block.Pos) + MoveDir * 1;
+        DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameManager.TimeMove * 1)
+            .SetEase(Ease.Linear)
+            .OnStart(() =>
+            {
+                //Start Animation!!
+            })
+            .OnUpdate(() =>
+            {
+                m_block.Pos = new IsoVector(MoveEnd);
+            })
+            .OnComplete(() =>
+            {
+                //End Animation!!
+            });
+        //
     }
 
     #endregion

@@ -129,6 +129,16 @@ public class ControllerObject : MonoBehaviour
         //
         GameEvent.SetFollow(m_dataFollow, m_turnDir);
         //
+        IsometricBlock BlockPush = m_block.WorldManager.GetWorldBlockCurrent(m_block.Pos + m_turnDir);
+        if (BlockPush != null)
+        {
+            ControllerBody BodyPush = BlockPush.GetComponent<ControllerBody>();
+            if (BodyPush != null)
+            {
+                BodyPush.SetControlPush(m_turnDir); //Push!!
+            }
+        }
+        //
         if (TurnLock)
         {
             m_dataMove.Index += m_dataMove.Quantity;
