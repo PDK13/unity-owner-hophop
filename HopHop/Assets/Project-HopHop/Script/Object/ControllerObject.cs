@@ -129,15 +129,9 @@ public class ControllerObject : MonoBehaviour
         //
         GameEvent.SetFollow(m_dataFollow, m_turnDir);
         //
-        IsometricBlock BlockPush = m_block.WorldManager.GetWorldBlockCurrent(m_block.Pos + m_turnDir);
-        if (BlockPush != null)
-        {
-            ControllerBody BodyPush = BlockPush.GetComponent<ControllerBody>();
-            if (BodyPush != null)
-            {
-                BodyPush.SetControlPush(m_turnDir); //Push!!
-            }
-        }
+        SetMovePush(m_turnDir);
+        //
+        SetMoveTop(m_turnDir);
         //
         if (TurnLock)
         {
@@ -173,5 +167,42 @@ public class ControllerObject : MonoBehaviour
                 //End Animation!!
             });
         //
+        SetMovePush(Dir);
+        //
+        SetMoveTop(Dir);
+        //
+    }
+
+    private void SetMovePush(IsoVector Dir)
+    {
+        if (Dir == IsoVector.Top || Dir == IsoVector.Bot)
+            return;
+        //
+        IsometricBlock BlockPush = m_block.WorldManager.GetWorldBlockCurrent(m_block.Pos + Dir);
+        if (BlockPush != null)
+        {
+            ControllerBody BodyPush = BlockPush.GetComponent<ControllerBody>();
+            if (BodyPush != null)
+            {
+                BodyPush.SetControlPush(Dir, Dir * -1); //Push!!
+            }
+        }
+    }
+
+    private void SetMoveTop(IsoVector Dir)
+    {
+        //Top!!
+        IsometricBlock BlockTop = m_block.WorldManager.GetWorldBlockCurrent(m_block.Pos + IsoVector.Top);
+        if (BlockTop != null)
+        {
+            ControllerBody BodyTop = BlockTop.GetComponent<ControllerBody>();
+            if (BodyTop != null)
+            {
+                if (Dir == IsoVector.Top || Dir == IsoVector.Bot)
+                    BodyTop.SetControlForce(Dir); //Force!!
+                else
+                    BodyTop.SetControlPush(Dir, IsoVector.Bot); //Push!!
+            }
+        }
     }
 }
