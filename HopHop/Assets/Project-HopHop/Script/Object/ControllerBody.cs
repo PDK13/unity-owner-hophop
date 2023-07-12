@@ -22,104 +22,13 @@ public class ControllerBody : MonoBehaviour
         m_block = GetComponent<IsometricBlock>();
     }
 
-    private void Start()
-    {
-        if (m_dynamic)
-            GameManager.SetObjectDelay(true);
-    }
+    #region Gravity
 
-    private void OnDestroy()
-    {
-        if (m_dynamic)
-            GameManager.SetObjectDelay(false);
-    }
-
-    #region Move
-
-    public void SetMove(IsoVector Dir)
-    {
-        if (m_dynamic)
-        {
-            if (GetCheckDir(Dir) == null)
-            {
-                SetMovePush(Dir);
-                SetMoveTop(Dir);
-                SetMoveSide(Dir);
-            }
-            else
-            {
-                SetMovePush(IsoVector.None);
-            }
-        }
-        else
-        {
-            SetMovePush(Dir);
-            SetMoveTop(Dir);
-            SetMoveSide(Dir);
-        }
-    } //Move!!
-
-    private void SetMovePush(IsoVector Dir)
-    {
-        Vector3 MoveDir = IsoVector.GetVector(Dir);
-        Vector3 MoveStart = IsoVector.GetVector(m_block.Pos);
-        Vector3 MoveEnd = IsoVector.GetVector(m_block.Pos) + MoveDir;
-        DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameManager.TimeMove)
-            .SetEase(Ease.Linear)
-            .OnStart(() =>
-            {
-                onMove?.Invoke(true);
-            })
-            .OnUpdate(() =>
-            {
-                m_block.Pos = new IsoVector(MoveEnd);
-            })
-            .OnComplete(() =>
-            {
-                onMove?.Invoke(false);
-                if (m_dynamic)
-                    SetMoveGravity();
-            });
-    }
-
-    private void SetMoveTop(IsoVector Dir)
-    {
-        IsometricBlock BlockTop = GetCheckDir(IsoVector.Top);
-
-        if (BlockTop == null)
-            return;
-
-        ControllerBody BlockTopBody = BlockTop.GetComponent<ControllerBody>();
-
-        if (BlockTopBody == null)
-            return;
-
-        BlockTopBody.SetMove(Dir);
-    }
-
-    private void SetMoveSide(IsoVector Dir)
-    {
-        if (Dir == IsoVector.Top && Dir == IsoVector.Bot)
-            return;
-
-        IsometricBlock BlockTop = GetCheckDir(Dir);
-
-        if (BlockTop == null)
-            return;
-
-        ControllerBody BlockTopBody = BlockTop.GetComponent<ControllerBody>();
-
-        if (BlockTopBody == null)
-            return;
-
-        BlockTopBody.SetMove(Dir);
-    }
-
-    private void SetMoveGravity()
+    private void SetControlGravity()
     {
         if (GetCheckDir(IsoVector.Bot) != null)
         {
-            GameEvent.SetDelay(TypeDelay.Gravtiy, false);
+            //GameEvent.SetDelay(TypeDelay.Gravtiy, false);
             onGravity?.Invoke(false);
             return;
         }
@@ -139,10 +48,8 @@ public class ControllerBody : MonoBehaviour
             })
             .OnComplete(() =>
             {
-                SetMoveGravity();
+                //SetControlGravity();
             });
-
-        SetMoveTop(IsoVector.Bot);
     }
 
     #endregion

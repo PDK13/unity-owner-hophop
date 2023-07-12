@@ -7,8 +7,6 @@ public class ControllerPlayer : MonoBehaviour
 {
     private bool m_turnControl = false;
 
-    private int m_fallCount = 0;
-
     private ControllerBody m_body;
     private IsometricBlock m_block;
 
@@ -20,20 +18,14 @@ public class ControllerPlayer : MonoBehaviour
 
     private void Start()
     {
-        m_body.onGravity += SetGravity;
-        m_body.onMove += SetMove;
-
-        GameEvent.onTurn += SetTurn;
-        GameEvent.onDelay += SetDelay;
+        GameTurn.SetInit(TypeTurn.Player);
+        GameTurn.onTurn += SetControlTurn;
     }
 
     private void OnDestroy()
     {
-        m_body.onGravity -= SetGravity;
-        m_body.onMove -= SetMove;
-
-        GameEvent.onTurn -= SetTurn;
-        GameEvent.onDelay -= SetDelay;
+        GameTurn.SetRemove(TypeTurn.Player);
+        GameTurn.onTurn -= SetControlTurn;
     }
 
     private void Update()
@@ -42,42 +34,37 @@ public class ControllerPlayer : MonoBehaviour
             return;
 
         if (Input.GetKey(KeyCode.UpArrow))
-            SetMove(IsoDir.Up);
+            SetControlMove(IsoDir.Up);
+
         if (Input.GetKey(KeyCode.DownArrow))
-            SetMove(IsoDir.Down);
+            SetControlMove(IsoDir.Down);
+
         if (Input.GetKey(KeyCode.LeftArrow))
-            SetMove(IsoDir.Left);
+            SetControlMove(IsoDir.Left);
+
         if (Input.GetKey(KeyCode.RightArrow))
-            SetMove(IsoDir.Right);
+            SetControlMove(IsoDir.Right);
+
         if (Input.GetKeyDown(KeyCode.Space))
-        {
-            m_turnControl = false;
-            m_body.SetMove(IsoVector.GetDir(IsoDir.None));
-        }
+            SetControlMove(IsoDir.None);
     }
 
-    #region Turn
-
-    private void SetTurn(TypeTurn Turn, bool State)
+    private void SetControlTurn(TypeTurn Turn)
     {
         if (Turn != TypeTurn.Player)
+        {
+            m_turnControl = false;
             return;
-
-        if (!State)
-            return;
-
+        }
+        //
         m_turnControl = true;
+        //
     }
 
-    private void SetDelay(TypeDelay Delay, bool State)
+    private void SetControlMove(IsoDir Dir)
     {
-
-    }
-
-    private void SetMove(IsoDir Dir)
-    {
-        int Length = 1; //Follow Character
-
+        int Length = 1; //Follow Character (!)
+        //
         //Check if there is a Block ahead?!
         IsometricBlock BlockNext = m_block.WorldManager.GetWorldBlockCurrent(m_block.Pos + IsoVector.GetDir(Dir) * Length);
         if (BlockNext != null)
@@ -97,39 +84,31 @@ public class ControllerPlayer : MonoBehaviour
                 return;
             //
             //Fine to continue push this Block ahead!!
-            BlockBody.SetMove(IsoVector.GetDir(Dir));
+            //BlockBody.SetMove(IsoVector.GetDir(Dir));
         }
         //Fine to continue move to pos ahead!!
-
+        //
         m_turnControl = false;
-
-        m_body.SetMove(IsoVector.GetDir(Dir));
-    } //Move!!
-
-    private void SetGravity(bool State)
-    {
-        if (State)
-        {
-            m_fallCount++;
-        }
-        else
-        {
-            m_fallCount = 0;
-            GameEvent.SetTurn(TypeTurn.Player, false);
-        }
+        //
+        Vector3 MoveDir = IsoVector.GetVector(Dir);
+        Vector3 MoveStart = IsoVector.GetVector(m_block.Pos);
+        Vector3 MoveEnd = IsoVector.GetVector(m_block.Pos) + MoveDir * 1;
+        DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameManager.TimeMove * 1)
+            .SetEase(Ease.Linear)
+            .OnStart(() =>
+            {
+                //Start Animation!!
+            })
+            .OnUpdate(() =>
+            {
+                m_block.Pos = new IsoVector(MoveEnd);
+            })
+            .OnComplete(() =>
+            {
+                //End Animation!!
+                //GameTurn.SetEndMove(TypeTurn.Player); //Follow Player (!)
+                GameTurn.SetEndTurn(TypeTurn.Player); //Follow Player (!)
+            });
+        //
     }
-
-    private void SetMove(bool State)
-    {
-        if (State)
-        {
-
-        }
-        else
-        {
-            GameEvent.SetTurn(TypeTurn.Player, false);
-        }
-    }
-
-    #endregion
 }

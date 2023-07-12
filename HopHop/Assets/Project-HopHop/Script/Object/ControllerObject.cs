@@ -28,17 +28,13 @@ public class ControllerObject : MonoBehaviour
         {
             if (m_dataMove.DataExist)
             {
-                GameManager.SetObjectTurn(true);
-
-                GameEvent.onTurn += SetTurn;
-                GameEvent.onDelay += SetDelay;
-
-                m_body.onMove += SetMove;
+                GameTurn.SetInit(TypeTurn.Object);
+                GameTurn.onTurn += SetControlTurn;
             }
             else
             if (m_dataFollow != null)
             {
-                GameEvent.onFollow += SetFollow;
+                GameEvent.onFollow += SetControlFollow;
             }
         }
     }
@@ -49,50 +45,57 @@ public class ControllerObject : MonoBehaviour
         {
             if (m_dataMove.DataExist)
             {
-                GameManager.SetObjectTurn(false);
-
-                GameEvent.onTurn -= SetTurn;
-                GameEvent.onDelay -= SetDelay;
-
-                m_body.onMove -= SetMove;
+                GameTurn.SetRemove(TypeTurn.Object);
+                GameTurn.onTurn -= SetControlTurn;
             }
             else
             if (m_dataFollow != null)
             {
-                GameEvent.onFollow -= SetFollow;
+                GameEvent.onFollow -= SetControlFollow;
             }
         }
     }
 
-    #region Turn
-
-    private void SetTurn(TypeTurn Turn, bool State)
+    private void SetControlTurn(TypeTurn Turn)
     {
-        if (m_dataMove == null)
-            return;
-
         if (Turn != TypeTurn.Object)
+        {
+            m_turnControl = false;
             return;
-
-        if (!State)
-            return;
-
-        SetMove();
+        }
+        //
+        m_turnControl = true;
+        //
+        SetControlMove();
     }
 
-    private void SetDelay(TypeDelay Delay, bool State)
-    {
-
-    }
-
-    private void SetMove()
+    private void SetControlMove()
     {
         IsoVector Dir = IsoVector.GetDir(m_dataMove.Dir[m_dataMove.Index]) * m_dataMove.Quantity;
         int Length = m_dataMove.Length[m_dataMove.Index];
-
-        m_body.SetMove(Dir);
+        //
+        Vector3 MoveDir = IsoVector.GetVector(Dir);
+        Vector3 MoveStart = IsoVector.GetVector(m_block.Pos);
+        Vector3 MoveEnd = IsoVector.GetVector(m_block.Pos) + MoveDir * 1;
+        DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameManager.TimeMove * 1)
+            .SetEase(Ease.Linear)
+            .OnStart(() =>
+            {
+                //Start Animation!!
+            })
+            .OnUpdate(() =>
+            {
+                m_block.Pos = new IsoVector(MoveEnd);
+            })
+            .OnComplete(() =>
+            {
+                //End Animation!!
+                //GameTurn.SetEndMove(TypeTurn.Object); //Follow Object (!)
+                GameTurn.SetEndTurn(TypeTurn.Object); //Follow Object (!)
+            });
+        //
         GameEvent.SetFollow(m_dataFollow, Dir);
-
+        //
         m_dataMove.Index += m_dataMove.Quantity;
         if (m_dataMove.Loop && (m_dataMove.Index < 0 || m_dataMove.Index > m_dataMove.DataCount - 1))
         {
@@ -101,21 +104,28 @@ public class ControllerObject : MonoBehaviour
         }
     }
 
-    private void SetFollow(string KeyFollow, IsoVector Dir)
+    private void SetControlFollow(string KeyFollow, IsoVector Dir)
     {
         if (KeyFollow != m_dataFollow)
             return;
-
-        m_body.SetMove(Dir);
-    } //Move!!
-
-    private void SetMove(bool State)
-    {
-        if (State)
-            return;
-
-        GameEvent.SetTurn(TypeTurn.Object, false);
+        //
+        Vector3 MoveDir = IsoVector.GetVector(Dir);
+        Vector3 MoveStart = IsoVector.GetVector(m_block.Pos);
+        Vector3 MoveEnd = IsoVector.GetVector(m_block.Pos) + MoveDir * 1;
+        DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameManager.TimeMove * 1)
+            .SetEase(Ease.Linear)
+            .OnStart(() =>
+            {
+                //Start Animation!!
+            })
+            .OnUpdate(() =>
+            {
+                m_block.Pos = new IsoVector(MoveEnd);
+            })
+            .OnComplete(() =>
+            {
+                //End Animation!!
+            });
+        //
     }
-
-    #endregion
 }

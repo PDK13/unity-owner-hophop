@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 3430691712157824425}
   - component: {fileID: 1455909166595997230}
   - component: {fileID: -2893247825292862636}
-  - component: {fileID: -1344772734664115559}
   m_Layer: 0
   m_Name: Bubble 1
   m_TagString: Untagged
@@ -163,16 +162,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_spriteJoin: []
   m_blockTop: []
---- !u!114 &-1344772734664115559
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1455909166595997217}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19ee9a8a7098dfb489d74c2174becedf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_dynamic: 1
