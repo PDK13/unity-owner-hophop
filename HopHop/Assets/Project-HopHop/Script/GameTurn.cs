@@ -16,6 +16,7 @@ public class GameTurn
         public int Count = 0;
         public int EndMoveCount = 0;
         public int EndTurnCount = 0;
+        public int EndRemoveCount = 0; //Remove from this Turn, caculate this after End Turn!!
 
         public bool EndTurnRemove = false; //Remove this Turn after End Turn!!
 
@@ -60,22 +61,13 @@ public class GameTurn
 
     public static void SetRemove(TypeTurn Turn)
     {
-        int Index = -1;
         for (int i = 0; i < m_turnQueue.Count; i++)
         {
             if (m_turnQueue[i].Turn != Turn)
                 continue;
-            Index = i;
-            m_turnQueue[i].Count--;
+            m_turnQueue[i].EndRemoveCount++;
             break;
         }
-        //
-        if (Index > m_turnQueue.Count - 1)
-            //Avoid null exception after close game on editor!!
-            return;
-        //
-        if (m_turnQueue[Index].Count == 0)
-            m_turnQueue.RemoveAt(Index);
     } //Remove on Destroy!!
 
     public static void SetEndMove(TypeTurn Turn)
@@ -111,6 +103,9 @@ public class GameTurn
             //
             if (!m_turnCurrent.EndTurnRemove)
                 m_turnQueue.Add(m_turnCurrent);
+            //
+            m_turnCurrent.Count -= m_turnCurrent.EndRemoveCount;
+            m_turnCurrent.EndRemoveCount = 0;
             //
             SetCurrent();
         }
