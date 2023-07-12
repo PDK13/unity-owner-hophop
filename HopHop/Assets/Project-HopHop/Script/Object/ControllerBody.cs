@@ -6,14 +6,14 @@ using UnityEngine;
 
 public class ControllerBody : MonoBehaviour
 {
+    private bool m_turnControl = false;
+
     [SerializeField] private bool m_dynamic = false;
 
     public bool Dynamic => m_dynamic;
 
     public Action<bool> onMove;
     public Action<bool> onGravity;
-
-    private bool m_checkGravity = false;
 
     private IsometricBlock m_block;
 
@@ -22,14 +22,40 @@ public class ControllerBody : MonoBehaviour
         m_block = GetComponent<IsometricBlock>();
     }
 
+    private void SetControlTurn(TypeTurn Turn)
+    {
+        if (Turn != TypeTurn.Gravity)
+        {
+            m_turnControl = false;
+            return;
+        }
+        //
+        m_turnControl = true;
+        //
+        SetControlGravity();
+    }
+
     #region Gravity
+
+    public void SetCheckGravity(IsoVector Dir)
+    {
+        if (GetCheckDir(Dir, IsoVector.Bot) == null)
+        {
+            GameTurn.SetAdd(TypeTurn.Gravity);
+            GameTurn.onTurn += SetControlTurn;
+        }
+    }
 
     private void SetControlGravity()
     {
         if (GetCheckDir(IsoVector.Bot) != null)
         {
-            //GameEvent.SetDelay(TypeDelay.Gravtiy, false);
+            GameTurn.SetEndTurn(TypeTurn.Gravity); //Follow Object (!)
+            GameTurn.onTurn -= SetControlTurn;
+            //
             onGravity?.Invoke(false);
+            //
+            m_turnControl = false;
             return;
         }
 
@@ -48,7 +74,8 @@ public class ControllerBody : MonoBehaviour
             })
             .OnComplete(() =>
             {
-                //SetControlGravity();
+                //GameTurn.SetEndMove(TypeTurn.Object); //Follow Object (!)
+                SetControlGravity();
             });
     }
 

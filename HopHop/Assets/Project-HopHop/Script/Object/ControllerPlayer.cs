@@ -34,19 +34,19 @@ public class ControllerPlayer : MonoBehaviour
             return;
 
         if (Input.GetKey(KeyCode.UpArrow))
-            SetControlMove(IsoDir.Up);
+            SetControlMove(IsoVector.Up);
 
         if (Input.GetKey(KeyCode.DownArrow))
-            SetControlMove(IsoDir.Down);
+            SetControlMove(IsoVector.Down);
 
         if (Input.GetKey(KeyCode.LeftArrow))
-            SetControlMove(IsoDir.Left);
+            SetControlMove(IsoVector.Left);
 
         if (Input.GetKey(KeyCode.RightArrow))
-            SetControlMove(IsoDir.Right);
+            SetControlMove(IsoVector.Right);
 
         if (Input.GetKeyDown(KeyCode.Space))
-            SetControlMove(IsoDir.None);
+            SetControlMove(IsoVector.None);
     }
 
     private void SetControlTurn(TypeTurn Turn)
@@ -61,9 +61,9 @@ public class ControllerPlayer : MonoBehaviour
         //
     }
 
-    private void SetControlMove(IsoDir Dir)
+    private void SetControlMove(IsoVector Dir)
     {
-        if (Dir == IsoDir.None)
+        if (Dir == IsoVector.None)
         {
             m_turnControl = false;
             GameTurn.SetEndTurn(TypeTurn.Player); //Follow Player (!)
@@ -73,7 +73,7 @@ public class ControllerPlayer : MonoBehaviour
         int Length = 1; //Follow Character (!)
         //
         //Check if there is a Block ahead?!
-        IsometricBlock BlockNext = m_block.WorldManager.GetWorldBlockCurrent(m_block.Pos + IsoVector.GetDir(Dir) * Length);
+        IsometricBlock BlockNext = m_block.WorldManager.GetWorldBlockCurrent(m_block.Pos + Dir * Length);
         if (BlockNext != null)
         {
             //There is a Block ahead!!
@@ -86,7 +86,7 @@ public class ControllerPlayer : MonoBehaviour
             if (!BlockBody.Dynamic)
                 //Surely can't continue move to this Pos, because this Block can't be push!!
                 return;
-            if (!BlockBody.GetCheckDir(IsoVector.GetDir(Dir), IsoVector.GetDir(Dir)))
+            if (!BlockBody.GetCheckDir(Dir, Dir))
                 //Surely can't continue move to this Pos, because this Block can't be push to the Pos ahead!!
                 return;
             //
@@ -96,6 +96,8 @@ public class ControllerPlayer : MonoBehaviour
         //Fine to continue move to pos ahead!!
         //
         m_turnControl = false;
+        //
+        m_body.SetCheckGravity(Dir);
         //
         Vector3 MoveDir = IsoVector.GetVector(Dir);
         Vector3 MoveStart = IsoVector.GetVector(m_block.Pos);

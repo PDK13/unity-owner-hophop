@@ -103,7 +103,7 @@ public class GameTurn
         {
             m_turnCurrent.EndTurnCount = 0;
             //
-            m_turnQueue.Remove(m_turnCurrent);
+            m_turnQueue.RemoveAt(m_turnQueue.FindIndex(t => t.Turn == Turn));
             //
             if (!m_turnCurrent.EndTurnRemove)
                 m_turnQueue.Add(m_turnCurrent);
@@ -129,11 +129,19 @@ public class GameTurn
             return;
         //
         if (After > m_turnQueue.Count - 1)
+        {
             m_turnQueue.Add(new TurnSingle(Turn));
+            m_turnQueue[m_turnQueue.Count - 1].Count++;
+            m_turnQueue[m_turnQueue.Count - 1].EndTurnRemove = TurnRemove.Contains(Turn);
+        }
         else
         if (m_turnQueue[After].Turn == Turn)
             m_turnQueue[After].Count++;
         else
+        {
             m_turnQueue.Insert(After, new TurnSingle(Turn));
+            m_turnQueue[After].Count++;
+            m_turnQueue[After].EndTurnRemove = TurnRemove.Contains(Turn);
+        }
     } //Add Turn Special!!
 }
