@@ -67,8 +67,8 @@ public class ControllerBody : MonoBehaviour
         }
 
         Vector3 MoveDir = IsoVector.GetVector(IsoVector.Bot);
-        Vector3 MoveStart = IsoVector.GetVector(m_block.Pos);
-        Vector3 MoveEnd = IsoVector.GetVector(m_block.Pos) + MoveDir * 1;
+        Vector3 MoveStart = IsoVector.GetVector(m_block.Pos.Fixed);
+        Vector3 MoveEnd = IsoVector.GetVector(m_block.Pos.Fixed) + MoveDir * 1;
         DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameManager.TimeMove * 1)
             .SetEase(Ease.Linear)
             .OnStart(() =>
@@ -97,24 +97,30 @@ public class ControllerBody : MonoBehaviour
         //
         if (From == IsoVector.Bot)
         {
-            IsometricBlock BlockNext = m_block.WorldManager.GetWorldBlockCurrent(m_block.Pos + Dir);
+            IsometricBlock BlockNext = m_block.WorldManager.GetWorldBlockCurrent(m_block.Pos.Fixed + Dir);
             if (BlockNext != null)
+            {
                 //When Block Bot end move, surely Bot of this will be emty!!
                 SetForceGravity();
+                return;
+            } 
         }
         else
         {
-            IsometricBlock BlockNext = m_block.WorldManager.GetWorldBlockCurrent(m_block.Pos + Dir);
+            IsometricBlock BlockNext = m_block.WorldManager.GetWorldBlockCurrent(m_block.Pos.Fixed + Dir);
             if (BlockNext != null)
+            {
                 Debug.LogError("[Debug] Push to Wall!!");
+                return;
+            }
             else
                 //Can continue move, so check next pos if it emty at Bot?!
                 SetCheckGravity(Dir);
         }
         //
         Vector3 MoveDir = IsoVector.GetVector(Dir);
-        Vector3 MoveStart = IsoVector.GetVector(m_block.Pos);
-        Vector3 MoveEnd = IsoVector.GetVector(m_block.Pos) + MoveDir * 1;
+        Vector3 MoveStart = IsoVector.GetVector(m_block.Pos.Fixed);
+        Vector3 MoveEnd = IsoVector.GetVector(m_block.Pos.Fixed) + MoveDir * 1;
         DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameManager.TimeMove * 1)
             .SetEase(Ease.Linear)
             .OnStart(() =>
@@ -140,8 +146,8 @@ public class ControllerBody : MonoBehaviour
     {
         //
         Vector3 MoveDir = IsoVector.GetVector(Dir);
-        Vector3 MoveStart = IsoVector.GetVector(m_block.Pos);
-        Vector3 MoveEnd = IsoVector.GetVector(m_block.Pos) + MoveDir * 1;
+        Vector3 MoveStart = IsoVector.GetVector(m_block.Pos.Fixed);
+        Vector3 MoveEnd = IsoVector.GetVector(m_block.Pos.Fixed) + MoveDir * 1;
         DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameManager.TimeMove * 1)
             .SetEase(Ease.Linear)
             .OnStart(() =>
@@ -165,12 +171,12 @@ public class ControllerBody : MonoBehaviour
 
     public IsometricBlock GetCheckDir(IsoVector Dir)
     {
-        return m_block.WorldManager.GetWorldBlockCurrent(m_block.Pos + Dir);
+        return m_block.WorldManager.GetWorldBlockCurrent(m_block.Pos.Fixed + Dir);
     }
 
     public IsometricBlock GetCheckDir(IsoVector Dir, IsoVector DirNext)
     {
-        return m_block.WorldManager.GetWorldBlockCurrent(m_block.Pos + Dir + DirNext);
+        return m_block.WorldManager.GetWorldBlockCurrent(m_block.Pos.Fixed + Dir + DirNext);
     }
 
     #endregion
