@@ -63,6 +63,13 @@ public class ControllerPlayer : MonoBehaviour
 
     private void SetControlMove(IsoDir Dir)
     {
+        if (Dir == IsoDir.None)
+        {
+            m_turnControl = false;
+            GameTurn.SetEndTurn(TypeTurn.Player); //Follow Player (!)
+            return;
+        }
+
         int Length = 1; //Follow Character (!)
         //
         //Check if there is a Block ahead?!
