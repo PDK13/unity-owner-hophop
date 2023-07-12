@@ -6,6 +6,11 @@ using UnityEngine;
 public class ControllerObject : MonoBehaviour
 {
     private bool m_turnControl = false;
+    private IsoVector m_turnDir;
+    private int m_turnLength = 0;
+    private int m_turnLengthCurrent = 0;
+
+    private bool TurnLock => m_turnLengthCurrent == m_turnLength && m_turnLength != 0;
 
     private IsoDataBlockMove m_dataMove;
     private string m_dataFollow;
@@ -30,6 +35,7 @@ public class ControllerObject : MonoBehaviour
             {
                 GameTurn.SetInit(TypeTurn.Object);
                 GameTurn.onTurn += SetControlTurn;
+                GameTurn.onEnd += SetControlEnd;
             }
             else
             if (m_dataFollow != null)
@@ -47,6 +53,7 @@ public class ControllerObject : MonoBehaviour
             {
                 GameTurn.SetRemove(TypeTurn.Object);
                 GameTurn.onTurn -= SetControlTurn;
+                GameTurn.onEnd -= SetControlEnd;
             }
             else
             if (m_dataFollow != null)
@@ -64,17 +71,38 @@ public class ControllerObject : MonoBehaviour
             return;
         }
         //
+        if (TurnLock)
+            return;
+        //
         m_turnControl = true;
         //
         SetControlMove();
     }
 
+    private void SetControlEnd(TypeTurn Turn)
+    {
+        if (Turn != TypeTurn.Object)
+            return;
+        //
+        m_turnLength = 0;
+        m_turnLengthCurrent = 0;
+        m_turnControl = false;
+    }
+
     private void SetControlMove()
     {
-        IsoVector Dir = IsoVector.GetDir(m_dataMove.Dir[m_dataMove.Index]) * m_dataMove.Quantity;
-        int Length = m_dataMove.Length[m_dataMove.Index];
+        if (m_turnLength == 0)
+        {
+            m_turnDir = IsoVector.GetDir(m_dataMove.Dir[m_dataMove.Index]) * m_dataMove.Quantity;
+            m_turnLength = m_dataMove.Length[m_dataMove.Index];
+            m_turnLengthCurrent = 0;
+        }
         //
-        Vector3 MoveDir = IsoVector.GetVector(Dir);
+        m_turnControl = false;
+        //
+        m_turnLengthCurrent++;
+        //
+        Vector3 MoveDir = IsoVector.GetVector(m_turnDir);
         Vector3 MoveStart = IsoVector.GetVector(m_block.Pos);
         Vector3 MoveEnd = IsoVector.GetVector(m_block.Pos) + MoveDir * 1;
         DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameManager.TimeMove * 1)
@@ -90,18 +118,26 @@ public class ControllerObject : MonoBehaviour
             .OnComplete(() =>
             {
                 //End Animation!!
-                //GameTurn.SetEndMove(TypeTurn.Object); //Follow Object (!)
-                GameTurn.SetEndTurn(TypeTurn.Object); //Follow Object (!)
+                if (TurnLock)
+                {
+                    GameTurn.SetEndTurn(TypeTurn.Object); //Follow Object (!)
+                    m_turnDir = IsoVector.None;
+                }
+                else
+                    GameTurn.SetEndMove(TypeTurn.Object); //Follow Object (!)
             });
         //
-        GameEvent.SetFollow(m_dataFollow, Dir);
+        GameEvent.SetFollow(m_dataFollow, m_turnDir);
         //
-        m_dataMove.Index += m_dataMove.Quantity;
-        if (m_dataMove.Loop && (m_dataMove.Index < 0 || m_dataMove.Index > m_dataMove.DataCount - 1))
+        if (TurnLock)
         {
-            m_dataMove.Quantity *= -1;
             m_dataMove.Index += m_dataMove.Quantity;
-        }
+            if (m_dataMove.Loop && (m_dataMove.Index < 0 || m_dataMove.Index > m_dataMove.DataCount - 1))
+            {
+                m_dataMove.Quantity *= -1;
+                m_dataMove.Index += m_dataMove.Quantity;
+            }
+        } 
     }
 
     private void SetControlFollow(string KeyFollow, IsoVector Dir)

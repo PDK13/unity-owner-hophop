@@ -7,6 +7,7 @@ using UnityEngine;
 public class GameTurn
 {
     public static Action<TypeTurn> onTurn;
+    public static Action<TypeTurn> onEnd;
 
     public class TurnSingle
     {
@@ -16,9 +17,9 @@ public class GameTurn
         public int EndMoveCount = 0;
         public int EndTurnCount = 0;
 
-        public bool EndTurnRemove = false;
+        public bool EndTurnRemove = false; //Remove this Turn after End Turn!!
 
-        public bool EndMove => EndMoveCount == Count;
+        public bool EndMove => EndMoveCount == Count - EndTurnCount; //End Turn also mean End Move!!
         public bool EndTurn => EndTurnCount == Count;
 
         public TurnSingle (TypeTurn Turn)
@@ -88,7 +89,8 @@ public class GameTurn
         {
             m_turnCurrent.EndMoveCount = 0;
             //
-            SetCurrent();
+            if (!m_turnCurrent.EndTurn)
+                SetCurrent();
         }
     }
 
@@ -101,6 +103,8 @@ public class GameTurn
         //
         if (m_turnCurrent.EndTurn)
         {
+            onEnd?.Invoke(Turn);
+            //
             m_turnCurrent.EndTurnCount = 0;
             //
             m_turnQueue.RemoveAt(m_turnQueue.FindIndex(t => t.Turn == Turn));
