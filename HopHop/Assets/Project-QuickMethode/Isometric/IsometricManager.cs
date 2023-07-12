@@ -79,8 +79,8 @@ public class IsometricManager : MonoBehaviour
         //Block
         IsometricBlock Block = QComponent.GetComponent<IsometricBlock>(BlockObject);
         Block.WorldManager = this;
-        Block.Pos = Pos;
-        Block.PosPrimary = Pos;
+        Block.Pos = Pos.Fixed;
+        Block.PosPrimary = Pos.Fixed;
 
         //Block Data
         Block.Data = Data != null ? Data : new IsoDataBlockSingle();
@@ -89,7 +89,7 @@ public class IsometricManager : MonoBehaviour
         IsometricRenderer BlockRenderer = BlockObject.GetComponent<IsometricRenderer>();
         if (BlockRenderer != null)
         {
-            BlockRenderer.SetSpriteJoin(Pos);
+            BlockRenderer.SetSpriteJoin(Pos.Fixed);
         }
 
         if (Block.Free && Application.isPlaying)
@@ -99,13 +99,13 @@ public class IsometricManager : MonoBehaviour
         else
         {
             //Delete
-            SetWorldBlockRemovePrimary(Pos);
+            SetWorldBlockRemovePrimary(Pos.Fixed);
 
             //World
             int IndexPosH = GetWorldIndexPosH(Pos.HInt);
             if (IndexPosH == -1)
             {
-                m_worldPosH.Add((Pos.HInt, new List<IsometricBlock>()));
+                m_worldPosH.Add((Pos.Fixed.HInt, new List<IsometricBlock>()));
                 IndexPosH = m_worldPosH.Count - 1;
                 m_worldPosH[IndexPosH].Block.Add(Block);
             }
@@ -146,14 +146,14 @@ public class IsometricManager : MonoBehaviour
         }
 
         //Scene
-        Transform ParentPosH = transform.Find(GetWorldNamePosH(Pos));
+        Transform ParentPosH = transform.Find(GetWorldNamePosH(Pos.Fixed));
         if (ParentPosH != null)
         {
             Block.transform.SetParent(ParentPosH, true);
         }
         else
         {
-            ParentPosH = QGameObject.SetCreate(GetWorldNamePosH(Pos), transform).transform;
+            ParentPosH = QGameObject.SetCreate(GetWorldNamePosH(Pos.Fixed), transform).transform;
             Block.transform.SetParent(ParentPosH, true);
         }
 
@@ -167,13 +167,13 @@ public class IsometricManager : MonoBehaviour
     public IsometricBlock GetWorldBlockPrimary(IsoVector Pos)
     {
         //World
-        int IndexPosH = GetWorldIndexPosH(Pos.HInt);
+        int IndexPosH = GetWorldIndexPosH(Pos.Fixed.HInt);
         if (IndexPosH == -1)
             return null;
 
         for (int i = 0; i < m_worldPosH[IndexPosH].Block.Count; i++)
         {
-            if (m_worldPosH[IndexPosH].Block[i].PosPrimary != Pos)
+            if (m_worldPosH[IndexPosH].Block[i].PosPrimary != Pos.Fixed)
                 continue;
 
             return m_worldPosH[IndexPosH].Block[i];
@@ -196,7 +196,7 @@ public class IsometricManager : MonoBehaviour
 
                 for (int BlockIndex = 0; BlockIndex < m_worldTag[TagIndex].Block.Count; BlockIndex++)
                 {
-                    if (m_worldTag[TagIndex].Block[BlockIndex].Pos != Pos)
+                    if (m_worldTag[TagIndex].Block[BlockIndex].Pos.Fixed != Pos.Fixed)
                         continue;
 
                     return m_worldTag[TagIndex].Block[BlockIndex];
@@ -210,7 +210,7 @@ public class IsometricManager : MonoBehaviour
             {
                 foreach (var BlockCheck in TagCheck.Block)
                 {
-                    if (BlockCheck.Pos != Pos)
+                    if (BlockCheck.Pos.Fixed != Pos.Fixed)
                         continue;
 
                     return BlockCheck;
@@ -237,7 +237,7 @@ public class IsometricManager : MonoBehaviour
 
                 for (int BlockIndex = 0; BlockIndex < m_worldTag[TagIndex].Block.Count; BlockIndex++)
                 {
-                    if (m_worldTag[TagIndex].Block[BlockIndex].Pos != Pos)
+                    if (m_worldTag[TagIndex].Block[BlockIndex].Pos.Fixed != Pos.Fixed)
                         continue;
 
                     List.Add(m_worldTag[TagIndex].Block[BlockIndex]);
@@ -251,7 +251,7 @@ public class IsometricManager : MonoBehaviour
             {
                 foreach (var BlockCheck in TagCheck.Block)
                 {
-                    if (BlockCheck.Pos != Pos)
+                    if (BlockCheck.Pos.Fixed != Pos.Fixed)
                         continue;
 
                     List.Add(BlockCheck);
@@ -280,13 +280,13 @@ public class IsometricManager : MonoBehaviour
     public void SetWorldBlockRemovePrimary(IsoVector Pos)
     {
         //World
-        int IndexPosH = GetWorldIndexPosH(Pos.HInt);
+        int IndexPosH = GetWorldIndexPosH(Pos.Fixed.HInt);
         if (IndexPosH == -1)
             return;
 
         for (int i = 0; i < m_worldPosH[IndexPosH].Block.Count; i++)
         {
-            if (m_worldPosH[IndexPosH].Block[i].PosPrimary != Pos)
+            if (m_worldPosH[IndexPosH].Block[i].PosPrimary != Pos.Fixed)
                 continue;
 
             IsometricBlock Block = m_worldPosH[IndexPosH].Block[i];
