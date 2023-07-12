@@ -39,11 +39,16 @@ public class ControllerBody : MonoBehaviour
 
     public void SetCheckGravity(IsoVector Dir)
     {
-        if (GetCheckDir(Dir, IsoVector.Bot) == null)
-        {
-            GameTurn.SetAdd(TypeTurn.Gravity);
-            GameTurn.onTurn += SetControlGravity;
-        }
+        if (GetCheckDir(Dir, IsoVector.Bot) != null)
+            return;
+        //
+        SetForceGravity();
+    }
+
+    private void SetForceGravity()
+    {
+        GameTurn.SetAdd(TypeTurn.Gravity);
+        GameTurn.onTurn += SetControlGravity;
     }
 
     private void SetControlGravity()
@@ -89,15 +94,22 @@ public class ControllerBody : MonoBehaviour
 
     public void SetControlPush(IsoVector Dir, IsoVector From)
     {
-        SetCheckGravity(Dir);
         //
-        IsometricBlock BlockNext = m_block.WorldManager.GetWorldBlockCurrent(m_block.Pos + Dir);
-        if (BlockNext != null)
+        if (From == IsoVector.Bot)
         {
-            if (From == IsoVector.Bot)
-                return;
-            else
+            IsometricBlock BlockNext = m_block.WorldManager.GetWorldBlockCurrent(m_block.Pos + Dir);
+            if (BlockNext != null)
+                //When Block Bot end move, surely Bot of this will be emty!!
+                SetForceGravity();
+        }
+        else
+        {
+            IsometricBlock BlockNext = m_block.WorldManager.GetWorldBlockCurrent(m_block.Pos + Dir);
+            if (BlockNext != null)
                 Debug.LogError("[Debug] Push to Wall!!");
+            else
+                //Can continue move, so check next pos if it emty at Bot?!
+                SetCheckGravity(Dir);
         }
         //
         Vector3 MoveDir = IsoVector.GetVector(Dir);
