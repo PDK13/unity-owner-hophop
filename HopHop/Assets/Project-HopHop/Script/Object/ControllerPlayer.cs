@@ -133,8 +133,7 @@ public class ControllerPlayer : MonoBehaviour
                 //
                 //GameTurn.SetEndMove(TypeTurn.Player); //Follow Player (!)
                 GameTurn.SetEndTurn(TypeTurn.Player); //Follow Player (!)
-            })
-            .SetDelay(0.1f);
+            });
         //
     }
 

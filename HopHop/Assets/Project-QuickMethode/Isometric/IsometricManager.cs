@@ -365,6 +365,9 @@ public class IsometricManager : MonoBehaviour
             if (WorldManager.GetChild(i).gameObject.name == CURSON_NAME)
                 continue;
 #endif
+            if (this.transform.GetChild(i).GetComponent<Camera>() != null)
+                continue;
+
             if (Application.isEditor && !Application.isPlaying)
                 DestroyImmediate(WorldManager.GetChild(i).gameObject);
             else
@@ -482,6 +485,9 @@ public class IsometricManager : MonoBehaviour
                 if (this.transform.GetChild(i).gameObject.name == CURSON_NAME)
                     continue;
 #endif
+                if (this.transform.GetChild(i).GetComponent<Camera>() != null)
+                    continue;
+
                 if (Application.isEditor && !Application.isPlaying)
                     DestroyImmediate(this.transform.GetChild(i).gameObject);
                 else
