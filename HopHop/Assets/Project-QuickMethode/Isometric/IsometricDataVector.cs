@@ -127,6 +127,46 @@ public struct IsoVector
         return None;
     }
 
+    public static string GetDirEncypt(IsoDir Dir)
+    {
+        switch (Dir)
+        {
+            case IsoDir.Up:
+                return "U";
+            case IsoDir.Down:
+                return "D";
+            case IsoDir.Left:
+                return "L";
+            case IsoDir.Right:
+                return "R";
+            case IsoDir.Top:
+                return "T";
+            case IsoDir.Bot:
+                return "B";
+        }
+        return "N";
+    }
+
+    public static IsoDir GetDirDeEncypt(string Data)
+    {
+        switch (Data)
+        {
+            case "U":
+                return IsoDir.Up;
+            case "D":
+                return IsoDir.Down;
+            case "L":
+                return IsoDir.Left;
+            case "R":
+                return IsoDir.Right;
+            case "T":
+                return IsoDir.Top;
+            case "B":
+                return IsoDir.Bot;
+        }
+        return IsoDir.None;
+    }
+
     #endregion
 
     #region Operator
