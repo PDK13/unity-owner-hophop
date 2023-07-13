@@ -1,7 +1,7 @@
 [WORLD NAME]
 ...
 [WORLD BLOCK]
-37
+115
 
 [0;-1;1]
 Character Angle
@@ -148,8 +148,34 @@ False
 
 0
 
+[-2;6;-1]
+Block Move 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[-2;5;-1]
+Block Move 1
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
 [1;0;-1]
-Block Normal 0
+Block Dust 0
 <MOVE DATA>
 
 False
@@ -162,7 +188,7 @@ False
 0
 
 [0;0;-1]
-Block Normal 0
+Block Dust 0
 <MOVE DATA>
 
 False
@@ -175,7 +201,7 @@ False
 0
 
 [-1;0;-1]
-Block Normal 0
+Block Dust 0
 <MOVE DATA>
 
 False
@@ -188,7 +214,7 @@ False
 0
 
 [1;-1;-1]
-Block Normal 0
+Block Dust 0
 <MOVE DATA>
 
 False
@@ -201,7 +227,7 @@ False
 0
 
 [0;-1;-1]
-Block Normal 0
+Block Dust 0
 <MOVE DATA>
 
 False
@@ -214,7 +240,7 @@ False
 0
 
 [-1;-1;-1]
-Block Normal 0
+Block Dust 0
 <MOVE DATA>
 
 False
@@ -227,7 +253,7 @@ False
 0
 
 [1;-2;-1]
-Block Normal 0
+Block Dust 0
 <MOVE DATA>
 
 False
@@ -240,7 +266,7 @@ False
 0
 
 [0;-2;-1]
-Block Normal 0
+Block Dust 0
 <MOVE DATA>
 
 False
@@ -253,7 +279,540 @@ False
 0
 
 [-1;-2;-1]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[1;-3;-1]
 Block Normal 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[0;-3;-1]
+Block Normal 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[-1;-3;-1]
+Block Normal 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[0;6;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[-1;6;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[-2;6;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[-3;6;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[-4;6;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[0;5;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[-1;5;-2]
+Block Water 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[-2;5;-2]
+Block Water 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[-3;5;-2]
+Block Water 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[-4;5;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[0;4;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[-1;4;-2]
+Block Water 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[-2;4;-2]
+Block Water 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[-3;4;-2]
+Block Water 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[-4;4;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[0;3;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[-1;3;-2]
+Block Water 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[-2;3;-2]
+Block Water 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[-3;3;-2]
+Block Water 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[-4;3;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[3;2;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[2;2;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[1;2;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[0;2;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[-1;2;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[-2;2;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[-3;2;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[-4;2;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[3;1;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[2;1;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[1;1;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[0;1;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[-1;1;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[-2;1;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[-3;1;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[-4;1;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[3;0;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[2;0;-2]
+Block Dust 0
 <MOVE DATA>
 
 False
@@ -266,7 +825,7 @@ False
 0
 
 [1;0;-2]
-Block Normal 0
+Block Dust 0
 <MOVE DATA>
 
 False
@@ -279,7 +838,7 @@ False
 0
 
 [0;0;-2]
-Block Normal 0
+Block Dust 0
 <MOVE DATA>
 
 False
@@ -292,7 +851,7 @@ False
 0
 
 [-1;0;-2]
-Block Normal 0
+Block Dust 0
 <MOVE DATA>
 
 False
@@ -320,8 +879,60 @@ event-follow|follow-1
 
 0
 
+[-3;0;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[-4;0;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[3;-1;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[2;-1;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
 [1;-1;-2]
-Block Normal 0
+Block Dust 0
 <MOVE DATA>
 
 False
@@ -334,7 +945,7 @@ False
 0
 
 [0;-1;-2]
-Block Normal 0
+Block Dust 0
 <MOVE DATA>
 
 False
@@ -347,7 +958,7 @@ False
 0
 
 [-1;-1;-2]
-Block Normal 0
+Block Dust 0
 <MOVE DATA>
 
 False
@@ -373,8 +984,60 @@ event-follow|follow-1
 
 0
 
+[-3;-1;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[-4;-1;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[3;-2;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[2;-2;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
 [1;-2;-2]
-Block Normal 0
+Block Dust 0
 <MOVE DATA>
 
 False
@@ -387,7 +1050,7 @@ False
 0
 
 [0;-2;-2]
-Block Normal 0
+Block Dust 0
 <MOVE DATA>
 
 False
@@ -400,7 +1063,7 @@ False
 0
 
 [-1;-2;-2]
-Block Normal 0
+Block Dust 0
 <MOVE DATA>
 
 False
@@ -413,7 +1076,59 @@ False
 0
 
 [-2;-2;-2]
-Block Move 0
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[-3;-2;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[-4;-2;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[3;-3;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[2;-3;-2]
+Block Dust 0
 <MOVE DATA>
 
 False
@@ -426,7 +1141,7 @@ False
 0
 
 [1;-3;-2]
-Block Normal 0
+Block Dust 0
 <MOVE DATA>
 
 False
@@ -439,7 +1154,7 @@ False
 0
 
 [0;-3;-2]
-Block Normal 0
+Block Dust 0
 <MOVE DATA>
 
 False
@@ -452,7 +1167,7 @@ False
 0
 
 [-1;-3;-2]
-Block Normal 0
+Block Dust 0
 <MOVE DATA>
 
 False
@@ -465,7 +1180,59 @@ False
 0
 
 [-2;-3;-2]
-Block Normal 0
+Block Slow 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[-3;-3;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[-4;-3;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[3;-4;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[2;-4;-2]
+Block Dust 0
 <MOVE DATA>
 
 False
@@ -484,6 +1251,253 @@ turn-object
 True
 1
 2|2
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[-2;-4;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[-3;-4;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[-4;-4;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[3;-5;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[2;-5;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[1;-5;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[0;-5;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[-1;-5;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[-2;-5;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[-3;-5;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[-4;-5;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[3;-6;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[2;-6;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[1;-6;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[0;-6;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[-1;-6;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[-2;-6;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[-3;-6;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[-4;-6;-2]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
 <EVENT DATA>
 
 0
