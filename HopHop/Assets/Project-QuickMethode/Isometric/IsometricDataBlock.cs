@@ -19,6 +19,7 @@ public class IsoDataBlock
 public class IsoDataBlockSingle
 {
     public IsoDataBlockMove MoveData = new IsoDataBlockMove();
+    public IsoDataBlockAction ActionData = new IsoDataBlockAction();
     public IsoDataBlockEvent EventData = new IsoDataBlockEvent();
     public IsoDataBlockTeleport TeleportData = new IsoDataBlockTeleport();
 }

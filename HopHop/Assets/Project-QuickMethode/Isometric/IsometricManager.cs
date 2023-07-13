@@ -758,6 +758,13 @@ public class IsometricManager : MonoBehaviour
             for (int DataIndex = 0; DataIndex < WorldBlocks[BlockIndex].Data.MoveData.Data.Count; DataIndex++)
                 FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.MoveData.Data[DataIndex].Encypt);
 
+            FileIO.SetWriteAdd("<ACTION DATA>");
+            FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.ActionData.Key);
+            FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.ActionData.Loop);
+            FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.ActionData.Data.Count);
+            for (int DataIndex = 0; DataIndex < WorldBlocks[BlockIndex].Data.ActionData.Data.Count; DataIndex++)
+                FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.ActionData.Data[DataIndex].Encypt);
+
             FileIO.SetWriteAdd("<EVENT DATA>");
             FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.EventData.Key);
             FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.EventData.Data.Count);
@@ -819,6 +826,15 @@ public class IsometricManager : MonoBehaviour
             int MoveCount = FileIO.GetReadAutoInt();
             for (int DataIndex = 0; DataIndex < MoveCount; DataIndex++)
                 Data.MoveData.SetDataAdd(IsoDataBlockMoveSingle.GetDencypt(FileIO.GetReadAutoString()));
+
+            FileIO.GetReadAuto();
+            Data.ActionData = new IsoDataBlockAction();
+            Data.ActionData.Key = FileIO.GetReadAutoString();
+            Data.ActionData.Loop = FileIO.GetReadAutoBool();
+            Data.ActionData.SetDataNew();
+            int ActionCount = FileIO.GetReadAutoInt();
+            for (int DataIndex = 0; DataIndex < ActionCount; DataIndex++)
+                Data.ActionData.SetDataAdd(IsoDataBlockActionSingle.GetDencypt(FileIO.GetReadAutoString()));
 
             FileIO.GetReadAuto();
             Data.EventData = new IsoDataBlockEvent();

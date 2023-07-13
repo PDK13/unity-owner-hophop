@@ -10,9 +10,10 @@ public class IsoDataBlockMove
     public bool Loop = false;
     public List<IsoDir> Dir = new List<IsoDir>();
     public List<int> Length = new List<int>();
-    /*[HideInInspector]*/
+
+    [HideInInspector]
     public int Index = 0;
-    /*[HideInInspector]*/
+    [HideInInspector]
     public int Quantity = 1;
 
     public List<IsoDataBlockMoveSingle> Data

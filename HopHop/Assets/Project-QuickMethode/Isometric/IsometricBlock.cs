@@ -27,6 +27,7 @@ public class IsometricBlock : MonoBehaviour
 
     [Header("Data")]
     [SerializeField] private IsoDataBlockMove MoveData = new IsoDataBlockMove();
+    [SerializeField] private IsoDataBlockAction ActionData = new IsoDataBlockAction();
     [SerializeField] private IsoDataBlockEvent EventData = new IsoDataBlockEvent();
     [SerializeField] private IsoDataBlockTeleport TeleportData = new IsoDataBlockTeleport();
 
@@ -83,6 +84,7 @@ public class IsometricBlock : MonoBehaviour
         {
             IsoDataBlockSingle Data = new IsoDataBlockSingle();
             Data.MoveData = MoveData;
+            Data.ActionData = ActionData;
             Data.EventData = EventData;
             Data.TeleportData = TeleportData;
             return Data;
@@ -90,6 +92,7 @@ public class IsometricBlock : MonoBehaviour
         set
         {
             MoveData = value.MoveData;
+            ActionData = value.ActionData;
             EventData = value.EventData;
             TeleportData = value.TeleportData;
         }
