@@ -64,7 +64,15 @@ public class IsometricBlock : MonoBehaviour
 
     public List<string> Tag => m_tag;
 
-    public IsometricManager WorldManager { get => m_worldManager; set => m_worldManager = value; }
+    public IsometricManager WorldManager 
+    { 
+        get => m_worldManager;
+        set
+        {
+            m_worldManager = value;
+            m_scene = value.Scene;
+        }
+    }
 
     #endregion
 

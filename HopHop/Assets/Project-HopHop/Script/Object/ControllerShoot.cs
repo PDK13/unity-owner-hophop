@@ -1,10 +1,13 @@
 using DG.Tweening;
+using QuickMethode;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ControllerShoot : MonoBehaviour
 {
+    [SerializeField] private ControllerBullet m_bullet;
+
     private bool m_turnControl = false;
     private string m_turnCommand;
     private int m_turnTime = 0;
@@ -13,7 +16,6 @@ public class ControllerShoot : MonoBehaviour
     private bool TurnLock => m_turnTimeCurrent == m_turnTime && m_turnTime != 0;
 
     private IsoDataBlockAction m_dataAction;
-    private string m_dataFollow;
 
     private ControllerBody m_body;
     private IsometricBlock m_block;
@@ -27,7 +29,6 @@ public class ControllerShoot : MonoBehaviour
     private void Start()
     {
         m_dataAction = m_block.Data.ActionData;
-        m_dataFollow = m_block.Data.EventData.DataExist ? m_block.Data.EventData.Data.Find(t => t.Name == ConstGameKey.EVENT_FOLLOW).Value : null;
 
         if (m_dataAction != null)
         {
@@ -36,11 +37,6 @@ public class ControllerShoot : MonoBehaviour
                 GameTurn.SetInit(TypeTurn.Object);
                 GameTurn.onTurn += SetControlTurn;
                 GameTurn.onEnd += SetControlEnd;
-            }
-            else
-            if (m_dataFollow != null)
-            {
-                GameEvent.onFollow += SetControlFollow;
             }
         }
     }
@@ -54,11 +50,6 @@ public class ControllerShoot : MonoBehaviour
                 GameTurn.SetRemove(TypeTurn.Object);
                 GameTurn.onTurn -= SetControlTurn;
                 GameTurn.onEnd -= SetControlEnd;
-            }
-            else
-            if (m_dataFollow != null)
-            {
-                GameEvent.onFollow -= SetControlFollow;
             }
         }
     }
@@ -102,7 +93,24 @@ public class ControllerShoot : MonoBehaviour
         //
         m_turnTimeCurrent++;
         //
-        //???
+        List<string> Command = QEncypt.GetDencyptString('-', m_turnCommand);
+        switch (Command[0])
+        {
+            case ConstGameKey.COMMAND_WAIT:
+                //"wait"
+                GameTurn.SetEndTurn(TypeTurn.Object); //Follow Object (!)
+                break;
+            case ConstGameKey.COMMAND_SHOOT:
+                //"shoot-[1]-[2]-[3]"
+                IsoVector DirSpawm = IsoVector.GetDirValue(Command[1]);
+                IsoVector DirMove = IsoVector.GetDirValue(Command[2]);
+                int Speed = int.Parse(Command[3]);
+                SetShoot(DirSpawm, DirMove, Speed);
+                //
+                GameTurn.SetEndMove(TypeTurn.Object); //Follow Object (!)
+                break;
+        }
+        //
         //
         if (TurnLock)
         {
@@ -115,12 +123,12 @@ public class ControllerShoot : MonoBehaviour
         }
     }
 
-    private void SetControlFollow(string KeyFollow, IsoVector Dir)
+    private void SetShoot(IsoVector DirSpawm, IsoVector DirMove, int Speed)
     {
-        if (KeyFollow != m_dataFollow)
-            return;
-        //
-        //???
-        //
-    }
+        GameObject Bullet = QGameObject.SetCreate(m_bullet.gameObject, this.transform.parent);
+        IsometricBlock BulletBlock = Bullet.GetComponent<IsometricBlock>();
+        BulletBlock.WorldManager = m_block.WorldManager;
+        BulletBlock.Pos = m_block.Pos + DirSpawm;
+        Bullet.GetComponent<ControllerBullet>().SetInit(DirMove, Speed);
+    } //Shoot Bullet!!
 }

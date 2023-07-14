@@ -1552,6 +1552,8 @@ namespace QuickMethode
             return Name.Replace("(Clone)", "");
         }
 
+#if UNITY_EDITOR
+
         public static bool GetCheckPrefab(GameObject From)
         {
             //Check if GameObject is a Prefab?!
@@ -1561,6 +1563,8 @@ namespace QuickMethode
 	        return PrefabUtility.GetPrefabType(go) != PrefabType.None;
 #endif
         }
+
+#endif
 
 #if UNITY_EDITOR
 

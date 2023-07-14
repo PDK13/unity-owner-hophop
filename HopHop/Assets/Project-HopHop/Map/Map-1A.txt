@@ -1,7 +1,7 @@
 [WORLD NAME]
 ...
 [WORLD BLOCK]
-162
+161
 
 [0;0;1]
 Character Angle
@@ -882,27 +882,6 @@ False
 
 False
 0
-<EVENT DATA>
-
-0
-<TELEPORT DATA>
-
-0
-
-[-5;-3;-1]
-Character Fish
-<MOVE DATA>
-
-False
-0
-<ACTION DATA>
-turn-object
-True
-4
-1|shoot-L-L-1
-1|wait
-1|shoot-L-L-2
-1|wait
 <EVENT DATA>
 
 0

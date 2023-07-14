@@ -38,7 +38,7 @@ public class GameTurn
         TypeTurn.Gravity,
     };
 
-    public static void SetInit(TypeTurn Turn)
+    public static void SetInit(TypeTurn Turn, bool EndTurn = false)
     {
         //
         for (int i = 0; i < m_turnQueue.Count; i++)

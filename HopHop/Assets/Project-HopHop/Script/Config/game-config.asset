@@ -16,6 +16,7 @@ MonoBehaviour:
   - Name: Normal
     Level:
     - {fileID: 4900000, guid: aab0aa5e40d0d0b4bac8e5f7fd77ea3a, type: 3}
+    - {fileID: 4900000, guid: 77407970419d5db4f834f6424fc978e3, type: 3}
   m_character:
   - m_skin:
     - {fileID: 9100000, guid: 27c4e6e3c49f36842a26726b301de8e2, type: 2}

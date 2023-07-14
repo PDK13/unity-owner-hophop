@@ -127,7 +127,67 @@ public struct IsoVector
         return None;
     }
 
-    public static string GetDirEncypt(IsoDir Dir)
+    public static IsoDir GetDirEnum(string Data)
+    {
+        switch (Data)
+        {
+            case "U":
+            case "u":
+                return IsoDir.Up;
+            case "D":
+            case "d":
+                return IsoDir.Down;
+            case "L":
+            case "l":
+                return IsoDir.Left;
+            case "R":
+            case "r":
+                return IsoDir.Right;
+            case "T":
+            case "t":
+                return IsoDir.Top;
+            case "B":
+            case "b":
+                return IsoDir.Bot;
+            case "N":
+            case "n":
+                return IsoDir.None;
+        }
+        Debug.LogError("[Caution] Data not correct!!");
+        return IsoDir.None;
+    }
+
+    public static IsoVector GetDirValue(string Data)
+    {
+        switch (Data)
+        {
+            case "U":
+            case "u":
+                return Up;
+            case "D":
+            case "d":
+                return Down;
+            case "L":
+            case "l":
+                return Left;
+            case "R":
+            case "r":
+                return Right;
+            case "T":
+            case "t":
+                return Top;
+            case "B":
+            case "b":
+                return Bot;
+            case "N":
+            case "n":
+                return None;
+        }
+        Debug.LogError("[Caution] Data not correct!!");
+        return None;
+    }
+
+    public static string GetEncyptDir(IsoDir Dir)
     {
         switch (Dir)
         {
@@ -147,24 +207,27 @@ public struct IsoVector
         return "N";
     }
 
-    public static IsoDir GetDirDeEncypt(string Data)
+    public static string GetEncyptDir(IsoVector Dir)
     {
-        switch (Data)
-        {
-            case "U":
-                return IsoDir.Up;
-            case "D":
-                return IsoDir.Down;
-            case "L":
-                return IsoDir.Left;
-            case "R":
-                return IsoDir.Right;
-            case "T":
-                return IsoDir.Top;
-            case "B":
-                return IsoDir.Bot;
-        }
-        return IsoDir.None;
+        if (Dir == Up)
+            return "U";
+
+        if (Dir == Down)
+            return "U";
+
+        if (Dir == Left)
+            return "U";
+
+        if (Dir == Right)
+            return "U";
+
+        if (Dir == Top)
+            return "U";
+
+        if (Dir == Bot)
+            return "U";
+
+        return "N";
     }
 
     #endregion
