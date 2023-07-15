@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class ControllerBullet : MonoBehaviour
 {
+    private const string ANIM_BLOW = "Blow";
+
     private int m_speed = 1;
 
     private bool m_turnControl = false;
@@ -14,11 +16,13 @@ public class ControllerBullet : MonoBehaviour
 
     private bool TurnLock => m_turnLengthCurrent == m_turnLength && m_turnLength != 0;
 
+    private Animator m_animator;
     private ControllerBody m_body;
     private IsometricBlock m_block;
 
     public void SetInit(IsoVector Dir, int Speed)
     {
+        m_animator = GetComponent<Animator>();
         m_body = GetComponent<ControllerBody>();
         m_block = GetComponent<IsometricBlock>();
         //
@@ -126,12 +130,26 @@ public class ControllerBullet : MonoBehaviour
         GameTurn.SetEndTurn(TypeTurn.Object); //Follow Object (!)
     }
 
+    #region Destroy
+
     private IEnumerator ISetDestroy()
     {
-        //Do animation destroy!!
+        SetControlAnimation(ANIM_BLOW);
 
         yield return new WaitForSeconds(GameManager.TimeMove * 1);
 
         Destroy(this.gameObject);
     } //Destroy this!!
+
+    #endregion
+
+    #region Animation
+
+    private void SetControlAnimation(string Name)
+    {
+        m_animator.SetTrigger(Name);
+        //m_animator.ResetTrigger(Name);
+    }
+
+    #endregion
 }
