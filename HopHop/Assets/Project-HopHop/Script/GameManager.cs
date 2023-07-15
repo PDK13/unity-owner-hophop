@@ -53,7 +53,6 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(3f);
 
-        Debug.Log("[Debug] Ok let's it fuking start!!");
         GameTurn.SetStart();
     }
 }

@@ -146,7 +146,6 @@ public class ControllerObject : MonoBehaviour
                 m_dataMove.Index = 0;
             }
             else
-                m_dataMove.Index += m_dataMove.Quantity;
             if (m_dataMove.Type == IsoDataBlock.DataBlockType.Revert && (m_dataMove.Index < 0 || m_dataMove.Index > m_dataMove.DataCount - 1))
             {
                 m_dataMove.Quantity *= -1;

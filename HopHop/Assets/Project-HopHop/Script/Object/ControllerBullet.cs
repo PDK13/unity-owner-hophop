@@ -84,15 +84,21 @@ public class ControllerBullet : MonoBehaviour
         IsometricBlock Block = m_block.WorldManager.GetWorldBlockCurrent(m_block.Pos + m_turnDir);
         if (Block != null)
         {
+            GameTurn.SetRemove(TypeTurn.Object, this.gameObject);
+            GameTurn.onTurn -= SetControlTurn;
+            GameTurn.onEnd -= SetControlEnd;
+            //
             //Can't not continue move ahead because of burden, so destroy this!!
             if (Block.GetComponent<ControllerPlayer>())
             {
                 //If hit is Player!!
             }
             //
+            SetControlAnimation(ANIM_BLOW);
+            //
             GameTurn.SetEndTurn(TypeTurn.Object, this.gameObject); //Follow Object (!)
             //
-            StartCoroutine(ISetDestroy()); //Destroy this!!
+            Destroy(this.gameObject, GameManager.TimeMove * 1);
             //
             return;
             //Destroy this, instead of continue move ahead!!
@@ -129,19 +135,6 @@ public class ControllerBullet : MonoBehaviour
 
         GameTurn.SetEndTurn(TypeTurn.Object, this.gameObject); //Follow Object (!)
     }
-
-    #region Destroy
-
-    private IEnumerator ISetDestroy()
-    {
-        SetControlAnimation(ANIM_BLOW);
-
-        yield return new WaitForSeconds(GameManager.TimeMove * 1);
-
-        Destroy(this.gameObject);
-    } //Destroy this!!
-
-    #endregion
 
     #region Animation
 

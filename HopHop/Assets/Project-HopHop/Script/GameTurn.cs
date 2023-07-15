@@ -50,8 +50,6 @@ public class GameTurn
 
     public static void SetInit(TypeTurn Turn, GameObject Unit)
     {
-        Debug.LogFormat("[Debug] {0}: Init: {1}", m_turnPass, Turn.ToString());
-        //
         for (int i = 0; i < m_turnQueue.Count; i++)
         {
             if (m_turnQueue[i].Turn != Turn)
@@ -60,16 +58,22 @@ public class GameTurn
             if (m_turnQueue[i].Unit.Contains(Unit))
                 return;
             //
+            Debug.LogFormat("[Debug] {0}: Init: {1}", m_turnPass, Turn.ToString());
+            //
             m_turnQueue[i].Count++;
             m_turnQueue[i].Unit.Add(Unit);
             return;
         }
+        //
+        Debug.LogFormat("[Debug] {0}: Init: {1}", m_turnPass, Turn.ToString());
         //
         m_turnQueue.Add(new TurnSingle(Turn, Unit));
     } //Init on Start!!
 
     public static void SetStart()
     {
+        Debug.Log("[Debug] Turn Start!!");
+        //
         m_turnPass = 0;
         m_turnQueue = m_turnQueue.OrderBy(t => (int)t.Turn).ToList();
         SetCurrent();
@@ -77,8 +81,6 @@ public class GameTurn
 
     public static void SetRemove(TypeTurn Turn, GameObject Unit)
     {
-        Debug.LogFormat("{0}: Remove: {1}", m_turnPass, Turn);
-        //
         for (int i = 0; i < m_turnQueue.Count; i++)
         {
             if (m_turnQueue[i].Turn != Turn)
@@ -86,6 +88,8 @@ public class GameTurn
             //
             if (!m_turnQueue[i].Unit.Contains(Unit))
                 return;
+            //
+            Debug.LogFormat("[Debug] {0}: Remove: {1}", m_turnPass, Turn);
             //
             m_turnQueue[i].EndRemoveCount++;
             break;
@@ -138,7 +142,7 @@ public class GameTurn
             //
             if (m_turnCurrent.EndRemoveCount > 0)
             {
-                Debug.LogFormat("{0}: Remove Final: {1}", m_turnPass, Turn);
+                Debug.LogFormat("[Debug] {0}: Remove Final: {1}", m_turnPass, Turn);
                 m_turnCurrent.Count -= m_turnCurrent.EndRemoveCount;
                 m_turnCurrent.EndRemoveCount = 0;
             }
@@ -151,7 +155,7 @@ public class GameTurn
     {
         m_turnCurrent = m_turnQueue[0];
         //
-        Debug.LogWarning("");
+        Debug.LogWarningFormat("[Debug] Turn {0} Start!!", m_turnPass);
         Debug.LogFormat("[Debug] {0}: Current: {1} | {2} | Moved: {3} | Ended: {4}",
             m_turnPass,
             m_turnCurrent.Turn,

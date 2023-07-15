@@ -112,6 +112,7 @@ public class ControllerShoot : MonoBehaviour
         //
         if (TurnLock)
         {
+            m_dataAction.Index += m_dataAction.Quantity;
             if (m_dataAction.Type == IsoDataBlock.DataBlockType.Forward && m_dataAction.Index > m_dataAction.DataCount - 1)
             {
                 //End Here!!
@@ -122,7 +123,6 @@ public class ControllerShoot : MonoBehaviour
                 m_dataAction.Index = 0;
             }
             else
-            m_dataAction.Index += m_dataAction.Quantity;
             if (m_dataAction.Type == IsoDataBlock.DataBlockType.Revert && (m_dataAction.Index < 0 || m_dataAction.Index > m_dataAction.DataCount - 1))
             {
                 m_dataAction.Quantity *= -1;
