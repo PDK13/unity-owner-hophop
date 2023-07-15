@@ -98,7 +98,6 @@ public class ControllerShoot : MonoBehaviour
         {
             case ConstGameKey.COMMAND_WAIT:
                 //"wait"
-                GameTurn.SetEndTurn(TypeTurn.Object); //Follow Object (!)
                 break;
             case ConstGameKey.COMMAND_SHOOT:
                 //"shoot-[1]-[2]-[3]"
@@ -106,11 +105,10 @@ public class ControllerShoot : MonoBehaviour
                 IsoVector DirMove = IsoVector.GetDirValue(Command[2]);
                 int Speed = int.Parse(Command[3]);
                 SetShoot(DirSpawm, DirMove, Speed);
-                //
-                GameTurn.SetEndMove(TypeTurn.Object); //Follow Object (!)
                 break;
         }
         //
+        StartCoroutine(ISetDelay());
         //
         if (TurnLock)
         {
@@ -121,6 +119,13 @@ public class ControllerShoot : MonoBehaviour
                 m_dataAction.Index += m_dataAction.Quantity;
             }
         }
+    }
+
+    private IEnumerator ISetDelay()
+    {
+        yield return new WaitForSeconds(GameManager.TimeMove * 1);
+
+        GameTurn.SetEndTurn(TypeTurn.Object); //Follow Object (!)
     }
 
     private void SetShoot(IsoVector DirSpawm, IsoVector DirMove, int Speed)

@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88b51ca1839d85a47a182808b3636847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_name: Object Bubble 0
+  m_name: 
   m_free: 0
   m_tag:
   - Trap
@@ -182,3 +182,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eebada57649df5419e3586b9144282f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_blow: {fileID: 0}

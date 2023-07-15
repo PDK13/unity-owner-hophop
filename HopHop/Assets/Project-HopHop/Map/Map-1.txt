@@ -1,7 +1,7 @@
 [WORLD NAME]
 ...
 [WORLD BLOCK]
-162
+164
 
 [0;0;1]
 Character Angle
@@ -481,6 +481,23 @@ False
 
 0
 
+[-5;2;-1]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<ACTION DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
 [2;1;-1]
 Block Dust 0
 <MOVE DATA>
@@ -901,7 +918,7 @@ True
 4
 1|shoot-L-L-1
 1|wait
-1|shoot-L-L-2
+1|shoot-R-R-1
 1|wait
 <EVENT DATA>
 
@@ -1268,6 +1285,23 @@ False
 0
 
 [-2;-8;-1]
+Block Dust 0
+<MOVE DATA>
+
+False
+0
+<ACTION DATA>
+
+False
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+
+[-5;-8;-1]
 Block Dust 0
 <MOVE DATA>
 

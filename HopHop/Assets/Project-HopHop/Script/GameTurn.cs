@@ -9,6 +9,10 @@ public class GameTurn
     public static Action<TypeTurn> onTurn;
     public static Action<TypeTurn> onEnd;
 
+    private static int m_turnPass = 0;
+
+    public static int TurnPass => m_turnPass;
+
     public class TurnSingle
     {
         public TypeTurn Turn = TypeTurn.None;
@@ -20,8 +24,8 @@ public class GameTurn
 
         public bool EndTurnRemove = false; //Remove this Turn after End Turn!!
 
-        public bool EndMove => EndMoveCount == Count - EndTurnCount; //End Turn also mean End Move!!
-        public bool EndTurn => EndTurnCount == Count;
+        public bool EndMoveCheck => EndMoveCount == Count - EndTurnCount; //End Turn also mean End Move!!
+        public bool EndTurnCheck => EndTurnCount == Count;
 
         public TurnSingle (TypeTurn Turn)
         {
@@ -40,6 +44,7 @@ public class GameTurn
 
     public static void SetInit(TypeTurn Turn, bool EndTurn = false)
     {
+        Debug.LogFormat("[Debug] {0}: Init: {1}", m_turnPass, Turn.ToString());
         //
         for (int i = 0; i < m_turnQueue.Count; i++)
         {
@@ -55,12 +60,14 @@ public class GameTurn
 
     public static void SetStart()
     {
+        m_turnPass = 0;
         m_turnQueue = m_turnQueue.OrderBy(t => (int)t.Turn).ToList();
         SetCurrent();
     }
 
     public static void SetRemove(TypeTurn Turn)
     {
+        Debug.LogFormat("{0}: Remove: {1}", m_turnPass, Turn);
         for (int i = 0; i < m_turnQueue.Count; i++)
         {
             if (m_turnQueue[i].Turn != Turn)
@@ -75,25 +82,29 @@ public class GameTurn
         if (m_turnCurrent.Turn != Turn)
             return;
         //
+        Debug.LogFormat("[Debug] {0}: End Move: {1}", m_turnPass, Turn.ToString());
+        //
         m_turnCurrent.EndMoveCount++;
         //
-        if (m_turnCurrent.EndMove)
+        if (m_turnCurrent.EndMoveCheck)
         {
             m_turnCurrent.EndMoveCount = 0;
             //
-            if (!m_turnCurrent.EndTurn)
+            if (!m_turnCurrent.EndTurnCheck)
                 SetCurrent();
         }
-    }
+    } //End!!
 
     public static void SetEndTurn(TypeTurn Turn)
     {
         if (m_turnCurrent.Turn != Turn)
             return;
         //
+        Debug.LogFormat("[Debug] {0}: End Turn: {1}", m_turnPass, Turn.ToString());
+        //
         m_turnCurrent.EndTurnCount++;
         //
-        if (m_turnCurrent.EndTurn)
+        if (m_turnCurrent.EndTurnCheck)
         {
             onEnd?.Invoke(Turn);
             //
@@ -104,28 +115,40 @@ public class GameTurn
             if (!m_turnCurrent.EndTurnRemove)
                 m_turnQueue.Add(m_turnCurrent);
             //
-            m_turnCurrent.Count -= m_turnCurrent.EndRemoveCount;
-            m_turnCurrent.EndRemoveCount = 0;
+            if (m_turnCurrent.EndRemoveCount > 0)
+            {
+                Debug.LogFormat("{0}: Remove Final: {1}", m_turnPass, Turn);
+                m_turnCurrent.Count -= m_turnCurrent.EndRemoveCount;
+                m_turnCurrent.EndRemoveCount = 0;
+            }
             //
             SetCurrent();
         }
-    }
+    } //End!!
 
     private static void SetCurrent()
     {
         m_turnCurrent = m_turnQueue[0];
+        //
+        Debug.LogWarning("");
+        Debug.LogFormat("[Debug] {0}: Current: {1} | {2} | Moved: {3} | Ended: {4}",
+            m_turnPass,
+            m_turnCurrent.Turn,
+            m_turnCurrent.Count,
+            m_turnCurrent.EndMoveCount,
+            m_turnCurrent.EndTurnCount);
+        //
         onTurn?.Invoke(m_turnCurrent.Turn);
-
-        Debug.Log("[Turn Current]");
-        for (int i = 0; i < m_turnQueue.Count; i++)
-            Debug.Log(m_turnQueue[i].Turn + "(" + m_turnQueue[i].Count + ")");
-        Debug.Log("--------------");
+        //
+        
     } //Force Turn Next!!
 
     public static void SetAdd(TypeTurn Turn, int After = 0)
     {
         if (After < 0)
             return;
+        //
+        Debug.LogFormat("[Debug] {0}: Add {1} | {2}", m_turnPass, Turn.ToString(), After);
         //
         if (After > m_turnQueue.Count - 1)
         {

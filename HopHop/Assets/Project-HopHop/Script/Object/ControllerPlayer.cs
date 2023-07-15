@@ -131,7 +131,6 @@ public class ControllerPlayer : MonoBehaviour
             {
                 SetControlAnimation(ANIM_IDLE);
                 //
-                //GameTurn.SetEndMove(TypeTurn.Player); //Follow Player (!)
                 GameTurn.SetEndTurn(TypeTurn.Player); //Follow Player (!)
             });
         //

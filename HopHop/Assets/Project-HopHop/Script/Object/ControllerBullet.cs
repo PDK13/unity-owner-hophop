@@ -29,7 +29,7 @@ public class ControllerBullet : MonoBehaviour
         m_speed = Speed;
         m_turnDir = Dir;
         //
-        GameTurn.SetEndTurn(TypeTurn.Object);
+        StartCoroutine(ISetDelay());
     }
 
     private void OnDestroy()
@@ -86,11 +86,15 @@ public class ControllerBullet : MonoBehaviour
                 //If hit is Player!!
             }
             //
+            GameTurn.SetEndTurn(TypeTurn.Object); //Follow Object (!)
+            //
             StartCoroutine(ISetDestroy()); //Destroy this!!
             //
             return;
             //Destroy this, instead of continue move ahead!!
         }
+        //
+        StartCoroutine(ISetDelay());
         //
         Vector3 MoveDir = IsoVector.GetVector(m_turnDir);
         Vector3 MoveStart = IsoVector.GetVector(m_block.Pos);
@@ -109,20 +113,24 @@ public class ControllerBullet : MonoBehaviour
             {
                 //End Animation!!
                 if (TurnLock)
-                {
                     GameTurn.SetEndTurn(TypeTurn.Object); //Follow Object (!)
-                    m_turnDir = IsoVector.None;
-                }
                 else
                     GameTurn.SetEndMove(TypeTurn.Object); //Follow Object (!)
             });
+    }
+
+    private IEnumerator ISetDelay()
+    {
+        yield return new WaitForSeconds(GameManager.TimeMove * 1);
+
+        GameTurn.SetEndTurn(TypeTurn.Object); //Follow Object (!)
     }
 
     private IEnumerator ISetDestroy()
     {
         //Do animation destroy!!
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(GameManager.TimeMove * 1);
 
         Destroy(this.gameObject);
     } //Destroy this!!

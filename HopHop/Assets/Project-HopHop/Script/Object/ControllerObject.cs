@@ -120,8 +120,8 @@ public class ControllerObject : MonoBehaviour
                 //End Animation!!
                 if (TurnLock)
                 {
-                    GameTurn.SetEndTurn(TypeTurn.Object); //Follow Object (!)
                     m_turnDir = IsoVector.None;
+                    GameTurn.SetEndTurn(TypeTurn.Object); //Follow Object (!)
                 }
                 else
                     GameTurn.SetEndMove(TypeTurn.Object); //Follow Object (!)
