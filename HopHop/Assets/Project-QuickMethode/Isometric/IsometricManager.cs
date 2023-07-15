@@ -753,14 +753,14 @@ public class IsometricManager : MonoBehaviour
 
             FileIO.SetWriteAdd("<MOVE DATA>");
             FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.MoveData.Key);
-            FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.MoveData.Loop);
+            FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.MoveData.Type);
             FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.MoveData.Data.Count);
             for (int DataIndex = 0; DataIndex < WorldBlocks[BlockIndex].Data.MoveData.Data.Count; DataIndex++)
                 FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.MoveData.Data[DataIndex].Encypt);
 
             FileIO.SetWriteAdd("<ACTION DATA>");
             FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.ActionData.Key);
-            FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.ActionData.Loop);
+            FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.ActionData.Type);
             FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.ActionData.Data.Count);
             for (int DataIndex = 0; DataIndex < WorldBlocks[BlockIndex].Data.ActionData.Data.Count; DataIndex++)
                 FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.ActionData.Data[DataIndex].Encypt);
@@ -821,7 +821,7 @@ public class IsometricManager : MonoBehaviour
             FileIO.GetReadAuto();
             Data.MoveData = new IsoDataBlockMove();
             Data.MoveData.Key = FileIO.GetReadAutoString();
-            Data.MoveData.Loop = FileIO.GetReadAutoBool();
+            Data.MoveData.Type = FileIO.GetReadAutoEnum<IsoDataBlock.DataBlockType>();
             Data.MoveData.SetDataNew();
             int MoveCount = FileIO.GetReadAutoInt();
             for (int DataIndex = 0; DataIndex < MoveCount; DataIndex++)
@@ -830,7 +830,7 @@ public class IsometricManager : MonoBehaviour
             FileIO.GetReadAuto();
             Data.ActionData = new IsoDataBlockAction();
             Data.ActionData.Key = FileIO.GetReadAutoString();
-            Data.ActionData.Loop = FileIO.GetReadAutoBool();
+            Data.ActionData.Type = FileIO.GetReadAutoEnum<IsoDataBlock.DataBlockType>();
             Data.ActionData.SetDataNew();
             int ActionCount = FileIO.GetReadAutoInt();
             for (int DataIndex = 0; DataIndex < ActionCount; DataIndex++)

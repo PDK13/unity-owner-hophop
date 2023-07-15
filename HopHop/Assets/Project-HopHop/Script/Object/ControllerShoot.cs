@@ -34,7 +34,7 @@ public class ControllerShoot : MonoBehaviour
         {
             if (m_dataAction.DataExist)
             {
-                GameTurn.SetInit(TypeTurn.Object);
+                GameTurn.SetInit(TypeTurn.Object, this.gameObject);
                 GameTurn.onTurn += SetControlTurn;
                 GameTurn.onEnd += SetControlEnd;
             }
@@ -47,7 +47,7 @@ public class ControllerShoot : MonoBehaviour
         {
             if (m_dataAction.DataExist)
             {
-                GameTurn.SetRemove(TypeTurn.Object);
+                GameTurn.SetRemove(TypeTurn.Object, this.gameObject);
                 GameTurn.onTurn -= SetControlTurn;
                 GameTurn.onEnd -= SetControlEnd;
             }
@@ -112,8 +112,18 @@ public class ControllerShoot : MonoBehaviour
         //
         if (TurnLock)
         {
+            if (m_dataAction.Type == IsoDataBlock.DataBlockType.Forward && m_dataAction.Index > m_dataAction.DataCount - 1)
+            {
+                //End Here!!
+            }
+            else
+            if (m_dataAction.Type == IsoDataBlock.DataBlockType.Loop && m_dataAction.Index > m_dataAction.DataCount - 1)
+            {
+                m_dataAction.Index = 0;
+            }
+            else
             m_dataAction.Index += m_dataAction.Quantity;
-            if (m_dataAction.Loop && (m_dataAction.Index < 0 || m_dataAction.Index > m_dataAction.DataCount - 1))
+            if (m_dataAction.Type == IsoDataBlock.DataBlockType.Revert && (m_dataAction.Index < 0 || m_dataAction.Index > m_dataAction.DataCount - 1))
             {
                 m_dataAction.Quantity *= -1;
                 m_dataAction.Index += m_dataAction.Quantity;
@@ -125,7 +135,7 @@ public class ControllerShoot : MonoBehaviour
     {
         yield return new WaitForSeconds(GameManager.TimeMove * 1);
 
-        GameTurn.SetEndTurn(TypeTurn.Object); //Follow Object (!)
+        GameTurn.SetEndTurn(TypeTurn.Object, this.gameObject); //Follow Object (!)
     }
 
     private void SetShoot(IsoVector DirSpawm, IsoVector DirMove, int Speed)

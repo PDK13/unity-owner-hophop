@@ -29,13 +29,13 @@ public class ControllerPlayer : MonoBehaviour
 
     private void Start()
     {
-        GameTurn.SetInit(TypeTurn.Player);
+        GameTurn.SetInit(TypeTurn.Player, this.gameObject);
         GameTurn.onTurn += SetControlTurn;
     }
 
     private void OnDestroy()
     {
-        GameTurn.SetRemove(TypeTurn.Player);
+        GameTurn.SetRemove(TypeTurn.Player, this.gameObject);
         GameTurn.onTurn -= SetControlTurn;
     }
 
@@ -79,7 +79,7 @@ public class ControllerPlayer : MonoBehaviour
         if (Dir == IsoVector.None)
         {
             m_turnControl = false;
-            GameTurn.SetEndTurn(TypeTurn.Player); //Follow Player (!)
+            GameTurn.SetEndTurn(TypeTurn.Player, this.gameObject); //Follow Player (!)
             return;
         }
 
@@ -131,7 +131,7 @@ public class ControllerPlayer : MonoBehaviour
             {
                 SetControlAnimation(ANIM_IDLE);
                 //
-                GameTurn.SetEndTurn(TypeTurn.Player); //Follow Player (!)
+                GameTurn.SetEndTurn(TypeTurn.Player, this.gameObject); //Follow Player (!)
             });
         //
     }

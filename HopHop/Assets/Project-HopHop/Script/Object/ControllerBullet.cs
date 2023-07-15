@@ -26,7 +26,7 @@ public class ControllerBullet : MonoBehaviour
         m_body = GetComponent<ControllerBody>();
         m_block = GetComponent<IsometricBlock>();
         //
-        GameTurn.SetInit(TypeTurn.Object);
+        GameTurn.SetInit(TypeTurn.Object, this.gameObject);
         GameTurn.onTurn += SetControlTurn;
         GameTurn.onEnd += SetControlEnd;
         //
@@ -38,7 +38,7 @@ public class ControllerBullet : MonoBehaviour
 
     private void OnDestroy()
     {
-        GameTurn.SetRemove(TypeTurn.Object);
+        GameTurn.SetRemove(TypeTurn.Object, this.gameObject);
         GameTurn.onTurn -= SetControlTurn;
         GameTurn.onEnd -= SetControlEnd;
     }
@@ -90,7 +90,7 @@ public class ControllerBullet : MonoBehaviour
                 //If hit is Player!!
             }
             //
-            GameTurn.SetEndTurn(TypeTurn.Object); //Follow Object (!)
+            GameTurn.SetEndTurn(TypeTurn.Object, this.gameObject); //Follow Object (!)
             //
             StartCoroutine(ISetDestroy()); //Destroy this!!
             //
@@ -117,9 +117,9 @@ public class ControllerBullet : MonoBehaviour
             {
                 //End Animation!!
                 if (TurnLock)
-                    GameTurn.SetEndTurn(TypeTurn.Object); //Follow Object (!)
+                    GameTurn.SetEndTurn(TypeTurn.Object, this.gameObject); //Follow Object (!)
                 else
-                    GameTurn.SetEndMove(TypeTurn.Object); //Follow Object (!)
+                    GameTurn.SetEndMove(TypeTurn.Object, this.gameObject); //Follow Object (!)
             });
     }
 
@@ -127,7 +127,7 @@ public class ControllerBullet : MonoBehaviour
     {
         yield return new WaitForSeconds(GameManager.TimeMove * 1);
 
-        GameTurn.SetEndTurn(TypeTurn.Object); //Follow Object (!)
+        GameTurn.SetEndTurn(TypeTurn.Object, this.gameObject); //Follow Object (!)
     }
 
     #region Destroy

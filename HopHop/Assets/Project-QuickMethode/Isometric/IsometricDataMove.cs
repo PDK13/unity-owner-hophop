@@ -7,7 +7,7 @@ using UnityEngine;
 public class IsoDataBlockMove
 {
     public string Key = "";
-    public bool Loop = false;
+    public IsoDataBlock.DataBlockType Type = IsoDataBlock.DataBlockType.Forward;
     public List<IsoDir> Dir = new List<IsoDir>();
     public List<int> Length = new List<int>();
 

@@ -2006,6 +2006,16 @@ namespace QuickMethode
 
     public class QEnum
     {
+        public static int GetChoice<EnumType>(EnumType Choice)
+        {
+            return (int)Convert.ChangeType(Choice, typeof(int));
+        }
+
+        public static EnumType GetChoice<EnumType>(int Index)
+        {
+            return (EnumType)Enum.ToObject(typeof(EnumType), Index);
+        }
+
         public static List<string> GetListName<EnumType>()
         {
             return Enum.GetNames(typeof(EnumType)).ToList();
@@ -4032,6 +4042,16 @@ namespace QuickMethode
             SetWriteAdd(QEncypt.GetEncyptVector3Int(Key, DataAdd));
         }
 
+        public void SetWriteAdd<EnumType>(EnumType DataAdd)
+        {
+            if (TextWrite.Length != 0)
+            {
+                TextWrite += "\n";
+            }
+
+            TextWrite += QEnum.GetChoice(DataAdd).ToString();
+        }
+
         public string GetWriteString()
         {
             return TextWrite;
@@ -4200,6 +4220,13 @@ namespace QuickMethode
             if (ReadRun >= TextRead.Count - 1) return new Vector3Int();
             ReadRun++;
             return QEncypt.GetDencyptVector3Int(Key, TextRead[ReadRun]);
+        }
+
+        public EnumType GetReadAutoEnum<EnumType>()
+        {
+            if (ReadRun >= TextRead.Count - 1) return QEnum.GetChoice<EnumType>(0);
+            ReadRun++;
+            return QEnum.GetChoice<EnumType>(int.Parse(TextRead[ReadRun]));
         }
 
         public bool GetReadAutoEnd()

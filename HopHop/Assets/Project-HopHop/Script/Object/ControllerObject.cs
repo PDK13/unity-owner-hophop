@@ -33,7 +33,7 @@ public class ControllerObject : MonoBehaviour
         {
             if (m_dataMove.DataExist)
             {
-                GameTurn.SetInit(TypeTurn.Object);
+                GameTurn.SetInit(TypeTurn.Object, this.gameObject);
                 GameTurn.onTurn += SetControlTurn;
                 GameTurn.onEnd += SetControlEnd;
             }
@@ -51,7 +51,7 @@ public class ControllerObject : MonoBehaviour
         {
             if (m_dataMove.DataExist)
             {
-                GameTurn.SetRemove(TypeTurn.Object);
+                GameTurn.SetRemove(TypeTurn.Object, this.gameObject);
                 GameTurn.onTurn -= SetControlTurn;
                 GameTurn.onEnd -= SetControlEnd;
             }
@@ -121,10 +121,10 @@ public class ControllerObject : MonoBehaviour
                 if (TurnLock)
                 {
                     m_turnDir = IsoVector.None;
-                    GameTurn.SetEndTurn(TypeTurn.Object); //Follow Object (!)
+                    GameTurn.SetEndTurn(TypeTurn.Object, this.gameObject); //Follow Object (!)
                 }
                 else
-                    GameTurn.SetEndMove(TypeTurn.Object); //Follow Object (!)
+                    GameTurn.SetEndMove(TypeTurn.Object, this.gameObject); //Follow Object (!)
             });
         //
         GameEvent.SetFollow(m_dataFollow, m_turnDir);
@@ -136,7 +136,18 @@ public class ControllerObject : MonoBehaviour
         if (TurnLock)
         {
             m_dataMove.Index += m_dataMove.Quantity;
-            if (m_dataMove.Loop && (m_dataMove.Index < 0 || m_dataMove.Index > m_dataMove.DataCount - 1))
+            if (m_dataMove.Type == IsoDataBlock.DataBlockType.Forward && m_dataMove.Index > m_dataMove.DataCount - 1)
+            {
+                //End Here!!
+            }
+            else
+            if (m_dataMove.Type == IsoDataBlock.DataBlockType.Loop && m_dataMove.Index > m_dataMove.DataCount - 1)
+            {
+                m_dataMove.Index = 0;
+            }
+            else
+                m_dataMove.Index += m_dataMove.Quantity;
+            if (m_dataMove.Type == IsoDataBlock.DataBlockType.Revert && (m_dataMove.Index < 0 || m_dataMove.Index > m_dataMove.DataCount - 1))
             {
                 m_dataMove.Quantity *= -1;
                 m_dataMove.Index += m_dataMove.Quantity;

@@ -7,11 +7,11 @@
 Character Angle
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -24,11 +24,11 @@ False
 Block Normal 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -41,11 +41,11 @@ False
 Block Normal 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -58,11 +58,11 @@ False
 Block Normal 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -75,11 +75,11 @@ False
 Block Normal 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -92,11 +92,11 @@ False
 Block Normal 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -109,11 +109,11 @@ False
 Block Normal 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -126,13 +126,13 @@ False
 Block Move 1
 <MOVE DATA>
 turn-object
-True
+2
 2
 1|B
 1|B
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -145,11 +145,11 @@ False
 Block Normal 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -162,11 +162,11 @@ False
 Block Normal 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -179,11 +179,11 @@ False
 Block Normal 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -196,11 +196,11 @@ False
 Block Move 1
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -213,11 +213,11 @@ False
 Block Move 1
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -230,11 +230,11 @@ False
 Block Move 1
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -247,11 +247,11 @@ False
 Block Normal 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -264,11 +264,11 @@ False
 Block Normal 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -281,11 +281,11 @@ False
 Block Normal 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -298,11 +298,11 @@ False
 Block Normal 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -315,11 +315,11 @@ False
 Block Normal 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -332,11 +332,11 @@ False
 Block Normal 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -349,11 +349,11 @@ False
 Block Normal 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -366,11 +366,11 @@ False
 Block Normal 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -383,11 +383,11 @@ False
 Block Normal 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -400,11 +400,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -417,11 +417,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -434,11 +434,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -451,11 +451,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -468,11 +468,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -485,11 +485,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -502,11 +502,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -519,11 +519,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -536,11 +536,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -553,11 +553,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -570,11 +570,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -587,11 +587,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -604,11 +604,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -621,11 +621,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -638,11 +638,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -655,11 +655,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -672,11 +672,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -689,11 +689,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -706,11 +706,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -723,11 +723,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -740,11 +740,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -757,11 +757,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -774,11 +774,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -791,11 +791,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -808,11 +808,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -825,11 +825,11 @@ False
 Block Water 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -842,11 +842,11 @@ False
 Block Water 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -859,11 +859,11 @@ False
 Block Water 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -876,11 +876,11 @@ False
 Block Water 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -893,11 +893,11 @@ False
 Block Water 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -910,11 +910,11 @@ False
 Character Fish
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 turn-object
-True
+1
 4
 1|shoot-L-L-1
 1|wait
@@ -931,11 +931,11 @@ True
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -948,11 +948,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -965,11 +965,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -982,11 +982,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -999,11 +999,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1016,11 +1016,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1033,11 +1033,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1050,11 +1050,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1067,11 +1067,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1084,11 +1084,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1101,11 +1101,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1118,11 +1118,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1135,11 +1135,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1152,11 +1152,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1169,11 +1169,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1186,11 +1186,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1203,11 +1203,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1220,11 +1220,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1237,11 +1237,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1254,11 +1254,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1271,11 +1271,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1288,11 +1288,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1305,11 +1305,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1322,11 +1322,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1339,11 +1339,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1356,11 +1356,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1373,11 +1373,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1390,11 +1390,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1407,11 +1407,11 @@ False
 Block Normal 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1424,11 +1424,11 @@ False
 Block Normal 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1441,11 +1441,11 @@ False
 Block Normal 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1458,11 +1458,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1475,11 +1475,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1492,11 +1492,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1509,11 +1509,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1526,11 +1526,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1543,11 +1543,11 @@ False
 Block Normal 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1560,11 +1560,11 @@ False
 Block Normal 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1577,11 +1577,11 @@ False
 Block Normal 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1594,11 +1594,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1611,11 +1611,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1628,11 +1628,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1645,11 +1645,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1662,11 +1662,11 @@ False
 Block Normal 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1679,11 +1679,11 @@ False
 Block Normal 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1696,11 +1696,11 @@ False
 Block Normal 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1713,11 +1713,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1730,11 +1730,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1747,11 +1747,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1764,11 +1764,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1781,11 +1781,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1798,11 +1798,11 @@ False
 Block Normal 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1815,11 +1815,11 @@ False
 Block Normal 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1832,11 +1832,11 @@ False
 Block Normal 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1849,11 +1849,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1866,11 +1866,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1883,11 +1883,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1900,11 +1900,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1917,11 +1917,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1934,11 +1934,11 @@ False
 Block Normal 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1951,11 +1951,11 @@ False
 Block Normal 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1968,11 +1968,11 @@ False
 Block Normal 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -1985,11 +1985,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -2002,11 +2002,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -2019,11 +2019,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -2036,11 +2036,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -2053,11 +2053,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -2070,11 +2070,11 @@ False
 Block Water 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -2087,11 +2087,11 @@ False
 Block Water 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -2104,11 +2104,11 @@ False
 Block Water 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -2121,11 +2121,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -2138,11 +2138,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -2155,11 +2155,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -2172,11 +2172,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -2189,11 +2189,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -2206,11 +2206,11 @@ False
 Block Normal 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -2223,11 +2223,11 @@ False
 Block Normal 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -2240,11 +2240,11 @@ False
 Block Normal 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -2257,11 +2257,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -2274,11 +2274,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -2291,11 +2291,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -2308,11 +2308,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -2325,11 +2325,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -2342,11 +2342,11 @@ False
 Block Normal 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -2359,11 +2359,11 @@ False
 Block Normal 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -2376,11 +2376,11 @@ False
 Block Normal 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -2393,11 +2393,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -2410,11 +2410,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -2427,11 +2427,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -2444,11 +2444,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -2461,11 +2461,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -2478,11 +2478,11 @@ False
 Block Normal 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -2495,11 +2495,11 @@ False
 Block Normal 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -2512,11 +2512,11 @@ False
 Block Normal 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -2529,11 +2529,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -2546,11 +2546,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -2563,11 +2563,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -2580,11 +2580,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -2597,11 +2597,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -2614,11 +2614,11 @@ False
 Block Normal 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -2631,11 +2631,11 @@ False
 Block Normal 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -2648,11 +2648,11 @@ False
 Block Normal 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -2665,11 +2665,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -2682,11 +2682,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -2699,11 +2699,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -2716,11 +2716,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -2733,11 +2733,11 @@ False
 Block Dust 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -2750,11 +2750,11 @@ False
 Block Normal 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -2767,11 +2767,11 @@ False
 Block Normal 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
@@ -2784,11 +2784,11 @@ False
 Block Normal 0
 <MOVE DATA>
 
-False
+0
 0
 <ACTION DATA>
 
-False
+0
 0
 <EVENT DATA>
 
