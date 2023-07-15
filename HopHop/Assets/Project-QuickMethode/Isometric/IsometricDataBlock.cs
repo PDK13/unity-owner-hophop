@@ -30,4 +30,3 @@ public class IsoDataBlockSingle
     public IsoDataBlockEvent EventData = new IsoDataBlockEvent();
     public IsoDataBlockTeleport TeleportData = new IsoDataBlockTeleport();
 }
-
