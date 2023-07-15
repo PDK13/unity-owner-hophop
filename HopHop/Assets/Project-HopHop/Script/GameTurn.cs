@@ -91,6 +91,7 @@ public class GameTurn
             //
             Debug.LogFormat("[Debug] {0}: Remove: {1}", m_turnPass, Turn);
             //
+            m_turnQueue[i].Unit.Remove(Unit);
             m_turnQueue[i].EndRemoveCount++;
             break;
         }

@@ -7,6 +7,8 @@ public class ControllerBullet : MonoBehaviour
 {
     private const string ANIM_BLOW = "Blow";
 
+    private const float DESTROY_DELAY = 0.3f;
+
     private int m_speed = 1;
 
     private bool m_turnControl = false;
@@ -84,6 +86,8 @@ public class ControllerBullet : MonoBehaviour
         IsometricBlock Block = m_block.WorldManager.GetWorldBlockCurrent(m_block.Pos + m_turnDir);
         if (Block != null)
         {
+            GameTurn.SetEndTurn(TypeTurn.Object, this.gameObject); //Follow Object (!)
+            //
             GameTurn.SetRemove(TypeTurn.Object, this.gameObject);
             GameTurn.onTurn -= SetControlTurn;
             GameTurn.onEnd -= SetControlEnd;
@@ -96,9 +100,7 @@ public class ControllerBullet : MonoBehaviour
             //
             SetControlAnimation(ANIM_BLOW);
             //
-            GameTurn.SetEndTurn(TypeTurn.Object, this.gameObject); //Follow Object (!)
-            //
-            Destroy(this.gameObject, GameManager.TimeMove * 1);
+            Destroy(this.gameObject, DESTROY_DELAY);
             //
             return;
             //Destroy this, instead of continue move ahead!!
