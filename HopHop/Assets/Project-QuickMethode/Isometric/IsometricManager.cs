@@ -277,7 +277,7 @@ public class IsometricManager : MonoBehaviour
 
     #region Block Remove
 
-    public void SetWorldBlockRemovePrimary(IsoVector Pos)
+    public void SetWorldBlockRemovePrimary(IsoVector Pos, float Delay = 0)
     {
         //World
         int IndexPosH = GetWorldIndexPosH(Pos.Fixed.HInt);
@@ -313,25 +313,29 @@ public class IsometricManager : MonoBehaviour
             if (Application.isEditor && !Application.isPlaying)
                 DestroyImmediate(Block.gameObject);
             else
-                Destroy(Block.gameObject);
+                Destroy(Block.gameObject, Delay);
 
             break;
         }
     }
 
-    public void SetWorldBlockRemoveInstant(IsometricBlock Block)
+    public void SetWorldBlockRemoveInstant(IsometricBlock Block, float Delay)
     {
-        //World
-        m_worldPosH[GetWorldIndexPosH(Block.Pos.HInt)].Block.Remove(Block);
+        if (!Block.Free)
+        {
+            //World
+            m_worldPosH[GetWorldIndexPosH(Block.Pos.HInt)].Block.Remove(Block);
+        }
 
         //Tag
-        m_worldTag[GetWorldIndexTag(Block.tag)].Block.Remove(Block);
+        foreach(string TagCheck in Block.Tag)
+            m_worldTag[GetWorldIndexTag(TagCheck)].Block.Remove(Block);
 
         //Scene
         if (Application.isEditor && !Application.isPlaying)
             DestroyImmediate(Block.gameObject);
         else
-            Destroy(Block.gameObject);
+            Destroy(Block.gameObject, Delay);
     }
 
     #endregion

@@ -86,13 +86,20 @@ public class ControllerPlayer : MonoBehaviour
         int Length = 1; //Follow Character (!)
         //
         //Check if there is a Block ahead?!
-        IsometricBlock BlockNext = m_block.WorldManager.GetWorldBlockCurrent(m_block.Pos + Dir * Length);
-        if (BlockNext != null)
+        IsometricBlock Block = m_block.WorldManager.GetWorldBlockCurrent(m_block.Pos + Dir * Length);
+        if (Block != null)
         {
+            if (Block.GetComponent<ControllerBullet>())
+            {
+                Debug.Log("[Debug] Bullet hit Player!!");
+                //
+                Block.GetComponent<ControllerBullet>().SetHit();
+            }
+            //
             //There is a Block ahead!!
             //Check if can push this Block?!
             //
-            ControllerBody BlockBody = BlockNext.GetComponent<ControllerBody>();
+            ControllerBody BlockBody = Block.GetComponent<ControllerBody>();
             if (BlockBody == null)
                 //Surely can't continue move to this Pos, because this Block can't be push!!
                 return;

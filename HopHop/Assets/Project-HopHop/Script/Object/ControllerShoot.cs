@@ -140,10 +140,19 @@ public class ControllerShoot : MonoBehaviour
 
     private void SetShoot(IsoVector DirSpawm, IsoVector DirMove, int Speed)
     {
-        GameObject Bullet = QGameObject.SetCreate(m_bullet.gameObject, this.transform.parent);
-        IsometricBlock BulletBlock = Bullet.GetComponent<IsometricBlock>();
-        BulletBlock.WorldManager = m_block.WorldManager;
-        BulletBlock.Pos = m_block.Pos + DirSpawm;
+        IsometricBlock Block = m_block.WorldManager.GetWorldBlockCurrent(m_block.Pos + DirSpawm);
+        if (Block != null)
+        {
+            if (Block.GetComponent<ControllerPlayer>())
+            {
+                Debug.Log("[Debug] Bullet hit Player!!");
+            }
+            //
+            //Surely can't spawm bullet here!!
+            return;
+        }
+        //
+        IsometricBlock Bullet = m_block.WorldManager.SetWorldBlockCreate(m_block.Pos + DirSpawm, m_bullet.gameObject);
         Bullet.GetComponent<ControllerBullet>().SetInit(DirMove, Speed);
     } //Shoot Bullet!!
 }

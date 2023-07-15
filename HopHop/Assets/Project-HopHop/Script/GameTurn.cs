@@ -89,10 +89,22 @@ public class GameTurn
             if (!m_turnQueue[i].Unit.Contains(Unit))
                 return;
             //
-            Debug.LogFormat("[Debug] {0}: Remove: {1}", m_turnPass, Turn);
+
+            if (m_turnQueue[i] == m_turnCurrent)
+            {
+                Debug.LogFormat("[Debug] {0}: Remove Same: {1}", m_turnPass, Turn);
+                //
+                m_turnQueue[i].Unit.Remove(Unit);
+                m_turnQueue[i].EndRemoveCount++;
+            }
+            else
+            {
+                Debug.LogFormat("[Debug] {0}: Remove Un-same: {1}", m_turnPass, Turn);
+                //
+                m_turnQueue[i].Unit.Remove(Unit);
+                m_turnQueue[i].Count--;
+            }
             //
-            m_turnQueue[i].Unit.Remove(Unit);
-            m_turnQueue[i].EndRemoveCount++;
             break;
         }
     } //Remove on Destroy!!
@@ -143,7 +155,7 @@ public class GameTurn
             //
             if (m_turnCurrent.EndRemoveCount > 0)
             {
-                Debug.LogFormat("[Debug] {0}: Remove Final: {1}", m_turnPass, Turn);
+                Debug.LogFormat("[Debug] {0}: Remove Same Final: {1}", m_turnPass, Turn);
                 m_turnCurrent.Count -= m_turnCurrent.EndRemoveCount;
                 m_turnCurrent.EndRemoveCount = 0;
             }

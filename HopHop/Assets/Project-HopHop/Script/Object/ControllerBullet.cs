@@ -93,14 +93,14 @@ public class ControllerBullet : MonoBehaviour
             GameTurn.onEnd -= SetControlEnd;
             //
             //Can't not continue move ahead because of burden, so destroy this!!
+            //
             if (Block.GetComponent<ControllerPlayer>())
             {
-                //If hit is Player!!
+                Debug.Log("[Debug] Bullet hit Player!!");
             }
             //
             SetControlAnimation(ANIM_BLOW);
-            //
-            Destroy(this.gameObject, DESTROY_DELAY);
+            m_block.WorldManager.SetWorldBlockRemoveInstant(m_block, DESTROY_DELAY);
             //
             return;
             //Destroy this, instead of continue move ahead!!
@@ -137,6 +137,18 @@ public class ControllerBullet : MonoBehaviour
 
         GameTurn.SetEndTurn(TypeTurn.Object, this.gameObject); //Follow Object (!)
     }
+
+    public void SetHit()
+    {
+        GameTurn.SetEndTurn(TypeTurn.Object, this.gameObject); //Follow Object (!)
+        //
+        GameTurn.SetRemove(TypeTurn.Object, this.gameObject);
+        GameTurn.onTurn -= SetControlTurn;
+        GameTurn.onEnd -= SetControlEnd;
+        //
+        SetControlAnimation(ANIM_BLOW);
+        m_block.WorldManager.SetWorldBlockRemoveInstant(m_block, DESTROY_DELAY);
+    } //This is touched by other object!!
 
     #region Animation
 
