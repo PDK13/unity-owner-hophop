@@ -186,10 +186,10 @@ public class GameTurn
         if (After < 0)
             return;
         //
-        Debug.LogFormat("[Debug] {0}: Add {1} | {2}", m_turnPass, Turn.ToString(), After);
-        //
         if (After > m_turnQueue.Count - 1)
         {
+            Debug.LogFormat("[Debug] {0}: Add {1} | {2}", m_turnPass, Turn.ToString(), After);
+            //
             m_turnQueue.Add(new TurnSingle(Turn, Unit));
             m_turnQueue[m_turnQueue.Count - 1].EndTurnRemove = TurnRemove.Contains(Turn);
         }
@@ -199,13 +199,46 @@ public class GameTurn
             if (m_turnQueue[After].Unit.Contains(Unit))
                 return;
             //
+            Debug.LogFormat("[Debug] {0}: Add {1} | {2}", m_turnPass, Turn.ToString(), After);
+            //
             m_turnQueue[After].Unit.Add(Unit);
             m_turnQueue[After].Count++;
         }
         else
         {
+            Debug.LogFormat("[Debug] {0}: Add {1} | {2}", m_turnPass, Turn.ToString(), After);
+            //
             m_turnQueue.Insert(After, new TurnSingle(Turn, Unit));
             m_turnQueue[After].EndTurnRemove = TurnRemove.Contains(Turn);
         }
     } //Add Turn Special!!
+
+    public static void SetAdd(TypeTurn Turn, GameObject Unit, TypeTurn After)
+    {
+        for (int i = 0; i < m_turnQueue.Count; i++) 
+        {
+            if (m_turnQueue[i].Turn != After)
+                continue;
+            //
+            if (m_turnQueue[i].Turn == Turn)
+            {
+                if (m_turnQueue[i].Unit.Contains(Unit))
+                    return;
+                //
+                Debug.LogFormat("[Debug] {0}: Add {1} | {2}", m_turnPass, Turn.ToString(), After);
+                //
+                m_turnQueue[i].Unit.Add(Unit);
+                m_turnQueue[i].Count++;
+            }
+            else
+            {
+                Debug.LogFormat("[Debug] {0}: Add {1} | {2}", m_turnPass, Turn.ToString(), After);
+                //
+                m_turnQueue.Insert(i, new TurnSingle(Turn, Unit));
+                m_turnQueue[i].EndTurnRemove = TurnRemove.Contains(Turn);
+            }
+            //
+            return;
+        }
+    }
 }
