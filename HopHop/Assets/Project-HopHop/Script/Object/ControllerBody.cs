@@ -24,9 +24,9 @@ public class ControllerBody : MonoBehaviour
 
     #region Gravity
 
-    private void SetControlGravity(TypeTurn Turn)
+    private void SetControlGravity(string Turn)
     {
-        if (Turn != TypeTurn.Gravity)
+        if (Turn != TypeTurn.Gravity.ToString())
         {
             m_turnControl = false;
             return;

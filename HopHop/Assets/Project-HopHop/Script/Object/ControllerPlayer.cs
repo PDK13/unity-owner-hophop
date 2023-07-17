@@ -62,9 +62,9 @@ public class ControllerPlayer : MonoBehaviour
 
     #region Move
 
-    private void SetControlTurn(TypeTurn Turn)
+    private void SetControlTurn(string Turn)
     {
-        if (Turn != TypeTurn.Player)
+        if (Turn != TypeTurn.Player.ToString())
         {
             m_turnControl = false;
             return;

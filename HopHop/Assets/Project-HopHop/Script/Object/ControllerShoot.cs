@@ -54,9 +54,9 @@ public class ControllerShoot : MonoBehaviour
         }
     }
 
-    private void SetControlTurn(TypeTurn Turn)
+    private void SetControlTurn(string Turn)
     {
-        if (Turn != TypeTurn.Object)
+        if (Turn != TypeTurn.Object.ToString())
         {
             m_turnControl = false;
             return;
@@ -70,9 +70,9 @@ public class ControllerShoot : MonoBehaviour
         SetControlAction();
     }
 
-    private void SetControlEnd(TypeTurn Turn)
+    private void SetControlEnd(string Turn)
     {
-        if (Turn != TypeTurn.Object)
+        if (Turn != TypeTurn.Object.ToString())
             return;
         //
         m_turnTime = 0;
