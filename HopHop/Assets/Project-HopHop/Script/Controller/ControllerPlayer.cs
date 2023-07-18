@@ -5,24 +5,13 @@ using DG.Tweening;
 
 public class ControllerPlayer : MonoBehaviour
 {
-    private const string ANIM_IDLE = "Idle";
-    private const string ANIM_MOVE = "Move";
-    private const string ANIM_JUMP = "Jump";
-    private const string ANIM_SIT = "Sit";
-    private const string ANIM_HURT = "Hurt";
-    private const string ANIM_DOWN = "Down";
-    private const string ANIM_SLEEP = "Sleep";
-    private const string ANIM_HAPPY = "Happy";
-
     private bool m_turnControl = false;
 
-    private Animator m_animator;
     private ControllerBody m_body;
     private IsometricBlock m_block;
 
     private void Awake()
     {
-        m_animator = GetComponent<Animator>();
         m_body = GetComponent<ControllerBody>();
         m_block = GetComponent<IsometricBlock>();
     }
@@ -119,8 +108,6 @@ public class ControllerPlayer : MonoBehaviour
         //
         m_body.SetCheckGravity(Dir);
         //
-        SetControlAnimation(ANIM_MOVE);
-        //
         Vector3 MoveDir = IsoVector.GetVector(Dir);
         Vector3 MoveStart = IsoVector.GetVector(m_block.Pos);
         Vector3 MoveEnd = IsoVector.GetVector(m_block.Pos) + MoveDir * 1;
@@ -136,21 +123,9 @@ public class ControllerPlayer : MonoBehaviour
             })
             .OnComplete(() =>
             {
-                SetControlAnimation(ANIM_IDLE);
-                //
                 GameTurn.SetEndTurn(TypeTurn.Player, this.gameObject); //Follow Player (!)
             });
         //
-    }
-
-    #endregion
-
-    #region Animation
-
-    private void SetControlAnimation(string Name)
-    {
-        m_animator.SetTrigger(Name);
-        //m_animator.ResetTrigger(Name);
     }
 
     #endregion
