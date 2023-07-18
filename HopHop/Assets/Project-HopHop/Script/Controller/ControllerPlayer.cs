@@ -8,22 +8,32 @@ public class ControllerPlayer : MonoBehaviour
     private bool m_turnControl = false;
 
     private ControllerBody m_body;
+    private AnimationCharacter m_animation;
     private IsometricBlock m_block;
 
     private void Awake()
     {
         m_body = GetComponent<ControllerBody>();
+        m_animation = GetComponent<AnimationCharacter>();
         m_block = GetComponent<IsometricBlock>();
     }
 
     private void Start()
     {
+        m_body.onGravity += SetGravity;
+        m_body.onPush += SetPush;
+        //
+        m_animation.SetAnimation(AnimationCharacter.ANIM_IDLE);
+        //
         GameTurn.SetInit(TypeTurn.Player, this.gameObject);
         GameTurn.onTurn += SetControlTurn;
     }
 
     private void OnDestroy()
     {
+        m_body.onGravity -= SetGravity;
+        m_body.onPush -= SetPush;
+        //
         GameTurn.SetRemove(TypeTurn.Player, this.gameObject);
         GameTurn.onTurn -= SetControlTurn;
     }
@@ -106,7 +116,12 @@ public class ControllerPlayer : MonoBehaviour
         //
         m_turnControl = false;
         //
-        m_body.SetCheckGravity(Dir);
+        bool FallAhead = m_body.SetCheckGravity(Dir);
+        //
+        if (FallAhead)
+            m_animation.SetAnimation(AnimationCharacter.ANIM_JUMP);
+        else
+            m_animation.SetAnimation(AnimationCharacter.ANIM_MOVE);
         //
         Vector3 MoveDir = IsoVector.GetVector(Dir);
         Vector3 MoveStart = IsoVector.GetVector(m_block.Pos);
@@ -124,8 +139,42 @@ public class ControllerPlayer : MonoBehaviour
             .OnComplete(() =>
             {
                 GameTurn.SetEndTurn(TypeTurn.Player, this.gameObject); //Follow Player (!)
+                //
+                if (!FallAhead)
+                    m_animation.SetAnimation(AnimationCharacter.ANIM_IDLE);
             });
         //
+    }
+
+    #endregion
+
+    #region Body
+
+    private void SetGravity(bool State)
+    {
+        if (!State)
+            m_animation.SetAnimation(AnimationCharacter.ANIM_IDLE);
+        else
+            m_animation.SetAnimation(AnimationCharacter.ANIM_AIR);
+    }
+
+    private void SetPush(bool State, bool FromBottom, bool FallAhead)
+    {
+        if (FromBottom)
+            return;
+        //
+        if (State)
+        {
+            if (!FallAhead)
+                m_animation.SetAnimation(AnimationCharacter.ANIM_MOVE);
+            else
+                m_animation.SetAnimation(AnimationCharacter.ANIM_JUMP);
+        }
+        else
+        {
+            if (!FallAhead)
+                m_animation.SetAnimation(AnimationCharacter.ANIM_IDLE);
+        }
     }
 
     #endregion

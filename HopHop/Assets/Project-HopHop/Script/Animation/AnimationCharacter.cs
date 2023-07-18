@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class AnimationCharacter : MonoBehaviour
 {
-    private const string ANIM_IDLE = "Idle";
-    private const string ANIM_MOVE = "Move";
-    private const string ANIM_JUMP = "Jump";
-    private const string ANIM_SIT = "Sit";
-    private const string ANIM_HURT = "Hurt";
-    private const string ANIM_DOWN = "Down";
-    private const string ANIM_SLEEP = "Sleep";
-    private const string ANIM_HAPPY = "Happy";
+    public const string ANIM_IDLE = "Idle";
+    public const string ANIM_MOVE = "Move";
+    public const string ANIM_JUMP = "Jump";
+    public const string ANIM_SIT = "Sit";
+    public const string ANIM_HURT = "Hurt";
+    public const string ANIM_DOWN = "Down";
+    public const string ANIM_SLEEP = "Sleep";
+    public const string ANIM_HAPPY = "Happy";
+    public const string ANIM_AIR = "Air";
+
+    private string m_current;
 
     private Animator m_animator;
 
@@ -20,13 +23,11 @@ public class AnimationCharacter : MonoBehaviour
         m_animator = GetComponent<Animator>();
     }
 
-    public void SetReset()
+    public void SetAnimation(string Animation)
     {
-
-    }
-
-    public void SetMove()
-    {
-
+        if (m_current == Animation)
+            return;
+        //
+        m_animator.SetTrigger(Animation);
     }
 }

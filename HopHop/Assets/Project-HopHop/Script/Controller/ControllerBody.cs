@@ -12,8 +12,8 @@ public class ControllerBody : MonoBehaviour
 
     public bool Dynamic => m_dynamic;
 
-    public Action<bool> onMove;
-    public Action<bool> onGravity;
+    public Action<bool> onGravity;             //State
+    public Action<bool, bool, bool> onPush;    //State, From, FallAhead
 
     private IsometricBlock m_block;
 
@@ -37,12 +37,14 @@ public class ControllerBody : MonoBehaviour
         SetControlGravity();
     }
 
-    public void SetCheckGravity(IsoVector Dir)
+    public bool SetCheckGravity(IsoVector Dir)
     {
         if (GetCheckDir(Dir, IsoVector.Bot) != null)
-            return;
+            return false;
         //
         SetForceGravity();
+        //
+        return true;
     }
 
     private void SetForceGravity()
@@ -73,8 +75,6 @@ public class ControllerBody : MonoBehaviour
             .SetEase(Ease.Linear)
             .OnStart(() =>
             {
-                //Start Animation!!
-                //
                 onGravity?.Invoke(true);
             })
             .OnUpdate(() =>
@@ -83,7 +83,6 @@ public class ControllerBody : MonoBehaviour
             })
             .OnComplete(() =>
             {
-                //GameTurn.SetEndMove(TypeTurn.Object); //Follow Object (!)
                 SetControlGravity();
             });
     }
@@ -94,9 +93,13 @@ public class ControllerBody : MonoBehaviour
 
     public void SetControlPush(IsoVector Dir, IsoVector From)
     {
+        bool FromBottom = false;
+        bool FallAhead = false;
         //
         if (From == IsoVector.Bot)
         {
+            FromBottom = true;
+            //
             IsometricBlock BlockNext = m_block.WorldManager.GetWorldBlockCurrent(m_block.Pos.Fixed + Dir);
             if (BlockNext != null)
             {
@@ -107,6 +110,8 @@ public class ControllerBody : MonoBehaviour
         }
         else
         {
+            FromBottom = false;
+            //
             IsometricBlock BlockNext = m_block.WorldManager.GetWorldBlockCurrent(m_block.Pos.Fixed + Dir);
             if (BlockNext != null)
             {
@@ -115,7 +120,7 @@ public class ControllerBody : MonoBehaviour
             }
             else
                 //Can continue move, so check next pos if it emty at Bot?!
-                SetCheckGravity(Dir);
+                FallAhead = SetCheckGravity(Dir);
         }
         //
         Vector3 MoveDir = IsoVector.GetVector(Dir);
@@ -125,7 +130,7 @@ public class ControllerBody : MonoBehaviour
             .SetEase(Ease.Linear)
             .OnStart(() =>
             {
-                //Start Animation!!
+                onPush?.Invoke(true, FromBottom, FallAhead);
             })
             .OnUpdate(() =>
             {
@@ -133,7 +138,7 @@ public class ControllerBody : MonoBehaviour
             })
             .OnComplete(() =>
             {
-                //End Animation!!
+                onPush?.Invoke(false, FromBottom, FallAhead);
             });
         //
     }
@@ -152,7 +157,7 @@ public class ControllerBody : MonoBehaviour
             .SetEase(Ease.Linear)
             .OnStart(() =>
             {
-                //Start Animation!!
+                //...
             })
             .OnUpdate(() =>
             {
@@ -160,7 +165,7 @@ public class ControllerBody : MonoBehaviour
             })
             .OnComplete(() =>
             {
-                //End Animation!!
+                //...
             });
         //
     }
