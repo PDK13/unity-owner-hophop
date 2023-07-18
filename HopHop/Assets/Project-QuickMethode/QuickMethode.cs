@@ -1824,31 +1824,43 @@ namespace QuickMethode
             PlayerPrefs.Save();
         }
 
+        public static void SetValue<EnumType>(string Name, EnumType Value)
+        {
+            PlayerPrefs.SetInt(Name, QEnum.GetChoice(Value));
+            PlayerPrefs.Save();
+        }
+
         #endregion
 
         #region ------------------------------------ Set Params
 
         public static void SetValue(string Name, char Key, params string[] Value)
         {
-            PlayerPrefs.SetString(Name, QEncypt.GetEncypt(Key, Value));
+            PlayerPrefs.SetString(Name, QEncypt.GetEncypt(Key, Value.ToList()));
             PlayerPrefs.Save();
         }
 
         public static void SetValue(string Name, char Key, params int[] Value)
         {
-            PlayerPrefs.SetString(Name, QEncypt.GetEncypt(Key, Value));
+            PlayerPrefs.SetString(Name, QEncypt.GetEncypt(Key, Value.ToList()));
             PlayerPrefs.Save();
         }
 
         public static void SetValue(string Name, char Key, params float[] Value)
         {
-            PlayerPrefs.SetString(Name, QEncypt.GetEncypt(Key, Value));
+            PlayerPrefs.SetString(Name, QEncypt.GetEncypt(Key, Value.ToList()));
             PlayerPrefs.Save();
         }
 
         public static void SetValue(string Name, char Key, params bool[] Value)
         {
-            PlayerPrefs.SetString(Name, QEncypt.GetEncypt(Key, Value));
+            PlayerPrefs.SetString(Name, QEncypt.GetEncypt(Key, Value.ToList()));
+            PlayerPrefs.Save();
+        }
+
+        public static void SetValue<EnumType>(string Name, char Key, params EnumType[] Value)
+        {
+            PlayerPrefs.SetString(Name, QEncypt.GetEncypt(Key, Value.ToList()));
             PlayerPrefs.Save();
         }
 
@@ -1926,6 +1938,11 @@ namespace QuickMethode
             return Default;
         }
 
+        public static EnumType GetValueEnum<EnumType>(string Name)
+        {
+            return QEnum.GetChoice<EnumType>(PlayerPrefs.GetInt(Name));
+        }
+
         #endregion
 
         #region ------------------------------------ Get Params
@@ -1948,6 +1965,11 @@ namespace QuickMethode
         public static List<bool> GetValueBool(string Name, char Key)
         {
             return QEncypt.GetDencyptBool(Key, GetValueString(Name));
+        }
+
+        public static List<EnumType> GetValueEnum<EnumType>(string Name, char Key)
+        {
+            return QEncypt.GetDencyptEnum<EnumType>(Key, GetValueString(Name));
         }
 
         #endregion
@@ -2286,48 +2308,50 @@ namespace QuickMethode
         public static string GetEncypt(char Key, List<string> Data)
         {
             string Encypt = "";
-
+            //
             for (int i = 0; i < Data.Count; i++)
-            {
                 GetEncyptAdd(Key, Encypt, Data[i], out Encypt);
-            }
-
+            //
             return Encypt;
         }
 
         public static string GetEncypt(char Key, List<int> Data)
         {
             string Encypt = "";
-
+            //
             for (int i = 0; i < Data.Count; i++)
-            {
                 GetEncyptAdd(Key, Encypt, Data[i], out Encypt);
-            }
-
+            //
             return Encypt;
         }
 
         public static string GetEncypt(char Key, List<float> Data)
         {
             string Encypt = "";
-
+            //
             for (int i = 0; i < Data.Count; i++)
-            {
                 GetEncyptAdd(Key, Encypt, Data[i], out Encypt);
-            }
-
+            //
             return Encypt;
         }
 
         public static string GetEncypt(char Key, List<bool> Data)
         {
             string Encypt = "";
-
+            //
             for (int i = 0; i < Data.Count; i++)
-            {
                 GetEncyptAdd(Key, Encypt, Data[i], out Encypt);
-            }
+            //
+            return Encypt;
+        }
 
+        public static string GetEncypt<EnumType>(char Key, List<EnumType> Data)
+        {
+            string Encypt = "";
+            //
+            for (int i = 0; i < Data.Count; i++)
+                GetEncyptAdd(Key, Encypt, QEnum.GetChoice(Data[i]), out Encypt);
+            //
             return Encypt;
         }
 
@@ -2336,48 +2360,50 @@ namespace QuickMethode
         public static string GetEncypt(char Key, params string[] Data)
         {
             string Encypt = "";
-
+            //
             for (int i = 0; i < Data.Length; i++)
-            {
                 GetEncyptAdd(Key, Encypt, Data[i], out Encypt);
-            }
-
+            //
             return Encypt;
         }
 
         public static string GetEncypt(char Key, params int[] Data)
         {
             string Encypt = "";
-
+            //
             for (int i = 0; i < Data.Length; i++)
-            {
                 GetEncyptAdd(Key, Encypt, Data[i], out Encypt);
-            }
-
+            //
             return Encypt;
         }
 
         public static string GetEncypt(char Key, params float[] Data)
         {
             string Encypt = "";
-
+            //
             for (int i = 0; i < Data.Length; i++)
-            {
                 GetEncyptAdd(Key, Encypt, Data[i], out Encypt);
-            }
-
+            //
             return Encypt;
         }
 
         public static string GetEncypt(char Key, params bool[] Data)
         {
             string Encypt = "";
-
+            //
             for (int i = 0; i < Data.Length; i++)
-            {
                 GetEncyptAdd(Key, Encypt, Data[i], out Encypt);
-            }
+            //
+            return Encypt;
+        }
 
+        public static string GetEncypt<EnumType>(char Key, params EnumType[] Data)
+        {
+            string Encypt = "";
+            //
+            for (int i = 0; i < Data.Length; i++)
+                GetEncyptAdd(Key, Encypt, QEnum.GetChoice(Data[i]), out Encypt);
+            //
             return Encypt;
         }
 
@@ -2429,28 +2455,6 @@ namespace QuickMethode
             DataFinal = Data + ((Data.Length != 0) ? Key.ToString() : "") + GetEncypt(Key, DataAdd);
         }
 
-        //Array
-
-        public static void GetEncyptAdd(char Key, string Data, string[] DataAdd, out string DataFinal)
-        {
-            DataFinal = Data + ((Data.Length != 0) ? Key.ToString() : "") + GetEncypt(Key, DataAdd);
-        }
-
-        public static void GetEncyptAdd(char Key, string Data, int[] DataAdd, out string DataFinal)
-        {
-            DataFinal = Data + ((Data.Length != 0) ? Key.ToString() : "") + GetEncypt(Key, DataAdd);
-        }
-
-        public static void GetEncyptAdd(char Key, string Data, float[] DataAdd, out string DataFinal)
-        {
-            DataFinal = Data + ((Data.Length != 0) ? Key.ToString() : "") + GetEncypt(Key, DataAdd);
-        }
-
-        public static void GetEncyptAdd(char Key, string Data, bool[] DataAdd, out string DataFinal)
-        {
-            DataFinal = Data + ((Data.Length != 0) ? Key.ToString() : "") + GetEncypt(Key, DataAdd);
-        }
-
         #endregion
 
         #region String Data Main Dencypt
@@ -2458,78 +2462,77 @@ namespace QuickMethode
         public static List<string> GetDencyptString(char Key, string Data)
         {
             if (Data.Equals(""))
-            {
                 return new List<string>();
-            }
-
+            //
             return GetStringSplitList(Data, Key);
         }
 
         public static List<int> GetDencyptInt(char Key, string Data)
         {
             if (Data.Equals(""))
-            {
                 return new List<int>();
-            }
-
+            //
             List<string> DataString = GetDencyptString(Key, Data);
-
+            //
             List<int> DataInt = new List<int>();
-
+            //
             for (int i = 0; i < DataString.Count; i++)
-            {
                 DataInt.Add(int.Parse(DataString[i]));
-            }
-
+            //
             return DataInt;
         }
 
         public static List<float> GetDencyptFloat(char Key, string Data)
         {
             if (Data.Equals(""))
-            {
                 return new List<float>();
-            }
-
+            //
             List<string> DataString = GetStringSplitList(Data, Key);
-
+            //
             List<float> DataFloat = new List<float>();
-
+            //
             for (int i = 0; i < DataString.Count; i++)
-            {
                 DataFloat.Add(float.Parse(DataString[i]));
-            }
-
+            //
             return DataFloat;
         }
 
         public static List<bool> GetDencyptBool(char Key, string Data)
         {
             if (Data.Equals(""))
-            {
                 return new List<bool>();
-            }
-
+            //
             List<string> DataString = GetStringSplitList(Data, Key);
-
+            //
             List<bool> DataBool = new List<bool>();
-
+            //
             for (int i = 0; i < DataString.Count; i++)
             {
                 string Bool = DataString[i];
-
+                //
                 if (Bool == "1")
-                {
                     DataBool.Add(true);
-                }
                 else
                 if (Bool == "0")
-                {
                     DataBool.Add(false);
-                }
             }
-
+            //
             return DataBool;
+        }
+
+        public static List<EnumType> GetDencyptEnum<EnumType>(char Key, string Data)
+        {
+            if (Data.Equals(""))
+                return new List<EnumType>();
+            //
+            List<string> DataString = GetDencyptString(Key, Data);
+            //
+            List<EnumType> DataEnum = new List<EnumType>();
+            //
+            for (int i = 0; i < DataString.Count; i++)
+                DataEnum.Add(QEnum.GetChoice<EnumType>(int.Parse(DataString[i])));
+            //
+            return DataEnum;
         }
 
         #endregion
@@ -3949,7 +3952,7 @@ namespace QuickMethode
                 TextWrite += "\n";
             }
 
-            TextWrite += QEncypt.GetEncypt(Key, DataAdd);
+            TextWrite += QEncypt.GetEncypt(Key, DataAdd.ToList());
         }
 
         public void SetWriteAdd(char Key, params int[] DataAdd)
@@ -3959,7 +3962,7 @@ namespace QuickMethode
                 TextWrite += "\n";
             }
 
-            TextWrite += QEncypt.GetEncypt(Key, DataAdd);
+            TextWrite += QEncypt.GetEncypt(Key, DataAdd.ToList());
         }
 
         public void SetWriteAdd(char Key, params float[] DataAdd)
@@ -3969,7 +3972,7 @@ namespace QuickMethode
                 TextWrite += "\n";
             }
 
-            TextWrite += QEncypt.GetEncypt(Key, DataAdd);
+            TextWrite += QEncypt.GetEncypt(Key, DataAdd.ToList());
         }
 
         public void SetWriteAdd(char Key, params bool[] DataAdd)
@@ -3979,7 +3982,7 @@ namespace QuickMethode
                 TextWrite += "\n";
             }
 
-            TextWrite += QEncypt.GetEncypt(Key, DataAdd);
+            TextWrite += QEncypt.GetEncypt(Key, DataAdd.ToList());
         }
 
         public void SetWriteAdd(int DataAdd)
