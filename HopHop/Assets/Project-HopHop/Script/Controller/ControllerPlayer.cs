@@ -7,6 +7,8 @@ public class ControllerPlayer : MonoBehaviour
 {
     private bool m_turnControl = false;
 
+    private bool m_jump = false;
+
     private ControllerBody m_body;
     private AnimationCharacter m_animation;
     private IsometricBlock m_block;
@@ -22,8 +24,6 @@ public class ControllerPlayer : MonoBehaviour
     {
         m_body.onGravity += SetGravity;
         m_body.onPush += SetPush;
-        //
-        m_animation.SetAnimation(AnimationCharacter.ANIM_IDLE);
         //
         GameTurn.SetInit(TypeTurn.Player, this.gameObject);
         GameTurn.onTurn += SetControlTurn;
@@ -116,12 +116,10 @@ public class ControllerPlayer : MonoBehaviour
         //
         m_turnControl = false;
         //
-        bool FallAhead = m_body.SetCheckGravity(Dir);
+        m_jump = m_body.SetCheckGravity(Dir);
         //
-        if (FallAhead)
-            m_animation.SetAnimation(AnimationCharacter.ANIM_JUMP);
-        else
-            m_animation.SetAnimation(AnimationCharacter.ANIM_MOVE);
+        m_animation.SetMove(true);
+        m_animation.SetJump(m_jump);
         //
         Vector3 MoveDir = IsoVector.GetVector(Dir);
         Vector3 MoveStart = IsoVector.GetVector(m_block.Pos);
@@ -140,8 +138,8 @@ public class ControllerPlayer : MonoBehaviour
             {
                 GameTurn.SetEndTurn(TypeTurn.Player, this.gameObject); //Follow Player (!)
                 //
-                if (!FallAhead)
-                    m_animation.SetAnimation(AnimationCharacter.ANIM_IDLE);
+                m_animation.SetMove(false);
+                m_animation.SetJump(m_jump);
             });
         //
     }
@@ -152,29 +150,13 @@ public class ControllerPlayer : MonoBehaviour
 
     private void SetGravity(bool State)
     {
-        if (!State)
-            m_animation.SetAnimation(AnimationCharacter.ANIM_IDLE);
-        else
-            m_animation.SetAnimation(AnimationCharacter.ANIM_AIR);
+        m_jump = State;
+        m_animation.SetJump(State);
     }
 
     private void SetPush(bool State, bool FromBottom, bool FallAhead)
     {
-        if (FromBottom)
-            return;
-        //
-        if (State)
-        {
-            if (!FallAhead)
-                m_animation.SetAnimation(AnimationCharacter.ANIM_MOVE);
-            else
-                m_animation.SetAnimation(AnimationCharacter.ANIM_JUMP);
-        }
-        else
-        {
-            if (!FallAhead)
-                m_animation.SetAnimation(AnimationCharacter.ANIM_IDLE);
-        }
+
     }
 
     #endregion

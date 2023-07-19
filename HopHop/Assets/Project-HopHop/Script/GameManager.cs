@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
 
     #region Varible: Time
 
-    public static float m_timeMove = 1f;
+    public static float m_timeMove = 1.2f;
     public static float m_timeRatio = 1f;
 
     public static float TimeMove => m_timeMove * m_timeRatio;

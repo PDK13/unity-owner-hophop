@@ -23,11 +23,13 @@ public class AnimationCharacter : MonoBehaviour
         m_animator = GetComponent<Animator>();
     }
 
-    public void SetAnimation(string Animation)
+    public void SetMove(bool State)
     {
-        if (m_current == Animation)
-            return;
-        //
-        m_animator.SetTrigger(Animation);
+        m_animator.SetBool("Move", State);
+    }
+
+    public void SetJump(bool State)
+    {
+        m_animator.SetBool("Jump", State);
     }
 }
