@@ -23,13 +23,67 @@ public class AnimationCharacter : MonoBehaviour
         m_animator = GetComponent<Animator>();
     }
 
-    public void SetMove(bool State)
+    public void SetMove(IsometricBlock From, IsometricBlock To)
     {
-        m_animator.SetBool("Move", State);
+        if (From == null)
+            return;
+        //
+        if (To == null)
+        {
+            m_animator.SetBool("Move", true);
+            m_animator.SetBool("Jump", true);
+            //
+            m_animator.SetBool("Sit", false);
+        }
+        else
+        {
+            if (From.Tag.Contains(GameTag.WATER))
+            {
+                if (To.Tag.Contains(GameTag.WATER))
+                {
+                    m_animator.SetBool("Move", true);
+                    m_animator.SetBool("Jump", false);
+                }
+                else
+                {
+                    m_animator.SetBool("Move", true);
+                    m_animator.SetBool("Jump", true);
+                }
+            }
+            else
+            {
+                if (To.Tag.Contains(GameTag.WATER))
+                {
+                    m_animator.SetBool("Move", true);
+                    m_animator.SetBool("Jump", true);
+                }
+                else
+                {
+                    m_animator.SetBool("Move", true);
+                    m_animator.SetBool("Jump", false);
+                }
+            }
+            //
+            m_animator.SetBool("Sit", To.Tag.Contains(GameTag.WATER));
+        }
     }
 
-    public void SetJump(bool State)
+    public void SetStand(IsometricBlock On)
     {
-        m_animator.SetBool("Jump", State);
+        if (On == null)
+            return;
+        //
+        if (On.Tag.Contains(GameTag.WATER))
+        {
+            m_animator.SetBool("Move", false);
+            m_animator.SetBool("Jump", false);
+            m_animator.SetBool("Sit", true);
+        }
+        else
+        {
+            m_animator.SetBool("Move", false);
+            m_animator.SetBool("Jump", false);
+            m_animator.SetBool("Sit", false);
+        }
     }
 }

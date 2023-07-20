@@ -102,16 +102,23 @@ MonoBehaviour:
   m_name: Object Flower 2
   m_free: 0
   m_tag:
-  - Object
+  - object
   m_pos:
     X: 0
     Y: 0
     H: 0
   MoveData:
     Key: 
-    Loop: 0
+    Type: 0
     Dir: 
     Length: 
+    Index: 0
+    Quantity: 1
+  ActionData:
+    Key: 
+    Type: 0
+    Action: []
+    Time: 
     Index: 0
     Quantity: 1
   EventData:

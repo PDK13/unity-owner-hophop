@@ -96,10 +96,10 @@ public class ControllerShoot : MonoBehaviour
         List<string> Command = QEncypt.GetDencyptString('-', m_turnCommand);
         switch (Command[0])
         {
-            case ConstGameKey.COMMAND_WAIT:
+            case GameKey.COMMAND_WAIT:
                 //"wait"
                 break;
-            case ConstGameKey.COMMAND_SHOOT:
+            case GameKey.COMMAND_SHOOT:
                 //"shoot-[1]-[2]-[3]"
                 IsoVector DirSpawm = IsoVector.GetDirValue(Command[1]);
                 IsoVector DirMove = IsoVector.GetDirValue(Command[2]);

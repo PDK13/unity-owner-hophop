@@ -116,10 +116,9 @@ public class ControllerPlayer : MonoBehaviour
         //
         m_turnControl = false;
         //
-        m_jump = m_body.SetCheckGravity(Dir);
+        m_body.SetCheckGravity(Dir);
         //
-        m_animation.SetMove(true);
-        m_animation.SetJump(m_jump);
+        m_animation.SetMove(m_body.GetCheckDir(IsoVector.Bot), m_body.GetCheckDir(IsoVector.Bot, Dir));
         //
         Vector3 MoveDir = IsoVector.GetVector(Dir);
         Vector3 MoveStart = IsoVector.GetVector(m_block.Pos);
@@ -138,8 +137,7 @@ public class ControllerPlayer : MonoBehaviour
             {
                 GameTurn.SetEndTurn(TypeTurn.Player, this.gameObject); //Follow Player (!)
                 //
-                m_animation.SetMove(false);
-                m_animation.SetJump(m_jump);
+                m_animation.SetStand(m_body.GetCheckDir(IsoVector.Bot));
             });
         //
     }
@@ -150,8 +148,7 @@ public class ControllerPlayer : MonoBehaviour
 
     private void SetGravity(bool State)
     {
-        m_jump = State;
-        m_animation.SetJump(State);
+        m_animation.SetStand(m_body.GetCheckDir(IsoVector.Bot));
     }
 
     private void SetPush(bool State, bool FromBottom, bool FallAhead)

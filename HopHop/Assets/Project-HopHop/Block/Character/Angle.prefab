@@ -126,7 +126,7 @@ MonoBehaviour:
   m_name: Character Angle
   m_free: 1
   m_tag:
-  - Character
+  - character
   m_pos:
     X: 0
     Y: 0

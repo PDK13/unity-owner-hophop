@@ -27,7 +27,7 @@ public class ControllerObject : MonoBehaviour
     private void Start()
     {
         m_dataMove = m_block.Data.MoveData;
-        m_dataFollow = m_block.Data.EventData.DataExist ? m_block.Data.EventData.Data.Find(t => t.Name == ConstGameKey.EVENT_FOLLOW).Value : null;
+        m_dataFollow = m_block.Data.EventData.DataExist ? m_block.Data.EventData.Data.Find(t => t.Name == GameKey.EVENT_FOLLOW).Value : null;
 
         if (m_dataMove != null)
         {
