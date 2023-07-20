@@ -4,24 +4,12 @@ using UnityEngine;
 
 public class AnimationCharacter : MonoBehaviour
 {
-    public const string ANIM_IDLE = "Idle";
-    public const string ANIM_MOVE = "Move";
-    public const string ANIM_JUMP = "Jump";
-    public const string ANIM_SIT = "Sit";
-    public const string ANIM_HURT = "Hurt";
-    public const string ANIM_DOWN = "Down";
-    public const string ANIM_SLEEP = "Sleep";
-    public const string ANIM_HAPPY = "Happy";
-    public const string ANIM_AIR = "Air";
+    [SerializeField] private string m_valueMove = "Move";
+    [SerializeField] private string m_valueJump = "Jump";
+    [SerializeField] private string m_valueSwim = "Swim";
 
-    private string m_current;
-
-    private Animator m_animator;
-
-    private void Awake()
-    {
-        m_animator = GetComponent<Animator>();
-    }
+    [Space]
+    [SerializeField] private Animator m_animator;
 
     public void SetMove(IsometricBlock From, IsometricBlock To)
     {
@@ -30,10 +18,10 @@ public class AnimationCharacter : MonoBehaviour
         //
         if (To == null)
         {
-            m_animator.SetBool("Move", true);
-            m_animator.SetBool("Jump", true);
+            m_animator.SetBool(m_valueMove, true);
+            m_animator.SetBool(m_valueMove, true);
             //
-            m_animator.SetBool("Sit", false);
+            m_animator.SetBool(m_valueMove, false);
         }
         else
         {
@@ -41,30 +29,30 @@ public class AnimationCharacter : MonoBehaviour
             {
                 if (To.Tag.Contains(GameTag.WATER))
                 {
-                    m_animator.SetBool("Move", true);
-                    m_animator.SetBool("Jump", false);
+                    m_animator.SetBool(m_valueMove, true);
+                    m_animator.SetBool(m_valueMove, false);
                 }
                 else
                 {
-                    m_animator.SetBool("Move", true);
-                    m_animator.SetBool("Jump", true);
+                    m_animator.SetBool(m_valueMove, true);
+                    m_animator.SetBool(m_valueMove, true);
                 }
             }
             else
             {
                 if (To.Tag.Contains(GameTag.WATER))
                 {
-                    m_animator.SetBool("Move", true);
-                    m_animator.SetBool("Jump", true);
+                    m_animator.SetBool(m_valueMove, true);
+                    m_animator.SetBool(m_valueMove, true);
                 }
                 else
                 {
-                    m_animator.SetBool("Move", true);
-                    m_animator.SetBool("Jump", false);
+                    m_animator.SetBool(m_valueMove, true);
+                    m_animator.SetBool(m_valueMove, false);
                 }
             }
             //
-            m_animator.SetBool("Sit", To.Tag.Contains(GameTag.WATER));
+            m_animator.SetBool(m_valueMove, To.Tag.Contains(GameTag.WATER));
         }
     }
 
@@ -75,15 +63,15 @@ public class AnimationCharacter : MonoBehaviour
         //
         if (On.Tag.Contains(GameTag.WATER))
         {
-            m_animator.SetBool("Move", false);
-            m_animator.SetBool("Jump", false);
-            m_animator.SetBool("Sit", true);
+            m_animator.SetBool(m_valueMove, false);
+            m_animator.SetBool(m_valueMove, false);
+            m_animator.SetBool(m_valueMove, true);
         }
         else
         {
-            m_animator.SetBool("Move", false);
-            m_animator.SetBool("Jump", false);
-            m_animator.SetBool("Sit", false);
+            m_animator.SetBool(m_valueMove, false);
+            m_animator.SetBool(m_valueMove, false);
+            m_animator.SetBool(m_valueMove, false);
         }
     }
 }
