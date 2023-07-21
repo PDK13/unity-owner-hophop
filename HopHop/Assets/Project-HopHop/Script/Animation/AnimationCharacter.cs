@@ -19,9 +19,9 @@ public class AnimationCharacter : MonoBehaviour
         if (To == null)
         {
             m_animator.SetBool(m_valueMove, true);
-            m_animator.SetBool(m_valueMove, true);
+            m_animator.SetBool(m_valueJump, true);
             //
-            m_animator.SetBool(m_valueMove, false);
+            m_animator.SetBool(m_valueSwim, false);
         }
         else
         {
@@ -30,12 +30,12 @@ public class AnimationCharacter : MonoBehaviour
                 if (To.Tag.Contains(GameTag.WATER))
                 {
                     m_animator.SetBool(m_valueMove, true);
-                    m_animator.SetBool(m_valueMove, false);
+                    m_animator.SetBool(m_valueJump, false);
                 }
                 else
                 {
                     m_animator.SetBool(m_valueMove, true);
-                    m_animator.SetBool(m_valueMove, true);
+                    m_animator.SetBool(m_valueJump, true);
                 }
             }
             else
@@ -43,16 +43,16 @@ public class AnimationCharacter : MonoBehaviour
                 if (To.Tag.Contains(GameTag.WATER))
                 {
                     m_animator.SetBool(m_valueMove, true);
-                    m_animator.SetBool(m_valueMove, true);
+                    m_animator.SetBool(m_valueJump, true);
                 }
                 else
                 {
                     m_animator.SetBool(m_valueMove, true);
-                    m_animator.SetBool(m_valueMove, false);
+                    m_animator.SetBool(m_valueJump, false);
                 }
             }
             //
-            m_animator.SetBool(m_valueMove, To.Tag.Contains(GameTag.WATER));
+            m_animator.SetBool(m_valueSwim, To.Tag.Contains(GameTag.WATER));
         }
     }
 

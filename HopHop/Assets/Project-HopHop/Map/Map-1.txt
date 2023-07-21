@@ -1557,7 +1557,7 @@ Block Normal 0
 0
 
 [-4;1;-2]
-Block Normal 0
+Block Slow 0
 <MOVE DATA>
 
 0
@@ -1812,7 +1812,7 @@ Block Normal 0
 0
 
 [-4;-1;-2]
-Block Normal 0
+Block Slip 0
 <MOVE DATA>
 
 0
