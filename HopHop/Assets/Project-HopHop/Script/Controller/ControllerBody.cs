@@ -8,10 +8,6 @@ public class ControllerBody : MonoBehaviour
 {
     private bool m_turnControl = false;
 
-    [SerializeField] private bool m_dynamic = false;
-
-    public bool Dynamic => m_dynamic;
-
     public Action<bool> onGravity;             //State
     public Action<bool, bool, bool> onPush;    //State, From, FallAhead
 

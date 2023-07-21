@@ -102,9 +102,6 @@ public class ControllerPlayer : MonoBehaviour
             if (BlockBody == null)
                 //Surely can't continue move to this Pos, because this Block can't be push!!
                 return;
-            if (!BlockBody.Dynamic)
-                //Surely can't continue move to this Pos, because this Block can't be push!!
-                return;
             if (!BlockBody.GetCheckDir(Dir, Dir))
                 //Surely can't continue move to this Pos, because this Block can't be push to the Pos ahead!!
                 return;

@@ -12,11 +12,12 @@ public class ControllerBullet : MonoBehaviour
     private int m_speed = 1;
 
     private bool m_turnControl = false;
+
     private IsoVector m_turnDir;
     private int m_turnLength = 0;
     private int m_turnLengthCurrent = 0;
 
-    private bool TurnLock => m_turnLengthCurrent == m_turnLength && m_turnLength != 0;
+    private bool TurnEnd => m_turnLengthCurrent == m_turnLength && m_turnLength != 0;
 
     private Animator m_animator;
     private ControllerBody m_body;
@@ -53,7 +54,7 @@ public class ControllerBullet : MonoBehaviour
             return;
         }
         //
-        if (TurnLock)
+        if (TurnEnd)
             return;
         //
         m_turnControl = true;
@@ -124,7 +125,7 @@ public class ControllerBullet : MonoBehaviour
             .OnComplete(() =>
             {
                 //End Animation!!
-                if (TurnLock)
+                if (TurnEnd)
                     GameTurn.SetEndTurn(TypeTurn.Object, this.gameObject); //Follow Object (!)
                 else
                     GameTurn.SetEndMove(TypeTurn.Object, this.gameObject); //Follow Object (!)

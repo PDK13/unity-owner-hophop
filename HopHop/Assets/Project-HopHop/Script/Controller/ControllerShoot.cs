@@ -9,13 +9,14 @@ public class ControllerShoot : MonoBehaviour
     [SerializeField] private ControllerBullet m_bullet;
 
     private bool m_turnControl = false;
+
+    private IsoDataBlockAction m_dataAction;
+
     private string m_turnCommand;
     private int m_turnTime = 0;
     private int m_turnTimeCurrent = 0;
 
-    private bool TurnLock => m_turnTimeCurrent == m_turnTime && m_turnTime != 0;
-
-    private IsoDataBlockAction m_dataAction;
+    private bool TurnEnd => m_turnTimeCurrent == m_turnTime && m_turnTime != 0;
 
     private ControllerBody m_body;
     private IsometricBlock m_block;
@@ -62,7 +63,7 @@ public class ControllerShoot : MonoBehaviour
             return;
         }
         //
-        if (TurnLock)
+        if (TurnEnd)
             return;
         //
         m_turnControl = true;
@@ -110,7 +111,7 @@ public class ControllerShoot : MonoBehaviour
         //
         StartCoroutine(ISetDelay());
         //
-        if (TurnLock)
+        if (TurnEnd)
         {
             m_dataAction.Index += m_dataAction.Quantity;
             if (m_dataAction.Type == IsoDataBlock.DataBlockType.Forward && m_dataAction.Index > m_dataAction.DataCount - 1)

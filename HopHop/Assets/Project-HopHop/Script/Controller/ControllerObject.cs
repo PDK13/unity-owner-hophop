@@ -6,14 +6,15 @@ using UnityEngine;
 public class ControllerObject : MonoBehaviour
 {
     private bool m_turnControl = false;
+
+    private IsoDataBlockMove m_dataMove;
+    private string m_dataFollow;
+
     private IsoVector m_turnDir;
     private int m_turnLength = 0;
     private int m_turnLengthCurrent = 0;
 
-    private bool TurnLock => m_turnLengthCurrent == m_turnLength && m_turnLength != 0;
-
-    private IsoDataBlockMove m_dataMove;
-    private string m_dataFollow;
+    private bool TurnEnd => m_turnLengthCurrent == m_turnLength && m_turnLength != 0;
 
     private ControllerBody m_body;
     private IsometricBlock m_block;
@@ -71,7 +72,7 @@ public class ControllerObject : MonoBehaviour
             return;
         }
         //
-        if (TurnLock)
+        if (TurnEnd)
             return;
         //
         m_turnControl = true;
@@ -118,7 +119,7 @@ public class ControllerObject : MonoBehaviour
             .OnComplete(() =>
             {
                 //End Animation!!
-                if (TurnLock)
+                if (TurnEnd)
                 {
                     m_turnDir = IsoVector.None;
                     GameTurn.SetEndTurn(TypeTurn.Object, this.gameObject); //Follow Object (!)
@@ -133,7 +134,7 @@ public class ControllerObject : MonoBehaviour
         //
         SetMoveTop(m_turnDir);
         //
-        if (TurnLock)
+        if (TurnEnd)
         {
             m_dataMove.Index += m_dataMove.Quantity;
             if (m_dataMove.Type == IsoDataBlock.DataBlockType.Forward && m_dataMove.Index > m_dataMove.DataCount - 1)
