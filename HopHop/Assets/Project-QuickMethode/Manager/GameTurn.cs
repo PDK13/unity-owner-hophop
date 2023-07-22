@@ -148,10 +148,11 @@ public class GameTurn
         //
         if (m_turnCurrent.EndMoveCheck)
         {
+            //All End Move or End Turn!!
+            //
             m_turnCurrent.EndMoveCount = 0;
             //
-            if (!m_turnCurrent.EndTurnCheck)
-                SetCurrent();
+            SetCurrent();
         }
     } //End!!
 
@@ -163,27 +164,36 @@ public class GameTurn
         if (!m_turnCurrent.Unit.Contains(Unit))
             return;
         //
-        Debug.LogFormat("[Turn] {0}: End Turn: {1}", m_turnPass, Turn.ToString());
-        //
         m_turnCurrent.EndTurnCount++;
         //
-        if (m_turnCurrent.EndTurnCheck)
+        Debug.LogFormat("[Turn] {0}: End Turn: {1} | Left: {2}", m_turnPass, Turn.ToString(), m_turnCurrent.Count - m_turnCurrent.EndTurnCount);
+        //
+        if (m_turnCurrent.EndMoveCheck)
         {
-            onEnd?.Invoke(Turn.ToString());
+            //All End Move or End Turn!!
             //
-            m_turnCurrent.EndTurnCount = 0;
+            m_turnCurrent.EndMoveCount = 0;
             //
-            m_turnQueue.RemoveAt(m_turnQueue.FindIndex(t => t.Turn == Turn.ToString()));
-            //
-            if (!m_turnCurrent.EndTurnRemove)
-                m_turnQueue.Add(m_turnCurrent);
-            //
-            if (m_turnCurrent.EndRemoveCount > 0)
+            if (m_turnCurrent.EndTurnCheck)
             {
-                Debug.LogFormat("[Turn] {0}: Remove Same Final: {1}", m_turnPass, Turn);
+                //All End Turn, then Swap this Turn to Last!!
                 //
-                m_turnCurrent.Count -= m_turnCurrent.EndRemoveCount;
-                m_turnCurrent.EndRemoveCount = 0;
+                onEnd?.Invoke(Turn.ToString());
+                //
+                m_turnCurrent.EndTurnCount = 0;
+                //
+                m_turnQueue.RemoveAt(m_turnQueue.FindIndex(t => t.Turn == Turn.ToString()));
+                //
+                if (!m_turnCurrent.EndTurnRemove)
+                    m_turnQueue.Add(m_turnCurrent);
+                //
+                if (m_turnCurrent.EndRemoveCount > 0)
+                {
+                    Debug.LogFormat("[Turn] {0}: Remove Same Final: {1}", m_turnPass, Turn);
+                    //
+                    m_turnCurrent.Count -= m_turnCurrent.EndRemoveCount;
+                    m_turnCurrent.EndRemoveCount = 0;
+                }
             }
             //
             SetCurrent();
@@ -309,7 +319,7 @@ public class GameTurn
 
     public static void SetEndMove(string Turn, GameObject Unit)
     {
-        if (m_turnCurrent.Turn != Turn)
+        if (m_turnCurrent.Turn != Turn.ToString())
             return;
         //
         if (!m_turnCurrent.Unit.Contains(Unit))
@@ -321,41 +331,52 @@ public class GameTurn
         //
         if (m_turnCurrent.EndMoveCheck)
         {
+            //All End Move or End Turn!!
+            //
             m_turnCurrent.EndMoveCount = 0;
             //
-            if (!m_turnCurrent.EndTurnCheck)
-                SetCurrent();
+            SetCurrent();
         }
     } //End!!
 
     public static void SetEndTurn(string Turn, GameObject Unit)
     {
-        if (m_turnCurrent.Turn != Turn)
+        if (m_turnCurrent.Turn != Turn.ToString())
             return;
         //
         if (!m_turnCurrent.Unit.Contains(Unit))
             return;
         //
-        Debug.LogFormat("[Turn] {0}: End Turn: {1}", m_turnPass, Turn.ToString());
-        //
         m_turnCurrent.EndTurnCount++;
         //
-        if (m_turnCurrent.EndTurnCheck)
+        Debug.LogFormat("[Turn] {0}: End Turn: {1} | Left: {2}", m_turnPass, Turn.ToString(), m_turnCurrent.Count - m_turnCurrent.EndTurnCount);
+        //
+        if (m_turnCurrent.EndMoveCheck)
         {
-            onEnd?.Invoke(Turn);
+            //All End Move or End Turn!!
             //
-            m_turnCurrent.EndTurnCount = 0;
+            m_turnCurrent.EndMoveCount = 0;
             //
-            m_turnQueue.RemoveAt(m_turnQueue.FindIndex(t => t.Turn == Turn));
-            //
-            if (!m_turnCurrent.EndTurnRemove)
-                m_turnQueue.Add(m_turnCurrent);
-            //
-            if (m_turnCurrent.EndRemoveCount > 0)
+            if (m_turnCurrent.EndTurnCheck)
             {
-                Debug.LogFormat("[Turn] {0}: Remove Same Final: {1}", m_turnPass, Turn);
-                m_turnCurrent.Count -= m_turnCurrent.EndRemoveCount;
-                m_turnCurrent.EndRemoveCount = 0;
+                //All End Turn, then Swap this Turn to Last!!
+                //
+                onEnd?.Invoke(Turn.ToString());
+                //
+                m_turnCurrent.EndTurnCount = 0;
+                //
+                m_turnQueue.RemoveAt(m_turnQueue.FindIndex(t => t.Turn == Turn.ToString()));
+                //
+                if (!m_turnCurrent.EndTurnRemove)
+                    m_turnQueue.Add(m_turnCurrent);
+                //
+                if (m_turnCurrent.EndRemoveCount > 0)
+                {
+                    Debug.LogFormat("[Turn] {0}: Remove Same Final: {1}", m_turnPass, Turn);
+                    //
+                    m_turnCurrent.Count -= m_turnCurrent.EndRemoveCount;
+                    m_turnCurrent.EndRemoveCount = 0;
+                }
             }
             //
             SetCurrent();

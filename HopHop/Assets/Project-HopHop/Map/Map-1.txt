@@ -276,8 +276,10 @@ Character Bug
 
 <ACTION DATA>
 
-0
-0
+1
+2
+1|wait
+1|shoot-L-L-1
 <EVENT DATA>
 
 0
@@ -2240,7 +2242,7 @@ Character Fish
 3
 1|wait
 1|wait
-1|shoot-D-D-1
+1|shoot-D-D-2
 <EVENT DATA>
 
 0

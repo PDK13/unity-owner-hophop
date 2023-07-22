@@ -36,9 +36,9 @@ public class ControllerObject : MonoBehaviour
         {
             if (m_dataMove.DataExist)
             {
+                GameTurn.SetInit(TypeTurn.Phase, this.gameObject);
                 GameTurn.SetInit(TypeTurn.Object, this.gameObject);
                 GameTurn.onTurn += SetControlTurn;
-                GameTurn.onEnd += SetControlEnd;
             }
             else
             if (m_dataFollow != null)
@@ -56,7 +56,6 @@ public class ControllerObject : MonoBehaviour
             {
                 GameTurn.SetRemove(TypeTurn.Object, this.gameObject);
                 GameTurn.onTurn -= SetControlTurn;
-                GameTurn.onEnd -= SetControlEnd;
             }
             else
             if (m_dataFollow != null)
@@ -68,28 +67,23 @@ public class ControllerObject : MonoBehaviour
 
     private void SetControlTurn(string Turn)
     {
-        if (Turn != TypeTurn.Object.ToString())
+        if (Turn == TypeTurn.Phase.ToString())
         {
-            m_turnControl = false;
-            return;
+            //Reset!!
+            m_turnLength = 0;
+            m_turnLengthCurrent = 0;
+            //
+            m_turnControl = true;
+            GameTurn.SetEndTurn(TypeTurn.Phase, this.gameObject);
         }
-        //
-        if (TurnEnd)
-            return;
-        //
-        m_turnControl = true;
-        //
-        SetControlMove();
-    }
-
-    private void SetControlEnd(string Turn)
-    {
-        if (Turn != TypeTurn.Object.ToString())
-            return;
-        //
-        m_turnLength = 0;
-        m_turnLengthCurrent = 0;
-        m_turnControl = false;
+        else
+        if (m_turnControl)
+        {
+            if (Turn == TypeTurn.Object.ToString())
+            {
+                SetControlMove();
+            }
+        }
     }
 
     private void SetControlMove()
@@ -100,8 +94,6 @@ public class ControllerObject : MonoBehaviour
             m_turnLength = m_dataMove.Length[m_dataMove.Index];
             m_turnLengthCurrent = 0;
         }
-        //
-        m_turnControl = false;
         //
         m_turnLengthCurrent++;
         //
@@ -123,8 +115,10 @@ public class ControllerObject : MonoBehaviour
                 //End Animation!!
                 if (TurnEnd)
                 {
-                    m_turnDir = IsoVector.None;
+                    m_turnControl = false;
                     GameTurn.SetEndTurn(TypeTurn.Object, this.gameObject); //Follow Object (!)
+                    //
+                    m_turnDir = IsoVector.None;
                 }
                 else
                     GameTurn.SetEndMove(TypeTurn.Object, this.gameObject); //Follow Object (!)
@@ -139,6 +133,7 @@ public class ControllerObject : MonoBehaviour
         if (TurnEnd)
         {
             m_dataMove.Index += m_dataMove.Quantity;
+            //
             if (m_dataMove.Type == IsoDataBlock.DataBlockType.Forward && m_dataMove.Index > m_dataMove.DataCount - 1)
             {
                 //End Here!!

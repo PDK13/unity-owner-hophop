@@ -35,9 +35,9 @@ public class ControllerShoot : MonoBehaviour
         {
             if (m_dataAction.DataExist)
             {
+                GameTurn.SetInit(TypeTurn.Phase, this.gameObject);
                 GameTurn.SetInit(TypeTurn.Object, this.gameObject);
                 GameTurn.onTurn += SetControlTurn;
-                GameTurn.onEnd += SetControlEnd;
             }
         }
     }
@@ -50,35 +50,29 @@ public class ControllerShoot : MonoBehaviour
             {
                 GameTurn.SetRemove(TypeTurn.Object, this.gameObject);
                 GameTurn.onTurn -= SetControlTurn;
-                GameTurn.onEnd -= SetControlEnd;
             }
         }
     }
 
     private void SetControlTurn(string Turn)
     {
-        if (Turn != TypeTurn.Object.ToString())
+        if (Turn == TypeTurn.Phase.ToString())
         {
-            m_turnControl = false;
-            return;
+            //Reset!!
+            m_turnTime = 0;
+            m_turnTimeCurrent = 0;
+            //
+            m_turnControl = true;
+            GameTurn.SetEndTurn(TypeTurn.Phase, this.gameObject);
         }
-        //
-        if (TurnEnd)
-            return;
-        //
-        m_turnControl = true;
-        //
-        SetControlAction();
-    }
-
-    private void SetControlEnd(string Turn)
-    {
-        if (Turn != TypeTurn.Object.ToString())
-            return;
-        //
-        m_turnTime = 0;
-        m_turnTimeCurrent = 0;
-        m_turnControl = false;
+        else
+        if (m_turnControl)
+        {
+            if (Turn == TypeTurn.Object.ToString())
+            {
+                SetControlAction();
+            }
+        }
     }
 
     private void SetControlAction()
@@ -89,8 +83,6 @@ public class ControllerShoot : MonoBehaviour
             m_turnTime = m_dataAction.Time[m_dataAction.Index];
             m_turnTimeCurrent = 0;
         }
-        //
-        m_turnControl = false;
         //
         m_turnTimeCurrent++;
         //
@@ -136,7 +128,8 @@ public class ControllerShoot : MonoBehaviour
     private IEnumerator ISetDelay()
     {
         yield return new WaitForSeconds(GameManager.TimeMove * 1);
-
+        //
+        m_turnControl = false;
         GameTurn.SetEndTurn(TypeTurn.Object, this.gameObject); //Follow Object (!)
     }
 

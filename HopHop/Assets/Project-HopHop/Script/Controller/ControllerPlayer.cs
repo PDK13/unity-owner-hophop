@@ -5,9 +5,7 @@ using DG.Tweening;
 
 public class ControllerPlayer : MonoBehaviour
 {
-    private bool m_turnControl = false;
-
-    private bool m_jump = false;
+    private bool m_playerControl = false;
 
     private ControllerBody m_body;
     private AnimationCharacter m_animation;
@@ -26,6 +24,7 @@ public class ControllerPlayer : MonoBehaviour
         m_body.onPush += SetPush;
         m_body.onForce += SetForce;
         //
+        GameTurn.SetInit(TypeTurn.Phase, this.gameObject);
         GameTurn.SetInit(TypeTurn.Player, this.gameObject);
         GameTurn.onTurn += SetControlTurn;
     }
@@ -42,7 +41,7 @@ public class ControllerPlayer : MonoBehaviour
 
     private void Update()
     {
-        if (!m_turnControl)
+        if (!m_playerControl)
             return;
 
         if (Input.GetKey(KeyCode.UpArrow))
@@ -65,21 +64,24 @@ public class ControllerPlayer : MonoBehaviour
 
     private void SetControlTurn(string Turn)
     {
-        if (Turn != TypeTurn.Player.ToString())
+        if (Turn == TypeTurn.Phase.ToString())
         {
-            m_turnControl = false;
-            return;
+            //Reset!!
+            //
+            GameTurn.SetEndTurn(TypeTurn.Phase, this.gameObject);
         }
-        //
-        if (m_body.MoveForceXY.HasValue)
+        else
+        if (Turn == TypeTurn.Player.ToString())
         {
-            SetControlMove(m_body.MoveForceXY.Value);
-            m_body.MoveForceXY = null;
-            return;
+            if (m_body.MoveForceXY.HasValue)
+            {
+                SetControlMove(m_body.MoveForceXY.Value);
+                m_body.MoveForceXY = null;
+                return;
+            }
+            //
+            m_playerControl = true;
         }
-        //
-        m_turnControl = true;
-        //
     }
 
     private void SetControlMove(IsoVector Dir)
@@ -88,7 +90,7 @@ public class ControllerPlayer : MonoBehaviour
         //
         if (Dir == IsoVector.None)
         {
-            m_turnControl = false;
+            m_playerControl = false;
             GameTurn.SetEndTurn(TypeTurn.Player, this.gameObject); //Follow Player (!)
             return;
         }
@@ -122,7 +124,7 @@ public class ControllerPlayer : MonoBehaviour
         }
         //Fine to continue move to pos ahead!!
         //
-        m_turnControl = false;
+        m_playerControl = false;
         //
         m_body.SetCheckGravity(Dir);
         m_animation.SetMove(m_body.GetCheckDir(IsoVector.Bot), m_body.GetCheckDir(IsoVector.Bot, Dir));

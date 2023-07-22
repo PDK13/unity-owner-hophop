@@ -81,10 +81,12 @@ public enum TypeCharacter
 public enum TypeTurn
 {
     None,
-    //Turn Primary:
+    //Turn Phase: Use for reset!!
+    Phase,
+    //Turn Primary: Use for base gameplay!!
     Player,
     Object,
-    //Turn Add:
+    //Turn Add: Use for event gameplay!!
     Gravity,
 }
 

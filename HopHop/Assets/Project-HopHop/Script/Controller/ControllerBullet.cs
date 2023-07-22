@@ -29,47 +29,48 @@ public class ControllerBullet : MonoBehaviour
         m_body = GetComponent<ControllerBody>();
         m_block = GetComponent<IsometricBlock>();
         //
+        GameTurn.SetInit(TypeTurn.Phase, this.gameObject);
         GameTurn.SetInit(TypeTurn.Object, this.gameObject);
         GameTurn.onTurn += SetControlTurn;
-        GameTurn.onEnd += SetControlEnd;
         //
         m_speed = Speed;
         m_turnDir = Dir;
         //
-        StartCoroutine(ISetDelay());
+        StartCoroutine(ISetInitDelay());
+    }
+
+    private IEnumerator ISetInitDelay()
+    {
+        yield return new WaitForSeconds(GameManager.TimeMove * 1);
+
+        GameTurn.SetEndTurn(TypeTurn.Object, this.gameObject); //Follow Object (!)
     }
 
     private void OnDestroy()
     {
         GameTurn.SetRemove(TypeTurn.Object, this.gameObject);
         GameTurn.onTurn -= SetControlTurn;
-        GameTurn.onEnd -= SetControlEnd;
     }
 
     private void SetControlTurn(string Turn)
     {
-        if (Turn != TypeTurn.Object.ToString())
+        if (Turn == TypeTurn.Phase.ToString())
         {
-            m_turnControl = false;
-            return;
+            //Reset!!
+            m_turnLength = 0;
+            m_turnLengthCurrent = 0;
+            //
+            m_turnControl = true;
+            GameTurn.SetEndTurn(TypeTurn.Phase, this.gameObject);
         }
-        //
-        if (TurnEnd)
-            return;
-        //
-        m_turnControl = true;
-        //
-        SetControlMove();
-    }
-
-    private void SetControlEnd(string Turn)
-    {
-        if (Turn != TypeTurn.Object.ToString())
-            return;
-        //
-        m_turnLength = 0;
-        m_turnLengthCurrent = 0;
-        m_turnControl = false;
+        else
+        if (m_turnControl)
+        {
+            if (Turn == TypeTurn.Object.ToString())
+            {
+                SetControlMove();
+            }
+        }
     }
 
     private void SetControlMove()
@@ -80,18 +81,16 @@ public class ControllerBullet : MonoBehaviour
             m_turnLengthCurrent = 0;
         }
         //
-        m_turnControl = false;
-        //
         m_turnLengthCurrent++;
         //
         IsometricBlock Block = m_block.WorldManager.GetWorldBlockCurrent(m_block.Pos + m_turnDir);
         if (Block != null)
         {
+            m_turnControl = false;
             GameTurn.SetEndTurn(TypeTurn.Object, this.gameObject); //Follow Object (!)
             //
             GameTurn.SetRemove(TypeTurn.Object, this.gameObject);
             GameTurn.onTurn -= SetControlTurn;
-            GameTurn.onEnd -= SetControlEnd;
             //
             //Can't not continue move ahead because of burden, so destroy this!!
             //
@@ -104,10 +103,12 @@ public class ControllerBullet : MonoBehaviour
             m_block.WorldManager.SetWorldBlockRemoveInstant(m_block, DESTROY_DELAY);
             //
             return;
-            //Destroy this, instead of continue move ahead!!
+            //Destroy this, instead of continue move Wahead!!
         }
         //
-        StartCoroutine(ISetDelay());
+        //if (m_body != null)
+        //    //If this got Body, then check if it will Fall ahead!!
+        //    m_body.SetCheckGravity(m_turnDir);
         //
         Vector3 MoveDir = IsoVector.GetVector(m_turnDir);
         Vector3 MoveStart = IsoVector.GetVector(m_block.Pos);
@@ -126,26 +127,22 @@ public class ControllerBullet : MonoBehaviour
             {
                 //End Animation!!
                 if (TurnEnd)
+                {
+                    m_turnControl = false;
                     GameTurn.SetEndTurn(TypeTurn.Object, this.gameObject); //Follow Object (!)
+                }
                 else
                     GameTurn.SetEndMove(TypeTurn.Object, this.gameObject); //Follow Object (!)
             });
     }
 
-    private IEnumerator ISetDelay()
-    {
-        yield return new WaitForSeconds(GameManager.TimeMove * 1);
-
-        GameTurn.SetEndTurn(TypeTurn.Object, this.gameObject); //Follow Object (!)
-    }
-
     public void SetHit()
     {
+        m_turnControl = false;
         GameTurn.SetEndTurn(TypeTurn.Object, this.gameObject); //Follow Object (!)
         //
         GameTurn.SetRemove(TypeTurn.Object, this.gameObject);
         GameTurn.onTurn -= SetControlTurn;
-        GameTurn.onEnd -= SetControlEnd;
         //
         SetControlAnimation(ANIM_BLOW);
         m_block.WorldManager.SetWorldBlockRemoveInstant(m_block, DESTROY_DELAY);
