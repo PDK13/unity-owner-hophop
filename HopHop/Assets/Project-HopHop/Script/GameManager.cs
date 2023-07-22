@@ -5,9 +5,11 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameConfig GameConfig;
+    //
     [SerializeField] private GameConfig m_gameConfig;
     [SerializeField] private IsometricConfig m_isometricConfig;
-
+    //
     [Space]
     [SerializeField] private IsometricManager m_isometricManager;
 
@@ -30,6 +32,8 @@ public class GameManager : MonoBehaviour
     {
         DontDestroyOnLoad(this.gameObject);
         //
+        GameConfig = m_gameConfig;
+        //
         Application.targetFrameRate = 60;
     }
 
@@ -37,7 +41,7 @@ public class GameManager : MonoBehaviour
     {
         m_isometricManager.SetList(m_isometricConfig);
 
-        SetWorldLoad(m_gameConfig.m_level[0].Level[0]);
+        SetWorldLoad(m_gameConfig.Level[0].Level[0]);
     }
 
     private void SetWorldLoad(TextAsset WorldData)

@@ -183,10 +183,10 @@ public class ControllerBody : MonoBehaviour
         if (GetCheckDir(IsoVector.Bot) == null)
             return;
         //
-        if (GetCheckDir(IsoVector.Bot).Tag.Contains(GameTag.SLOW))
+        if (GetCheckDir(IsoVector.Bot).Tag.Contains(GameManager.GameConfig.Tag.Slow))
             MoveForceXY = IsoVector.None;
         else
-        if (GetCheckDir(IsoVector.Bot).Tag.Contains(GameTag.SLIP))
+        if (GetCheckDir(IsoVector.Bot).Tag.Contains(GameManager.GameConfig.Tag.Slip))
             MoveForceXY = MoveLastXY;
         else
             MoveForceXY = null;

@@ -28,10 +28,10 @@ public class AnimationCharacter : MonoBehaviour
         //
         //Move to BLOCK!!
         //
-        if (From.Tag.Contains(GameTag.WATER))
+        if (From.Tag.Contains(GameManager.GameConfig.Tag.Water))
         {
             //Move from WATER!!
-            if (To.Tag.Contains(GameTag.WATER))
+            if (To.Tag.Contains(GameManager.GameConfig.Tag.Water))
                 //Move from WATER to WATER!!
                 m_animator.SetBool(m_valueJump, false);
             else
@@ -39,25 +39,25 @@ public class AnimationCharacter : MonoBehaviour
                 m_animator.SetBool(m_valueJump, true);
         }
         else
-        if (From.Tag.Contains(GameTag.SLOW))
+        if (From.Tag.Contains(GameManager.GameConfig.Tag.Slow))
             //Move from SLOW!!
             m_animator.SetBool(m_valueJump, true);
         else
-        if (From.Tag.Contains(GameTag.SLIP))
+        if (From.Tag.Contains(GameManager.GameConfig.Tag.Slip))
             //Move from SLIP!!
             m_animator.SetBool(m_valueJump, true);
         else
         {
             //Move from NORMAL!!
-            if (To.Tag.Contains(GameTag.WATER))
+            if (To.Tag.Contains(GameManager.GameConfig.Tag.Water))
                 //Move from NORMAL to WATER!!
                 m_animator.SetBool(m_valueJump, true);
             else
-            if (To.Tag.Contains(GameTag.SLOW))
+            if (To.Tag.Contains(GameManager.GameConfig.Tag.Slow))
                 //Move from NORMAL to SLOW!!
                 m_animator.SetBool(m_valueJump, true);
             else
-            if (To.Tag.Contains(GameTag.SLIP))
+            if (To.Tag.Contains(GameManager.GameConfig.Tag.Slip))
                 //Move from NORMAL to SLIP!!
                 m_animator.SetBool(m_valueJump, true);
             else
@@ -65,7 +65,7 @@ public class AnimationCharacter : MonoBehaviour
                 m_animator.SetBool(m_valueJump, false);
         }
         //
-        m_animator.SetBool(m_valueSwim, To.Tag.Contains(GameTag.WATER));
+        m_animator.SetBool(m_valueSwim, To.Tag.Contains(GameManager.GameConfig.Tag.Water));
     }
 
     public void SetStand(IsometricBlock On)
@@ -75,6 +75,6 @@ public class AnimationCharacter : MonoBehaviour
         //
         m_animator.SetBool(m_valueMove, false); //Surely NOT MOVE!!
         m_animator.SetBool(m_valueJump, false);
-        m_animator.SetBool(m_valueSwim, On.Tag.Contains(GameTag.WATER));
+        m_animator.SetBool(m_valueSwim, On.Tag.Contains(GameManager.GameConfig.Tag.Water));
     }
 }

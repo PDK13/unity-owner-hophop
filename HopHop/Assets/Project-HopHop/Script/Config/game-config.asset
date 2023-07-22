@@ -12,11 +12,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17e3364c253c200459e80230879e8b8d, type: 3}
   m_Name: game-config
   m_EditorClassIdentifier: 
-  m_level:
+  Level:
   - Name: Normal
     Level:
     - {fileID: 4900000, guid: aab0aa5e40d0d0b4bac8e5f7fd77ea3a, type: 3}
     - {fileID: 4900000, guid: 77407970419d5db4f834f6424fc978e3, type: 3}
-  m_character:
+  Character:
   - m_skin:
     - {fileID: 9100000, guid: 27c4e6e3c49f36842a26726b301de8e2, type: 2}
+  GameKey:
+    TURN_PLAYER: turn-player
+    TURN_OBJECT: turn-object
+  GameEvent:
+    EVENT_FOLLOW: event-follow
+  GameCommand:
+    COMMAND_WAIT: wait
+    COMMAND_SHOOT: shoot
+  GameTag:
+    Character: character
+    Block: block
+    Object: object
+    Slip: slip
+    Slow: slow
+    Water: water
+    Bullet: bullet
+    Trap: trap

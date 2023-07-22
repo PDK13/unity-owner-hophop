@@ -95,18 +95,19 @@ public class ControllerShoot : MonoBehaviour
         m_turnTimeCurrent++;
         //
         List<string> Command = QEncypt.GetDencyptString('-', m_turnCommand);
-        switch (Command[0])
+        //
+        if (Command[0] == GameManager.GameConfig.Command.Wait)
         {
-            case GameKey.COMMAND_WAIT:
-                //"wait"
-                break;
-            case GameKey.COMMAND_SHOOT:
-                //"shoot-[1]-[2]-[3]"
-                IsoVector DirSpawm = IsoVector.GetDirValue(Command[1]);
-                IsoVector DirMove = IsoVector.GetDirValue(Command[2]);
-                int Speed = int.Parse(Command[3]);
-                SetShoot(DirSpawm, DirMove, Speed);
-                break;
+            //"wait"
+        }
+        else
+        if (Command[0] == GameManager.GameConfig.Command.Shoot)
+        {
+            //"shoot-[1]-[2]-[3]"
+            IsoVector DirSpawm = IsoVector.GetDirValue(Command[1]);
+            IsoVector DirMove = IsoVector.GetDirValue(Command[2]);
+            int Speed = int.Parse(Command[3]);
+            SetShoot(DirSpawm, DirMove, Speed);
         }
         //
         StartCoroutine(ISetDelay());
