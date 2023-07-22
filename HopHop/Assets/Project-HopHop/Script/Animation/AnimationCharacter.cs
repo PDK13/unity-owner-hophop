@@ -16,44 +16,56 @@ public class AnimationCharacter : MonoBehaviour
         if (From == null)
             return;
         //
+        m_animator.SetBool(m_valueMove, true); //Surely MOVE!!
+        //
         if (To == null)
         {
-            m_animator.SetBool(m_valueMove, true);
+            //Move to NONE!!
             m_animator.SetBool(m_valueJump, true);
-            //
             m_animator.SetBool(m_valueSwim, false);
+            return;
+        }
+        //
+        //Move to BLOCK!!
+        //
+        if (From.Tag.Contains(GameTag.WATER))
+        {
+            //Move from WATER!!
+            if (To.Tag.Contains(GameTag.WATER))
+                //Move from WATER to WATER!!
+                m_animator.SetBool(m_valueJump, false);
+            else
+                //Move from WATER to NOT WATER!!
+                m_animator.SetBool(m_valueJump, true);
         }
         else
+        if (From.Tag.Contains(GameTag.SLOW))
+            //Move from SLOW!!
+            m_animator.SetBool(m_valueJump, true);
+        else
+        if (From.Tag.Contains(GameTag.SLIP))
+            //Move from SLIP!!
+            m_animator.SetBool(m_valueJump, true);
+        else
         {
-            if (From.Tag.Contains(GameTag.WATER))
-            {
-                if (To.Tag.Contains(GameTag.WATER))
-                {
-                    m_animator.SetBool(m_valueMove, true);
-                    m_animator.SetBool(m_valueJump, false);
-                }
-                else
-                {
-                    m_animator.SetBool(m_valueMove, true);
-                    m_animator.SetBool(m_valueJump, true);
-                }
-            }
+            //Move from NORMAL!!
+            if (To.Tag.Contains(GameTag.WATER))
+                //Move from NORMAL to WATER!!
+                m_animator.SetBool(m_valueJump, true);
             else
-            {
-                if (To.Tag.Contains(GameTag.WATER))
-                {
-                    m_animator.SetBool(m_valueMove, true);
-                    m_animator.SetBool(m_valueJump, true);
-                }
-                else
-                {
-                    m_animator.SetBool(m_valueMove, true);
-                    m_animator.SetBool(m_valueJump, false);
-                }
-            }
-            //
-            m_animator.SetBool(m_valueSwim, To.Tag.Contains(GameTag.WATER));
+            if (To.Tag.Contains(GameTag.SLOW))
+                //Move from NORMAL to SLOW!!
+                m_animator.SetBool(m_valueJump, true);
+            else
+            if (To.Tag.Contains(GameTag.SLIP))
+                //Move from NORMAL to SLIP!!
+                m_animator.SetBool(m_valueJump, true);
+            else
+                //Move from NORMAL to NORMAL!!
+                m_animator.SetBool(m_valueJump, false);
         }
+        //
+        m_animator.SetBool(m_valueSwim, To.Tag.Contains(GameTag.WATER));
     }
 
     public void SetStand(IsometricBlock On)
@@ -61,17 +73,8 @@ public class AnimationCharacter : MonoBehaviour
         if (On == null)
             return;
         //
-        if (On.Tag.Contains(GameTag.WATER))
-        {
-            m_animator.SetBool(m_valueMove, false);
-            m_animator.SetBool(m_valueJump, false);
-            m_animator.SetBool(m_valueSwim, true);
-        }
-        else
-        {
-            m_animator.SetBool(m_valueMove, false);
-            m_animator.SetBool(m_valueJump, false);
-            m_animator.SetBool(m_valueSwim, false);
-        }
+        m_animator.SetBool(m_valueMove, false); //Surely NOT MOVE!!
+        m_animator.SetBool(m_valueJump, false);
+        m_animator.SetBool(m_valueSwim, On.Tag.Contains(GameTag.WATER));
     }
 }

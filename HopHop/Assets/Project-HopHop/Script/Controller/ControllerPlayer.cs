@@ -125,7 +125,6 @@ public class ControllerPlayer : MonoBehaviour
         m_turnControl = false;
         //
         m_body.SetCheckGravity(Dir);
-        //
         m_animation.SetMove(m_body.GetCheckDir(IsoVector.Bot), m_body.GetCheckDir(IsoVector.Bot, Dir));
         //
         Vector3 MoveDir = IsoVector.GetVector(Dir);
