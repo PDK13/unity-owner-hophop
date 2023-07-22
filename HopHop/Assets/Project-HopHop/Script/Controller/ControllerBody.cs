@@ -8,10 +8,12 @@ public class ControllerBody : MonoBehaviour
 {
     private bool m_turnControl = false;
 
-    public Action<bool> onGravity;             //State
-    public Action<bool, bool, bool> onPush;    //State, From, FallAhead
+    public Action<bool> onGravity;              //State
+    public Action<bool, bool, bool> onPush;     //State, From, FallAhead
+    public Action<bool> onForce;                //State
 
-    //public IsoVector
+    public IsoVector MoveLastXY;
+    public IsoVector? MoveForceXY;
 
     private IsometricBlock m_block;
 
@@ -108,6 +110,8 @@ public class ControllerBody : MonoBehaviour
         }
         else
         {
+            MoveLastXY = Dir;
+            //
             FromBottom = false;
             //
             IsometricBlock BlockNext = m_block.WorldManager.GetWorldBlockCurrent(m_block.Pos.Fixed + Dir);
@@ -147,6 +151,8 @@ public class ControllerBody : MonoBehaviour
 
     public void SetControlForce(IsoVector Dir)
     {
+        if (Dir != IsoVector.Top && Dir != IsoVector.Bot)
+            MoveLastXY = Dir;
         //
         Vector3 MoveDir = IsoVector.GetVector(Dir);
         Vector3 MoveStart = IsoVector.GetVector(m_block.Pos.Fixed);
@@ -155,7 +161,7 @@ public class ControllerBody : MonoBehaviour
             .SetEase(Ease.Linear)
             .OnStart(() =>
             {
-                //...
+                onForce?.Invoke(true);
             })
             .OnUpdate(() =>
             {
@@ -163,7 +169,7 @@ public class ControllerBody : MonoBehaviour
             })
             .OnComplete(() =>
             {
-                //...
+                onForce?.Invoke(false);
             });
         //
     }
@@ -172,13 +178,18 @@ public class ControllerBody : MonoBehaviour
 
     #region Stand On
 
-    public void SetStandOn(IsometricBlock On, IsoVector DirMoved)
+    public void SetStandOn()
     {
-        //if (On.Tag.Contains(GameTag.SLOW))
-        //    ForceDir = IsoVector.None;
-        //else
-        //if (On.Tag.Contains(GameTag.SLIP))
-        //    ForceDir = DirMoved;
+        if (GetCheckDir(IsoVector.Bot) == null)
+            return;
+        //
+        if (GetCheckDir(IsoVector.Bot).Tag.Contains(GameTag.SLOW))
+            MoveForceXY = IsoVector.None;
+        else
+        if (GetCheckDir(IsoVector.Bot).Tag.Contains(GameTag.SLIP))
+            MoveForceXY = MoveLastXY;
+        else
+            MoveForceXY = null;
     }
 
     #endregion

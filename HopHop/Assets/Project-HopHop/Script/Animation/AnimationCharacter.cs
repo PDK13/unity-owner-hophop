@@ -64,14 +64,14 @@ public class AnimationCharacter : MonoBehaviour
         if (On.Tag.Contains(GameTag.WATER))
         {
             m_animator.SetBool(m_valueMove, false);
-            m_animator.SetBool(m_valueMove, false);
-            m_animator.SetBool(m_valueMove, true);
+            m_animator.SetBool(m_valueJump, false);
+            m_animator.SetBool(m_valueSwim, true);
         }
         else
         {
             m_animator.SetBool(m_valueMove, false);
-            m_animator.SetBool(m_valueMove, false);
-            m_animator.SetBool(m_valueMove, false);
+            m_animator.SetBool(m_valueJump, false);
+            m_animator.SetBool(m_valueSwim, false);
         }
     }
 }

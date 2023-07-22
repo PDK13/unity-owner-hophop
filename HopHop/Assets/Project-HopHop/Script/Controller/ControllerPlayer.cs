@@ -24,6 +24,7 @@ public class ControllerPlayer : MonoBehaviour
     {
         m_body.onGravity += SetGravity;
         m_body.onPush += SetPush;
+        m_body.onForce += SetForce;
         //
         GameTurn.SetInit(TypeTurn.Player, this.gameObject);
         GameTurn.onTurn += SetControlTurn;
@@ -33,6 +34,7 @@ public class ControllerPlayer : MonoBehaviour
     {
         m_body.onGravity -= SetGravity;
         m_body.onPush -= SetPush;
+        m_body.onForce -= SetForce;
         //
         GameTurn.SetRemove(TypeTurn.Player, this.gameObject);
         GameTurn.onTurn -= SetControlTurn;
@@ -69,12 +71,12 @@ public class ControllerPlayer : MonoBehaviour
             return;
         }
         //
-        //if (m_body.ForceDir.HasValue)
-        //{
-        //    SetControlMove(m_body.ForceDir.Value);
-        //    m_body.ForceDir = null;
-        //    return;
-        //}
+        if (m_body.MoveForceXY.HasValue)
+        {
+            SetControlMove(m_body.MoveForceXY.Value);
+            m_body.MoveForceXY = null;
+            return;
+        }
         //
         m_turnControl = true;
         //
@@ -82,13 +84,15 @@ public class ControllerPlayer : MonoBehaviour
 
     private void SetControlMove(IsoVector Dir)
     {
+        m_body.MoveLastXY = Dir;
+        //
         if (Dir == IsoVector.None)
         {
             m_turnControl = false;
             GameTurn.SetEndTurn(TypeTurn.Player, this.gameObject); //Follow Player (!)
             return;
         }
-
+        //
         int Length = 1; //Follow Character (!)
         //
         //Check if there is a Block ahead?!
@@ -139,10 +143,10 @@ public class ControllerPlayer : MonoBehaviour
             })
             .OnComplete(() =>
             {
-                GameTurn.SetEndTurn(TypeTurn.Player, this.gameObject); //Follow Player (!)
-                //
-                m_body.SetStandOn(m_body.GetCheckDir(IsoVector.Bot), Dir);
+                m_body.SetStandOn();
                 m_animation.SetStand(m_body.GetCheckDir(IsoVector.Bot));
+                //
+                GameTurn.SetEndTurn(TypeTurn.Player, this.gameObject); //Follow Player (!)
             });
         //
     }
@@ -155,7 +159,7 @@ public class ControllerPlayer : MonoBehaviour
     {
         if (!State)
         {
-            //m_body.SetStandOn(m_body.GetCheckDir(IsoVector.Bot), Dir);
+            m_body.SetStandOn();
             m_animation.SetStand(m_body.GetCheckDir(IsoVector.Bot));
         }
     }
@@ -164,7 +168,16 @@ public class ControllerPlayer : MonoBehaviour
     {
         if (!State)
         {
-            //m_body.SetStandOn(m_body.GetCheckDir(IsoVector.Bot), Dir);
+            m_body.SetStandOn();
+            m_animation.SetStand(m_body.GetCheckDir(IsoVector.Bot));
+        }
+    }
+
+    public void SetForce(bool State)
+    {
+        if (!State)
+        {
+            m_body.SetStandOn();
             m_animation.SetStand(m_body.GetCheckDir(IsoVector.Bot));
         }
     }
