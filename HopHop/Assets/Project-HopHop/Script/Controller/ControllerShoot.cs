@@ -35,8 +35,8 @@ public class ControllerShoot : MonoBehaviour
         {
             if (m_dataAction.DataExist)
             {
-                GameTurn.SetInit(TypeTurn.Phase, this.gameObject);
-                GameTurn.SetInit(TypeTurn.Object, this.gameObject);
+                GameTurn.SetInit(TurnType.Phase, this.gameObject);
+                GameTurn.SetInit(TurnType.Object, this.gameObject);
                 GameTurn.onTurn += SetControlTurn;
             }
         }
@@ -48,8 +48,8 @@ public class ControllerShoot : MonoBehaviour
         {
             if (m_dataAction.DataExist)
             {
-                GameTurn.SetRemove(TypeTurn.Phase, this.gameObject);
-                GameTurn.SetRemove(TypeTurn.Object, this.gameObject);
+                GameTurn.SetRemove(TurnType.Phase, this.gameObject);
+                GameTurn.SetRemove(TurnType.Object, this.gameObject);
                 GameTurn.onTurn -= SetControlTurn;
             }
         }
@@ -57,19 +57,19 @@ public class ControllerShoot : MonoBehaviour
 
     private void SetControlTurn(string Turn)
     {
-        if (Turn == TypeTurn.Phase.ToString())
+        if (Turn == TurnType.Phase.ToString())
         {
             //Reset!!
             m_turnTime = 0;
             m_turnTimeCurrent = 0;
             //
             m_turnControl = true;
-            GameTurn.SetEndTurn(TypeTurn.Phase, this.gameObject);
+            GameTurn.SetEndTurn(TurnType.Phase, this.gameObject);
         }
         else
         if (m_turnControl)
         {
-            if (Turn == TypeTurn.Object.ToString())
+            if (Turn == TurnType.Object.ToString())
             {
                 SetControlAction();
             }
@@ -131,7 +131,7 @@ public class ControllerShoot : MonoBehaviour
         yield return new WaitForSeconds(GameManager.TimeMove * 1);
         //
         m_turnControl = false;
-        GameTurn.SetEndTurn(TypeTurn.Object, this.gameObject); //Follow Object (!)
+        GameTurn.SetEndTurn(TurnType.Object, this.gameObject); //Follow Object (!)
     }
 
     private void SetShoot(IsoVector DirSpawm, IsoVector DirMove, int Speed)

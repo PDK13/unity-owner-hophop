@@ -10,7 +10,10 @@ public class GameTurn
     public static Action<string> onTurn;
     public static Action<string> onEnd;
 
+    private static int m_stepPass = 0;
+
     private static int m_turnPass = 0;
+    private static string m_turnBase = "";
 
     public static int TurnPass => m_turnPass;
 
@@ -21,26 +24,36 @@ public class GameTurn
         public string Turn = "None";
 
         public List<GameObject> Unit;
+        public List<GameObject> UnitEndTurn;
+        public List<GameObject> UnitEndMove;
 
-        public int Count = 0;
-        public int EndMoveCount = 0;
-        public int EndTurnCount = 0;
-        public int EndRemoveCount = 0; //Remove from this Turn, caculate this after End Turn!!
+        public bool EndMove => UnitEndMove.Count == Unit.Count - UnitEndTurn.Count;
+        public bool EndTurn => UnitEndTurn.Count == Unit.Count;
 
-        public bool EndTurnRemove = false; //Remove this Turn after End Turn!!
-
-        public bool EndMoveCheck => EndMoveCount == Count - EndTurnCount; //End Turn also mean End Move!!
-        public bool EndTurnCheck => EndTurnCount == Count;
+        public bool EndTurnRemove = false;
 
         public TurnSingle (int Start, string Turn, GameObject UnitFirst)
         {
             this.Start = Start;
             //
             this.Turn = Turn;
-            this.Count = 1;
             //
             this.Unit = new List<GameObject>();
             this.Unit.Add(UnitFirst);
+            //
+            this.UnitEndTurn = new List<GameObject>();
+            this.UnitEndMove = new List<GameObject>();
+        }
+
+        public bool GetEnd(GameObject UnitCheck)
+        {
+            if (!Unit.Contains(UnitCheck))
+                return false;
+            //
+            if (!UnitEndTurn.Contains(UnitCheck) && !UnitEndMove.Contains(UnitCheck))
+                return false;
+            //
+            return true;
         }
     }
 
@@ -53,11 +66,17 @@ public class GameTurn
         "Gravity",
     };
 
-    public static void SetStart()
+    public static void SetStart(string TurnBase = "")
     {
         Debug.Log("[Turn] Turn Start!!");
         //
+        if (TurnBase != "")
+        {
+            m_turnBase = TurnBase;
+        }
+        //
         m_turnPass = 0;
+        m_stepPass = 0;
         m_turnQueue = m_turnQueue.OrderBy(t => t.Start).ToList();
         SetCurrent();
     } //Start!!
@@ -66,18 +85,21 @@ public class GameTurn
     {
         m_turnCurrent = m_turnQueue[0];
         //
-        m_turnPass++;
+        if (m_turnCurrent.Turn == m_turnBase)
+            m_turnPass++;
         //
-        Debug.LogFormat("[Turn] {0}: Current: {1} | {2} | Moved: {3} | Ended: {4}",
-            m_turnPass,
-            m_turnCurrent.Turn,
-            m_turnCurrent.Count,
-            m_turnCurrent.EndMoveCount,
-            m_turnCurrent.EndTurnCount);
+        m_stepPass++;
+        //
+        if (m_turnCurrent.Turn == m_turnBase)
+            Debug.LogWarningFormat("[Turn] <TURN {0} START>", m_turnPass);
+        //
+        if (m_turnCurrent.Turn != m_turnBase)
+            Debug.LogWarningFormat("[Turn] <TURN {1} START> {2} / {3}", m_turnPass, m_turnCurrent.Turn, m_turnCurrent.UnitEndTurn.Count, m_turnCurrent.Unit.Count);
         //
         onTurn?.Invoke(m_turnCurrent.Turn);
         //
-
+        SetEndNext(m_turnCurrent.Turn.ToString());
+        //
     } //Force Turn Next!!
 
     #region Enum
@@ -126,14 +148,13 @@ public class GameTurn
             if (m_turnQueue[i].Unit.Contains(Unit))
                 return;
             //
-            Debug.LogFormat("[Turn] {0}: Init: {1}", m_turnPass, Turn.ToString());
+            Debug.LogFormat("[Turn] <Init> {0}", Turn.ToString());
             //
-            m_turnQueue[i].Count++;
             m_turnQueue[i].Unit.Add(Unit);
             return;
         }
         //
-        Debug.LogFormat("[Turn] {0}: Init: {1}", m_turnPass, Turn.ToString());
+        Debug.LogFormat("[Turn] <Init> {0}", Turn.ToString());
         //
         m_turnQueue.Add(new TurnSingle(Start, Turn, Unit));
     } //Init on Start!!
@@ -148,20 +169,24 @@ public class GameTurn
             if (!m_turnQueue[i].Unit.Contains(Unit))
                 return;
             //
-
             if (m_turnQueue[i] == m_turnCurrent)
             {
-                Debug.LogFormat("[Turn] {0}: Remove Same: {1}", m_turnPass, Turn);
-                //
                 m_turnQueue[i].Unit.Remove(Unit);
-                m_turnQueue[i].EndRemoveCount++;
+                m_turnQueue[i].UnitEndMove.Remove(Unit);
+                m_turnQueue[i].UnitEndTurn.Remove(Unit);
+                //
+                SetDebug(Turn, "Remove Same");
+                //
+                SetEndNext(Turn);
             }
             else
             {
-                Debug.LogFormat("[Turn] {0}: Remove Un-same: {1}", m_turnPass, Turn);
-                //
                 m_turnQueue[i].Unit.Remove(Unit);
-                m_turnQueue[i].Count--;
+                m_turnQueue[i].UnitEndMove.Remove(Unit);
+                m_turnQueue[i].UnitEndTurn.Remove(Unit);
+                //
+                SetDebug(Turn, "Remove Un-Same");
+                //
             }
             //
             break;
@@ -170,73 +195,67 @@ public class GameTurn
 
     public static void SetEndMove(string Turn, GameObject Unit)
     {
-        if (m_turnCurrent.Turn != Turn.ToString())
+        if (m_turnCurrent.Turn != Turn)
             return;
         //
-        if (!m_turnCurrent.Unit.Contains(Unit))
+        if (m_turnCurrent.GetEnd(Unit))
             return;
         //
-        m_turnCurrent.EndMoveCount++;
+        m_turnCurrent.UnitEndMove.Add(Unit);
         //
-        Debug.LogFormat("[Turn] {0}: End Move: {1} | Count: {2}", m_turnPass, Turn.ToString(), m_turnCurrent.EndMoveCount);
+        SetDebug(Turn, "End Move");
         //
-        if (m_turnCurrent.EndMoveCheck)
-        {
-            //All End Move or End Turn!!
-            //
-            Debug.LogFormat("[Turn] {0}: End Move Final: {1} | Count: {2}", m_turnPass, Turn.ToString(), m_turnCurrent.EndMoveCount);
-            //
-            m_turnCurrent.EndMoveCount = 0;
-            //
-            SetCurrent();
-        }
+        SetEndNext(Turn);
     } //End!!
 
     public static void SetEndTurn(string Turn, GameObject Unit)
     {
-        if (m_turnCurrent.Turn != Turn.ToString())
+        if (m_turnCurrent.Turn != Turn)
             return;
         //
-        if (!m_turnCurrent.Unit.Contains(Unit))
+        if (m_turnCurrent.GetEnd(Unit))
             return;
         //
-        m_turnCurrent.EndTurnCount++;
+        m_turnCurrent.UnitEndTurn.Add(Unit);
         //
-        Debug.LogFormat("[Turn] {0}: End Turn: {1} | Left: {2}", m_turnPass, Turn.ToString(), m_turnCurrent.Count - m_turnCurrent.EndTurnCount - m_turnCurrent.EndMoveCount);
+        SetDebug(Turn, "End Turn");
         //
-        if (m_turnCurrent.EndMoveCheck)
+        SetEndNext(Turn);
+    } //End!!
+
+    private static void SetEndNext(string Turn)
+    {
+        if (m_turnCurrent.EndTurn)
         {
-            //All End Move or End Turn!!
+            SetDebug(Turn, "Next Turn");
             //
-            Debug.LogFormat("[Turn] {0}: End Move Final: {1} | Count: {2}", m_turnPass, Turn.ToString(), m_turnCurrent.EndMoveCount);
+            m_turnCurrent.UnitEndMove.Clear();
+            m_turnCurrent.UnitEndTurn.Clear();
             //
-            m_turnCurrent.EndMoveCount = 0;
+            onEnd?.Invoke(Turn.ToString());
             //
-            if (m_turnCurrent.EndTurnCheck)
-            {
-                //All End Turn, then Swap this Turn to Last!!
-                //
-                onEnd?.Invoke(Turn.ToString());
-                //
-                m_turnCurrent.EndTurnCount = 0;
-                //
-                m_turnQueue.RemoveAt(m_turnQueue.FindIndex(t => t.Turn == Turn.ToString()));
-                //
-                if (!m_turnCurrent.EndTurnRemove)
-                    m_turnQueue.Add(m_turnCurrent);
-                //
-                if (m_turnCurrent.EndRemoveCount > 0)
-                {
-                    Debug.LogFormat("[Turn] {0}: Remove Same Final: {1} | Remove: {2}", m_turnPass, Turn, m_turnCurrent.EndRemoveCount);
-                    //
-                    m_turnCurrent.Count -= m_turnCurrent.EndRemoveCount;
-                    m_turnCurrent.EndRemoveCount = 0;
-                }
-            }
+            SetEndSwap(Turn);
             //
             SetCurrent();
         }
-    } //End!!
+        else
+        if (m_turnCurrent.EndMove)
+        {
+            SetDebug(Turn, "Next Turn by Move");
+            //
+            m_turnCurrent.UnitEndMove.Clear();
+            //
+            SetCurrent();
+        }
+    } //Check End Turn or End Move!!
+
+    private static void SetEndSwap(string Turn)
+    {
+        m_turnQueue.RemoveAt(m_turnQueue.FindIndex(t => t.Turn == Turn.ToString()));
+        //
+        if (!m_turnCurrent.EndTurnRemove)
+            m_turnQueue.Add(m_turnCurrent);
+    } //Swap Current Turn to Last!!
 
     public static void SetAdd(int Start, string Turn, GameObject Unit, int After = 0)
     {
@@ -245,8 +264,6 @@ public class GameTurn
         //
         if (After > m_turnQueue.Count - 1)
         {
-            Debug.LogFormat("[Turn] {0}: Add {1} | {2}", m_turnPass, Turn.ToString(), After);
-            //
             m_turnQueue.Add(new TurnSingle(Start, Turn, Unit));
             m_turnQueue[m_turnQueue.Count - 1].EndTurnRemove = TurnRemove.Contains(Turn);
         }
@@ -256,15 +273,10 @@ public class GameTurn
             if (m_turnQueue[After].Unit.Contains(Unit))
                 return;
             //
-            Debug.LogFormat("[Turn] {0}: Add {1} | {2}", m_turnPass, Turn.ToString(), After);
-            //
             m_turnQueue[After].Unit.Add(Unit);
-            m_turnQueue[After].Count++;
         }
         else
         {
-            Debug.LogFormat("[Turn] {0}: Add {1} | {2}", m_turnPass, Turn.ToString(), After);
-            //
             m_turnQueue.Insert(After, new TurnSingle(Start, Turn, Unit));
             m_turnQueue[After].EndTurnRemove = TurnRemove.Contains(Turn);
         }
@@ -282,15 +294,10 @@ public class GameTurn
                 if (m_turnQueue[i].Unit.Contains(Unit))
                     return;
                 //
-                Debug.LogFormat("[Turn] {0}: Add {1} | {2}", m_turnPass, Turn.ToString(), After);
-                //
                 m_turnQueue[i].Unit.Add(Unit);
-                m_turnQueue[i].Count++;
             }
             else
             {
-                Debug.LogFormat("[Turn] {0}: Add {1} | {2}", m_turnPass, Turn.ToString(), After);
-                //
                 m_turnQueue.Insert(i, new TurnSingle(Start, Turn.ToString(), Unit));
                 m_turnQueue[i].EndTurnRemove = TurnRemove.Contains(Turn);
             }
@@ -300,4 +307,17 @@ public class GameTurn
     } //Add Turn Special!!
 
     #endregion
+
+    private static void SetDebug(string Turn, string Message)
+    {
+        if (Turn == m_turnBase)
+            return;
+        //
+        Debug.LogFormat("[Turn] <{0} : {1}> [End Turn: {2}] + [End Move: {3}] == {4} ?",
+            Message,
+            Turn.ToString(), 
+            m_turnCurrent.UnitEndTurn.Count,
+            m_turnCurrent.UnitEndMove.Count,
+            m_turnCurrent.Unit.Count);
+    }
 }

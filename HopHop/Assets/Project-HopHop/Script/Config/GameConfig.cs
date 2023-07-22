@@ -69,16 +69,7 @@ public class GameConfigTag
     public string Trap = "trap";
 }
 
-public enum TypeCharacter
-{
-    Angle,
-    Bunny,
-    Cat,
-    Frog,
-    Mow,
-}
-
-public enum TypeTurn
+public enum TurnType
 {
     None,
     //Turn Phase: Use for reset!!
@@ -88,10 +79,4 @@ public enum TypeTurn
     Object,
     //Turn Add: Use for event gameplay!!
     Gravity,
-}
-
-public enum TypeDelay
-{
-    None,
-    Gravtiy,
 }

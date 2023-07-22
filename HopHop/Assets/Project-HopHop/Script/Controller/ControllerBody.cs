@@ -26,7 +26,7 @@ public class ControllerBody : MonoBehaviour
 
     private void SetControlGravity(string Turn)
     {
-        if (Turn != TypeTurn.Gravity.ToString())
+        if (Turn != TurnType.Gravity.ToString())
         {
             m_turnControl = false;
             return;
@@ -58,7 +58,7 @@ public class ControllerBody : MonoBehaviour
 
     private void SetForceGravity()
     {
-        GameTurn.SetAdd(TypeTurn.Gravity, this.gameObject);
+        GameTurn.SetAdd(TurnType.Gravity, this.gameObject);
         GameTurn.onTurn += SetControlGravity;
     }
 
@@ -75,7 +75,7 @@ public class ControllerBody : MonoBehaviour
             }
             else
             {
-                GameTurn.SetEndTurn(TypeTurn.Gravity, this.gameObject); //Follow Object (!)
+                GameTurn.SetEndTurn(TurnType.Gravity, this.gameObject); //Follow Object (!)
                 GameTurn.onTurn -= SetControlGravity;
                 //
                 onGravity?.Invoke(false);

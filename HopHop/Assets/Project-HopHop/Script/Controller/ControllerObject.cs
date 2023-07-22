@@ -36,8 +36,8 @@ public class ControllerObject : MonoBehaviour
         {
             if (m_dataMove.DataExist)
             {
-                GameTurn.SetInit(TypeTurn.Phase, this.gameObject);
-                GameTurn.SetInit(TypeTurn.Object, this.gameObject);
+                GameTurn.SetInit(TurnType.Phase, this.gameObject);
+                GameTurn.SetInit(TurnType.Object, this.gameObject);
                 GameTurn.onTurn += SetControlTurn;
             }
             else
@@ -54,8 +54,8 @@ public class ControllerObject : MonoBehaviour
         {
             if (m_dataMove.DataExist)
             {
-                GameTurn.SetRemove(TypeTurn.Phase, this.gameObject);
-                GameTurn.SetRemove(TypeTurn.Object, this.gameObject);
+                GameTurn.SetRemove(TurnType.Phase, this.gameObject);
+                GameTurn.SetRemove(TurnType.Object, this.gameObject);
                 GameTurn.onTurn -= SetControlTurn;
             }
             else
@@ -68,19 +68,19 @@ public class ControllerObject : MonoBehaviour
 
     private void SetControlTurn(string Turn)
     {
-        if (Turn == TypeTurn.Phase.ToString())
+        if (Turn == TurnType.Phase.ToString())
         {
             //Reset!!
             m_turnLength = 0;
             m_turnLengthCurrent = 0;
             //
             m_turnControl = true;
-            GameTurn.SetEndTurn(TypeTurn.Phase, this.gameObject);
+            GameTurn.SetEndTurn(TurnType.Phase, this.gameObject);
         }
         else
         if (m_turnControl)
         {
-            if (Turn == TypeTurn.Object.ToString())
+            if (Turn == TurnType.Object.ToString())
             {
                 SetControlMove();
             }
@@ -117,12 +117,12 @@ public class ControllerObject : MonoBehaviour
                 if (TurnEnd)
                 {
                     m_turnControl = false;
-                    GameTurn.SetEndTurn(TypeTurn.Object, this.gameObject); //Follow Object (!)
+                    GameTurn.SetEndTurn(TurnType.Object, this.gameObject); //Follow Object (!)
                     //
                     m_turnDir = IsoVector.None;
                 }
                 else
-                    GameTurn.SetEndMove(TypeTurn.Object, this.gameObject); //Follow Object (!)
+                    GameTurn.SetEndMove(TurnType.Object, this.gameObject); //Follow Object (!)
             });
         //
         GameEvent.SetFollow(m_dataFollow, m_turnDir);

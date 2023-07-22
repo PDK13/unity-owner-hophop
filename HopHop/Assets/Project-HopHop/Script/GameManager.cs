@@ -59,6 +59,6 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(3f);
 
-        GameTurn.SetStart();
+        GameTurn.SetStart(TurnType.Phase.ToString());
     }
 }
