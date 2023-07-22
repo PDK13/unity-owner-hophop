@@ -12,6 +12,8 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using Random = UnityEngine.Random;
 #if UNITY_EDITOR
+using UnityEngine.UIElements;
+using UnityEditor.UIElements;
 using UnityEditor;
 #endif
 
@@ -352,14 +354,14 @@ namespace QuickMethode
 
         #region ==================================== Color - Image
 
-        public static void SetSprite(Image Image, float Alpha)
+        public static void SetSprite(UnityEngine.UI.Image Image, float Alpha)
         {
             Color Color = Image.color;
             SetColor(ref Color, Alpha);
             Image.color = Color;
         }
 
-        public static void SetSprite(Image Image, Color Color, float Alpha)
+        public static void SetSprite(UnityEngine.UI.Image Image, Color Color, float Alpha)
         {
             SetColor(ref Color, Alpha);
             Image.color = Color;
@@ -1617,7 +1619,7 @@ namespace QuickMethode
 
         #region Button
 
-        public static void SetButton(Button From, UnityAction Action)
+        public static void SetButton(UnityEngine.UI.Button From, UnityAction Action)
         {
             //Add an void methode to Action!!
 
@@ -4481,7 +4483,7 @@ namespace QuickMethode
 
         public static void SetMouseVisible(bool MouseVisble)
         {
-            Cursor.visible = MouseVisble;
+            UnityEngine.Cursor.visible = MouseVisble;
         }
 
         #endregion
@@ -4877,6 +4879,16 @@ namespace QuickMethode
 
         #region ==================================== GUI Primary
 
+        #region ------------------------------------ Indent Level : Can be understand at TAB in inspector!!
+
+        public static int IndentLevel
+        {
+            get => EditorGUI.indentLevel;
+            set => EditorGUI.indentLevel = value;
+        }
+
+        #endregion
+
         #region ------------------------------------ Label
 
         public static void SetLabel(string Label, GUIStyle GUIStyle = null, params GUILayoutOption[] GUILayoutOption)
@@ -4885,6 +4897,11 @@ namespace QuickMethode
                 GUILayout.Label(Label, GUILayoutOption);
             else
                 GUILayout.Label(Label, GUIStyle, GUILayoutOption);
+        }
+
+        public static void SetLabel(string Label, Rect Rect)
+        {
+            EditorGUI.LabelField(Rect, Label);
         }
 
         public static void SetLabel(Sprite Sprite, params GUILayoutOption[] GUILayoutOption)
@@ -5219,7 +5236,7 @@ namespace QuickMethode
         }
 
         #endregion
-    }
+    } //This used for Window Editor!!
 
     ///<summary>
     ///Caution: Unity Editor only!
@@ -5249,6 +5266,14 @@ namespace QuickMethode
             EditorGUILayout.PropertyField(Field, GUILayoutOption);
         }
 
+        public static void SetField(SerializedProperty Field, Rect Rect, bool FieldName = false)
+        {
+            if (FieldName)
+                EditorGUI.PropertyField(Rect, Field);
+            else
+                EditorGUI.PropertyField(Rect, Field, GUIContent.none);
+        }
+
         public static void SetApply(Editor This)
         {
             This.serializedObject.ApplyModifiedProperties();
@@ -5271,7 +5296,62 @@ namespace QuickMethode
         #endregion
 
         #endregion
-    }
+    } //This used for Script Editor (Custom Editor)!!
+
+    public class QObjectEditor
+    {
+        #region ==================================== GUI Primary
+
+        #region ------------------------------------ Get Field
+
+        public static PropertyField GetField(SerializedProperty Property, string FieldName)
+        {
+            return new PropertyField(Property.FindPropertyRelative(FieldName));
+        } //Use in 'public override VisualElement CreatePropertyGUI(SerializedProperty property)' methode!!
+
+        public static VisualElement GetContainer(SerializedProperty Property, params string[] FieldName)
+        {
+            var Container = new VisualElement();
+            //
+            foreach(string FieldNameChild in FieldName)
+            {
+                var Field = GetField(Property, FieldNameChild);
+                Container.Add(Field);
+            }
+            //
+            return Container;
+        } //Use in 'public override VisualElement CreatePropertyGUI(SerializedProperty property)' methode!!
+
+        #endregion
+
+        #region ------------------------------------ Chance Property
+
+        public static void SetPropertyBegin(Rect Position, SerializedProperty Property, GUIContent Label)
+        {
+            EditorGUI.BeginProperty(Position, Label, Property);
+        } //Use in 'public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)' methode!!
+
+        public static void SetPropertyEnd()
+        {
+            EditorGUI.EndProperty();
+        } //Use in 'public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)' methode!!
+
+        #endregion
+
+        #region ------------------------------------ Set Field
+
+        public static void SetField(SerializedProperty Property, string NameField, Rect Rect, bool FieldName = false)
+        {
+            if (FieldName)
+                EditorGUI.PropertyField(Rect, Property.FindPropertyRelative(NameField));
+            else
+                EditorGUI.PropertyField(Rect, Property.FindPropertyRelative(NameField), GUIContent.none);
+        }
+
+        #endregion
+
+        #endregion
+    } //This used for Custom Class or Struct (PropertyDrawer)!!
 
     ///<summary>
     ///Caution: Unity Editor only!

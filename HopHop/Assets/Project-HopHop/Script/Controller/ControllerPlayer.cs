@@ -69,12 +69,12 @@ public class ControllerPlayer : MonoBehaviour
             return;
         }
         //
-        if (m_body.ForceDir.HasValue)
-        {
-            SetControlMove(m_body.ForceDir.Value);
-            m_body.ForceDir = null;
-            return;
-        }
+        //if (m_body.ForceDir.HasValue)
+        //{
+        //    SetControlMove(m_body.ForceDir.Value);
+        //    m_body.ForceDir = null;
+        //    return;
+        //}
         //
         m_turnControl = true;
         //
@@ -155,7 +155,7 @@ public class ControllerPlayer : MonoBehaviour
     {
         if (!State)
         {
-            m_body.SetStandOn(m_body.GetCheckDir(IsoVector.Bot), Dir);
+            //m_body.SetStandOn(m_body.GetCheckDir(IsoVector.Bot), Dir);
             m_animation.SetStand(m_body.GetCheckDir(IsoVector.Bot));
         }
     }
@@ -164,7 +164,7 @@ public class ControllerPlayer : MonoBehaviour
     {
         if (!State)
         {
-            m_body.SetStandOn(m_body.GetCheckDir(IsoVector.Bot), Dir);
+            //m_body.SetStandOn(m_body.GetCheckDir(IsoVector.Bot), Dir);
             m_animation.SetStand(m_body.GetCheckDir(IsoVector.Bot));
         }
     }

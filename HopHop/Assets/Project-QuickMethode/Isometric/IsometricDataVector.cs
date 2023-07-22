@@ -6,7 +6,7 @@ using UnityEngine;
 public enum IsoDir { Stop = -1, None = 0, Up = 1, Down = 2, Left = 3, Right = 4, Top = 5, Bot = 6 }
 
 [Serializable]
-public struct IsoVector
+public struct IsoVector : IEquatable<IsoVector>
 {
     #region Primary
 
@@ -263,17 +263,22 @@ public struct IsoVector
 
     #region Overide
 
-    public override bool Equals(object obj)
-    {
-        return base.Equals(obj);
-    }
-
     public override int GetHashCode()
     {
         return base.GetHashCode();
     }
 
     public override string ToString() => $"[{X}, {Y}, {H}]";
+
+    public override bool Equals(object obj)
+    {
+        return base.Equals(obj);
+    }
+
+    public bool Equals(IsoVector other)
+    {
+        return base.Equals(other);
+    }
 
     #endregion
 }

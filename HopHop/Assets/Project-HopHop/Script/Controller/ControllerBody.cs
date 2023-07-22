@@ -11,7 +11,7 @@ public class ControllerBody : MonoBehaviour
     public Action<bool> onGravity;             //State
     public Action<bool, bool, bool> onPush;    //State, From, FallAhead
 
-    public IsoVector? ForceDir; //Continue Move to a Dir (Set and Get by another component)!!
+    //public IsoVector
 
     private IsometricBlock m_block;
 
@@ -174,11 +174,11 @@ public class ControllerBody : MonoBehaviour
 
     public void SetStandOn(IsometricBlock On, IsoVector DirMoved)
     {
-        if (On.Tag.Contains(GameTag.SLOW))
-            ForceDir = IsoVector.None;
-        else
-        if (On.Tag.Contains(GameTag.SLIP))
-            ForceDir = DirMoved;
+        //if (On.Tag.Contains(GameTag.SLOW))
+        //    ForceDir = IsoVector.None;
+        //else
+        //if (On.Tag.Contains(GameTag.SLIP))
+        //    ForceDir = DirMoved;
     }
 
     #endregion
