@@ -8,6 +8,14 @@ public class IsoDataBlockEvent
     public string Key = "";
     public List<IsoDataBlockEventSingle> Data = new List<IsoDataBlockEventSingle>();
 
+    public void SetDataAdd(IsoDataBlockEventSingle DataSingle)
+    {
+        if (DataSingle == null)
+            return;
+        //
+        Data.Add(DataSingle);
+    }
+
     public bool DataExist => Data == null ? false : Data.Count == 0 ? false : true;
 }
 
@@ -29,6 +37,9 @@ public class IsoDataBlockEventSingle
 
     public static IsoDataBlockEventSingle GetDencypt(string Value)
     {
+        if (Value == "")
+            return null;
+        //
         List<string> DataString = QEncypt.GetDencyptString(KEY_VALUE_ENCYPT, Value);
         return new IsoDataBlockEventSingle(DataString[0], DataString[1]);
     }

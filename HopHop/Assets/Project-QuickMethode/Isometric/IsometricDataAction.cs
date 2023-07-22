@@ -38,6 +38,9 @@ public class IsoDataBlockAction
 
     public void SetDataAdd(IsoDataBlockActionSingle DataSingle)
     {
+        if (DataSingle == null)
+            return;
+        //
         Action.Add(DataSingle.Action);
         Time.Add(DataSingle.Time);
     }
@@ -63,6 +66,9 @@ public class IsoDataBlockActionSingle
 
     public static IsoDataBlockActionSingle GetDencypt(string Value)
     {
+        if (Value == "")
+            return null;
+        //
         List<string> DataString = QEncypt.GetDencyptString(KEY_VALUE_ENCYPT, Value);
         return new IsoDataBlockActionSingle(DataString[1], int.Parse(DataString[0]));
     }

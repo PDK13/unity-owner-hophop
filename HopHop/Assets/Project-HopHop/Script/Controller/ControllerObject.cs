@@ -28,10 +28,10 @@ public class ControllerObject : MonoBehaviour
     private void Start()
     {
         m_dataMove = m_block.Data.MoveData;
-        m_dataFollow = m_block.Data.EventData.DataExist ? 
-            m_block.Data.EventData.Data.Find(t => t.Name == GameManager.GameConfig.Event.Follow).Value : 
-            null;
-
+        //
+        if (m_block.Data.FollowData.Key == GameManager.GameConfig.Event.Follow)
+            m_dataFollow = m_block.Data.FollowData.KeyFollow;
+        //
         if (m_dataMove != null)
         {
             if (m_dataMove.DataExist)

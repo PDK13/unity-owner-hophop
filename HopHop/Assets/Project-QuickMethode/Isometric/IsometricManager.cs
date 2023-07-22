@@ -738,43 +738,47 @@ public class IsometricManager : MonoBehaviour
     private void SetFileWrite(QFileIO FileIO)
     {
         SetWorldOrder();
-
+        //
         List<IsoDataBlock> WorldBlocks = new List<IsoDataBlock>();
         for (int i = 0; i < m_worldPosH.Count; i++)
             for (int j = 0; j < m_worldPosH[i].Block.Count; j++)
                 WorldBlocks.Add(new IsoDataBlock(m_worldPosH[i].Block[j].PosPrimary, m_worldPosH[i].Block[j].Name, m_worldPosH[i].Block[j].Data));
-
+        //
         FileIO.SetWriteAdd("[WORLD NAME]");
         FileIO.SetWriteAdd((WorldName != "") ? WorldName : "...");
-
+        //
         FileIO.SetWriteAdd("[WORLD BLOCK]");
         FileIO.SetWriteAdd(WorldBlocks.Count);
         for (int BlockIndex = 0; BlockIndex < WorldBlocks.Count; BlockIndex++)
         {
-            FileIO.SetWriteAdd();
+            FileIO.SetWriteAdd("---------------------------------------");
             FileIO.SetWriteAdd(WorldBlocks[BlockIndex].PosPrimary.Encypt);
             FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Name);
-
+            //
             FileIO.SetWriteAdd("<MOVE DATA>");
             FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.MoveData.Key);
             FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.MoveData.Type);
             FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.MoveData.Data.Count);
             for (int DataIndex = 0; DataIndex < WorldBlocks[BlockIndex].Data.MoveData.Data.Count; DataIndex++)
                 FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.MoveData.Data[DataIndex].Encypt);
-
+            //
+            FileIO.SetWriteAdd("<FOLLOW DATA>");
+            FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.FollowData.Key);
+            FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.FollowData.KeyFollow);
+            //
             FileIO.SetWriteAdd("<ACTION DATA>");
             FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.ActionData.Key);
             FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.ActionData.Type);
             FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.ActionData.Data.Count);
             for (int DataIndex = 0; DataIndex < WorldBlocks[BlockIndex].Data.ActionData.Data.Count; DataIndex++)
                 FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.ActionData.Data[DataIndex].Encypt);
-
+            //
             FileIO.SetWriteAdd("<EVENT DATA>");
             FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.EventData.Key);
             FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.EventData.Data.Count);
             for (int DataIndex = 0; DataIndex < WorldBlocks[BlockIndex].Data.EventData.Data.Count; DataIndex++)
                 FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.EventData.Data[DataIndex].Encypt);
-
+            //
             FileIO.SetWriteAdd("<TELEPORT DATA>");
             FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.TeleportData.Key);
             FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.TeleportData.Data.Count);
@@ -808,10 +812,10 @@ public class IsometricManager : MonoBehaviour
     private void SetFileRead(QFileIO FileIO)
     {
         SetWorldRemove(true);
-
+        //
         FileIO.GetReadAuto();
         m_name = FileIO.GetReadAutoString();
-
+        //
         FileIO.GetReadAuto();
         int BlockCount = FileIO.GetReadAutoInt();
         for (int BlockIndex = 0; BlockIndex < BlockCount; BlockIndex++)
@@ -819,9 +823,9 @@ public class IsometricManager : MonoBehaviour
             FileIO.GetReadAuto();
             IsoVector PosPrimary = IsoVector.GetDencypt(FileIO.GetReadAutoString());
             string Name = FileIO.GetReadAutoString();
-
+            //
             IsoDataBlockSingle Data = new IsoDataBlockSingle();
-
+            //
             FileIO.GetReadAuto();
             Data.MoveData = new IsoDataBlockMove();
             Data.MoveData.Key = FileIO.GetReadAutoString();
@@ -830,6 +834,10 @@ public class IsometricManager : MonoBehaviour
             int MoveCount = FileIO.GetReadAutoInt();
             for (int DataIndex = 0; DataIndex < MoveCount; DataIndex++)
                 Data.MoveData.SetDataAdd(IsoDataBlockMoveSingle.GetDencypt(FileIO.GetReadAutoString()));
+            //
+            FileIO.GetReadAuto();
+            Data.FollowData.Key = FileIO.GetReadAutoString();
+            Data.FollowData.KeyFollow = FileIO.GetReadAutoString();
 
             FileIO.GetReadAuto();
             Data.ActionData = new IsoDataBlockAction();
@@ -839,26 +847,26 @@ public class IsometricManager : MonoBehaviour
             int ActionCount = FileIO.GetReadAutoInt();
             for (int DataIndex = 0; DataIndex < ActionCount; DataIndex++)
                 Data.ActionData.SetDataAdd(IsoDataBlockActionSingle.GetDencypt(FileIO.GetReadAutoString()));
-
+            //
             FileIO.GetReadAuto();
             Data.EventData = new IsoDataBlockEvent();
             Data.EventData.Key = FileIO.GetReadAutoString();
             Data.EventData.Data = new List<IsoDataBlockEventSingle>();
             int EventCount = FileIO.GetReadAutoInt();
             for (int DataIndex = 0; DataIndex < EventCount; DataIndex++)
-                Data.EventData.Data.Add(IsoDataBlockEventSingle.GetDencypt(FileIO.GetReadAutoString()));
-
+                Data.EventData.SetDataAdd(IsoDataBlockEventSingle.GetDencypt(FileIO.GetReadAutoString()));
+            //
             FileIO.GetReadAuto();
             Data.TeleportData = new IsoDataBlockTeleport();
             Data.TeleportData.Key = FileIO.GetReadAutoString();
             Data.TeleportData.Data = new List<IsoDataBlockTeleportSingle>();
             int TeleportCount = FileIO.GetReadAutoInt();
             for (int DataIndex = 0; DataIndex < TeleportCount; DataIndex++)
-                Data.TeleportData.Data.Add(IsoDataBlockTeleportSingle.GetDencypt(FileIO.GetReadAutoString()));
-
+                Data.TeleportData.SetDataAdd(IsoDataBlockTeleportSingle.GetDencypt(FileIO.GetReadAutoString()));
+            //
             SetWorldBlockCreate(PosPrimary, GetList(Name), Data);
         }
-
+        //
         onWorldCreate?.Invoke();
     }
 

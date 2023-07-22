@@ -37,6 +37,9 @@ public class IsoDataBlockMove
 
     public void SetDataAdd(IsoDataBlockMoveSingle DataSingle)
     {
+        if (DataSingle == null)
+            return;
+        //
         Dir.Add(DataSingle.Dir);
         Length.Add(DataSingle.Length);
     }
@@ -62,6 +65,9 @@ public class IsoDataBlockMoveSingle
 
     public static IsoDataBlockMoveSingle GetDencypt(string Value)
     {
+        if (Value == "")
+            return null;
+        //
         List<string> DataString = QEncypt.GetDencyptString(KEY_VALUE_ENCYPT, Value);
         return new IsoDataBlockMoveSingle(IsoVector.GetDirEnum(DataString[1]), int.Parse(DataString[0]));
     }
