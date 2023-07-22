@@ -48,6 +48,7 @@ public class ControllerShoot : MonoBehaviour
         {
             if (m_dataAction.DataExist)
             {
+                GameTurn.SetRemove(TypeTurn.Phase, this.gameObject);
                 GameTurn.SetRemove(TypeTurn.Object, this.gameObject);
                 GameTurn.onTurn -= SetControlTurn;
             }

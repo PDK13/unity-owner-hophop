@@ -35,6 +35,7 @@ public class ControllerPlayer : MonoBehaviour
         m_body.onPush -= SetPush;
         m_body.onForce -= SetForce;
         //
+        GameTurn.SetRemove(TypeTurn.Phase, this.gameObject);
         GameTurn.SetRemove(TypeTurn.Player, this.gameObject);
         GameTurn.onTurn -= SetControlTurn;
     }

@@ -36,18 +36,13 @@ public class ControllerBullet : MonoBehaviour
         m_speed = Speed;
         m_turnDir = Dir;
         //
-        StartCoroutine(ISetInitDelay());
-    }
-
-    private IEnumerator ISetInitDelay()
-    {
-        yield return new WaitForSeconds(GameManager.TimeMove * 1);
-
+        m_turnControl = false;
         GameTurn.SetEndTurn(TypeTurn.Object, this.gameObject); //Follow Object (!)
     }
 
     private void OnDestroy()
     {
+        GameTurn.SetRemove(TypeTurn.Phase, this.gameObject);
         GameTurn.SetRemove(TypeTurn.Object, this.gameObject);
         GameTurn.onTurn -= SetControlTurn;
     }
@@ -89,15 +84,23 @@ public class ControllerBullet : MonoBehaviour
             m_turnControl = false;
             GameTurn.SetEndTurn(TypeTurn.Object, this.gameObject); //Follow Object (!)
             //
+            GameTurn.SetRemove(TypeTurn.Phase, this.gameObject);
             GameTurn.SetRemove(TypeTurn.Object, this.gameObject);
             GameTurn.onTurn -= SetControlTurn;
             //
             //Can't not continue move ahead because of burden, so destroy this!!
             //
-            if (Block.GetComponent<ControllerPlayer>())
+            if (Block.Tag.Contains(GameManager.GameConfig.Tag.Player))
             {
                 Debug.Log("[Debug] Bullet hit Player!!");
             }
+            //else
+            //if (Block.Tag.Contains(GameManager.GameConfig.Tag.Bullet))
+            //{
+            //    Debug.Log("[Debug] Bullet hit Player!!");
+            //    //
+            //    Block.GetComponent<ControllerBullet>().SetHit();
+            //}
             //
             SetControlAnimation(ANIM_BLOW);
             m_block.WorldManager.SetWorldBlockRemoveInstant(m_block, DESTROY_DELAY);
@@ -106,9 +109,9 @@ public class ControllerBullet : MonoBehaviour
             //Destroy this, instead of continue move Wahead!!
         }
         //
-        //if (m_body != null)
-        //    //If this got Body, then check if it will Fall ahead!!
-        //    m_body.SetCheckGravity(m_turnDir);
+        if (m_body != null)
+            //If this got Body, then check if it will Fall ahead!!
+            m_body.SetCheckGravity(m_turnDir);
         //
         Vector3 MoveDir = IsoVector.GetVector(m_turnDir);
         Vector3 MoveStart = IsoVector.GetVector(m_block.Pos);
@@ -141,6 +144,7 @@ public class ControllerBullet : MonoBehaviour
         m_turnControl = false;
         GameTurn.SetEndTurn(TypeTurn.Object, this.gameObject); //Follow Object (!)
         //
+        GameTurn.SetRemove(TypeTurn.Phase, this.gameObject);
         GameTurn.SetRemove(TypeTurn.Object, this.gameObject);
         GameTurn.onTurn -= SetControlTurn;
         //
