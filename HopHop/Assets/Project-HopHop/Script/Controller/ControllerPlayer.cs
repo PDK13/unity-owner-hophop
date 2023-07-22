@@ -105,20 +105,20 @@ public class ControllerPlayer : MonoBehaviour
                 //
                 Block.GetComponent<ControllerBullet>().SetHit();
             }
-            //
-            //There is a Block ahead!!
-            //Check if can push this Block?!
-            //
-            ControllerBody BlockBody = Block.GetComponent<ControllerBody>();
-            if (BlockBody == null)
-                //Surely can't continue move to this Pos, because this Block can't be push!!
-                return;
-            if (!BlockBody.GetCheckDir(Dir, Dir))
-                //Surely can't continue move to this Pos, because this Block can't be push to the Pos ahead!!
-                return;
-            //
-            //Fine to continue push this Block ahead!!
-            //BlockBody.SetMove(IsoVector.GetDir(Dir));
+            else
+            {
+                ControllerBody BlockBody = Block.GetComponent<ControllerBody>();
+                //
+                if (BlockBody == null)
+                    //Surely can't continue move to this Pos, because this Block can't be push!!
+                    return;
+                //
+                if (!BlockBody.GetCheckDir(Dir, Dir))
+                    //Surely can't continue move to this Pos, because this Block can't be push to the Pos ahead!!
+                    return;
+                //
+                //Fine to continue push this Block ahead!!
+            }
         }
         //Fine to continue move to pos ahead!!
         //
