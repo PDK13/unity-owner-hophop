@@ -1,7 +1,27 @@
 [WORLD NAME]
 ...
 [WORLD BLOCK]
-295
+297
+---------------------------------------
+[-5;1;2]
+Character Devil
+<MOVE DATA>
+
+0
+0
+<FOLLOW DATA>
+
+
+<ACTION DATA>
+
+0
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
 ---------------------------------------
 [2;1;1]
 Object Flower 0
@@ -89,6 +109,28 @@ Object Flower 0
 
 0
 0
+<FOLLOW DATA>
+
+
+<ACTION DATA>
+
+0
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+---------------------------------------
+[-5;1;1]
+Block Move 0
+<MOVE DATA>
+
+2
+2
+1|L
+1|L
 <FOLLOW DATA>
 
 
@@ -2098,8 +2140,7 @@ move-1
 0
 <EVENT DATA>
 
-1
-
+0
 <TELEPORT DATA>
 
 0
@@ -2119,8 +2160,7 @@ move-1
 0
 <EVENT DATA>
 
-1
-
+0
 <TELEPORT DATA>
 
 0
@@ -4323,8 +4363,7 @@ move-1
 0
 <EVENT DATA>
 
-1
-
+0
 <TELEPORT DATA>
 
 0
@@ -4344,9 +4383,8 @@ move-1
 0
 0
 <EVENT DATA>
-turn-object
-1
 
+0
 <TELEPORT DATA>
 
 0
@@ -4366,8 +4404,7 @@ move-1
 0
 <EVENT DATA>
 
-1
-
+0
 <TELEPORT DATA>
 
 0

@@ -9,11 +9,11 @@ public class ControllerBody : MonoBehaviour
     private bool m_turnControl = false;
 
     public Action<bool> onGravity;              //State
-    public Action<bool, bool, bool> onPush;     //State, From, FallAhead
+    public Action<bool, IsoVector> onPush;      //State, From, Dir
     public Action<bool> onForce;                //State
 
-    public IsoVector MoveLastXY;
-    public IsoVector? MoveForceXY;
+    [HideInInspector] public IsoVector MoveLastXY;
+    [HideInInspector] public IsoVector? MoveForceXY;
 
     private IsometricBlock m_block;
 
@@ -39,8 +39,17 @@ public class ControllerBody : MonoBehaviour
 
     public bool SetCheckGravity(IsoVector Dir)
     {
-        if (GetCheckDir(Dir, IsoVector.Bot) != null)
-            return false;
+        IsometricBlock Block = GetCheckDir(Dir, IsoVector.Bot);
+        if (Block != null)
+        {
+            if (Block.Tag.Contains(GameManager.GameConfig.Tag.Bullet))
+            {
+                //Will touch OBJECT BULLET later!!
+            }
+            else
+                //Can't not Fall ahead!!
+                return false;
+        }
         //
         SetForceGravity();
         //
@@ -55,19 +64,27 @@ public class ControllerBody : MonoBehaviour
 
     private void SetControlGravity()
     {
-        if (GetCheckDir(IsoVector.Bot) != null)
+        IsometricBlock Block = GetCheckDir(IsoVector.Bot);
+        if (Block != null)
         {
-            //End Animation!!
-            //
-            GameTurn.SetEndTurn(TypeTurn.Gravity, this.gameObject); //Follow Object (!)
-            GameTurn.onTurn -= SetControlGravity;
-            //
-            onGravity?.Invoke(false);
-            //
-            m_turnControl = false;
-            return;
+            if (Block.Tag.Contains(GameManager.GameConfig.Tag.Bullet))
+            {
+                Debug.Log("[Debug] Bullet hit Player!!");
+                //
+                Block.GetComponent<ControllerBullet>().SetHit();
+            }
+            else
+            {
+                GameTurn.SetEndTurn(TypeTurn.Gravity, this.gameObject); //Follow Object (!)
+                GameTurn.onTurn -= SetControlGravity;
+                //
+                onGravity?.Invoke(false);
+                //
+                m_turnControl = false;
+                return;
+            }
         }
-
+        //
         Vector3 MoveDir = IsoVector.GetVector(IsoVector.Bot);
         Vector3 MoveStart = IsoVector.GetVector(m_block.Pos.Fixed);
         Vector3 MoveEnd = IsoVector.GetVector(m_block.Pos.Fixed) + MoveDir * 1;
@@ -85,6 +102,7 @@ public class ControllerBody : MonoBehaviour
             {
                 SetControlGravity();
             });
+        //
     }
 
     #endregion
@@ -93,13 +111,8 @@ public class ControllerBody : MonoBehaviour
 
     public void SetControlPush(IsoVector Dir, IsoVector From)
     {
-        bool FromBottom = false;
-        bool FallAhead = false;
-        //
         if (From == IsoVector.Bot)
         {
-            FromBottom = true;
-            //
             IsometricBlock BlockNext = m_block.WorldManager.GetWorldBlockCurrent(m_block.Pos.Fixed + Dir);
             if (BlockNext != null)
             {
@@ -112,8 +125,6 @@ public class ControllerBody : MonoBehaviour
         {
             MoveLastXY = Dir;
             //
-            FromBottom = false;
-            //
             IsometricBlock BlockNext = m_block.WorldManager.GetWorldBlockCurrent(m_block.Pos.Fixed + Dir);
             if (BlockNext != null)
             {
@@ -122,7 +133,7 @@ public class ControllerBody : MonoBehaviour
             }
             else
                 //Can continue move, so check next pos if it emty at Bot?!
-                FallAhead = SetCheckGravity(Dir);
+                SetCheckGravity(Dir);
         }
         //
         Vector3 MoveDir = IsoVector.GetVector(Dir);
@@ -132,7 +143,7 @@ public class ControllerBody : MonoBehaviour
             .SetEase(Ease.Linear)
             .OnStart(() =>
             {
-                onPush?.Invoke(true, FromBottom, FallAhead);
+                onPush?.Invoke(true, Dir);
             })
             .OnUpdate(() =>
             {
@@ -140,7 +151,7 @@ public class ControllerBody : MonoBehaviour
             })
             .OnComplete(() =>
             {
-                onPush?.Invoke(false, FromBottom, FallAhead);
+                onPush?.Invoke(false, Dir);
             });
         //
     }

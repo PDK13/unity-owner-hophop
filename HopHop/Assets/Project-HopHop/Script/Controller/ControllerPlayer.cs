@@ -99,7 +99,7 @@ public class ControllerPlayer : MonoBehaviour
         IsometricBlock Block = m_block.WorldManager.GetWorldBlockCurrent(m_block.Pos + Dir * Length);
         if (Block != null)
         {
-            if (Block.GetComponent<ControllerBullet>())
+            if (Block.Tag.Contains(GameManager.GameConfig.Tag.Bullet))
             {
                 Debug.Log("[Debug] Bullet hit Player!!");
                 //
@@ -163,9 +163,13 @@ public class ControllerPlayer : MonoBehaviour
         }
     }
 
-    private void SetPush(bool State, bool FromBottom, bool FallAhead)
+    private void SetPush(bool State, IsoVector Dir)
     {
-        if (!State)
+        if (State)
+        {
+            m_animation.SetMove(m_body.GetCheckDir(IsoVector.Bot), m_body.GetCheckDir(IsoVector.Bot, Dir));
+        }
+        else
         {
             m_body.SetStandOn();
             m_animation.SetStand(m_body.GetCheckDir(IsoVector.Bot));

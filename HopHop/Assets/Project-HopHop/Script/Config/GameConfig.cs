@@ -55,6 +55,8 @@ public class GameConfigCommand
 [Serializable]
 public class GameConfigTag
 {
+    public string Player = "player";
+
     public string Character = "character";
     public string Block = "block";
     public string Object = "object";

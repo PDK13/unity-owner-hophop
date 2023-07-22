@@ -20,7 +20,7 @@ public class AnimationCharacter : MonoBehaviour
         //
         if (To == null)
         {
-            //Move to NONE!!
+            //Move to NONE BLOCK!!
             m_animator.SetBool(m_valueJump, true);
             m_animator.SetBool(m_valueSwim, false);
             return;
@@ -30,38 +30,42 @@ public class AnimationCharacter : MonoBehaviour
         //
         if (From.Tag.Contains(GameManager.GameConfig.Tag.Water))
         {
-            //Move from WATER!!
+            //Move from BLOCK WATER!!
             if (To.Tag.Contains(GameManager.GameConfig.Tag.Water))
-                //Move from WATER to WATER!!
+                //Move from BLOCK WATER to BLOCK WATER!!
                 m_animator.SetBool(m_valueJump, false);
             else
-                //Move from WATER to NOT WATER!!
+                //Move from BLOCK WATER to BLOCK NOT WATER!!
                 m_animator.SetBool(m_valueJump, true);
         }
         else
         if (From.Tag.Contains(GameManager.GameConfig.Tag.Slow))
-            //Move from SLOW!!
+            //Move from BLOCK SLOW!!
             m_animator.SetBool(m_valueJump, true);
         else
         if (From.Tag.Contains(GameManager.GameConfig.Tag.Slip))
-            //Move from SLIP!!
+            //Move from BLOCK SLIP!!
             m_animator.SetBool(m_valueJump, true);
         else
         {
-            //Move from NORMAL!!
+            //Move from BLOCK NORMAL!!
             if (To.Tag.Contains(GameManager.GameConfig.Tag.Water))
-                //Move from NORMAL to WATER!!
+                //Move from BLOCK NORMAL to BLOCK WATER!!
                 m_animator.SetBool(m_valueJump, true);
             else
             if (To.Tag.Contains(GameManager.GameConfig.Tag.Slow))
-                //Move from NORMAL to SLOW!!
+                //Move from BLOCK NORMAL to BLOCK SLOW!!
                 m_animator.SetBool(m_valueJump, true);
             else
             if (To.Tag.Contains(GameManager.GameConfig.Tag.Slip))
-                //Move from NORMAL to SLIP!!
+                //Move from BLOCK NORMAL to BLOCK SLIP!!
                 m_animator.SetBool(m_valueJump, true);
             else
-                //Move from NORMAL to NORMAL!!
+            if (To.Tag.Contains(GameManager.GameConfig.Tag.Bullet))
+                //Move from BLOCK NORMAL to OBJECT BULLET!!
+                m_animator.SetBool(m_valueJump, true);
+            else
+                //Move from BLOCK NORMAL to BLOCK NORMAL!!
                 m_animator.SetBool(m_valueJump, false);
         }
         //

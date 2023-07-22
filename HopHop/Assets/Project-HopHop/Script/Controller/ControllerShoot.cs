@@ -145,7 +145,7 @@ public class ControllerShoot : MonoBehaviour
         IsometricBlock Block = m_block.WorldManager.GetWorldBlockCurrent(m_block.Pos + DirSpawm);
         if (Block != null)
         {
-            if (Block.GetComponent<ControllerPlayer>())
+            if (Block.Tag.Contains(GameManager.GameConfig.Tag.Player))
             {
                 Debug.Log("[Debug] Bullet hit Player!!");
             }

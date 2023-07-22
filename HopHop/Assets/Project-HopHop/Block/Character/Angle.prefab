@@ -127,6 +127,7 @@ MonoBehaviour:
   m_free: 1
   m_tag:
   - character
+  - player
   m_pos:
     X: 0
     Y: 0
@@ -138,6 +139,9 @@ MonoBehaviour:
     Length: 
     Index: 0
     Quantity: 1
+  FollowData:
+    Key: 
+    KeyFollow: 
   ActionData:
     Key: 
     Type: 0
@@ -196,7 +200,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19ee9a8a7098dfb489d74c2174becedf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_dynamic: 0
+  MoveLastXY:
+    X: 0
+    Y: 0
+    H: 0
 --- !u!114 &2268218478505088259
 MonoBehaviour:
   m_ObjectHideFlags: 0
