@@ -21,6 +21,8 @@ public class GameTurn : MonoBehaviour
 
     #endregion
 
+    //One TURN got many STEP, one STEP got many GameObject that all need to be complete their Move for next STEP or next TURN!!
+
     #region Event
 
     public Action<int> onTurn;          //<Turn>
@@ -170,9 +172,9 @@ public class GameTurn : MonoBehaviour
             //
             onTurn?.Invoke(m_turnPass);
             //
-            yield return null;
-            //
             Instance.SetAdd();
+            //
+            yield return null;
             //
             SetEndSwap(m_turnCurrent.Turn);
         }
