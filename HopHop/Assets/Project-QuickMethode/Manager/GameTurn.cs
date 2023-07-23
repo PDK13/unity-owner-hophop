@@ -163,18 +163,21 @@ public class GameTurn : MonoBehaviour
         //
         if (m_turnCurrent.Turn == "")
         {
-            //
             m_turnPass++;
-            //
-            onTurn?.Invoke(m_turnPass);
             //
             if ((int)Instance.m_debug >= (int)DebugType.None)
                 Debug.LogWarningFormat("[Turn] <TURN {0} START>", m_turnPass);
+            //
+            onTurn?.Invoke(m_turnPass);
+            //
+            yield return null;
             //
             Instance.SetAdd();
             //
             SetEndSwap(m_turnCurrent.Turn);
         }
+        //
+        //Fine to Start new Turn!!
         //
         m_turnCurrent = m_turnQueue[0];
         //
@@ -189,7 +192,13 @@ public class GameTurn : MonoBehaviour
         //
         onStepStart?.Invoke(m_turnCurrent.Turn);
         //
+        //Wait for new Turn complete called!!
+        //
+        yield return null;
+        //
         SetEndCheck(m_turnCurrent.Turn.ToString());
+        //
+        //Complete!!
     }
 
     private void SetAdd()
