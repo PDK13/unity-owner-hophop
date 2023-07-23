@@ -418,13 +418,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 778132de4916f654cb2100ef7128640b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_debug: 1
   m_turnCurrent:
     Start: 0
     Turn: 
     Unit: []
     UnitEndTurn: []
     UnitEndMove: []
-    UnitAdd: []
+    UnitWaitAdd: []
     EndTurnRemove: 0
   m_turnQueue: []
   TurnRemove:
