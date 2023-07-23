@@ -37,20 +37,22 @@ public class ControllerShoot : MonoBehaviour
             {
                 GameTurn.SetInit(TurnType.Phase, this.gameObject);
                 GameTurn.SetInit(TurnType.Object, this.gameObject);
-                GameTurn.onTurn += SetControlTurn;
+                GameTurn.Instance.onTurn += SetControlTurn;
             }
         }
     }
 
     private void OnDestroy()
     {
+        StopAllCoroutines();
+        //
         if (m_dataAction != null)
         {
             if (m_dataAction.DataExist)
             {
                 GameTurn.SetRemove(TurnType.Phase, this.gameObject);
                 GameTurn.SetRemove(TurnType.Object, this.gameObject);
-                GameTurn.onTurn -= SetControlTurn;
+                GameTurn.Instance.onTurn -= SetControlTurn;
             }
         }
     }

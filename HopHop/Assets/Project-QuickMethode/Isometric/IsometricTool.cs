@@ -73,12 +73,12 @@ public class IsometricTool : EditorWindow
         if (!GetManager())
             return;
 
-        QEditor.SetLabel("TOOL MANAGER", QEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QEditor.GetGUILayoutWidth(this));
+        QEditor.SetLabel("TOOL MANAGER", QEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this));
 
         SetGUIGroupManager();
 
         QEditor.SetSpace(5f);
-        QEditor.SetLabel("CURSON MANAGER", QEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QEditor.GetGUILayoutWidth(this));
+        QEditor.SetLabel("CURSON MANAGER", QEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this));
 
         SetCursonControl();
 
@@ -88,9 +88,9 @@ public class IsometricTool : EditorWindow
             return;
 
         QEditor.SetSpace(5f);
-        QEditor.SetLabel("MAIN MANAGER", QEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QEditor.GetGUILayoutWidth(this));
+        QEditor.SetLabel("MAIN MANAGER", QEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this));
 
-        if (QEditor.SetButton((m_main == MainType.World ? "WORLD" : "BLOCK"), null, QEditor.GetGUILayoutWidth(this)))
+        if (QEditor.SetButton((m_main == MainType.World ? "WORLD" : "BLOCK"), null, QEditorWindow.GetGUILayoutWidth(this)))
             m_main = m_main == MainType.World ? MainType.Block : MainType.World;
 
         switch (m_main)
@@ -132,10 +132,10 @@ public class IsometricTool : EditorWindow
         QEditor.SetHorizontalBegin();
         {
             QEditor.SetBackground(Color.white);
-            QEditor.SetLabel("CURSON: ", QEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QEditor.GetGUILayoutWidth(this, 0.25f));
-            QEditor.SetLabel(m_curson.Pos.XInt.ToString(), QEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QEditor.GetGUILayoutWidth(this, 0.25f));
-            QEditor.SetLabel(m_curson.Pos.YInt.ToString(), QEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QEditor.GetGUILayoutWidth(this, 0.25f));
-            QEditor.SetLabel(m_curson.Pos.HInt.ToString(), QEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QEditor.GetGUILayoutWidth(this, 0.25f));
+            QEditor.SetLabel("CURSON: ", QEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this, 0.25f));
+            QEditor.SetLabel(m_curson.Pos.XInt.ToString(), QEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this, 0.25f));
+            QEditor.SetLabel(m_curson.Pos.YInt.ToString(), QEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this, 0.25f));
+            QEditor.SetLabel(m_curson.Pos.HInt.ToString(), QEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this, 0.25f));
         }
         QEditor.SetHorizontalEnd();
 
@@ -144,10 +144,10 @@ public class IsometricTool : EditorWindow
             QEditor.SetHorizontalBegin();
             {
                 QEditor.SetBackground(Color.white);
-                QEditor.SetLabel("FOCUS: ", QEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QEditor.GetGUILayoutWidth(this, 0.25f));
-                QEditor.SetLabel(m_focus.Pos.XInt.ToString(), QEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QEditor.GetGUILayoutWidth(this, 0.25f));
-                QEditor.SetLabel(m_focus.Pos.YInt.ToString(), QEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QEditor.GetGUILayoutWidth(this, 0.25f));
-                QEditor.SetLabel(m_focus.Pos.HInt.ToString(), QEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QEditor.GetGUILayoutWidth(this, 0.25f));
+                QEditor.SetLabel("FOCUS: ", QEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this, 0.25f));
+                QEditor.SetLabel(m_focus.Pos.XInt.ToString(), QEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this, 0.25f));
+                QEditor.SetLabel(m_focus.Pos.YInt.ToString(), QEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this, 0.25f));
+                QEditor.SetLabel(m_focus.Pos.HInt.ToString(), QEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this, 0.25f));
             }
             QEditor.SetHorizontalEnd();
         }
@@ -169,7 +169,7 @@ public class IsometricTool : EditorWindow
 
     private void SetGUIButtonFocus(float WidthPercent)
     {
-        if (QEditor.SetButton("FOCUS", QEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QEditor.GetGUILayoutWidth(this, WidthPercent)))
+        if (QEditor.SetButton("FOCUS", QEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this, WidthPercent)))
         {
             IsometricBlock BlockFocus = m_manager.GetWorldBlockPrimary(m_curson.Pos);
             if (BlockFocus != null)
@@ -182,7 +182,7 @@ public class IsometricTool : EditorWindow
 
     private void SetGUIButtonBack(float WidthPercent)
     {
-        if (QEditor.SetButton("BACK", QEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QEditor.GetGUILayoutWidth(this, WidthPercent)))
+        if (QEditor.SetButton("BACK", QEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this, WidthPercent)))
         {
             if (m_focus != null)
                 m_curson.Pos = m_focus.Pos;
@@ -191,7 +191,7 @@ public class IsometricTool : EditorWindow
 
     private void SetGUIButtonCheck(float WidthPercent)
     {
-        if (QEditor.SetButton("CHECK", QEditor.GetGUIButton(m_check ? FontStyle.Bold : FontStyle.Normal, TextAnchor.MiddleCenter), QEditor.GetGUILayoutWidth(this, WidthPercent)))
+        if (QEditor.SetButton("CHECK", QEditor.GetGUIButton(m_check ? FontStyle.Bold : FontStyle.Normal, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this, WidthPercent)))
         {
             m_check = !m_check;
             SetCursonCheck();
@@ -200,7 +200,7 @@ public class IsometricTool : EditorWindow
 
     private void SetGUIButtonCamera(float WidthPercent)
     {
-        if (QEditor.SetButton("CAMERA", QEditor.GetGUIButton(m_camera ? FontStyle.Bold : FontStyle.Normal, TextAnchor.MiddleCenter), QEditor.GetGUILayoutWidth(this, WidthPercent)))
+        if (QEditor.SetButton("CAMERA", QEditor.GetGUIButton(m_camera ? FontStyle.Bold : FontStyle.Normal, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this, WidthPercent)))
         {
             m_camera = !m_camera;
         }
@@ -208,7 +208,7 @@ public class IsometricTool : EditorWindow
 
     private void SetGUIButtonMaskXY(float WidthPercent)
     {
-        if (QEditor.SetButton("XY", QEditor.GetGUIButton(m_maskXY ? FontStyle.Bold : FontStyle.Normal, TextAnchor.MiddleCenter), QEditor.GetGUILayoutWidth(this, WidthPercent)))
+        if (QEditor.SetButton("XY", QEditor.GetGUIButton(m_maskXY ? FontStyle.Bold : FontStyle.Normal, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this, WidthPercent)))
         {
             m_maskXY = !m_maskXY;
             SetCursonMaskXY();
@@ -218,7 +218,7 @@ public class IsometricTool : EditorWindow
 
     private void SetGUIButtonMaskH(float WidthPercent)
     {
-        if (QEditor.SetButton("H", QEditor.GetGUIButton(m_hiddenH ? FontStyle.Bold : FontStyle.Normal, TextAnchor.MiddleCenter), QEditor.GetGUILayoutWidth(this, WidthPercent)))
+        if (QEditor.SetButton("H", QEditor.GetGUIButton(m_hiddenH ? FontStyle.Bold : FontStyle.Normal, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this, WidthPercent)))
         {
             m_hiddenH = !m_hiddenH;
             SetCursonMaskXY();
@@ -378,7 +378,7 @@ public class IsometricTool : EditorWindow
     private void SetGUIGroupManager()
     {
         QEditor.SetHorizontalBegin();
-        if (QEditor.SetButton("Refresh", QEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QEditor.GetGUILayoutWidth(this, 1f / 2)))
+        if (QEditor.SetButton("Refresh", QEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this, 1f / 2)))
         {
             m_maskXY = false;
             m_hiddenH = false;
@@ -394,13 +394,13 @@ public class IsometricTool : EditorWindow
 
             QAssetsDatabase.SetRefresh();
         }
-        if (QEditor.SetButton("Clear", QEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QEditor.GetGUILayoutWidth(this, 1f / 2)))
+        if (QEditor.SetButton("Clear", QEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this, 1f / 2)))
         {
             m_manager.SetWorldRemove();
         }
         QEditor.SetHorizontalEnd();
         QEditor.SetHorizontalBegin();
-        if (QEditor.SetButton("Save", QEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QEditor.GetGUILayoutWidth(this, 1f / 2)))
+        if (QEditor.SetButton("Save", QEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this, 1f / 2)))
         {
             var Path = QPath.GetPathFileSavePanel("Save", "txt", m_pathSave == "" ? QPath.GetPath(QPath.PathType.Assets) : m_pathOpen);
             if (Path.Result)
@@ -410,7 +410,7 @@ public class IsometricTool : EditorWindow
                 QAssetsDatabase.SetRefresh();
             }
         }
-        if (QEditor.SetButton("Open", QEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QEditor.GetGUILayoutWidth(this, 1f / 2)))
+        if (QEditor.SetButton("Open", QEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this, 1f / 2)))
         {
             var Path = QPath.GetPathFileOpenPanel("Open", "txt", m_pathOpen == "" ? QPath.GetPath(QPath.PathType.Assets) : m_pathOpen);
             if (Path.Result)
@@ -431,14 +431,14 @@ public class IsometricTool : EditorWindow
 
     private void SetGUIGroupTag()
     {
-        QEditor.SetLabel("TAG", QEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QEditor.GetGUILayoutWidth(this));
+        QEditor.SetLabel("TAG", QEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this));
         m_scrollTag = QEditor.SetScrollViewBegin(m_scrollTag);
         for (int i = 0; i < m_manager.BlockList.Count; i++)
         {
             string Tag = m_manager.BlockList[i].Tag != "" ? m_manager.BlockList[i].Tag : "[...]";
             if (m_indexTag == i)
             {
-                if (QEditor.SetButton(Tag, QEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QEditor.GetGUILayoutWidth(this, 1f, 0f)))
+                if (QEditor.SetButton(Tag, QEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this, 1f, 0f)))
                 {
                     m_indexTag = i;
                     m_indexName = 0;
@@ -446,7 +446,7 @@ public class IsometricTool : EditorWindow
             }
             else
             {
-                if (QEditor.SetButton(Tag, QEditor.GetGUIButton(FontStyle.Normal, TextAnchor.MiddleCenter), QEditor.GetGUILayoutWidth(this, 1f, 0f)))
+                if (QEditor.SetButton(Tag, QEditor.GetGUIButton(FontStyle.Normal, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this, 1f, 0f)))
                 {
                     m_indexTag = i;
                     m_indexName = 0;
@@ -460,7 +460,7 @@ public class IsometricTool : EditorWindow
     
     private void SetGUIGroupBlock()
     {
-        QEditor.SetLabel("BLOCK", QEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QEditor.GetGUILayoutWidth(this));
+        QEditor.SetLabel("BLOCK", QEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this));
         {
             QEditor.SetHorizontalBegin();
             if (QEditor.SetButton(" - ", null, QEditor.GetGUIWidth(20f)))
@@ -502,8 +502,8 @@ public class IsometricTool : EditorWindow
     {
         return QEditor.SetButton(
             m_manager.BlockList[m_indexTag].Block[Index].GetComponent<SpriteRenderer>().sprite,
-            QEditor.GetGUILayoutWidth(this, 1f / m_countNameHorizontal),
-            QEditor.GetGUILayoutHeightBaseWidth(this, 1f / m_countNameHorizontal));
+            QEditorWindow.GetGUILayoutWidth(this, 1f / m_countNameHorizontal),
+            QEditorWindow.GetGUILayoutHeightBaseWidth(this, 1f / m_countNameHorizontal));
     }
 
     #endregion

@@ -14,19 +14,19 @@ public class IsometricConfigEditor : Editor
     {
         m_target = (target as IsometricConfig);
 
-        m_blockList = QCustomEditor.GetField(this, "m_blockList");
+        m_blockList = QEditorCustom.GetField(this, "m_blockList");
     }
 
     public override void OnInspectorGUI()
     {
         serializedObject.Update();
 
-        QCustomEditor.SetField(m_blockList);
+        QEditorCustom.SetField(m_blockList);
 
         if (QEditor.SetButton("Refresh"))
             m_target.SetRefresh();
 
-        QCustomEditor.SetApply(this);
+        QEditorCustom.SetApply(this);
     }
 }
 

@@ -31,20 +31,21 @@ public class ControllerBullet : MonoBehaviour
         //
         GameTurn.SetInit(TurnType.Phase, this.gameObject);
         GameTurn.SetInit(TurnType.Object, this.gameObject);
-        GameTurn.onTurn += SetControlTurn;
+        GameTurn.Instance.onTurn += SetControlTurn;
         //
         m_speed = Speed;
         m_turnDir = Dir;
         //
         m_turnControl = false;
-        GameTurn.SetEndTurn(TurnType.Object, this.gameObject); //Follow Object (!)
     }
 
     private void OnDestroy()
     {
+        StopAllCoroutines();
+        //
         GameTurn.SetRemove(TurnType.Phase, this.gameObject);
         GameTurn.SetRemove(TurnType.Object, this.gameObject);
-        GameTurn.onTurn -= SetControlTurn;
+        GameTurn.Instance.onTurn -= SetControlTurn;
     }
 
     private void SetControlTurn(string Turn)
@@ -86,7 +87,7 @@ public class ControllerBullet : MonoBehaviour
             //
             GameTurn.SetRemove(TurnType.Phase, this.gameObject);
             GameTurn.SetRemove(TurnType.Object, this.gameObject);
-            GameTurn.onTurn -= SetControlTurn;
+            GameTurn.Instance.onTurn -= SetControlTurn;
             //
             //Can't not continue move ahead because of burden, so destroy this!!
             //
@@ -146,7 +147,7 @@ public class ControllerBullet : MonoBehaviour
         //
         GameTurn.SetRemove(TurnType.Phase, this.gameObject);
         GameTurn.SetRemove(TurnType.Object, this.gameObject);
-        GameTurn.onTurn -= SetControlTurn;
+        GameTurn.Instance.onTurn -= SetControlTurn;
         //
         SetControlAnimation(ANIM_BLOW);
         m_block.WorldManager.SetWorldBlockRemoveInstant(m_block, DESTROY_DELAY);

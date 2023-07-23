@@ -38,7 +38,7 @@ public class ControllerObject : MonoBehaviour
             {
                 GameTurn.SetInit(TurnType.Phase, this.gameObject);
                 GameTurn.SetInit(TurnType.Object, this.gameObject);
-                GameTurn.onTurn += SetControlTurn;
+                GameTurn.Instance.onTurn += SetControlTurn;
             }
             else
             if (m_dataFollow != null)
@@ -50,13 +50,15 @@ public class ControllerObject : MonoBehaviour
 
     private void OnDestroy()
     {
+        StopAllCoroutines();
+        //
         if (m_dataMove != null)
         {
             if (m_dataMove.DataExist)
             {
                 GameTurn.SetRemove(TurnType.Phase, this.gameObject);
                 GameTurn.SetRemove(TurnType.Object, this.gameObject);
-                GameTurn.onTurn -= SetControlTurn;
+                GameTurn.Instance.onTurn -= SetControlTurn;
             }
             else
             if (m_dataFollow != null)

@@ -4877,6 +4877,66 @@ namespace QuickMethode
     {
         //Can be use for EditorWindow & Editor Script!!
 
+        #region ==================================== GUI Group
+
+        #region ------------------------------------ Disable Group
+
+        public static void SetDisableGroupBegin(bool Disable = true)
+        {
+            EditorGUI.BeginDisabledGroup(Disable);
+        }
+
+        public static void SetDisableGroupEnd()
+        {
+            EditorGUI.EndDisabledGroup();
+        }
+
+        #endregion
+
+        #region ------------------------------------ Horizontal
+
+        public static void SetHorizontalBegin()
+        {
+            GUILayout.BeginHorizontal();
+        }
+
+        public static void SetHorizontalEnd()
+        {
+            GUILayout.EndHorizontal();
+        }
+
+        #endregion
+
+        #region ------------------------------------ Vertical
+
+        public static void SetVerticalBegin()
+        {
+            GUILayout.BeginVertical();
+        }
+
+        public static void SetVerticalEnd()
+        {
+            GUILayout.EndVertical();
+        }
+
+        #endregion
+
+        #region ------------------------------------ Scroll View
+
+        public static Vector2 SetScrollViewBegin(Vector2 ScrollPos, params GUILayoutOption[] GUILayoutOption)
+        {
+            return EditorGUILayout.BeginScrollView(ScrollPos, GUILayoutOption);
+        }
+
+        public static void SetScrollViewEnd()
+        {
+            EditorGUILayout.EndScrollView();
+        }
+
+        #endregion
+
+        #endregion
+
         #region ==================================== GUI Primary
 
         #region ------------------------------------ Indent Level : Can be understand at TAB in inspector!!
@@ -5030,48 +5090,6 @@ namespace QuickMethode
 
         #endregion
 
-        #region ------------------------------------ Horizontal
-
-        public static void SetHorizontalBegin()
-        {
-            GUILayout.BeginHorizontal();
-        }
-
-        public static void SetHorizontalEnd()
-        {
-            GUILayout.EndHorizontal();
-        }
-
-        #endregion
-
-        #region ------------------------------------ Vertical
-
-        public static void SetVerticalBegin()
-        {
-            GUILayout.BeginVertical();
-        }
-
-        public static void SetVerticalEnd()
-        {
-            GUILayout.EndVertical();
-        }
-
-        #endregion
-
-        #region ------------------------------------ Scroll View
-
-        public static Vector2 SetScrollViewBegin(Vector2 ScrollPos, params GUILayoutOption[] GUILayoutOption)
-        {
-            return EditorGUILayout.BeginScrollView(ScrollPos, GUILayoutOption);
-        }
-
-        public static void SetScrollViewEnd()
-        {
-            EditorGUILayout.EndScrollView();
-        }
-
-        #endregion
-
         #region ------------------------------------ Popup
 
         public static int SetPopup(int IndexChoice, string[] ListChoice, params GUILayoutOption[] GUILayoutOption)
@@ -5108,46 +5126,6 @@ namespace QuickMethode
         #endregion
 
         #region ==================================== GUI Varible
-
-        #region ------------------------------------ GUI Layout Option
-
-        private static float WIDTH_OFFSET = 4f;
-
-        public static GUILayoutOption GetGUILayoutWidth(EditorWindow This, float WidthPercent = 1, float WidthOffset = 0)
-        {
-            return GetGUIWidth(GetWindowWidth(This) * WidthPercent - WidthOffset - WIDTH_OFFSET);
-        }
-
-        public static GUILayoutOption GetGUILayoutWidthBaseHeight(EditorWindow This, float HeightPercent = 1, float HeightOffset = 0)
-        {
-            return GetGUIWidth(GetWindowHeight(This) * HeightPercent - HeightOffset - WIDTH_OFFSET);
-        }
-
-        public static GUILayoutOption GetGUILayoutHeight(EditorWindow This, float HeightPercent = 1, float HeightOffset = 0)
-        {
-            return GetGUIHeight(GetWindowHeight(This) * HeightPercent - HeightOffset);
-        }
-
-        public static GUILayoutOption GetGUILayoutHeightBaseWidth(EditorWindow This, float WidthPercent = 1, float WidthOffset = 0)
-        {
-            return GetGUIHeight(GetWindowWidth(This) * WidthPercent - WidthOffset);
-        }
-
-        #endregion
-
-        #region ------------------------------------ GUI Panel Size
-
-        public static float GetWindowWidth(EditorWindow This)
-        {
-            return This.position.width;
-        }
-
-        public static float GetWindowHeight(EditorWindow This)
-        {
-            return This.position.height;
-        }
-
-        #endregion
 
         #region ------------------------------------ GUI Panel Size Value
 
@@ -5236,12 +5214,62 @@ namespace QuickMethode
         }
 
         #endregion
-    } //This used for Window Editor!!
+    } //This use for every Editor!!
 
     ///<summary>
     ///Caution: Unity Editor only!
     ///</summary>
-    public class QCustomEditor
+    public class QEditorWindow
+    {
+        #region ==================================== GUI Primary
+
+        #region ------------------------------------ GUI Layout Option
+
+        private static float WIDTH_OFFSET = 4f;
+
+        public static GUILayoutOption GetGUILayoutWidth(EditorWindow This, float WidthPercent = 1, float WidthOffset = 0)
+        {
+            return QEditor.GetGUIWidth(GetWindowWidth(This) * WidthPercent - WidthOffset - WIDTH_OFFSET);
+        }
+
+        public static GUILayoutOption GetGUILayoutWidthBaseHeight(EditorWindow This, float HeightPercent = 1, float HeightOffset = 0)
+        {
+            return QEditor.GetGUIWidth(GetWindowHeight(This) * HeightPercent - HeightOffset - WIDTH_OFFSET);
+        }
+
+        public static GUILayoutOption GetGUILayoutHeight(EditorWindow This, float HeightPercent = 1, float HeightOffset = 0)
+        {
+            return QEditor.GetGUIHeight(GetWindowHeight(This) * HeightPercent - HeightOffset);
+        }
+
+        public static GUILayoutOption GetGUILayoutHeightBaseWidth(EditorWindow This, float WidthPercent = 1, float WidthOffset = 0)
+        {
+            return QEditor.GetGUIHeight(GetWindowWidth(This) * WidthPercent - WidthOffset);
+        }
+
+        #endregion
+
+        #region ------------------------------------ GUI Panel Size
+
+        public static float GetWindowWidth(EditorWindow This)
+        {
+            return This.position.width;
+        }
+
+        public static float GetWindowHeight(EditorWindow This)
+        {
+            return This.position.height;
+        }
+
+        #endregion
+
+        #endregion
+    } //This used for Window Editor only!!
+
+    ///<summary>
+    ///Caution: Unity Editor only!
+    ///</summary>
+    public class QEditorCustom
     {
         #region ==================================== GUI Primary
 
@@ -5255,6 +5283,11 @@ namespace QuickMethode
         #endregion
 
         #region ------------------------------------ Set Field
+
+        public static void SetUpdate(Editor This)
+        {
+            This.serializedObject.Update();
+        }
 
         public static void SetField(SerializedProperty Field)
         {
@@ -5298,7 +5331,10 @@ namespace QuickMethode
         #endregion
     } //This used for Script Editor (Custom Editor)!!
 
-    public class QObjectEditor
+    ///<summary>
+    ///Caution: Unity Editor only!
+    ///</summary>
+    public class QEditorObject
     {
         #region ==================================== GUI Primary
 
@@ -5325,6 +5361,8 @@ namespace QuickMethode
         #endregion
 
         #region ------------------------------------ Chance Property
+
+        //NOTE: Should called first to change logic workflow of Unity!!
 
         public static void SetPropertyBegin(Rect Position, SerializedProperty Property, GUIContent Label)
         {

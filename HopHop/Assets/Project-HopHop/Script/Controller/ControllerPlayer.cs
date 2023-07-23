@@ -26,18 +26,20 @@ public class ControllerPlayer : MonoBehaviour
         //
         GameTurn.SetInit(TurnType.Phase, this.gameObject);
         GameTurn.SetInit(TurnType.Player, this.gameObject);
-        GameTurn.onTurn += SetControlTurn;
+        GameTurn.Instance.onTurn += SetControlTurn;
     }
 
     private void OnDestroy()
     {
+        StopAllCoroutines();
+        //
         m_body.onGravity -= SetGravity;
         m_body.onPush -= SetPush;
         m_body.onForce -= SetForce;
         //
         GameTurn.SetRemove(TurnType.Phase, this.gameObject);
         GameTurn.SetRemove(TurnType.Player, this.gameObject);
-        GameTurn.onTurn -= SetControlTurn;
+        GameTurn.Instance.onTurn -= SetControlTurn;
     }
 
     private void Update()
