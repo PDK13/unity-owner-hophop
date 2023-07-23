@@ -21,8 +21,15 @@ public class GameTurn : MonoBehaviour
 
     #endregion
 
-    public Action<string> onTurn;
-    public Action<string> onEnd;
+    #region Event
+
+    public Action<int> onTurn; //Called when a new Turn is trigged!!
+    public Action<string> onStepStart;
+    public Action<string> onStepEnd;
+
+    #endregion
+
+    #region Varible: Turn Manager
 
     private int m_turnPass = 0;
 
@@ -89,19 +96,39 @@ public class GameTurn : MonoBehaviour
         "Gravity",
     };
 
+    #endregion
+
+    private bool m_stop = false;
+
     private void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
         //
         Instance = this;
+        //
+#if UNITY_EDITOR
+        EditorApplication.playModeStateChanged += SetPlayModeStateChange;
+#endif
     }
+
+#if UNITY_EDITOR
+    private static void SetPlayModeStateChange(PlayModeStateChange state)
+    {
+        //This used for stop Current Turn coroutine called by ended Playing on Editor Mode!!
+        //
+        if (state == PlayModeStateChange.ExitingPlayMode)
+            Instance.m_stop = true;
+    }
+#endif
 
     private void OnDestroy()
     {
         StopAllCoroutines();
+        //
+        EditorApplication.playModeStateChanged -= SetPlayModeStateChange;
     }
 
-    public static void SetStart(string TurnBase = "")
+    public static void SetStart()
     {
         if ((int)Instance.m_debug >= (int)DebugType.None)
             Debug.LogWarning("[Turn] START!!");
@@ -116,6 +143,11 @@ public class GameTurn : MonoBehaviour
 
     private void SetCurrent()
     {
+#if UNITY_EDITOR
+        if (Instance.m_stop)
+            return;
+#endif
+        //
         Instance.StartCoroutine(Instance.ISetCurrent());
     } //Force Turn Next!!
 
@@ -129,7 +161,10 @@ public class GameTurn : MonoBehaviour
         //
         if (m_turnCurrent.Turn == "")
         {
+            //
             m_turnPass++;
+            //
+            onTurn?.Invoke(m_turnPass);
             //
             if ((int)Instance.m_debug >= (int)DebugType.None)
                 Debug.LogWarningFormat("[Turn] <TURN {0} START>", m_turnPass);
@@ -150,7 +185,7 @@ public class GameTurn : MonoBehaviour
                 Debug.LogWarningFormat("[Turn] <TURN {1} START> {2} / {3}", m_turnPass, m_turnCurrent.Turn, m_turnCurrent.UnitEndTurn.Count, m_turnCurrent.Unit.Count);
         }
         //
-        onTurn?.Invoke(m_turnCurrent.Turn);
+        onStepStart?.Invoke(m_turnCurrent.Turn);
         //
         SetEndCheck(m_turnCurrent.Turn.ToString());
     }
@@ -300,7 +335,7 @@ public class GameTurn : MonoBehaviour
             Instance.m_turnCurrent.UnitEndMove.Clear();
             Instance.m_turnCurrent.UnitEndTurn.Clear();
             //
-            Instance.onEnd?.Invoke(Turn.ToString());
+            Instance.onStepEnd?.Invoke(Turn.ToString());
             //
             SetEndSwap(Turn);
             //

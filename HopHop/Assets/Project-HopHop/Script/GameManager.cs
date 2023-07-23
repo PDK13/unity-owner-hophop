@@ -33,6 +33,8 @@ public class GameManager : MonoBehaviour
         GameConfig = m_gameConfig;
         //
         Application.targetFrameRate = 60;
+        //
+        Time.timeScale = 2;
     }
 
     private void Start()
@@ -57,6 +59,6 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(3f);
 
-        GameTurn.SetStart(TurnType.Phase.ToString());
+        GameTurn.SetStart();
     }
 }

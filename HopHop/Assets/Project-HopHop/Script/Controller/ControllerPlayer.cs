@@ -26,7 +26,7 @@ public class ControllerPlayer : MonoBehaviour
         //
         GameTurn.SetInit(TurnType.Phase, this.gameObject);
         GameTurn.SetInit(TurnType.Player, this.gameObject);
-        GameTurn.Instance.onTurn += SetControlTurn;
+        GameTurn.Instance.onStepStart += SetControlTurn;
     }
 
     private void OnDestroy()
@@ -39,7 +39,7 @@ public class ControllerPlayer : MonoBehaviour
         //
         GameTurn.SetRemove(TurnType.Phase, this.gameObject);
         GameTurn.SetRemove(TurnType.Player, this.gameObject);
-        GameTurn.Instance.onTurn -= SetControlTurn;
+        GameTurn.Instance.onStepStart -= SetControlTurn;
     }
 
     private void Update()

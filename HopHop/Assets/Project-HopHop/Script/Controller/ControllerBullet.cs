@@ -31,7 +31,7 @@ public class ControllerBullet : MonoBehaviour
         //
         GameTurn.SetInit(TurnType.Phase, this.gameObject);
         GameTurn.SetInit(TurnType.Object, this.gameObject);
-        GameTurn.Instance.onTurn += SetControlTurn;
+        GameTurn.Instance.onStepStart += SetControlTurn;
         //
         if (m_body != null)
         {
@@ -50,7 +50,7 @@ public class ControllerBullet : MonoBehaviour
         //
         GameTurn.SetRemove(TurnType.Phase, this.gameObject);
         GameTurn.SetRemove(TurnType.Object, this.gameObject);
-        GameTurn.Instance.onTurn -= SetControlTurn;
+        GameTurn.Instance.onStepStart -= SetControlTurn;
         //
         if (m_body != null)
         {
@@ -143,7 +143,7 @@ public class ControllerBullet : MonoBehaviour
         GameTurn.SetEndTurn(TurnType.Object, this.gameObject); //Follow Object (!)
         GameTurn.SetRemove(TurnType.Phase, this.gameObject);
         GameTurn.SetRemove(TurnType.Object, this.gameObject);
-        GameTurn.Instance.onTurn -= SetControlTurn;
+        GameTurn.Instance.onStepStart -= SetControlTurn;
         //
         SetControlAnimation(ANIM_BLOW);
         m_block.WorldManager.SetWorldBlockRemoveInstant(m_block, DESTROY_DELAY);

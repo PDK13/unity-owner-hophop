@@ -59,7 +59,7 @@ public class ControllerBody : MonoBehaviour
     private void SetForceGravity()
     {
         GameTurn.SetAdd(TurnType.Gravity, this.gameObject);
-        GameTurn.Instance.onTurn += SetControlGravity;
+        GameTurn.Instance.onStepStart += SetControlGravity;
     }
 
     private void SetControlGravity()
@@ -76,7 +76,7 @@ public class ControllerBody : MonoBehaviour
             else
             {
                 GameTurn.SetEndTurn(TurnType.Gravity, this.gameObject); //Follow Object (!)
-                GameTurn.Instance.onTurn -= SetControlGravity;
+                GameTurn.Instance.onStepStart -= SetControlGravity;
                 //
                 onGravity?.Invoke(false);
                 //

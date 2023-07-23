@@ -37,7 +37,7 @@ public class ControllerShoot : MonoBehaviour
             {
                 GameTurn.SetInit(TurnType.Phase, this.gameObject);
                 GameTurn.SetInit(TurnType.Object, this.gameObject);
-                GameTurn.Instance.onTurn += SetControlTurn;
+                GameTurn.Instance.onStepStart += SetControlTurn;
             }
         }
     }
@@ -52,7 +52,7 @@ public class ControllerShoot : MonoBehaviour
             {
                 GameTurn.SetRemove(TurnType.Phase, this.gameObject);
                 GameTurn.SetRemove(TurnType.Object, this.gameObject);
-                GameTurn.Instance.onTurn -= SetControlTurn;
+                GameTurn.Instance.onStepStart -= SetControlTurn;
             }
         }
     }
