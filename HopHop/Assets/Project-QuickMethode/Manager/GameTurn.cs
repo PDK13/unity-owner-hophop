@@ -125,7 +125,9 @@ public class GameTurn : MonoBehaviour
     {
         StopAllCoroutines();
         //
+#if UNITY_EDITOR
         EditorApplication.playModeStateChanged -= SetPlayModeStateChange;
+#endif
     }
 
     public static void SetStart()
