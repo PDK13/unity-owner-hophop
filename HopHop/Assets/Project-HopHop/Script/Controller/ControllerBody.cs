@@ -37,7 +37,7 @@ public class ControllerBody : MonoBehaviour
         SetControlGravity();
     }
 
-    public bool SetCheckGravity(IsoVector Dir)
+    public IsometricBlock SetCheckGravity(IsoVector Dir)
     {
         IsometricBlock Block = GetCheckDir(Dir, IsoVector.Bot);
         if (Block != null)
@@ -48,12 +48,12 @@ public class ControllerBody : MonoBehaviour
             }
             else
                 //Can't not Fall ahead!!
-                return false;
+                return Block;
         }
         //
         SetForceGravity();
         //
-        return true;
+        return null;
     }
 
     private void SetForceGravity()

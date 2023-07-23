@@ -79,39 +79,20 @@ public class ControllerBullet : MonoBehaviour
         //
         m_turnLengthCurrent++;
         //
-        IsometricBlock Block = m_block.WorldManager.GetWorldBlockCurrent(m_block.Pos + m_turnDir);
-        if (Block != null)
+        IsometricBlock BlockAhead = m_block.WorldManager.GetWorldBlockCurrent(m_block.Pos + m_turnDir);
+        if (BlockAhead != null)
         {
-            m_turnControl = false;
-            GameTurn.SetEndTurn(TurnType.Object, this.gameObject); //Follow Object (!)
-            //
-            GameTurn.SetRemove(TurnType.Phase, this.gameObject);
-            GameTurn.SetRemove(TurnType.Object, this.gameObject);
-            GameTurn.Instance.onTurn -= SetControlTurn;
-            //
-            //Can't not continue move ahead because of burden, so destroy this!!
-            //
-            if (Block.Tag.Contains(GameManager.GameConfig.Tag.Player))
+            if (BlockAhead.Tag.Contains(GameManager.GameConfig.Tag.Player))
             {
                 Debug.Log("[Debug] Bullet hit Player!!");
             }
-            //else
-            //if (Block.Tag.Contains(GameManager.GameConfig.Tag.Bullet))
-            //{
-            //    Debug.Log("[Debug] Bullet hit Player!!");
-            //    //
-            //    Block.GetComponent<ControllerBullet>().SetHit();
-            //}
             //
-            SetControlAnimation(ANIM_BLOW);
-            m_block.WorldManager.SetWorldBlockRemoveInstant(m_block, DESTROY_DELAY);
+            SetHit();
             //
             return;
-            //Destroy this, instead of continue move Wahead!!
         }
         //
         if (m_body != null)
-            //If this got Body, then check if it will Fall ahead!!
             m_body.SetCheckGravity(m_turnDir);
         //
         Vector3 MoveDir = IsoVector.GetVector(m_turnDir);
@@ -130,6 +111,7 @@ public class ControllerBullet : MonoBehaviour
             .OnComplete(() =>
             {
                 //End Animation!!
+                //
                 if (TurnEnd)
                 {
                     m_turnControl = false;
@@ -137,6 +119,24 @@ public class ControllerBullet : MonoBehaviour
                 }
                 else
                     GameTurn.SetEndMove(TurnType.Object, this.gameObject); //Follow Object (!)
+                //
+                //Check if Bot can't stand on!!
+                //
+                if (m_body != null)
+                {
+                    IsometricBlock BlockBot = m_body.GetCheckDir(IsoVector.Bot);
+                    if (BlockBot == null)
+                        return;
+                    //
+                    if (BlockBot.Tag.Contains(GameManager.GameConfig.Tag.Player))
+                    {
+                        Debug.Log("[Debug] Bullet hit Player!!");
+                    }
+                    //
+                    if (!BlockBot.Tag.Contains(GameManager.GameConfig.Tag.Block))
+                        SetHit();
+                }
+                //
             });
     }
 
@@ -144,7 +144,6 @@ public class ControllerBullet : MonoBehaviour
     {
         m_turnControl = false;
         GameTurn.SetEndTurn(TurnType.Object, this.gameObject); //Follow Object (!)
-        //
         GameTurn.SetRemove(TurnType.Phase, this.gameObject);
         GameTurn.SetRemove(TurnType.Object, this.gameObject);
         GameTurn.Instance.onTurn -= SetControlTurn;
