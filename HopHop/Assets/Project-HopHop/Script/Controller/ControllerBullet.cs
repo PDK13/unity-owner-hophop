@@ -33,6 +33,11 @@ public class ControllerBullet : MonoBehaviour
         GameTurn.SetInit(TurnType.Object, this.gameObject);
         GameTurn.Instance.onTurn += SetControlTurn;
         //
+        if (m_body != null)
+        {
+            m_body.onGravity += SetGravity;
+        }
+        //
         m_speed = Speed;
         m_turnDir = Dir;
         //
@@ -46,6 +51,11 @@ public class ControllerBullet : MonoBehaviour
         GameTurn.SetRemove(TurnType.Phase, this.gameObject);
         GameTurn.SetRemove(TurnType.Object, this.gameObject);
         GameTurn.Instance.onTurn -= SetControlTurn;
+        //
+        if (m_body != null)
+        {
+            m_body.onGravity -= SetGravity;
+        }
     }
 
     private void SetControlTurn(string Turn)
@@ -122,20 +132,7 @@ public class ControllerBullet : MonoBehaviour
                 //
                 //Check if Bot can't stand on!!
                 //
-                if (m_body != null)
-                {
-                    IsometricBlock BlockBot = m_body.GetCheckDir(IsoVector.Bot);
-                    if (BlockBot == null)
-                        return;
-                    //
-                    if (BlockBot.Tag.Contains(GameManager.GameConfig.Tag.Player))
-                    {
-                        Debug.Log("[Debug] Bullet hit Player!!");
-                    }
-                    //
-                    if (!BlockBot.Tag.Contains(GameManager.GameConfig.Tag.Block))
-                        SetHit();
-                }
+                SetStandOn();
                 //
             });
     }
@@ -151,6 +148,36 @@ public class ControllerBullet : MonoBehaviour
         SetControlAnimation(ANIM_BLOW);
         m_block.WorldManager.SetWorldBlockRemoveInstant(m_block, DESTROY_DELAY);
     } //This is touched by other object!!
+
+    public void SetStandOn()
+    {
+        if (m_body != null)
+        {
+            IsometricBlock BlockBot = m_body.GetCheckDir(IsoVector.Bot);
+            if (BlockBot == null)
+                return;
+            //
+            if (BlockBot.Tag.Contains(GameManager.GameConfig.Tag.Player))
+            {
+                Debug.Log("[Debug] Bullet hit Player!!");
+            }
+            //
+            if (!BlockBot.Tag.Contains(GameManager.GameConfig.Tag.Block))
+                SetHit();
+        }
+    }
+
+    #region Body
+
+    private void SetGravity(bool State)
+    {
+        if (!State)
+        {
+            SetStandOn();
+        }
+    }
+
+    #endregion
 
     #region Animation
 

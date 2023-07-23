@@ -187,9 +187,9 @@ public class ControllerBody : MonoBehaviour
 
     #endregion
 
-    #region Stand On
+    #region Stand On Force
 
-    public void SetStandOn()
+    public void SetStandOnForce()
     {
         if (GetCheckDir(IsoVector.Bot) == null)
             return;

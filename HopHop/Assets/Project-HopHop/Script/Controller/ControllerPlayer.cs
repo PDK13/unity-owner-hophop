@@ -147,7 +147,7 @@ public class ControllerPlayer : MonoBehaviour
             })
             .OnComplete(() =>
             {
-                m_body.SetStandOn();
+                m_body.SetStandOnForce();
                 m_animation.SetStand(m_body.GetCheckDir(IsoVector.Bot));
                 //
                 GameTurn.SetEndTurn(TurnType.Player, this.gameObject); //Follow Player (!)
@@ -163,7 +163,7 @@ public class ControllerPlayer : MonoBehaviour
     {
         if (!State)
         {
-            m_body.SetStandOn();
+            m_body.SetStandOnForce();
             m_animation.SetStand(m_body.GetCheckDir(IsoVector.Bot));
         }
     }
@@ -176,7 +176,7 @@ public class ControllerPlayer : MonoBehaviour
         }
         else
         {
-            m_body.SetStandOn();
+            m_body.SetStandOnForce();
             m_animation.SetStand(m_body.GetCheckDir(IsoVector.Bot));
         }
     }
@@ -185,7 +185,7 @@ public class ControllerPlayer : MonoBehaviour
     {
         if (!State)
         {
-            m_body.SetStandOn();
+            m_body.SetStandOnForce();
             m_animation.SetStand(m_body.GetCheckDir(IsoVector.Bot));
         }
     }
