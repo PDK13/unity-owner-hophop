@@ -36,9 +36,9 @@ public class ControllerObject : MonoBehaviour
         {
             if (m_dataMove.DataExist)
             {
-                GameTurn.SetInit(TurnType.Phase, this.gameObject);
                 GameTurn.SetInit(TurnType.Object, this.gameObject);
-                GameTurn.Instance.onStepStart += SetControlTurn;
+                GameTurn.Instance.onTurn += SetControlTurn;
+                GameTurn.Instance.onStepStart += SetControlStep;
             }
             else
             if (m_dataFollow != null)
@@ -56,9 +56,9 @@ public class ControllerObject : MonoBehaviour
         {
             if (m_dataMove.DataExist)
             {
-                GameTurn.SetRemove(TurnType.Phase, this.gameObject);
                 GameTurn.SetRemove(TurnType.Object, this.gameObject);
-                GameTurn.Instance.onStepStart -= SetControlTurn;
+                GameTurn.Instance.onTurn -= SetControlTurn;
+                GameTurn.Instance.onStepStart -= SetControlStep;
             }
             else
             if (m_dataFollow != null)
@@ -68,21 +68,20 @@ public class ControllerObject : MonoBehaviour
         }
     }
 
-    private void SetControlTurn(string Turn)
+    private void SetControlTurn(int Turn)
     {
-        if (Turn == TurnType.Phase.ToString())
-        {
-            //Reset!!
-            m_turnLength = 0;
-            m_turnLengthCurrent = 0;
-            //
-            m_turnControl = true;
-            GameTurn.SetEndTurn(TurnType.Phase, this.gameObject);
-        }
-        else
+        //Reset!!
+        m_turnLength = 0;
+        m_turnLengthCurrent = 0;
+        //
+        m_turnControl = true;
+    }
+
+    private void SetControlStep(string Name)
+    {
         if (m_turnControl)
         {
-            if (Turn == TurnType.Object.ToString())
+            if (Name == TurnType.Object.ToString())
             {
                 SetControlMove();
             }

@@ -29,9 +29,9 @@ public class ControllerBullet : MonoBehaviour
         m_body = GetComponent<ControllerBody>();
         m_block = GetComponent<IsometricBlock>();
         //
-        GameTurn.SetInit(TurnType.Phase, this.gameObject);
         GameTurn.SetInit(TurnType.Object, this.gameObject);
-        GameTurn.Instance.onStepStart += SetControlTurn;
+        GameTurn.Instance.onTurn += SetControlTurn;
+        GameTurn.Instance.onStepStart += SetControlStep;
         //
         if (m_body != null)
         {
@@ -48,9 +48,9 @@ public class ControllerBullet : MonoBehaviour
     {
         StopAllCoroutines();
         //
-        GameTurn.SetRemove(TurnType.Phase, this.gameObject);
         GameTurn.SetRemove(TurnType.Object, this.gameObject);
-        GameTurn.Instance.onStepStart -= SetControlTurn;
+        GameTurn.Instance.onTurn -= SetControlTurn;
+        GameTurn.Instance.onStepStart -= SetControlStep;
         //
         if (m_body != null)
         {
@@ -58,21 +58,20 @@ public class ControllerBullet : MonoBehaviour
         }
     }
 
-    private void SetControlTurn(string Turn)
+    private void SetControlTurn(int Turn)
     {
-        if (Turn == TurnType.Phase.ToString())
-        {
-            //Reset!!
-            m_turnLength = 0;
-            m_turnLengthCurrent = 0;
-            //
-            m_turnControl = true;
-            GameTurn.SetEndTurn(TurnType.Phase, this.gameObject);
-        }
-        else
+        //Reset!!
+        m_turnLength = 0;
+        m_turnLengthCurrent = 0;
+        //
+        m_turnControl = true;
+    }
+
+    private void SetControlStep(string Name)
+    {
         if (m_turnControl)
         {
-            if (Turn == TurnType.Object.ToString())
+            if (Name == TurnType.Object.ToString())
             {
                 SetControlMove();
             }
@@ -141,9 +140,9 @@ public class ControllerBullet : MonoBehaviour
     {
         m_turnControl = false;
         GameTurn.SetEndTurn(TurnType.Object, this.gameObject); //Follow Object (!)
-        GameTurn.SetRemove(TurnType.Phase, this.gameObject);
         GameTurn.SetRemove(TurnType.Object, this.gameObject);
-        GameTurn.Instance.onStepStart -= SetControlTurn;
+        GameTurn.Instance.onTurn -= SetControlTurn;
+        GameTurn.Instance.onStepStart -= SetControlStep;
         //
         SetControlAnimation(ANIM_BLOW);
         m_block.WorldManager.SetWorldBlockRemoveInstant(m_block, DESTROY_DELAY);

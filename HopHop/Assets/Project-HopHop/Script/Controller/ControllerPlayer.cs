@@ -24,9 +24,9 @@ public class ControllerPlayer : MonoBehaviour
         m_body.onPush += SetPush;
         m_body.onForce += SetForce;
         //
-        GameTurn.SetInit(TurnType.Phase, this.gameObject);
         GameTurn.SetInit(TurnType.Player, this.gameObject);
-        GameTurn.Instance.onStepStart += SetControlTurn;
+        GameTurn.Instance.onTurn += SetControlTurn;
+        GameTurn.Instance.onStepStart += SetControlStep;
     }
 
     private void OnDestroy()
@@ -37,9 +37,9 @@ public class ControllerPlayer : MonoBehaviour
         m_body.onPush -= SetPush;
         m_body.onForce -= SetForce;
         //
-        GameTurn.SetRemove(TurnType.Phase, this.gameObject);
         GameTurn.SetRemove(TurnType.Player, this.gameObject);
-        GameTurn.Instance.onStepStart -= SetControlTurn;
+        GameTurn.Instance.onTurn -= SetControlTurn;
+        GameTurn.Instance.onStepStart -= SetControlStep;
     }
 
     private void Update()
@@ -65,16 +65,16 @@ public class ControllerPlayer : MonoBehaviour
 
     #region Move
 
-    private void SetControlTurn(string Turn)
+    private void SetControlTurn(int Turn)
     {
-        if (Turn == TurnType.Phase.ToString())
-        {
-            //Reset!!
-            //
-            GameTurn.SetEndTurn(TurnType.Phase, this.gameObject);
-        }
-        else
-        if (Turn == TurnType.Player.ToString())
+        //Reset!!
+        //
+        //...
+    }
+
+    private void SetControlStep(string Name)
+    {
+        if (Name == TurnType.Player.ToString())
         {
             if (m_body.MoveForceXY.HasValue)
             {

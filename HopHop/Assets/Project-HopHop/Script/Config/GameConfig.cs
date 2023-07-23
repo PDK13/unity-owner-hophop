@@ -72,11 +72,7 @@ public class GameConfigTag
 public enum TurnType
 {
     None,
-    //Turn Phase: Use for reset!!
-    Phase,
-    //Turn Primary: Use for base gameplay!!
+    Gravity,
     Player,
     Object,
-    //Turn Add: Use for event gameplay!!
-    Gravity,
 }

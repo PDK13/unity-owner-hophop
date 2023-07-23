@@ -23,9 +23,9 @@ public class GameTurn : MonoBehaviour
 
     #region Event
 
-    public Action<int> onTurn; //Called when a new Turn is trigged!!
-    public Action<string> onStepStart;
-    public Action<string> onStepEnd;
+    public Action<int> onTurn;          //<Turn>
+    public Action<string> onStepStart;  //<Name>
+    public Action<string> onStepEnd;    //<Name>
 
     #endregion
 

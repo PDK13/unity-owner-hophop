@@ -35,9 +35,9 @@ public class ControllerShoot : MonoBehaviour
         {
             if (m_dataAction.DataExist)
             {
-                GameTurn.SetInit(TurnType.Phase, this.gameObject);
                 GameTurn.SetInit(TurnType.Object, this.gameObject);
-                GameTurn.Instance.onStepStart += SetControlTurn;
+                GameTurn.Instance.onTurn += SetControlTurn;
+                GameTurn.Instance.onStepStart += SetControlStep;
             }
         }
     }
@@ -50,28 +50,27 @@ public class ControllerShoot : MonoBehaviour
         {
             if (m_dataAction.DataExist)
             {
-                GameTurn.SetRemove(TurnType.Phase, this.gameObject);
                 GameTurn.SetRemove(TurnType.Object, this.gameObject);
-                GameTurn.Instance.onStepStart -= SetControlTurn;
+                GameTurn.Instance.onTurn -= SetControlTurn;
+                GameTurn.Instance.onStepStart -= SetControlStep;
             }
         }
     }
 
-    private void SetControlTurn(string Turn)
+    private void SetControlTurn(int Turn)
     {
-        if (Turn == TurnType.Phase.ToString())
-        {
-            //Reset!!
-            m_turnTime = 0;
-            m_turnTimeCurrent = 0;
-            //
-            m_turnControl = true;
-            GameTurn.SetEndTurn(TurnType.Phase, this.gameObject);
-        }
-        else
+        //Reset!!
+        m_turnTime = 0;
+        m_turnTimeCurrent = 0;
+        //
+        m_turnControl = true;
+    }
+
+    private void SetControlStep(string Name)
+    {
         if (m_turnControl)
         {
-            if (Turn == TurnType.Object.ToString())
+            if (Name == TurnType.Object.ToString())
             {
                 SetControlAction();
             }
