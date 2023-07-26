@@ -591,6 +591,8 @@ namespace QuickMethode
     {
         #region Primary
 
+        public const string UNTAGGED = "Untagged";
+
         public static int GetLayerMask(params string[] LayerName)
         {
             return LayerMask.GetMask(LayerName);
@@ -1860,7 +1862,7 @@ namespace QuickMethode
             PlayerPrefs.Save();
         }
 
-        public static void SetValue<EnumType>(string Name, char Key, params EnumType[] Value)
+        public static void SetValueEnum<EnumType>(string Name, char Key, params EnumType[] Value)
         {
             PlayerPrefs.SetString(Name, QEncypt.GetEncypt(Key, Value.ToList()));
             PlayerPrefs.Save();
@@ -2032,11 +2034,13 @@ namespace QuickMethode
     {
         public static int GetChoice<EnumType>(EnumType Choice)
         {
+            //Simple: (int)EnumType
             return (int)Convert.ChangeType(Choice, typeof(int));
         }
 
         public static EnumType GetChoice<EnumType>(int Index)
         {
+            //Simple: (EnumType)Index
             return (EnumType)Enum.ToObject(typeof(EnumType), Index);
         }
 
