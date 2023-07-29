@@ -1,7 +1,7 @@
 [WORLD NAME]
 ...
 [WORLD BLOCK]
-297
+291
 ---------------------------------------
 [-5;1;2]
 Character Devil
@@ -109,28 +109,6 @@ Object Flower 0
 
 0
 0
-<FOLLOW DATA>
-
-
-<ACTION DATA>
-
-0
-0
-<EVENT DATA>
-
-0
-<TELEPORT DATA>
-
-0
----------------------------------------
-[-5;1;1]
-Block Move 0
-<MOVE DATA>
-
-2
-2
-1|L
-1|L
 <FOLLOW DATA>
 
 
@@ -1249,86 +1227,6 @@ Block Normal 0
 ---------------------------------------
 [-2;-1;0]
 Block Normal 0
-<MOVE DATA>
-
-0
-0
-<FOLLOW DATA>
-
-
-<ACTION DATA>
-
-0
-0
-<EVENT DATA>
-
-0
-<TELEPORT DATA>
-
-0
----------------------------------------
-[-3;-1;0]
-Block Move 1
-<MOVE DATA>
-
-0
-0
-<FOLLOW DATA>
-
-
-<ACTION DATA>
-
-0
-0
-<EVENT DATA>
-
-0
-<TELEPORT DATA>
-
-0
----------------------------------------
-[-4;-1;0]
-Block Move 1
-<MOVE DATA>
-
-0
-0
-<FOLLOW DATA>
-
-
-<ACTION DATA>
-
-0
-0
-<EVENT DATA>
-
-0
-<TELEPORT DATA>
-
-0
----------------------------------------
-[-5;-1;0]
-Block Move 1
-<MOVE DATA>
-
-0
-0
-<FOLLOW DATA>
-
-
-<ACTION DATA>
-
-0
-0
-<EVENT DATA>
-
-0
-<TELEPORT DATA>
-
-0
----------------------------------------
-[-6;-1;0]
-Block Move 1
 <MOVE DATA>
 
 0
@@ -4356,27 +4254,6 @@ Block Normal 0
 
 0
 0
-<FOLLOW DATA>
-event-follow
-move-1
-<ACTION DATA>
-
-0
-0
-<EVENT DATA>
-
-0
-<TELEPORT DATA>
-
-0
----------------------------------------
-[-9;-4;-1]
-Block Move 0
-<MOVE DATA>
-
-2
-1
-1|T
 <FOLLOW DATA>
 event-follow
 move-1

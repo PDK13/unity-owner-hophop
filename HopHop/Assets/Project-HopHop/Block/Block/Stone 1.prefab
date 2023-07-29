@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88b51ca1839d85a47a182808b3636847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_name: Block Move 1
+  m_name: Block Stone 1
   m_free: 0
   m_tag:
   - block
@@ -136,6 +136,9 @@ MonoBehaviour:
     Length: 
     Index: 0
     Quantity: 1
+  FollowData:
+    Key: 
+    KeyFollow: 
   ActionData:
     Key: 
     Type: 0

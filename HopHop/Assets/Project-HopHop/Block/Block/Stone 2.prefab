@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 1859136451984302811}
   - component: {fileID: 44393240911007880}
   - component: {fileID: -935195297698357164}
-  - component: {fileID: -483182312559729360}
+  - component: {fileID: 792569818468697268}
   m_Layer: 0
-  m_Name: Stone 0
+  m_Name: Stone 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -932495710, guid: 323484da8f7aabc4e85312bb77f04dbc, type: 3}
+  m_Sprite: {fileID: -1446366289, guid: 747091afeb81a334b8c13adb2b24bcfb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -98,7 +98,7 @@ Animator:
   m_GameObject: {fileID: 44393240911007885}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9c528e3f419d17641b8d5dec8bdd33c7, type: 2}
+  m_Controller: {fileID: 9100000, guid: 220b146418792f347a9bb87983c5c0ff, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88b51ca1839d85a47a182808b3636847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_name: Block Stone 0
+  m_name: Block Stone 2
   m_free: 0
   m_tag:
   - block
@@ -173,7 +173,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_spriteJoin: []
   m_blockTop: []
---- !u!114 &-483182312559729360
+--- !u!114 &792569818468697268
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

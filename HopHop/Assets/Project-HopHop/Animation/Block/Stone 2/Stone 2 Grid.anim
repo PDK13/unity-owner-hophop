@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Stone 1 Grid
+  m_Name: Stone 2 Grid
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,7 +20,7 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: -422710064, guid: 013f40b6c87bb8d478bc8dc3db09ee08, type: 3}
+      value: {fileID: 1022497479, guid: 3a700fe680c71a249b326caefc3a3ee9, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -40,7 +40,7 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: -422710064, guid: 013f40b6c87bb8d478bc8dc3db09ee08, type: 3}
+    - {fileID: 1022497479, guid: 3a700fe680c71a249b326caefc3a3ee9, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
