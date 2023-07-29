@@ -132,6 +132,22 @@ public class IsometricTool : EditorWindow
         QEditor.SetHorizontalBegin();
         {
             QEditor.SetBackground(Color.white);
+            QEditor.SetLabel("RENDERER: ", QEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this, 0.25f));
+            m_manager.Scene.Renderer = (IsometricManager.RendererType)QEditor.SetPopup<IsometricManager.RendererType>((int)m_manager.Scene.Renderer, QEditorWindow.GetGUILayoutWidth(this, 0.75f, 2.5f));
+        }
+        QEditor.SetHorizontalEnd();
+
+        QEditor.SetHorizontalBegin();
+        {
+            QEditor.SetBackground(Color.white);
+            QEditor.SetLabel("ROTATE: ", QEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this, 0.25f));
+            m_manager.Scene.Rotate = (IsometricManager.RotateType)QEditor.SetPopup<IsometricManager.RotateType>((int)m_manager.Scene.Rotate, QEditorWindow.GetGUILayoutWidth(this, 0.75f, 2.5f));
+        }
+        QEditor.SetHorizontalEnd();
+
+        QEditor.SetHorizontalBegin();
+        {
+            QEditor.SetBackground(Color.white);
             QEditor.SetLabel("CURSON: ", QEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this, 0.25f));
             QEditor.SetLabel(m_curson.Pos.XInt.ToString(), QEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this, 0.25f));
             QEditor.SetLabel(m_curson.Pos.YInt.ToString(), QEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this, 0.25f));

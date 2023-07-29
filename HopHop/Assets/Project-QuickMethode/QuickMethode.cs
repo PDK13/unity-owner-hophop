@@ -2044,8 +2044,21 @@ namespace QuickMethode
             return (EnumType)Enum.ToObject(typeof(EnumType), Index);
         }
 
-        public static List<string> GetListName<EnumType>()
+        public static List<string> GetListName<EnumType>(bool Fixed = true)
         {
+            if (Fixed)
+            {
+                List<string> ListName = Enum.GetNames(typeof(EnumType)).ToList();
+                for (int i = 0; i < ListName.Count; i++)
+                {
+                    if (ListName[i][0].Equals('_'))
+                        ListName[i] = ListName[i].Remove(0, 1);
+                    //
+                    ListName[i] = ListName[i].Replace("_", " ");
+                }
+                return ListName;
+            }
+
             return Enum.GetNames(typeof(EnumType)).ToList();
         }
 
