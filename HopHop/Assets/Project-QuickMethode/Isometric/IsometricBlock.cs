@@ -115,32 +115,27 @@ public class IsometricBlock : MonoBehaviour
 
     private Vector3 GetIsoTransform(IsoVector Pos)
     {
-        IsoVector PosValue = new IsoVector(Pos);
-        float Angle;
+        IsoVector PosCentre = m_scene.Centre;
+        float Angle = 0;
         //
         switch (m_scene.Rotate)
         {
             case IsometricManager.RotateType._0:
                 Angle = 0 * Mathf.Deg2Rad;
-                PosValue.X = Pos.X * Mathf.Cos(Angle) - Pos.Y * Mathf.Sin(Angle);
-                PosValue.Y = Pos.X * Mathf.Sin(Angle) + Pos.Y * Mathf.Cos(Angle);
                 break;
             case IsometricManager.RotateType._90:
                 Angle = 90f * Mathf.Deg2Rad;
-                PosValue.X = Pos.X * Mathf.Cos(Angle) - Pos.Y * Mathf.Sin(Angle);
-                PosValue.Y = Pos.X * Mathf.Sin(Angle) + Pos.Y * Mathf.Cos(Angle);
                 break;
             case IsometricManager.RotateType._180:
                 Angle = 180f * Mathf.Deg2Rad;
-                PosValue.X = Pos.X * Mathf.Cos(Angle) - Pos.Y * Mathf.Sin(Angle);
-                PosValue.Y = Pos.X * Mathf.Sin(Angle) + Pos.Y * Mathf.Cos(Angle);
                 break;
             case IsometricManager.RotateType._270:
                 Angle = 270f * Mathf.Deg2Rad;
-                PosValue.X = Pos.X * Mathf.Cos(Angle) - Pos.Y * Mathf.Sin(Angle);
-                PosValue.Y = Pos.X * Mathf.Sin(Angle) + Pos.Y * Mathf.Cos(Angle);
                 break;
         }
+        IsoVector PosValue = new IsoVector(Pos);
+        PosValue.X = (Pos.X - PosCentre.X) * Mathf.Cos(Angle) - (Pos.Y - PosCentre.Y) * Mathf.Sin(Angle) + PosCentre.X;
+        PosValue.Y = (Pos.X - PosCentre.X) * Mathf.Sin(Angle) + (Pos.Y - PosCentre.Y) * Mathf.Cos(Angle) + PosCentre.Y;
         //
         Vector3 PosTransform = new Vector3();
         IsoVector PosValueScale = PosValue;

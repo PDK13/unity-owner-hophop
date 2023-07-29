@@ -4896,6 +4896,20 @@ namespace QuickMethode
 
         #region ==================================== GUI Group
 
+        #region ------------------------------------ Chance Check
+
+        public static void SetChanceCheckBegin()
+        {
+            EditorGUI.BeginChangeCheck();
+        }
+
+        public static bool SetChanceCheckEnd()
+        {
+            return EditorGUI.EndChangeCheck();
+        }
+
+        #endregion
+
         #region ------------------------------------ Disable Group
 
         public static void SetDisableGroupBegin(bool Disable = true)
@@ -5327,20 +5341,6 @@ namespace QuickMethode
         public static void SetApply(Editor This)
         {
             This.serializedObject.ApplyModifiedProperties();
-        }
-
-        #endregion
-
-        #region ------------------------------------ Chance Check
-
-        public static void SetChanceCheckBegin()
-        {
-            EditorGUI.BeginChangeCheck();
-        }
-
-        public static bool SetChanceCheckEnd()
-        {
-            return EditorGUI.EndChangeCheck();
         }
 
         #endregion
