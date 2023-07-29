@@ -428,12 +428,20 @@ public class IsometricTool : EditorWindow
         }
         if (QEditor.SetButton("Open", QEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this, 1f / 2)))
         {
+            QAssetsDatabase.SetRefresh();
+            //
             var Path = QPath.GetPathFileOpenPanel("Open", "txt", m_pathOpen == "" ? QPath.GetPath(QPath.PathType.Assets) : m_pathOpen);
             if (Path.Result)
             {
+                m_maskXY = false;
+                m_hiddenH = false;
+                m_indexTag = 0;
+                m_indexName = 0;
+
+                m_manager.SetList(m_manager.Config);
+
                 m_pathOpen = Path.Path;
                 m_manager.SetFileRead(QPath.PathType.None, Path.Path);
-                QAssetsDatabase.SetRefresh();
             }
         }
         QEditor.SetHorizontalEnd();
