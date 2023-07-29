@@ -244,7 +244,7 @@ Object Flower 0
 0
 ---------------------------------------
 [2;-2;1]
-Object Flower 0
+Block Stone 0
 <MOVE DATA>
 
 0
