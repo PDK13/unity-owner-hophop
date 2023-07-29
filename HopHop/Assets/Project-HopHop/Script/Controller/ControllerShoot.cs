@@ -98,8 +98,8 @@ public class ControllerShoot : MonoBehaviour
         if (Command[0] == GameManager.GameConfig.Command.Shoot)
         {
             //"shoot-[1]-[2]-[3]"
-            IsoVector DirSpawm = IsoVector.GetDirValue(Command[1]);
-            IsoVector DirMove = IsoVector.GetDirValue(Command[2]);
+            IsoVector DirSpawm = IsoVector.GetDirDeEncypt(Command[1]);
+            IsoVector DirMove = IsoVector.GetDirDeEncypt(Command[2]);
             int Speed = int.Parse(Command[3]);
             SetShoot(DirSpawm, DirMove, Speed);
         }

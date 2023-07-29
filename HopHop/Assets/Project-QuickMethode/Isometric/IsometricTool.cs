@@ -270,7 +270,7 @@ public class IsometricTool : EditorWindow
                     {
                         //Move Curson!!
                         case KeyCode.UpArrow:
-                            m_curson.GetComponent<IsometricBlock>().Pos += IsoVector.Up;
+                            m_curson.GetComponent<IsometricBlock>().Pos += IsoVector.GetDir(IsoDir.Up, m_manager.Scene.Rotate);
                             SetCursonMaskXY();
                             SetCursonHiddenH();
                             SetCursonCheck();
@@ -278,7 +278,7 @@ public class IsometricTool : EditorWindow
                             m_event.Use();
                             break;
                         case KeyCode.DownArrow:
-                            m_curson.GetComponent<IsometricBlock>().Pos += IsoVector.Down;
+                            m_curson.GetComponent<IsometricBlock>().Pos += IsoVector.GetDir(IsoDir.Down, m_manager.Scene.Rotate);
                             SetCursonMaskXY();
                             SetCursonHiddenH();
                             SetCursonCheck();
@@ -286,7 +286,7 @@ public class IsometricTool : EditorWindow
                             m_event.Use();
                             break;
                         case KeyCode.LeftArrow:
-                            m_curson.GetComponent<IsometricBlock>().Pos += IsoVector.Left;
+                            m_curson.GetComponent<IsometricBlock>().Pos += IsoVector.GetDir(IsoDir.Left, m_manager.Scene.Rotate);
                             SetCursonMaskXY();
                             SetCursonHiddenH();
                             SetCursonCheck();
@@ -294,7 +294,7 @@ public class IsometricTool : EditorWindow
                             m_event.Use();
                             break;
                         case KeyCode.RightArrow:
-                            m_curson.GetComponent<IsometricBlock>().Pos += IsoVector.Right;
+                            m_curson.GetComponent<IsometricBlock>().Pos += IsoVector.GetDir(IsoDir.Right, m_manager.Scene.Rotate);
                             SetCursonMaskXY();
                             SetCursonHiddenH();
                             SetCursonCheck();
@@ -302,7 +302,7 @@ public class IsometricTool : EditorWindow
                             m_event.Use();
                             break;
                         case KeyCode.PageUp:
-                            m_curson.GetComponent<IsometricBlock>().Pos += IsoVector.Top;
+                            m_curson.GetComponent<IsometricBlock>().Pos += IsoVector.GetDir(IsoDir.Top, m_manager.Scene.Rotate);
                             SetCursonMaskXY();
                             SetCursonHiddenH();
                             SetCursonCheck();
@@ -310,7 +310,7 @@ public class IsometricTool : EditorWindow
                             m_event.Use();
                             break;
                         case KeyCode.PageDown:
-                            m_curson.GetComponent<IsometricBlock>().Pos += IsoVector.Bot;
+                            m_curson.GetComponent<IsometricBlock>().Pos += IsoVector.GetDir(IsoDir.Bot, m_manager.Scene.Rotate);
                             SetCursonMaskXY();
                             SetCursonHiddenH();
                             SetCursonCheck();

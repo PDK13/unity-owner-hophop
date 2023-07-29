@@ -14,6 +14,14 @@ public class IsometricManager : MonoBehaviour
 
     #endregion
 
+    #region Enum
+
+    public enum RendererType { XY, H, None, }
+
+    public enum RotateType { _0, _90, _180, _270, }
+
+    #endregion
+
     #region Varible: Game Config
 
     [SerializeField] private IsometricConfig m_config;

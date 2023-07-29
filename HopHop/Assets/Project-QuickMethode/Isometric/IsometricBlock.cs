@@ -120,22 +120,22 @@ public class IsometricBlock : MonoBehaviour
         //
         switch (m_scene.Rotate)
         {
-            case IsoDataScene.RotateType._0:
+            case IsometricManager.RotateType._0:
                 Angle = 0 * Mathf.Deg2Rad;
                 PosValue.X = Pos.X * Mathf.Cos(Angle) - Pos.Y * Mathf.Sin(Angle);
                 PosValue.Y = Pos.X * Mathf.Sin(Angle) + Pos.Y * Mathf.Cos(Angle);
                 break;
-            case IsoDataScene.RotateType._90:
+            case IsometricManager.RotateType._90:
                 Angle = 90f * Mathf.Deg2Rad;
                 PosValue.X = Pos.X * Mathf.Cos(Angle) - Pos.Y * Mathf.Sin(Angle);
                 PosValue.Y = Pos.X * Mathf.Sin(Angle) + Pos.Y * Mathf.Cos(Angle);
                 break;
-            case IsoDataScene.RotateType._180:
+            case IsometricManager.RotateType._180:
                 Angle = 180f * Mathf.Deg2Rad;
                 PosValue.X = Pos.X * Mathf.Cos(Angle) - Pos.Y * Mathf.Sin(Angle);
                 PosValue.Y = Pos.X * Mathf.Sin(Angle) + Pos.Y * Mathf.Cos(Angle);
                 break;
-            case IsoDataScene.RotateType._270:
+            case IsometricManager.RotateType._270:
                 Angle = 270f * Mathf.Deg2Rad;
                 PosValue.X = Pos.X * Mathf.Cos(Angle) - Pos.Y * Mathf.Sin(Angle);
                 PosValue.Y = Pos.X * Mathf.Sin(Angle) + Pos.Y * Mathf.Cos(Angle);
@@ -148,7 +148,7 @@ public class IsometricBlock : MonoBehaviour
         //
         switch (m_scene.Renderer)
         {
-            case IsoDataScene.RendererType.H:
+            case IsometricManager.RendererType.H:
                 PosValueScale.X *= m_scene.Scale.X * 0.5f * -1;
                 PosValueScale.Y *= m_scene.Scale.Y * 0.5f;
                 PosValueScale.H *= m_scene.Scale.H * 0.5f;
@@ -158,7 +158,7 @@ public class IsometricBlock : MonoBehaviour
                 PosTransform.z = PosValue.X + PosValue.Y - PosValue.H;
                 //
                 break;
-            case IsoDataScene.RendererType.XY:
+            case IsometricManager.RendererType.XY:
                 PosValueScale.X *= m_scene.Scale.X * 0.5f * -1;
                 PosValueScale.Y *= m_scene.Scale.Y * 0.5f;
                 PosValueScale.H *= m_scene.Scale.H * 0.5f;
@@ -168,7 +168,7 @@ public class IsometricBlock : MonoBehaviour
                 PosTransform.z = (PosValue.Y + PosValue.X) - PosValue.H * 2;
                 //
                 break;
-            case IsoDataScene.RendererType.None: //Testing
+            case IsometricManager.RendererType.None: //Testing
                 PosValueScale.X *= m_scene.Scale.X * 0.5f * -1;
                 PosValueScale.Y *= m_scene.Scale.Y * 0.5f;
                 PosValueScale.H *= m_scene.Scale.H * 0.5f;

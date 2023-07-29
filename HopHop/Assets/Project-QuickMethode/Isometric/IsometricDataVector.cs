@@ -68,61 +68,62 @@ public struct IsoVector : IEquatable<IsoVector>
         return new Vector3(Pos.X, Pos.Y, Pos.H);
     }
 
-    public static Vector3Int GetVector(IsoDir Dir)
+    public static IsoVector GetDir(IsoDir Dir, IsometricManager.RotateType Rotate = IsometricManager.RotateType._0)
     {
         switch (Dir)
         {
             case IsoDir.Up:
-                return Vector3Int.right;
+                switch (Rotate)
+                {
+                    case IsometricManager.RotateType._0:
+                        return Up;
+                    case IsometricManager.RotateType._90:
+                        return Left;
+                    case IsometricManager.RotateType._180:
+                        return Down;
+                    case IsometricManager.RotateType._270:
+                        return Right;
+                }
+                break;
             case IsoDir.Down:
-                return Vector3Int.left;
+                switch (Rotate)
+                {
+                    case IsometricManager.RotateType._0:
+                        return Down;
+                    case IsometricManager.RotateType._90:
+                        return Right;
+                    case IsometricManager.RotateType._180:
+                        return Up;
+                    case IsometricManager.RotateType._270:
+                        return Left;
+                }
+                break;
             case IsoDir.Left:
-                return Vector3Int.down;
+                switch (Rotate)
+                {
+                    case IsometricManager.RotateType._0:
+                        return Left;
+                    case IsometricManager.RotateType._90:
+                        return Down;
+                    case IsometricManager.RotateType._180:
+                        return Right;
+                    case IsometricManager.RotateType._270:
+                        return Up;
+                }
+                break;
             case IsoDir.Right:
-                return Vector3Int.up;
-            case IsoDir.Top:
-                return Vector3Int.forward;
-            case IsoDir.Bot:
-                return Vector3Int.back;
-        }
-        return Vector3Int.zero;
-    }
-
-    public static IsoVector GetDir(Vector3Int Dir)
-    {
-        if (Dir.Equals(Vector3Int.right))
-            return Up;
-
-        if (Dir.Equals(Vector3Int.left))
-            return Down;
-
-        if (Dir.Equals(Vector3Int.down))
-            return Left;
-
-        if (Dir.Equals(Vector3Int.up))
-            return Right;
-
-        if (Dir.Equals(Vector3Int.forward))
-            return Top;
-
-        if (Dir.Equals(Vector3Int.back))
-            return Bot;
-
-        return None;
-    }
-
-    public static IsoVector GetDir(IsoDir Dir)
-    {
-        switch (Dir)
-        {
-            case IsoDir.Up:
-                return Up;
-            case IsoDir.Down:
-                return Down;
-            case IsoDir.Left:
-                return Left;
-            case IsoDir.Right:
-                return Right;
+                switch (Rotate)
+                {
+                    case IsometricManager.RotateType._0:
+                        return Right;
+                    case IsometricManager.RotateType._90:
+                        return Up;
+                    case IsometricManager.RotateType._180:
+                        return Left;
+                    case IsometricManager.RotateType._270:
+                        return Down;
+                }
+                break;
             case IsoDir.Top:
                 return Top;
             case IsoDir.Bot:
@@ -131,7 +132,7 @@ public struct IsoVector : IEquatable<IsoVector>
         return None;
     }
 
-    public static IsoDir GetDirEnum(string Data)
+    public static IsoDir GetDirDeEncyptEnum(string Data)
     {
         switch (Data)
         {
@@ -161,7 +162,7 @@ public struct IsoVector : IEquatable<IsoVector>
         return IsoDir.None;
     }
 
-    public static IsoVector GetDirValue(string Data)
+    public static IsoVector GetDirDeEncypt(string Data)
     {
         switch (Data)
         {
@@ -191,7 +192,7 @@ public struct IsoVector : IEquatable<IsoVector>
         return None;
     }
 
-    public static string GetEncyptDir(IsoDir Dir)
+    public static string GetDirEncypt(IsoDir Dir)
     {
         switch (Dir)
         {
@@ -208,29 +209,6 @@ public struct IsoVector : IEquatable<IsoVector>
             case IsoDir.Bot:
                 return "B";
         }
-        return "N";
-    }
-
-    public static string GetEncyptDir(IsoVector Dir)
-    {
-        if (Dir == Up)
-            return "U";
-
-        if (Dir == Down)
-            return "U";
-
-        if (Dir == Left)
-            return "U";
-
-        if (Dir == Right)
-            return "U";
-
-        if (Dir == Top)
-            return "U";
-
-        if (Dir == Bot)
-            return "U";
-
         return "N";
     }
 
