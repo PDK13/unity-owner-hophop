@@ -177,7 +177,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Flower 0 0
+      name: Flower 0_0
       rect:
         serializedVersion: 2
         x: 0
@@ -198,7 +198,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Flower 0 1
+      name: Flower 0_1
       rect:
         serializedVersion: 2
         x: 128
@@ -219,7 +219,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Flower 1 0
+      name: Flower 0_2
       rect:
         serializedVersion: 2
         x: 0
@@ -240,7 +240,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Flower 1 1
+      name: Flower 0_3
       rect:
         serializedVersion: 2
         x: 128
@@ -261,7 +261,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Flower 2 0
+      name: Flower 0_4
       rect:
         serializedVersion: 2
         x: 0
@@ -282,7 +282,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Flower 2 1
+      name: Flower 0_5
       rect:
         serializedVersion: 2
         x: 128
@@ -303,7 +303,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Flower 3 0
+      name: Flower 0_6
       rect:
         serializedVersion: 2
         x: 0
@@ -324,7 +324,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Flower 3 1
+      name: Flower 0_7
       rect:
         serializedVersion: 2
         x: 128
@@ -355,14 +355,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Flower 0 0: 1601151698
-      Flower 0 1: -1464945343
-      Flower 1 0: 1927596961
-      Flower 1 1: 2009489890
-      Flower 2 0: 206563672
-      Flower 2 1: 2059522003
-      Flower 3 0: 139641897
-      Flower 3 1: 1468707611
+      Flower 0_0: 1601151698
+      Flower 0_1: -1464945343
+      Flower 0_2: 1927596961
+      Flower 0_3: 2009489890
+      Flower 0_4: 206563672
+      Flower 0_5: 2059522003
+      Flower 0_6: 139641897
+      Flower 0_7: 1468707611
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
