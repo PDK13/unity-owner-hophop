@@ -876,6 +876,36 @@ public class IsometricManager : MonoBehaviour
 
     #endregion
 
+    #region ======================================================================== Json
+
+    private class WorldData
+    {
+        public List<IsoDataBlock> WorldBlocks = new List<IsoDataBlock>();
+    }
+
+    public void SetJsonWrite(string Path)
+    {
+        var WorldData = new WorldData();
+        for (int i = 0; i < m_worldPosH.Count; i++)
+            for (int j = 0; j < m_worldPosH[i].Block.Count; j++)
+                WorldData.WorldBlocks.Add(new IsoDataBlock(m_worldPosH[i].Block[j].PosPrimary, m_worldPosH[i].Block[j].Name, m_worldPosH[i].Block[j].Data));
+        //
+        QJSON.SetDataPath(WorldData, Path);
+    }
+
+    public void SetJsonRead(string Path)
+    {
+        var WorldData = new WorldData();
+        //
+        WorldData = QJSON.GetDataPath<WorldData>(Path);
+        //
+        for (int i = 0; i < m_worldPosH.Count; i++)
+            for (int j = 0; j < m_worldPosH[i].Block.Count; j++)
+                SetWorldBlockCreate(WorldData.WorldBlocks[i].PosPrimary, GetList(WorldData.WorldBlocks[i].Name), WorldData.WorldBlocks[i].Data);
+    }
+
+    #endregion
+
     #region ======================================================================== Editor
 
     //Required "IsoBlockRenderer.cs" component for each Block!

@@ -62,10 +62,10 @@ public class IsometricTool : EditorWindow
 
     #endregion
 
-    [MenuItem("Tools/Quick Methode/Isometric Tool")]
+    [MenuItem("Tools/IsometricTool")]
     public static void Init()
     {
-        GetWindow<IsometricTool>("ISO-MAP");
+        GetWindow<IsometricTool>("IsometricTool");
     }
 
     private void OnGUI()

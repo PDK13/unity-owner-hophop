@@ -11,6 +11,7 @@ using System.Globalization;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.UIElements;
+using System.Text.Json;
 using Random = UnityEngine.Random;
 #if UNITY_EDITOR
 using UnityEditor.UIElements;
@@ -2278,20 +2279,59 @@ namespace QuickMethode
         //SAMPLE:
         //ClassData Data = ClassFileIO.GetDatafromJson<ClassData>(JsonDataTextDocument);
 
-        public static ClassData GetDataJson<ClassData>(TextAsset JsonDataTextDocument)
+        #region Path
+
+        public static void SetDataPath(object Data, string Path)
         {
-            return GetDataJson<ClassData>(JsonDataTextDocument.text);
+            string JsonData = JsonUtility.ToJson(Data, true);
+            //
+            QFileIO FileIO = new QFileIO();
+            FileIO.SetWriteAdd(JsonData);
+            FileIO.SetWriteStart(Path);
         }
 
-        public static ClassData GetDataJson<ClassData>(string JsonData)
+        public static void SetDataPath<ClassData>(ClassData Data, string Path)
+        {
+            string JsonData = JsonUtility.ToJson(Data, true);
+            //
+            QFileIO FileIO = new QFileIO();
+            FileIO.SetWriteAdd(JsonData);
+            FileIO.SetWriteStart(Path);
+        }
+
+        public static ClassData GetDataPath<ClassData>(string Path)
+        {
+            QFileIO FileIO = new QFileIO();
+            FileIO.SetReadStart(Path);
+            List<string> JSonRead = FileIO.GetRead();
+            //
+            string JsonData = "";
+            for (int i = 0; i < JSonRead.Count; i++)
+                JsonData += (FileIO.GetReadAutoString() + "\n");
+            //
+            return JsonUtility.FromJson<ClassData>(JsonData);
+        }
+
+        #endregion
+
+        #region Primary
+
+        public static string GetDataConvertJson(object JsonDataClass)
+        {
+            return JsonUtility.ToJson(JsonDataClass);
+        }
+
+        public static ClassData GetDataConvertClass<ClassData>(TextAsset JsonDataTextDocument)
+        {
+            return GetDataConvertClass<ClassData>(JsonDataTextDocument.text);
+        }
+
+        public static ClassData GetDataConvertClass<ClassData>(string JsonData)
         {
             return JsonUtility.FromJson<ClassData>(JsonData);
         }
 
-        public static string GetDataJson(object JsonDataClass)
-        {
-            return JsonUtility.ToJson(JsonDataClass);
-        }
+        #endregion
     }
 
     public class QEncypt
@@ -4095,11 +4135,6 @@ namespace QuickMethode
             TextRead = GetReadFromFile(Path);
         } //Call First
 
-        public void SetReadStart(TextAsset FileTest)
-        {
-            TextRead = GetReadFromFile(FileTest);
-        } //Call First
-
         private List<string> GetReadFromFile(string Path)
         {
             try
@@ -4121,6 +4156,11 @@ namespace QuickMethode
                 return null;
             }
         }
+
+        public void SetReadStart(TextAsset FileTest)
+        {
+            TextRead = GetReadFromFile(FileTest);
+        } //Call First
 
         private List<string> GetReadFromFile(TextAsset FileTest)
         {
