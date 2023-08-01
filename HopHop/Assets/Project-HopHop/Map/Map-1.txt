@@ -1,7 +1,7 @@
 [WORLD NAME]
 ...
 [WORLD BLOCK]
-120
+154
 ---------------------------------------
 [2;2;1]
 Object Flower 0 0
@@ -503,6 +503,66 @@ Object Flower 0 0
 
 0
 ---------------------------------------
+[-5;-6;1]
+Object Tree 0 0
+<MOVE DATA>
+
+0
+0
+<FOLLOW DATA>
+
+
+<ACTION DATA>
+
+0
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+---------------------------------------
+[-6;-6;1]
+Object Tree 0 0
+<MOVE DATA>
+
+0
+0
+<FOLLOW DATA>
+
+
+<ACTION DATA>
+
+0
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+---------------------------------------
+[-7;-6;1]
+Object Tree 0 0
+<MOVE DATA>
+
+0
+0
+<FOLLOW DATA>
+
+
+<ACTION DATA>
+
+0
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+---------------------------------------
 [1;-7;1]
 Object Flower 0 0
 <MOVE DATA>
@@ -563,6 +623,66 @@ Object Flower 0 0
 
 0
 ---------------------------------------
+[-5;-7;1]
+Object Tree 0 0
+<MOVE DATA>
+
+0
+0
+<FOLLOW DATA>
+
+
+<ACTION DATA>
+
+0
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+---------------------------------------
+[-6;-7;1]
+Object Tree 0 0
+<MOVE DATA>
+
+0
+0
+<FOLLOW DATA>
+
+
+<ACTION DATA>
+
+0
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+---------------------------------------
+[-7;-7;1]
+Object Tree 0 0
+<MOVE DATA>
+
+0
+0
+<FOLLOW DATA>
+
+
+<ACTION DATA>
+
+0
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+---------------------------------------
 [1;-8;1]
 Object Flower 0 0
 <MOVE DATA>
@@ -605,6 +725,66 @@ Object Flower 0 0
 ---------------------------------------
 [-1;-8;1]
 Object Flower 0 0
+<MOVE DATA>
+
+0
+0
+<FOLLOW DATA>
+
+
+<ACTION DATA>
+
+0
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+---------------------------------------
+[-5;-8;1]
+Object Tree 0 0
+<MOVE DATA>
+
+0
+0
+<FOLLOW DATA>
+
+
+<ACTION DATA>
+
+0
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+---------------------------------------
+[-6;-8;1]
+Object Tree 0 0
+<MOVE DATA>
+
+0
+0
+<FOLLOW DATA>
+
+
+<ACTION DATA>
+
+0
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+---------------------------------------
+[-7;-8;1]
+Object Tree 0 0
 <MOVE DATA>
 
 0
@@ -1363,6 +1543,66 @@ Block Normal 0
 
 0
 ---------------------------------------
+[-5;-6;0]
+Block Normal 0
+<MOVE DATA>
+
+0
+0
+<FOLLOW DATA>
+
+
+<ACTION DATA>
+
+0
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+---------------------------------------
+[-6;-6;0]
+Block Normal 0
+<MOVE DATA>
+
+0
+0
+<FOLLOW DATA>
+
+
+<ACTION DATA>
+
+0
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+---------------------------------------
+[-7;-6;0]
+Block Normal 0
+<MOVE DATA>
+
+0
+0
+<FOLLOW DATA>
+
+
+<ACTION DATA>
+
+0
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+---------------------------------------
 [1;-7;0]
 Block Normal 0
 <MOVE DATA>
@@ -1423,6 +1663,66 @@ Block Normal 0
 
 0
 ---------------------------------------
+[-5;-7;0]
+Block Normal 0
+<MOVE DATA>
+
+0
+0
+<FOLLOW DATA>
+
+
+<ACTION DATA>
+
+0
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+---------------------------------------
+[-6;-7;0]
+Block Normal 0
+<MOVE DATA>
+
+0
+0
+<FOLLOW DATA>
+
+
+<ACTION DATA>
+
+0
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+---------------------------------------
+[-7;-7;0]
+Block Normal 0
+<MOVE DATA>
+
+0
+0
+<FOLLOW DATA>
+
+
+<ACTION DATA>
+
+0
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+---------------------------------------
 [1;-8;0]
 Block Normal 0
 <MOVE DATA>
@@ -1464,6 +1764,66 @@ Block Normal 0
 0
 ---------------------------------------
 [-1;-8;0]
+Block Normal 0
+<MOVE DATA>
+
+0
+0
+<FOLLOW DATA>
+
+
+<ACTION DATA>
+
+0
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+---------------------------------------
+[-5;-8;0]
+Block Normal 0
+<MOVE DATA>
+
+0
+0
+<FOLLOW DATA>
+
+
+<ACTION DATA>
+
+0
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+---------------------------------------
+[-6;-8;0]
+Block Normal 0
+<MOVE DATA>
+
+0
+0
+<FOLLOW DATA>
+
+
+<ACTION DATA>
+
+0
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+---------------------------------------
+[-7;-8;0]
 Block Normal 0
 <MOVE DATA>
 
@@ -2183,6 +2543,106 @@ Block Cloud 0
 
 0
 ---------------------------------------
+[-4;-5;-1]
+Block Cloud 0
+<MOVE DATA>
+
+0
+0
+<FOLLOW DATA>
+
+
+<ACTION DATA>
+
+0
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+---------------------------------------
+[-5;-5;-1]
+Block Cloud 0
+<MOVE DATA>
+
+0
+0
+<FOLLOW DATA>
+
+
+<ACTION DATA>
+
+0
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+---------------------------------------
+[-6;-5;-1]
+Block Cloud 0
+<MOVE DATA>
+
+0
+0
+<FOLLOW DATA>
+
+
+<ACTION DATA>
+
+0
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+---------------------------------------
+[-7;-5;-1]
+Block Cloud 0
+<MOVE DATA>
+
+0
+0
+<FOLLOW DATA>
+
+
+<ACTION DATA>
+
+0
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+---------------------------------------
+[-8;-5;-1]
+Block Cloud 0
+<MOVE DATA>
+
+0
+0
+<FOLLOW DATA>
+
+
+<ACTION DATA>
+
+0
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+---------------------------------------
 [2;-6;-1]
 Block Cloud 0
 <MOVE DATA>
@@ -2204,6 +2664,46 @@ Block Cloud 0
 0
 ---------------------------------------
 [-2;-6;-1]
+Block Cloud 0
+<MOVE DATA>
+
+0
+0
+<FOLLOW DATA>
+
+
+<ACTION DATA>
+
+0
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+---------------------------------------
+[-4;-6;-1]
+Block Cloud 0
+<MOVE DATA>
+
+0
+0
+<FOLLOW DATA>
+
+
+<ACTION DATA>
+
+0
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+---------------------------------------
+[-8;-6;-1]
 Block Cloud 0
 <MOVE DATA>
 
@@ -2263,6 +2763,46 @@ Block Cloud 0
 
 0
 ---------------------------------------
+[-4;-7;-1]
+Block Cloud 0
+<MOVE DATA>
+
+0
+0
+<FOLLOW DATA>
+
+
+<ACTION DATA>
+
+0
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+---------------------------------------
+[-8;-7;-1]
+Block Cloud 0
+<MOVE DATA>
+
+0
+0
+<FOLLOW DATA>
+
+
+<ACTION DATA>
+
+0
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+---------------------------------------
 [2;-8;-1]
 Block Cloud 0
 <MOVE DATA>
@@ -2284,6 +2824,46 @@ Block Cloud 0
 0
 ---------------------------------------
 [-2;-8;-1]
+Block Cloud 0
+<MOVE DATA>
+
+0
+0
+<FOLLOW DATA>
+
+
+<ACTION DATA>
+
+0
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+---------------------------------------
+[-4;-8;-1]
+Block Cloud 0
+<MOVE DATA>
+
+0
+0
+<FOLLOW DATA>
+
+
+<ACTION DATA>
+
+0
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+---------------------------------------
+[-8;-8;-1]
 Block Cloud 0
 <MOVE DATA>
 
@@ -2384,6 +2964,106 @@ Block Cloud 0
 0
 ---------------------------------------
 [-2;-9;-1]
+Block Cloud 0
+<MOVE DATA>
+
+0
+0
+<FOLLOW DATA>
+
+
+<ACTION DATA>
+
+0
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+---------------------------------------
+[-4;-9;-1]
+Block Cloud 0
+<MOVE DATA>
+
+0
+0
+<FOLLOW DATA>
+
+
+<ACTION DATA>
+
+0
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+---------------------------------------
+[-5;-9;-1]
+Block Cloud 0
+<MOVE DATA>
+
+0
+0
+<FOLLOW DATA>
+
+
+<ACTION DATA>
+
+0
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+---------------------------------------
+[-6;-9;-1]
+Block Cloud 0
+<MOVE DATA>
+
+0
+0
+<FOLLOW DATA>
+
+
+<ACTION DATA>
+
+0
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+---------------------------------------
+[-7;-9;-1]
+Block Cloud 0
+<MOVE DATA>
+
+0
+0
+<FOLLOW DATA>
+
+
+<ACTION DATA>
+
+0
+0
+<EVENT DATA>
+
+0
+<TELEPORT DATA>
+
+0
+---------------------------------------
+[-8;-9;-1]
 Block Cloud 0
 <MOVE DATA>
 
