@@ -229,6 +229,7 @@ public struct IsoVector : IEquatable<IsoVector>
 
     #region Encypt
 
+    [NonSerialized]
     public const char KEY_VECTOR_ENCYPT = ';';
 
     public string Encypt => "[" + QEncypt.GetEncypt(KEY_VECTOR_ENCYPT, this.X, this.Y, this.H) + "]";
