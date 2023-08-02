@@ -11,7 +11,6 @@ using System.Globalization;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using UnityEngine.UIElements;
-using System.Text.Json;
 using Random = UnityEngine.Random;
 #if UNITY_EDITOR
 using UnityEditor.UIElements;
