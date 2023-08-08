@@ -68,6 +68,15 @@ public class IsometricTool : EditorWindow
         GetWindow<IsometricTool>("IsometricTool");
     }
 
+    private void OnEnable()
+    {
+        if (m_manager != null)
+        {
+            m_manager.SetList(m_manager.Config);
+            m_manager.SetWorldRead(m_manager.transform);
+        }
+    }
+
     private void OnGUI()
     {
         if (!GetManager())
@@ -406,14 +415,13 @@ public class IsometricTool : EditorWindow
             m_hiddenH = false;
             m_indexTag = 0;
             m_indexName = 0;
-
+            //
             m_manager.SetList(m_manager.Config);
-
             m_manager.SetWorldRead(m_manager.transform);
-
+            //
             SetCursonMaskXY();
             SetCursonHiddenH();
-
+            //
             QAssetsDatabase.SetRefresh();
         }
         if (QEditor.SetButton("Clear", QEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this, 1f / 2)))
