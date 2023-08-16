@@ -98,8 +98,8 @@ public class ControllerShoot : MonoBehaviour
         if (Command[0] == GameManager.GameConfig.Command.Shoot)
         {
             //"shoot-[1]-[2]-[3]"
-            IsoVector DirSpawm = IsoVector.GetDirDeEncypt(Command[1]);
-            IsoVector DirMove = IsoVector.GetDirDeEncypt(Command[2]);
+            IsometricVector DirSpawm = IsometricVector.GetDirDeEncypt(Command[1]);
+            IsometricVector DirMove = IsometricVector.GetDirDeEncypt(Command[2]);
             int Speed = int.Parse(Command[3]);
             SetShoot(DirSpawm, DirMove, Speed);
         }
@@ -135,7 +135,7 @@ public class ControllerShoot : MonoBehaviour
         GameTurn.SetEndTurn(TurnType.Object, this.gameObject); //Follow Object (!)
     }
 
-    private void SetShoot(IsoVector DirSpawm, IsoVector DirMove, int Speed)
+    private void SetShoot(IsometricVector DirSpawm, IsometricVector DirMove, int Speed)
     {
         IsometricBlock Block = m_block.WorldManager.WorldData.GetBlockCurrent(m_block.Pos + DirSpawm);
         if (Block != null)

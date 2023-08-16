@@ -17,9 +17,9 @@ public class IsometricBlock : MonoBehaviour
     #region Varible: World Manager
 
     [Header("World")]
-    [SerializeField] private IsoVector m_pos = new IsoVector();
+    [SerializeField] private IsometricVector m_pos = new IsometricVector();
 
-    private IsoVector m_posPrimary = new IsoVector();
+    private IsometricVector m_posPrimary = new IsometricVector();
 
     #endregion
 
@@ -79,9 +79,9 @@ public class IsometricBlock : MonoBehaviour
 
     #region ================================================================== World Manager
 
-    public IsoVector Pos { get => m_pos; set { m_pos = value; SetIsoTransform(); } }
+    public IsometricVector Pos { get => m_pos; set { m_pos = value; SetIsoTransform(); } }
 
-    public IsoVector PosPrimary { get => m_posPrimary; set => m_posPrimary = value; }
+    public IsometricVector PosPrimary { get => m_posPrimary; set => m_posPrimary = value; }
 
     #endregion
 
@@ -113,9 +113,9 @@ public class IsometricBlock : MonoBehaviour
 
     #region ================================================================== Scene Manager
 
-    private Vector3 GetIsoTransform(IsoVector Pos)
+    private Vector3 GetIsoTransform(IsometricVector Pos)
     {
-        IsoVector PosCentre = m_scene.Centre;
+        IsometricVector PosCentre = m_scene.Centre;
         float Angle = 0;
         //
         switch (m_scene.Rotate)
@@ -133,12 +133,12 @@ public class IsometricBlock : MonoBehaviour
                 Angle = 270f * Mathf.Deg2Rad;
                 break;
         }
-        IsoVector PosValue = new IsoVector(Pos);
+        IsometricVector PosValue = new IsometricVector(Pos);
         PosValue.X = (Pos.X - PosCentre.X) * Mathf.Cos(Angle) - (Pos.Y - PosCentre.Y) * Mathf.Sin(Angle) + PosCentre.X;
         PosValue.Y = (Pos.X - PosCentre.X) * Mathf.Sin(Angle) + (Pos.Y - PosCentre.Y) * Mathf.Cos(Angle) + PosCentre.Y;
         //
         Vector3 PosTransform = new Vector3();
-        IsoVector PosValueScale = PosValue;
+        IsometricVector PosValueScale = PosValue;
         //
         //
         switch (m_scene.Renderer)
@@ -194,12 +194,12 @@ public class IsometricBlock : MonoBehaviour
 
     #region ================================================================== Check
 
-    public List<IsometricBlock> GetCheck(IsoVector Dir, int Length)
+    public List<IsometricBlock> GetCheck(IsometricVector Dir, int Length)
     {
         return WorldManager.WorldData.GetBlockCurrentAll(Pos.Fixed + Dir * Length);
     }
 
-    public List<IsometricBlock> GetCheck(IsoVector Dir, int Length, params string[] TagFind)
+    public List<IsometricBlock> GetCheck(IsometricVector Dir, int Length, params string[] TagFind)
     {
         return WorldManager.WorldData.GetBlockCurrentAll(Pos.Fixed + Dir * Length, TagFind);
     }

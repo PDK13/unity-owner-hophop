@@ -18,7 +18,7 @@ public class IsometricRenderer : MonoBehaviour
 
     #region ================================================================== Sprite Join
 
-    public void SetSpriteJoin(IsoVector PosPrimary)
+    public void SetSpriteJoin(IsometricVector PosPrimary)
     {
         if (m_spriteJoin == null)
             return;

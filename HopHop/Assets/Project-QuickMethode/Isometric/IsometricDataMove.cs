@@ -55,7 +55,7 @@ public class IsometricDataBlockMoveSingle
     public IsoDir Dir = IsoDir.None;
     public int Length = 1;
 
-    public string Encypt => QEncypt.GetEncypt(KEY_VALUE_ENCYPT, Length.ToString(), IsoVector.GetDirEncypt(Dir));
+    public string Encypt => QEncypt.GetEncypt(KEY_VALUE_ENCYPT, Length.ToString(), IsometricVector.GetDirEncypt(Dir));
 
     public IsometricDataBlockMoveSingle(IsoDir Dir, int Value)
     {
@@ -69,6 +69,6 @@ public class IsometricDataBlockMoveSingle
             return null;
         //
         List<string> DataString = QEncypt.GetDencyptString(KEY_VALUE_ENCYPT, Value);
-        return new IsometricDataBlockMoveSingle(IsoVector.GetDirDeEncyptEnum(DataString[1]), int.Parse(DataString[0]));
+        return new IsometricDataBlockMoveSingle(IsometricVector.GetDirDeEncyptEnum(DataString[1]), int.Parse(DataString[0]));
     }
 }

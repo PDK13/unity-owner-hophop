@@ -13,7 +13,7 @@ public class ControllerBullet : MonoBehaviour
 
     private bool m_turnControl = false;
 
-    private IsoVector m_turnDir;
+    private IsometricVector m_turnDir;
     private int m_turnLength = 0;
     private int m_turnLengthCurrent = 0;
 
@@ -23,7 +23,7 @@ public class ControllerBullet : MonoBehaviour
     private ControllerBody m_body;
     private IsometricBlock m_block;
 
-    public void SetInit(IsoVector Dir, int Speed)
+    public void SetInit(IsometricVector Dir, int Speed)
     {
         m_animator = GetComponent<Animator>();
         m_body = GetComponent<ControllerBody>();
@@ -104,9 +104,9 @@ public class ControllerBullet : MonoBehaviour
         if (m_body != null)
             m_body.SetCheckGravity(m_turnDir);
         //
-        Vector3 MoveDir = IsoVector.GetVector(m_turnDir);
-        Vector3 MoveStart = IsoVector.GetVector(m_block.Pos);
-        Vector3 MoveEnd = IsoVector.GetVector(m_block.Pos) + MoveDir * 1;
+        Vector3 MoveDir = IsometricVector.GetVector(m_turnDir);
+        Vector3 MoveStart = IsometricVector.GetVector(m_block.Pos);
+        Vector3 MoveEnd = IsometricVector.GetVector(m_block.Pos) + MoveDir * 1;
         DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameManager.TimeMove * 1)
             .SetEase(Ease.Linear)
             .OnStart(() =>
@@ -115,7 +115,7 @@ public class ControllerBullet : MonoBehaviour
             })
             .OnUpdate(() =>
             {
-                m_block.Pos = new IsoVector(MoveEnd);
+                m_block.Pos = new IsometricVector(MoveEnd);
             })
             .OnComplete(() =>
             {
@@ -152,7 +152,7 @@ public class ControllerBullet : MonoBehaviour
     {
         if (m_body != null)
         {
-            IsometricBlock BlockBot = m_body.GetCheckDir(IsoVector.Bot);
+            IsometricBlock BlockBot = m_body.GetCheckDir(IsometricVector.Bot);
             if (BlockBot == null)
                 return;
             //

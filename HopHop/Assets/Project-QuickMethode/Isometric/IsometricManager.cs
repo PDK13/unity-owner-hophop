@@ -129,7 +129,7 @@ public class IsometricManager : MonoBehaviour
         for (int BlockIndex = 0; BlockIndex < BlockCount; BlockIndex++)
         {
             FileIO.GetReadAuto();
-            IsoVector PosPrimary = IsoVector.GetDencypt(FileIO.GetReadAutoString());
+            IsometricVector PosPrimary = IsometricVector.GetDencypt(FileIO.GetReadAutoString());
             string Name = FileIO.GetReadAutoString();
             //
             IsometricDataBlockSingle Data = new IsometricDataBlockSingle();
@@ -195,8 +195,8 @@ public class IsometricGameDataScene
 {
     public IsometricRendererType Renderer = IsometricRendererType.H;
     public IsometricRotateType Rotate = IsometricRotateType._0;
-    public IsoVector Centre = new IsoVector();
-    public IsoVector Scale = new IsoVector(1f, 1f, 1f);
+    public IsometricVector Centre = new IsometricVector();
+    public IsometricVector Scale = new IsometricVector(1f, 1f, 1f);
 }
 
 public enum IsometricRendererType { XY, H, None, }

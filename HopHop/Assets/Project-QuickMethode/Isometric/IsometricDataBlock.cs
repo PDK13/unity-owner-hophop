@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 public class IsometricDataBlock
 {
-    public IsoVector PosPrimary;
+    public IsometricVector PosPrimary;
     public string Name;
     public IsometricDataBlockSingle Data = new IsometricDataBlockSingle();
 
-    public IsometricDataBlock(IsoVector Pos, string Name, IsometricDataBlockSingle Data)
+    public IsometricDataBlock(IsometricVector Pos, string Name, IsometricDataBlockSingle Data)
     {
         this.PosPrimary = Pos;
         this.Name = Name;

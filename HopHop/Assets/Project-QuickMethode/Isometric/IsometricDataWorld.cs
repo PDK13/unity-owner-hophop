@@ -30,7 +30,7 @@ public class IsometricDataWorld
 
     #region Block Create
 
-    public IsometricBlock SetBlockCreate(IsoVector Pos, GameObject BlockPrefab, IsometricDataBlockSingle Data = null)
+    public IsometricBlock SetBlockCreate(IsometricVector Pos, GameObject BlockPrefab, IsometricDataBlockSingle Data = null)
     {
         if (BlockPrefab == null)
         {
@@ -135,7 +135,7 @@ public class IsometricDataWorld
 
     #region Block Get
 
-    public IsometricBlock GetBlockPrimary(IsoVector Pos)
+    public IsometricBlock GetBlockPrimary(IsometricVector Pos)
     {
         //World
         int IndexPosH = GetWorldIndexPosH(Pos.Fixed.HInt);
@@ -153,7 +153,7 @@ public class IsometricDataWorld
         return null;
     }
 
-    public IsometricBlock GetBlockCurrent(IsoVector Pos, params string[] Tag)
+    public IsometricBlock GetBlockCurrent(IsometricVector Pos, params string[] Tag)
     {
         if (Tag.Length > 0)
         {
@@ -192,7 +192,7 @@ public class IsometricDataWorld
         return null;
     }
 
-    public List<IsometricBlock> GetBlockCurrentAll(IsoVector Pos, params string[] Tag)
+    public List<IsometricBlock> GetBlockCurrentAll(IsometricVector Pos, params string[] Tag)
     {
         List<IsometricBlock> List = new List<IsometricBlock>();
 
@@ -248,7 +248,7 @@ public class IsometricDataWorld
 
     #region Block Remove
 
-    public void SetBlockRemovePrimary(IsoVector Pos, float Delay = 0)
+    public void SetBlockRemovePrimary(IsometricVector Pos, float Delay = 0)
     {
         //World
         int IndexPosH = GetWorldIndexPosH(Pos.Fixed.HInt);
@@ -499,7 +499,7 @@ public class IsometricDataWorld
         return -1;
     }
 
-    private string GetWorldNamePosH(IsoVector Pos)
+    private string GetWorldNamePosH(IsometricVector Pos)
     {
         return Pos.HInt.ToString();
     }
@@ -519,7 +519,7 @@ public class IsometricDataWorld
 
     //Required "IsoBlockRenderer.cs" component for each Block!
 
-    public bool SetEditorMask(IsoVector Pos, Color Mask, Color UnMask, Color Centre)
+    public bool SetEditorMask(IsometricVector Pos, Color Mask, Color UnMask, Color Centre)
     {
         bool CentreFound = false;
         for (int i = 0; i < m_worldPosH.Count; i++)

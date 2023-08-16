@@ -10,7 +10,7 @@ public class ControllerObject : MonoBehaviour
     private IsometricDataBlockMove m_dataMove;
     private string m_dataFollow;
 
-    private IsoVector m_turnDir;
+    private IsometricVector m_turnDir;
     private int m_turnLength = 0;
     private int m_turnLengthCurrent = 0;
 
@@ -92,16 +92,16 @@ public class ControllerObject : MonoBehaviour
     {
         if (m_turnLength == 0)
         {
-            m_turnDir = IsoVector.GetDir(m_dataMove.Dir[m_dataMove.Index]) * m_dataMove.Quantity;
+            m_turnDir = IsometricVector.GetDir(m_dataMove.Dir[m_dataMove.Index]) * m_dataMove.Quantity;
             m_turnLength = m_dataMove.Length[m_dataMove.Index];
             m_turnLengthCurrent = 0;
         }
         //
         m_turnLengthCurrent++;
         //
-        Vector3 MoveDir = IsoVector.GetVector(m_turnDir);
-        Vector3 MoveStart = IsoVector.GetVector(m_block.Pos);
-        Vector3 MoveEnd = IsoVector.GetVector(m_block.Pos) + MoveDir * 1;
+        Vector3 MoveDir = IsometricVector.GetVector(m_turnDir);
+        Vector3 MoveStart = IsometricVector.GetVector(m_block.Pos);
+        Vector3 MoveEnd = IsometricVector.GetVector(m_block.Pos) + MoveDir * 1;
         DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameManager.TimeMove * 1)
             .SetEase(Ease.Linear)
             .OnStart(() =>
@@ -110,7 +110,7 @@ public class ControllerObject : MonoBehaviour
             })
             .OnUpdate(() =>
             {
-                m_block.Pos = new IsoVector(MoveEnd);
+                m_block.Pos = new IsometricVector(MoveEnd);
             })
             .OnComplete(() =>
             {
@@ -120,7 +120,7 @@ public class ControllerObject : MonoBehaviour
                     m_turnControl = false;
                     GameTurn.SetEndTurn(TurnType.Object, this.gameObject); //Follow Object (!)
                     //
-                    m_turnDir = IsoVector.None;
+                    m_turnDir = IsometricVector.None;
                 }
                 else
                     GameTurn.SetEndMove(TurnType.Object, this.gameObject); //Follow Object (!)
@@ -154,14 +154,14 @@ public class ControllerObject : MonoBehaviour
         } 
     }
 
-    private void SetControlFollow(string KeyFollow, IsoVector Dir)
+    private void SetControlFollow(string KeyFollow, IsometricVector Dir)
     {
         if (KeyFollow != m_dataFollow)
             return;
         //
-        Vector3 MoveDir = IsoVector.GetVector(Dir);
-        Vector3 MoveStart = IsoVector.GetVector(m_block.Pos);
-        Vector3 MoveEnd = IsoVector.GetVector(m_block.Pos) + MoveDir * 1;
+        Vector3 MoveDir = IsometricVector.GetVector(Dir);
+        Vector3 MoveStart = IsometricVector.GetVector(m_block.Pos);
+        Vector3 MoveEnd = IsometricVector.GetVector(m_block.Pos) + MoveDir * 1;
         DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameManager.TimeMove * 1)
             .SetEase(Ease.Linear)
             .OnStart(() =>
@@ -170,7 +170,7 @@ public class ControllerObject : MonoBehaviour
             })
             .OnUpdate(() =>
             {
-                m_block.Pos = new IsoVector(MoveEnd);
+                m_block.Pos = new IsometricVector(MoveEnd);
             })
             .OnComplete(() =>
             {
@@ -183,9 +183,9 @@ public class ControllerObject : MonoBehaviour
         //
     }
 
-    private void SetMovePush(IsoVector Dir)
+    private void SetMovePush(IsometricVector Dir)
     {
-        if (Dir == IsoVector.Top || Dir == IsoVector.Bot)
+        if (Dir == IsometricVector.Top || Dir == IsometricVector.Bot)
             return;
         //
         IsometricBlock BlockPush = m_block.WorldManager.WorldData.GetBlockCurrent(m_block.Pos + Dir);
@@ -199,19 +199,19 @@ public class ControllerObject : MonoBehaviour
         }
     }
 
-    private void SetMoveTop(IsoVector Dir)
+    private void SetMoveTop(IsometricVector Dir)
     {
         //Top!!
-        IsometricBlock BlockTop = m_block.WorldManager.WorldData.GetBlockCurrent(m_block.Pos + IsoVector.Top);
+        IsometricBlock BlockTop = m_block.WorldManager.WorldData.GetBlockCurrent(m_block.Pos + IsometricVector.Top);
         if (BlockTop != null)
         {
             ControllerBody BodyTop = BlockTop.GetComponent<ControllerBody>();
             if (BodyTop != null)
             {
-                if (Dir == IsoVector.Top || Dir == IsoVector.Bot)
+                if (Dir == IsometricVector.Top || Dir == IsometricVector.Bot)
                     BodyTop.SetControlForce(Dir); //Force!!
                 else
-                    BodyTop.SetControlPush(Dir, IsoVector.Bot); //Push!!
+                    BodyTop.SetControlPush(Dir, IsometricVector.Bot); //Push!!
             }
         }
     }

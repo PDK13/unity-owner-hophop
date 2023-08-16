@@ -9,11 +9,11 @@ public class ControllerBody : MonoBehaviour
     private bool m_turnControl = false;
 
     public Action<bool> onGravity;              //State
-    public Action<bool, IsoVector> onPush;      //State, From, Dir
+    public Action<bool, IsometricVector> onPush;      //State, From, Dir
     public Action<bool> onForce;                //State
 
-    [HideInInspector] public IsoVector MoveLastXY;
-    [HideInInspector] public IsoVector? MoveForceXY;
+    [HideInInspector] public IsometricVector MoveLastXY;
+    [HideInInspector] public IsometricVector? MoveForceXY;
 
     private IsometricBlock m_block;
 
@@ -37,9 +37,9 @@ public class ControllerBody : MonoBehaviour
         SetControlGravity();
     }
 
-    public IsometricBlock SetCheckGravity(IsoVector Dir)
+    public IsometricBlock SetCheckGravity(IsometricVector Dir)
     {
-        IsometricBlock Block = GetCheckDir(Dir, IsoVector.Bot);
+        IsometricBlock Block = GetCheckDir(Dir, IsometricVector.Bot);
         if (Block != null)
         {
             if (Block.Tag.Contains(GameManager.GameConfig.Tag.Bullet))
@@ -64,7 +64,7 @@ public class ControllerBody : MonoBehaviour
 
     private void SetControlGravity()
     {
-        IsometricBlock Block = GetCheckDir(IsoVector.Bot);
+        IsometricBlock Block = GetCheckDir(IsometricVector.Bot);
         if (Block != null)
         {
             if (Block.Tag.Contains(GameManager.GameConfig.Tag.Bullet))
@@ -85,9 +85,9 @@ public class ControllerBody : MonoBehaviour
             }
         }
         //
-        Vector3 MoveDir = IsoVector.GetVector(IsoVector.Bot);
-        Vector3 MoveStart = IsoVector.GetVector(m_block.Pos.Fixed);
-        Vector3 MoveEnd = IsoVector.GetVector(m_block.Pos.Fixed) + MoveDir * 1;
+        Vector3 MoveDir = IsometricVector.GetVector(IsometricVector.Bot);
+        Vector3 MoveStart = IsometricVector.GetVector(m_block.Pos.Fixed);
+        Vector3 MoveEnd = IsometricVector.GetVector(m_block.Pos.Fixed) + MoveDir * 1;
         DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameManager.TimeMove * 1)
             .SetEase(Ease.Linear)
             .OnStart(() =>
@@ -96,7 +96,7 @@ public class ControllerBody : MonoBehaviour
             })
             .OnUpdate(() =>
             {
-                m_block.Pos = new IsoVector(MoveEnd);
+                m_block.Pos = new IsometricVector(MoveEnd);
             })
             .OnComplete(() =>
             {
@@ -109,9 +109,9 @@ public class ControllerBody : MonoBehaviour
 
     #region Push
 
-    public void SetControlPush(IsoVector Dir, IsoVector From)
+    public void SetControlPush(IsometricVector Dir, IsometricVector From)
     {
-        if (From == IsoVector.Bot)
+        if (From == IsometricVector.Bot)
         {
             IsometricBlock BlockNext = m_block.WorldManager.WorldData.GetBlockCurrent(m_block.Pos.Fixed + Dir);
             if (BlockNext != null)
@@ -136,9 +136,9 @@ public class ControllerBody : MonoBehaviour
                 SetCheckGravity(Dir);
         }
         //
-        Vector3 MoveDir = IsoVector.GetVector(Dir);
-        Vector3 MoveStart = IsoVector.GetVector(m_block.Pos.Fixed);
-        Vector3 MoveEnd = IsoVector.GetVector(m_block.Pos.Fixed) + MoveDir * 1;
+        Vector3 MoveDir = IsometricVector.GetVector(Dir);
+        Vector3 MoveStart = IsometricVector.GetVector(m_block.Pos.Fixed);
+        Vector3 MoveEnd = IsometricVector.GetVector(m_block.Pos.Fixed) + MoveDir * 1;
         DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameManager.TimeMove * 1)
             .SetEase(Ease.Linear)
             .OnStart(() =>
@@ -147,7 +147,7 @@ public class ControllerBody : MonoBehaviour
             })
             .OnUpdate(() =>
             {
-                m_block.Pos = new IsoVector(MoveEnd);
+                m_block.Pos = new IsometricVector(MoveEnd);
             })
             .OnComplete(() =>
             {
@@ -160,14 +160,14 @@ public class ControllerBody : MonoBehaviour
 
     #region Force
 
-    public void SetControlForce(IsoVector Dir)
+    public void SetControlForce(IsometricVector Dir)
     {
-        if (Dir != IsoVector.Top && Dir != IsoVector.Bot)
+        if (Dir != IsometricVector.Top && Dir != IsometricVector.Bot)
             MoveLastXY = Dir;
         //
-        Vector3 MoveDir = IsoVector.GetVector(Dir);
-        Vector3 MoveStart = IsoVector.GetVector(m_block.Pos.Fixed);
-        Vector3 MoveEnd = IsoVector.GetVector(m_block.Pos.Fixed) + MoveDir * 1;
+        Vector3 MoveDir = IsometricVector.GetVector(Dir);
+        Vector3 MoveStart = IsometricVector.GetVector(m_block.Pos.Fixed);
+        Vector3 MoveEnd = IsometricVector.GetVector(m_block.Pos.Fixed) + MoveDir * 1;
         DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameManager.TimeMove * 1)
             .SetEase(Ease.Linear)
             .OnStart(() =>
@@ -176,7 +176,7 @@ public class ControllerBody : MonoBehaviour
             })
             .OnUpdate(() =>
             {
-                m_block.Pos = new IsoVector(MoveEnd);
+                m_block.Pos = new IsometricVector(MoveEnd);
             })
             .OnComplete(() =>
             {
@@ -191,13 +191,13 @@ public class ControllerBody : MonoBehaviour
 
     public void SetStandOnForce()
     {
-        if (GetCheckDir(IsoVector.Bot) == null)
+        if (GetCheckDir(IsometricVector.Bot) == null)
             return;
         //
-        if (GetCheckDir(IsoVector.Bot).Tag.Contains(GameManager.GameConfig.Tag.Slow))
-            MoveForceXY = IsoVector.None;
+        if (GetCheckDir(IsometricVector.Bot).Tag.Contains(GameManager.GameConfig.Tag.Slow))
+            MoveForceXY = IsometricVector.None;
         else
-        if (GetCheckDir(IsoVector.Bot).Tag.Contains(GameManager.GameConfig.Tag.Slip))
+        if (GetCheckDir(IsometricVector.Bot).Tag.Contains(GameManager.GameConfig.Tag.Slip))
             MoveForceXY = MoveLastXY;
         else
             MoveForceXY = null;
@@ -207,12 +207,12 @@ public class ControllerBody : MonoBehaviour
 
     #region Check
 
-    public IsometricBlock GetCheckDir(IsoVector Dir)
+    public IsometricBlock GetCheckDir(IsometricVector Dir)
     {
         return m_block.WorldManager.WorldData.GetBlockCurrent(m_block.Pos.Fixed + Dir);
     }
 
-    public IsometricBlock GetCheckDir(IsoVector Dir, IsoVector DirNext)
+    public IsometricBlock GetCheckDir(IsometricVector Dir, IsometricVector DirNext)
     {
         return m_block.WorldManager.WorldData.GetBlockCurrent(m_block.Pos.Fixed + Dir + DirNext);
     }

@@ -48,19 +48,19 @@ public class ControllerPlayer : MonoBehaviour
             return;
 
         if (Input.GetKey(KeyCode.UpArrow))
-            SetControlMove(IsoVector.Up);
+            SetControlMove(IsometricVector.Up);
 
         if (Input.GetKey(KeyCode.DownArrow))
-            SetControlMove(IsoVector.Down);
+            SetControlMove(IsometricVector.Down);
 
         if (Input.GetKey(KeyCode.LeftArrow))
-            SetControlMove(IsoVector.Left);
+            SetControlMove(IsometricVector.Left);
 
         if (Input.GetKey(KeyCode.RightArrow))
-            SetControlMove(IsoVector.Right);
+            SetControlMove(IsometricVector.Right);
 
         if (Input.GetKeyDown(KeyCode.Space))
-            SetControlMove(IsoVector.None);
+            SetControlMove(IsometricVector.None);
     }
 
     #region Move
@@ -87,11 +87,11 @@ public class ControllerPlayer : MonoBehaviour
         }
     }
 
-    private void SetControlMove(IsoVector Dir)
+    private void SetControlMove(IsometricVector Dir)
     {
         m_body.MoveLastXY = Dir;
         //
-        if (Dir == IsoVector.None)
+        if (Dir == IsometricVector.None)
         {
             m_playerControl = false;
             GameTurn.SetEndTurn(TurnType.Player, this.gameObject); //Follow Player (!)
@@ -130,11 +130,11 @@ public class ControllerPlayer : MonoBehaviour
         m_playerControl = false;
         //
         m_body.SetCheckGravity(Dir);
-        m_animation.SetMove(m_body.GetCheckDir(IsoVector.Bot), m_body.GetCheckDir(IsoVector.Bot, Dir));
+        m_animation.SetMove(m_body.GetCheckDir(IsometricVector.Bot), m_body.GetCheckDir(IsometricVector.Bot, Dir));
         //
-        Vector3 MoveDir = IsoVector.GetVector(Dir);
-        Vector3 MoveStart = IsoVector.GetVector(m_block.Pos);
-        Vector3 MoveEnd = IsoVector.GetVector(m_block.Pos) + MoveDir * 1;
+        Vector3 MoveDir = IsometricVector.GetVector(Dir);
+        Vector3 MoveStart = IsometricVector.GetVector(m_block.Pos);
+        Vector3 MoveEnd = IsometricVector.GetVector(m_block.Pos) + MoveDir * 1;
         DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameManager.TimeMove * 1)
             .SetEase(Ease.Linear)
             .OnStart(() =>
@@ -143,12 +143,12 @@ public class ControllerPlayer : MonoBehaviour
             })
             .OnUpdate(() =>
             {
-                m_block.Pos = new IsoVector(MoveEnd);
+                m_block.Pos = new IsometricVector(MoveEnd);
             })
             .OnComplete(() =>
             {
                 m_body.SetStandOnForce();
-                m_animation.SetStand(m_body.GetCheckDir(IsoVector.Bot));
+                m_animation.SetStand(m_body.GetCheckDir(IsometricVector.Bot));
                 //
                 GameTurn.SetEndTurn(TurnType.Player, this.gameObject); //Follow Player (!)
             });
@@ -164,20 +164,20 @@ public class ControllerPlayer : MonoBehaviour
         if (!State)
         {
             m_body.SetStandOnForce();
-            m_animation.SetStand(m_body.GetCheckDir(IsoVector.Bot));
+            m_animation.SetStand(m_body.GetCheckDir(IsometricVector.Bot));
         }
     }
 
-    private void SetPush(bool State, IsoVector Dir)
+    private void SetPush(bool State, IsometricVector Dir)
     {
         if (State)
         {
-            m_animation.SetMove(m_body.GetCheckDir(IsoVector.Bot), m_body.GetCheckDir(IsoVector.Bot, Dir));
+            m_animation.SetMove(m_body.GetCheckDir(IsometricVector.Bot), m_body.GetCheckDir(IsometricVector.Bot, Dir));
         }
         else
         {
             m_body.SetStandOnForce();
-            m_animation.SetStand(m_body.GetCheckDir(IsoVector.Bot));
+            m_animation.SetStand(m_body.GetCheckDir(IsometricVector.Bot));
         }
     }
 
@@ -186,7 +186,7 @@ public class ControllerPlayer : MonoBehaviour
         if (!State)
         {
             m_body.SetStandOnForce();
-            m_animation.SetStand(m_body.GetCheckDir(IsoVector.Bot));
+            m_animation.SetStand(m_body.GetCheckDir(IsometricVector.Bot));
         }
     }
 

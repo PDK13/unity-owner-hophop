@@ -25,11 +25,11 @@ public class IsometricDataBlockTeleportSingle
     public const char KEY_VALUE_ENCYPT = '|';
 
     public string Name;
-    public IsoVector Pos;
+    public IsometricVector Pos;
 
     public string Encypt => QEncypt.GetEncypt(KEY_VALUE_ENCYPT, Name, Pos.Encypt);
 
-    public IsometricDataBlockTeleportSingle(string Name, IsoVector Value)
+    public IsometricDataBlockTeleportSingle(string Name, IsometricVector Value)
     {
         this.Name = Name;
         this.Pos = Value;
@@ -41,6 +41,6 @@ public class IsometricDataBlockTeleportSingle
             return null;
         //
         List<string> DataString = QEncypt.GetDencyptString(KEY_VALUE_ENCYPT, Value);
-        return new IsometricDataBlockTeleportSingle(DataString[0], IsoVector.GetDencypt(DataString[1]));
+        return new IsometricDataBlockTeleportSingle(DataString[0], IsometricVector.GetDencypt(DataString[1]));
     }
 }

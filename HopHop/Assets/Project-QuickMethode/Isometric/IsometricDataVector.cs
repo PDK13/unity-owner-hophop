@@ -10,25 +10,25 @@ using UnityEditor;
 public enum IsoDir { Stop = -1, None = 0, Up = 1, Down = 2, Left = 3, Right = 4, Top = 5, Bot = 6 }
 
 [Serializable]
-public struct IsoVector : IEquatable<IsoVector>
+public struct IsometricVector : IEquatable<IsometricVector>
 {
     #region Primary
 
-    public IsoVector(float XUD, float YLR, float HTB)
+    public IsometricVector(float XUD, float YLR, float HTB)
     {
         X = XUD;
         Y = YLR;
         H = HTB;
     }
 
-    public IsoVector(IsoVector IsoVector)
+    public IsometricVector(IsometricVector IsoVector)
     {
         X = IsoVector.X;
         Y = IsoVector.Y;
         H = IsoVector.H;
     }
 
-    public IsoVector(Vector3 Vector)
+    public IsometricVector(Vector3 Vector)
     {
         X = Vector.x;
         Y = Vector.y;
@@ -49,26 +49,26 @@ public struct IsoVector : IEquatable<IsoVector>
 
     public int HInt => Mathf.RoundToInt(H); //Direction Top & Bot
 
-    public IsoVector Fixed => new IsoVector(XInt, YInt, HInt);
+    public IsometricVector Fixed => new IsometricVector(XInt, YInt, HInt);
 
     #endregion
 
     #region Primary Dir
 
-    public static IsoVector Up => new IsoVector(1, 0, 0);
-    public static IsoVector Down => new IsoVector(-1, 0, 0);
-    public static IsoVector Left => new IsoVector(0, -1, 0);
-    public static IsoVector Right => new IsoVector(0, 1, 0);
-    public static IsoVector Top => new IsoVector(0, 0, 1);
-    public static IsoVector Bot => new IsoVector(0, 0, -1);
-    public static IsoVector None => new IsoVector(0, 0, 0);
+    public static IsometricVector Up => new IsometricVector(1, 0, 0);
+    public static IsometricVector Down => new IsometricVector(-1, 0, 0);
+    public static IsometricVector Left => new IsometricVector(0, -1, 0);
+    public static IsometricVector Right => new IsometricVector(0, 1, 0);
+    public static IsometricVector Top => new IsometricVector(0, 0, 1);
+    public static IsometricVector Bot => new IsometricVector(0, 0, -1);
+    public static IsometricVector None => new IsometricVector(0, 0, 0);
 
-    public static Vector3 GetVector(IsoVector Pos)
+    public static Vector3 GetVector(IsometricVector Pos)
     {
         return new Vector3(Pos.X, Pos.Y, Pos.H);
     }
 
-    public static IsoVector GetDir(IsoDir Dir, IsometricRotateType Rotate = IsometricRotateType._0)
+    public static IsometricVector GetDir(IsoDir Dir, IsometricRotateType Rotate = IsometricRotateType._0)
     {
         switch (Dir)
         {
@@ -162,7 +162,7 @@ public struct IsoVector : IEquatable<IsoVector>
         return IsoDir.None;
     }
 
-    public static IsoVector GetDirDeEncypt(string Data)
+    public static IsometricVector GetDirDeEncypt(string Data)
     {
         switch (Data)
         {
@@ -216,14 +216,14 @@ public struct IsoVector : IEquatable<IsoVector>
 
     #region Operator
 
-    public static IsoVector operator +(IsoVector IsoVector) => IsoVector;
-    public static IsoVector operator -(IsoVector IsoVector) => new IsoVector(IsoVector.X * -1, IsoVector.Y * -1, IsoVector.H * -1);
-    public static IsoVector operator +(IsoVector IsoVectorA, IsoVector IsoVectorB) => new IsoVector(IsoVectorA.X + IsoVectorB.X, IsoVectorA.Y + IsoVectorB.Y, IsoVectorA.H + IsoVectorB.H);
-    public static IsoVector operator -(IsoVector IsoVectorA, IsoVector IsoVectorB) => new IsoVector(IsoVectorA.X - IsoVectorB.X, IsoVectorA.Y - IsoVectorB.Y, IsoVectorA.H - IsoVectorB.H);
-    public static IsoVector operator *(IsoVector IsoVectorA, float Number) => new IsoVector(IsoVectorA.X * Number, IsoVectorA.Y * Number, IsoVectorA.H * Number);
-    public static IsoVector operator /(IsoVector IsoVectorA, float Number) => new IsoVector(IsoVectorA.X / Number, IsoVectorA.Y / Number, IsoVectorA.H / Number);
-    public static bool operator ==(IsoVector IsoVectorA, IsoVector IsoVectorB) => IsoVectorA.X == IsoVectorB.X && IsoVectorA.Y == IsoVectorB.Y && IsoVectorA.H == IsoVectorB.H;
-    public static bool operator !=(IsoVector IsoVectorA, IsoVector IsoVectorB) => IsoVectorA.X != IsoVectorB.X || IsoVectorA.Y != IsoVectorB.Y || IsoVectorA.H != IsoVectorB.H;
+    public static IsometricVector operator +(IsometricVector IsoVector) => IsoVector;
+    public static IsometricVector operator -(IsometricVector IsoVector) => new IsometricVector(IsoVector.X * -1, IsoVector.Y * -1, IsoVector.H * -1);
+    public static IsometricVector operator +(IsometricVector IsoVectorA, IsometricVector IsoVectorB) => new IsometricVector(IsoVectorA.X + IsoVectorB.X, IsoVectorA.Y + IsoVectorB.Y, IsoVectorA.H + IsoVectorB.H);
+    public static IsometricVector operator -(IsometricVector IsoVectorA, IsometricVector IsoVectorB) => new IsometricVector(IsoVectorA.X - IsoVectorB.X, IsoVectorA.Y - IsoVectorB.Y, IsoVectorA.H - IsoVectorB.H);
+    public static IsometricVector operator *(IsometricVector IsoVectorA, float Number) => new IsometricVector(IsoVectorA.X * Number, IsoVectorA.Y * Number, IsoVectorA.H * Number);
+    public static IsometricVector operator /(IsometricVector IsoVectorA, float Number) => new IsometricVector(IsoVectorA.X / Number, IsoVectorA.Y / Number, IsoVectorA.H / Number);
+    public static bool operator ==(IsometricVector IsoVectorA, IsometricVector IsoVectorB) => IsoVectorA.X == IsoVectorB.X && IsoVectorA.Y == IsoVectorB.Y && IsoVectorA.H == IsoVectorB.H;
+    public static bool operator !=(IsometricVector IsoVectorA, IsometricVector IsoVectorB) => IsoVectorA.X != IsoVectorB.X || IsoVectorA.Y != IsoVectorB.Y || IsoVectorA.H != IsoVectorB.H;
 
     #endregion
 
@@ -234,12 +234,12 @@ public struct IsoVector : IEquatable<IsoVector>
 
     public string Encypt => "[" + QEncypt.GetEncypt(KEY_VECTOR_ENCYPT, this.X, this.Y, this.H) + "]";
 
-    public static IsoVector GetDencypt(string m_Encypt)
+    public static IsometricVector GetDencypt(string m_Encypt)
     {
         m_Encypt = m_Encypt.Replace("[", "");
         m_Encypt = m_Encypt.Replace("]", "");
         List<int> DataDencypt = QEncypt.GetDencyptInt(KEY_VECTOR_ENCYPT, m_Encypt);
-        return new IsoVector(DataDencypt[0], DataDencypt[1], DataDencypt[2]);
+        return new IsometricVector(DataDencypt[0], DataDencypt[1], DataDencypt[2]);
     }
 
     #endregion
@@ -258,7 +258,7 @@ public struct IsoVector : IEquatable<IsoVector>
         return base.Equals(obj);
     }
 
-    public bool Equals(IsoVector other)
+    public bool Equals(IsometricVector other)
     {
         return base.Equals(other);
     }
@@ -268,16 +268,16 @@ public struct IsoVector : IEquatable<IsoVector>
 
 #if UNITY_EDITOR
 
-[CustomPropertyDrawer(typeof(IsoVector))]
+[CustomPropertyDrawer(typeof(IsometricVector))]
 public class IsoVectorEditor : PropertyDrawer
 {
     public override VisualElement CreatePropertyGUI(SerializedProperty property)
     {
         return QEditorObject.GetContainer(
             property,
-            nameof(IsoVector.X),
-            nameof(IsoVector.Y),
-            nameof(IsoVector.H));
+            nameof(IsometricVector.X),
+            nameof(IsometricVector.Y),
+            nameof(IsometricVector.H));
     }
 
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
@@ -308,13 +308,13 @@ public class IsoVectorEditor : PropertyDrawer
         var RecFieldH = new Rect(PosXField + SpaceXField * 2 + SpaceBetween * 2, position.y, WidthField, position.height);
         //
         QEditor.SetLabel("X", RecLabelX);
-        QEditorObject.SetField(property, nameof(IsoVector.X), RecFieldX, false);
+        QEditorObject.SetField(property, nameof(IsometricVector.X), RecFieldX, false);
 
         QEditor.SetLabel("Y", RecLabelY);
-        QEditorObject.SetField(property, nameof(IsoVector.Y), RecFieldY, false);
+        QEditorObject.SetField(property, nameof(IsometricVector.Y), RecFieldY, false);
 
         QEditor.SetLabel("H", RecLabelH);
-        QEditorObject.SetField(property, nameof(IsoVector.H), RecFieldH, false);
+        QEditorObject.SetField(property, nameof(IsometricVector.H), RecFieldH, false);
         //
         QEditorObject.SetPropertyEnd();
     }
