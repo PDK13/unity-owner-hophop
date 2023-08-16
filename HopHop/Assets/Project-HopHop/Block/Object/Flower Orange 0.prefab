@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 44393240911007886}
   - component: {fileID: 44393240911007887}
   - component: {fileID: 44393240911007880}
-  - component: {fileID: -2889099657206993779}
-  - component: {fileID: -6600738943549412511}
+  - component: {fileID: -3540911451109795030}
+  - component: {fileID: -3086589923803881938}
   m_Layer: 0
-  m_Name: Flower 0 2
+  m_Name: Flower Orange 0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 206563672, guid: 85178faa3a43b81449c0de5bbe76d9d6, type: 3}
+  m_Sprite: {fileID: 1601151698, guid: 85178faa3a43b81449c0de5bbe76d9d6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88b51ca1839d85a47a182808b3636847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_name: Object Flower 0 2
+  m_name: Object Flower Orange 0
   m_free: 0
   m_tag:
   - object
@@ -143,7 +143,7 @@ MonoBehaviour:
       Y: 1
       H: 1
   m_centre: {x: 0, y: 0, z: 0}
---- !u!114 &-2889099657206993779
+--- !u!114 &-3540911451109795030
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -156,10 +156,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_spriteJoin:
-  - {fileID: 206563672, guid: 85178faa3a43b81449c0de5bbe76d9d6, type: 3}
-  - {fileID: 2059522003, guid: 85178faa3a43b81449c0de5bbe76d9d6, type: 3}
+  - {fileID: 1601151698, guid: 85178faa3a43b81449c0de5bbe76d9d6, type: 3}
+  - {fileID: -1464945343, guid: 85178faa3a43b81449c0de5bbe76d9d6, type: 3}
   m_blockTop: []
---- !u!114 &-6600738943549412511
+--- !u!114 &-3086589923803881938
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

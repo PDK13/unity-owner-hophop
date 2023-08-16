@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3030991391014327619}
   - component: {fileID: -4819422869623411208}
   m_Layer: 0
-  m_Name: Flower 0 3
+  m_Name: Tree Orange 0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 139641897, guid: 85178faa3a43b81449c0de5bbe76d9d6, type: 3}
+  m_Sprite: {fileID: -1675213919, guid: bcd6504012eafde4fbdc87c937f1e57c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -99,11 +99,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88b51ca1839d85a47a182808b3636847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_name: Object Flower 0 3
+  m_name: Object Tree Orange 0
   m_free: 0
   m_tag:
   - object
-  - flower
+  - tree
   m_pos:
     X: 0
     Y: 0
@@ -155,9 +155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 356b48384d910eb46b3cb82542ab9418, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_spriteJoin:
-  - {fileID: 139641897, guid: 85178faa3a43b81449c0de5bbe76d9d6, type: 3}
-  - {fileID: 1468707611, guid: 85178faa3a43b81449c0de5bbe76d9d6, type: 3}
+  m_spriteJoin: []
   m_blockTop: []
 --- !u!114 &-4819422869623411208
 MonoBehaviour:

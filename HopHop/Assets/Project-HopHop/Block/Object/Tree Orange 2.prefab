@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3030991391014327619}
   - component: {fileID: -4819422869623411208}
   m_Layer: 0
-  m_Name: Tree 0 4
+  m_Name: Tree Orange 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1458498049, guid: bcd6504012eafde4fbdc87c937f1e57c, type: 3}
+  m_Sprite: {fileID: -1124972738, guid: bcd6504012eafde4fbdc87c937f1e57c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88b51ca1839d85a47a182808b3636847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_name: Object Tree 0 4
+  m_name: Object Tree Orange 2
   m_free: 0
   m_tag:
   - object
