@@ -188,7 +188,7 @@ public class ControllerObject : MonoBehaviour
         if (Dir == IsometricVector.Top || Dir == IsometricVector.Bot)
             return;
         //
-        IsometricBlock BlockPush = m_block.WorldManager.WorldData.GetBlockCurrent(m_block.Pos + Dir);
+        IsometricBlock BlockPush = m_block.WorldManager.World.GetBlockCurrent(m_block.Pos + Dir);
         if (BlockPush != null)
         {
             ControllerBody BodyPush = BlockPush.GetComponent<ControllerBody>();
@@ -202,7 +202,7 @@ public class ControllerObject : MonoBehaviour
     private void SetMoveTop(IsometricVector Dir)
     {
         //Top!!
-        IsometricBlock BlockTop = m_block.WorldManager.WorldData.GetBlockCurrent(m_block.Pos + IsometricVector.Top);
+        IsometricBlock BlockTop = m_block.WorldManager.World.GetBlockCurrent(m_block.Pos + IsometricVector.Top);
         if (BlockTop != null)
         {
             ControllerBody BodyTop = BlockTop.GetComponent<ControllerBody>();

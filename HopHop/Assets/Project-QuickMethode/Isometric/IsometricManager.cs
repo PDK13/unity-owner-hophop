@@ -17,18 +17,18 @@ public class IsometricManager : MonoBehaviour
 
     #region Varible: World Manager
 
-    public IsometricGameData GameData;
+    public IsometricGameData Game;
     //
-    public IsometricDataWorld WorldData;
+    public IsometricDataWorld World;
     //
-    public IsometricDataList BlockList;
+    public IsometricDataList List;
 
     #endregion
 
     public void SetInit()
     {
-        WorldData = new IsometricDataWorld(this);
-        BlockList = new IsometricDataList();
+        World = new IsometricDataWorld(this);
+        List = new IsometricDataList();
     }
 }
 

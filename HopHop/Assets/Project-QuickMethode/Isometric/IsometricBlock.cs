@@ -71,7 +71,7 @@ public class IsometricBlock : MonoBehaviour
         set
         {
             m_worldManager = value;
-            m_scene = value.GameData.Scene;
+            m_scene = value.Game.Scene;
         }
     }
 
@@ -181,7 +181,7 @@ public class IsometricBlock : MonoBehaviour
     private void SetIsoTransform()
     {
         if (WorldManager != null)
-            m_scene = WorldManager.GameData.Scene;
+            m_scene = WorldManager.Game.Scene;
 
         Vector3 PosTransform = GetIsoTransform(m_pos);
 
@@ -196,12 +196,12 @@ public class IsometricBlock : MonoBehaviour
 
     public List<IsometricBlock> GetCheck(IsometricVector Dir, int Length)
     {
-        return WorldManager.WorldData.GetBlockCurrentAll(Pos.Fixed + Dir * Length);
+        return WorldManager.World.GetBlockCurrentAll(Pos.Fixed + Dir * Length);
     }
 
     public List<IsometricBlock> GetCheck(IsometricVector Dir, int Length, params string[] TagFind)
     {
-        return WorldManager.WorldData.GetBlockCurrentAll(Pos.Fixed + Dir * Length, TagFind);
+        return WorldManager.World.GetBlockCurrentAll(Pos.Fixed + Dir * Length, TagFind);
     }
 
     #endregion

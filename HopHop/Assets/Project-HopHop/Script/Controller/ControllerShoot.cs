@@ -137,7 +137,7 @@ public class ControllerShoot : MonoBehaviour
 
     private void SetShoot(IsometricVector DirSpawm, IsometricVector DirMove, int Speed)
     {
-        IsometricBlock Block = m_block.WorldManager.WorldData.GetBlockCurrent(m_block.Pos + DirSpawm);
+        IsometricBlock Block = m_block.WorldManager.World.GetBlockCurrent(m_block.Pos + DirSpawm);
         if (Block != null)
         {
             if (Block.Tag.Contains(GameManager.GameConfig.Tag.Player))
@@ -149,7 +149,7 @@ public class ControllerShoot : MonoBehaviour
             return;
         }
         //
-        IsometricBlock Bullet = m_block.WorldManager.WorldData.SetBlockCreate(m_block.Pos + DirSpawm, m_bullet.gameObject);
+        IsometricBlock Bullet = m_block.WorldManager.World.SetBlockCreate(m_block.Pos + DirSpawm, m_bullet.gameObject);
         Bullet.GetComponent<ControllerBullet>().SetInit(DirMove, Speed);
     } //Shoot Bullet!!
 }

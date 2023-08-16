@@ -113,7 +113,7 @@ public class ControllerBody : MonoBehaviour
     {
         if (From == IsometricVector.Bot)
         {
-            IsometricBlock BlockNext = m_block.WorldManager.WorldData.GetBlockCurrent(m_block.Pos.Fixed + Dir);
+            IsometricBlock BlockNext = m_block.WorldManager.World.GetBlockCurrent(m_block.Pos.Fixed + Dir);
             if (BlockNext != null)
             {
                 //When Block Bot end move, surely Bot of this will be emty!!
@@ -125,7 +125,7 @@ public class ControllerBody : MonoBehaviour
         {
             MoveLastXY = Dir;
             //
-            IsometricBlock BlockNext = m_block.WorldManager.WorldData.GetBlockCurrent(m_block.Pos.Fixed + Dir);
+            IsometricBlock BlockNext = m_block.WorldManager.World.GetBlockCurrent(m_block.Pos.Fixed + Dir);
             if (BlockNext != null)
             {
                 Debug.LogError("[Debug] Push to Wall!!");
@@ -209,12 +209,12 @@ public class ControllerBody : MonoBehaviour
 
     public IsometricBlock GetCheckDir(IsometricVector Dir)
     {
-        return m_block.WorldManager.WorldData.GetBlockCurrent(m_block.Pos.Fixed + Dir);
+        return m_block.WorldManager.World.GetBlockCurrent(m_block.Pos.Fixed + Dir);
     }
 
     public IsometricBlock GetCheckDir(IsometricVector Dir, IsometricVector DirNext)
     {
-        return m_block.WorldManager.WorldData.GetBlockCurrent(m_block.Pos.Fixed + Dir + DirNext);
+        return m_block.WorldManager.World.GetBlockCurrent(m_block.Pos.Fixed + Dir + DirNext);
     }
 
     #endregion

@@ -19,28 +19,28 @@ public class IsometricDataFile
 
     #region Fild Write
 
-    public static void SetFileWrite(IsometricManager Manager, QPath.PathType PathType, params string[] PathChild)
+    public static void SetFileWrite(IsometricManager Manager, string Path)
     {
         QFileIO FileIO = new QFileIO();
 
         SetFileWrite(Manager, FileIO);
 
-        FileIO.SetWriteStart(QPath.GetPath(PathType, PathChild));
+        FileIO.SetWriteStart(Path);
     }
 
     private static void SetFileWrite(IsometricManager Manager, QFileIO FileIO)
     {
-        Manager.WorldData.SetWorldOrder();
+        Manager.World.SetWorldOrder();
         //
         List<IsometricDataFileBlock> WorldBlocks = new List<IsometricDataFileBlock>();
-        for (int i = 0; i < Manager.WorldData.m_worldPosH.Count; i++)
-            for (int j = 0; j < Manager.WorldData.m_worldPosH[i].Block.Count; j++)
-                WorldBlocks.Add(new IsometricDataFileBlock(Manager.WorldData.m_worldPosH[i].Block[j].PosPrimary, Manager.WorldData.m_worldPosH[i].Block[j].Name, (Manager.WorldData.m_worldPosH[i].Block[j].Data)));
+        for (int i = 0; i < Manager.World.m_worldPosH.Count; i++)
+            for (int j = 0; j < Manager.World.m_worldPosH[i].Block.Count; j++)
+                WorldBlocks.Add(new IsometricDataFileBlock(Manager.World.m_worldPosH[i].Block[j].PosPrimary, Manager.World.m_worldPosH[i].Block[j].Name, (Manager.World.m_worldPosH[i].Block[j].Data)));
         //
         //WORLD START!!
         //
         FileIO.SetWriteAdd(KEY_WORLD_NAME);
-        FileIO.SetWriteAdd((Manager.GameData.Name != "") ? Manager.GameData.Name : "...");
+        FileIO.SetWriteAdd((Manager.Game.Name != "") ? Manager.Game.Name : "...");
         //
         FileIO.SetWriteAdd(KEY_WORLD_BLOCK);
         FileIO.SetWriteAdd(WorldBlocks.Count);
@@ -84,6 +84,8 @@ public class IsometricDataFile
             for (int DataIndex = 0; DataIndex < WorldBlocks[BlockIndex].Data.Teleport.Data.Count; DataIndex++)
                 FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.Teleport.Data[DataIndex].Encypt);
             //
+            //...
+            //
             //BLOCK END!!
             //
             FileIO.SetWriteAdd(KEY_BLOCK_GROUP);
@@ -98,11 +100,11 @@ public class IsometricDataFile
 
     #region File Read
 
-    public static void SetFileRead(IsometricManager Manager, QPath.PathType PathType, params string[] PathChild)
+    public static void SetFileRead(IsometricManager Manager, string Path)
     {
         QFileIO FileIO = new QFileIO();
 
-        FileIO.SetReadStart(QPath.GetPath(PathType, PathChild));
+        FileIO.SetReadStart(Path);
 
         SetFileRead(Manager, FileIO);
     }
@@ -118,7 +120,7 @@ public class IsometricDataFile
 
     private static void SetFileRead(IsometricManager Manager, QFileIO FileIO)
     {
-        Manager.WorldData.SetWorldRemove(true);
+        Manager.World.SetWorldRemove(true);
         //
         //WORLD START!!
         //
@@ -128,7 +130,7 @@ public class IsometricDataFile
             switch (FileIO.GetReadAutoString())
             {
                 case KEY_WORLD_NAME:
-                    Manager.GameData.Name = FileIO.GetReadAutoString();
+                    Manager.Game.Name = FileIO.GetReadAutoString();
                     break;
                 case KEY_WORLD_BLOCK:
                     int BlockCount = FileIO.GetReadAutoInt();
@@ -200,7 +202,7 @@ public class IsometricDataFile
                         //
                         //BLOCK END!!
                         //
-                        Manager.WorldData.SetBlockCreate(PosPrimary, Manager.BlockList.GetList(Name), Data);
+                        Manager.World.SetBlockCreate(PosPrimary, Manager.List.GetList(Name), Data);
                     }
                     break;
                 case KEY_WORLD_GROUP:
@@ -215,7 +217,7 @@ public class IsometricDataFile
         //
         //WORLD END!!
         //
-        Manager.WorldData.onCreate?.Invoke();
+        Manager.World.onCreate?.Invoke();
     }
 
     #endregion
