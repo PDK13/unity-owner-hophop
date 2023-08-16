@@ -29,7 +29,7 @@ public class ControllerShoot : MonoBehaviour
 
     private void Start()
     {
-        m_dataAction = m_block.Data.ActionData;
+        m_dataAction = m_block.Data.Action;
 
         if (m_dataAction != null)
         {

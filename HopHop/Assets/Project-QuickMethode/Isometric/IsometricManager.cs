@@ -20,6 +20,7 @@ public class IsometricManager : MonoBehaviour
     public IsometricGameData GameData;
     //
     public IsometricDataWorld WorldData;
+    //
     public IsometricDataList BlockList;
 
     #endregion
@@ -47,6 +48,24 @@ public class IsometricGameDataScene
     public IsometricVector Scale = new IsometricVector(1f, 1f, 1f);
 }
 
-public enum IsometricRendererType { XY, H, None, }
+public enum IsometricRendererType 
+{ 
+    XY, 
+    H, 
+    None, 
+}
 
-public enum IsometricRotateType { _0, _90, _180, _270, }
+public enum IsometricRotateType 
+{ 
+    _0, 
+    _90, 
+    _180, 
+    _270, 
+}
+
+public enum DataBlockType
+{
+    Forward = 0,
+    Loop = 1,
+    Revert = 2,
+}

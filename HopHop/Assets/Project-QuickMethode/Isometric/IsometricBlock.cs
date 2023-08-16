@@ -87,25 +87,25 @@ public class IsometricBlock : MonoBehaviour
 
     #region ================================================================== Data Manager
 
-    public IsometricDataBlockSingle Data 
+    public IsometricDataFileBlockData Data 
     {
         get 
         {
-            IsometricDataBlockSingle Data = new IsometricDataBlockSingle();
-            Data.MoveData = MoveData;
-            Data.FollowData = FollowData;
-            Data.ActionData = ActionData;
-            Data.EventData = EventData;
-            Data.TeleportData = TeleportData;
+            IsometricDataFileBlockData Data = new IsometricDataFileBlockData();
+            Data.Move = MoveData;
+            Data.Follow = FollowData;
+            Data.Action = ActionData;
+            Data.Event = EventData;
+            Data.Teleport = TeleportData;
             return Data;
         }
         set
         {
-            MoveData = value.MoveData;
-            FollowData = value.FollowData;
-            ActionData = value.ActionData;
-            EventData = value.EventData;
-            TeleportData = value.TeleportData;
+            MoveData = value.Move;
+            FollowData = value.Follow;
+            ActionData = value.Action;
+            EventData = value.Event;
+            TeleportData = value.Teleport;
         }
     }
 

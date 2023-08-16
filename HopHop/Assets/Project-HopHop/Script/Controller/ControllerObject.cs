@@ -27,10 +27,10 @@ public class ControllerObject : MonoBehaviour
 
     private void Start()
     {
-        m_dataMove = m_block.Data.MoveData;
+        m_dataMove = m_block.Data.Move;
         //
-        if (m_block.Data.FollowData.Key == GameManager.GameConfig.Event.Follow)
-            m_dataFollow = m_block.Data.FollowData.KeyFollow;
+        if (m_block.Data.Follow.Key == GameManager.GameConfig.Event.Follow)
+            m_dataFollow = m_block.Data.Follow.KeyFollow;
         //
         if (m_dataMove != null)
         {

@@ -1,4 +1,5 @@
 using QuickMethode;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,10 +32,10 @@ public class IsometricDataFile
     {
         Manager.WorldData.SetWorldOrder();
         //
-        List<IsometricDataBlock> WorldBlocks = new List<IsometricDataBlock>();
+        List<IsometricDataFileBlock> WorldBlocks = new List<IsometricDataFileBlock>();
         for (int i = 0; i < Manager.WorldData.m_worldPosH.Count; i++)
             for (int j = 0; j < Manager.WorldData.m_worldPosH[i].Block.Count; j++)
-                WorldBlocks.Add(new IsometricDataBlock(Manager.WorldData.m_worldPosH[i].Block[j].PosPrimary, Manager.WorldData.m_worldPosH[i].Block[j].Name, (Manager.WorldData.m_worldPosH[i].Block[j].Data)));
+                WorldBlocks.Add(new IsometricDataFileBlock(Manager.WorldData.m_worldPosH[i].Block[j].PosPrimary, Manager.WorldData.m_worldPosH[i].Block[j].Name, (Manager.WorldData.m_worldPosH[i].Block[j].Data)));
         //
         //WORLD START!!
         //
@@ -54,34 +55,34 @@ public class IsometricDataFile
             //BLOCK START!!
             //
             FileIO.SetWriteAdd(KEY_BLOCK_MOVE);
-            FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.MoveData.Key);
-            FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.MoveData.Type);
-            FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.MoveData.Data.Count);
-            for (int DataIndex = 0; DataIndex < WorldBlocks[BlockIndex].Data.MoveData.Data.Count; DataIndex++)
-                FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.MoveData.Data[DataIndex].Encypt);
+            FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.Move.Key);
+            FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.Move.Type);
+            FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.Move.Data.Count);
+            for (int DataIndex = 0; DataIndex < WorldBlocks[BlockIndex].Data.Move.Data.Count; DataIndex++)
+                FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.Move.Data[DataIndex].Encypt);
             //
             FileIO.SetWriteAdd(KEY_BLOCK_FOLLOW);
-            FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.FollowData.Key);
-            FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.FollowData.KeyFollow);
+            FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.Follow.Key);
+            FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.Follow.KeyFollow);
             //
             FileIO.SetWriteAdd(KEY_BLOCK_ACTION);
-            FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.ActionData.Key);
-            FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.ActionData.Type);
-            FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.ActionData.Data.Count);
-            for (int DataIndex = 0; DataIndex < WorldBlocks[BlockIndex].Data.ActionData.Data.Count; DataIndex++)
-                FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.ActionData.Data[DataIndex].Encypt);
+            FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.Action.Key);
+            FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.Action.Type);
+            FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.Action.Data.Count);
+            for (int DataIndex = 0; DataIndex < WorldBlocks[BlockIndex].Data.Action.Data.Count; DataIndex++)
+                FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.Action.Data[DataIndex].Encypt);
             //
             FileIO.SetWriteAdd(KEY_BLOCK_EVENT);
-            FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.EventData.Key);
-            FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.EventData.Data.Count);
-            for (int DataIndex = 0; DataIndex < WorldBlocks[BlockIndex].Data.EventData.Data.Count; DataIndex++)
-                FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.EventData.Data[DataIndex].Encypt);
+            FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.Event.Key);
+            FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.Event.Data.Count);
+            for (int DataIndex = 0; DataIndex < WorldBlocks[BlockIndex].Data.Event.Data.Count; DataIndex++)
+                FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.Event.Data[DataIndex].Encypt);
             //
             FileIO.SetWriteAdd(KEY_BLOCK_TELEPORT);
-            FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.TeleportData.Key);
-            FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.TeleportData.Data.Count);
-            for (int DataIndex = 0; DataIndex < WorldBlocks[BlockIndex].Data.TeleportData.Data.Count; DataIndex++)
-                FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.TeleportData.Data[DataIndex].Encypt);
+            FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.Teleport.Key);
+            FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.Teleport.Data.Count);
+            for (int DataIndex = 0; DataIndex < WorldBlocks[BlockIndex].Data.Teleport.Data.Count; DataIndex++)
+                FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.Teleport.Data[DataIndex].Encypt);
             //
             //BLOCK END!!
             //
@@ -141,7 +142,7 @@ public class IsometricDataFile
                         //
                         //BLOCK START!!
                         //
-                        IsometricDataBlockSingle Data = new IsometricDataBlockSingle();
+                        IsometricDataFileBlockData Data = new IsometricDataFileBlockData();
                         //
                         bool EndGroupBlock = false;
                         //
@@ -150,42 +151,42 @@ public class IsometricDataFile
                             switch (FileIO.GetReadAutoString())
                             {
                                 case KEY_BLOCK_MOVE:
-                                    Data.MoveData = new IsometricDataBlockMove();
-                                    Data.MoveData.Key = FileIO.GetReadAutoString();
-                                    Data.MoveData.Type = FileIO.GetReadAutoEnum<DataBlockType>();
-                                    Data.MoveData.SetDataNew();
+                                    Data.Move = new IsometricDataBlockMove();
+                                    Data.Move.Key = FileIO.GetReadAutoString();
+                                    Data.Move.Type = FileIO.GetReadAutoEnum<DataBlockType>();
+                                    Data.Move.SetDataNew();
                                     int MoveCount = FileIO.GetReadAutoInt();
                                     for (int DataIndex = 0; DataIndex < MoveCount; DataIndex++)
-                                        Data.MoveData.SetDataAdd(IsometricDataBlockMoveSingle.GetDencypt(FileIO.GetReadAutoString()));
+                                        Data.Move.SetDataAdd(IsometricDataBlockMoveSingle.GetDencypt(FileIO.GetReadAutoString()));
                                     break;
                                 case KEY_BLOCK_FOLLOW:
-                                    Data.FollowData.Key = FileIO.GetReadAutoString();
-                                    Data.FollowData.KeyFollow = FileIO.GetReadAutoString();
+                                    Data.Follow.Key = FileIO.GetReadAutoString();
+                                    Data.Follow.KeyFollow = FileIO.GetReadAutoString();
                                     break;
                                 case KEY_BLOCK_ACTION:
-                                    Data.ActionData = new IsometricDataBlockAction();
-                                    Data.ActionData.Key = FileIO.GetReadAutoString();
-                                    Data.ActionData.Type = FileIO.GetReadAutoEnum<DataBlockType>();
-                                    Data.ActionData.SetDataNew();
+                                    Data.Action = new IsometricDataBlockAction();
+                                    Data.Action.Key = FileIO.GetReadAutoString();
+                                    Data.Action.Type = FileIO.GetReadAutoEnum<DataBlockType>();
+                                    Data.Action.SetDataNew();
                                     int ActionCount = FileIO.GetReadAutoInt();
                                     for (int DataIndex = 0; DataIndex < ActionCount; DataIndex++)
-                                        Data.ActionData.SetDataAdd(IsometricDataBlockActionSingle.GetDencypt(FileIO.GetReadAutoString()));
+                                        Data.Action.SetDataAdd(IsometricDataBlockActionSingle.GetDencypt(FileIO.GetReadAutoString()));
                                     break;
                                 case KEY_BLOCK_EVENT:
-                                    Data.EventData = new IsometricDataBlockEvent();
-                                    Data.EventData.Key = FileIO.GetReadAutoString();
-                                    Data.EventData.Data = new List<IsometricDataBlockEventSingle>();
+                                    Data.Event = new IsometricDataBlockEvent();
+                                    Data.Event.Key = FileIO.GetReadAutoString();
+                                    Data.Event.Data = new List<IsometricDataBlockEventSingle>();
                                     int EventCount = FileIO.GetReadAutoInt();
                                     for (int DataIndex = 0; DataIndex < EventCount; DataIndex++)
-                                        Data.EventData.SetDataAdd(IsometricDataBlockEventSingle.GetDencypt(FileIO.GetReadAutoString()));
+                                        Data.Event.SetDataAdd(IsometricDataBlockEventSingle.GetDencypt(FileIO.GetReadAutoString()));
                                     break;
                                 case KEY_BLOCK_TELEPORT:
-                                    Data.TeleportData = new IsometricDataBlockTeleport();
-                                    Data.TeleportData.Key = FileIO.GetReadAutoString();
-                                    Data.TeleportData.Data = new List<IsometricDataBlockTeleportSingle>();
+                                    Data.Teleport = new IsometricDataBlockTeleport();
+                                    Data.Teleport.Key = FileIO.GetReadAutoString();
+                                    Data.Teleport.Data = new List<IsometricDataBlockTeleportSingle>();
                                     int TeleportCount = FileIO.GetReadAutoInt();
                                     for (int DataIndex = 0; DataIndex < TeleportCount; DataIndex++)
-                                        Data.TeleportData.SetDataAdd(IsometricDataBlockTeleportSingle.GetDencypt(FileIO.GetReadAutoString()));
+                                        Data.Teleport.SetDataAdd(IsometricDataBlockTeleportSingle.GetDencypt(FileIO.GetReadAutoString()));
                                     break;
                                 case KEY_BLOCK_GROUP:
                                     //
@@ -218,4 +219,28 @@ public class IsometricDataFile
     }
 
     #endregion
+}
+
+public class IsometricDataFileBlock
+{
+    public IsometricVector PosPrimary;
+    public string Name;
+    public IsometricDataFileBlockData Data = new IsometricDataFileBlockData();
+
+    public IsometricDataFileBlock(IsometricVector Pos, string Name, IsometricDataFileBlockData Data)
+    {
+        this.PosPrimary = Pos;
+        this.Name = Name;
+        this.Data = Data;
+    }
+}
+
+[Serializable]
+public class IsometricDataFileBlockData
+{
+    public IsometricDataBlockMove Move = new IsometricDataBlockMove();
+    public IsometricDataFollow Follow = new IsometricDataFollow();
+    public IsometricDataBlockAction Action = new IsometricDataBlockAction();
+    public IsometricDataBlockEvent Event = new IsometricDataBlockEvent();
+    public IsometricDataBlockTeleport Teleport = new IsometricDataBlockTeleport();
 }

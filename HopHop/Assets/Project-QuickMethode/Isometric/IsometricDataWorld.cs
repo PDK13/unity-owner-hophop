@@ -30,7 +30,7 @@ public class IsometricDataWorld
 
     #region Block Create
 
-    public IsometricBlock SetBlockCreate(IsometricVector Pos, GameObject BlockPrefab, IsometricDataBlockSingle Data = null)
+    public IsometricBlock SetBlockCreate(IsometricVector Pos, GameObject BlockPrefab, IsometricDataFileBlockData Data = null)
     {
         if (BlockPrefab == null)
         {
@@ -54,7 +54,7 @@ public class IsometricDataWorld
         Block.PosPrimary = Pos.Fixed;
 
         //Block Data
-        Block.Data = Data != null ? Data : new IsometricDataBlockSingle();
+        Block.Data = Data != null ? Data : new IsometricDataFileBlockData();
 
         //Block Renderer
         IsometricRenderer BlockRenderer = BlockObject.GetComponent<IsometricRenderer>();
