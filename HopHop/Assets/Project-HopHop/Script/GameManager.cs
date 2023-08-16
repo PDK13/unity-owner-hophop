@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
 
         yield return null;
 
-        m_isometricManager.SetFileRead(WorldData);
+        IsometricDataFile.SetFileRead(m_isometricManager,WorldData);
 
         yield return new WaitForSeconds(3f);
 

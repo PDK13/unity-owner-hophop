@@ -123,7 +123,12 @@ public class IsometricTool : EditorWindow
     private bool GetManager()
     {
         if (m_manager == null)
+        {
             m_manager = GameObject.FindFirstObjectByType<IsometricManager>();
+            m_manager.SetInit();
+            m_manager.BlockList.SetList(m_manager.Config);
+            m_manager.WorldData.SetWorldRead(m_manager.transform);
+        }
 
         return m_manager != null;
     }
@@ -417,6 +422,7 @@ public class IsometricTool : EditorWindow
             m_indexTag = 0;
             m_indexName = 0;
             //
+            m_manager.SetInit();
             m_manager.BlockList.SetList(m_manager.Config);
             m_manager.WorldData.SetWorldRead(m_manager.transform);
             //
@@ -437,7 +443,7 @@ public class IsometricTool : EditorWindow
             if (Path.Result)
             {
                 m_pathSave = Path.Path;
-                m_manager.SetFileWrite(QPath.PathType.None, Path.Path);
+                IsometricDataFile.SetFileWrite(m_manager, QPath.PathType.None, Path.Path);
                 QAssetsDatabase.SetRefresh();
             }
         }
@@ -456,7 +462,7 @@ public class IsometricTool : EditorWindow
                 m_manager.BlockList.SetList(m_manager.Config);
 
                 m_pathOpen = Path.Path;
-                m_manager.SetFileRead(QPath.PathType.None, Path.Path);
+                IsometricDataFile.SetFileRead(m_manager, QPath.PathType.None, Path.Path);
             }
         }
         QEditor.SetHorizontalEnd();
