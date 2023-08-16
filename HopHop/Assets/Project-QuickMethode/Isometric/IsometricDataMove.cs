@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class IsoDataBlockMove
+public class IsometricDataBlockMove
 {
     public string Key = "";
     public DataBlockType Type = DataBlockType.Forward;
@@ -16,13 +16,13 @@ public class IsoDataBlockMove
     [HideInInspector]
     public int Quantity = 1;
 
-    public List<IsoDataBlockMoveSingle> Data
+    public List<IsometricDataBlockMoveSingle> Data
     {
         get
         {
-            List<IsoDataBlockMoveSingle> Data = new List<IsoDataBlockMoveSingle>();
+            List<IsometricDataBlockMoveSingle> Data = new List<IsometricDataBlockMoveSingle>();
             for (int i = 0; i < Dir.Count; i++)
-                Data.Add(new IsoDataBlockMoveSingle(Dir[i], (Length.Count == Dir.Count ? Length[i] : 1)));
+                Data.Add(new IsometricDataBlockMoveSingle(Dir[i], (Length.Count == Dir.Count ? Length[i] : 1)));
             return Data;
         }
     }
@@ -35,7 +35,7 @@ public class IsoDataBlockMove
         Length = new List<int>();
     }
 
-    public void SetDataAdd(IsoDataBlockMoveSingle DataSingle)
+    public void SetDataAdd(IsometricDataBlockMoveSingle DataSingle)
     {
         if (DataSingle == null)
             return;
@@ -48,7 +48,7 @@ public class IsoDataBlockMove
 }
 
 [Serializable]
-public class IsoDataBlockMoveSingle
+public class IsometricDataBlockMoveSingle
 {
     public const char KEY_VALUE_ENCYPT = '|';
 
@@ -57,18 +57,18 @@ public class IsoDataBlockMoveSingle
 
     public string Encypt => QEncypt.GetEncypt(KEY_VALUE_ENCYPT, Length.ToString(), IsoVector.GetDirEncypt(Dir));
 
-    public IsoDataBlockMoveSingle(IsoDir Dir, int Value)
+    public IsometricDataBlockMoveSingle(IsoDir Dir, int Value)
     {
         this.Dir = Dir;
         this.Length = Value;
     }
 
-    public static IsoDataBlockMoveSingle GetDencypt(string Value)
+    public static IsometricDataBlockMoveSingle GetDencypt(string Value)
     {
         if (Value == "")
             return null;
         //
         List<string> DataString = QEncypt.GetDencyptString(KEY_VALUE_ENCYPT, Value);
-        return new IsoDataBlockMoveSingle(IsoVector.GetDirDeEncyptEnum(DataString[1]), int.Parse(DataString[0]));
+        return new IsometricDataBlockMoveSingle(IsoVector.GetDirDeEncyptEnum(DataString[1]), int.Parse(DataString[0]));
     }
 }

@@ -143,7 +143,7 @@ public class IsometricTool : EditorWindow
         {
             QEditor.SetBackground(Color.white);
             QEditor.SetLabel("RENDERER: ", QEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this, 0.25f));
-            m_manager.Scene.Renderer = (IsometricManager.RendererType)QEditor.SetPopup<IsometricManager.RendererType>((int)m_manager.Scene.Renderer, QEditorWindow.GetGUILayoutWidth(this, 0.75f, 2.5f));
+            m_manager.GameData.Scene.Renderer = (IsometricRendererType)QEditor.SetPopup<IsometricRendererType>((int)m_manager.GameData.Scene.Renderer, QEditorWindow.GetGUILayoutWidth(this, 0.75f, 2.5f));
         }
         QEditor.SetHorizontalEnd();
 
@@ -152,11 +152,11 @@ public class IsometricTool : EditorWindow
             QEditor.SetBackground(Color.white);
             QEditor.SetLabel("ROTATE: ", QEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this, 0.25f));
             QEditor.SetChanceCheckBegin();
-            m_manager.Scene.Rotate = (IsometricManager.RotateType)QEditor.SetPopup<IsometricManager.RotateType>((int)m_manager.Scene.Rotate, QEditorWindow.GetGUILayoutWidth(this, 0.75f, 2.5f));
+            m_manager.GameData.Scene.Rotate = (IsometricRotateType)QEditor.SetPopup<IsometricRotateType>((int)m_manager.GameData.Scene.Rotate, QEditorWindow.GetGUILayoutWidth(this, 0.75f, 2.5f));
             if (QEditor.SetChanceCheckEnd())
             {
-                m_manager.Scene.Centre = m_curson.Pos;
-                m_manager.Scene.Centre.H = 0;
+                m_manager.GameData.Scene.Centre = m_curson.Pos;
+                m_manager.GameData.Scene.Centre.H = 0;
             }
         }
         QEditor.SetHorizontalEnd();
@@ -203,7 +203,7 @@ public class IsometricTool : EditorWindow
     {
         if (QEditor.SetButton("FOCUS", QEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this, WidthPercent)))
         {
-            IsometricBlock BlockFocus = m_manager.WorldData.GetWorldBlockPrimary(m_curson.Pos);
+            IsometricBlock BlockFocus = m_manager.WorldData.GetBlockPrimary(m_curson.Pos);
             if (BlockFocus != null)
             {
                 QGameObject.SetFocus(BlockFocus.gameObject);
@@ -302,7 +302,7 @@ public class IsometricTool : EditorWindow
                     {
                         //Move Curson!!
                         case KeyCode.UpArrow:
-                            m_curson.Pos += IsoVector.GetDir(IsoDir.Up, m_manager.Scene.Rotate);
+                            m_curson.Pos += IsoVector.GetDir(IsoDir.Up, m_manager.GameData.Scene.Rotate);
                             SetCursonMaskXY();
                             SetCursonHiddenH();
                             SetCursonCheck();
@@ -310,7 +310,7 @@ public class IsometricTool : EditorWindow
                             m_event.Use();
                             break;
                         case KeyCode.DownArrow:
-                            m_curson.Pos += IsoVector.GetDir(IsoDir.Down, m_manager.Scene.Rotate);
+                            m_curson.Pos += IsoVector.GetDir(IsoDir.Down, m_manager.GameData.Scene.Rotate);
                             SetCursonMaskXY();
                             SetCursonHiddenH();
                             SetCursonCheck();
@@ -318,7 +318,7 @@ public class IsometricTool : EditorWindow
                             m_event.Use();
                             break;
                         case KeyCode.LeftArrow:
-                            m_curson.Pos += IsoVector.GetDir(IsoDir.Left, m_manager.Scene.Rotate);
+                            m_curson.Pos += IsoVector.GetDir(IsoDir.Left, m_manager.GameData.Scene.Rotate);
                             SetCursonMaskXY();
                             SetCursonHiddenH();
                             SetCursonCheck();
@@ -326,7 +326,7 @@ public class IsometricTool : EditorWindow
                             m_event.Use();
                             break;
                         case KeyCode.RightArrow:
-                            m_curson.Pos += IsoVector.GetDir(IsoDir.Right, m_manager.Scene.Rotate);
+                            m_curson.Pos += IsoVector.GetDir(IsoDir.Right, m_manager.GameData.Scene.Rotate);
                             SetCursonMaskXY();
                             SetCursonHiddenH();
                             SetCursonCheck();
@@ -334,7 +334,7 @@ public class IsometricTool : EditorWindow
                             m_event.Use();
                             break;
                         case KeyCode.PageUp:
-                            m_curson.Pos += IsoVector.GetDir(IsoDir.Top, m_manager.Scene.Rotate);
+                            m_curson.Pos += IsoVector.GetDir(IsoDir.Top, m_manager.GameData.Scene.Rotate);
                             SetCursonMaskXY();
                             SetCursonHiddenH();
                             SetCursonCheck();
@@ -342,7 +342,7 @@ public class IsometricTool : EditorWindow
                             m_event.Use();
                             break;
                         case KeyCode.PageDown:
-                            m_curson.Pos += IsoVector.GetDir(IsoDir.Bot, m_manager.Scene.Rotate);
+                            m_curson.Pos += IsoVector.GetDir(IsoDir.Bot, m_manager.GameData.Scene.Rotate);
                             SetCursonMaskXY();
                             SetCursonHiddenH();
                             SetCursonCheck();
@@ -351,11 +351,11 @@ public class IsometricTool : EditorWindow
                             break;
                         //Block Curson!!
                         case KeyCode.Home:
-                            m_manager.WorldData.SetWorldBlockCreate(m_curson.Pos, m_manager.BlockList.BlockList[m_indexTag].Block[m_indexName].gameObject);
+                            m_manager.WorldData.SetBlockCreate(m_curson.Pos, m_manager.BlockList.BlockList[m_indexTag].Block[m_indexName].gameObject);
                             m_event.Use();
                             break;
                         case KeyCode.End:
-                            m_manager.WorldData.SetWorldBlockRemovePrimary(m_curson.Pos);
+                            m_manager.WorldData.SetBlockRemovePrimary(m_curson.Pos);
                             m_event.Use();
                             break;
                     }
@@ -369,7 +369,7 @@ public class IsometricTool : EditorWindow
     {
         if (m_check)
         {
-            IsometricBlock BlockFocus = m_manager.WorldData.GetWorldBlockPrimary(m_curson.Pos);
+            IsometricBlock BlockFocus = m_manager.WorldData.GetBlockPrimary(m_curson.Pos);
             if (BlockFocus != null)
                 QGameObject.SetFocus(BlockFocus.gameObject);
         }
@@ -385,12 +385,12 @@ public class IsometricTool : EditorWindow
     {
         if (m_maskXY)
         {
-            bool CentreFound = m_manager.SetEditorMask(m_curson.Pos, Color.red, Color.white, Color.yellow);
+            bool CentreFound = m_manager.WorldData.SetEditorMask(m_curson.Pos, Color.red, Color.white, Color.yellow);
             m_curson.GetComponent<SpriteRenderer>().enabled = !CentreFound;
         }
         else
         {
-            bool CentreFound = m_manager.SetEditorMask(m_curson.Pos, Color.white, Color.white, Color.white);
+            bool CentreFound = m_manager.WorldData.SetEditorMask(m_curson.Pos, Color.white, Color.white, Color.white);
             m_curson.GetComponent<SpriteRenderer>().enabled = !CentreFound;
         }
     }
@@ -398,9 +398,9 @@ public class IsometricTool : EditorWindow
     private void SetCursonHiddenH()
     {
         if (m_hiddenH)
-            m_manager.SetEditorHidden(m_curson.Pos.HInt, 0.01f);
+            m_manager.WorldData.SetEditorHidden(m_curson.Pos.HInt, 0.01f);
         else
-            m_manager.SetEditorHidden(m_curson.Pos.HInt, 1f);
+            m_manager.WorldData.SetEditorHidden(m_curson.Pos.HInt, 1f);
     }
 
     #endregion

@@ -7,7 +7,7 @@ public class ControllerObject : MonoBehaviour
 {
     private bool m_turnControl = false;
 
-    private IsoDataBlockMove m_dataMove;
+    private IsometricDataBlockMove m_dataMove;
     private string m_dataFollow;
 
     private IsoVector m_turnDir;
@@ -188,7 +188,7 @@ public class ControllerObject : MonoBehaviour
         if (Dir == IsoVector.Top || Dir == IsoVector.Bot)
             return;
         //
-        IsometricBlock BlockPush = m_block.WorldManager.WorldData.GetWorldBlockCurrent(m_block.Pos + Dir);
+        IsometricBlock BlockPush = m_block.WorldManager.WorldData.GetBlockCurrent(m_block.Pos + Dir);
         if (BlockPush != null)
         {
             ControllerBody BodyPush = BlockPush.GetComponent<ControllerBody>();
@@ -202,7 +202,7 @@ public class ControllerObject : MonoBehaviour
     private void SetMoveTop(IsoVector Dir)
     {
         //Top!!
-        IsometricBlock BlockTop = m_block.WorldManager.WorldData.GetWorldBlockCurrent(m_block.Pos + IsoVector.Top);
+        IsometricBlock BlockTop = m_block.WorldManager.WorldData.GetBlockCurrent(m_block.Pos + IsoVector.Top);
         if (BlockTop != null)
         {
             ControllerBody BodyTop = BlockTop.GetComponent<ControllerBody>();

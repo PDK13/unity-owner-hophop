@@ -5,21 +5,23 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+[Serializable]
 public class IsometricDataWorld
 {
     public const string CURSON_NAME = "ISO-CURSON";
 
-    private IsometricManager m_manager;
-
-    public Action onWorldCreate;
-    public Action onWorldRemove;
+    public Action onCreate;
+    public Action onRemove;
 
     public List<IsometricDataWorldPosH> m_worldPosH;
     public List<IsometricDataWorldTag> m_worldTag;
 
+    private IsometricManager m_manager;
+
     public IsometricDataWorld(IsometricManager Manager)
     {
         m_manager = Manager;
+        //
         m_worldPosH = new List<IsometricDataWorldPosH>();
         m_worldTag = new List<IsometricDataWorldTag>();
     }
@@ -28,7 +30,7 @@ public class IsometricDataWorld
 
     #region Block Create
 
-    public IsometricBlock SetWorldBlockCreate(IsoVector Pos, GameObject BlockPrefab, IsoDataBlockSingle Data = null)
+    public IsometricBlock SetBlockCreate(IsoVector Pos, GameObject BlockPrefab, IsometricDataBlockSingle Data = null)
     {
         if (BlockPrefab == null)
         {
@@ -52,7 +54,7 @@ public class IsometricDataWorld
         Block.PosPrimary = Pos.Fixed;
 
         //Block Data
-        Block.Data = Data != null ? Data : new IsoDataBlockSingle();
+        Block.Data = Data != null ? Data : new IsometricDataBlockSingle();
 
         //Block Renderer
         IsometricRenderer BlockRenderer = BlockObject.GetComponent<IsometricRenderer>();
@@ -68,7 +70,7 @@ public class IsometricDataWorld
         else
         {
             //Delete
-            SetWorldBlockRemovePrimary(Pos.Fixed);
+            SetBlockRemovePrimary(Pos.Fixed);
 
             //World
             int IndexPosH = GetWorldIndexPosH(Pos.HInt);
@@ -133,7 +135,7 @@ public class IsometricDataWorld
 
     #region Block Get
 
-    public IsometricBlock GetWorldBlockPrimary(IsoVector Pos)
+    public IsometricBlock GetBlockPrimary(IsoVector Pos)
     {
         //World
         int IndexPosH = GetWorldIndexPosH(Pos.Fixed.HInt);
@@ -151,7 +153,7 @@ public class IsometricDataWorld
         return null;
     }
 
-    public IsometricBlock GetWorldBlockCurrent(IsoVector Pos, params string[] Tag)
+    public IsometricBlock GetBlockCurrent(IsoVector Pos, params string[] Tag)
     {
         if (Tag.Length > 0)
         {
@@ -190,7 +192,7 @@ public class IsometricDataWorld
         return null;
     }
 
-    public List<IsometricBlock> GetWorldBlockCurrentAll(IsoVector Pos, params string[] Tag)
+    public List<IsometricBlock> GetBlockCurrentAll(IsoVector Pos, params string[] Tag)
     {
         List<IsometricBlock> List = new List<IsometricBlock>();
 
@@ -231,7 +233,7 @@ public class IsometricDataWorld
         return List;
     }
 
-    public List<IsometricBlock> GetWorldBlockCurrentAll(string Tag)
+    public List<IsometricBlock> GetBlockCurrentAll(string Tag)
     {
         foreach (var Check in m_worldTag)
         {
@@ -246,7 +248,7 @@ public class IsometricDataWorld
 
     #region Block Remove
 
-    public void SetWorldBlockRemovePrimary(IsoVector Pos, float Delay = 0)
+    public void SetBlockRemovePrimary(IsoVector Pos, float Delay = 0)
     {
         //World
         int IndexPosH = GetWorldIndexPosH(Pos.Fixed.HInt);
@@ -288,7 +290,7 @@ public class IsometricDataWorld
         }
     }
 
-    public void SetWorldBlockRemoveInstant(IsometricBlock Block, float Delay)
+    public void SetBlockRemoveInstant(IsometricBlock Block, float Delay)
     {
         if (!Block.Free)
         {
@@ -362,7 +364,7 @@ public class IsometricDataWorld
         else
             GameObject.Destroy(BlockStore);
 
-        onWorldCreate?.Invoke();
+        onCreate?.Invoke();
     }
 
     public void SetWorldReadBlock(IsometricBlock Block)
@@ -468,7 +470,7 @@ public class IsometricDataWorld
             }
         }
 
-        onWorldRemove?.Invoke();
+        onRemove?.Invoke();
     }
 
     #endregion
@@ -510,6 +512,52 @@ public class IsometricDataWorld
     }
 
     #endregion
+
+    #endregion
+
+    #region ======================================================================== Editor
+
+    //Required "IsoBlockRenderer.cs" component for each Block!
+
+    public bool SetEditorMask(IsoVector Pos, Color Mask, Color UnMask, Color Centre)
+    {
+        bool CentreFound = false;
+        for (int i = 0; i < m_worldPosH.Count; i++)
+            for (int j = 0; j < m_worldPosH[i].Block.Count; j++)
+            {
+                IsometricRenderer BlockSprite = m_worldPosH[i].Block[j].GetComponent<IsometricRenderer>();
+                if (BlockSprite == null)
+                    continue;
+
+                if (m_worldPosH[i].Block[j].Pos == Pos)
+                {
+                    CentreFound = true;
+                    BlockSprite.SetSpriteColor(Centre, 1f);
+                }
+                else
+                if (m_worldPosH[i].Block[j].Pos.X == Pos.X || m_worldPosH[i].Block[j].Pos.Y == Pos.Y)
+                    BlockSprite.SetSpriteColor(Mask, 1f);
+                else
+                    BlockSprite.SetSpriteColor(UnMask, 1f);
+            }
+        return CentreFound;
+    }
+
+    public void SetEditorHidden(int FromH, float UnMask)
+    {
+        for (int i = 0; i < m_worldPosH.Count; i++)
+            for (int j = 0; j < m_worldPosH[i].Block.Count; j++)
+            {
+                IsometricRenderer BlockSprite = m_worldPosH[i].Block[j].GetComponent<IsometricRenderer>();
+                if (BlockSprite == null)
+                    continue;
+
+                if (m_worldPosH[i].Block[j].Pos.H > FromH)
+                    BlockSprite.SetSpriteAlpha(UnMask);
+                else
+                    BlockSprite.SetSpriteAlpha(1f);
+            }
+    }
 
     #endregion
 }

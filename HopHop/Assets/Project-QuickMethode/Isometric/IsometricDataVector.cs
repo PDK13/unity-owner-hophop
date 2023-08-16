@@ -68,59 +68,59 @@ public struct IsoVector : IEquatable<IsoVector>
         return new Vector3(Pos.X, Pos.Y, Pos.H);
     }
 
-    public static IsoVector GetDir(IsoDir Dir, IsometricManager.RotateType Rotate = IsometricManager.RotateType._0)
+    public static IsoVector GetDir(IsoDir Dir, IsometricRotateType Rotate = IsometricRotateType._0)
     {
         switch (Dir)
         {
             case IsoDir.Up:
                 switch (Rotate)
                 {
-                    case IsometricManager.RotateType._0:
+                    case IsometricRotateType._0:
                         return Up;
-                    case IsometricManager.RotateType._90:
+                    case IsometricRotateType._90:
                         return Left;
-                    case IsometricManager.RotateType._180:
+                    case IsometricRotateType._180:
                         return Down;
-                    case IsometricManager.RotateType._270:
+                    case IsometricRotateType._270:
                         return Right;
                 }
                 break;
             case IsoDir.Down:
                 switch (Rotate)
                 {
-                    case IsometricManager.RotateType._0:
+                    case IsometricRotateType._0:
                         return Down;
-                    case IsometricManager.RotateType._90:
+                    case IsometricRotateType._90:
                         return Right;
-                    case IsometricManager.RotateType._180:
+                    case IsometricRotateType._180:
                         return Up;
-                    case IsometricManager.RotateType._270:
+                    case IsometricRotateType._270:
                         return Left;
                 }
                 break;
             case IsoDir.Left:
                 switch (Rotate)
                 {
-                    case IsometricManager.RotateType._0:
+                    case IsometricRotateType._0:
                         return Left;
-                    case IsometricManager.RotateType._90:
+                    case IsometricRotateType._90:
                         return Down;
-                    case IsometricManager.RotateType._180:
+                    case IsometricRotateType._180:
                         return Right;
-                    case IsometricManager.RotateType._270:
+                    case IsometricRotateType._270:
                         return Up;
                 }
                 break;
             case IsoDir.Right:
                 switch (Rotate)
                 {
-                    case IsometricManager.RotateType._0:
+                    case IsometricRotateType._0:
                         return Right;
-                    case IsometricManager.RotateType._90:
+                    case IsometricRotateType._90:
                         return Up;
-                    case IsometricManager.RotateType._180:
+                    case IsometricRotateType._180:
                         return Left;
-                    case IsometricManager.RotateType._270:
+                    case IsometricRotateType._270:
                         return Down;
                 }
                 break;

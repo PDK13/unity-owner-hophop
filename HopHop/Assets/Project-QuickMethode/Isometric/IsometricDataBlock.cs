@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
 
-public class IsoDataBlock
+public class IsometricDataBlock
 {
     public IsoVector PosPrimary;
     public string Name;
-    public IsoDataBlockSingle Data = new IsoDataBlockSingle();
+    public IsometricDataBlockSingle Data = new IsometricDataBlockSingle();
 
-    public IsoDataBlock(IsoVector Pos, string Name, IsoDataBlockSingle Data)
+    public IsometricDataBlock(IsoVector Pos, string Name, IsometricDataBlockSingle Data)
     {
         this.PosPrimary = Pos;
         this.Name = Name;
@@ -16,13 +16,13 @@ public class IsoDataBlock
 }
 
 [Serializable]
-public class IsoDataBlockSingle
+public class IsometricDataBlockSingle
 {
-    public IsoDataBlockMove MoveData = new IsoDataBlockMove();
+    public IsometricDataBlockMove MoveData = new IsometricDataBlockMove();
     public IsometricDataFollow FollowData = new IsometricDataFollow();
-    public IsoDataBlockAction ActionData = new IsoDataBlockAction();
-    public IsoDataBlockEvent EventData = new IsoDataBlockEvent();
-    public IsoDataBlockTeleport TeleportData = new IsoDataBlockTeleport();
+    public IsometricDataBlockAction ActionData = new IsometricDataBlockAction();
+    public IsometricDataBlockEvent EventData = new IsometricDataBlockEvent();
+    public IsometricDataBlockTeleport TeleportData = new IsometricDataBlockTeleport();
 }
 
 public enum DataBlockType

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class IsoDataBlockAction
+public class IsometricDataBlockAction
 {
     public string Key = "";
     public DataBlockType Type = DataBlockType.Forward;
@@ -17,13 +17,13 @@ public class IsoDataBlockAction
     [HideInInspector]
     public int Quantity = 1;
 
-    public List<IsoDataBlockActionSingle> Data
+    public List<IsometricDataBlockActionSingle> Data
     {
         get
         {
-            List<IsoDataBlockActionSingle> Data = new List<IsoDataBlockActionSingle>();
+            List<IsometricDataBlockActionSingle> Data = new List<IsometricDataBlockActionSingle>();
             for (int i = 0; i < Action.Count; i++)
-                Data.Add(new IsoDataBlockActionSingle(Action[i], (Action.Count == Time.Count ? Time[i] : 1)));
+                Data.Add(new IsometricDataBlockActionSingle(Action[i], (Action.Count == Time.Count ? Time[i] : 1)));
             return Data;
         }
     }
@@ -36,7 +36,7 @@ public class IsoDataBlockAction
         Time = new List<int>();
     }
 
-    public void SetDataAdd(IsoDataBlockActionSingle DataSingle)
+    public void SetDataAdd(IsometricDataBlockActionSingle DataSingle)
     {
         if (DataSingle == null)
             return;
@@ -49,7 +49,7 @@ public class IsoDataBlockAction
 }
 
 [Serializable]
-public class IsoDataBlockActionSingle
+public class IsometricDataBlockActionSingle
 {
     public const char KEY_VALUE_ENCYPT = '|';
 
@@ -58,18 +58,18 @@ public class IsoDataBlockActionSingle
 
     public string Encypt => QEncypt.GetEncypt(KEY_VALUE_ENCYPT, Time.ToString(), Action);
 
-    public IsoDataBlockActionSingle(string Action, int Time)
+    public IsometricDataBlockActionSingle(string Action, int Time)
     {
         this.Action = Action;
         this.Time = Time;
     }
 
-    public static IsoDataBlockActionSingle GetDencypt(string Value)
+    public static IsometricDataBlockActionSingle GetDencypt(string Value)
     {
         if (Value == "")
             return null;
         //
         List<string> DataString = QEncypt.GetDencyptString(KEY_VALUE_ENCYPT, Value);
-        return new IsoDataBlockActionSingle(DataString[1], int.Parse(DataString[0]));
+        return new IsometricDataBlockActionSingle(DataString[1], int.Parse(DataString[0]));
     }
 }

@@ -3,12 +3,12 @@ using System;
 using System.Collections.Generic;
 
 [Serializable]
-public class IsoDataBlockEvent
+public class IsometricDataBlockEvent
 {
     public string Key = "";
-    public List<IsoDataBlockEventSingle> Data = new List<IsoDataBlockEventSingle>();
+    public List<IsometricDataBlockEventSingle> Data = new List<IsometricDataBlockEventSingle>();
 
-    public void SetDataAdd(IsoDataBlockEventSingle DataSingle)
+    public void SetDataAdd(IsometricDataBlockEventSingle DataSingle)
     {
         if (DataSingle == null)
             return;
@@ -20,7 +20,7 @@ public class IsoDataBlockEvent
 }
 
 [Serializable]
-public class IsoDataBlockEventSingle
+public class IsometricDataBlockEventSingle
 {
     public const char KEY_VALUE_ENCYPT = '|';
 
@@ -29,18 +29,18 @@ public class IsoDataBlockEventSingle
 
     public string Encypt => QEncypt.GetEncypt(KEY_VALUE_ENCYPT, Name, Value);
 
-    public IsoDataBlockEventSingle(string Name, string Value)
+    public IsometricDataBlockEventSingle(string Name, string Value)
     {
         this.Name = Name;
         this.Value = Value;
     }
 
-    public static IsoDataBlockEventSingle GetDencypt(string Value)
+    public static IsometricDataBlockEventSingle GetDencypt(string Value)
     {
         if (Value == "")
             return null;
         //
         List<string> DataString = QEncypt.GetDencyptString(KEY_VALUE_ENCYPT, Value);
-        return new IsoDataBlockEventSingle(DataString[0], DataString[1]);
+        return new IsometricDataBlockEventSingle(DataString[0], DataString[1]);
     }
 }

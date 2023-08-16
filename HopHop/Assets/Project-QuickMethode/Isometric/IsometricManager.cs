@@ -3,17 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static IsometricManager;
 
 public class IsometricManager : MonoBehaviour
 {
-    #region Enum
-
-    public enum RendererType { XY, H, None, }
-
-    public enum RotateType { _0, _90, _180, _270, }
-
-    #endregion
-
     #region Varible: Game Config
 
     [SerializeField] private IsometricConfig m_config;
@@ -24,13 +17,7 @@ public class IsometricManager : MonoBehaviour
 
     #region Varible: World Manager
 
-    [Space]
-    [SerializeField] private string m_name = "";
-    [SerializeField] private IsoDataScene m_scene = new IsoDataScene();
-
-    public string WorldName => m_name;
-    public IsoDataScene Scene => m_scene;
-
+    public IsometricGameData GameData;
     public IsometricDataWorld WorldData;
     public IsometricDataList BlockList;
 
@@ -38,6 +25,7 @@ public class IsometricManager : MonoBehaviour
 
     public void SetInit()
     {
+        GameData = new IsometricGameData();
         WorldData = new IsometricDataWorld(this);
         BlockList = new IsometricDataList();
     }
@@ -59,13 +47,13 @@ public class IsometricManager : MonoBehaviour
     {
         WorldData.SetWorldOrder();
         //
-        List<IsoDataBlock> WorldBlocks = new List<IsoDataBlock>();
+        List<IsometricDataBlock> WorldBlocks = new List<IsometricDataBlock>();
         for (int i = 0; i < WorldData.m_worldPosH.Count; i++)
             for (int j = 0; j < WorldData.m_worldPosH[i].Block.Count; j++)
-                WorldBlocks.Add(new IsoDataBlock(WorldData.m_worldPosH[i].Block[j].PosPrimary, WorldData.m_worldPosH[i].Block[j].Name, WorldData.m_worldPosH[i].Block[j].Data));
+                WorldBlocks.Add(new IsometricDataBlock(WorldData.m_worldPosH[i].Block[j].PosPrimary, WorldData.m_worldPosH[i].Block[j].Name, WorldData.m_worldPosH[i].Block[j].Data));
         //
         FileIO.SetWriteAdd("[WORLD NAME]");
-        FileIO.SetWriteAdd((WorldName != "") ? WorldName : "...");
+        FileIO.SetWriteAdd((GameData.Name != "") ? GameData.Name : "...");
         //
         FileIO.SetWriteAdd("[WORLD BLOCK]");
         FileIO.SetWriteAdd(WorldBlocks.Count);
@@ -134,7 +122,7 @@ public class IsometricManager : MonoBehaviour
         WorldData.SetWorldRemove(true);
         //
         FileIO.GetReadAuto();
-        m_name = FileIO.GetReadAutoString();
+        GameData.Name = FileIO.GetReadAutoString();
         //
         FileIO.GetReadAuto();
         int BlockCount = FileIO.GetReadAutoInt();
@@ -144,99 +132,73 @@ public class IsometricManager : MonoBehaviour
             IsoVector PosPrimary = IsoVector.GetDencypt(FileIO.GetReadAutoString());
             string Name = FileIO.GetReadAutoString();
             //
-            IsoDataBlockSingle Data = new IsoDataBlockSingle();
+            IsometricDataBlockSingle Data = new IsometricDataBlockSingle();
             //
             FileIO.GetReadAuto();
-            Data.MoveData = new IsoDataBlockMove();
+            Data.MoveData = new IsometricDataBlockMove();
             Data.MoveData.Key = FileIO.GetReadAutoString();
             Data.MoveData.Type = FileIO.GetReadAutoEnum<DataBlockType>();
             Data.MoveData.SetDataNew();
             int MoveCount = FileIO.GetReadAutoInt();
             for (int DataIndex = 0; DataIndex < MoveCount; DataIndex++)
-                Data.MoveData.SetDataAdd(IsoDataBlockMoveSingle.GetDencypt(FileIO.GetReadAutoString()));
+                Data.MoveData.SetDataAdd(IsometricDataBlockMoveSingle.GetDencypt(FileIO.GetReadAutoString()));
             //
             FileIO.GetReadAuto();
             Data.FollowData.Key = FileIO.GetReadAutoString();
             Data.FollowData.KeyFollow = FileIO.GetReadAutoString();
 
             FileIO.GetReadAuto();
-            Data.ActionData = new IsoDataBlockAction();
+            Data.ActionData = new IsometricDataBlockAction();
             Data.ActionData.Key = FileIO.GetReadAutoString();
             Data.ActionData.Type = FileIO.GetReadAutoEnum<DataBlockType>();
             Data.ActionData.SetDataNew();
             int ActionCount = FileIO.GetReadAutoInt();
             for (int DataIndex = 0; DataIndex < ActionCount; DataIndex++)
-                Data.ActionData.SetDataAdd(IsoDataBlockActionSingle.GetDencypt(FileIO.GetReadAutoString()));
+                Data.ActionData.SetDataAdd(IsometricDataBlockActionSingle.GetDencypt(FileIO.GetReadAutoString()));
             //
             FileIO.GetReadAuto();
-            Data.EventData = new IsoDataBlockEvent();
+            Data.EventData = new IsometricDataBlockEvent();
             Data.EventData.Key = FileIO.GetReadAutoString();
-            Data.EventData.Data = new List<IsoDataBlockEventSingle>();
+            Data.EventData.Data = new List<IsometricDataBlockEventSingle>();
             int EventCount = FileIO.GetReadAutoInt();
             for (int DataIndex = 0; DataIndex < EventCount; DataIndex++)
-                Data.EventData.SetDataAdd(IsoDataBlockEventSingle.GetDencypt(FileIO.GetReadAutoString()));
+                Data.EventData.SetDataAdd(IsometricDataBlockEventSingle.GetDencypt(FileIO.GetReadAutoString()));
             //
             FileIO.GetReadAuto();
-            Data.TeleportData = new IsoDataBlockTeleport();
+            Data.TeleportData = new IsometricDataBlockTeleport();
             Data.TeleportData.Key = FileIO.GetReadAutoString();
-            Data.TeleportData.Data = new List<IsoDataBlockTeleportSingle>();
+            Data.TeleportData.Data = new List<IsometricDataBlockTeleportSingle>();
             int TeleportCount = FileIO.GetReadAutoInt();
             for (int DataIndex = 0; DataIndex < TeleportCount; DataIndex++)
-                Data.TeleportData.SetDataAdd(IsoDataBlockTeleportSingle.GetDencypt(FileIO.GetReadAutoString()));
+                Data.TeleportData.SetDataAdd(IsometricDataBlockTeleportSingle.GetDencypt(FileIO.GetReadAutoString()));
             //
-            WorldData.SetWorldBlockCreate(PosPrimary, BlockList.GetList(Name), Data);
+            WorldData.SetBlockCreate(PosPrimary, BlockList.GetList(Name), Data);
         }
         //
-        WorldData.onWorldCreate?.Invoke();
+        WorldData.onCreate?.Invoke();
     }
 
     #endregion
-
-    #endregion
-
-    #region ======================================================================== Editor
-
-    //Required "IsoBlockRenderer.cs" component for each Block!
-
-    public bool SetEditorMask(IsoVector Pos, Color Mask, Color UnMask, Color Centre)
-    {
-        bool CentreFound = false;
-        for (int i = 0; i < WorldData.m_worldPosH.Count; i++)
-            for (int j = 0; j < WorldData.m_worldPosH[i].Block.Count; j++)
-            {
-                IsometricRenderer BlockSprite = WorldData.m_worldPosH[i].Block[j].GetComponent<IsometricRenderer>();
-                if (BlockSprite == null)
-                    continue;
-
-                if (WorldData.m_worldPosH[i].Block[j].Pos == Pos)
-                {
-                    CentreFound = true;
-                    BlockSprite.SetSpriteColor(Centre, 1f);
-                }
-                else
-                if (WorldData.m_worldPosH[i].Block[j].Pos.X == Pos.X || WorldData.m_worldPosH[i].Block[j].Pos.Y == Pos.Y)
-                    BlockSprite.SetSpriteColor(Mask, 1f);
-                else
-                    BlockSprite.SetSpriteColor(UnMask, 1f);
-            }
-        return CentreFound;
-    }
-
-    public void SetEditorHidden(int FromH, float UnMask)
-    {
-        for (int i = 0; i < WorldData.m_worldPosH.Count; i++)
-            for (int j = 0; j < WorldData.m_worldPosH[i].Block.Count; j++)
-            {
-                IsometricRenderer BlockSprite = WorldData.m_worldPosH[i].Block[j].GetComponent<IsometricRenderer>();
-                if (BlockSprite == null)
-                    continue;
-
-                if (WorldData.m_worldPosH[i].Block[j].Pos.H > FromH)
-                    BlockSprite.SetSpriteAlpha(UnMask);
-                else
-                    BlockSprite.SetSpriteAlpha(1f);
-            }
-    }
 
     #endregion
 }
+
+[Serializable]
+public class IsometricGameData
+{
+    public string Name = "";
+    public IsometricGameDataScene Scene = new IsometricGameDataScene();
+}
+
+[Serializable]
+public class IsometricGameDataScene
+{
+    public IsometricRendererType Renderer = IsometricRendererType.H;
+    public IsometricRotateType Rotate = IsometricRotateType._0;
+    public IsoVector Centre = new IsoVector();
+    public IsoVector Scale = new IsoVector(1f, 1f, 1f);
+}
+
+public enum IsometricRendererType { XY, H, None, }
+
+public enum IsometricRotateType { _0, _90, _180, _270, }

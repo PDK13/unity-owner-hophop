@@ -26,18 +26,18 @@ public class IsometricBlock : MonoBehaviour
     #region Varible: Data Manager
 
     [Header("Data")]
-    [SerializeField] private IsoDataBlockMove MoveData = new IsoDataBlockMove();
+    [SerializeField] private IsometricDataBlockMove MoveData = new IsometricDataBlockMove();
     [SerializeField] private IsometricDataFollow FollowData = new IsometricDataFollow();
-    [SerializeField] private IsoDataBlockAction ActionData = new IsoDataBlockAction();
-    [SerializeField] private IsoDataBlockEvent EventData = new IsoDataBlockEvent();
-    [SerializeField] private IsoDataBlockTeleport TeleportData = new IsoDataBlockTeleport();
+    [SerializeField] private IsometricDataBlockAction ActionData = new IsometricDataBlockAction();
+    [SerializeField] private IsometricDataBlockEvent EventData = new IsometricDataBlockEvent();
+    [SerializeField] private IsometricDataBlockTeleport TeleportData = new IsometricDataBlockTeleport();
 
     #endregion
 
     #region Varible: Scene Manager
 
     [Header("Scene")]
-    [SerializeField] private IsoDataScene m_scene = new IsoDataScene();
+    [SerializeField] private IsometricGameDataScene m_scene = new IsometricGameDataScene();
     [SerializeField] private Vector3 m_centre = new Vector3();
 
     #endregion
@@ -71,7 +71,7 @@ public class IsometricBlock : MonoBehaviour
         set
         {
             m_worldManager = value;
-            m_scene = value.Scene;
+            m_scene = value.GameData.Scene;
         }
     }
 
@@ -87,11 +87,11 @@ public class IsometricBlock : MonoBehaviour
 
     #region ================================================================== Data Manager
 
-    public IsoDataBlockSingle Data 
+    public IsometricDataBlockSingle Data 
     {
         get 
         {
-            IsoDataBlockSingle Data = new IsoDataBlockSingle();
+            IsometricDataBlockSingle Data = new IsometricDataBlockSingle();
             Data.MoveData = MoveData;
             Data.FollowData = FollowData;
             Data.ActionData = ActionData;
@@ -120,16 +120,16 @@ public class IsometricBlock : MonoBehaviour
         //
         switch (m_scene.Rotate)
         {
-            case IsometricManager.RotateType._0:
+            case IsometricRotateType._0:
                 Angle = 0 * Mathf.Deg2Rad;
                 break;
-            case IsometricManager.RotateType._90:
+            case IsometricRotateType._90:
                 Angle = 90f * Mathf.Deg2Rad;
                 break;
-            case IsometricManager.RotateType._180:
+            case IsometricRotateType._180:
                 Angle = 180f * Mathf.Deg2Rad;
                 break;
-            case IsometricManager.RotateType._270:
+            case IsometricRotateType._270:
                 Angle = 270f * Mathf.Deg2Rad;
                 break;
         }
@@ -143,7 +143,7 @@ public class IsometricBlock : MonoBehaviour
         //
         switch (m_scene.Renderer)
         {
-            case IsometricManager.RendererType.H:
+            case IsometricRendererType.H:
                 PosValueScale.X *= m_scene.Scale.X * 0.5f * -1;
                 PosValueScale.Y *= m_scene.Scale.Y * 0.5f;
                 PosValueScale.H *= m_scene.Scale.H * 0.5f;
@@ -153,7 +153,7 @@ public class IsometricBlock : MonoBehaviour
                 PosTransform.z = PosValue.X + PosValue.Y - PosValue.H;
                 //
                 break;
-            case IsometricManager.RendererType.XY:
+            case IsometricRendererType.XY:
                 PosValueScale.X *= m_scene.Scale.X * 0.5f * -1;
                 PosValueScale.Y *= m_scene.Scale.Y * 0.5f;
                 PosValueScale.H *= m_scene.Scale.H * 0.5f;
@@ -163,7 +163,7 @@ public class IsometricBlock : MonoBehaviour
                 PosTransform.z = (PosValue.Y + PosValue.X) - PosValue.H * 2;
                 //
                 break;
-            case IsometricManager.RendererType.None: //Testing
+            case IsometricRendererType.None: //Testing
                 PosValueScale.X *= m_scene.Scale.X * 0.5f * -1;
                 PosValueScale.Y *= m_scene.Scale.Y * 0.5f;
                 PosValueScale.H *= m_scene.Scale.H * 0.5f;
@@ -181,7 +181,7 @@ public class IsometricBlock : MonoBehaviour
     private void SetIsoTransform()
     {
         if (WorldManager != null)
-            m_scene = WorldManager.Scene;
+            m_scene = WorldManager.GameData.Scene;
 
         Vector3 PosTransform = GetIsoTransform(m_pos);
 
@@ -196,12 +196,12 @@ public class IsometricBlock : MonoBehaviour
 
     public List<IsometricBlock> GetCheck(IsoVector Dir, int Length)
     {
-        return WorldManager.WorldData.GetWorldBlockCurrentAll(Pos.Fixed + Dir * Length);
+        return WorldManager.WorldData.GetBlockCurrentAll(Pos.Fixed + Dir * Length);
     }
 
     public List<IsometricBlock> GetCheck(IsoVector Dir, int Length, params string[] TagFind)
     {
-        return WorldManager.WorldData.GetWorldBlockCurrentAll(Pos.Fixed + Dir * Length, TagFind);
+        return WorldManager.WorldData.GetBlockCurrentAll(Pos.Fixed + Dir * Length, TagFind);
     }
 
     #endregion

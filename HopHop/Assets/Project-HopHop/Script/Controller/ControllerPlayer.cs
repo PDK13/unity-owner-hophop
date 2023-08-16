@@ -101,7 +101,7 @@ public class ControllerPlayer : MonoBehaviour
         int Length = 1; //Follow Character (!)
         //
         //Check if there is a Block ahead?!
-        IsometricBlock Block = m_block.WorldManager.WorldData.GetWorldBlockCurrent(m_block.Pos + Dir * Length);
+        IsometricBlock Block = m_block.WorldManager.WorldData.GetBlockCurrent(m_block.Pos + Dir * Length);
         if (Block != null)
         {
             if (Block.Tag.Contains(GameManager.GameConfig.Tag.Bullet))
