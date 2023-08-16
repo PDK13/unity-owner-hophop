@@ -39,7 +39,8 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        m_isometricManager.SetList(m_isometricConfig);
+        m_isometricManager.SetInit();
+        m_isometricManager.BlockList.SetList(m_isometricConfig);
 
         SetWorldLoad(m_gameConfig.Level[0].Level[0]);
     }
@@ -51,7 +52,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator ISetWorldLoad(TextAsset WorldData)
     {
-        m_isometricManager.SetWorldRemove(m_isometricManager.transform);
+        m_isometricManager.WorldData.SetWorldRemove(m_isometricManager.transform);
 
         yield return null;
 

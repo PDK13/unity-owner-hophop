@@ -8,7 +8,7 @@ using UnityEngine;
 public class IsoDataBlockAction
 {
     public string Key = "";
-    public IsoDataBlock.DataBlockType Type = IsoDataBlock.DataBlockType.Forward;
+    public DataBlockType Type = DataBlockType.Forward;
     public List<string> Action = new List<string>();
     public List<int> Time = new List<int>();
 

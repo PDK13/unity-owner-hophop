@@ -136,17 +136,17 @@ public class ControllerObject : MonoBehaviour
         {
             m_dataMove.Index += m_dataMove.Quantity;
             //
-            if (m_dataMove.Type == IsoDataBlock.DataBlockType.Forward && m_dataMove.Index > m_dataMove.DataCount - 1)
+            if (m_dataMove.Type == DataBlockType.Forward && m_dataMove.Index > m_dataMove.DataCount - 1)
             {
                 //End Here!!
             }
             else
-            if (m_dataMove.Type == IsoDataBlock.DataBlockType.Loop && m_dataMove.Index > m_dataMove.DataCount - 1)
+            if (m_dataMove.Type == DataBlockType.Loop && m_dataMove.Index > m_dataMove.DataCount - 1)
             {
                 m_dataMove.Index = 0;
             }
             else
-            if (m_dataMove.Type == IsoDataBlock.DataBlockType.Revert && (m_dataMove.Index < 0 || m_dataMove.Index > m_dataMove.DataCount - 1))
+            if (m_dataMove.Type == DataBlockType.Revert && (m_dataMove.Index < 0 || m_dataMove.Index > m_dataMove.DataCount - 1))
             {
                 m_dataMove.Quantity *= -1;
                 m_dataMove.Index += m_dataMove.Quantity;
@@ -188,7 +188,7 @@ public class ControllerObject : MonoBehaviour
         if (Dir == IsoVector.Top || Dir == IsoVector.Bot)
             return;
         //
-        IsometricBlock BlockPush = m_block.WorldManager.GetWorldBlockCurrent(m_block.Pos + Dir);
+        IsometricBlock BlockPush = m_block.WorldManager.WorldData.GetWorldBlockCurrent(m_block.Pos + Dir);
         if (BlockPush != null)
         {
             ControllerBody BodyPush = BlockPush.GetComponent<ControllerBody>();
@@ -202,7 +202,7 @@ public class ControllerObject : MonoBehaviour
     private void SetMoveTop(IsoVector Dir)
     {
         //Top!!
-        IsometricBlock BlockTop = m_block.WorldManager.GetWorldBlockCurrent(m_block.Pos + IsoVector.Top);
+        IsometricBlock BlockTop = m_block.WorldManager.WorldData.GetWorldBlockCurrent(m_block.Pos + IsoVector.Top);
         if (BlockTop != null)
         {
             ControllerBody BodyTop = BlockTop.GetComponent<ControllerBody>();

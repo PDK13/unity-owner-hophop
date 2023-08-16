@@ -72,8 +72,9 @@ public class IsometricTool : EditorWindow
     {
         if (m_manager != null)
         {
-            m_manager.SetList(m_manager.Config);
-            m_manager.SetWorldRead(m_manager.transform);
+            m_manager.SetInit();
+            m_manager.BlockList.SetList(m_manager.Config);
+            m_manager.WorldData.SetWorldRead(m_manager.transform);
         }
     }
 
@@ -93,7 +94,7 @@ public class IsometricTool : EditorWindow
 
         SetGUIGroupCurson();
 
-        if (m_manager.BlockList.Count == 0)
+        if (m_manager.BlockList.BlockList.Count == 0)
             return;
 
         QEditor.SetSpace(5f);
@@ -183,7 +184,7 @@ public class IsometricTool : EditorWindow
             QEditor.SetHorizontalEnd();
         }
 
-        if (m_manager.BlockList.Count > 0)
+        if (m_manager.BlockList.BlockList.Count > 0)
         {
             QEditor.SetHorizontalBegin();
             SetGUIButtonFocus(0.25f);
@@ -202,7 +203,7 @@ public class IsometricTool : EditorWindow
     {
         if (QEditor.SetButton("FOCUS", QEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this, WidthPercent)))
         {
-            IsometricBlock BlockFocus = m_manager.GetWorldBlockPrimary(m_curson.Pos);
+            IsometricBlock BlockFocus = m_manager.WorldData.GetWorldBlockPrimary(m_curson.Pos);
             if (BlockFocus != null)
             {
                 QGameObject.SetFocus(BlockFocus.gameObject);
@@ -263,11 +264,11 @@ public class IsometricTool : EditorWindow
     {
         if (m_curson == null)
         {
-            Transform Curson = m_manager.transform.Find(IsometricManager.CURSON_NAME);
+            Transform Curson = m_manager.transform.Find(IsometricDataWorld.CURSON_NAME);
 
             if (Curson == null)
             {
-                GameObject CursonClone = QGameObject.SetCreate(IsometricManager.CURSON_NAME, m_manager.transform);
+                GameObject CursonClone = QGameObject.SetCreate(IsometricDataWorld.CURSON_NAME, m_manager.transform);
                 m_curson = CursonClone.AddComponent<IsometricBlock>();
             }
             else
@@ -284,10 +285,10 @@ public class IsometricTool : EditorWindow
 
         if (m_curson != null)
         {
-            if (m_manager.BlockList.Count > 0)
+            if (m_manager.BlockList.BlockList.Count > 0)
             {
-                m_curson.GetComponent<SpriteRenderer>().sprite = m_manager.BlockList[m_indexTag].Block[m_indexName].GetComponent<SpriteRenderer>().sprite;
-                m_curson.GetComponent<SpriteRenderer>().color = m_manager.BlockList[m_indexTag].Block[m_indexName].GetComponent<SpriteRenderer>().color;
+                m_curson.GetComponent<SpriteRenderer>().sprite = m_manager.BlockList.BlockList[m_indexTag].Block[m_indexName].GetComponent<SpriteRenderer>().sprite;
+                m_curson.GetComponent<SpriteRenderer>().color = m_manager.BlockList.BlockList[m_indexTag].Block[m_indexName].GetComponent<SpriteRenderer>().color;
             }
         }
 
@@ -350,11 +351,11 @@ public class IsometricTool : EditorWindow
                             break;
                         //Block Curson!!
                         case KeyCode.Home:
-                            m_manager.SetWorldBlockCreate(m_curson.Pos, m_manager.BlockList[m_indexTag].Block[m_indexName].gameObject);
+                            m_manager.WorldData.SetWorldBlockCreate(m_curson.Pos, m_manager.BlockList.BlockList[m_indexTag].Block[m_indexName].gameObject);
                             m_event.Use();
                             break;
                         case KeyCode.End:
-                            m_manager.SetWorldBlockRemovePrimary(m_curson.Pos);
+                            m_manager.WorldData.SetWorldBlockRemovePrimary(m_curson.Pos);
                             m_event.Use();
                             break;
                     }
@@ -368,7 +369,7 @@ public class IsometricTool : EditorWindow
     {
         if (m_check)
         {
-            IsometricBlock BlockFocus = m_manager.GetWorldBlockPrimary(m_curson.Pos);
+            IsometricBlock BlockFocus = m_manager.WorldData.GetWorldBlockPrimary(m_curson.Pos);
             if (BlockFocus != null)
                 QGameObject.SetFocus(BlockFocus.gameObject);
         }
@@ -416,8 +417,8 @@ public class IsometricTool : EditorWindow
             m_indexTag = 0;
             m_indexName = 0;
             //
-            m_manager.SetList(m_manager.Config);
-            m_manager.SetWorldRead(m_manager.transform);
+            m_manager.BlockList.SetList(m_manager.Config);
+            m_manager.WorldData.SetWorldRead(m_manager.transform);
             //
             SetCursonMaskXY();
             SetCursonHiddenH();
@@ -426,7 +427,7 @@ public class IsometricTool : EditorWindow
         }
         if (QEditor.SetButton("Clear", QEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this, 1f / 2)))
         {
-            m_manager.SetWorldRemove();
+            m_manager.WorldData.SetWorldRemove();
         }
         QEditor.SetHorizontalEnd();
         QEditor.SetHorizontalBegin();
@@ -452,7 +453,7 @@ public class IsometricTool : EditorWindow
                 m_indexTag = 0;
                 m_indexName = 0;
 
-                m_manager.SetList(m_manager.Config);
+                m_manager.BlockList.SetList(m_manager.Config);
 
                 m_pathOpen = Path.Path;
                 m_manager.SetFileRead(QPath.PathType.None, Path.Path);
@@ -471,9 +472,9 @@ public class IsometricTool : EditorWindow
     {
         QEditor.SetLabel("TAG", QEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this));
         m_scrollTag = QEditor.SetScrollViewBegin(m_scrollTag);
-        for (int i = 0; i < m_manager.BlockList.Count; i++)
+        for (int i = 0; i < m_manager.BlockList.BlockList.Count; i++)
         {
-            string Tag = m_manager.BlockList[i].Tag != "" ? m_manager.BlockList[i].Tag : "[...]";
+            string Tag = m_manager.BlockList.BlockList[i].Tag != "" ? m_manager.BlockList.BlockList[i].Tag : "[...]";
             if (m_indexTag == i)
             {
                 if (QEditor.SetButton(Tag, QEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this, 1f, 0f)))
@@ -515,12 +516,12 @@ public class IsometricTool : EditorWindow
         }
         m_scrollBlock = QEditor.SetScrollViewBegin(m_scrollBlock);
         int BlockIndex = 0;
-        while (BlockIndex <= m_manager.BlockList[m_indexTag].Block.Count - 1)
+        while (BlockIndex <= m_manager.BlockList.BlockList[m_indexTag].Block.Count - 1)
         {
             QEditor.SetHorizontalBegin();
             for (int i = 0; i < m_countNameHorizontal; i++)
             {
-                if (BlockIndex > m_manager.BlockList[m_indexTag].Block.Count - 1)
+                if (BlockIndex > m_manager.BlockList.BlockList[m_indexTag].Block.Count - 1)
                     continue;
                 
                 QEditor.SetBackground(m_indexName == BlockIndex ? Color.white : Color.clear);
@@ -539,7 +540,7 @@ public class IsometricTool : EditorWindow
     private bool GetGUIGroupBlockButton(int Index)
     {
         return QEditor.SetButton(
-            m_manager.BlockList[m_indexTag].Block[Index].GetComponent<SpriteRenderer>().sprite,
+            m_manager.BlockList.BlockList[m_indexTag].Block[Index].GetComponent<SpriteRenderer>().sprite,
             QEditorWindow.GetGUILayoutWidth(this, 1f / m_countNameHorizontal),
             QEditorWindow.GetGUILayoutHeightBaseWidth(this, 1f / m_countNameHorizontal));
     }

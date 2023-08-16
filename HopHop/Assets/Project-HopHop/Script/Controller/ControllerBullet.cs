@@ -88,7 +88,7 @@ public class ControllerBullet : MonoBehaviour
         //
         m_turnLengthCurrent++;
         //
-        IsometricBlock BlockAhead = m_block.WorldManager.GetWorldBlockCurrent(m_block.Pos + m_turnDir);
+        IsometricBlock BlockAhead = m_block.WorldManager.WorldData.GetWorldBlockCurrent(m_block.Pos + m_turnDir);
         if (BlockAhead != null)
         {
             if (BlockAhead.Tag.Contains(GameManager.GameConfig.Tag.Player))
@@ -145,7 +145,7 @@ public class ControllerBullet : MonoBehaviour
         GameTurn.Instance.onStepStart -= SetControlStep;
         //
         SetControlAnimation(ANIM_BLOW);
-        m_block.WorldManager.SetWorldBlockRemoveInstant(m_block, DESTROY_DELAY);
+        m_block.WorldManager.WorldData.SetWorldBlockRemoveInstant(m_block, DESTROY_DELAY);
     } //This is touched by other object!!
 
     public void SetStandOn()

@@ -109,17 +109,17 @@ public class ControllerShoot : MonoBehaviour
         if (TurnEnd)
         {
             m_dataAction.Index += m_dataAction.Quantity;
-            if (m_dataAction.Type == IsoDataBlock.DataBlockType.Forward && m_dataAction.Index > m_dataAction.DataCount - 1)
+            if (m_dataAction.Type == DataBlockType.Forward && m_dataAction.Index > m_dataAction.DataCount - 1)
             {
                 //End Here!!
             }
             else
-            if (m_dataAction.Type == IsoDataBlock.DataBlockType.Loop && m_dataAction.Index > m_dataAction.DataCount - 1)
+            if (m_dataAction.Type == DataBlockType.Loop && m_dataAction.Index > m_dataAction.DataCount - 1)
             {
                 m_dataAction.Index = 0;
             }
             else
-            if (m_dataAction.Type == IsoDataBlock.DataBlockType.Revert && (m_dataAction.Index < 0 || m_dataAction.Index > m_dataAction.DataCount - 1))
+            if (m_dataAction.Type == DataBlockType.Revert && (m_dataAction.Index < 0 || m_dataAction.Index > m_dataAction.DataCount - 1))
             {
                 m_dataAction.Quantity *= -1;
                 m_dataAction.Index += m_dataAction.Quantity;
@@ -137,7 +137,7 @@ public class ControllerShoot : MonoBehaviour
 
     private void SetShoot(IsoVector DirSpawm, IsoVector DirMove, int Speed)
     {
-        IsometricBlock Block = m_block.WorldManager.GetWorldBlockCurrent(m_block.Pos + DirSpawm);
+        IsometricBlock Block = m_block.WorldManager.WorldData.GetWorldBlockCurrent(m_block.Pos + DirSpawm);
         if (Block != null)
         {
             if (Block.Tag.Contains(GameManager.GameConfig.Tag.Player))
@@ -149,7 +149,7 @@ public class ControllerShoot : MonoBehaviour
             return;
         }
         //
-        IsometricBlock Bullet = m_block.WorldManager.SetWorldBlockCreate(m_block.Pos + DirSpawm, m_bullet.gameObject);
+        IsometricBlock Bullet = m_block.WorldManager.WorldData.SetWorldBlockCreate(m_block.Pos + DirSpawm, m_bullet.gameObject);
         Bullet.GetComponent<ControllerBullet>().SetInit(DirMove, Speed);
     } //Shoot Bullet!!
 }

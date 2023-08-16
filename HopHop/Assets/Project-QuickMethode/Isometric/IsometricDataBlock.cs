@@ -3,13 +3,6 @@ using System.Collections.Generic;
 
 public class IsoDataBlock
 {
-    public enum DataBlockType
-    {
-        Forward = 0,
-        Loop = 1,
-        Revert = 2,
-    }
-
     public IsoVector PosPrimary;
     public string Name;
     public IsoDataBlockSingle Data = new IsoDataBlockSingle();
@@ -30,4 +23,11 @@ public class IsoDataBlockSingle
     public IsoDataBlockAction ActionData = new IsoDataBlockAction();
     public IsoDataBlockEvent EventData = new IsoDataBlockEvent();
     public IsoDataBlockTeleport TeleportData = new IsoDataBlockTeleport();
+}
+
+public enum DataBlockType
+{
+    Forward = 0,
+    Loop = 1,
+    Revert = 2,
 }
