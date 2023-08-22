@@ -25,11 +25,11 @@ public class IsometricBlock : MonoBehaviour
     #region Varible: Data Manager
 
     [Space]
-    [SerializeField] private IsometricDataBlockMove m_moveData = new IsometricDataBlockMove();
+    [SerializeField] private IsometricDataMove m_moveData = new IsometricDataMove();
     [SerializeField] private IsometricDataFollow m_followData = new IsometricDataFollow();
-    [SerializeField] private IsometricDataBlockAction m_actionData = new IsometricDataBlockAction();
-    [SerializeField] private IsometricDataBlockEvent m_eventData = new IsometricDataBlockEvent();
-    [SerializeField] private IsometricDataBlockTeleport m_teleportData = new IsometricDataBlockTeleport();
+    [SerializeField] private IsometricDataAction m_actionData = new IsometricDataAction();
+    [SerializeField] private IsometricDataEvent m_eventData = new IsometricDataEvent();
+    [SerializeField] private IsometricDataTeleport m_teleportData = new IsometricDataTeleport();
 
     #endregion
 

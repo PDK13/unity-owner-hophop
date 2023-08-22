@@ -5,13 +5,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class IsometricDataBlockAction
+public class IsometricDataAction
 {
-    public string KeyGet = "";
-    public string KeySet = "";
-    public DataBlockType TypeList = DataBlockType.Forward;
-    public List<string> ActionList = new List<string>();
-    public List<int> TimeList = new List<int>();
+    public DataBlockType Type = DataBlockType.Forward;
+    public List<string> Action = new List<string>();
+    public List<int> ActionDuration = new List<int>();
 
     [HideInInspector]
     public int Index = 0;
@@ -23,18 +21,18 @@ public class IsometricDataBlockAction
         get
         {
             List<IsometricDataBlockActionSingle> Data = new List<IsometricDataBlockActionSingle>();
-            for (int i = 0; i < ActionList.Count; i++)
-                Data.Add(new IsometricDataBlockActionSingle(ActionList[i], (ActionList.Count == TimeList.Count ? TimeList[i] : 1)));
+            for (int i = 0; i < Action.Count; i++)
+                Data.Add(new IsometricDataBlockActionSingle(Action[i], (Action.Count == ActionDuration.Count ? ActionDuration[i] : 1)));
             return Data;
         }
     }
 
-    public int DataCount => ActionList.Count;
+    public int DataCount => Action.Count;
 
     public void SetDataNew()
     {
-        ActionList = new List<string>();
-        TimeList = new List<int>();
+        Action = new List<string>();
+        ActionDuration = new List<int>();
     }
 
     public void SetDataAdd(IsometricDataBlockActionSingle DataSingle)
@@ -42,11 +40,11 @@ public class IsometricDataBlockAction
         if (DataSingle == null)
             return;
         //
-        ActionList.Add(DataSingle.Action);
-        TimeList.Add(DataSingle.Time);
+        Action.Add(DataSingle.Action);
+        ActionDuration.Add(DataSingle.Time);
     }
 
-    public bool DataExist => ActionList == null ? false : ActionList.Count == 0 ? false : true;
+    public bool DataExist => Action == null ? false : Action.Count == 0 ? false : true;
 }
 
 [Serializable]

@@ -14,8 +14,8 @@ public class GameEvent
         onKey?.Invoke(Key, State);
     }
 
-    public static void SetFollow(string KeyFollow, IsometricVector Dir)
+    public static void SetFollow(string Identity, IsometricVector Dir)
     {
-        onFollow?.Invoke(KeyFollow, Dir);
+        onFollow?.Invoke(Identity, Dir);
     }
 }

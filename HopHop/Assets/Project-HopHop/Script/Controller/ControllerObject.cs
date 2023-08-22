@@ -7,8 +7,8 @@ public class ControllerObject : MonoBehaviour
 {
     private bool m_turnControl = false;
 
-    private IsometricDataBlockMove m_dataMove;
-    private string m_dataFollow;
+    private IsometricDataMove m_dataMove;
+    private IsometricDataFollow m_dataFollow;
 
     private IsometricVector m_turnDir;
     private int m_turnLength = 0;
@@ -28,23 +28,18 @@ public class ControllerObject : MonoBehaviour
     private void Start()
     {
         m_dataMove = m_block.Data.Move;
+        m_dataFollow = m_block.Data.Follow;
         //
-        if (m_block.Data.Follow.KeySet == GameManager.GameConfig.Event.Follow)
-            m_dataFollow = m_block.Data.Follow.KeyGet;
-        //
-        if (m_dataMove != null)
+        if (m_dataMove.DataExist)
         {
-            if (m_dataMove.DataExist)
-            {
-                GameTurn.SetInit(TurnType.Object, this.gameObject);
-                GameTurn.Instance.onTurn += SetControlTurn;
-                GameTurn.Instance.onStepStart += SetControlStep;
-            }
-            else
-            if (m_dataFollow != null)
-            {
-                GameEvent.onFollow += SetControlFollow;
-            }
+            GameTurn.SetInit(TurnType.Object, this.gameObject);
+            GameTurn.Instance.onTurn += SetControlTurn;
+            GameTurn.Instance.onStepStart += SetControlStep;
+        }
+        //
+        if (m_dataFollow.IdentityGet != "")
+        {
+            GameEvent.onFollow += SetControlFollow;
         }
     }
 
@@ -52,19 +47,16 @@ public class ControllerObject : MonoBehaviour
     {
         StopAllCoroutines();
         //
-        if (m_dataMove != null)
+        if (m_dataMove.DataExist)
         {
-            if (m_dataMove.DataExist)
-            {
-                GameTurn.SetRemove(TurnType.Object, this.gameObject);
-                GameTurn.Instance.onTurn -= SetControlTurn;
-                GameTurn.Instance.onStepStart -= SetControlStep;
-            }
-            else
-            if (m_dataFollow != null)
-            {
-                GameEvent.onFollow -= SetControlFollow;
-            }
+            GameTurn.SetRemove(TurnType.Object, this.gameObject);
+            GameTurn.Instance.onTurn -= SetControlTurn;
+            GameTurn.Instance.onStepStart -= SetControlStep;
+        }
+        //
+        if (m_dataFollow.IdentityGet != "")
+        {
+            GameEvent.onFollow -= SetControlFollow;
         }
     }
 
@@ -92,8 +84,8 @@ public class ControllerObject : MonoBehaviour
     {
         if (m_turnLength == 0)
         {
-            m_turnDir = IsometricVector.GetDir(m_dataMove.DirList[m_dataMove.Index]) * m_dataMove.Quantity;
-            m_turnLength = m_dataMove.LengthList[m_dataMove.Index];
+            m_turnDir = IsometricVector.GetDir(m_dataMove.Dir[m_dataMove.Index]) * m_dataMove.Quantity;
+            m_turnLength = m_dataMove.DirDuration[m_dataMove.Index];
             m_turnLengthCurrent = 0;
         }
         //
@@ -126,7 +118,8 @@ public class ControllerObject : MonoBehaviour
                     GameTurn.SetEndMove(TurnType.Object, this.gameObject); //Follow Object (!)
             });
         //
-        GameEvent.SetFollow(m_dataFollow, m_turnDir);
+        if (m_dataFollow.Identity != "")
+            GameEvent.SetFollow(m_dataFollow.Identity, m_turnDir);
         //
         SetMovePush(m_turnDir);
         //
@@ -136,17 +129,17 @@ public class ControllerObject : MonoBehaviour
         {
             m_dataMove.Index += m_dataMove.Quantity;
             //
-            if (m_dataMove.TypeList == DataBlockType.Forward && m_dataMove.Index > m_dataMove.DataCount - 1)
+            if (m_dataMove.Type == DataBlockType.Forward && m_dataMove.Index > m_dataMove.DataCount - 1)
             {
                 //End Here!!
             }
             else
-            if (m_dataMove.TypeList == DataBlockType.Loop && m_dataMove.Index > m_dataMove.DataCount - 1)
+            if (m_dataMove.Type == DataBlockType.Loop && m_dataMove.Index > m_dataMove.DataCount - 1)
             {
                 m_dataMove.Index = 0;
             }
             else
-            if (m_dataMove.TypeList == DataBlockType.Revert && (m_dataMove.Index < 0 || m_dataMove.Index > m_dataMove.DataCount - 1))
+            if (m_dataMove.Type == DataBlockType.Revert && (m_dataMove.Index < 0 || m_dataMove.Index > m_dataMove.DataCount - 1))
             {
                 m_dataMove.Quantity *= -1;
                 m_dataMove.Index += m_dataMove.Quantity;
@@ -154,9 +147,9 @@ public class ControllerObject : MonoBehaviour
         } 
     }
 
-    private void SetControlFollow(string KeyFollow, IsometricVector Dir)
+    private void SetControlFollow(string Identity, IsometricVector Dir)
     {
-        if (KeyFollow != m_dataFollow)
+        if (Identity != m_dataFollow.IdentityGet)
             return;
         //
         Vector3 MoveDir = IsometricVector.GetVector(Dir);
