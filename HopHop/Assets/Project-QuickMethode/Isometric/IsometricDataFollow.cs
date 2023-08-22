@@ -6,6 +6,6 @@ using UnityEngine;
 [Serializable]
 public class IsometricDataFollow
 {
-    public string Key = "";
-    public string KeyFollow = "";
+    public string KeyGet = "";
+    public string KeySet = "";
 }

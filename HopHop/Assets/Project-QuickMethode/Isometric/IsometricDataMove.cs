@@ -6,10 +6,11 @@ using UnityEngine;
 [Serializable]
 public class IsometricDataBlockMove
 {
-    public string Key = "";
-    public DataBlockType Type = DataBlockType.Forward;
-    public List<IsoDir> Dir = new List<IsoDir>();
-    public List<int> Length = new List<int>();
+    public string KeyGet = "";
+    public string KeySet = "";
+    public DataBlockType TypeList = DataBlockType.Forward;
+    public List<IsoDir> DirList = new List<IsoDir>();
+    public List<int> LengthList = new List<int>();
 
     [HideInInspector]
     public int Index = 0;
@@ -21,18 +22,18 @@ public class IsometricDataBlockMove
         get
         {
             List<IsometricDataBlockMoveSingle> Data = new List<IsometricDataBlockMoveSingle>();
-            for (int i = 0; i < Dir.Count; i++)
-                Data.Add(new IsometricDataBlockMoveSingle(Dir[i], (Length.Count == Dir.Count ? Length[i] : 1)));
+            for (int i = 0; i < DirList.Count; i++)
+                Data.Add(new IsometricDataBlockMoveSingle(DirList[i], (LengthList.Count == DirList.Count ? LengthList[i] : 1)));
             return Data;
         }
     }
 
-    public int DataCount => Dir.Count;
+    public int DataCount => DirList.Count;
 
     public void SetDataNew()
     {
-        Dir = new List<IsoDir>();
-        Length = new List<int>();
+        DirList = new List<IsoDir>();
+        LengthList = new List<int>();
     }
 
     public void SetDataAdd(IsometricDataBlockMoveSingle DataSingle)
@@ -40,11 +41,11 @@ public class IsometricDataBlockMove
         if (DataSingle == null)
             return;
         //
-        Dir.Add(DataSingle.Dir);
-        Length.Add(DataSingle.Length);
+        DirList.Add(DataSingle.Dir);
+        LengthList.Add(DataSingle.Length);
     }
 
-    public bool DataExist => Dir == null ? false : Dir.Count == 0 ? false : true;
+    public bool DataExist => DirList == null ? false : DirList.Count == 0 ? false : true;
 }
 
 [Serializable]

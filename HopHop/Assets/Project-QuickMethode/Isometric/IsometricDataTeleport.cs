@@ -5,18 +5,19 @@ using System.Collections.Generic;
 [Serializable]
 public class IsometricDataBlockTeleport
 {
-    public string Key = "";
-    public List<IsometricDataBlockTeleportSingle> Data = new List<IsometricDataBlockTeleportSingle>();
+    public string KeyGet = "";
+    public string KeySet = "";
+    public List<IsometricDataBlockTeleportSingle> TeleportList = new List<IsometricDataBlockTeleportSingle>();
 
     public void SetDataAdd(IsometricDataBlockTeleportSingle DataSingle)
     {
         if (DataSingle == null)
             return;
         //
-        Data.Add(DataSingle);
+        TeleportList.Add(DataSingle);
     }
 
-    public bool DataExist => Data == null ? false : Data.Count == 0 ? false : true;
+    public bool DataExist => TeleportList == null ? false : TeleportList.Count == 0 ? false : true;
 }
 
 [Serializable]

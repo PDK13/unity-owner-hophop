@@ -48,6 +48,12 @@ public class IsometricGameDataScene
     public IsometricVector Scale = new IsometricVector(1f, 1f, 1f);
 }
 
+public enum IsometricPosType
+{
+    Track,
+    Free,
+}
+
 public enum IsometricRendererType 
 { 
     XY, 

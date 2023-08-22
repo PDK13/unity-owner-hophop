@@ -29,8 +29,8 @@ public class ControllerObject : MonoBehaviour
     {
         m_dataMove = m_block.Data.Move;
         //
-        if (m_block.Data.Follow.Key == GameManager.GameConfig.Event.Follow)
-            m_dataFollow = m_block.Data.Follow.KeyFollow;
+        if (m_block.Data.Follow.KeySet == GameManager.GameConfig.Event.Follow)
+            m_dataFollow = m_block.Data.Follow.KeyGet;
         //
         if (m_dataMove != null)
         {
@@ -92,8 +92,8 @@ public class ControllerObject : MonoBehaviour
     {
         if (m_turnLength == 0)
         {
-            m_turnDir = IsometricVector.GetDir(m_dataMove.Dir[m_dataMove.Index]) * m_dataMove.Quantity;
-            m_turnLength = m_dataMove.Length[m_dataMove.Index];
+            m_turnDir = IsometricVector.GetDir(m_dataMove.DirList[m_dataMove.Index]) * m_dataMove.Quantity;
+            m_turnLength = m_dataMove.LengthList[m_dataMove.Index];
             m_turnLengthCurrent = 0;
         }
         //
@@ -136,17 +136,17 @@ public class ControllerObject : MonoBehaviour
         {
             m_dataMove.Index += m_dataMove.Quantity;
             //
-            if (m_dataMove.Type == DataBlockType.Forward && m_dataMove.Index > m_dataMove.DataCount - 1)
+            if (m_dataMove.TypeList == DataBlockType.Forward && m_dataMove.Index > m_dataMove.DataCount - 1)
             {
                 //End Here!!
             }
             else
-            if (m_dataMove.Type == DataBlockType.Loop && m_dataMove.Index > m_dataMove.DataCount - 1)
+            if (m_dataMove.TypeList == DataBlockType.Loop && m_dataMove.Index > m_dataMove.DataCount - 1)
             {
                 m_dataMove.Index = 0;
             }
             else
-            if (m_dataMove.Type == DataBlockType.Revert && (m_dataMove.Index < 0 || m_dataMove.Index > m_dataMove.DataCount - 1))
+            if (m_dataMove.TypeList == DataBlockType.Revert && (m_dataMove.Index < 0 || m_dataMove.Index > m_dataMove.DataCount - 1))
             {
                 m_dataMove.Quantity *= -1;
                 m_dataMove.Index += m_dataMove.Quantity;

@@ -63,7 +63,7 @@ public class IsometricDataWorld
             BlockRenderer.SetSpriteJoin(Pos.Fixed);
         }
 
-        if (Block.Free && Application.isPlaying)
+        if (Block.PosType == IsometricPosType.Free && Application.isPlaying)
         {
             //When in playing, FREE Block's Pos Primary will not be track, so just can be find by it own Tag!
         }
@@ -292,7 +292,7 @@ public class IsometricDataWorld
 
     public void SetBlockRemoveInstant(IsometricBlock Block, float Delay)
     {
-        if (!Block.Free)
+        if (Block.PosType == IsometricPosType.Track)
         {
             //World
             m_worldPosH[GetWorldIndexPosH(Block.Pos.HInt)].Block.Remove(Block);

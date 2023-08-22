@@ -439,7 +439,7 @@ public class IsometricTool : EditorWindow
         QEditor.SetHorizontalBegin();
         if (QEditor.SetButton("Save", QEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this, 1f / 2)))
         {
-            var Path = QPath.GetPathFileSavePanel("Save", "txt", m_pathSave == "" ? QPath.GetPath(QPath.PathType.Assets) : m_pathOpen);
+            var Path = QPath.GetPathFileSavePanel("Save", "txt", m_pathSave == "" ? QPath.GetPath(QPath.PathType.Assets) : m_pathSave);
             if (Path.Result)
             {
                 m_pathSave = Path.Path;

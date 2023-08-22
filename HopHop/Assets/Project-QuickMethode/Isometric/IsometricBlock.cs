@@ -7,16 +7,15 @@ public class IsometricBlock : MonoBehaviour
 {
     #region Varible: Block Manager
 
-    [Header("Manager")]
     [SerializeField] private string m_name = "";
-    [SerializeField] private bool m_free = false;
     [SerializeField] private List<string> m_tag = new List<string>();
 
     #endregion
 
     #region Varible: World Manager
 
-    [Header("World")]
+    [Space]
+    [SerializeField] private IsometricPosType m_posType = IsometricPosType.Track;
     [SerializeField] private IsometricVector m_pos = new IsometricVector();
 
     private IsometricVector m_posPrimary = new IsometricVector();
@@ -25,19 +24,19 @@ public class IsometricBlock : MonoBehaviour
 
     #region Varible: Data Manager
 
-    [Header("Data")]
-    [SerializeField] private IsometricDataBlockMove MoveData = new IsometricDataBlockMove();
-    [SerializeField] private IsometricDataFollow FollowData = new IsometricDataFollow();
-    [SerializeField] private IsometricDataBlockAction ActionData = new IsometricDataBlockAction();
-    [SerializeField] private IsometricDataBlockEvent EventData = new IsometricDataBlockEvent();
-    [SerializeField] private IsometricDataBlockTeleport TeleportData = new IsometricDataBlockTeleport();
+    [Space]
+    [SerializeField] private IsometricDataBlockMove m_moveData = new IsometricDataBlockMove();
+    [SerializeField] private IsometricDataFollow m_followData = new IsometricDataFollow();
+    [SerializeField] private IsometricDataBlockAction m_actionData = new IsometricDataBlockAction();
+    [SerializeField] private IsometricDataBlockEvent m_eventData = new IsometricDataBlockEvent();
+    [SerializeField] private IsometricDataBlockTeleport m_teleportData = new IsometricDataBlockTeleport();
 
     #endregion
 
     #region Varible: Scene Manager
 
-    [Header("Scene")]
-    [SerializeField] private IsometricGameDataScene m_scene = new IsometricGameDataScene();
+    [Space]
+    [SerializeField] private IsometricGameDataScene m_sceneData = new IsometricGameDataScene();
     [SerializeField] private Vector3 m_centre = new Vector3();
 
     #endregion
@@ -59,8 +58,6 @@ public class IsometricBlock : MonoBehaviour
 
     #region ================================================================== World Manager
 
-    public bool Free => m_free;
-
     public string Name => m_name != "" ? m_name : QGameObject.GetNameReplaceClone(this.name);
 
     public List<string> Tag => m_tag;
@@ -71,7 +68,7 @@ public class IsometricBlock : MonoBehaviour
         set
         {
             m_worldManager = value;
-            m_scene = value.Game.Scene;
+            m_sceneData = value.Game.Scene;
         }
     }
 
@@ -80,6 +77,8 @@ public class IsometricBlock : MonoBehaviour
     #region ================================================================== World Manager
 
     public IsometricVector Pos { get => m_pos; set { m_pos = value; SetIsoTransform(); } }
+
+    public IsometricPosType PosType => m_posType;
 
     public IsometricVector PosPrimary { get => m_posPrimary; set => m_posPrimary = value; }
 
@@ -92,20 +91,20 @@ public class IsometricBlock : MonoBehaviour
         get 
         {
             IsometricDataFileBlockData Data = new IsometricDataFileBlockData();
-            Data.Move = MoveData;
-            Data.Follow = FollowData;
-            Data.Action = ActionData;
-            Data.Event = EventData;
-            Data.Teleport = TeleportData;
+            Data.Move = m_moveData;
+            Data.Follow = m_followData;
+            Data.Action = m_actionData;
+            Data.Event = m_eventData;
+            Data.Teleport = m_teleportData;
             return Data;
         }
         set
         {
-            MoveData = value.Move;
-            FollowData = value.Follow;
-            ActionData = value.Action;
-            EventData = value.Event;
-            TeleportData = value.Teleport;
+            m_moveData = value.Move;
+            m_followData = value.Follow;
+            m_actionData = value.Action;
+            m_eventData = value.Event;
+            m_teleportData = value.Teleport;
         }
     }
 
@@ -115,10 +114,10 @@ public class IsometricBlock : MonoBehaviour
 
     private Vector3 GetIsoTransform(IsometricVector Pos)
     {
-        IsometricVector PosCentre = m_scene.Centre;
+        IsometricVector PosCentre = m_sceneData.Centre;
         float Angle = 0;
         //
-        switch (m_scene.Rotate)
+        switch (m_sceneData.Rotate)
         {
             case IsometricRotateType._0:
                 Angle = 0 * Mathf.Deg2Rad;
@@ -141,12 +140,12 @@ public class IsometricBlock : MonoBehaviour
         IsometricVector PosValueScale = PosValue;
         //
         //
-        switch (m_scene.Renderer)
+        switch (m_sceneData.Renderer)
         {
             case IsometricRendererType.H:
-                PosValueScale.X *= m_scene.Scale.X * 0.5f * -1;
-                PosValueScale.Y *= m_scene.Scale.Y * 0.5f;
-                PosValueScale.H *= m_scene.Scale.H * 0.5f;
+                PosValueScale.X *= m_sceneData.Scale.X * 0.5f * -1;
+                PosValueScale.Y *= m_sceneData.Scale.Y * 0.5f;
+                PosValueScale.H *= m_sceneData.Scale.H * 0.5f;
                 //
                 PosTransform.x = PosValueScale.X + PosValueScale.Y;
                 PosTransform.y = 0.5f * (PosValueScale.Y - PosValueScale.X) + PosValueScale.H;
@@ -154,9 +153,9 @@ public class IsometricBlock : MonoBehaviour
                 //
                 break;
             case IsometricRendererType.XY:
-                PosValueScale.X *= m_scene.Scale.X * 0.5f * -1;
-                PosValueScale.Y *= m_scene.Scale.Y * 0.5f;
-                PosValueScale.H *= m_scene.Scale.H * 0.5f;
+                PosValueScale.X *= m_sceneData.Scale.X * 0.5f * -1;
+                PosValueScale.Y *= m_sceneData.Scale.Y * 0.5f;
+                PosValueScale.H *= m_sceneData.Scale.H * 0.5f;
                 //
                 PosTransform.x = PosValueScale.X + PosValueScale.Y;
                 PosTransform.y = 0.5f * (PosValueScale.Y - PosValueScale.X) + PosValueScale.H;
@@ -164,9 +163,9 @@ public class IsometricBlock : MonoBehaviour
                 //
                 break;
             case IsometricRendererType.None: //Testing
-                PosValueScale.X *= m_scene.Scale.X * 0.5f * -1;
-                PosValueScale.Y *= m_scene.Scale.Y * 0.5f;
-                PosValueScale.H *= m_scene.Scale.H * 0.5f;
+                PosValueScale.X *= m_sceneData.Scale.X * 0.5f * -1;
+                PosValueScale.Y *= m_sceneData.Scale.Y * 0.5f;
+                PosValueScale.H *= m_sceneData.Scale.H * 0.5f;
                 //
                 PosTransform.x = PosValueScale.X + PosValueScale.Y;
                 PosTransform.y = 0.5f * (PosValueScale.Y - PosValueScale.X) + PosValueScale.H;
@@ -181,7 +180,7 @@ public class IsometricBlock : MonoBehaviour
     private void SetIsoTransform()
     {
         if (WorldManager != null)
-            m_scene = WorldManager.Game.Scene;
+            m_sceneData = WorldManager.Game.Scene;
 
         Vector3 PosTransform = GetIsoTransform(m_pos);
 
