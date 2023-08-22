@@ -54,11 +54,11 @@ public class GameManager : MonoBehaviour
     {
         m_isometricManager.World.SetWorldRemove(m_isometricManager.transform);
 
-        yield return null;
+        yield return new WaitForSeconds(1f);
 
         IsometricDataFile.SetFileRead(m_isometricManager,WorldData);
 
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(1f);
 
         GameTurn.SetStart();
     }

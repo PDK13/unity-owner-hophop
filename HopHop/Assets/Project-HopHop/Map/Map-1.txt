@@ -1,7 +1,7 @@
 <1> WORLD-NAME
 Hello World
 <2> WORLD-BLOCK
-271
+275
 
 [2;2;1]
 Object Flower Blue 0
@@ -43,8 +43,25 @@ Object Flower Lotus 0
 Object Flower Lotus 0
 <2.!> BLOCK
 
+[4;0;1]
+Block Normal 0
+<2.1> BLOCK-MOVE
+1
+4
+1|U
+1|U
+1|D
+1|D
+<2.2> BLOCK-FOLLOW
+follow-1
+<2.!> BLOCK
+
 [2;0;1]
 Object Flower Blue 0
+<2.!> BLOCK
+
+[0;0;1]
+Player Angle
 <2.!> BLOCK
 
 [-2;0;1]
@@ -67,6 +84,15 @@ Object Flower Lotus 0
 Object Flower Blue 0
 <2.!> BLOCK
 
+[1;-1;1]
+Light Fish
+<2.3> BLOCK-ACTION
+1
+2
+1|shoot-R-R-1
+1|wait
+<2.!> BLOCK
+
 [-2;-1;1]
 Object Flower Blue 0
 <2.!> BLOCK
@@ -81,6 +107,12 @@ Object Flower Lotus 0
 
 [-9;-1;1]
 Object Flower Lotus 0
+<2.!> BLOCK
+
+[4;-2;1]
+Block Stone 0
+<2.2> BLOCK-FOLLOW_GET
+follow-1
 <2.!> BLOCK
 
 [2;-2;1]
