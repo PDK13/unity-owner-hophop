@@ -477,7 +477,7 @@ public class IsometricTool : EditorWindow
     private void SetGUIGroupTag()
     {
         QEditor.SetLabel("TAG", QEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this));
-        m_scrollTag = QEditor.SetScrollViewBegin(m_scrollTag);
+        m_scrollTag = QEditor.SetScrollViewBegin(m_scrollTag, QEditor.GetGUIHeight(100));
         for (int i = 0; i < m_manager.List.BlockList.Count; i++)
         {
             string Tag = m_manager.List.BlockList[i].Tag != "" ? m_manager.List.BlockList[i].Tag : "[...]";
