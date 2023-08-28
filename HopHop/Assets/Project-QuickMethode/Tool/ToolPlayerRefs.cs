@@ -1,6 +1,5 @@
 #if UNITY_EDITOR
 
-using QuickMethode;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -58,7 +57,7 @@ public class ToolPlayerRefs : EditorWindow
         //
         QEditor.SetHorizontalBegin();
         {
-            QEditor.SetLabel("Type", QEditor.GetGUILabel(FontStyle.Normal, TextAnchor.MiddleCenter),QEditorWindow.GetGUILayoutWidth(this, 0.2f));
+            QEditor.SetLabel("Type", QEditor.GetGUILabel(FontStyle.Normal, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this, 0.2f));
             m_type = (VaribleType)QEditor.SetPopup<VaribleType>((int)m_type, QEditorWindow.GetGUILayoutWidth(this, 0.775f));
         }
         QEditor.SetHorizontalEnd();
@@ -103,7 +102,9 @@ public class ToolPlayerRefs : EditorWindow
     private void SetGUIButtonSet()
     {
         if (m_name == "" || m_value == "")
+        {
             QEditor.SetDisableGroupBegin();
+        }
         //
         if (QEditor.SetButton("Set", null, QEditorWindow.GetGUILayoutWidth(this, 0.25f)))
         {
@@ -122,13 +123,17 @@ public class ToolPlayerRefs : EditorWindow
         }
         //
         if (m_name == "" || m_value == "")
+        {
             QEditor.SetDisableGroupEnd();
+        }
     }
 
     private void SetGUIButtonGet()
     {
         if (m_name == "")
+        {
             QEditor.SetDisableGroupBegin();
+        }
         //
         if (QEditor.SetButton("Get", null, QEditorWindow.GetGUILayoutWidth(this, 0.25f)))
         {
@@ -147,13 +152,17 @@ public class ToolPlayerRefs : EditorWindow
         }
         //
         if (m_name == "")
+        {
             QEditor.SetDisableGroupEnd();
+        }
     }
 
     private void SetGUIButtonClear()
     {
         if (m_name == "")
+        {
             QEditor.SetDisableGroupBegin();
+        }
         //
         if (QEditor.SetButton("Clear", null, QEditorWindow.GetGUILayoutWidth(this, 0.25f)))
         {
@@ -161,7 +170,9 @@ public class ToolPlayerRefs : EditorWindow
         }
         //
         if (m_name == "")
+        {
             QEditor.SetDisableGroupEnd();
+        }
     }
 
     private void SetGUIButtonClearAll()
@@ -188,7 +199,9 @@ public class ToolPlayerRefs : EditorWindow
                 FileIO.SetReadStart(ListPath);
                 int Count = FileIO.GetReadAutoInt();
                 for (int i = 0; i < Count; i++)
+                {
                     m_list.Add(new ListSingle(FileIO.GetReadAutoString(), (VaribleType)FileIO.GetReadAutoInt()));
+                }
             }
             catch
             {
@@ -214,7 +227,7 @@ public class ToolPlayerRefs : EditorWindow
             FileIO.SetWriteAdd(Data.Name);
             FileIO.SetWriteAdd((int)Data.Type);
         }
-            
+
         FileIO.SetWriteStart(ListPath);
     }
 
@@ -223,7 +236,9 @@ public class ToolPlayerRefs : EditorWindow
         QEditor.SetLabel("LIST", QEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter));
         //
         if (QEditor.SetButton("Refresh", QEditor.GetGUIButton(FontStyle.Normal, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this, 1f, 0.25f)))
+        {
             SetListRefresh();
+        }
         //
         QEditor.SetScrollViewBegin(m_listScrollView);
         //
@@ -236,7 +251,9 @@ public class ToolPlayerRefs : EditorWindow
                 //Data New!!
                 //
                 if (m_name == "")
+                {
                     QEditor.SetDisableGroupBegin();
+                }
                 //
                 if (QEditor.SetButton("[New]", QEditor.GetGUIButton(FontStyle.Normal, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this, 1f, 0.25f)))
                 {
@@ -251,7 +268,9 @@ public class ToolPlayerRefs : EditorWindow
                 }
                 //
                 if (m_name == "")
+                {
                     QEditor.SetDisableGroupEnd();
+                }
             }
             else
             {

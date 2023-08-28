@@ -1,4 +1,3 @@
-using QuickMethode;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -58,12 +57,12 @@ public class IsometricBlock : MonoBehaviour
 
     #region ================================================================== World Manager
 
-    public string Name => m_name != "" ? m_name : QGameObject.GetNameReplaceClone(this.name);
+    public string Name => m_name != "" ? m_name : QGameObject.GetNameReplaceClone(name);
 
     public List<string> Tag => m_tag;
 
-    public IsometricManager WorldManager 
-    { 
+    public IsometricManager WorldManager
+    {
         get => m_worldManager;
         set
         {
@@ -86,16 +85,18 @@ public class IsometricBlock : MonoBehaviour
 
     #region ================================================================== Data Manager
 
-    public IsometricDataFileBlockData Data 
+    public IsometricDataFileBlockData Data
     {
-        get 
+        get
         {
-            IsometricDataFileBlockData Data = new IsometricDataFileBlockData();
-            Data.Move = m_moveData;
-            Data.Follow = m_followData;
-            Data.Action = m_actionData;
-            Data.Event = m_eventData;
-            Data.Teleport = m_teleportData;
+            IsometricDataFileBlockData Data = new IsometricDataFileBlockData
+            {
+                Move = m_moveData,
+                Follow = m_followData,
+                Action = m_actionData,
+                Event = m_eventData,
+                Teleport = m_teleportData
+            };
             return Data;
         }
         set
@@ -132,9 +133,11 @@ public class IsometricBlock : MonoBehaviour
                 Angle = 270f * Mathf.Deg2Rad;
                 break;
         }
-        IsometricVector PosValue = new IsometricVector(Pos);
-        PosValue.X = (Pos.X - PosCentre.X) * Mathf.Cos(Angle) - (Pos.Y - PosCentre.Y) * Mathf.Sin(Angle) + PosCentre.X;
-        PosValue.Y = (Pos.X - PosCentre.X) * Mathf.Sin(Angle) + (Pos.Y - PosCentre.Y) * Mathf.Cos(Angle) + PosCentre.Y;
+        IsometricVector PosValue = new IsometricVector(Pos)
+        {
+            X = (Pos.X - PosCentre.X) * Mathf.Cos(Angle) - (Pos.Y - PosCentre.Y) * Mathf.Sin(Angle) + PosCentre.X,
+            Y = (Pos.X - PosCentre.X) * Mathf.Sin(Angle) + (Pos.Y - PosCentre.Y) * Mathf.Cos(Angle) + PosCentre.Y
+        };
         //
         Vector3 PosTransform = new Vector3();
         IsometricVector PosValueScale = PosValue;
@@ -180,11 +183,13 @@ public class IsometricBlock : MonoBehaviour
     private void SetIsoTransform()
     {
         if (WorldManager != null)
+        {
             m_sceneData = WorldManager.Game.Scene;
+        }
 
         Vector3 PosTransform = GetIsoTransform(m_pos);
 
-        PosTransform += (Vector3)m_centre;
+        PosTransform += m_centre;
 
         transform.position = PosTransform;
     }

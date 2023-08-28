@@ -1,7 +1,5 @@
 using DG.Tweening;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ControllerBody : MonoBehaviour
@@ -47,8 +45,10 @@ public class ControllerBody : MonoBehaviour
                 //Will touch OBJECT BULLET later!!
             }
             else
+            {
                 //Can't not Fall ahead!!
                 return Block;
+            }
         }
         //
         SetForceGravity();
@@ -58,8 +58,8 @@ public class ControllerBody : MonoBehaviour
 
     private void SetForceGravity()
     {
-        GameTurn.SetAdd(TurnType.Gravity, this.gameObject);
-        GameTurn.Instance.onStepStart += SetControlGravity;
+        TurnManager.SetAdd(TurnType.Gravity, gameObject);
+        TurnManager.Instance.onStepStart += SetControlGravity;
     }
 
     private void SetControlGravity()
@@ -75,8 +75,8 @@ public class ControllerBody : MonoBehaviour
             }
             else
             {
-                GameTurn.SetEndTurn(TurnType.Gravity, this.gameObject); //Follow Object (!)
-                GameTurn.Instance.onStepStart -= SetControlGravity;
+                TurnManager.SetEndTurn(TurnType.Gravity, gameObject); //Follow Object (!)
+                TurnManager.Instance.onStepStart -= SetControlGravity;
                 //
                 onGravity?.Invoke(false);
                 //
@@ -119,7 +119,7 @@ public class ControllerBody : MonoBehaviour
                 //When Block Bot end move, surely Bot of this will be emty!!
                 SetForceGravity();
                 return;
-            } 
+            }
         }
         else
         {
@@ -132,8 +132,10 @@ public class ControllerBody : MonoBehaviour
                 return;
             }
             else
+            {
                 //Can continue move, so check next pos if it emty at Bot?!
                 SetCheckGravity(Dir);
+            }
         }
         //
         Vector3 MoveDir = IsometricVector.GetVector(Dir);
@@ -163,7 +165,9 @@ public class ControllerBody : MonoBehaviour
     public void SetControlForce(IsometricVector Dir)
     {
         if (Dir != IsometricVector.Top && Dir != IsometricVector.Bot)
+        {
             MoveLastXY = Dir;
+        }
         //
         Vector3 MoveDir = IsometricVector.GetVector(Dir);
         Vector3 MoveStart = IsometricVector.GetVector(m_block.Pos.Fixed);
@@ -192,15 +196,23 @@ public class ControllerBody : MonoBehaviour
     public void SetStandOnForce()
     {
         if (GetCheckDir(IsometricVector.Bot) == null)
+        {
             return;
+        }
         //
         if (GetCheckDir(IsometricVector.Bot).Tag.Contains(GameManager.GameConfig.Tag.Slow))
+        {
             MoveForceXY = IsometricVector.None;
+        }
         else
         if (GetCheckDir(IsometricVector.Bot).Tag.Contains(GameManager.GameConfig.Tag.Slip))
+        {
             MoveForceXY = MoveLastXY;
+        }
         else
+        {
             MoveForceXY = null;
+        }
     }
 
     #endregion

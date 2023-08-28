@@ -1,4 +1,3 @@
-using QuickMethode;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -216,14 +215,45 @@ public struct IsometricVector : IEquatable<IsometricVector>
 
     #region Operator
 
-    public static IsometricVector operator +(IsometricVector IsoVector) => IsoVector;
-    public static IsometricVector operator -(IsometricVector IsoVector) => new IsometricVector(IsoVector.X * -1, IsoVector.Y * -1, IsoVector.H * -1);
-    public static IsometricVector operator +(IsometricVector IsoVectorA, IsometricVector IsoVectorB) => new IsometricVector(IsoVectorA.X + IsoVectorB.X, IsoVectorA.Y + IsoVectorB.Y, IsoVectorA.H + IsoVectorB.H);
-    public static IsometricVector operator -(IsometricVector IsoVectorA, IsometricVector IsoVectorB) => new IsometricVector(IsoVectorA.X - IsoVectorB.X, IsoVectorA.Y - IsoVectorB.Y, IsoVectorA.H - IsoVectorB.H);
-    public static IsometricVector operator *(IsometricVector IsoVectorA, float Number) => new IsometricVector(IsoVectorA.X * Number, IsoVectorA.Y * Number, IsoVectorA.H * Number);
-    public static IsometricVector operator /(IsometricVector IsoVectorA, float Number) => new IsometricVector(IsoVectorA.X / Number, IsoVectorA.Y / Number, IsoVectorA.H / Number);
-    public static bool operator ==(IsometricVector IsoVectorA, IsometricVector IsoVectorB) => IsoVectorA.X == IsoVectorB.X && IsoVectorA.Y == IsoVectorB.Y && IsoVectorA.H == IsoVectorB.H;
-    public static bool operator !=(IsometricVector IsoVectorA, IsometricVector IsoVectorB) => IsoVectorA.X != IsoVectorB.X || IsoVectorA.Y != IsoVectorB.Y || IsoVectorA.H != IsoVectorB.H;
+    public static IsometricVector operator +(IsometricVector IsoVector)
+    {
+        return IsoVector;
+    }
+
+    public static IsometricVector operator -(IsometricVector IsoVector)
+    {
+        return new IsometricVector(IsoVector.X * -1, IsoVector.Y * -1, IsoVector.H * -1);
+    }
+
+    public static IsometricVector operator +(IsometricVector IsoVectorA, IsometricVector IsoVectorB)
+    {
+        return new IsometricVector(IsoVectorA.X + IsoVectorB.X, IsoVectorA.Y + IsoVectorB.Y, IsoVectorA.H + IsoVectorB.H);
+    }
+
+    public static IsometricVector operator -(IsometricVector IsoVectorA, IsometricVector IsoVectorB)
+    {
+        return new IsometricVector(IsoVectorA.X - IsoVectorB.X, IsoVectorA.Y - IsoVectorB.Y, IsoVectorA.H - IsoVectorB.H);
+    }
+
+    public static IsometricVector operator *(IsometricVector IsoVectorA, float Number)
+    {
+        return new IsometricVector(IsoVectorA.X * Number, IsoVectorA.Y * Number, IsoVectorA.H * Number);
+    }
+
+    public static IsometricVector operator /(IsometricVector IsoVectorA, float Number)
+    {
+        return new IsometricVector(IsoVectorA.X / Number, IsoVectorA.Y / Number, IsoVectorA.H / Number);
+    }
+
+    public static bool operator ==(IsometricVector IsoVectorA, IsometricVector IsoVectorB)
+    {
+        return IsoVectorA.X == IsoVectorB.X && IsoVectorA.Y == IsoVectorB.Y && IsoVectorA.H == IsoVectorB.H;
+    }
+
+    public static bool operator !=(IsometricVector IsoVectorA, IsometricVector IsoVectorB)
+    {
+        return IsoVectorA.X != IsoVectorB.X || IsoVectorA.Y != IsoVectorB.Y || IsoVectorA.H != IsoVectorB.H;
+    }
 
     #endregion
 
@@ -232,7 +262,7 @@ public struct IsometricVector : IEquatable<IsometricVector>
     [NonSerialized]
     public const char KEY_VECTOR_ENCYPT = ';';
 
-    public string Encypt => "[" + QEncypt.GetEncypt(KEY_VECTOR_ENCYPT, this.X, this.Y, this.H) + "]";
+    public string Encypt => "[" + QEncypt.GetEncypt(KEY_VECTOR_ENCYPT, X, Y, H) + "]";
 
     public static IsometricVector GetDencypt(string m_Encypt)
     {
@@ -251,7 +281,10 @@ public struct IsometricVector : IEquatable<IsometricVector>
         return base.GetHashCode();
     }
 
-    public override string ToString() => $"[{X}, {Y}, {H}]";
+    public override string ToString()
+    {
+        return $"[{X}, {Y}, {H}]";
+    }
 
     public override bool Equals(object obj)
     {
@@ -299,13 +332,13 @@ public class IsoVectorEditor : PropertyDrawer
         float PosXField = PosXLabel + WidthLabel;
         float SpaceXField = WidthField + WidthLabel;
         //
-        var RecLabelX = new Rect(PosXLabel + SpaceXLabel * 0 + SpaceBetween * 0, position.y, WidthLabel, position.height);
-        var RecLabelY = new Rect(PosXLabel + SpaceXLabel * 1 + SpaceBetween * 1, position.y, WidthLabel, position.height);
-        var RecLabelH = new Rect(PosXLabel + SpaceXLabel * 2 + SpaceBetween * 2, position.y, WidthLabel, position.height);
+        Rect RecLabelX = new Rect(PosXLabel + SpaceXLabel * 0 + SpaceBetween * 0, position.y, WidthLabel, position.height);
+        Rect RecLabelY = new Rect(PosXLabel + SpaceXLabel * 1 + SpaceBetween * 1, position.y, WidthLabel, position.height);
+        Rect RecLabelH = new Rect(PosXLabel + SpaceXLabel * 2 + SpaceBetween * 2, position.y, WidthLabel, position.height);
 
-        var RecFieldX = new Rect(PosXField + SpaceXField * 0 + SpaceBetween * 0, position.y, WidthField, position.height);
-        var RecFieldY = new Rect(PosXField + SpaceXField * 1 + SpaceBetween * 1, position.y, WidthField, position.height);
-        var RecFieldH = new Rect(PosXField + SpaceXField * 2 + SpaceBetween * 2, position.y, WidthField, position.height);
+        Rect RecFieldX = new Rect(PosXField + SpaceXField * 0 + SpaceBetween * 0, position.y, WidthField, position.height);
+        Rect RecFieldY = new Rect(PosXField + SpaceXField * 1 + SpaceBetween * 1, position.y, WidthField, position.height);
+        Rect RecFieldH = new Rect(PosXField + SpaceXField * 2 + SpaceBetween * 2, position.y, WidthField, position.height);
         //
         QEditor.SetLabel("X", RecLabelX);
         QEditorObject.SetField(property, nameof(IsometricVector.X), RecFieldX, false);

@@ -1,6 +1,4 @@
-using QuickMethode;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -26,9 +24,13 @@ public class IsometricDataList
     public void SetList(List<IsometricBlock> BlockList)
     {
         if (this.BlockList == null)
+        {
             this.BlockList = new List<IsometricDataBlockListTag>();
+        }
         else
+        {
             this.BlockList.Clear();
+        }
 
         foreach (IsometricBlock BlockCheck in BlockList)
         {
@@ -49,7 +51,9 @@ public class IsometricDataList
                     this.BlockList[TagIndex].Block.Add(BlockCheck);
                 }
                 else
+                {
                     this.BlockList[TagIndex].Block.Add(BlockCheck);
+                }
             }
         }
 
@@ -59,9 +63,13 @@ public class IsometricDataList
     public void SetList(List<GameObject> BlockList)
     {
         if (this.BlockList == null)
+        {
             this.BlockList = new List<IsometricDataBlockListTag>();
+        }
         else
+        {
             this.BlockList.Clear();
+        }
 
         foreach (GameObject BlockCheck in BlockList)
         {
@@ -83,7 +91,9 @@ public class IsometricDataList
                     this.BlockList[TagIndex].Block.Add(Block);
                 }
                 else
+                {
                     this.BlockList[TagIndex].Block.Add(Block);
+                }
             }
         }
 
@@ -93,9 +103,13 @@ public class IsometricDataList
     public void SetList(params string[] PathChildInResources)
     {
         if (this.BlockList == null)
+        {
             this.BlockList = new List<IsometricDataBlockListTag>();
+        }
         else
+        {
             this.BlockList.Clear();
+        }
 
         List<GameObject> BlockList = QResources.GetPrefab(PathChildInResources);
 
@@ -119,7 +133,9 @@ public class IsometricDataList
                     this.BlockList[TagIndex].Block.Add(Block);
                 }
                 else
+                {
                     this.BlockList[TagIndex].Block.Add(Block);
+                }
             }
             else
             {
@@ -133,7 +149,9 @@ public class IsometricDataList
                         this.BlockList[TagIndex].Block.Add(Block);
                     }
                     else
+                    {
                         this.BlockList[TagIndex].Block.Add(Block);
+                    }
                 }
             }
         }
@@ -148,12 +166,17 @@ public class IsometricDataList
             for (int i = 0; i < BlockList.Count; i++)
             {
                 if (BlockList[i].Tag != Tag)
+                {
                     continue;
+                }
 
                 foreach (IsometricBlock BlockCheck in BlockList[i].Block)
                 {
                     if (BlockCheck.Name != BlockName)
+                    {
                         continue;
+                    }
+
                     return BlockCheck.gameObject;
                 }
             }
@@ -165,7 +188,10 @@ public class IsometricDataList
                 foreach (IsometricBlock BlockCheck in BlockList[i].Block)
                 {
                     if (BlockCheck.Name != BlockName)
+                    {
                         continue;
+                    }
+
                     return BlockCheck.gameObject;
                 }
             }
@@ -182,7 +208,10 @@ public class IsometricDataList
         for (int i = 0; i < BlockList.Count; i++)
         {
             if (BlockList[i].Tag != Tag)
+            {
                 continue;
+            }
+
             return i;
         }
         return -1;
@@ -200,7 +229,7 @@ public class IsometricDataBlockListTag
     public IsometricDataBlockListTag(string Tag)
     {
         this.Tag = Tag;
-        this.Block = new List<IsometricBlock>();
+        Block = new List<IsometricBlock>();
     }
 
     public IsometricDataBlockListTag(string Tag, List<IsometricBlock> Block)

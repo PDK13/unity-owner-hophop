@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using DG.Tweening;
+using UnityEngine;
 
 public class ControllerPlayer : MonoBehaviour
 {
@@ -24,9 +22,9 @@ public class ControllerPlayer : MonoBehaviour
         m_body.onPush += SetPush;
         m_body.onForce += SetForce;
         //
-        GameTurn.SetInit(TurnType.Player, this.gameObject);
-        GameTurn.Instance.onTurn += SetControlTurn;
-        GameTurn.Instance.onStepStart += SetControlStep;
+        TurnManager.SetInit(TurnType.Player, gameObject);
+        TurnManager.Instance.onTurn += SetControlTurn;
+        TurnManager.Instance.onStepStart += SetControlStep;
     }
 
     private void OnDestroy()
@@ -37,30 +35,42 @@ public class ControllerPlayer : MonoBehaviour
         m_body.onPush -= SetPush;
         m_body.onForce -= SetForce;
         //
-        GameTurn.SetRemove(TurnType.Player, this.gameObject);
-        GameTurn.Instance.onTurn -= SetControlTurn;
-        GameTurn.Instance.onStepStart -= SetControlStep;
+        TurnManager.SetRemove(TurnType.Player, gameObject);
+        TurnManager.Instance.onTurn -= SetControlTurn;
+        TurnManager.Instance.onStepStart -= SetControlStep;
     }
 
     private void Update()
     {
         if (!m_playerControl)
+        {
             return;
+        }
 
         if (Input.GetKey(KeyCode.UpArrow))
+        {
             SetControlMove(IsometricVector.Up);
+        }
 
         if (Input.GetKey(KeyCode.DownArrow))
+        {
             SetControlMove(IsometricVector.Down);
+        }
 
         if (Input.GetKey(KeyCode.LeftArrow))
+        {
             SetControlMove(IsometricVector.Left);
+        }
 
         if (Input.GetKey(KeyCode.RightArrow))
+        {
             SetControlMove(IsometricVector.Right);
+        }
 
         if (Input.GetKeyDown(KeyCode.Space))
+        {
             SetControlMove(IsometricVector.None);
+        }
     }
 
     #region Move
@@ -94,7 +104,7 @@ public class ControllerPlayer : MonoBehaviour
         if (Dir == IsometricVector.None)
         {
             m_playerControl = false;
-            GameTurn.SetEndTurn(TurnType.Player, this.gameObject); //Follow Player (!)
+            TurnManager.SetEndTurn(TurnType.Player, gameObject); //Follow Player (!)
             return;
         }
         //
@@ -115,12 +125,16 @@ public class ControllerPlayer : MonoBehaviour
                 ControllerBody BlockBody = Block.GetComponent<ControllerBody>();
                 //
                 if (BlockBody == null)
+                {
                     //Surely can't continue move to this Pos, because this Block can't be push!!
                     return;
+                }
                 //
                 if (!BlockBody.GetCheckDir(Dir, Dir))
+                {
                     //Surely can't continue move to this Pos, because this Block can't be push to the Pos ahead!!
                     return;
+                }
                 //
                 //Fine to continue push this Block ahead!!
             }
@@ -150,7 +164,7 @@ public class ControllerPlayer : MonoBehaviour
                 m_body.SetStandOnForce();
                 m_animation.SetStand(m_body.GetCheckDir(IsometricVector.Bot));
                 //
-                GameTurn.SetEndTurn(TurnType.Player, this.gameObject); //Follow Player (!)
+                TurnManager.SetEndTurn(TurnType.Player, gameObject); //Follow Player (!)
             });
         //
     }

@@ -1,6 +1,4 @@
 using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ControllerBullet : MonoBehaviour
@@ -29,9 +27,9 @@ public class ControllerBullet : MonoBehaviour
         m_body = GetComponent<ControllerBody>();
         m_block = GetComponent<IsometricBlock>();
         //
-        GameTurn.SetInit(TurnType.Object, this.gameObject);
-        GameTurn.Instance.onTurn += SetControlTurn;
-        GameTurn.Instance.onStepStart += SetControlStep;
+        TurnManager.SetInit(TurnType.Object, gameObject);
+        TurnManager.Instance.onTurn += SetControlTurn;
+        TurnManager.Instance.onStepStart += SetControlStep;
         //
         if (m_body != null)
         {
@@ -48,9 +46,9 @@ public class ControllerBullet : MonoBehaviour
     {
         StopAllCoroutines();
         //
-        GameTurn.SetRemove(TurnType.Object, this.gameObject);
-        GameTurn.Instance.onTurn -= SetControlTurn;
-        GameTurn.Instance.onStepStart -= SetControlStep;
+        TurnManager.SetRemove(TurnType.Object, gameObject);
+        TurnManager.Instance.onTurn -= SetControlTurn;
+        TurnManager.Instance.onStepStart -= SetControlStep;
         //
         if (m_body != null)
         {
@@ -102,7 +100,9 @@ public class ControllerBullet : MonoBehaviour
         }
         //
         if (m_body != null)
+        {
             m_body.SetCheckGravity(m_turnDir);
+        }
         //
         Vector3 MoveDir = IsometricVector.GetVector(m_turnDir);
         Vector3 MoveStart = IsometricVector.GetVector(m_block.Pos);
@@ -124,10 +124,12 @@ public class ControllerBullet : MonoBehaviour
                 if (TurnEnd)
                 {
                     m_turnControl = false;
-                    GameTurn.SetEndTurn(TurnType.Object, this.gameObject); //Follow Object (!)
+                    TurnManager.SetEndTurn(TurnType.Object, gameObject); //Follow Object (!)
                 }
                 else
-                    GameTurn.SetEndMove(TurnType.Object, this.gameObject); //Follow Object (!)
+                {
+                    TurnManager.SetEndMove(TurnType.Object, gameObject); //Follow Object (!)
+                }
                 //
                 //Check if Bot can't stand on!!
                 //
@@ -139,10 +141,10 @@ public class ControllerBullet : MonoBehaviour
     public void SetHit()
     {
         m_turnControl = false;
-        GameTurn.SetEndTurn(TurnType.Object, this.gameObject); //Follow Object (!)
-        GameTurn.SetRemove(TurnType.Object, this.gameObject);
-        GameTurn.Instance.onTurn -= SetControlTurn;
-        GameTurn.Instance.onStepStart -= SetControlStep;
+        TurnManager.SetEndTurn(TurnType.Object, gameObject); //Follow Object (!)
+        TurnManager.SetRemove(TurnType.Object, gameObject);
+        TurnManager.Instance.onTurn -= SetControlTurn;
+        TurnManager.Instance.onStepStart -= SetControlStep;
         //
         SetControlAnimation(ANIM_BLOW);
         m_block.WorldManager.World.SetBlockRemoveInstant(m_block, DESTROY_DELAY);
@@ -154,7 +156,9 @@ public class ControllerBullet : MonoBehaviour
         {
             IsometricBlock BlockBot = m_body.GetCheckDir(IsometricVector.Bot);
             if (BlockBot == null)
+            {
                 return;
+            }
             //
             if (BlockBot.Tag.Contains(GameManager.GameConfig.Tag.Player))
             {
@@ -162,7 +166,9 @@ public class ControllerBullet : MonoBehaviour
             }
             //
             if (!BlockBot.Tag.Contains(GameManager.GameConfig.Tag.Block))
+            {
                 SetHit();
+            }
         }
     }
 

@@ -1,6 +1,4 @@
-using QuickMethode;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -22,7 +20,10 @@ public class IsometricDataAction
         {
             List<IsometricDataBlockActionSingle> Data = new List<IsometricDataBlockActionSingle>();
             for (int i = 0; i < Action.Count; i++)
+            {
                 Data.Add(new IsometricDataBlockActionSingle(Action[i], (Action.Count == ActionDuration.Count ? ActionDuration[i] : 1)));
+            }
+
             return Data;
         }
     }
@@ -38,7 +39,9 @@ public class IsometricDataAction
     public void SetDataAdd(IsometricDataBlockActionSingle DataSingle)
     {
         if (DataSingle == null)
+        {
             return;
+        }
         //
         Action.Add(DataSingle.Action);
         ActionDuration.Add(DataSingle.Time);
@@ -66,7 +69,9 @@ public class IsometricDataBlockActionSingle
     public static IsometricDataBlockActionSingle GetDencypt(string Value)
     {
         if (Value == "")
+        {
             return null;
+        }
         //
         List<string> DataString = QEncypt.GetDencyptString(KEY_VALUE_ENCYPT, Value);
         return new IsometricDataBlockActionSingle(DataString[1], int.Parse(DataString[0]));

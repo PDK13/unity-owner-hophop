@@ -1,5 +1,3 @@
-using DG.Tweening;
-using QuickMethode;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -35,9 +33,9 @@ public class ControllerShoot : MonoBehaviour
         {
             if (m_dataAction.DataExist)
             {
-                GameTurn.SetInit(TurnType.Object, this.gameObject);
-                GameTurn.Instance.onTurn += SetControlTurn;
-                GameTurn.Instance.onStepStart += SetControlStep;
+                TurnManager.SetInit(TurnType.Object, gameObject);
+                TurnManager.Instance.onTurn += SetControlTurn;
+                TurnManager.Instance.onStepStart += SetControlStep;
             }
         }
     }
@@ -50,9 +48,9 @@ public class ControllerShoot : MonoBehaviour
         {
             if (m_dataAction.DataExist)
             {
-                GameTurn.SetRemove(TurnType.Object, this.gameObject);
-                GameTurn.Instance.onTurn -= SetControlTurn;
-                GameTurn.Instance.onStepStart -= SetControlStep;
+                TurnManager.SetRemove(TurnType.Object, gameObject);
+                TurnManager.Instance.onTurn -= SetControlTurn;
+                TurnManager.Instance.onStepStart -= SetControlStep;
             }
         }
     }
@@ -132,7 +130,7 @@ public class ControllerShoot : MonoBehaviour
         yield return new WaitForSeconds(GameManager.TimeMove * 1);
         //
         m_turnControl = false;
-        GameTurn.SetEndTurn(TurnType.Object, this.gameObject); //Follow Object (!)
+        TurnManager.SetEndTurn(TurnType.Object, gameObject); //Follow Object (!)
     }
 
     private void SetShoot(IsometricVector DirSpawm, IsometricVector DirMove, int Speed)

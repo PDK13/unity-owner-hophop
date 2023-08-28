@@ -1,4 +1,3 @@
-using QuickMethode;
 using System;
 using System.Collections.Generic;
 
@@ -14,20 +13,22 @@ public class IsometricDataTeleport
 
     public IsometricDataTeleport()
     {
-        this.Name = "";
-        this.Pos = IsometricVector.None;
+        Name = "";
+        Pos = IsometricVector.None;
     }
 
     public IsometricDataTeleport(string Name, IsometricVector Value)
     {
         this.Name = Name;
-        this.Pos = Value;
+        Pos = Value;
     }
 
     public static IsometricDataTeleport GetDencypt(string Value)
     {
         if (Value == "")
+        {
             return null;
+        }
         //
         List<string> DataString = QEncypt.GetDencyptString(KEY_VALUE_ENCYPT, Value);
         return new IsometricDataTeleport(DataString[0], IsometricVector.GetDencypt(DataString[1]));

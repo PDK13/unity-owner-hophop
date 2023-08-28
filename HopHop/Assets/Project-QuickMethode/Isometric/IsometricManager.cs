@@ -1,9 +1,5 @@
-using QuickMethode;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using static IsometricManager;
 
 public class IsometricManager : MonoBehaviour
 {
@@ -54,19 +50,19 @@ public enum IsometricPosType
     Free,
 }
 
-public enum IsometricRendererType 
-{ 
-    XY, 
-    H, 
-    None, 
+public enum IsometricRendererType
+{
+    XY,
+    H,
+    None,
 }
 
-public enum IsometricRotateType 
-{ 
-    _0, 
-    _90, 
-    _180, 
-    _270, 
+public enum IsometricRotateType
+{
+    _0,
+    _90,
+    _180,
+    _270,
 }
 
 public enum DataBlockType

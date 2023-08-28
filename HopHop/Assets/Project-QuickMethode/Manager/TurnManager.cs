@@ -1,17 +1,15 @@
-using QuickMethode;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UIElements;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 
-public class GameTurn : MonoBehaviour
+public class TurnManager : MonoBehaviour
 {
-    public static GameTurn Instance;
+    public static TurnManager Instance;
 
     #region Varible: Debug
 
@@ -52,34 +50,40 @@ public class GameTurn : MonoBehaviour
 
         public bool EndTurnRemove = false;
 
-        public TurnSingle (int Start, string Turn, GameObject Unit)
+        public TurnSingle(int Start, string Turn, GameObject Unit)
         {
             this.Start = Start;
             //
             this.Turn = Turn;
             //
             this.Unit = new List<GameObject>();
-            this.UnitEndTurn = new List<GameObject>();
-            this.UnitEndMove = new List<GameObject>();
-            this.UnitWaitAdd = new List<GameObject>();
-            //
-            this.UnitWaitAdd.Add(Unit);
+            UnitEndTurn = new List<GameObject>();
+            UnitEndMove = new List<GameObject>();
+            UnitWaitAdd = new List<GameObject>
+            {
+                //
+                Unit
+            };
         }
 
         public bool GetEnd(GameObject UnitCheck)
         {
             if (!Unit.Contains(UnitCheck))
+            {
                 return false;
+            }
             //
             if (!UnitEndTurn.Contains(UnitCheck) && !UnitEndMove.Contains(UnitCheck))
+            {
                 return false;
+            }
             //
             return true;
         }
 
         public void SetAdd(GameObject Unit)
         {
-            this.UnitWaitAdd.Add(Unit);
+            UnitWaitAdd.Add(Unit);
         }
 
         public void SetWaitAdd()
@@ -104,7 +108,7 @@ public class GameTurn : MonoBehaviour
 
     private void Awake()
     {
-        DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(gameObject);
         //
         Instance = this;
         //
@@ -119,7 +123,9 @@ public class GameTurn : MonoBehaviour
         //This used for stop Current Turn coroutine called by ended Playing on Editor Mode!!
         //
         if (state == PlayModeStateChange.ExitingPlayMode)
+        {
             Instance.m_stop = true;
+        }
     }
 #endif
 
@@ -135,7 +141,9 @@ public class GameTurn : MonoBehaviour
     public static void SetStart()
     {
         if ((int)Instance.m_debug >= (int)DebugType.None)
+        {
             Debug.LogWarning("[Turn] START!!");
+        }
         //
         Instance.m_turnPass = 0;
         Instance.m_turnQueue.RemoveAll(t => t.Turn == "");
@@ -149,7 +157,9 @@ public class GameTurn : MonoBehaviour
     {
 #if UNITY_EDITOR
         if (Instance.m_stop)
+        {
             return;
+        }
 #endif
         //
         Instance.StartCoroutine(Instance.ISetCurrent());
@@ -168,7 +178,9 @@ public class GameTurn : MonoBehaviour
             m_turnPass++;
             //
             if ((int)Instance.m_debug >= (int)DebugType.None)
+            {
                 Debug.LogWarningFormat("[Turn] <TURN {0} START>", m_turnPass);
+            }
             //
             onTurn?.Invoke(m_turnPass);
             //
@@ -184,12 +196,16 @@ public class GameTurn : MonoBehaviour
         m_turnCurrent = m_turnQueue[0];
         //
         if (m_turnCurrent.Unit.Count == 0)
+        {
             m_turnCurrent.SetWaitAdd();
+        }
         //
         if (m_turnCurrent != null)
         {
             if ((int)Instance.m_debug >= (int)DebugType.Full)
+            {
                 Debug.LogWarningFormat("[Turn] <TURN {1} START> {2} / {3}", m_turnPass, m_turnCurrent.Turn, m_turnCurrent.UnitEndTurn.Count, m_turnCurrent.Unit.Count);
+            }
         }
         //
         onStepStart?.Invoke(m_turnCurrent.Turn);
@@ -206,7 +222,9 @@ public class GameTurn : MonoBehaviour
     private void SetAdd()
     {
         foreach (TurnSingle TurnCheck in Instance.m_turnQueue)
+        {
             TurnCheck.SetWaitAdd();
+        }
     }
 
     #region Enum
@@ -250,20 +268,28 @@ public class GameTurn : MonoBehaviour
         for (int i = 0; i < Instance.m_turnQueue.Count; i++)
         {
             if (Instance.m_turnQueue[i].Turn != Turn)
+            {
                 continue;
+            }
             //
             if (Instance.m_turnQueue[i].Unit.Contains(Unit))
+            {
                 return;
+            }
             //
             if ((int)Instance.m_debug >= (int)DebugType.Full)
+            {
                 Debug.LogFormat("[Turn] <Init> {0}", Turn.ToString());
+            }
             //
             Instance.m_turnQueue[i].UnitWaitAdd.Add(Unit);
             return;
         }
         //
         if ((int)Instance.m_debug >= (int)DebugType.Full)
+        {
             Debug.LogFormat("[Turn] <Init> {0}", Turn.ToString());
+        }
         //
         Instance.m_turnQueue.Add(new TurnSingle(Start, Turn, Unit));
     } //Init on Start!!
@@ -273,10 +299,14 @@ public class GameTurn : MonoBehaviour
         for (int i = 0; i < Instance.m_turnQueue.Count; i++)
         {
             if (Instance.m_turnQueue[i].Turn != Turn)
+            {
                 continue;
+            }
             //
             if (!Instance.m_turnQueue[i].Unit.Contains(Unit))
+            {
                 return;
+            }
             //
             if (Instance.m_turnQueue[i] == Instance.m_turnCurrent)
             {
@@ -286,7 +316,9 @@ public class GameTurn : MonoBehaviour
                 Instance.m_turnQueue[i].UnitWaitAdd.Remove(Unit);
                 //
                 if ((int)Instance.m_debug >= (int)DebugType.Full)
+                {
                     SetDebug(Turn, "Remove Same");
+                }
                 //
                 SetEndCheck(Turn);
             }
@@ -298,7 +330,9 @@ public class GameTurn : MonoBehaviour
                 Instance.m_turnQueue[i].UnitWaitAdd.Remove(Unit);
                 //
                 if ((int)Instance.m_debug >= (int)DebugType.Full)
+                {
                     SetDebug(Turn, "Remove Un-Same");
+                }
                 //
             }
             //
@@ -309,15 +343,21 @@ public class GameTurn : MonoBehaviour
     public static void SetEndMove(string Turn, GameObject Unit)
     {
         if (Instance.m_turnCurrent.Turn != Turn)
+        {
             return;
+        }
         //
         if (Instance.m_turnCurrent.GetEnd(Unit))
+        {
             return;
+        }
         //
         Instance.m_turnCurrent.UnitEndMove.Add(Unit);
         //
         if ((int)Instance.m_debug >= (int)DebugType.Full)
+        {
             SetDebug(Turn, "End Move");
+        }
         //
         SetEndCheck(Turn);
     } //End!!
@@ -325,15 +365,21 @@ public class GameTurn : MonoBehaviour
     public static void SetEndTurn(string Turn, GameObject Unit)
     {
         if (Instance.m_turnCurrent.Turn != Turn)
+        {
             return;
+        }
         //
         if (Instance.m_turnCurrent.GetEnd(Unit))
+        {
             return;
+        }
         //
         Instance.m_turnCurrent.UnitEndTurn.Add(Unit);
         //
         if ((int)Instance.m_debug >= (int)DebugType.Full)
+        {
             SetDebug(Turn, "End Turn");
+        }
         //
         SetEndCheck(Turn);
     } //End!!
@@ -343,7 +389,9 @@ public class GameTurn : MonoBehaviour
         if (Instance.m_turnCurrent.EndTurn)
         {
             if ((int)Instance.m_debug >= (int)DebugType.Primary)
+            {
                 SetDebug(Turn, "Next Turn");
+            }
             //
             Instance.m_turnCurrent.UnitEndMove.Clear();
             Instance.m_turnCurrent.UnitEndTurn.Clear();
@@ -358,7 +406,9 @@ public class GameTurn : MonoBehaviour
         if (Instance.m_turnCurrent.EndMove)
         {
             if ((int)Instance.m_debug >= (int)DebugType.Primary)
+            {
                 SetDebug(Turn, "Next Turn by Move");
+            }
             //
             Instance.m_turnCurrent.UnitEndMove.Clear();
             //
@@ -371,13 +421,17 @@ public class GameTurn : MonoBehaviour
         Instance.m_turnQueue.RemoveAt(Instance.m_turnQueue.FindIndex(t => t.Turn == Turn.ToString()));
         //
         if (!Instance.m_turnCurrent.EndTurnRemove)
+        {
             Instance.m_turnQueue.Add(Instance.m_turnCurrent);
+        }
     } //Swap Current Turn to Last!!
 
     public static void SetAdd(int Start, string Turn, GameObject Unit, int After = 0)
     {
         if (After < 0)
+        {
             return;
+        }
         //
         if (After > Instance.m_turnQueue.Count - 1)
         {
@@ -388,7 +442,9 @@ public class GameTurn : MonoBehaviour
         if (Instance.m_turnQueue[After].Turn == Turn)
         {
             if (Instance.m_turnQueue[After].Unit.Contains(Unit))
+            {
                 return;
+            }
             //
             Instance.m_turnQueue[After].SetAdd(Unit);
         }
@@ -399,7 +455,9 @@ public class GameTurn : MonoBehaviour
         }
         //
         if ((int)Instance.m_debug >= (int)DebugType.Full)
+        {
             SetDebug(Turn, string.Format("Add [{0}]", After));
+        }
     } //Add Turn Special!!
 
     public static void SetAdd(int Start, string Turn, GameObject Unit, string After)
@@ -407,12 +465,16 @@ public class GameTurn : MonoBehaviour
         for (int i = 0; i < Instance.m_turnQueue.Count; i++)
         {
             if (Instance.m_turnQueue[i].Turn != After)
+            {
                 continue;
+            }
             //
             if (Instance.m_turnQueue[i].Turn == Turn)
             {
                 if (Instance.m_turnQueue[i].Unit.Contains(Unit))
+                {
                     return;
+                }
                 //
                 Instance.m_turnQueue[i].SetAdd(Unit);
             }
@@ -426,7 +488,9 @@ public class GameTurn : MonoBehaviour
         }
         //
         if ((int)Instance.m_debug >= (int)DebugType.Full)
+        {
             SetDebug(Turn, string.Format("Add [{0}]", After));
+        }
     } //Add Turn Special!!
 
     #endregion
@@ -443,10 +507,10 @@ public class GameTurn : MonoBehaviour
 
 #if UNITY_EDITOR
 
-    [CustomEditor(typeof(GameTurn))]
+    [CustomEditor(typeof(TurnManager))]
     public class GameTurnEditor : Editor
     {
-        private GameTurn Target;
+        private TurnManager Target;
 
         private SerializedProperty m_debug;
         private SerializedProperty m_turnCurrent;
@@ -454,7 +518,7 @@ public class GameTurn : MonoBehaviour
 
         private void OnEnable()
         {
-            Target = target as GameTurn;
+            Target = target as TurnManager;
 
             m_debug = QEditorCustom.GetField(this, "m_debug");
             m_turnCurrent = QEditorCustom.GetField(this, "m_turnCurrent");

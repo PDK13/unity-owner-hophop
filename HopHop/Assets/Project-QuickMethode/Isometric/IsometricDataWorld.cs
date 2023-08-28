@@ -1,6 +1,4 @@
-using QuickMethode;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -16,7 +14,7 @@ public class IsometricDataWorld
     public List<IsometricDataWorldPosH> m_worldPosH;
     public List<IsometricDataWorldTag> m_worldTag;
 
-    private IsometricManager m_manager;
+    private readonly IsometricManager m_manager;
 
     public IsometricDataWorld(IsometricManager Manager)
     {
@@ -81,7 +79,9 @@ public class IsometricDataWorld
                 m_worldPosH[IndexPosH].Block.Add(Block);
             }
             else
+            {
                 m_worldPosH[IndexPosH].Block.Add(Block);
+            }
         }
 
         //Tag
@@ -97,7 +97,9 @@ public class IsometricDataWorld
                 m_worldTag[TagIndex].Block.Add(Block);
             }
             else
+            {
                 m_worldTag[TagIndex].Block.Add(Block);
+            }
         }
         else
         {
@@ -112,7 +114,9 @@ public class IsometricDataWorld
                     m_worldTag[TagIndex].Block.Add(Block);
                 }
                 else
+                {
                     m_worldTag[TagIndex].Block.Add(Block);
+                }
             }
         }
 
@@ -140,12 +144,16 @@ public class IsometricDataWorld
         //World
         int IndexPosH = GetWorldIndexPosH(Pos.Fixed.HInt);
         if (IndexPosH == -1)
+        {
             return null;
+        }
 
         for (int i = 0; i < m_worldPosH[IndexPosH].Block.Count; i++)
         {
             if (m_worldPosH[IndexPosH].Block[i].PosPrimary != Pos.Fixed)
+            {
                 continue;
+            }
 
             return m_worldPosH[IndexPosH].Block[i];
         }
@@ -162,13 +170,17 @@ public class IsometricDataWorld
             {
                 int TagIndex = GetWorldIndexTag(TagFind);
                 if (TagIndex == -1)
+                {
                     //Not exist Tag in Tag List!
                     continue;
+                }
 
                 for (int BlockIndex = 0; BlockIndex < m_worldTag[TagIndex].Block.Count; BlockIndex++)
                 {
                     if (m_worldTag[TagIndex].Block[BlockIndex].Pos.Fixed != Pos.Fixed)
+                    {
                         continue;
+                    }
 
                     return m_worldTag[TagIndex].Block[BlockIndex];
                 }
@@ -177,12 +189,14 @@ public class IsometricDataWorld
         else
         {
             //Find all block with unknow tag - More slower!! (But always found Block)
-            foreach (var TagCheck in m_worldTag)
+            foreach (IsometricDataWorldTag TagCheck in m_worldTag)
             {
-                foreach (var BlockCheck in TagCheck.Block)
+                foreach (IsometricBlock BlockCheck in TagCheck.Block)
                 {
                     if (BlockCheck.Pos.Fixed != Pos.Fixed)
+                    {
                         continue;
+                    }
 
                     return BlockCheck;
                 }
@@ -203,13 +217,17 @@ public class IsometricDataWorld
             {
                 int TagIndex = GetWorldIndexTag(TagFind);
                 if (TagIndex == -1)
+                {
                     //Not exist Tag in Tag List!
                     continue;
+                }
 
                 for (int BlockIndex = 0; BlockIndex < m_worldTag[TagIndex].Block.Count; BlockIndex++)
                 {
                     if (m_worldTag[TagIndex].Block[BlockIndex].Pos.Fixed != Pos.Fixed)
+                    {
                         continue;
+                    }
 
                     List.Add(m_worldTag[TagIndex].Block[BlockIndex]);
                 }
@@ -218,12 +236,14 @@ public class IsometricDataWorld
         else
         {
             //Find all block with unknow tag - More slower!! (But always found Block)
-            foreach (var TagCheck in m_worldTag)
+            foreach (IsometricDataWorldTag TagCheck in m_worldTag)
             {
-                foreach (var BlockCheck in TagCheck.Block)
+                foreach (IsometricBlock BlockCheck in TagCheck.Block)
                 {
                     if (BlockCheck.Pos.Fixed != Pos.Fixed)
+                    {
                         continue;
+                    }
 
                     List.Add(BlockCheck);
                 }
@@ -235,10 +255,13 @@ public class IsometricDataWorld
 
     public List<IsometricBlock> GetBlockCurrentAll(string Tag)
     {
-        foreach (var Check in m_worldTag)
+        foreach (IsometricDataWorldTag Check in m_worldTag)
         {
             if (Check.Tag != Tag)
+            {
                 continue;
+            }
+
             return Check.Block;
         }
         return null;
@@ -253,19 +276,25 @@ public class IsometricDataWorld
         //World
         int IndexPosH = GetWorldIndexPosH(Pos.Fixed.HInt);
         if (IndexPosH == -1)
+        {
             return;
+        }
 
         for (int i = 0; i < m_worldPosH[IndexPosH].Block.Count; i++)
         {
             if (m_worldPosH[IndexPosH].Block[i].PosPrimary != Pos.Fixed)
+            {
                 continue;
+            }
 
             IsometricBlock Block = m_worldPosH[IndexPosH].Block[i];
 
             //World
             m_worldPosH[IndexPosH].Block.Remove(Block);
             if (m_worldPosH[IndexPosH].Block.Count == 0)
+            {
                 m_worldPosH.RemoveAt(IndexPosH);
+            }
 
             //Tag
             List<string> TagFind = Block.Tag;
@@ -276,15 +305,21 @@ public class IsometricDataWorld
                 {
                     m_worldTag[TagIndex].Block.Remove(Block);
                     if (m_worldTag[TagIndex].Block.Count == 0)
+                    {
                         m_worldTag.RemoveAt(TagIndex);
+                    }
                 }
             }
 
             //Scene
             if (Application.isEditor && !Application.isPlaying)
+            {
                 GameObject.DestroyImmediate(Block.gameObject);
+            }
             else
+            {
                 GameObject.Destroy(Block.gameObject, Delay);
+            }
 
             break;
         }
@@ -300,13 +335,19 @@ public class IsometricDataWorld
 
         //Tag
         foreach (string TagCheck in Block.Tag)
+        {
             m_worldTag[GetWorldIndexTag(TagCheck)].Block.Remove(Block);
+        }
 
         //Scene
         if (Application.isEditor && !Application.isPlaying)
+        {
             GameObject.DestroyImmediate(Block.gameObject);
+        }
         else
+        {
             GameObject.Destroy(Block.gameObject, Delay);
+        }
     }
 
     #endregion
@@ -328,7 +369,9 @@ public class IsometricDataWorld
         foreach (IsometricBlock Block in BlockFound)
         {
             if (Block.gameObject.name == CURSON_NAME)
+            {
                 continue;
+            }
 
             Block.transform.SetParent(BlockStore.transform);
         }
@@ -338,31 +381,45 @@ public class IsometricDataWorld
         {
 #if UNITY_EDITOR
             if (WorldManager.GetChild(i).gameObject.name == CURSON_NAME)
+            {
                 continue;
+            }
 #endif
             if (m_manager.transform.GetChild(i).GetComponent<Camera>() != null)
+            {
                 continue;
+            }
 
             if (Application.isEditor && !Application.isPlaying)
+            {
                 GameObject.DestroyImmediate(WorldManager.GetChild(i).gameObject);
+            }
             else
+            {
                 GameObject.Destroy(WorldManager.GetChild(i).gameObject);
+            }
         }
 
         //Add Block(s) Found!!
         foreach (IsometricBlock Block in BlockFound)
         {
             if (Block.gameObject.name == CURSON_NAME)
+            {
                 continue;
+            }
 
             SetWorldReadBlock(Block);
         }
 
         //Destroy Block(s) Store!!
         if (Application.isEditor && !Application.isPlaying)
+        {
             GameObject.DestroyImmediate(BlockStore);
+        }
         else
+        {
             GameObject.Destroy(BlockStore);
+        }
 
         onCreate?.Invoke();
     }
@@ -381,7 +438,9 @@ public class IsometricDataWorld
             m_worldPosH[IndexPosH].Block.Add(Block);
         }
         else
+        {
             m_worldPosH[IndexPosH].Block.Add(Block);
+        }
 
         //Tag
         List<string> TagFind = Block.GetComponent<IsometricBlock>().Tag;
@@ -395,7 +454,9 @@ public class IsometricDataWorld
                 m_worldTag[IndexPosH].Block.Add(Block);
             }
             else
+            {
                 m_worldTag[TagIndex].Block.Add(Block);
+            }
         }
 
         //Scene
@@ -424,12 +485,18 @@ public class IsometricDataWorld
                 IsometricBlock Block = m_worldPosH[i].Block[j];
 
                 if (Block == null)
+                {
                     continue;
+                }
 
                 if (Application.isEditor && !Application.isPlaying)
+                {
                     GameObject.DestroyImmediate(Block.gameObject);
+                }
                 else
+                {
                     GameObject.Destroy(Block.gameObject);
+                }
             }
         }
         m_worldPosH.Clear();
@@ -441,12 +508,18 @@ public class IsometricDataWorld
                 IsometricBlock Block = m_worldTag[i].Block[j];
 
                 if (Block == null)
+                {
                     continue;
+                }
 
                 if (Application.isEditor && !Application.isPlaying)
+                {
                     GameObject.DestroyImmediate(Block.gameObject);
+                }
                 else
+                {
                     GameObject.Destroy(Block.gameObject);
+                }
             }
         }
         m_worldTag.Clear();
@@ -458,15 +531,23 @@ public class IsometricDataWorld
             {
 #if UNITY_EDITOR
                 if (m_manager.transform.GetChild(i).gameObject.name == CURSON_NAME)
+                {
                     continue;
+                }
 #endif
                 if (m_manager.transform.GetChild(i).GetComponent<Camera>() != null)
+                {
                     continue;
+                }
 
                 if (Application.isEditor && !Application.isPlaying)
+                {
                     GameObject.DestroyImmediate(m_manager.transform.GetChild(i).gameObject);
+                }
                 else
+                {
                     GameObject.Destroy(m_manager.transform.GetChild(i).gameObject);
+                }
             }
         }
 
@@ -482,7 +563,10 @@ public class IsometricDataWorld
         for (int i = 0; i < m_worldPosH.Count; i++)
         {
             if (m_worldPosH[i].PosH != PosH)
+            {
                 continue;
+            }
+
             return i;
         }
         return -1;
@@ -493,7 +577,10 @@ public class IsometricDataWorld
         for (int i = 0; i < m_worldTag.Count; i++)
         {
             if (m_worldTag[i].Tag != Tag)
+            {
                 continue;
+            }
+
             return i;
         }
         return -1;
@@ -508,7 +595,9 @@ public class IsometricDataWorld
     {
         m_worldPosH = m_worldPosH.OrderByDescending(h => h.PosH).ToList();
         for (int i = 0; i < m_worldPosH.Count; i++)
+        {
             m_worldPosH[i] = new IsometricDataWorldPosH(m_worldPosH[i].PosH, m_worldPosH[i].Block.OrderByDescending(a => a.Pos.X).OrderByDescending(b => b.Pos.Y).ToList());
+        }
     }
 
     #endregion
@@ -523,11 +612,14 @@ public class IsometricDataWorld
     {
         bool CentreFound = false;
         for (int i = 0; i < m_worldPosH.Count; i++)
+        {
             for (int j = 0; j < m_worldPosH[i].Block.Count; j++)
             {
                 IsometricRenderer BlockSprite = m_worldPosH[i].Block[j].GetComponent<IsometricRenderer>();
                 if (BlockSprite == null)
+                {
                     continue;
+                }
 
                 if (m_worldPosH[i].Block[j].Pos == Pos)
                 {
@@ -536,27 +628,41 @@ public class IsometricDataWorld
                 }
                 else
                 if (m_worldPosH[i].Block[j].Pos.X == Pos.X || m_worldPosH[i].Block[j].Pos.Y == Pos.Y)
+                {
                     BlockSprite.SetSpriteColor(Mask, 1f);
+                }
                 else
+                {
                     BlockSprite.SetSpriteColor(UnMask, 1f);
+                }
             }
+        }
+
         return CentreFound;
     }
 
     public void SetEditorHidden(int FromH, float UnMask)
     {
         for (int i = 0; i < m_worldPosH.Count; i++)
+        {
             for (int j = 0; j < m_worldPosH[i].Block.Count; j++)
             {
                 IsometricRenderer BlockSprite = m_worldPosH[i].Block[j].GetComponent<IsometricRenderer>();
                 if (BlockSprite == null)
+                {
                     continue;
+                }
 
                 if (m_worldPosH[i].Block[j].Pos.H > FromH)
+                {
                     BlockSprite.SetSpriteAlpha(UnMask);
+                }
                 else
+                {
                     BlockSprite.SetSpriteAlpha(1f);
+                }
             }
+        }
     }
 
     #endregion
@@ -568,10 +674,10 @@ public class IsometricDataWorldPosH
     public int PosH;
     public List<IsometricBlock> Block;
 
-    public IsometricDataWorldPosH (int PosH)
+    public IsometricDataWorldPosH(int PosH)
     {
         this.PosH = PosH;
-        this.Block = new List<IsometricBlock>();
+        Block = new List<IsometricBlock>();
     }
 
     public IsometricDataWorldPosH(int PosH, List<IsometricBlock> Block)
@@ -590,7 +696,7 @@ public class IsometricDataWorldTag
     public IsometricDataWorldTag(string Tag)
     {
         this.Tag = Tag;
-        this.Block = new List<IsometricBlock>();
+        Block = new List<IsometricBlock>();
     }
 
     public IsometricDataWorldTag(string Tag, List<IsometricBlock> Block)

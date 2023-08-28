@@ -20,9 +20,9 @@ public class IsometricConfig : ScriptableObject
         get
         {
             List<IsometricBlock> BlockList = new List<IsometricBlock>();
-            foreach(var BlockListCheck in this.m_blockList)
+            foreach (BlockListSingle BlockListCheck in m_blockList)
             {
-                foreach(var BlockCheck in BlockListCheck.Block)
+                foreach (IsometricBlock BlockCheck in BlockListCheck.Block)
                 {
                     BlockList.Add(BlockCheck);
                 }
@@ -33,7 +33,7 @@ public class IsometricConfig : ScriptableObject
 
     public void SetRefresh()
     {
-        foreach(var BlockListCheck in m_blockList)
+        foreach (BlockListSingle BlockListCheck in m_blockList)
         {
             BlockListCheck.Block = BlockListCheck.Block.Where(x => x != null).ToList();
             BlockListCheck.Block = BlockListCheck.Block.OrderBy(t => t.name).ToList();

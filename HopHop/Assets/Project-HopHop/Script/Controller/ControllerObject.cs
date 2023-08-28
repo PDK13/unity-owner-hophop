@@ -1,6 +1,4 @@
 using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ControllerObject : MonoBehaviour
@@ -32,9 +30,9 @@ public class ControllerObject : MonoBehaviour
         //
         if (m_dataMove.DataExist)
         {
-            GameTurn.SetInit(TurnType.Object, this.gameObject);
-            GameTurn.Instance.onTurn += SetControlTurn;
-            GameTurn.Instance.onStepStart += SetControlStep;
+            TurnManager.SetInit(TurnType.Object, gameObject);
+            TurnManager.Instance.onTurn += SetControlTurn;
+            TurnManager.Instance.onStepStart += SetControlStep;
         }
         //
         if (m_dataFollow.IdentityGet != "")
@@ -49,9 +47,9 @@ public class ControllerObject : MonoBehaviour
         //
         if (m_dataMove.DataExist)
         {
-            GameTurn.SetRemove(TurnType.Object, this.gameObject);
-            GameTurn.Instance.onTurn -= SetControlTurn;
-            GameTurn.Instance.onStepStart -= SetControlStep;
+            TurnManager.SetRemove(TurnType.Object, gameObject);
+            TurnManager.Instance.onTurn -= SetControlTurn;
+            TurnManager.Instance.onStepStart -= SetControlStep;
         }
         //
         if (m_dataFollow.IdentityGet != "")
@@ -110,16 +108,20 @@ public class ControllerObject : MonoBehaviour
                 if (TurnEnd)
                 {
                     m_turnControl = false;
-                    GameTurn.SetEndTurn(TurnType.Object, this.gameObject); //Follow Object (!)
+                    TurnManager.SetEndTurn(TurnType.Object, gameObject); //Follow Object (!)
                     //
                     m_turnDir = IsometricVector.None;
                 }
                 else
-                    GameTurn.SetEndMove(TurnType.Object, this.gameObject); //Follow Object (!)
+                {
+                    TurnManager.SetEndMove(TurnType.Object, gameObject); //Follow Object (!)
+                }
             });
         //
         if (m_dataFollow.Identity != "")
+        {
             GameEvent.SetFollow(m_dataFollow.Identity, m_turnDir);
+        }
         //
         SetMovePush(m_turnDir);
         //
@@ -144,13 +146,15 @@ public class ControllerObject : MonoBehaviour
                 m_dataMove.Quantity *= -1;
                 m_dataMove.Index += m_dataMove.Quantity;
             }
-        } 
+        }
     }
 
     private void SetControlFollow(string Identity, IsometricVector Dir)
     {
         if (Identity != m_dataFollow.IdentityGet)
+        {
             return;
+        }
         //
         Vector3 MoveDir = IsometricVector.GetVector(Dir);
         Vector3 MoveStart = IsometricVector.GetVector(m_block.Pos);
@@ -179,7 +183,9 @@ public class ControllerObject : MonoBehaviour
     private void SetMovePush(IsometricVector Dir)
     {
         if (Dir == IsometricVector.Top || Dir == IsometricVector.Bot)
+        {
             return;
+        }
         //
         IsometricBlock BlockPush = m_block.WorldManager.World.GetBlockCurrent(m_block.Pos + Dir);
         if (BlockPush != null)
@@ -202,9 +208,13 @@ public class ControllerObject : MonoBehaviour
             if (BodyTop != null)
             {
                 if (Dir == IsometricVector.Top || Dir == IsometricVector.Bot)
+                {
                     BodyTop.SetControlForce(Dir); //Force!!
+                }
                 else
+                {
                     BodyTop.SetControlPush(Dir, IsometricVector.Bot); //Push!!
+                }
             }
         }
     }

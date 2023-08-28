@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -28,7 +26,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(gameObject);
         //
         GameConfig = m_gameConfig;
         //
@@ -56,10 +54,10 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
-        IsometricDataFile.SetFileRead(m_isometricManager,WorldData);
+        IsometricDataFile.SetFileRead(m_isometricManager, WorldData);
 
         yield return new WaitForSeconds(1f);
 
-        GameTurn.SetStart();
+        TurnManager.SetStart();
     }
 }

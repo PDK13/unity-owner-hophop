@@ -1,4 +1,3 @@
-using QuickMethode;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,7 +20,10 @@ public class IsometricDataMove
         {
             List<IsometricDataBlockMoveSingle> Data = new List<IsometricDataBlockMoveSingle>();
             for (int i = 0; i < Dir.Count; i++)
+            {
                 Data.Add(new IsometricDataBlockMoveSingle(Dir[i], (DirDuration.Count == Dir.Count ? DirDuration[i] : 1)));
+            }
+
             return Data;
         }
     }
@@ -37,7 +39,9 @@ public class IsometricDataMove
     public void SetDataAdd(IsometricDataBlockMoveSingle DataSingle)
     {
         if (DataSingle == null)
+        {
             return;
+        }
         //
         Dir.Add(DataSingle.Dir);
         DirDuration.Add(DataSingle.Length);
@@ -59,13 +63,15 @@ public class IsometricDataBlockMoveSingle
     public IsometricDataBlockMoveSingle(IsoDir Dir, int Value)
     {
         this.Dir = Dir;
-        this.Length = Value;
+        Length = Value;
     }
 
     public static IsometricDataBlockMoveSingle GetDencypt(string Value)
     {
         if (Value == "")
+        {
             return null;
+        }
         //
         List<string> DataString = QEncypt.GetDencyptString(KEY_VALUE_ENCYPT, Value);
         return new IsometricDataBlockMoveSingle(IsometricVector.GetDirDeEncyptEnum(DataString[1]), int.Parse(DataString[0]));
