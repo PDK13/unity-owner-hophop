@@ -26,6 +26,7 @@ MonoBehaviour:
     - {fileID: 1455909166595997230, guid: 218a42f8b9ed39b42a68cce7d36b4e7c, type: 3}
   - Name: Character
     Block:
+    - {fileID: 44393240911007880, guid: fca164667bfe9994a93ede8464ff1394, type: 3}
     - {fileID: 44393240911007880, guid: f0c0cb30ee59a974ea8fd0538a61e31d, type: 3}
     - {fileID: 44393240911007880, guid: 71817dbe38197744d9fd64111af9f02e, type: 3}
     - {fileID: 44393240911007880, guid: 41201b9a01fe0774a8de897f54735225, type: 3}
