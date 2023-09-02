@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 44393240911007880}
   - component: {fileID: -8828584118407691171}
   - component: {fileID: 2006875699832793678}
-  - component: {fileID: 3636556515502253064}
   m_Layer: 0
   m_Name: Light Fish
   m_TagString: Untagged
@@ -197,16 +196,3 @@ MonoBehaviour:
     X: 0
     Y: 0
     H: 0
---- !u!114 &3636556515502253064
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 44393240911007885}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c54ab2f10156ac498f9d94eb6e0eab4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_bullet: {fileID: 4963734542536966008, guid: 740db2b1ad6f89045af8c08341d89a25, type: 3}
