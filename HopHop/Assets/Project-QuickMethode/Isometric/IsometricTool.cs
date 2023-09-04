@@ -1,5 +1,6 @@
 #if UNITY_EDITOR
 
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -12,6 +13,9 @@ public class IsometricTool : EditorWindow
     #endregion
 
     #region Varible: Manager
+
+    private IsometricManager m_manager;
+    private bool m_managerUpdate = false;
 
     private string m_pathOpen = "";
     private string m_pathSave = "";
@@ -40,17 +44,12 @@ public class IsometricTool : EditorWindow
 
     #region Varible: World Manager
 
-    private IsometricManager m_manager;
-
     private int m_indexTag = 0;
     private int m_indexName = 0;
     private int m_countNameHorizontal = 4;
 
-    #endregion
-
-    #region Varible: Block Manager
-
-    //...
+    private List<string> m_listTag;
+    private int m_indexTagLast = 0;
 
     #endregion
 
@@ -69,45 +68,37 @@ public class IsometricTool : EditorWindow
 
     private void OnEnable()
     {
-        if (m_manager != null)
-        {
-            m_manager.SetInit();
-            m_manager.List.SetList(m_manager.Config);
-            m_manager.World.SetWorldRead(m_manager.transform);
-        }
+        if (GetManager())
+            SetManager(true);
     }
 
     private void OnGUI()
     {
-        if (!GetManager())
-        {
+        if (GetManager())
+            SetManager(true);
+        else
             return;
-        }
-
+        //
         QEditor.SetLabel("TOOL MANAGER", QEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this));
-
+        //
         SetGUIGroupManager();
-
+        //
         QEditor.SetSpace(5f);
         QEditor.SetLabel("CURSON MANAGER", QEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this));
-
+        //
         SetCursonControl();
-
+        //
         SetGUIGroupCurson();
-
+        //
         if (m_manager.List.BlockList.Count == 0)
-        {
             return;
-        }
-
+        //
         QEditor.SetSpace(5f);
         QEditor.SetLabel("MAIN MANAGER", QEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this));
-
-        if (QEditor.SetButton((m_main == MainType.World ? "WORLD" : "BLOCK"), null, QEditorWindow.GetGUILayoutWidth(this)))
-        {
-            m_main = m_main == MainType.World ? MainType.Block : MainType.World;
-        }
-
+        //
+        //if (QEditor.SetButton((m_main == MainType.World ? "WORLD" : "BLOCK"), null, QEditorWindow.GetGUILayoutWidth(this)))
+        //    m_main = m_main == MainType.World ? MainType.Block : MainType.World;
+        //
         switch (m_main)
         {
             case MainType.World:
@@ -128,14 +119,30 @@ public class IsometricTool : EditorWindow
     private bool GetManager()
     {
         if (m_manager == null)
-        {
             m_manager = GameObject.FindFirstObjectByType<IsometricManager>();
-            m_manager.SetInit();
-            m_manager.List.SetList(m_manager.Config);
-            m_manager.World.SetWorldRead(m_manager.transform);
-        }
-
+        //
         return m_manager != null;
+    }
+
+    private void SetManager(bool Force)
+    {
+        if (m_manager == null)
+            return;
+        //
+        if (!Force)
+        {
+            if (m_managerUpdate)
+                return;
+            m_managerUpdate = true;
+        }
+        //
+        m_manager.SetInit();
+        m_manager.List.SetList(m_manager.Config);
+        m_manager.World.SetWorldRead(m_manager.transform);
+        //
+        m_listTag = new List<string>();
+        for (int i = 0; i < m_manager.List.BlockList.Count; i++)
+            m_listTag.Add(m_manager.List.BlockList[i].Tag);
     }
 
     #endregion
@@ -445,9 +452,8 @@ public class IsometricTool : EditorWindow
             m_indexTag = 0;
             m_indexName = 0;
             //
-            m_manager.SetInit();
-            m_manager.List.SetList(m_manager.Config);
-            m_manager.World.SetWorldRead(m_manager.transform);
+            if (GetManager())
+                SetManager(true);
             //
             SetCursonMaskXY();
             SetCursonHiddenH();
@@ -500,6 +506,14 @@ public class IsometricTool : EditorWindow
     private void SetGUIGroupTag()
     {
         QEditor.SetLabel("TAG", QEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this));
+        //
+        //SetGUIGroupTagButton();
+        //
+        SetGUIGroupTagPopup();
+    }
+
+    private void SetGUIGroupTagButton()
+    {
         m_scrollTag = QEditor.SetScrollViewBegin(m_scrollTag, QEditor.GetGUIHeight(100));
         for (int i = 0; i < m_manager.List.BlockList.Count; i++)
         {
@@ -522,6 +536,16 @@ public class IsometricTool : EditorWindow
             }
         }
         QEditor.SetScrollViewEnd();
+    }
+
+    private void SetGUIGroupTagPopup()
+    {
+        m_indexTag = QEditor.SetPopup(m_indexTag, m_listTag);
+        if (m_indexTag != m_indexTagLast)
+        {
+            m_indexTagLast = m_indexTag;
+            m_indexName = 0;
+        }
     }
 
     //Group Block
@@ -553,17 +577,13 @@ public class IsometricTool : EditorWindow
             for (int i = 0; i < m_countNameHorizontal; i++)
             {
                 if (BlockIndex > m_manager.List.BlockList[m_indexTag].Block.Count - 1)
-                {
                     continue;
-                }
-
+                //
                 QEditor.SetBackground(m_indexName == BlockIndex ? Color.white : Color.clear);
                 if (GetGUIGroupBlockButton(BlockIndex))
-                {
                     m_indexName = BlockIndex;
-                }
+                //
                 BlockIndex++;
-
             }
             QEditor.SetHorizontalEnd();
         }
