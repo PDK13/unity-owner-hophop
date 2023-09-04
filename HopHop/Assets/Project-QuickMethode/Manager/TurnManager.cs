@@ -162,7 +162,8 @@ public class TurnManager : MonoBehaviour
         }
 #endif
         //
-        Instance.StartCoroutine(Instance.ISetCurrent());
+        if (Instance != null)
+            Instance.StartCoroutine(Instance.ISetCurrent());
     } //Force Turn Next!!
 
     private IEnumerator ISetCurrent()
