@@ -124,8 +124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_name: Light Pig
   m_tag:
-  - character
-  - light
+  - character light
   m_posType: 1
   m_pos:
     X: 0

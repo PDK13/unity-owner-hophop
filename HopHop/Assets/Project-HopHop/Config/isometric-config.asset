@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: isometric-config
   m_EditorClassIdentifier: 
   m_blockList:
-  - Name: Block
+  - Name: block
     Block:
     - {fileID: 44393240911007880, guid: e6a6ef9d35e94824c90d24f0a9f70445, type: 3}
     - {fileID: 1831744179654619829, guid: 7a6b9e287bd724d42a0525893eda16d2, type: 3}
@@ -24,36 +24,36 @@ MonoBehaviour:
     - {fileID: 44393240911007880, guid: 5a84e1888d2e3c249a15ec44aebb815c, type: 3}
     - {fileID: 44393240911007880, guid: ef6dded9a5ceae549bb45d45fcae1a05, type: 3}
     - {fileID: 1455909166595997230, guid: 218a42f8b9ed39b42a68cce7d36b4e7c, type: 3}
-  - Name: Player
+  - Name: character player
     Block:
     - {fileID: 44393240911007880, guid: c7dda824b32fcfe4c88c6bccf01ac4ed, type: 3}
-  - Name: Light
+  - Name: character light
     Block:
-    - {fileID: 44393240911007880, guid: fca164667bfe9994a93ede8464ff1394, type: 3}
     - {fileID: 44393240911007880, guid: 94d3c6a2d5cd46f4cb39eb2d6ef004d7, type: 3}
-    - {fileID: 44393240911007880, guid: f0c0cb30ee59a974ea8fd0538a61e31d, type: 3}
     - {fileID: 44393240911007880, guid: 71817dbe38197744d9fd64111af9f02e, type: 3}
     - {fileID: 44393240911007880, guid: 41201b9a01fe0774a8de897f54735225, type: 3}
-    - {fileID: 44393240911007880, guid: 72dadbf741f9a854c8f8da51d414bbb6, type: 3}
     - {fileID: 44393240911007880, guid: cf6f55c23de10e94ebdcd83b2181fbda, type: 3}
-    - {fileID: 44393240911007880, guid: 21c39bf5afa57e844b6cfcea868e26e7, type: 3}
     - {fileID: 44393240911007880, guid: 0a6433aa93900ae468cfdf8fdc45328b, type: 3}
     - {fileID: 44393240911007880, guid: 5f8a4b3194d84f64ab6446fb9fae653d, type: 3}
+    - {fileID: 44393240911007880, guid: fca164667bfe9994a93ede8464ff1394, type: 3}
+    - {fileID: 44393240911007880, guid: 21c39bf5afa57e844b6cfcea868e26e7, type: 3}
+    - {fileID: 44393240911007880, guid: 72dadbf741f9a854c8f8da51d414bbb6, type: 3}
+    - {fileID: 44393240911007880, guid: f0c0cb30ee59a974ea8fd0538a61e31d, type: 3}
     - {fileID: 44393240911007880, guid: 00c9dc5fbfb705f46b6f837143a9488e, type: 3}
-  - Name: Dark
+  - Name: character dark
     Block:
     - {fileID: 44393240911007880, guid: 5ba21ecc26bac394f80e86589e67294f, type: 3}
-  - Name: Trap
+  - Name: trap
     Block:
     - {fileID: 1455909166595997230, guid: bb1d6f31074e38a4c82d0eaf4f95129c, type: 3}
     - {fileID: 1455909166595997230, guid: cc00723f6326c324aaef48d0264f6f62, type: 3}
-  - Name: Object Flower 0
+  - Name: flower 0
     Block:
     - {fileID: 44393240911007880, guid: 381915d1355f4b145ad52cfe6b536e1d, type: 3}
     - {fileID: 44393240911007880, guid: 4d723acb8bc4b7243b9909ed90f662d3, type: 3}
     - {fileID: 44393240911007880, guid: 376da905a3745de44aa5758eacd1167d, type: 3}
     - {fileID: 44393240911007880, guid: 3a52f7adab0a0a546a53b79e1251424e, type: 3}
-  - Name: Object Rock 1
+  - Name: rock 0
     Block:
     - {fileID: 44393240911007880, guid: 2716e36401a34934db349c7c497b6bbb, type: 3}
     - {fileID: 44393240911007880, guid: ed8f7408028008943a8879e0c257feb8, type: 3}
@@ -67,7 +67,7 @@ MonoBehaviour:
     - {fileID: 44393240911007880, guid: 549cc5c735503414e8855db7fcfceaaf, type: 3}
     - {fileID: 44393240911007880, guid: 8ad0f18ebdf942d4d9cd4b848ecb5318, type: 3}
     - {fileID: 44393240911007880, guid: e3aaf6ee839439a42bc607d5373d12ab, type: 3}
-  - Name: Object Tree 1
+  - Name: tree 0
     Block:
     - {fileID: 44393240911007880, guid: 8858c6ad8b5774e4faa517d88072b92d, type: 3}
     - {fileID: 44393240911007880, guid: c0c3e781cf7840c43b93ca13edc32d12, type: 3}

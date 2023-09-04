@@ -125,8 +125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_name: Player Angle
   m_tag:
-  - character
-  - player
+  - character player
   m_posType: 1
   m_pos:
     X: 0

@@ -123,8 +123,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_name: Dark Devil
   m_tag:
-  - character
-  - dark
+  - character dark
   m_posType: 1
   m_pos:
     X: 0
