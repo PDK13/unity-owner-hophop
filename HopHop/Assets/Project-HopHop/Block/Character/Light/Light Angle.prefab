@@ -125,7 +125,7 @@ MonoBehaviour:
   m_name: Player Angle
   m_tag:
   - character
-  - player
+  - light
   m_posType: 1
   m_pos:
     X: 0
