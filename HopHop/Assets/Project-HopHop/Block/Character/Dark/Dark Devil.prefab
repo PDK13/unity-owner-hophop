@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -1318212669474501758}
   - component: {fileID: -610622741126382297}
   m_Layer: 0
-  m_Name: Light Devil
+  m_Name: Dark Devil
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -121,10 +121,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88b51ca1839d85a47a182808b3636847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_name: Light Devil
+  m_name: Dark Devil
   m_tag:
   - character
-  - light
+  - dark
   m_posType: 1
   m_pos:
     X: 0

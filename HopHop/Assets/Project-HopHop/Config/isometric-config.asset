@@ -24,19 +24,25 @@ MonoBehaviour:
     - {fileID: 44393240911007880, guid: 5a84e1888d2e3c249a15ec44aebb815c, type: 3}
     - {fileID: 44393240911007880, guid: ef6dded9a5ceae549bb45d45fcae1a05, type: 3}
     - {fileID: 1455909166595997230, guid: 218a42f8b9ed39b42a68cce7d36b4e7c, type: 3}
-  - Name: Character
+  - Name: Player
+    Block:
+    - {fileID: 44393240911007880, guid: c7dda824b32fcfe4c88c6bccf01ac4ed, type: 3}
+  - Name: Light
     Block:
     - {fileID: 44393240911007880, guid: fca164667bfe9994a93ede8464ff1394, type: 3}
+    - {fileID: 44393240911007880, guid: 94d3c6a2d5cd46f4cb39eb2d6ef004d7, type: 3}
     - {fileID: 44393240911007880, guid: f0c0cb30ee59a974ea8fd0538a61e31d, type: 3}
     - {fileID: 44393240911007880, guid: 71817dbe38197744d9fd64111af9f02e, type: 3}
     - {fileID: 44393240911007880, guid: 41201b9a01fe0774a8de897f54735225, type: 3}
-    - {fileID: 44393240911007880, guid: 5ba21ecc26bac394f80e86589e67294f, type: 3}
     - {fileID: 44393240911007880, guid: 72dadbf741f9a854c8f8da51d414bbb6, type: 3}
     - {fileID: 44393240911007880, guid: cf6f55c23de10e94ebdcd83b2181fbda, type: 3}
     - {fileID: 44393240911007880, guid: 21c39bf5afa57e844b6cfcea868e26e7, type: 3}
     - {fileID: 44393240911007880, guid: 0a6433aa93900ae468cfdf8fdc45328b, type: 3}
     - {fileID: 44393240911007880, guid: 5f8a4b3194d84f64ab6446fb9fae653d, type: 3}
-    - {fileID: 44393240911007880, guid: c7dda824b32fcfe4c88c6bccf01ac4ed, type: 3}
+    - {fileID: 44393240911007880, guid: 00c9dc5fbfb705f46b6f837143a9488e, type: 3}
+  - Name: Dark
+    Block:
+    - {fileID: 44393240911007880, guid: 5ba21ecc26bac394f80e86589e67294f, type: 3}
   - Name: Trap
     Block:
     - {fileID: 1455909166595997230, guid: bb1d6f31074e38a4c82d0eaf4f95129c, type: 3}
