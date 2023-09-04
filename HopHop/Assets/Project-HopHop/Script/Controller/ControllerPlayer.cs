@@ -130,7 +130,7 @@ public class ControllerPlayer : MonoBehaviour
                     return;
                 }
                 //
-                if (!BlockBody.GetCheckDir(Dir, Dir))
+                if (BlockBody.GetCheckDir(Dir))
                 {
                     //Surely can't continue move to this Pos, because this Block can't be push to the Pos ahead!!
                     return;
