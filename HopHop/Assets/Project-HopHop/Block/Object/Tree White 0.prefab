@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 44393240911007886}
   - component: {fileID: 44393240911007887}
   - component: {fileID: 44393240911007880}
-  - component: {fileID: 3030991391014327619}
   - component: {fileID: -4819422869623411208}
   m_Layer: 0
   m_Name: Tree White 0
@@ -100,38 +99,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_name: Object Tree White 0
-  m_free: 0
   m_tag:
   - object
   - tree
+  m_posType: 0
   m_pos:
     X: 0
     Y: 0
     H: 0
-  MoveData:
-    Key: 
+  m_moveData:
     Type: 0
     Dir: 
-    Length: 
+    DirDuration: 
     Index: 0
     Quantity: 1
-  FollowData:
-    Key: 
-    KeyFollow: 
-  ActionData:
-    Key: 
+  m_followData:
+    Identity: 
+    IdentityGet: 
+  m_actionData:
     Type: 0
     Action: []
-    Time: 
+    ActionDuration: 
     Index: 0
     Quantity: 1
-  EventData:
-    Key: 
-    Data: []
-  TeleportData:
-    Key: 
-    Data: []
-  m_scene:
+  m_eventData:
+    Identity: []
+    IdentityGet: []
+  m_teleportData:
+    Name: 
+    Pos:
+      X: 0
+      Y: 0
+      H: 0
+  m_sceneData:
     Renderer: 1
     Rotate: 0
     Centre:
@@ -143,20 +143,6 @@ MonoBehaviour:
       Y: 1
       H: 1
   m_centre: {x: 0, y: 0, z: 0}
---- !u!114 &3030991391014327619
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 44393240911007885}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 356b48384d910eb46b3cb82542ab9418, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_spriteJoin: []
-  m_blockTop: []
 --- !u!114 &-4819422869623411208
 MonoBehaviour:
   m_ObjectHideFlags: 0

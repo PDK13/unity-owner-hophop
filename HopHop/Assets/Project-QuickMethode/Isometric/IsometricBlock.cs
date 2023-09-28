@@ -55,11 +55,21 @@ public class IsometricBlock : MonoBehaviour
 
     #endregion
 
-    #region ================================================================== World Manager
+    #region ================================================================== Block Manager
 
     public string Name => m_name != "" ? m_name : QGameObject.GetNameReplaceClone(name);
 
     public List<string> Tag => m_tag;
+
+    public IsometricVector Pos { get => m_pos; set { m_pos = value; SetIsoTransform(); } }
+
+    public IsometricPosType PosType => m_posType;
+
+    public IsometricVector PosPrimary { get => m_posPrimary; set => m_posPrimary = value; }
+
+    #endregion
+
+    #region ================================================================== World Manager
 
     public IsometricManager WorldManager
     {
@@ -70,16 +80,6 @@ public class IsometricBlock : MonoBehaviour
             m_sceneData = value.Game.Scene;
         }
     }
-
-    #endregion
-
-    #region ================================================================== World Manager
-
-    public IsometricVector Pos { get => m_pos; set { m_pos = value; SetIsoTransform(); } }
-
-    public IsometricPosType PosType => m_posType;
-
-    public IsometricVector PosPrimary { get => m_posPrimary; set => m_posPrimary = value; }
 
     #endregion
 
@@ -196,7 +196,7 @@ public class IsometricBlock : MonoBehaviour
 
     #endregion
 
-    #region ================================================================== Check
+    #region ================================================================== World Check
 
     public List<IsometricBlock> GetCheck(IsometricVector Dir, int Length)
     {
@@ -206,6 +206,23 @@ public class IsometricBlock : MonoBehaviour
     public List<IsometricBlock> GetCheck(IsometricVector Dir, int Length, params string[] TagFind)
     {
         return WorldManager.World.GetBlockCurrentAll(Pos.Fixed + Dir * Length, TagFind);
+    }
+
+    #endregion
+
+    #region ================================================================== World Editor
+
+    public void SetSpriteAlpha(float Alpha)
+    {
+        Color Color = GetComponent<SpriteRenderer>().color;
+        QColor.SetColor(ref Color, Alpha);
+        GetComponent<SpriteRenderer>().color = Color;
+    }
+
+    public void SetSpriteColor(Color Color, float Alpha = 1)
+    {
+        GetComponent<SpriteRenderer>().color = Color;
+        SetSpriteAlpha(Alpha);
     }
 
     #endregion

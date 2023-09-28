@@ -54,13 +54,6 @@ public class IsometricDataWorld
         //Block Data
         Block.Data = Data != null ? Data : new IsometricDataFileBlockData();
 
-        //Block Renderer
-        IsometricRenderer BlockRenderer = BlockObject.GetComponent<IsometricRenderer>();
-        if (BlockRenderer != null)
-        {
-            BlockRenderer.SetSpriteJoin(Pos.Fixed);
-        }
-
         if (Block.PosType == IsometricPosType.Free && Application.isPlaying)
         {
             //When in playing, FREE Block's Pos Primary will not be track, so just can be find by it own Tag!
@@ -606,8 +599,6 @@ public class IsometricDataWorld
 
     #region ======================================================================== Editor
 
-    //Required "IsoBlockRenderer.cs" component for each Block!
-
     public bool SetEditorMask(IsometricVector Pos, Color Mask, Color UnMask, Color Centre)
     {
         bool CentreFound = false;
@@ -615,29 +606,23 @@ public class IsometricDataWorld
         {
             for (int j = 0; j < m_worldPosH[i].Block.Count; j++)
             {
-                IsometricRenderer BlockSprite = m_worldPosH[i].Block[j].GetComponent<IsometricRenderer>();
-                if (BlockSprite == null)
-                {
+                IsometricBlock Block = m_worldPosH[i].Block[j].GetComponent<IsometricBlock>();
+                if (Block == null)
                     continue;
-                }
-
+                //
                 if (m_worldPosH[i].Block[j].Pos == Pos)
                 {
                     CentreFound = true;
-                    BlockSprite.SetSpriteColor(Centre, 1f);
+                    Block.SetSpriteColor(Centre, 1f);
                 }
                 else
                 if (m_worldPosH[i].Block[j].Pos.X == Pos.X || m_worldPosH[i].Block[j].Pos.Y == Pos.Y)
-                {
-                    BlockSprite.SetSpriteColor(Mask, 1f);
-                }
+                    Block.SetSpriteColor(Mask, 1f);
                 else
-                {
-                    BlockSprite.SetSpriteColor(UnMask, 1f);
-                }
+                    Block.SetSpriteColor(UnMask, 1f);
             }
         }
-
+        //
         return CentreFound;
     }
 
@@ -647,20 +632,14 @@ public class IsometricDataWorld
         {
             for (int j = 0; j < m_worldPosH[i].Block.Count; j++)
             {
-                IsometricRenderer BlockSprite = m_worldPosH[i].Block[j].GetComponent<IsometricRenderer>();
-                if (BlockSprite == null)
-                {
+                IsometricBlock Block = m_worldPosH[i].Block[j].GetComponent<IsometricBlock>();
+                if (Block == null)
                     continue;
-                }
-
+                //
                 if (m_worldPosH[i].Block[j].Pos.H > FromH)
-                {
-                    BlockSprite.SetSpriteAlpha(UnMask);
-                }
+                    Block.SetSpriteAlpha(UnMask);
                 else
-                {
-                    BlockSprite.SetSpriteAlpha(1f);
-                }
+                    Block.SetSpriteAlpha(1f);
             }
         }
     }
