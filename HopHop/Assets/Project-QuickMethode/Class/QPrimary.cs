@@ -209,35 +209,6 @@ public class QCircle
     #endregion
 }
 
-public class QGeometry
-{
-    public static List<Vector2> GetGeometry(int Point, float Radius, float Deg)
-    {
-        if (Point < 3)
-        {
-            //One shape must have 3 points at least!!
-            return null;
-        }
-
-        List<Vector2> Points = new List<Vector2>();
-
-        float RadSpace = (360 / Point) * (Mathf.PI / 180);
-        float RadStart = (Deg) * (Mathf.PI / 180);
-        float RadCur = RadStart;
-
-        Vector2 PointStart = new Vector2(Mathf.Cos(RadStart) * Radius, Mathf.Sin(RadStart) * Radius);
-        Points.Add(PointStart);
-        for (int i = 1; i < Point; i++)
-        {
-            RadCur += RadSpace;
-            Vector2 NewPoint = new Vector2(Mathf.Cos(RadCur) * Radius, Mathf.Sin(RadCur) * Radius);
-            Points.Add(NewPoint);
-        }
-
-        return Points;
-    }
-}
-
 public class QColor
 {
     #region ==================================== Color

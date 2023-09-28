@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class IsometricManager : MonoBehaviour
@@ -32,6 +33,7 @@ public class IsometricManager : MonoBehaviour
 public class IsometricGameData
 {
     public string Name = "";
+    public List<string> Command = new List<string>();
     public IsometricGameDataScene Scene = new IsometricGameDataScene();
 }
 

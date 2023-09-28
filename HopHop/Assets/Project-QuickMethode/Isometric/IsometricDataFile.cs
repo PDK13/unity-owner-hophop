@@ -4,18 +4,19 @@ using UnityEngine;
 
 public class IsometricDataFile
 {
-    private const string KEY_WORLD_NAME = "<1> WORLD-NAME";
-    private const string KEY_WORLD_BLOCK = "<2> WORLD-BLOCK";
-    private const string KEY_WORLD_END = "<!> WORLD";
+    private const string KEY_WORLD_NAME = "#WORLD-NAME";
+    private const string KEY_WORLD_COMMAND = "#WORLD-COMMAND";
+    private const string KEY_WORLD_BLOCK = "#WORLD-BLOCK";
+    private const string KEY_WORLD_END = "#WORLD-END";
 
-    private const string KEY_BLOCK_MOVE = "<2.1> BLOCK-MOVE";
-    private const string KEY_BLOCK_FOLLOW = "<2.2> BLOCK-FOLLOW";
-    private const string KEY_BLOCK_FOLLOW_GET = "<2.2> BLOCK-FOLLOW_GET";
-    private const string KEY_BLOCK_ACTION = "<2.3> BLOCK-ACTION";
-    private const string KEY_BLOCK_EVENT = "<2.4> BLOCK-EVENT";
-    private const string KEY_BLOCK_EVENT_GET = "<2.4> BLOCK-EVENT_GET";
-    private const string KEY_BLOCK_TELEPORT = "<2.5> BLOCK-TELEPORT";
-    private const string KEY_BLOCK_END = "<2.!> BLOCK";
+    private const string KEY_BLOCK_MOVE = "#BLOCK-MOVE";
+    private const string KEY_BLOCK_FOLLOW = "#BLOCK-FOLLOW";
+    private const string KEY_BLOCK_FOLLOW_GET = "#BLOCK-FOLLOW_GET";
+    private const string KEY_BLOCK_ACTION = "#BLOCK-ACTION";
+    private const string KEY_BLOCK_EVENT = "#BLOCK-EVENT";
+    private const string KEY_BLOCK_EVENT_GET = "#BLOCK-EVENT_GET";
+    private const string KEY_BLOCK_TELEPORT = "#BLOCK-TELEPORT";
+    private const string KEY_BLOCK_END = "#BLOCK-END";
 
     #region Fild Write
 
@@ -45,6 +46,17 @@ public class IsometricDataFile
         //
         FileIO.SetWriteAdd(KEY_WORLD_NAME);
         FileIO.SetWriteAdd((Manager.Game.Name != "") ? Manager.Game.Name : "...");
+        //
+        FileIO.SetWriteAdd();
+        //
+        FileIO.SetWriteAdd(KEY_WORLD_COMMAND);
+        FileIO.SetWriteAdd(Manager.Game.Command.Count);
+        for (int i = 0; i < Manager.Game.Command.Count; i++)
+        {
+            FileIO.SetWriteAdd(Manager.Game.Command[i]);
+        }
+        //
+        FileIO.SetWriteAdd();
         //
         FileIO.SetWriteAdd(KEY_WORLD_BLOCK);
         FileIO.SetWriteAdd(WorldBlocks.Count);
@@ -164,6 +176,15 @@ public class IsometricDataFile
                 case KEY_WORLD_NAME:
                     Manager.Game.Name = FileIO.GetReadAutoString();
                     break;
+                case KEY_WORLD_COMMAND:
+                    int CommandCount = FileIO.GetReadAutoInt();
+                    //
+                    Manager.Game.Command = new List<string>();
+                    for (int CommandIndex = 0; CommandIndex < CommandCount; CommandIndex++)
+                    {
+                        Manager.Game.Command.Add(FileIO.GetReadAutoString());
+                    }
+                    break;
                 case KEY_WORLD_BLOCK:
                     int BlockCount = FileIO.GetReadAutoInt();
                     //
@@ -195,7 +216,6 @@ public class IsometricDataFile
                                     {
                                         Data.Move.SetDataAdd(IsometricDataBlockMoveSingle.GetDencypt(FileIO.GetReadAutoString()));
                                     }
-
                                     break;
                                 case KEY_BLOCK_FOLLOW:
                                     Data.Follow.Identity = FileIO.GetReadAutoString();
@@ -214,7 +234,6 @@ public class IsometricDataFile
                                     {
                                         Data.Action.SetDataAdd(IsometricDataBlockActionSingle.GetDencypt(FileIO.GetReadAutoString()));
                                     }
-
                                     break;
                                 case KEY_BLOCK_EVENT:
                                     Data.Event.Identity = new List<string>();
@@ -223,7 +242,6 @@ public class IsometricDataFile
                                     {
                                         Data.Event.Identity.Add(FileIO.GetReadAutoString());
                                     }
-
                                     break;
                                 case KEY_BLOCK_EVENT_GET:
                                     Data.Event.IdentityGet = new List<string>();
@@ -232,7 +250,6 @@ public class IsometricDataFile
                                     {
                                         Data.Event.IdentityGet.Add(FileIO.GetReadAutoString());
                                     }
-
                                     break;
                                 case KEY_BLOCK_TELEPORT:
                                     Data.Teleport = IsometricDataTeleport.GetDencypt(FileIO.GetReadAutoString());
