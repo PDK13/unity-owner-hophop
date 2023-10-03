@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Angel 0 Happy
+  m_Name: Angel 0 Move Swim
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,9 +20,9 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: -327397931, guid: e3adc795097a9dd48ac13fddccb8d63b, type: 3}
+      value: {fileID: -533609043, guid: e3adc795097a9dd48ac13fddccb8d63b, type: 3}
     - time: 1
-      value: {fileID: 1254139904, guid: e3adc795097a9dd48ac13fddccb8d63b, type: 3}
+      value: {fileID: 901581479, guid: e3adc795097a9dd48ac13fddccb8d63b, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -42,8 +42,8 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: -327397931, guid: e3adc795097a9dd48ac13fddccb8d63b, type: 3}
-    - {fileID: 1254139904, guid: e3adc795097a9dd48ac13fddccb8d63b, type: 3}
+    - {fileID: -533609043, guid: e3adc795097a9dd48ac13fddccb8d63b, type: 3}
+    - {fileID: 901581479, guid: e3adc795097a9dd48ac13fddccb8d63b, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
