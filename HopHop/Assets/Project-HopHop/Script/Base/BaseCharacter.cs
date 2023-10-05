@@ -22,6 +22,24 @@ public class BaseCharacter : MonoBehaviour
     [Space]
     [SerializeField] private Animator m_animator;
 
+    private void Update()
+    {
+        if (m_character != CharacterType.Angel)
+            return;
+        //
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+            SetAction(CharacterActionType.Idle);
+        //
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+            SetAction(CharacterActionType.Sit);
+        //
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+            SetAction(CharacterActionType.Happy);
+        //
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+            SetAction(CharacterActionType.Hurt);
+    }
+
     public void SetCharacter(CharacterType Character)
     {
         m_character = Character;

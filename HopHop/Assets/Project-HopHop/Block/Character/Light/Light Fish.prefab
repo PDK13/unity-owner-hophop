@@ -193,7 +193,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c066b0f814b72d5449f73f6c2eb13b75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_valueMove: Move
-  m_valueJump: Jump
-  m_valueSwim: Swim
+  m_character: 8
   m_animator: {fileID: 8373056385654926143}
