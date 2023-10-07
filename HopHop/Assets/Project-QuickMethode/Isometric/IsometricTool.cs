@@ -68,12 +68,21 @@ public class IsometricTool : EditorWindow
 
     private void OnEnable()
     {
+        if (Application.isPlaying)
+            return;
+        //
         if (GetManager())
             SetManager(true);
     }
 
     private void OnGUI()
     {
+        if (Application.isPlaying)
+        {
+            QEditor.SetLabel("(Not avaible when playing)", QEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this));
+            return;
+        }
+        //
         if (GetManager())
             SetManager(true);
         else
