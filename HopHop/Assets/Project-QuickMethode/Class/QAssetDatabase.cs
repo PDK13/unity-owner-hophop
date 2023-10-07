@@ -140,18 +140,18 @@ public class QAssetsDatabase : QPath
 
     public static List<RuntimeAnimatorController> GetAnimatorController(string NameContains, params string[] PathChildInAssets)
     {
-        if (NameContains == null)
-            return null;
-        //
-        if (NameContains == "")
-            return null;
-        //
         string Path = QPath.GetPath(PathType.Assets, PathChildInAssets);
         //
         if (!GetPathFolderExist(Path))
             return null;
         //
         List<RuntimeAnimatorController> ObjectsFound = new List<RuntimeAnimatorController>();
+        //
+        if (NameContains == null)
+            NameContains = "*";
+        else
+        if (NameContains == "")
+            NameContains = "*";
         //
         string[] GUIDPathUnityFound = AssetDatabase.FindAssets(NameContains);
         //
