@@ -42,7 +42,7 @@ Block Normal 0
 #BLOCK-END
 
 [1;1;0]
-Block Normal 0
+Block Water 0
 #BLOCK-END
 
 [0;1;0]
