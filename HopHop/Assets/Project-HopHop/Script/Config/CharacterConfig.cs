@@ -10,6 +10,7 @@ public class CharacterConfig : ScriptableObject
 {
     [SerializeField] private string m_animatorPath = "Animation/Character";
 
+    [Space]
     public ConfigCharacter Alphaca;
     public ConfigCharacter Angel;
     public ConfigCharacter Bug;
@@ -56,7 +57,14 @@ public class CharacterConfig : ScriptableObject
         return null;
     }
 
-    public void SetLoadAnimator()
+    //Editor
+
+    public void SetRefresh()
+    {
+        SetRefreshAnimatorController();
+    }
+
+    private void SetRefreshAnimatorController()
     {
         List<RuntimeAnimatorController> AnimatorGet;
         //
@@ -160,8 +168,10 @@ public class CharacterConfigEditor : Editor
     {
         base.OnInspectorGUI();
         //
+        QEditor.SetSpace(10);
+        //
         if (QEditor.SetButton("Refresh"))
-            Target.SetLoadAnimator();
+            Target.SetRefresh();
         //
         QEditorCustom.SetApply(this);
     }
