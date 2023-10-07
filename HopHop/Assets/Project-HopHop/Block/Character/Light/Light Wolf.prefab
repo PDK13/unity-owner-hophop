@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 44393240911007880}
   - component: {fileID: 8053537579144720656}
   - component: {fileID: -7961768132186003327}
+  - component: {fileID: 6448656288124693888}
   m_Layer: 0
   m_Name: Light Wolf
   m_TagString: Untagged
@@ -181,6 +182,7 @@ MonoBehaviour:
     X: 0
     Y: 0
     H: 0
+  CharacterPush: 1
 --- !u!114 &-7961768132186003327
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,4 +196,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_character: 11
-  m_animator: {fileID: 8373056385654926143}
+  m_skin: 0
+--- !u!114 &6448656288124693888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 44393240911007885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9ab401f9a4bff4458cfa6dfcedfabfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

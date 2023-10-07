@@ -181,6 +181,7 @@ MonoBehaviour:
     X: 0
     Y: 0
     H: 0
+  CharacterPush: 1
 --- !u!114 &-5678721803315858505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,4 +195,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_character: 8
-  m_animator: {fileID: 8373056385654926143}
+  m_skin: 0

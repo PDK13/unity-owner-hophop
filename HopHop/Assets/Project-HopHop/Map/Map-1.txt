@@ -7,14 +7,38 @@ mode-normal
 day-light
 
 #WORLD-BLOCK
-11
+27
 
 [0;1;1]
-Light Pig
+Light Wolf
 #BLOCK-END
 
 [0;0;1]
 Player Angle
+#BLOCK-END
+
+[2;2;0]
+Block Normal 0
+#BLOCK-END
+
+[1;2;0]
+Block Normal 0
+#BLOCK-END
+
+[0;2;0]
+Block Normal 0
+#BLOCK-END
+
+[-1;2;0]
+Block Normal 0
+#BLOCK-END
+
+[-2;2;0]
+Block Normal 0
+#BLOCK-END
+
+[2;1;0]
+Block Normal 0
 #BLOCK-END
 
 [1;1;0]
@@ -29,8 +53,16 @@ Block Normal 0
 Block Normal 0
 #BLOCK-END
 
-[1;0;0]
+[-2;1;0]
 Block Normal 0
+#BLOCK-END
+
+[2;0;0]
+Block Normal 0
+#BLOCK-END
+
+[1;0;0]
+Block Slip 0
 #BLOCK-END
 
 [0;0;0]
@@ -38,6 +70,14 @@ Block Normal 0
 #BLOCK-END
 
 [-1;0;0]
+Block Slow 0
+#BLOCK-END
+
+[-2;0;0]
+Block Normal 0
+#BLOCK-END
+
+[2;-1;0]
 Block Normal 0
 #BLOCK-END
 
@@ -50,6 +90,30 @@ Block Normal 0
 #BLOCK-END
 
 [-1;-1;0]
+Block Normal 0
+#BLOCK-END
+
+[-2;-1;0]
+Block Normal 0
+#BLOCK-END
+
+[2;-2;0]
+Block Normal 0
+#BLOCK-END
+
+[1;-2;0]
+Block Normal 0
+#BLOCK-END
+
+[0;-2;0]
+Block Normal 0
+#BLOCK-END
+
+[-1;-2;0]
+Block Normal 0
+#BLOCK-END
+
+[-2;-2;0]
 Block Normal 0
 #BLOCK-END
 #WORLD-END

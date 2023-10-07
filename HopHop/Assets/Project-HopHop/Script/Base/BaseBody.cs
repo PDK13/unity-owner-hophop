@@ -6,9 +6,11 @@ public class BaseBody : MonoBehaviour
 {
     private bool m_turnControl = false;
     //
-    public Action<bool> onGravity;                  //State
-    public Action<bool, IsometricVector> onPush;    //State, Dir
-    public Action<bool, IsometricVector> onForce;   //State, Dir
+    public Action<bool, IsometricVector> onMove;        //State
+    public Action<bool, IsometricVector> onMoveForce;   //State
+    public Action<bool> onGravity;                      //State
+    public Action<bool, IsometricVector> onPush;        //State, Dir
+    public Action<bool, IsometricVector> onForce;       //State, Dir
     //
     [HideInInspector] public IsometricVector MoveLastXY;
     [HideInInspector] public IsometricVector? MoveForceXY;
@@ -21,6 +23,63 @@ public class BaseBody : MonoBehaviour
     {
         m_block = GetComponent<IsometricBlock>();
     }
+
+    #region Move
+
+    public void SetControlMove(IsometricVector Dir)
+    {
+        SetCheckGravity(Dir);
+        //
+        Vector3 MoveDir = IsometricVector.GetVector(Dir);
+        Vector3 MoveStart = IsometricVector.GetVector(m_block.Pos);
+        Vector3 MoveEnd = IsometricVector.GetVector(m_block.Pos) + MoveDir * 1;
+        DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameManager.TimeMove * 1)
+            .SetEase(Ease.Linear)
+            .OnStart(() =>
+            {
+                onMove?.Invoke(true, Dir);
+            })
+            .OnUpdate(() =>
+            {
+                m_block.Pos = new IsometricVector(MoveEnd);
+            })
+            .OnComplete(() =>
+            {
+                SetStandOnForce();
+                onMove?.Invoke(false, Dir);
+            });
+    }
+
+    public bool SetControlMoveForce()
+    {
+        if (!MoveForceXY.HasValue)
+            return false; //Fine to continue own control!!
+        //
+        SetCheckGravity(MoveForceXY.Value);
+        //
+        Vector3 MoveDir = IsometricVector.GetVector(MoveForceXY.Value);
+        Vector3 MoveStart = IsometricVector.GetVector(m_block.Pos);
+        Vector3 MoveEnd = IsometricVector.GetVector(m_block.Pos) + MoveDir * 1;
+        DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameManager.TimeMove * 1)
+            .SetEase(Ease.Linear)
+            .OnStart(() =>
+            {
+                onMoveForce?.Invoke(true, MoveForceXY.Value);
+            })
+            .OnUpdate(() =>
+            {
+                m_block.Pos = new IsometricVector(MoveEnd);
+            })
+            .OnComplete(() =>
+            {
+                onMoveForce?.Invoke(false, MoveForceXY.Value);
+                MoveForceXY = null;
+            });
+        //
+        return true;
+    }
+
+    #endregion
 
     #region Gravity
 
@@ -80,6 +139,7 @@ public class BaseBody : MonoBehaviour
                 TurnManager.SetEndTurn(TurnType.Gravity, gameObject); //Follow Object (!)
                 TurnManager.Instance.onStepStart -= SetControlGravity;
                 //
+                SetStandOnForce();
                 onGravity?.Invoke(false);
                 //
                 m_turnControl = false;
@@ -155,6 +215,7 @@ public class BaseBody : MonoBehaviour
             })
             .OnComplete(() =>
             {
+                SetStandOnForce();
                 onPush?.Invoke(false, Dir);
             });
         //
@@ -186,6 +247,7 @@ public class BaseBody : MonoBehaviour
             })
             .OnComplete(() =>
             {
+                SetStandOnForce();
                 onForce?.Invoke(false, Dir);
             });
         //

@@ -56,5 +56,6 @@ public enum TurnType
     None,
     Gravity,
     Player,
+    Follow,
     Object,
 }

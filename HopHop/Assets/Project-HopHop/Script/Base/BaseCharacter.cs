@@ -5,7 +5,7 @@ public class BaseCharacter : MonoBehaviour
 {
     private const int INDEX_MOVE = 0;
     private const int INDEX_ACTION = 1;
-
+    //
     private const string BOOL_MOVE = "Move";
     private const string BOOL_JUMP = "Jump";
     private const string BOOL_SWIM = "Swim";
@@ -14,7 +14,7 @@ public class BaseCharacter : MonoBehaviour
     private const string TRIGGER_SIT = "Sit";
     private const string TRIGGER_HURT = "Hurt";
     private const string TRIGGER_HAPPY = "Happy";
-
+    //
     [Space]
     [SerializeField] private CharacterType m_character = CharacterType.Angel;
     [SerializeField] private int m_skin = 0;
@@ -22,7 +22,7 @@ public class BaseCharacter : MonoBehaviour
     public CharacterType Character => m_character;
 
     public int Skin => m_skin;
-
+    //
     private IsometricBlock m_block;
     private BaseBody m_body;
     private Animator m_animator;
@@ -41,6 +41,8 @@ public class BaseCharacter : MonoBehaviour
 
     private void Start()
     {
+        m_body.onMove += SetMove;
+        m_body.onMoveForce += SetMove;
         m_body.onGravity += SetGravity;
         m_body.onPush += SetPush;
         m_body.onForce += SetForce;
@@ -48,6 +50,8 @@ public class BaseCharacter : MonoBehaviour
 
     private void OnDestroy()
     {
+        m_body.onMove -= SetMove;
+        m_body.onMoveForce -= SetMove;
         m_body.onGravity -= SetGravity;
         m_body.onPush -= SetPush;
         m_body.onForce -= SetForce;
@@ -67,10 +71,10 @@ public class BaseCharacter : MonoBehaviour
             m_animator.runtimeAnimatorController = GameManager.CharacterConfig.Angel.Skin[1].Animator;
         //
         if (Input.GetKeyDown(KeyCode.Alpha3))
-            SetAction(CharacterActionType.Happy);
+            SetAnimationAction(CharacterActionType.Happy);
         //
         if (Input.GetKeyDown(KeyCode.Alpha4))
-            SetAction(CharacterActionType.Hurt);
+            SetAnimationAction(CharacterActionType.Hurt);
     }
 
 #endif
@@ -102,7 +106,7 @@ public class BaseCharacter : MonoBehaviour
 
     //Animation
 
-    public void SetMove(IsometricBlock From, IsometricBlock To)
+    public void SetAnimationMove(IsometricBlock From, IsometricBlock To)
     {
         if (From == null)
         {
@@ -191,7 +195,7 @@ public class BaseCharacter : MonoBehaviour
         m_animator.SetBool(BOOL_SWIM, To.Tag.Contains(GameManager.GameConfig.Tag.Water));
     }
 
-    public void SetStand(IsometricBlock On)
+    public void SetAnimationStand(IsometricBlock On)
     {
         if (On == null)
         {
@@ -205,7 +209,7 @@ public class BaseCharacter : MonoBehaviour
         m_animator.SetBool(BOOL_SWIM, On.Tag.Contains(GameManager.GameConfig.Tag.Water));
     }
 
-    public void SetAction(CharacterActionType Action)
+    public void SetAnimationAction(CharacterActionType Action)
     {
         m_animator.SetLayerWeight(INDEX_ACTION, 1);
         //
@@ -228,39 +232,34 @@ public class BaseCharacter : MonoBehaviour
 
     //
 
+    private void SetMove(bool State, IsometricVector Dir)
+    {
+        if (State && Dir != IsometricVector.None && Dir != IsometricVector.Top && Dir != IsometricVector.Bot)
+            SetAnimationMove(m_body.GetCheckDir(IsometricVector.Bot), m_body.GetCheckDir(IsometricVector.Bot, Dir));
+        else
+            SetAnimationStand(m_body.GetCheckDir(IsometricVector.Bot));
+    }
+
     private void SetGravity(bool State)
     {
         if (!State)
-        {
-            m_body.SetStandOnForce();
-            SetStand(m_body.GetCheckDir(IsometricVector.Bot));
-        }
+            SetAnimationStand(m_body.GetCheckDir(IsometricVector.Bot));
     }
 
     private void SetPush(bool State, IsometricVector Dir)
     {
-        if (State && Dir != IsometricVector.Top && Dir != IsometricVector.Bot)
-        {
-            SetMove(m_body.GetCheckDir(IsometricVector.Bot), m_body.GetCheckDir(IsometricVector.Bot, Dir));
-        }
+        if (State && Dir != IsometricVector.None && Dir != IsometricVector.Top && Dir != IsometricVector.Bot)
+            SetAnimationMove(m_body.GetCheckDir(IsometricVector.Bot), m_body.GetCheckDir(IsometricVector.Bot, Dir));
         else
-        {
-            m_body.SetStandOnForce();
-            SetStand(m_body.GetCheckDir(IsometricVector.Bot));
-        }
+            SetAnimationStand(m_body.GetCheckDir(IsometricVector.Bot));
     }
 
     public void SetForce(bool State, IsometricVector Dir)
     {
-        if (State && Dir != IsometricVector.Top && Dir != IsometricVector.Bot)
-        {
-            SetMove(m_body.GetCheckDir(IsometricVector.Bot), m_body.GetCheckDir(IsometricVector.Bot, Dir));
-        }
+        if (State && Dir != IsometricVector.None && Dir != IsometricVector.Top && Dir != IsometricVector.Bot)
+            SetAnimationMove(m_body.GetCheckDir(IsometricVector.Bot), m_body.GetCheckDir(IsometricVector.Bot, Dir));
         else
-        {
-            m_body.SetStandOnForce();
-            SetStand(m_body.GetCheckDir(IsometricVector.Bot));
-        }
+            SetAnimationStand(m_body.GetCheckDir(IsometricVector.Bot));
     }
 }
 

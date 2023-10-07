@@ -4,16 +4,16 @@ using UnityEngine;
 public class BaseObject : MonoBehaviour
 {
     private bool m_turnControl = false;
-
+    //
     private IsometricDataMove m_dataMove;
     private IsometricDataFollow m_dataFollow;
-
+    //
     private IsometricVector m_turnDir;
     private int m_turnLength = 0;
     private int m_turnLengthCurrent = 0;
 
     private bool TurnEnd => m_turnLengthCurrent == m_turnLength && m_turnLength != 0;
-
+    //
     private BaseBody m_body;
     private IsometricBlock m_block;
 

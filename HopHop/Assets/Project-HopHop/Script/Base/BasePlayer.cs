@@ -4,15 +4,17 @@ using UnityEngine;
 public class BasePlayer : MonoBehaviour
 {
     private bool m_playerControl = false;
-
+    //
+    [HideInInspector] public bool CharacterFollow = false;
+    //
     private BaseBody m_body;
-    private BaseCharacter m_animation;
+    private BaseCharacter m_character;
     private IsometricBlock m_block;
 
     private void Awake()
     {
         m_body = GetComponent<BaseBody>();
-        m_animation = GetComponent<BaseCharacter>();
+        m_character = GetComponent<BaseCharacter>();
         m_block = GetComponent<IsometricBlock>();
     }
 
@@ -21,6 +23,9 @@ public class BasePlayer : MonoBehaviour
         TurnManager.SetInit(TurnType.Player, gameObject);
         TurnManager.Instance.onTurn += SetControlTurn;
         TurnManager.Instance.onStepStart += SetControlStep;
+        //
+        m_body.onMove += SetMove;
+        m_body.onMoveForce += SetMove;
     }
 
     private void OnDestroy()
@@ -30,6 +35,9 @@ public class BasePlayer : MonoBehaviour
         TurnManager.SetRemove(TurnType.Player, gameObject);
         TurnManager.Instance.onTurn -= SetControlTurn;
         TurnManager.Instance.onStepStart -= SetControlStep;
+        //
+        m_body.onMove -= SetMove;
+        m_body.onMoveForce -= SetMove;
     }
 
     private void Update()
@@ -78,14 +86,10 @@ public class BasePlayer : MonoBehaviour
     {
         if (Name == TurnType.Player.ToString())
         {
-            if (m_body.MoveForceXY.HasValue)
+            if (!m_body.SetControlMoveForce())
             {
-                SetControlMove(m_body.MoveForceXY.Value);
-                m_body.MoveForceXY = null;
-                return;
+                m_playerControl = true;
             }
-            //
-            m_playerControl = true;
         }
     }
 
@@ -142,30 +146,13 @@ public class BasePlayer : MonoBehaviour
         //
         m_playerControl = false;
         //
-        m_body.SetCheckGravity(Dir);
-        m_animation.SetMove(m_body.GetCheckDir(IsometricVector.Bot), m_body.GetCheckDir(IsometricVector.Bot, Dir));
-        //
-        Vector3 MoveDir = IsometricVector.GetVector(Dir);
-        Vector3 MoveStart = IsometricVector.GetVector(m_block.Pos);
-        Vector3 MoveEnd = IsometricVector.GetVector(m_block.Pos) + MoveDir * 1;
-        DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameManager.TimeMove * 1)
-            .SetEase(Ease.Linear)
-            .OnStart(() =>
-            {
-                //...
-            })
-            .OnUpdate(() =>
-            {
-                m_block.Pos = new IsometricVector(MoveEnd);
-            })
-            .OnComplete(() =>
-            {
-                m_body.SetStandOnForce();
-                m_animation.SetStand(m_body.GetCheckDir(IsometricVector.Bot));
-                //
-                TurnManager.SetEndTurn(TurnType.Player, gameObject); //Follow Player (!)
-            });
-        //
+        m_body.SetControlMove(Dir);
+    }
+
+    private void SetMove(bool State, IsometricVector Dir)
+    {
+        if (!State)
+            TurnManager.SetEndTurn(TurnType.Player, gameObject); //Follow Player (!)
     }
 
     #endregion
