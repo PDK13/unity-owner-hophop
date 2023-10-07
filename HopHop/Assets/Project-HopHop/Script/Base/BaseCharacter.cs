@@ -21,6 +21,8 @@ public class BaseCharacter : MonoBehaviour
 
     public CharacterType Character => m_character;
 
+    public int Skin => m_skin;
+
     [Space]
     [SerializeField] private Animator m_animator;
 
@@ -37,10 +39,10 @@ public class BaseCharacter : MonoBehaviour
             return;
         //
         if (Input.GetKeyDown(KeyCode.Alpha1))
-            m_animator.runtimeAnimatorController = GameManager.CharacterConfig.Angel.Skin[0];
+            m_animator.runtimeAnimatorController = GameManager.CharacterConfig.Angel.Skin[0].Animator;
         //
         if (Input.GetKeyDown(KeyCode.Alpha2))
-            m_animator.runtimeAnimatorController = GameManager.CharacterConfig.Angel.Skin[1];
+            m_animator.runtimeAnimatorController = GameManager.CharacterConfig.Angel.Skin[1].Animator;
         //
         if (Input.GetKeyDown(KeyCode.Alpha3))
             SetAction(CharacterActionType.Happy);
@@ -66,12 +68,12 @@ public class BaseCharacter : MonoBehaviour
         //
         if (Skin > Config.Skin.Count - 1)
         {
-            m_animator.runtimeAnimatorController = Config.Skin.Last();
+            m_animator.runtimeAnimatorController = Config.Skin.Last().Animator;
             m_skin = Config.Skin.Count - 1;
         }
         else
         {
-            m_animator.runtimeAnimatorController = Config.Skin[Skin];
+            m_animator.runtimeAnimatorController = Config.Skin[Skin].Animator;
             m_skin = Skin;
         }
     }
