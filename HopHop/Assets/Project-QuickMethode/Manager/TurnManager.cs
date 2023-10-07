@@ -11,10 +11,18 @@ public class TurnManager : MonoBehaviour
 {
     public static TurnManager Instance;
 
+    #region Varible: Setting
+
+    [SerializeField][Min(0)] private float m_delayTurn = 1f;
+    [SerializeField][Min(0)] private float m_delayStep = 1f;
+
+    #endregion
+
     #region Varible: Debug
 
     private enum DebugType { None = 0, Primary = 1, Full = int.MaxValue, }
 
+    [Space]
     [SerializeField] private DebugType m_debug = DebugType.None;
 
     #endregion
@@ -174,8 +182,12 @@ public class TurnManager : MonoBehaviour
         //
         m_turnCurrent = m_turnQueue[0];
         //
+        bool DelayNewStep = true;
+        //
         if (m_turnCurrent.Turn == "")
         {
+            DelayNewStep = false;
+            //
             m_turnPass++;
             //
             if ((int)Instance.m_debug >= (int)DebugType.None)
@@ -190,6 +202,8 @@ public class TurnManager : MonoBehaviour
             yield return null;
             //
             SetEndSwap(m_turnCurrent.Turn);
+            //
+            yield return new WaitForSeconds(m_delayTurn); //Delay before start new Turn!!
         }
         //
         //Fine to Start new Turn!!
@@ -209,13 +223,10 @@ public class TurnManager : MonoBehaviour
             }
         }
         //
+        if (DelayNewStep)
+            yield return new WaitForSeconds(m_delayStep); //Delay before start new Step in new Turn!!
+        //
         onStepStart?.Invoke(m_turnCurrent.Turn);
-        //
-        //Wait for new Turn complete called!!
-        //
-        yield return null;
-        //
-        SetEndCheck(m_turnCurrent.Turn.ToString());
         //
         //Complete!!
     }
@@ -514,6 +525,9 @@ public class GameTurnEditor : Editor
 {
     private TurnManager Target;
 
+    private SerializedProperty m_delayTurn;
+    private SerializedProperty m_delayStep;
+
     private SerializedProperty m_debug;
     private SerializedProperty m_turnCurrent;
     private SerializedProperty m_turnQueue;
@@ -521,7 +535,10 @@ public class GameTurnEditor : Editor
     private void OnEnable()
     {
         Target = target as TurnManager;
-
+        //
+        m_delayTurn = QEditorCustom.GetField(this, "m_delayTurn");
+        m_delayStep = QEditorCustom.GetField(this, "m_delayStep");
+        //
         m_debug = QEditorCustom.GetField(this, "m_debug");
         m_turnCurrent = QEditorCustom.GetField(this, "m_turnCurrent");
         m_turnQueue = QEditorCustom.GetField(this, "m_turnQueue");
@@ -530,6 +547,9 @@ public class GameTurnEditor : Editor
     public override void OnInspectorGUI()
     {
         QEditorCustom.SetUpdate(this);
+        //
+        QEditorCustom.SetField(m_delayTurn);
+        QEditorCustom.SetField(m_delayStep);
         //
         QEditorCustom.SetField(m_debug);
         //
