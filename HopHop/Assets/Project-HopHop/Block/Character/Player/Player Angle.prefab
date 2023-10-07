@@ -100,7 +100,7 @@ Animator:
   m_GameObject: {fileID: 44393240911007885}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 27c4e6e3c49f36842a26726b301de8e2, type: 2}
+  m_Controller: {fileID: 9100000, guid: d9ce07e8a67f3d04a987c339c3948962, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -195,9 +195,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c066b0f814b72d5449f73f6c2eb13b75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_valueMove: Move
-  m_valueJump: Jump
-  m_valueSwim: Swim
+  m_character: 0
   m_animator: {fileID: 5839525824939966151}
 --- !u!114 &7886185234414709923
 MonoBehaviour:
