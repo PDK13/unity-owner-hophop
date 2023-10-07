@@ -505,44 +505,43 @@ public class TurnManager : MonoBehaviour
             Instance.m_turnCurrent.UnitEndMove.Count,
             Instance.m_turnCurrent.Unit.Count);
     }
+}
 
 #if UNITY_EDITOR
 
-    [CustomEditor(typeof(TurnManager))]
-    public class GameTurnEditor : Editor
+[CustomEditor(typeof(TurnManager))]
+public class GameTurnEditor : Editor
+{
+    private TurnManager Target;
+
+    private SerializedProperty m_debug;
+    private SerializedProperty m_turnCurrent;
+    private SerializedProperty m_turnQueue;
+
+    private void OnEnable()
     {
-        private TurnManager Target;
+        Target = target as TurnManager;
 
-        private SerializedProperty m_debug;
-        private SerializedProperty m_turnCurrent;
-        private SerializedProperty m_turnQueue;
-
-        private void OnEnable()
-        {
-            Target = target as TurnManager;
-
-            m_debug = QEditorCustom.GetField(this, "m_debug");
-            m_turnCurrent = QEditorCustom.GetField(this, "m_turnCurrent");
-            m_turnQueue = QEditorCustom.GetField(this, "m_turnQueue");
-        }
-
-        public override void OnInspectorGUI()
-        {
-            QEditorCustom.SetUpdate(this);
-            //
-            QEditorCustom.SetField(m_debug);
-            //
-            QEditor.SetDisableGroupBegin();
-            //
-            QEditorCustom.SetField(m_turnCurrent);
-            QEditorCustom.SetField(m_turnQueue);
-            //
-            QEditor.SetDisableGroupEnd();
-            //
-            QEditorCustom.SetApply(this);
-        }
+        m_debug = QEditorCustom.GetField(this, "m_debug");
+        m_turnCurrent = QEditorCustom.GetField(this, "m_turnCurrent");
+        m_turnQueue = QEditorCustom.GetField(this, "m_turnQueue");
     }
 
-#endif
-
+    public override void OnInspectorGUI()
+    {
+        QEditorCustom.SetUpdate(this);
+        //
+        QEditorCustom.SetField(m_debug);
+        //
+        QEditor.SetDisableGroupBegin();
+        //
+        QEditorCustom.SetField(m_turnCurrent);
+        QEditorCustom.SetField(m_turnQueue);
+        //
+        QEditor.SetDisableGroupEnd();
+        //
+        QEditorCustom.SetApply(this);
+    }
 }
+
+#endif

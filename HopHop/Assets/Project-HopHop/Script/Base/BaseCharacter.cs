@@ -172,22 +172,6 @@ public class BaseCharacter : MonoBehaviour
     }
 }
 
-public enum CharacterType
-{
-    Angel = 0,
-    Devil = 1,
-    Bunny = 2,
-    Cat = 3,
-    Frog = 4,
-    Mow = 5,
-    Alphaca = 6,
-    Bug = 7,
-    Fish = 8,
-    Mole = 9,
-    Pig = 10,
-    Wolf = 11,
-}
-
 public enum CharacterActionType
 {
     Idle,
