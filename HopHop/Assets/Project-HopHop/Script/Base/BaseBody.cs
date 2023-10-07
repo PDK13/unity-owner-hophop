@@ -28,6 +28,9 @@ public class BaseBody : MonoBehaviour
 
     public void SetControlMove(IsometricVector Dir)
     {
+        if (Dir == IsometricVector.None)
+            return;
+        //
         SetCheckGravity(Dir);
         //
         Vector3 MoveDir = IsometricVector.GetVector(Dir);
@@ -48,6 +51,8 @@ public class BaseBody : MonoBehaviour
                 SetStandOnForce();
                 onMove?.Invoke(false, Dir);
             });
+        //
+        SetNextPush(Dir);
     }
 
     public bool SetControlMoveForce()
@@ -75,6 +80,8 @@ public class BaseBody : MonoBehaviour
                 onMoveForce?.Invoke(false, MoveForceXY.Value);
                 MoveForceXY = null;
             });
+        //
+        SetNextPush(MoveForceXY.Value);
         //
         return true;
     }
@@ -173,6 +180,9 @@ public class BaseBody : MonoBehaviour
 
     public void SetControlPush(IsometricVector Dir, IsometricVector From)
     {
+        if (Dir == IsometricVector.None)
+            return;
+        //
         if (From == IsometricVector.Bot)
         {
             IsometricBlock BlockNext = m_block.WorldManager.World.GetBlockCurrent(m_block.Pos.Fixed + Dir);
@@ -219,6 +229,25 @@ public class BaseBody : MonoBehaviour
                 onPush?.Invoke(false, Dir);
             });
         //
+        SetNextPush(Dir);
+    }
+
+    private void SetNextPush(IsometricVector Dir)
+    {
+        if (Dir == IsometricVector.None || Dir == IsometricVector.Top || Dir == IsometricVector.Bot)
+        {
+            return;
+        }
+        //
+        IsometricBlock BlockPush = m_block.WorldManager.World.GetBlockCurrent(m_block.Pos + Dir);
+        if (BlockPush != null)
+        {
+            BaseBody BodyPush = BlockPush.GetComponent<BaseBody>();
+            if (BodyPush != null)
+            {
+                BodyPush.SetControlPush(Dir, Dir * -1); //Push!!
+            }
+        }
     }
 
     #endregion
@@ -227,6 +256,9 @@ public class BaseBody : MonoBehaviour
 
     public void SetControlForce(IsometricVector Dir)
     {
+        if (Dir == IsometricVector.None)
+            return;
+        //
         if (Dir != IsometricVector.Top && Dir != IsometricVector.Bot)
         {
             MoveLastXY = Dir;
@@ -251,6 +283,31 @@ public class BaseBody : MonoBehaviour
                 onForce?.Invoke(false, Dir);
             });
         //
+        SetNextForce(Dir);
+    }
+
+    private void SetNextForce(IsometricVector Dir)
+    {
+        if (Dir == IsometricVector.None)
+            return;
+        //
+        //Top!!
+        IsometricBlock BlockTop = m_block.WorldManager.World.GetBlockCurrent(m_block.Pos + IsometricVector.Top);
+        if (BlockTop != null)
+        {
+            BaseBody BodyTop = BlockTop.GetComponent<BaseBody>();
+            if (BodyTop != null)
+            {
+                if (Dir == IsometricVector.Top || Dir == IsometricVector.Bot)
+                {
+                    BodyTop.SetControlForce(Dir); //Force!!
+                }
+                else
+                {
+                    BodyTop.SetControlPush(Dir, IsometricVector.Bot); //Push!!
+                }
+            }
+        }
     }
 
     #endregion
