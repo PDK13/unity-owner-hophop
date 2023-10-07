@@ -5,27 +5,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "game-config", menuName = "", order = 0)]
 public class GameConfig : ScriptableObject
 {
-    public List<GroupLevel> Level;
-
-    public List<ConfigCharacter> Character;
-
     public GameConfigKey Key;
     public GameConfigEvent Event;
     public GameConfigCommand Command;
     public GameConfigTag Tag;
-}
-
-[Serializable]
-public class GroupLevel
-{
-    public string Name = "";
-    public List<TextAsset> Level;
-}
-
-[Serializable]
-public class ConfigCharacter
-{
-    public List<RuntimeAnimatorController> m_skin;
 }
 
 [Serializable]

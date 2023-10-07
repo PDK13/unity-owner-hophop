@@ -4,8 +4,12 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameConfig GameConfig;
+    public static LevelConfig LevelConfig;
+    public static CharacterConfig CharacterConfig;
     //
     [SerializeField] private GameConfig m_gameConfig;
+    [SerializeField] private LevelConfig m_levelConfig;
+    [SerializeField] private CharacterConfig m_characterConfig;
     [SerializeField] private IsometricConfig m_isometricConfig;
     //
     [Space]
@@ -40,7 +44,7 @@ public class GameManager : MonoBehaviour
         m_isometricManager.SetInit();
         m_isometricManager.List.SetList(m_isometricConfig);
 
-        SetWorldLoad(m_gameConfig.Level[0].Level[0]);
+        SetWorldLoad(m_levelConfig.Level[0].Level[0]);
     }
 
     private void SetWorldLoad(TextAsset WorldData)
