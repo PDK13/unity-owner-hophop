@@ -12,4 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a52820d7a3e794949bf87c11d8143748, type: 3}
   m_Name: level-config
   m_EditorClassIdentifier: 
-  Level: []
+  Level:
+  - Name: Lab
+    Level:
+    - {fileID: 4900000, guid: aab0aa5e40d0d0b4bac8e5f7fd77ea3a, type: 3}

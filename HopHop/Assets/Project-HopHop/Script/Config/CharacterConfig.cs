@@ -68,65 +68,65 @@ public class CharacterConfig : ScriptableObject
     {
         List<RuntimeAnimatorController> AnimatorGet;
         //
-        GetConfig(CharacterType.Alphaca).m_skin.Clear();
+        GetConfig(CharacterType.Alphaca).Skin.Clear();
         AnimatorGet = QAssetsDatabase.GetAnimatorController("Alphaca", "Project-HopHop/" + m_animatorPath);
         for (int i = 0; i < AnimatorGet.Count; i++)
-            GetConfig(CharacterType.Alphaca).m_skin.Add(AnimatorGet[i]);
+            GetConfig(CharacterType.Alphaca).Skin.Add(AnimatorGet[i]);
         //
-        GetConfig(CharacterType.Angel).m_skin.Clear();
+        GetConfig(CharacterType.Angel).Skin.Clear();
         AnimatorGet = QAssetsDatabase.GetAnimatorController("Angel", "Project-HopHop/" + m_animatorPath);
         for (int i = 0; i < AnimatorGet.Count; i++)
-            GetConfig(CharacterType.Angel).m_skin.Add(AnimatorGet[i]);
+            GetConfig(CharacterType.Angel).Skin.Add(AnimatorGet[i]);
         //
-        GetConfig(CharacterType.Bug).m_skin.Clear();
+        GetConfig(CharacterType.Bug).Skin.Clear();
         AnimatorGet = QAssetsDatabase.GetAnimatorController("Bug", "Project-HopHop/" + m_animatorPath);
         for (int i = 0; i < AnimatorGet.Count; i++)
-            GetConfig(CharacterType.Bug).m_skin.Add(AnimatorGet[i]);
+            GetConfig(CharacterType.Bug).Skin.Add(AnimatorGet[i]);
         //
-        GetConfig(CharacterType.Bunny).m_skin.Clear();
+        GetConfig(CharacterType.Bunny).Skin.Clear();
         AnimatorGet = QAssetsDatabase.GetAnimatorController("Bunny", "Project-HopHop/" + m_animatorPath);
         for (int i = 0; i < AnimatorGet.Count; i++)
-            GetConfig(CharacterType.Bunny).m_skin.Add(AnimatorGet[i]);
+            GetConfig(CharacterType.Bunny).Skin.Add(AnimatorGet[i]);
         //
-        GetConfig(CharacterType.Cat).m_skin.Clear();
+        GetConfig(CharacterType.Cat).Skin.Clear();
         AnimatorGet = QAssetsDatabase.GetAnimatorController("Cat", "Project-HopHop/" + m_animatorPath);
         for (int i = 0; i < AnimatorGet.Count; i++)
-            GetConfig(CharacterType.Cat).m_skin.Add(AnimatorGet[i]);
+            GetConfig(CharacterType.Cat).Skin.Add(AnimatorGet[i]);
         //
-        GetConfig(CharacterType.Devil).m_skin.Clear();
+        GetConfig(CharacterType.Devil).Skin.Clear();
         AnimatorGet = QAssetsDatabase.GetAnimatorController("Devil", "Project-HopHop/" + m_animatorPath);
         for (int i = 0; i < AnimatorGet.Count; i++)
-            GetConfig(CharacterType.Devil).m_skin.Add(AnimatorGet[i]);
+            GetConfig(CharacterType.Devil).Skin.Add(AnimatorGet[i]);
         //
-        GetConfig(CharacterType.Fish).m_skin.Clear();
+        GetConfig(CharacterType.Fish).Skin.Clear();
         AnimatorGet = QAssetsDatabase.GetAnimatorController("Fish", "Project-HopHop/" + m_animatorPath);
         for (int i = 0; i < AnimatorGet.Count; i++)
-            GetConfig(CharacterType.Fish).m_skin.Add(AnimatorGet[i]);
+            GetConfig(CharacterType.Fish).Skin.Add(AnimatorGet[i]);
         //
-        GetConfig(CharacterType.Frog).m_skin.Clear();
+        GetConfig(CharacterType.Frog).Skin.Clear();
         AnimatorGet = QAssetsDatabase.GetAnimatorController("Frog", "Project-HopHop/" + m_animatorPath);
         for (int i = 0; i < AnimatorGet.Count; i++)
-            GetConfig(CharacterType.Frog).m_skin.Add(AnimatorGet[i]);
+            GetConfig(CharacterType.Frog).Skin.Add(AnimatorGet[i]);
         //
-        GetConfig(CharacterType.Mole).m_skin.Clear();
+        GetConfig(CharacterType.Mole).Skin.Clear();
         AnimatorGet = QAssetsDatabase.GetAnimatorController("Mole", "Project-HopHop/" + m_animatorPath);
         for (int i = 0; i < AnimatorGet.Count; i++)
-            GetConfig(CharacterType.Mole).m_skin.Add(AnimatorGet[i]);
+            GetConfig(CharacterType.Mole).Skin.Add(AnimatorGet[i]);
         //
-        GetConfig(CharacterType.Mow).m_skin.Clear();
+        GetConfig(CharacterType.Mow).Skin.Clear();
         AnimatorGet = QAssetsDatabase.GetAnimatorController("Mow", "Project-HopHop/" + m_animatorPath);
         for (int i = 0; i < AnimatorGet.Count; i++)
-            GetConfig(CharacterType.Mow).m_skin.Add(AnimatorGet[i]);
+            GetConfig(CharacterType.Mow).Skin.Add(AnimatorGet[i]);
         //
-        GetConfig(CharacterType.Pig).m_skin.Clear();
+        GetConfig(CharacterType.Pig).Skin.Clear();
         AnimatorGet = QAssetsDatabase.GetAnimatorController("Pig", "Project-HopHop/" + m_animatorPath);
         for (int i = 0; i < AnimatorGet.Count; i++)
-            GetConfig(CharacterType.Pig).m_skin.Add(AnimatorGet[i]);
+            GetConfig(CharacterType.Pig).Skin.Add(AnimatorGet[i]);
         //
-        GetConfig(CharacterType.Wolf).m_skin.Clear();
+        GetConfig(CharacterType.Wolf).Skin.Clear();
         AnimatorGet = QAssetsDatabase.GetAnimatorController("Wolf", "Project-HopHop/" + m_animatorPath);
         for (int i = 0; i < AnimatorGet.Count; i++)
-            GetConfig(CharacterType.Wolf).m_skin.Add(AnimatorGet[i]);
+            GetConfig(CharacterType.Wolf).Skin.Add(AnimatorGet[i]);
     }
 }
 
@@ -149,7 +149,7 @@ public enum CharacterType
 [Serializable]
 public class ConfigCharacter
 {
-    public List<RuntimeAnimatorController> m_skin;
+    public List<RuntimeAnimatorController> Skin;
 }
 
 #if UNITY_EDITOR

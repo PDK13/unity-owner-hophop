@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 public class BaseCharacter : MonoBehaviour
@@ -16,11 +17,19 @@ public class BaseCharacter : MonoBehaviour
 
     [Space]
     [SerializeField] private CharacterType m_character = CharacterType.Angel;
+    [SerializeField] private int m_skin = 0;
 
     public CharacterType Character => m_character;
 
     [Space]
     [SerializeField] private Animator m_animator;
+
+    private void Awake()
+    {
+        SetCharacter(m_character, m_skin);
+    }
+
+#if UNITY_EDITOR
 
     private void Update()
     {
@@ -28,10 +37,10 @@ public class BaseCharacter : MonoBehaviour
             return;
         //
         if (Input.GetKeyDown(KeyCode.Alpha1))
-            SetAction(CharacterActionType.Idle);
+            m_animator.runtimeAnimatorController = GameManager.CharacterConfig.Angel.Skin[0];
         //
         if (Input.GetKeyDown(KeyCode.Alpha2))
-            SetAction(CharacterActionType.Sit);
+            m_animator.runtimeAnimatorController = GameManager.CharacterConfig.Angel.Skin[1];
         //
         if (Input.GetKeyDown(KeyCode.Alpha3))
             SetAction(CharacterActionType.Happy);
@@ -40,12 +49,34 @@ public class BaseCharacter : MonoBehaviour
             SetAction(CharacterActionType.Hurt);
     }
 
-    public void SetCharacter(CharacterType Character)
+#endif
+
+    //Animator
+
+    public void SetCharacter(CharacterType Character, int Skin = 0)
     {
         m_character = Character;
         //
-
+        SetSkin(Skin);
     }
+
+    public void SetSkin(int Skin = 0)
+    {
+        ConfigCharacter Config = GameManager.CharacterConfig.GetConfig(m_character);
+        //
+        if (Skin > Config.Skin.Count - 1)
+        {
+            m_animator.runtimeAnimatorController = Config.Skin.Last();
+            m_skin = Config.Skin.Count - 1;
+        }
+        else
+        {
+            m_animator.runtimeAnimatorController = Config.Skin[Skin];
+            m_skin = Skin;
+        }
+    }
+
+    //Animation
 
     public void SetMove(IsometricBlock From, IsometricBlock To)
     {

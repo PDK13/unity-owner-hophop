@@ -33,6 +33,8 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         //
         GameConfig = m_gameConfig;
+        LevelConfig = m_levelConfig;
+        CharacterConfig = m_characterConfig;
         //
         Application.targetFrameRate = 60;
         //
