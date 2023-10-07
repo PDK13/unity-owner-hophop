@@ -18,10 +18,6 @@ public class BasePlayer : MonoBehaviour
 
     private void Start()
     {
-        m_body.onGravity += SetGravity;
-        m_body.onPush += SetPush;
-        m_body.onForce += SetForce;
-        //
         TurnManager.SetInit(TurnType.Player, gameObject);
         TurnManager.Instance.onTurn += SetControlTurn;
         TurnManager.Instance.onStepStart += SetControlStep;
@@ -30,10 +26,6 @@ public class BasePlayer : MonoBehaviour
     private void OnDestroy()
     {
         StopAllCoroutines();
-        //
-        m_body.onGravity -= SetGravity;
-        m_body.onPush -= SetPush;
-        m_body.onForce -= SetForce;
         //
         TurnManager.SetRemove(TurnType.Player, gameObject);
         TurnManager.Instance.onTurn -= SetControlTurn;
@@ -130,11 +122,18 @@ public class BasePlayer : MonoBehaviour
                     return;
                 }
                 //
-                if (BlockBody.GetCheckDir(Dir))
+                if (BlockBody.CharacterPush)
                 {
-                    //Surely can't continue move to this Pos, because this Block can't be push to the Pos ahead!!
-                    return;
+                    if (BlockBody.GetCheckDir(Dir))
+                    {
+                        //Surely can't continue move to this Pos, because this Block can't be push to the Pos ahead!!
+                        return;
+                    }
+                    BlockBody.SetControlPush(Dir, m_block.Pos);
                 }
+                else
+                    //Surely can't continue move to this Pos, because this Block can't be push by character!!
+                    return;
                 //
                 //Fine to continue push this Block ahead!!
             }
@@ -167,41 +166,6 @@ public class BasePlayer : MonoBehaviour
                 TurnManager.SetEndTurn(TurnType.Player, gameObject); //Follow Player (!)
             });
         //
-    }
-
-    #endregion
-
-    #region Body
-
-    private void SetGravity(bool State)
-    {
-        if (!State)
-        {
-            m_body.SetStandOnForce();
-            m_animation.SetStand(m_body.GetCheckDir(IsometricVector.Bot));
-        }
-    }
-
-    private void SetPush(bool State, IsometricVector Dir)
-    {
-        if (State)
-        {
-            m_animation.SetMove(m_body.GetCheckDir(IsometricVector.Bot), m_body.GetCheckDir(IsometricVector.Bot, Dir));
-        }
-        else
-        {
-            m_body.SetStandOnForce();
-            m_animation.SetStand(m_body.GetCheckDir(IsometricVector.Bot));
-        }
-    }
-
-    public void SetForce(bool State)
-    {
-        if (!State)
-        {
-            m_body.SetStandOnForce();
-            m_animation.SetStand(m_body.GetCheckDir(IsometricVector.Bot));
-        }
     }
 
     #endregion

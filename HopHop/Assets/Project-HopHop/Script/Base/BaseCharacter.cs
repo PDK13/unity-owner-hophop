@@ -23,12 +23,34 @@ public class BaseCharacter : MonoBehaviour
 
     public int Skin => m_skin;
 
-    [Space]
-    [SerializeField] private Animator m_animator;
+    private IsometricBlock m_block;
+    private BaseBody m_body;
+    private Animator m_animator;
 
     private void Awake()
     {
+        m_block = GetComponent<IsometricBlock>();
+        m_body = GetComponent<BaseBody>();
+        m_animator = GetComponent<Animator>();
+        //
+        m_body.onPush += SetPush;
+        m_body.onForce += SetForce;
+        //
         SetCharacter(m_character, m_skin);
+    }
+
+    private void Start()
+    {
+        m_body.onGravity += SetGravity;
+        m_body.onPush += SetPush;
+        m_body.onForce += SetForce;
+    }
+
+    private void OnDestroy()
+    {
+        m_body.onGravity -= SetGravity;
+        m_body.onPush -= SetPush;
+        m_body.onForce -= SetForce;
     }
 
 #if UNITY_EDITOR
@@ -201,6 +223,43 @@ public class BaseCharacter : MonoBehaviour
             case CharacterActionType.Happy:
                 m_animator.SetTrigger(TRIGGER_HAPPY);
                 break;
+        }
+    }
+
+    //
+
+    private void SetGravity(bool State)
+    {
+        if (!State)
+        {
+            m_body.SetStandOnForce();
+            SetStand(m_body.GetCheckDir(IsometricVector.Bot));
+        }
+    }
+
+    private void SetPush(bool State, IsometricVector Dir)
+    {
+        if (State && Dir != IsometricVector.Top && Dir != IsometricVector.Bot)
+        {
+            SetMove(m_body.GetCheckDir(IsometricVector.Bot), m_body.GetCheckDir(IsometricVector.Bot, Dir));
+        }
+        else
+        {
+            m_body.SetStandOnForce();
+            SetStand(m_body.GetCheckDir(IsometricVector.Bot));
+        }
+    }
+
+    public void SetForce(bool State, IsometricVector Dir)
+    {
+        if (State && Dir != IsometricVector.Top && Dir != IsometricVector.Bot)
+        {
+            SetMove(m_body.GetCheckDir(IsometricVector.Bot), m_body.GetCheckDir(IsometricVector.Bot, Dir));
+        }
+        else
+        {
+            m_body.SetStandOnForce();
+            SetStand(m_body.GetCheckDir(IsometricVector.Bot));
         }
     }
 }

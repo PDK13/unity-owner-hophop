@@ -7,7 +7,11 @@ mode-normal
 day-light
 
 #WORLD-BLOCK
-10
+11
+
+[0;1;1]
+Light Pig
+#BLOCK-END
 
 [0;0;1]
 Player Angle

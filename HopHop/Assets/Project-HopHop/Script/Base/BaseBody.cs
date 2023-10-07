@@ -5,14 +5,16 @@ using UnityEngine;
 public class BaseBody : MonoBehaviour
 {
     private bool m_turnControl = false;
-
-    public Action<bool> onGravity;              //State
-    public Action<bool, IsometricVector> onPush;      //State, From, Dir
-    public Action<bool> onForce;                //State
-
+    //
+    public Action<bool> onGravity;                  //State
+    public Action<bool, IsometricVector> onPush;    //State, Dir
+    public Action<bool, IsometricVector> onForce;   //State, Dir
+    //
     [HideInInspector] public IsometricVector MoveLastXY;
     [HideInInspector] public IsometricVector? MoveForceXY;
-
+    //
+    public bool CharacterPush = false;
+    //
     private IsometricBlock m_block;
 
     private void Awake()
@@ -176,7 +178,7 @@ public class BaseBody : MonoBehaviour
             .SetEase(Ease.Linear)
             .OnStart(() =>
             {
-                onForce?.Invoke(true);
+                onForce?.Invoke(true, Dir);
             })
             .OnUpdate(() =>
             {
@@ -184,7 +186,7 @@ public class BaseBody : MonoBehaviour
             })
             .OnComplete(() =>
             {
-                onForce?.Invoke(false);
+                onForce?.Invoke(false, Dir);
             });
         //
     }
