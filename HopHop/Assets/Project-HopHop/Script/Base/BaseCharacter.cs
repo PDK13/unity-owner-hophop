@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 
@@ -17,6 +18,8 @@ public class BaseCharacter : MonoBehaviour
     private const string TRIGGER_HURT = "Hurt";
     private const string TRIGGER_HAPPY = "Happy";
     //
+    private string m_animatorName = TRIGGER_IDLE;
+    //
     [Space]
     [SerializeField] private CharacterType m_character = CharacterType.Angel;
     [SerializeField] private int m_skin = 0;
@@ -34,9 +37,6 @@ public class BaseCharacter : MonoBehaviour
         m_block = GetComponent<IsometricBlock>();
         m_body = GetComponent<BaseBody>();
         m_animator = GetComponent<Animator>();
-        //
-        m_body.onPush += SetPush;
-        m_body.onForce += SetForce;
         //
         SetCharacter(m_character, m_skin);
     }
@@ -114,7 +114,7 @@ public class BaseCharacter : MonoBehaviour
         //
         if (From == null || To == null)
             //Move from or to NONE BLOCK!!
-            m_animator.SetTrigger(TRIGGER_JUMP);
+            SetAnimation(TRIGGER_JUMP);
         //
         else
         if (From.Tag.Contains(GameManager.GameConfig.Tag.Water))
@@ -122,45 +122,45 @@ public class BaseCharacter : MonoBehaviour
             //Move from BLOCK WATER!!
             if (To.Tag.Contains(GameManager.GameConfig.Tag.Water))
                 //Move from BLOCK WATER to BLOCK WATER!!
-                m_animator.SetTrigger(TRIGGER_SWIM);
+                SetAnimation(TRIGGER_SWIM);
             else
                 //Move from BLOCK WATER to BLOCK NOT WATER!!
-                m_animator.SetTrigger(TRIGGER_JUMP);
+                SetAnimation(TRIGGER_JUMP);
         }
         else
         if (From.Tag.Contains(GameManager.GameConfig.Tag.Slow))
             //Move from BLOCK SLOW!!
-            m_animator.SetTrigger(TRIGGER_JUMP);
+            SetAnimation(TRIGGER_JUMP);
         else
         if (From.Tag.Contains(GameManager.GameConfig.Tag.Slip))
             //Move from BLOCK SLIP!!
-            m_animator.SetTrigger(TRIGGER_JUMP);
+            SetAnimation(TRIGGER_JUMP);
         else
         {
             //Move from BLOCK NORMAL!!
             //
             if (m_character == CharacterType.Cat)
                 //Character Cat!!
-                m_animator.SetTrigger(TRIGGER_JUMP);
+                SetAnimation(TRIGGER_JUMP);
             else
             if (To.Tag.Contains(GameManager.GameConfig.Tag.Water))
                 //Move from BLOCK NORMAL to BLOCK WATER!!
-                m_animator.SetTrigger(TRIGGER_JUMP);
+                SetAnimation(TRIGGER_JUMP);
             else
             if (To.Tag.Contains(GameManager.GameConfig.Tag.Slow))
                 //Move from BLOCK NORMAL to BLOCK SLOW!!
-                m_animator.SetTrigger(TRIGGER_JUMP);
+                SetAnimation(TRIGGER_JUMP);
             else
             if (To.Tag.Contains(GameManager.GameConfig.Tag.Slip))
                 //Move from BLOCK NORMAL to BLOCK SLIP!!
-                m_animator.SetTrigger(TRIGGER_JUMP);
+                SetAnimation(TRIGGER_JUMP);
             else
             if (To.Tag.Contains(GameManager.GameConfig.Tag.Bullet))
                 //Move from BLOCK NORMAL to OBJECT BULLET!!
-                m_animator.SetTrigger(TRIGGER_JUMP);
+                SetAnimation(TRIGGER_JUMP);
             else
                 //Move from BLOCK NORMAL to BLOCK NORMAL!!
-                m_animator.SetTrigger(TRIGGER_MOVE);
+                SetAnimation(TRIGGER_MOVE);
         }
     }
 
@@ -170,16 +170,18 @@ public class BaseCharacter : MonoBehaviour
         //
         if (On == null)
             //Stand on NONE BLOCK!!
-            m_animator.SetTrigger(TRIGGER_JUMP);
+            SetAnimation(TRIGGER_JUMP);
         //
         else
         if (On.Tag.Contains(GameManager.GameConfig.Tag.Water))
             //Stand on WATER BLOCK!!
-            m_animator.SetTrigger(TRIGGER_SWIM);
+            SetAnimation(TRIGGER_SWIM);
         else
             //Stand on ANY BLOCK!!
-            m_animator.SetTrigger(TRIGGER_IDLE);
+            SetAnimation(TRIGGER_IDLE);
     }
+
+    //
 
     public void SetAnimationAction(CharacterActionType Action)
     {
@@ -188,18 +190,46 @@ public class BaseCharacter : MonoBehaviour
         switch (Action)
         {
             case CharacterActionType.Idle:
-                m_animator.SetTrigger(TRIGGER_IDLE);
+                SetAnimation(TRIGGER_IDLE);
                 break;
             case CharacterActionType.Sit:
-                m_animator.SetTrigger(TRIGGER_SIT);
+                SetAnimation(TRIGGER_SIT);
                 break;
             case CharacterActionType.Hurt:
-                m_animator.SetTrigger(TRIGGER_HURT);
+                SetAnimation(TRIGGER_HURT);
                 break;
             case CharacterActionType.Happy:
-                m_animator.SetTrigger(TRIGGER_HAPPY);
+                SetAnimation(TRIGGER_HAPPY);
                 break;
         }
+    }
+
+    //
+
+    private void SetAnimation(string Name)
+    {
+        if (Name == m_animatorName)
+            return;
+        //
+        m_animatorName = Name;
+        m_animator.SetTrigger(Name);
+    }
+
+    private void SetAnimation(string From, string To, float Duration = 0)
+    {
+        StartCoroutine(ISetAnimationDelay(From, To, Duration));
+    }
+
+    private IEnumerator ISetAnimationDelay(string From, string To, float Duration = 0)
+    {
+        SetAnimation(From);
+        //
+        if (Duration <= 0)
+            yield return null;
+        else
+            yield return new WaitForSeconds(Duration);
+        //
+        SetAnimation(To);
     }
 
     //

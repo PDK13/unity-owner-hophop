@@ -191,9 +191,7 @@ public class TurnManager : MonoBehaviour
             m_turnPass++;
             //
             if ((int)Instance.m_debug >= (int)DebugType.None)
-            {
                 Debug.LogWarningFormat("[Turn] <TURN {0} START>", m_turnPass);
-            }
             //
             onTurn?.Invoke(m_turnPass);
             //
@@ -203,7 +201,8 @@ public class TurnManager : MonoBehaviour
             //
             SetEndSwap(m_turnCurrent.Turn);
             //
-            yield return new WaitForSeconds(m_delayTurn); //Delay before start new Turn!!
+            if (m_delayTurn > 0)
+                yield return new WaitForSeconds(m_delayTurn); //Delay before start new Turn!!
         }
         //
         //Fine to Start new Turn!!
@@ -218,12 +217,10 @@ public class TurnManager : MonoBehaviour
         if (m_turnCurrent != null)
         {
             if ((int)Instance.m_debug >= (int)DebugType.Full)
-            {
                 Debug.LogWarningFormat("[Turn] <TURN {1} START> {2} / {3}", m_turnPass, m_turnCurrent.Turn, m_turnCurrent.UnitEndTurn.Count, m_turnCurrent.Unit.Count);
-            }
         }
         //
-        if (DelayNewStep)
+        if (DelayNewStep && m_delayStep > 0)
             yield return new WaitForSeconds(m_delayStep); //Delay before start new Step in new Turn!!
         //
         onStepStart?.Invoke(m_turnCurrent.Turn);
