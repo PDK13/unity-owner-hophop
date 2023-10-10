@@ -6,11 +6,13 @@ public class BaseCharacter : MonoBehaviour
     private const int INDEX_MOVE = 0;
     private const int INDEX_ACTION = 1;
     //
-    private const string BOOL_MOVE = "Move";
-    private const string BOOL_JUMP = "Jump";
-    private const string BOOL_SWIM = "Swim";
+    private const string TRIGGER_LAND = "Land";
+    private const string TRIGGER_JUMP = "Jump";
+    private const string TRIGGER_MOVE = "Move";
+    private const string TRIGGER_SWIM = "Swim";
 
     private const string TRIGGER_IDLE = "Idle";
+
     private const string TRIGGER_SIT = "Sit";
     private const string TRIGGER_HURT = "Hurt";
     private const string TRIGGER_HAPPY = "Happy";
@@ -108,105 +110,75 @@ public class BaseCharacter : MonoBehaviour
 
     public void SetAnimationMove(IsometricBlock From, IsometricBlock To)
     {
-        if (From == null)
-        {
-            return;
-        }
-        //
         m_animator.SetLayerWeight(INDEX_ACTION, 0);
         //
-        m_animator.SetBool(BOOL_MOVE, true); //Surely MOVE!!
+        if (From == null || To == null)
+            //Move from or to NONE BLOCK!!
+            m_animator.SetTrigger(TRIGGER_JUMP);
         //
-        if (To == null)
-        {
-            //Move to NONE BLOCK!!
-            m_animator.SetBool(BOOL_JUMP, true);
-            m_animator.SetBool(BOOL_SWIM, false);
-            return;
-        }
-        //
-        //Move to BLOCK!!
-        //
+        else
         if (From.Tag.Contains(GameManager.GameConfig.Tag.Water))
         {
             //Move from BLOCK WATER!!
             if (To.Tag.Contains(GameManager.GameConfig.Tag.Water))
-            {
                 //Move from BLOCK WATER to BLOCK WATER!!
-                m_animator.SetBool(BOOL_JUMP, false);
-            }
+                m_animator.SetTrigger(TRIGGER_SWIM);
             else
-            {
                 //Move from BLOCK WATER to BLOCK NOT WATER!!
-                m_animator.SetBool(BOOL_JUMP, true);
-            }
+                m_animator.SetTrigger(TRIGGER_JUMP);
         }
         else
         if (From.Tag.Contains(GameManager.GameConfig.Tag.Slow))
-        {
             //Move from BLOCK SLOW!!
-            m_animator.SetBool(BOOL_JUMP, true);
-        }
+            m_animator.SetTrigger(TRIGGER_JUMP);
         else
         if (From.Tag.Contains(GameManager.GameConfig.Tag.Slip))
-        {
             //Move from BLOCK SLIP!!
-            m_animator.SetBool(BOOL_JUMP, true);
-        }
+            m_animator.SetTrigger(TRIGGER_JUMP);
         else
         {
             //Move from BLOCK NORMAL!!
             //
             if (m_character == CharacterType.Cat)
-            {
-                m_animator.SetBool(BOOL_JUMP, true);
-            }
+                //Character Cat!!
+                m_animator.SetTrigger(TRIGGER_JUMP);
             else
             if (To.Tag.Contains(GameManager.GameConfig.Tag.Water))
-            {
                 //Move from BLOCK NORMAL to BLOCK WATER!!
-                m_animator.SetBool(BOOL_JUMP, true);
-            }
+                m_animator.SetTrigger(TRIGGER_JUMP);
             else
             if (To.Tag.Contains(GameManager.GameConfig.Tag.Slow))
-            {
                 //Move from BLOCK NORMAL to BLOCK SLOW!!
-                m_animator.SetBool(BOOL_JUMP, true);
-            }
+                m_animator.SetTrigger(TRIGGER_JUMP);
             else
             if (To.Tag.Contains(GameManager.GameConfig.Tag.Slip))
-            {
                 //Move from BLOCK NORMAL to BLOCK SLIP!!
-                m_animator.SetBool(BOOL_JUMP, true);
-            }
+                m_animator.SetTrigger(TRIGGER_JUMP);
             else
             if (To.Tag.Contains(GameManager.GameConfig.Tag.Bullet))
-            {
                 //Move from BLOCK NORMAL to OBJECT BULLET!!
-                m_animator.SetBool(BOOL_JUMP, true);
-            }
+                m_animator.SetTrigger(TRIGGER_JUMP);
             else
-            {
                 //Move from BLOCK NORMAL to BLOCK NORMAL!!
-                m_animator.SetBool(BOOL_JUMP, false);
-            }
+                m_animator.SetTrigger(TRIGGER_MOVE);
         }
-        //
-        m_animator.SetBool(BOOL_SWIM, To.Tag.Contains(GameManager.GameConfig.Tag.Water));
     }
 
     public void SetAnimationStand(IsometricBlock On)
     {
-        if (On == null)
-        {
-            return;
-        }
-        //
         m_animator.SetLayerWeight(INDEX_ACTION, 0);
         //
-        m_animator.SetBool(BOOL_MOVE, false); //Surely NOT MOVE!!
-        m_animator.SetBool(BOOL_JUMP, false);
-        m_animator.SetBool(BOOL_SWIM, On.Tag.Contains(GameManager.GameConfig.Tag.Water));
+        if (On == null)
+            //Stand on NONE BLOCK!!
+            m_animator.SetTrigger(TRIGGER_JUMP);
+        //
+        else
+        if (On.Tag.Contains(GameManager.GameConfig.Tag.Water))
+            //Stand on WATER BLOCK!!
+            m_animator.SetTrigger(TRIGGER_SWIM);
+        else
+            //Stand on ANY BLOCK!!
+            m_animator.SetTrigger(TRIGGER_IDLE);
     }
 
     public void SetAnimationAction(CharacterActionType Action)
