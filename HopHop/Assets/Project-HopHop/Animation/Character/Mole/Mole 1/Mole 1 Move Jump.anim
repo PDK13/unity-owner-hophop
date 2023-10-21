@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Mole 1 Move Jump
+  m_Name: mole 1 move jump
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0

@@ -177,7 +177,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Orange 0
+      name: orange 0
       rect:
         serializedVersion: 2
         x: 0
@@ -198,7 +198,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Orange 1
+      name: orange 1
       rect:
         serializedVersion: 2
         x: 128
@@ -219,7 +219,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Blue 0
+      name: blue 0
       rect:
         serializedVersion: 2
         x: 256
@@ -240,7 +240,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Blue 1
+      name: blue 1
       rect:
         serializedVersion: 2
         x: 384
@@ -261,7 +261,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Purple 0
+      name: purple 0
       rect:
         serializedVersion: 2
         x: 0
@@ -282,7 +282,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Purple 1
+      name: purple 1
       rect:
         serializedVersion: 2
         x: 128
@@ -303,7 +303,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Lotus 0
+      name: lotus 0
       rect:
         serializedVersion: 2
         x: 256
@@ -324,7 +324,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Lotus 1
+      name: lotus 1
       rect:
         serializedVersion: 2
         x: 384
@@ -355,14 +355,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Blue 0: 1927596961
-      Blue 1: 2009489890
-      Lotus 0: 139641897
-      Lotus 1: 1468707611
-      Orange 0: 1601151698
-      Orange 1: -1464945343
-      Purple 0: 206563672
-      Purple 1: 2059522003
+      blue 0: 1927596961
+      blue 1: 2009489890
+      lotus 0: 139641897
+      lotus 1: 1468707611
+      orange 0: 1601151698
+      orange 1: -1464945343
+      purple 0: 206563672
+      purple 1: 2059522003
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

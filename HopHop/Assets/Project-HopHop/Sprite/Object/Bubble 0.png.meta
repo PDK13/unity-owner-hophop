@@ -129,7 +129,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Born 0
+      name: born 0
       rect:
         serializedVersion: 2
         x: 0
@@ -150,7 +150,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Born 1
+      name: born 1
       rect:
         serializedVersion: 2
         x: 128
@@ -171,7 +171,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Born 2
+      name: born 2
       rect:
         serializedVersion: 2
         x: 256
@@ -192,7 +192,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Born 3
+      name: born 3
       rect:
         serializedVersion: 2
         x: 384
@@ -213,7 +213,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Idle 0
+      name: idle 0
       rect:
         serializedVersion: 2
         x: 0
@@ -234,7 +234,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Idle 1
+      name: idle 1
       rect:
         serializedVersion: 2
         x: 128
@@ -255,7 +255,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Idle 2
+      name: idle 2
       rect:
         serializedVersion: 2
         x: 256
@@ -276,7 +276,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Idle 3
+      name: idle 3
       rect:
         serializedVersion: 2
         x: 384
@@ -297,7 +297,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Blow 0
+      name: blow 0
       rect:
         serializedVersion: 2
         x: 0
@@ -318,7 +318,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Blow 1
+      name: blow 1
       rect:
         serializedVersion: 2
         x: 128
@@ -339,7 +339,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Blow 2
+      name: blow 2
       rect:
         serializedVersion: 2
         x: 256
@@ -360,7 +360,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Blow 3
+      name: blow 3
       rect:
         serializedVersion: 2
         x: 384
@@ -391,18 +391,18 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Blow 0: -329081738
-      Blow 1: -476215067
-      Blow 2: 1275372897
-      Blow 3: -909448337
-      Born 0: 903106288
-      Born 1: 1808659234
-      Born 2: 1653846343
-      Born 3: 1288871412
-      Idle 0: -250596188
-      Idle 1: 1062698790
-      Idle 2: -238114009
-      Idle 3: 834384764
+      blow 0: -329081738
+      blow 1: -476215067
+      blow 2: 1275372897
+      blow 3: -909448337
+      born 0: 903106288
+      born 1: 1808659234
+      born 2: 1653846343
+      born 3: 1288871412
+      idle 0: -250596188
+      idle 1: 1062698790
+      idle 2: -238114009
+      idle 3: 834384764
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

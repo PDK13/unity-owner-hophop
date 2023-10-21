@@ -129,7 +129,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Idle 0
+      name: idle 0
       rect:
         serializedVersion: 2
         x: 0
@@ -150,7 +150,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Idle 1
+      name: idle 1
       rect:
         serializedVersion: 2
         x: 128
@@ -171,7 +171,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Sit 0
+      name: sit 0
       rect:
         serializedVersion: 2
         x: 0
@@ -192,7 +192,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Sit 1
+      name: sit 1
       rect:
         serializedVersion: 2
         x: 128
@@ -213,7 +213,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Hurt 0
+      name: hurt 0
       rect:
         serializedVersion: 2
         x: 0
@@ -234,7 +234,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Hurt 1
+      name: hurt 1
       rect:
         serializedVersion: 2
         x: 128
@@ -255,7 +255,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump 0
+      name: jump 0
       rect:
         serializedVersion: 2
         x: 0
@@ -276,7 +276,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Jump 1
+      name: jump 1
       rect:
         serializedVersion: 2
         x: 128
@@ -297,7 +297,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Move 0
+      name: move 0
       rect:
         serializedVersion: 2
         x: 0
@@ -318,7 +318,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Move 1
+      name: move 1
       rect:
         serializedVersion: 2
         x: 128
@@ -339,7 +339,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Move 2
+      name: move 2
       rect:
         serializedVersion: 2
         x: 256
@@ -360,7 +360,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Move 3
+      name: move 3
       rect:
         serializedVersion: 2
         x: 384
@@ -381,7 +381,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Move 4
+      name: move 4
       rect:
         serializedVersion: 2
         x: 512
@@ -402,7 +402,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Move 5
+      name: move 5
       rect:
         serializedVersion: 2
         x: 640
@@ -433,20 +433,20 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Hurt 0: 277798270
-      Hurt 1: 951399908
-      Idle 0: 1599916722
-      Idle 1: -574184132
-      Jump 0: -1253647600
-      Jump 1: 1204719462
-      Move 0: -465352939
-      Move 1: 405652559
-      Move 2: -675728775
-      Move 3: -756002836
-      Move 4: -2140318729
-      Move 5: 81738141
-      Sit 0: -1655422598
-      Sit 1: -1943261814
+      hurt 0: 277798270
+      hurt 1: 951399908
+      idle 0: 1599916722
+      idle 1: -574184132
+      jump 0: -1253647600
+      jump 1: 1204719462
+      move 0: -465352939
+      move 1: 405652559
+      move 2: -675728775
+      move 3: -756002836
+      move 4: -2140318729
+      move 5: 81738141
+      sit 0: -1655422598
+      sit 1: -1943261814
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

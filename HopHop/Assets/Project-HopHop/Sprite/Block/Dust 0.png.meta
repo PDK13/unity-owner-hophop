@@ -129,7 +129,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: None
+      name: none
       rect:
         serializedVersion: 2
         x: 0
@@ -150,7 +150,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Grid
+      name: grid
       rect:
         serializedVersion: 2
         x: 128
@@ -171,7 +171,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Blue 0
+      name: blue 0
       rect:
         serializedVersion: 2
         x: 256
@@ -192,7 +192,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Blue 1
+      name: blue 1
       rect:
         serializedVersion: 2
         x: 384
@@ -213,7 +213,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Red 0
+      name: red 0
       rect:
         serializedVersion: 2
         x: 512
@@ -234,7 +234,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Red 1
+      name: red 1
       rect:
         serializedVersion: 2
         x: 640
@@ -265,12 +265,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Blue 0: -995191484
-      Blue 1: 266627109
-      Grid: -712323484
-      None: -2054281346
-      Red 0: -1933084115
-      Red 1: -1325675102
+      blue 0: -995191484
+      blue 1: 266627109
+      grid: -712323484
+      none: -2054281346
+      red 0: -1933084115
+      red 1: -1325675102
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

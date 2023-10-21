@@ -129,7 +129,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Green 0
+      name: green 0
       rect:
         serializedVersion: 2
         x: 0
@@ -150,7 +150,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Green 1
+      name: green 1
       rect:
         serializedVersion: 2
         x: 128
@@ -171,7 +171,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Green 2
+      name: green 2
       rect:
         serializedVersion: 2
         x: 256
@@ -192,7 +192,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Orange 0
+      name: orange 0
       rect:
         serializedVersion: 2
         x: 384
@@ -213,7 +213,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Orange 1
+      name: orange 1
       rect:
         serializedVersion: 2
         x: 512
@@ -234,7 +234,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Orange 2
+      name: orange 2
       rect:
         serializedVersion: 2
         x: 640
@@ -255,7 +255,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Purple 0
+      name: purple 0
       rect:
         serializedVersion: 2
         x: 0
@@ -276,7 +276,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Purple 1
+      name: purple 1
       rect:
         serializedVersion: 2
         x: 128
@@ -297,7 +297,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Purple 2
+      name: purple 2
       rect:
         serializedVersion: 2
         x: 256
@@ -318,7 +318,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: White 0
+      name: white 0
       rect:
         serializedVersion: 2
         x: 384
@@ -339,7 +339,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: White 1
+      name: white 1
       rect:
         serializedVersion: 2
         x: 512
@@ -360,7 +360,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: White 2
+      name: white 2
       rect:
         serializedVersion: 2
         x: 640
@@ -391,18 +391,18 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Green 0: 535279077
-      Green 1: -1524033889
-      Green 2: -1345158877
-      Orange 0: -1675213919
-      Orange 1: -1458498049
-      Orange 2: -1124972738
-      Purple 0: -1550698772
-      Purple 1: 573214664
-      Purple 2: -1513452125
-      White 0: 1789974489
-      White 1: -351080302
-      White 2: 1216886975
+      green 0: 535279077
+      green 1: -1524033889
+      green 2: -1345158877
+      orange 0: -1675213919
+      orange 1: -1458498049
+      orange 2: -1124972738
+      purple 0: -1550698772
+      purple 1: 573214664
+      purple 2: -1513452125
+      white 0: 1789974489
+      white 1: -351080302
+      white 2: 1216886975
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
