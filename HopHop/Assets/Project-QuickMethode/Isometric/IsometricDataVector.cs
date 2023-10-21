@@ -62,73 +62,27 @@ public struct IsometricVector : IEquatable<IsometricVector>
     public static IsometricVector Bot => new IsometricVector(0, 0, -1);
     public static IsometricVector None => new IsometricVector(0, 0, 0);
 
-    public static Vector3 GetVector(IsometricVector Pos)
-    {
-        return new Vector3(Pos.X, Pos.Y, Pos.H);
-    }
+    //
 
-    public static IsometricVector GetDir(IsoDir Dir, IsometricRotateType Rotate = IsometricRotateType._0)
+    public static IsoDir GetDir(IsometricVector Dir)
     {
-        switch (Dir)
-        {
-            case IsoDir.Up:
-                switch (Rotate)
-                {
-                    case IsometricRotateType._0:
-                        return Up;
-                    case IsometricRotateType._90:
-                        return Left;
-                    case IsometricRotateType._180:
-                        return Down;
-                    case IsometricRotateType._270:
-                        return Right;
-                }
-                break;
-            case IsoDir.Down:
-                switch (Rotate)
-                {
-                    case IsometricRotateType._0:
-                        return Down;
-                    case IsometricRotateType._90:
-                        return Right;
-                    case IsometricRotateType._180:
-                        return Up;
-                    case IsometricRotateType._270:
-                        return Left;
-                }
-                break;
-            case IsoDir.Left:
-                switch (Rotate)
-                {
-                    case IsometricRotateType._0:
-                        return Left;
-                    case IsometricRotateType._90:
-                        return Down;
-                    case IsometricRotateType._180:
-                        return Right;
-                    case IsometricRotateType._270:
-                        return Up;
-                }
-                break;
-            case IsoDir.Right:
-                switch (Rotate)
-                {
-                    case IsometricRotateType._0:
-                        return Right;
-                    case IsometricRotateType._90:
-                        return Up;
-                    case IsometricRotateType._180:
-                        return Left;
-                    case IsometricRotateType._270:
-                        return Down;
-                }
-                break;
-            case IsoDir.Top:
-                return Top;
-            case IsoDir.Bot:
-                return Bot;
-        }
-        return None;
+        if (Dir == Up)
+            return IsoDir.Up;
+        if (Dir == Down)
+            return IsoDir.Down;
+        if (Dir == Left)
+            return IsoDir.Left;
+        if (Dir == Right)
+            return IsoDir.Right;
+        if (Dir == Top)
+            return IsoDir.Top;
+        if (Dir == Bot)
+            return IsoDir.Bot;
+        if (Dir == None)
+            return IsoDir.None;
+        //
+        Debug.LogError("[Caution] Data not correct!!");
+        return IsoDir.None;
     }
 
     public static IsoDir GetDirDeEncyptEnum(string Data)
@@ -175,6 +129,26 @@ public struct IsometricVector : IEquatable<IsometricVector>
         return IsoDir.None;
     }
 
+    public static IsometricVector GetDir(IsoDir Dir)
+    {
+        switch (Dir)
+        {
+            case IsoDir.Up:
+                return Up;
+            case IsoDir.Down:
+                return Down;
+            case IsoDir.Left:
+                return Left;
+            case IsoDir.Right:
+                return Right;
+            case IsoDir.Top:
+                return Top;
+            case IsoDir.Bot:
+                return Bot;
+        }
+        return None;
+    }
+
     public static IsometricVector GetDirDeEncypt(string Data)
     {
         switch (Data)
@@ -219,6 +193,31 @@ public struct IsometricVector : IEquatable<IsometricVector>
         return None;
     }
 
+    public static Vector3 GetVector(IsoDir Dir)
+    {
+        switch (Dir)
+        {
+            case IsoDir.Up:
+                return GetVector(Up);
+            case IsoDir.Down:
+                return GetVector(Down);
+            case IsoDir.Left:
+                return GetVector(Left);
+            case IsoDir.Right:
+                return GetVector(Right);
+            case IsoDir.Top:
+                return GetVector(Top);
+            case IsoDir.Bot:
+                return GetVector(Bot);
+        }
+        return GetVector(None);
+    }
+
+    public static Vector3 GetVector(IsometricVector Dir)
+    {
+        return new Vector3(Dir.X, Dir.Y, Dir.H);
+    }
+    
     public static string GetDirEncypt(IsoDir Dir)
     {
         switch (Dir)
@@ -237,6 +236,135 @@ public struct IsometricVector : IEquatable<IsometricVector>
                 return "B";
         }
         return "N";
+    }
+
+    //Rotate
+
+    public static IsoDir GetRotateDir(IsoDir Dir, IsometricRotateType Rotate = IsometricRotateType._0)
+    {
+        switch (Dir)
+        {
+            case IsoDir.Up:
+                switch (Rotate)
+                {
+                    case IsometricRotateType._0:
+                        return IsoDir.Up;
+                    case IsometricRotateType._90:
+                        return IsoDir.Left;
+                    case IsometricRotateType._180:
+                        return IsoDir.Down;
+                    case IsometricRotateType._270:
+                        return IsoDir.Right;
+                }
+                break;
+            case IsoDir.Down:
+                switch (Rotate)
+                {
+                    case IsometricRotateType._0:
+                        return IsoDir.Down;
+                    case IsometricRotateType._90:
+                        return IsoDir.Right;
+                    case IsometricRotateType._180:
+                        return IsoDir.Up;
+                    case IsometricRotateType._270:
+                        return IsoDir.Left;
+                }
+                break;
+            case IsoDir.Left:
+                switch (Rotate)
+                {
+                    case IsometricRotateType._0:
+                        return IsoDir.Left;
+                    case IsometricRotateType._90:
+                        return IsoDir.Down;
+                    case IsometricRotateType._180:
+                        return IsoDir.Right;
+                    case IsometricRotateType._270:
+                        return IsoDir.Up;
+                }
+                break;
+            case IsoDir.Right:
+                switch (Rotate)
+                {
+                    case IsometricRotateType._0:
+                        return IsoDir.Right;
+                    case IsometricRotateType._90:
+                        return IsoDir.Up;
+                    case IsometricRotateType._180:
+                        return IsoDir.Left;
+                    case IsometricRotateType._270:
+                        return IsoDir.Down;
+                }
+                break;
+            case IsoDir.Top:
+                return IsoDir.Top;
+            case IsoDir.Bot:
+                return IsoDir.Bot;
+        }
+        return IsoDir.None;
+    }
+
+    public static IsometricVector GetRotateDir(IsometricVector Dir, IsometricRotateType Rotate = IsometricRotateType._0)
+    {
+        if (Dir == Up)
+            switch (Rotate)
+            {
+                case IsometricRotateType._0:
+                    return Up;
+                case IsometricRotateType._90:
+                    return Left;
+                case IsometricRotateType._180:
+                    return Down;
+                case IsometricRotateType._270:
+                    return Right;
+            }
+        //
+        if (Dir == Down)
+            switch (Rotate)
+            {
+                case IsometricRotateType._0:
+                    return Down;
+                case IsometricRotateType._90:
+                    return Right;
+                case IsometricRotateType._180:
+                    return Up;
+                case IsometricRotateType._270:
+                    return Left;
+            }
+        //
+        if (Dir == Left)
+            switch (Rotate)
+            {
+                case IsometricRotateType._0:
+                    return Left;
+                case IsometricRotateType._90:
+                    return Down;
+                case IsometricRotateType._180:
+                    return Right;
+                case IsometricRotateType._270:
+                    return Up;
+            }
+        //
+        if (Dir == Right)
+            switch (Rotate)
+            {
+                case IsometricRotateType._0:
+                    return Right;
+                case IsometricRotateType._90:
+                    return Up;
+                case IsometricRotateType._180:
+                    return Left;
+                case IsometricRotateType._270:
+                    return Down;
+            }
+        //
+        if (Dir == Top)
+            return Top;
+        //
+        if (Dir == Bot)
+            return Bot;
+        //
+        return None;
     }
 
     #endregion

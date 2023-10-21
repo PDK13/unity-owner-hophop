@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         m_isometricManager.SetInit();
-        m_isometricManager.List.SetList(m_isometricConfig);
+        m_isometricManager.List.SetList(m_isometricConfig, true);
 
         SetWorldLoad(m_levelConfig.Level[0].Level[0]);
     }

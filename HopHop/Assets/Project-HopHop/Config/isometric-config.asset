@@ -29,15 +29,15 @@ MonoBehaviour:
     - {fileID: 44393240911007880, guid: c7dda824b32fcfe4c88c6bccf01ac4ed, type: 3}
   - Name: character light
     Block:
+    - {fileID: 44393240911007880, guid: fca164667bfe9994a93ede8464ff1394, type: 3}
     - {fileID: 44393240911007880, guid: 94d3c6a2d5cd46f4cb39eb2d6ef004d7, type: 3}
-    - {fileID: 44393240911007880, guid: 5ba21ecc26bac394f80e86589e67294f, type: 3}
+    - {fileID: 44393240911007880, guid: f0c0cb30ee59a974ea8fd0538a61e31d, type: 3}
     - {fileID: 44393240911007880, guid: 71817dbe38197744d9fd64111af9f02e, type: 3}
     - {fileID: 44393240911007880, guid: 41201b9a01fe0774a8de897f54735225, type: 3}
+    - {fileID: 44393240911007880, guid: 5ba21ecc26bac394f80e86589e67294f, type: 3}
+    - {fileID: 44393240911007880, guid: 72dadbf741f9a854c8f8da51d414bbb6, type: 3}
     - {fileID: 44393240911007880, guid: cf6f55c23de10e94ebdcd83b2181fbda, type: 3}
     - {fileID: 44393240911007880, guid: 21c39bf5afa57e844b6cfcea868e26e7, type: 3}
-    - {fileID: 44393240911007880, guid: fca164667bfe9994a93ede8464ff1394, type: 3}
-    - {fileID: 44393240911007880, guid: f0c0cb30ee59a974ea8fd0538a61e31d, type: 3}
-    - {fileID: 44393240911007880, guid: 72dadbf741f9a854c8f8da51d414bbb6, type: 3}
     - {fileID: 44393240911007880, guid: 0a6433aa93900ae468cfdf8fdc45328b, type: 3}
     - {fileID: 44393240911007880, guid: 5f8a4b3194d84f64ab6446fb9fae653d, type: 3}
     - {fileID: 44393240911007880, guid: 00c9dc5fbfb705f46b6f837143a9488e, type: 3}
@@ -53,20 +53,6 @@ MonoBehaviour:
     - {fileID: 44393240911007880, guid: 4d723acb8bc4b7243b9909ed90f662d3, type: 3}
     - {fileID: 44393240911007880, guid: 376da905a3745de44aa5758eacd1167d, type: 3}
     - {fileID: 44393240911007880, guid: 3a52f7adab0a0a546a53b79e1251424e, type: 3}
-  - Name: rock 0
-    Block:
-    - {fileID: 44393240911007880, guid: 2716e36401a34934db349c7c497b6bbb, type: 3}
-    - {fileID: 44393240911007880, guid: ed8f7408028008943a8879e0c257feb8, type: 3}
-    - {fileID: 44393240911007880, guid: fbcbcc11110b7d643827febf13658a6e, type: 3}
-    - {fileID: 44393240911007880, guid: 57b8620eba6489e459340c829745e7c1, type: 3}
-    - {fileID: 44393240911007880, guid: 600c94d5d9bea094a88bc6cac19c40cc, type: 3}
-    - {fileID: 44393240911007880, guid: dab71737ab92a9a4c91c451ecbff9d6b, type: 3}
-    - {fileID: 44393240911007880, guid: 0cfeb79c2cd973747bb1916ab4099fd6, type: 3}
-    - {fileID: 44393240911007880, guid: c85bdfdc85c372a46b81522c0e679eb4, type: 3}
-    - {fileID: 44393240911007880, guid: 8a854dc71af195a489dc2103b6726882, type: 3}
-    - {fileID: 44393240911007880, guid: 549cc5c735503414e8855db7fcfceaaf, type: 3}
-    - {fileID: 44393240911007880, guid: 8ad0f18ebdf942d4d9cd4b848ecb5318, type: 3}
-    - {fileID: 44393240911007880, guid: e3aaf6ee839439a42bc607d5373d12ab, type: 3}
   - Name: tree 0
     Block:
     - {fileID: 44393240911007880, guid: 8858c6ad8b5774e4faa517d88072b92d, type: 3}

@@ -93,6 +93,11 @@ public class BaseBullet : MonoBehaviour
             {
                 Debug.Log("[Debug] Bullet hit Player!!");
             }
+            else
+            if (BlockAhead.Tag.Contains(GameConfigTag.Enermy))
+            {
+                Debug.Log("[Debug] Bullet hit Enermy!!");
+            }
             //
             SetHit();
             //

@@ -125,7 +125,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_name: Player Angle
   m_tag:
-  - character player
+  - player
+  - character
   m_posType: 1
   m_pos:
     X: 0
@@ -134,7 +135,7 @@ MonoBehaviour:
   m_moveData:
     Type: 0
     Dir: 
-    DirDuration: 
+    Duration: 
     Index: 0
     Quantity: 1
   m_followData:
@@ -143,7 +144,7 @@ MonoBehaviour:
   m_actionData:
     Type: 0
     Action: []
-    ActionDuration: 
+    Duration: 
     Index: 0
     Quantity: 1
   m_eventData:
@@ -183,6 +184,7 @@ MonoBehaviour:
     X: 0
     Y: 0
     H: 0
+  CharacterPush: 0
 --- !u!114 &2268218478505088259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,7 +198,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_character: 0
-  m_animator: {fileID: 5839525824939966151}
+  m_skin: 0
 --- !u!114 &7886185234414709923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,6 +211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2fdc10c653dff84f8159ad4b86621cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CharacterFollow: 0
 --- !u!1 &2456517912168330126
 GameObject:
   m_ObjectHideFlags: 0

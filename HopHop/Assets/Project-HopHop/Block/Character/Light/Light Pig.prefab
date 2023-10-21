@@ -124,7 +124,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_name: Light Pig
   m_tag:
-  - character light
+  - light
+  - character
   m_posType: 1
   m_pos:
     X: 0
@@ -133,7 +134,7 @@ MonoBehaviour:
   m_moveData:
     Type: 0
     Dir: 
-    DirDuration: 
+    Duration: 
     Index: 0
     Quantity: 1
   m_followData:
@@ -142,7 +143,7 @@ MonoBehaviour:
   m_actionData:
     Type: 0
     Action: []
-    ActionDuration: 
+    Duration: 
     Index: 0
     Quantity: 1
   m_eventData:
@@ -210,3 +211,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_bullet: {fileID: -7103428136409996234, guid: e8ecb6f1ef2f19545b012d49048b273e, type: 3}
+  m_editorSpawm: 0
+  m_editorMove: 0
+  m_editorSpeed: 0

@@ -16,22 +16,18 @@ public class IsometricDataList
 
     #region Read
 
-    public void SetList(IsometricConfig IsometricConfig)
+    public void SetList(IsometricConfig IsometricConfig, bool All)
     {
-        SetList(IsometricConfig.BlockList);
+        SetList(IsometricConfig.BlockList, All);
     }
 
-    public void SetList(List<IsometricBlock> BlockList)
+    public void SetList(List<IsometricBlock> BlockList, bool All)
     {
         if (this.BlockList == null)
-        {
             this.BlockList = new List<IsometricDataBlockListTag>();
-        }
         else
-        {
             this.BlockList.Clear();
-        }
-
+        //
         foreach (IsometricBlock BlockCheck in BlockList)
         {
             if (BlockCheck == null)
@@ -54,23 +50,22 @@ public class IsometricDataList
                 {
                     this.BlockList[TagIndex].Block.Add(BlockCheck);
                 }
+                //
+                if (!All)
+                    break;
             }
         }
-
+        //
         onListRead?.Invoke();
     }
 
-    public void SetList(List<GameObject> BlockList)
+    public void SetList(List<GameObject> BlockList, bool All)
     {
         if (this.BlockList == null)
-        {
             this.BlockList = new List<IsometricDataBlockListTag>();
-        }
         else
-        {
             this.BlockList.Clear();
-        }
-
+        //
         foreach (GameObject BlockCheck in BlockList)
         {
             IsometricBlock Block = BlockCheck.GetComponent<IsometricBlock>();
@@ -94,25 +89,24 @@ public class IsometricDataList
                 {
                     this.BlockList[TagIndex].Block.Add(Block);
                 }
+                //
+                if (!All)
+                    break;
             }
         }
-
+        //
         onListRead?.Invoke();
     }
 
-    public void SetList(params string[] PathChildInResources)
+    public void SetListPath(bool All, params string[] PathChildInResources)
     {
         if (this.BlockList == null)
-        {
             this.BlockList = new List<IsometricDataBlockListTag>();
-        }
         else
-        {
             this.BlockList.Clear();
-        }
-
+        //
         List<GameObject> BlockList = QResources.GetPrefab(PathChildInResources);
-
+        //
         foreach (GameObject BlockPrefab in BlockList)
         {
             IsometricBlock Block = BlockPrefab.GetComponent<IsometricBlock>();
@@ -152,10 +146,13 @@ public class IsometricDataList
                     {
                         this.BlockList[TagIndex].Block.Add(Block);
                     }
+                    //
+                    if (!All)
+                        break;
                 }
             }
         }
-
+        //
         onListRead?.Invoke();
     }
 

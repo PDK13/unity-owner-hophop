@@ -100,8 +100,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_name: Object Tree White 0
   m_tag:
-  - object
   - tree
+  - object
   m_posType: 0
   m_pos:
     X: 0
@@ -110,7 +110,7 @@ MonoBehaviour:
   m_moveData:
     Type: 0
     Dir: 
-    DirDuration: 
+    Duration: 
     Index: 0
     Quantity: 1
   m_followData:
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_actionData:
     Type: 0
     Action: []
-    ActionDuration: 
+    Duration: 
     Index: 0
     Quantity: 1
   m_eventData:

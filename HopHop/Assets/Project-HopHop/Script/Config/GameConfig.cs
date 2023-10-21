@@ -22,6 +22,7 @@ public class GameConfigCommand
 public class GameConfigTag
 {
     public const string Player = "player";
+    public const string Enermy = "enermy";
 
     public const string Character = "character";
     public const string Block = "block";
@@ -41,5 +42,6 @@ public enum TurnType
     Gravity,
     Player,
     Follow,
+    Enermy,
     Object,
 }

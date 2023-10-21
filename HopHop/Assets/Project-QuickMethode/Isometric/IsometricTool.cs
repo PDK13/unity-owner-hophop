@@ -146,7 +146,7 @@ public class IsometricTool : EditorWindow
         }
         //
         m_manager.SetInit();
-        m_manager.List.SetList(m_manager.Config);
+        m_manager.List.SetList(m_manager.Config, false);
         m_manager.World.SetWorldRead(m_manager.transform);
         //
         m_listTag = new List<string>();
@@ -338,7 +338,7 @@ public class IsometricTool : EditorWindow
                     {
                         //Move Curson!!
                         case KeyCode.UpArrow:
-                            m_curson.Pos += IsometricVector.GetDir(IsoDir.Up, m_manager.Game.Scene.Rotate);
+                            m_curson.Pos += IsometricVector.GetRotateDir(IsometricVector.GetDir(IsoDir.Up), m_manager.Game.Scene.Rotate);
                             SetCursonMaskXY();
                             SetCursonHiddenH();
                             SetCursonCheck();
@@ -346,7 +346,7 @@ public class IsometricTool : EditorWindow
                             m_event.Use();
                             break;
                         case KeyCode.DownArrow:
-                            m_curson.Pos += IsometricVector.GetDir(IsoDir.Down, m_manager.Game.Scene.Rotate);
+                            m_curson.Pos += IsometricVector.GetRotateDir(IsometricVector.GetDir(IsoDir.Down), m_manager.Game.Scene.Rotate);
                             SetCursonMaskXY();
                             SetCursonHiddenH();
                             SetCursonCheck();
@@ -354,7 +354,7 @@ public class IsometricTool : EditorWindow
                             m_event.Use();
                             break;
                         case KeyCode.LeftArrow:
-                            m_curson.Pos += IsometricVector.GetDir(IsoDir.Left, m_manager.Game.Scene.Rotate);
+                            m_curson.Pos += IsometricVector.GetRotateDir(IsometricVector.GetDir(IsoDir.Left), m_manager.Game.Scene.Rotate);
                             SetCursonMaskXY();
                             SetCursonHiddenH();
                             SetCursonCheck();
@@ -362,7 +362,7 @@ public class IsometricTool : EditorWindow
                             m_event.Use();
                             break;
                         case KeyCode.RightArrow:
-                            m_curson.Pos += IsometricVector.GetDir(IsoDir.Right, m_manager.Game.Scene.Rotate);
+                            m_curson.Pos += IsometricVector.GetRotateDir(IsometricVector.GetDir(IsoDir.Right), m_manager.Game.Scene.Rotate);
                             SetCursonMaskXY();
                             SetCursonHiddenH();
                             SetCursonCheck();
@@ -370,7 +370,7 @@ public class IsometricTool : EditorWindow
                             m_event.Use();
                             break;
                         case KeyCode.PageUp:
-                            m_curson.Pos += IsometricVector.GetDir(IsoDir.Top, m_manager.Game.Scene.Rotate);
+                            m_curson.Pos += IsometricVector.GetRotateDir(IsometricVector.GetDir(IsoDir.Top), m_manager.Game.Scene.Rotate);
                             SetCursonMaskXY();
                             SetCursonHiddenH();
                             SetCursonCheck();
@@ -378,7 +378,7 @@ public class IsometricTool : EditorWindow
                             m_event.Use();
                             break;
                         case KeyCode.PageDown:
-                            m_curson.Pos += IsometricVector.GetDir(IsoDir.Bot, m_manager.Game.Scene.Rotate);
+                            m_curson.Pos += IsometricVector.GetRotateDir(IsometricVector.GetDir(IsoDir.Bot), m_manager.Game.Scene.Rotate);
                             SetCursonMaskXY();
                             SetCursonHiddenH();
                             SetCursonCheck();
@@ -497,7 +497,7 @@ public class IsometricTool : EditorWindow
                 m_indexTag = 0;
                 m_indexName = 0;
                 //
-                m_manager.List.SetList(m_manager.Config);
+                m_manager.List.SetList(m_manager.Config, false);
                 //
                 m_pathOpen = Path.Path;
                 IsometricDataFile.SetFileRead(m_manager, QPath.GetPath(QPath.PathType.None, Path.Path));
