@@ -44,6 +44,12 @@ public class IsometricBlock : MonoBehaviour
 
     #region ================================================================== Mono
 
+    private void Awake()
+    {
+        if (Application.isPlaying && this.name == IsometricDataWorld.CURSON_NAME)
+            Destroy(this.gameObject);
+    }
+
 #if UNITY_EDITOR
 
     private void Update()
