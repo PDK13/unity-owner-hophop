@@ -43,20 +43,20 @@ public class BaseCharacter : MonoBehaviour
 
     private void Start()
     {
-        m_body.onMove += SetMove;
-        m_body.onMoveForce += SetMove;
-        m_body.onGravity += SetGravity;
-        m_body.onPush += SetPush;
-        m_body.onForce += SetForce;
+        m_body.onMove += SetOnMove;
+        m_body.onMoveForce += SetOnMove;
+        m_body.onGravity += SetOnGravity;
+        m_body.onPush += SetOnPush;
+        m_body.onForce += SetOnForce;
     }
 
     private void OnDestroy()
     {
-        m_body.onMove -= SetMove;
-        m_body.onMoveForce -= SetMove;
-        m_body.onGravity -= SetGravity;
-        m_body.onPush -= SetPush;
-        m_body.onForce -= SetForce;
+        m_body.onMove -= SetOnMove;
+        m_body.onMoveForce -= SetOnMove;
+        m_body.onGravity -= SetOnGravity;
+        m_body.onPush -= SetOnPush;
+        m_body.onForce -= SetOnForce;
     }
 
 #if UNITY_EDITOR
@@ -87,10 +87,10 @@ public class BaseCharacter : MonoBehaviour
     {
         m_character = Character;
         //
-        SetSkin(Skin);
+        SetCharacterSkin(Skin);
     }
 
-    public void SetSkin(int Skin = 0)
+    public void SetCharacterSkin(int Skin = 0)
     {
         ConfigCharacter Config = GameManager.CharacterConfig.GetConfig(m_character);
         //
@@ -234,7 +234,7 @@ public class BaseCharacter : MonoBehaviour
 
     //
 
-    private void SetMove(bool State, IsometricVector Dir)
+    private void SetOnMove(bool State, IsometricVector Dir)
     {
         if (State && Dir != IsometricVector.None && Dir != IsometricVector.Top && Dir != IsometricVector.Bot)
             SetAnimationMove(m_body.GetCheckDir(IsometricVector.Bot), m_body.GetCheckDir(IsometricVector.Bot, Dir));
@@ -242,13 +242,13 @@ public class BaseCharacter : MonoBehaviour
             SetAnimationStand(m_body.GetCheckDir(IsometricVector.Bot));
     }
 
-    private void SetGravity(bool State)
+    private void SetOnGravity(bool State)
     {
         if (!State)
             SetAnimationStand(m_body.GetCheckDir(IsometricVector.Bot));
     }
 
-    private void SetPush(bool State, IsometricVector Dir)
+    private void SetOnPush(bool State, IsometricVector Dir)
     {
         if (State && Dir != IsometricVector.None && Dir != IsometricVector.Top && Dir != IsometricVector.Bot)
             SetAnimationMove(m_body.GetCheckDir(IsometricVector.Bot), m_body.GetCheckDir(IsometricVector.Bot, Dir));
@@ -256,7 +256,7 @@ public class BaseCharacter : MonoBehaviour
             SetAnimationStand(m_body.GetCheckDir(IsometricVector.Bot));
     }
 
-    public void SetForce(bool State, IsometricVector Dir)
+    public void SetOnForce(bool State, IsometricVector Dir)
     {
         if (State && Dir != IsometricVector.None && Dir != IsometricVector.Top && Dir != IsometricVector.Bot)
             SetAnimationMove(m_body.GetCheckDir(IsometricVector.Bot), m_body.GetCheckDir(IsometricVector.Bot, Dir));
