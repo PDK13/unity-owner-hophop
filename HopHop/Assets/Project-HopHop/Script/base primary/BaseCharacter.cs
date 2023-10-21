@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 public class BaseCharacter : MonoBehaviour
@@ -90,7 +91,6 @@ public class BaseCharacter : MonoBehaviour
         m_configCharacter = GameManager.CharacterConfig.GetConfig(Character);
         //
         m_character = Character;
-        m_body.CharacterPush = m_configCharacter.CharacterPush;
         //
         SetCharacterSkin(Skin);
     }

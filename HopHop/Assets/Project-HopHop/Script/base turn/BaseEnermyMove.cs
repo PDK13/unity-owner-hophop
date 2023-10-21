@@ -12,8 +12,6 @@ public class BaseEnermyMove : MonoBehaviour
     [SerializeField] private bool m_checkStopBot = false;
     [SerializeField] private bool m_checkStopAhead = false;
     //
-    private string m_dataMove = "";
-    //
     private BaseCharacter m_character;
     private BaseBody m_body;
     private IsometricBlock m_block;
@@ -27,12 +25,11 @@ public class BaseEnermyMove : MonoBehaviour
 
     private void Start()
     {
-        m_dataMove = m_block.Data.Init.Data.Find(t => t.Contains(GameConfigInit.Move));
-        //
-        if (m_dataMove == "")
+        if (!m_block.Data.Init.Data.Exists(t => t.Contains(GameConfigInit.Move)))
             return;
         //
-        List<string> Command = QEncypt.GetDencyptString('-', m_dataMove);
+        string Data = m_block.Data.Init.Data.Find(t => t.Contains(GameConfigInit.Move));
+        List<string> Command = QEncypt.GetDencyptString('-', Data);
         m_moveDir = IsometricVector.GetDir(IsometricVector.GetDirDeEncypt(Command[1]));
         m_checkPlayerHit = Command[2] == "1" ? true : false;
         m_checkStopBot = Command[3] == "1" ? true : false;

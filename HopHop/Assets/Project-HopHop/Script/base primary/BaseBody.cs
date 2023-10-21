@@ -1,6 +1,8 @@
 using DG.Tweening;
 using System;
+using UnityEditor;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class BaseBody : MonoBehaviour
 {
@@ -12,16 +14,23 @@ public class BaseBody : MonoBehaviour
     public Action<bool, IsometricVector> onPush;        //State, Dir
     public Action<bool, IsometricVector> onForce;       //State, Dir
     //
-    [HideInInspector] public IsometricVector MoveLastXY;
-    [HideInInspector] public IsometricVector? MoveForceXY;
+    private IsometricVector MoveLastXY;
+    private IsometricVector? MoveForceXY;
     //
-    public bool CharacterPush = false;
+    private bool m_characterPush = false;
+
+    public bool CharacterPush => m_characterPush;
     //
     private IsometricBlock m_block;
 
     private void Awake()
     {
         m_block = GetComponent<IsometricBlock>();
+    }
+
+    private void Start()
+    {
+        m_characterPush = m_block.Data.Init.Data.Exists(t => t.Contains(GameConfigInit.CharacterPush));
     }
 
     #region Move
@@ -32,6 +41,8 @@ public class BaseBody : MonoBehaviour
             return;
         //
         SetCheckGravity(Dir);
+        //
+        MoveLastXY = Dir;
         //
         Vector3 MoveDir = IsometricVector.GetVector(Dir);
         Vector3 MoveStart = IsometricVector.GetVector(m_block.Pos);
@@ -351,4 +362,40 @@ public class BaseBody : MonoBehaviour
     }
 
     #endregion
+
+    //**Editor**
+
+    public void SetEditorCharacterPush()
+    {
+        IsometricBlock Block = GetComponent<IsometricBlock>();
+        Block.Data.Init.Data.Add(GameConfigInit.CharacterPush);
+    }
+
+    //**Editor**
 }
+
+#if UNITY_EDITOR
+
+[CustomEditor(typeof(BaseBody))]
+[CanEditMultipleObjects]
+public class BaseBodyEditor : Editor
+{
+    private BaseBody m_target;
+
+    private void OnEnable()
+    {
+        m_target = target as BaseBody;
+    }
+
+    public override void OnInspectorGUI()
+    {
+        QEditorCustom.SetUpdate(this);
+        //
+        if (QEditor.SetButton("Character Push"))
+            m_target.SetEditorCharacterPush();
+        //
+        QEditorCustom.SetApply(this);
+    }
+}
+
+#endif

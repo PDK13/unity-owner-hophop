@@ -130,6 +130,9 @@ MonoBehaviour:
     X: 0
     Y: 0
     H: 0
+  m_initData:
+    Data:
+    - character-push
   m_moveData:
     Type: 0
     Dir: 

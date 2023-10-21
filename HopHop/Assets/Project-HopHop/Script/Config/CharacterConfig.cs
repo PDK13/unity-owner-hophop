@@ -150,7 +150,6 @@ public enum CharacterType
 public class ConfigCharacter
 {
     public List<ConfigCharacterSkin> Skin;
-    public bool CharacterPush = true;
 }
 
 [Serializable]

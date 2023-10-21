@@ -95,8 +95,6 @@ public class BasePlayer : MonoBehaviour
 
     private void SetControlMove(IsometricVector Dir)
     {
-        m_body.MoveLastXY = Dir;
-        //
         if (Dir == IsometricVector.None)
         {
             m_playerControl = false;

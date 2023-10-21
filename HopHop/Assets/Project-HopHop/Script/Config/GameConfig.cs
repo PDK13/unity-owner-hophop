@@ -23,6 +23,9 @@ public class GameConfigAction
 public class GameConfigInit
 {
     public const string Move = "move"; //move-[move]-[ahead]-[bot]
+
+    //Character
+    public const string CharacterPush = "character-push";
 }
 
 public class GameConfigTag
