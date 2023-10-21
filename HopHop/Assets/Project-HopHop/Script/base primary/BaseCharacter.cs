@@ -25,7 +25,9 @@ public class BaseCharacter : MonoBehaviour
     [SerializeField] private int m_skin = 0;
 
     public CharacterType Character => m_character;
-
+    //
+    private ConfigCharacter m_configCharacter;
+    //
     public int Skin => m_skin;
     //
     private IsometricBlock m_block;
@@ -85,23 +87,24 @@ public class BaseCharacter : MonoBehaviour
 
     public void SetCharacter(CharacterType Character, int Skin = 0)
     {
+        m_configCharacter = GameManager.CharacterConfig.GetConfig(Character);
+        //
         m_character = Character;
+        m_body.CharacterPush = m_configCharacter.CharacterPush;
         //
         SetCharacterSkin(Skin);
     }
 
     public void SetCharacterSkin(int Skin = 0)
     {
-        ConfigCharacter Config = GameManager.CharacterConfig.GetConfig(m_character);
-        //
-        if (Skin > Config.Skin.Count - 1)
+        if (Skin > m_configCharacter.Skin.Count - 1)
         {
-            m_animator.runtimeAnimatorController = Config.Skin.Last().Animator;
-            m_skin = Config.Skin.Count - 1;
+            m_animator.runtimeAnimatorController = m_configCharacter.Skin.Last().Animator;
+            m_skin = m_configCharacter.Skin.Count - 1;
         }
         else
         {
-            m_animator.runtimeAnimatorController = Config.Skin[Skin].Animator;
+            m_animator.runtimeAnimatorController = m_configCharacter.Skin[Skin].Animator;
             m_skin = Skin;
         }
     }

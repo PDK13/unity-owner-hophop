@@ -24,6 +24,7 @@ public class IsometricBlock : MonoBehaviour
     #region Varible: Data Manager
 
     [Space]
+    [SerializeField] private IsometricDataInit m_initData = new IsometricDataInit();
     [SerializeField] private IsometricDataMove m_moveData = new IsometricDataMove();
     [SerializeField] private IsometricDataFollow m_followData = new IsometricDataFollow();
     [SerializeField] private IsometricDataAction m_actionData = new IsometricDataAction();
@@ -97,6 +98,7 @@ public class IsometricBlock : MonoBehaviour
         {
             IsometricDataFileBlockData Data = new IsometricDataFileBlockData
             {
+                Init = m_initData,
                 Move = m_moveData,
                 Follow = m_followData,
                 Action = m_actionData,
@@ -107,6 +109,7 @@ public class IsometricBlock : MonoBehaviour
         }
         set
         {
+            m_initData = value.Init;
             m_moveData = value.Move;
             m_followData = value.Follow;
             m_actionData = value.Action;

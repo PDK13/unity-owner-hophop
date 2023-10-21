@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class BaseEnermyMove : MonoBehaviour
@@ -7,8 +8,11 @@ public class BaseEnermyMove : MonoBehaviour
     private bool m_turnControl = false;
     //
     [SerializeField] private IsoDir m_moveDir = IsoDir.None;
+    [SerializeField] private bool m_checkPlayerHit = true;
     [SerializeField] private bool m_checkStopBot = false;
     [SerializeField] private bool m_checkStopAhead = false;
+    //
+    private string m_dataMove = "";
     //
     private BaseCharacter m_character;
     private BaseBody m_body;
@@ -23,6 +27,17 @@ public class BaseEnermyMove : MonoBehaviour
 
     private void Start()
     {
+        m_dataMove = m_block.Data.Init.Data.Find(t => t.Contains(GameConfigInit.Move));
+        //
+        if (m_dataMove == "")
+            return;
+        //
+        List<string> Command = QEncypt.GetDencyptString('-', m_dataMove);
+        m_moveDir = IsometricVector.GetDir(IsometricVector.GetDirDeEncypt(Command[1]));
+        m_checkPlayerHit = Command[2] == "1" ? true : false;
+        m_checkStopBot = Command[3] == "1" ? true : false;
+        m_checkStopAhead = Command[4] == "1" ? true : false;
+        //
         TurnManager.SetInit(TurnType.Enermy, gameObject);
         TurnManager.Instance.onTurn += SetControlTurn;
         TurnManager.Instance.onStepStart += SetControlStep;
@@ -97,12 +112,15 @@ public class BaseEnermyMove : MonoBehaviour
         {
             if (Block.Tag.Contains(GameConfigTag.Player))
             {
-                Debug.Log("[Debug] Enermy hit Player!!");
-                //
-                m_turnControl = false;
-                TurnManager.SetEndTurn(TurnType.Enermy, gameObject); //Follow Enermy (!)
-                //
-                return true;
+                if (m_checkPlayerHit || !Block.GetComponent<BaseBody>().CharacterPush)
+                {
+                    Debug.Log("[Debug] Enermy hit Player!!");
+                    //
+                    m_turnControl = false;
+                    TurnManager.SetEndTurn(TurnType.Enermy, gameObject); //Follow Enermy (!)
+                    //
+                    return true;
+                }
             }
             else
             if (Block.Tag.Contains(GameConfigTag.Bullet))
@@ -115,7 +133,7 @@ public class BaseEnermyMove : MonoBehaviour
             if (m_checkStopAhead)
                 //Stop Ahead when there is an burden ahead!!
                 return false;
-            else
+            //else
             {
                 //None Stop Ahead and continue check move ahead!!
                 //
@@ -196,4 +214,61 @@ public class BaseEnermyMove : MonoBehaviour
     {
         //...
     }
+
+    //**Editor**
+
+    public void SetEditorMove()
+    {
+        IsometricBlock Block = GetComponent<IsometricBlock>();
+        string Data = string.Format("{0}-{1}-{2}-{3}-{4}", 
+            GameConfigInit.Move, 
+            IsometricVector.GetDirEncypt(m_moveDir),
+            m_checkPlayerHit ? 1 : 0,
+            m_checkStopAhead ? 1 : 0,
+            m_checkStopBot ? 1 : 0);
+        Block.Data.Init.Data.Add(Data);
+    }
+
+    //**Editor**
 }
+
+#if UNITY_EDITOR
+
+[CustomEditor(typeof(BaseEnermyMove))]
+[CanEditMultipleObjects]
+public class BaseEnermyMoveEditor : Editor
+{
+    private BaseEnermyMove m_target;
+
+    private SerializedProperty m_moveDir;
+    private SerializedProperty m_checkPlayerHit;
+    private SerializedProperty m_checkStopBot;
+    private SerializedProperty m_checkStopAhead;
+
+    private void OnEnable()
+    {
+        m_target = target as BaseEnermyMove;
+
+        m_moveDir = QEditorCustom.GetField(this, "m_moveDir");
+        m_checkPlayerHit = QEditorCustom.GetField(this, "m_checkPlayerHit");
+        m_checkStopBot = QEditorCustom.GetField(this, "m_checkStopBot");
+        m_checkStopAhead = QEditorCustom.GetField(this, "m_checkStopAhead");
+    }
+
+    public override void OnInspectorGUI()
+    {
+        QEditorCustom.SetUpdate(this);
+        //
+        QEditorCustom.SetField(m_moveDir);
+        QEditorCustom.SetField(m_checkPlayerHit);
+        QEditorCustom.SetField(m_checkStopBot);
+        QEditorCustom.SetField(m_checkStopAhead);
+        //
+        if (QEditor.SetButton("Move"))
+            m_target.SetEditorMove();
+        //
+        QEditorCustom.SetApply(this);
+    }
+}
+
+#endif

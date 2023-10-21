@@ -97,12 +97,12 @@ public class BaseShoot : MonoBehaviour
         //
         List<string> Command = QEncypt.GetDencyptString('-', m_turnCommand);
         //
-        if (Command[0] == GameConfigCommand.Wait)
+        if (Command[0] == GameConfigAction.Wait)
         {
             //"wait"
         }
         else
-        if (Command[0] == GameConfigCommand.Shoot)
+        if (Command[0] == GameConfigAction.Shoot)
         {
             //"shoot-[1]-[2]-[3]"
             IsometricVector DirSpawm = IsometricVector.GetDirDeEncypt(Command[1]);
@@ -165,14 +165,14 @@ public class BaseShoot : MonoBehaviour
     public void SetEditorShoot()
     {
         IsometricBlock Block = GetComponent<IsometricBlock>();
-        string Data = string.Format("{0}-{1}-{2}-{3}", GameConfigCommand.Shoot, IsometricVector.GetDirEncypt(m_editorSpawm), IsometricVector.GetDirEncypt(m_editorMove), m_editorSpeed);
+        string Data = string.Format("{0}-{1}-{2}-{3}", GameConfigAction.Shoot, IsometricVector.GetDirEncypt(m_editorSpawm), IsometricVector.GetDirEncypt(m_editorMove), m_editorSpeed);
         Block.Data.Action.SetDataAdd(Data);
     }
 
     public void SetEditorWait()
     {
         IsometricBlock Block = GetComponent<IsometricBlock>();
-        string Data = string.Format("{0}", GameConfigCommand.Wait);
+        string Data = string.Format("{0}", GameConfigAction.Wait);
         Block.Data.Action.SetDataAdd(new IsometricDataBlockActionSingle(Data, 1));
     }
 

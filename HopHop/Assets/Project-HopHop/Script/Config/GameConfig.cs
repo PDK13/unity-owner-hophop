@@ -13,10 +13,16 @@ public class GameConfigEvent
     public const string Follow = "event-follow";
 }
 
-public class GameConfigCommand
+public class GameConfigAction
 {
     public const string Wait = "wait";
-    public const string Shoot = "shoot"; //shoot-[Spawm]-[Move]-[Speed]
+    public const string Shoot = "shoot"; //shoot-[spawm]-[move]-[speed]
+    public const string Move = "move";
+}
+
+public class GameConfigInit
+{
+    public const string Move = "move"; //move-[move]-[ahead]-[bot]
 }
 
 public class GameConfigTag

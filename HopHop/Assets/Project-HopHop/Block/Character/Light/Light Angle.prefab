@@ -130,6 +130,8 @@ MonoBehaviour:
     X: 0
     Y: 0
     H: 0
+  m_initData:
+    Data: []
   m_moveData:
     Type: 0
     Dir: 
@@ -182,7 +184,7 @@ MonoBehaviour:
     X: 0
     Y: 0
     H: 0
-  CharacterPush: 0
+  CharacterPush: 1
 --- !u!114 &2268218478505088259
 MonoBehaviour:
   m_ObjectHideFlags: 0

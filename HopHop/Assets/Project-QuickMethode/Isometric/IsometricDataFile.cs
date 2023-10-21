@@ -9,6 +9,7 @@ public class IsometricDataFile
     private const string KEY_WORLD_BLOCK = "#WORLD-BLOCK";
     private const string KEY_WORLD_END = "#WORLD-END";
 
+    private const string KEY_BLOCK_INIT = "#BLOCK-INIT";
     private const string KEY_BLOCK_MOVE = "#BLOCK-MOVE";
     private const string KEY_BLOCK_FOLLOW = "#BLOCK-FOLLOW";
     private const string KEY_BLOCK_FOLLOW_GET = "#BLOCK-FOLLOW_GET";
@@ -69,6 +70,16 @@ public class IsometricDataFile
             FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Name);
             //
             //BLOCK START!!
+            //
+            if (WorldBlocks[BlockIndex].Data.Init.DataExist)
+            {
+                FileIO.SetWriteAdd(KEY_BLOCK_INIT);
+                FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.Init.Data.Count);
+                for (int DataIndex = 0; DataIndex < WorldBlocks[BlockIndex].Data.Init.Data.Count; DataIndex++)
+                {
+                    FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.Init.Data[DataIndex]);
+                }
+            }
             //
             if (WorldBlocks[BlockIndex].Data.Move.DataExist)
             {
@@ -205,6 +216,14 @@ public class IsometricDataFile
                         {
                             switch (FileIO.GetReadAutoString())
                             {
+                                case KEY_BLOCK_INIT:
+                                    Data.Init.Data = new List<string>();
+                                    int InitCount = FileIO.GetReadAutoInt();
+                                    for (int DataIndex = 0; DataIndex < InitCount; DataIndex++)
+                                    {
+                                        Data.Init.Data.Add(FileIO.GetReadAutoString());
+                                    }
+                                    break;
                                 case KEY_BLOCK_MOVE:
                                     Data.Move = new IsometricDataMove
                                     {
@@ -304,6 +323,7 @@ public class IsometricDataFileBlock
 [Serializable]
 public class IsometricDataFileBlockData
 {
+    public IsometricDataInit Init = new IsometricDataInit();
     public IsometricDataMove Move = new IsometricDataMove();
     public IsometricDataFollow Follow = new IsometricDataFollow();
     public IsometricDataAction Action = new IsometricDataAction();

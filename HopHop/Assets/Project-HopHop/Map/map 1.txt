@@ -35,6 +35,9 @@ Object Flower Blue 0
 
 [0;1;1]
 Light Wolf
+#BLOCK-INIT
+1
+move-U-0-0-0
 #BLOCK-END
 
 [-2;1;1]
