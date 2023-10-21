@@ -110,7 +110,7 @@ public class BasePlayer : MonoBehaviour
         IsometricBlock Block = m_block.WorldManager.World.GetBlockCurrent(m_block.Pos + Dir * Length);
         if (Block != null)
         {
-            if (Block.Tag.Contains(GameManager.GameConfig.Tag.Bullet))
+            if (Block.Tag.Contains(GameConfigTag.Bullet))
             {
                 Debug.Log("[Debug] Bullet hit Player!!");
                 //

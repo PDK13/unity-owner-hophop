@@ -89,7 +89,7 @@ public class BaseBullet : MonoBehaviour
         IsometricBlock BlockAhead = m_block.WorldManager.World.GetBlockCurrent(m_block.Pos + m_turnDir);
         if (BlockAhead != null)
         {
-            if (BlockAhead.Tag.Contains(GameManager.GameConfig.Tag.Player))
+            if (BlockAhead.Tag.Contains(GameConfigTag.Player))
             {
                 Debug.Log("[Debug] Bullet hit Player!!");
             }
@@ -160,12 +160,12 @@ public class BaseBullet : MonoBehaviour
                 return;
             }
             //
-            if (BlockBot.Tag.Contains(GameManager.GameConfig.Tag.Player))
+            if (BlockBot.Tag.Contains(GameConfigTag.Player))
             {
                 Debug.Log("[Debug] Bullet hit Player!!");
             }
             //
-            if (!BlockBot.Tag.Contains(GameManager.GameConfig.Tag.Block))
+            if (!BlockBot.Tag.Contains(GameConfigTag.Block))
             {
                 SetHit();
             }

@@ -3,11 +3,9 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameConfig GameConfig;
     public static LevelConfig LevelConfig;
     public static CharacterConfig CharacterConfig;
     //
-    [SerializeField] private GameConfig m_gameConfig;
     [SerializeField] private LevelConfig m_levelConfig;
     [SerializeField] private CharacterConfig m_characterConfig;
     [SerializeField] private IsometricConfig m_isometricConfig;
@@ -32,7 +30,6 @@ public class GameManager : MonoBehaviour
     {
         DontDestroyOnLoad(gameObject);
         //
-        GameConfig = m_gameConfig;
         LevelConfig = m_levelConfig;
         CharacterConfig = m_characterConfig;
         //

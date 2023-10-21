@@ -7,7 +7,7 @@ public class IsometricDataAction
 {
     public DataBlockType Type = DataBlockType.Forward;
     public List<string> Action = new List<string>();
-    public List<int> ActionDuration = new List<int>();
+    public List<int> Duration = new List<int>();
 
     [HideInInspector]
     public int Index = 0;
@@ -20,10 +20,8 @@ public class IsometricDataAction
         {
             List<IsometricDataBlockActionSingle> Data = new List<IsometricDataBlockActionSingle>();
             for (int i = 0; i < Action.Count; i++)
-            {
-                Data.Add(new IsometricDataBlockActionSingle(Action[i], (Action.Count == ActionDuration.Count ? ActionDuration[i] : 1)));
-            }
-
+                Data.Add(new IsometricDataBlockActionSingle(Action[i], (Action.Count == Duration.Count ? Duration[i] : 1)));
+            //
             return Data;
         }
     }
@@ -33,7 +31,7 @@ public class IsometricDataAction
     public void SetDataNew()
     {
         Action = new List<string>();
-        ActionDuration = new List<int>();
+        Duration = new List<int>();
     }
 
     public void SetDataAdd(IsometricDataBlockActionSingle DataSingle)
@@ -44,7 +42,18 @@ public class IsometricDataAction
         }
         //
         Action.Add(DataSingle.Action);
-        ActionDuration.Add(DataSingle.Time);
+        Duration.Add(DataSingle.Duration);
+    }
+
+    public void SetDataAdd(string Action)
+    {
+        this.Action.Add(Action);
+    }
+
+    public void SetDataAdd(string Action, int Duration)
+    {
+        this.Action.Add(Action);
+        this.Duration.Add(Duration);
     }
 
     public bool DataExist => Action == null ? false : Action.Count == 0 ? false : true;
@@ -56,14 +65,14 @@ public class IsometricDataBlockActionSingle
     public const char KEY_VALUE_ENCYPT = '|';
 
     public string Action = "";
-    public int Time = 1;
+    public int Duration = 1;
 
-    public string Encypt => QEncypt.GetEncypt(KEY_VALUE_ENCYPT, Time.ToString(), Action);
+    public string Encypt => QEncypt.GetEncypt(KEY_VALUE_ENCYPT, Duration.ToString(), Action);
 
     public IsometricDataBlockActionSingle(string Action, int Time)
     {
         this.Action = Action;
-        this.Time = Time;
+        this.Duration = Time;
     }
 
     public static IsometricDataBlockActionSingle GetDencypt(string Value)

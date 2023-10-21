@@ -137,24 +137,38 @@ public struct IsometricVector : IEquatable<IsometricVector>
         {
             case "U":
             case "u":
+            case "Up":
+            case "up":
                 return IsoDir.Up;
             case "D":
             case "d":
+            case "Down":
+            case "down":
                 return IsoDir.Down;
             case "L":
             case "l":
+            case "Left":
+            case "left":
                 return IsoDir.Left;
             case "R":
             case "r":
+            case "Right":
+            case "right":
                 return IsoDir.Right;
             case "T":
             case "t":
+            case "Top":
+            case "top":
                 return IsoDir.Top;
             case "B":
             case "b":
+            case "Bot":
+            case "bot":
                 return IsoDir.Bot;
             case "N":
             case "n":
+            case "None":
+            case "none":
                 return IsoDir.None;
         }
         Debug.LogError("[Caution] Data not correct!!");
@@ -167,24 +181,38 @@ public struct IsometricVector : IEquatable<IsometricVector>
         {
             case "U":
             case "u":
+            case "Up":
+            case "up":
                 return Up;
             case "D":
             case "d":
+            case "Down":
+            case "down":
                 return Down;
             case "L":
             case "l":
+            case "Left":
+            case "left":
                 return Left;
             case "R":
             case "r":
+            case "Right":
+            case "right":
                 return Right;
             case "T":
             case "t":
+            case "Top":
+            case "top":
                 return Top;
             case "B":
             case "b":
+            case "Bot":
+            case "bot":
                 return Bot;
             case "N":
             case "n":
+            case "None":
+            case "none":
                 return None;
         }
         Debug.LogError("[Caution] Data not correct!!");

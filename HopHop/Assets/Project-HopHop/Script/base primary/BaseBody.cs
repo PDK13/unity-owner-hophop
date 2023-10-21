@@ -108,7 +108,7 @@ public class BaseBody : MonoBehaviour
         IsometricBlock Block = GetCheckDir(Dir, IsometricVector.Bot);
         if (Block != null)
         {
-            if (Block.Tag.Contains(GameManager.GameConfig.Tag.Bullet))
+            if (Block.Tag.Contains(GameConfigTag.Bullet))
             {
                 //Will touch OBJECT BULLET later!!
             }
@@ -135,7 +135,7 @@ public class BaseBody : MonoBehaviour
         IsometricBlock Block = GetCheckDir(IsometricVector.Bot);
         if (Block != null)
         {
-            if (Block.Tag.Contains(GameManager.GameConfig.Tag.Bullet))
+            if (Block.Tag.Contains(GameConfigTag.Bullet))
             {
                 Debug.Log("[Debug] Bullet hit Player!!");
                 //
@@ -321,12 +321,12 @@ public class BaseBody : MonoBehaviour
             return;
         }
         //
-        if (GetCheckDir(IsometricVector.Bot).Tag.Contains(GameManager.GameConfig.Tag.Slow))
+        if (GetCheckDir(IsometricVector.Bot).Tag.Contains(GameConfigTag.Slow))
         {
             MoveForceXY = IsometricVector.None;
         }
         else
-        if (GetCheckDir(IsometricVector.Bot).Tag.Contains(GameManager.GameConfig.Tag.Slip))
+        if (GetCheckDir(IsometricVector.Bot).Tag.Contains(GameConfigTag.Slip))
         {
             MoveForceXY = MoveLastXY;
         }

@@ -7,14 +7,78 @@ mode-normal
 day-light
 
 #WORLD-BLOCK
-27
+43
+
+[2;2;1]
+Object Flower Blue 0
+#BLOCK-END
+
+[1;2;1]
+Object Flower Blue 0
+#BLOCK-END
+
+[0;2;1]
+Object Flower Blue 0
+#BLOCK-END
+
+[-1;2;1]
+Object Flower Blue 0
+#BLOCK-END
+
+[-2;2;1]
+Object Flower Blue 0
+#BLOCK-END
+
+[2;1;1]
+Object Flower Blue 0
+#BLOCK-END
 
 [0;1;1]
 Light Wolf
 #BLOCK-END
 
+[-2;1;1]
+Object Flower Blue 0
+#BLOCK-END
+
+[2;0;1]
+Object Flower Blue 0
+#BLOCK-END
+
 [0;0;1]
 Player Angle
+#BLOCK-END
+
+[-2;0;1]
+Object Flower Blue 0
+#BLOCK-END
+
+[2;-1;1]
+Object Flower Blue 0
+#BLOCK-END
+
+[-2;-1;1]
+Object Flower Blue 0
+#BLOCK-END
+
+[2;-2;1]
+Object Flower Blue 0
+#BLOCK-END
+
+[1;-2;1]
+Object Flower Blue 0
+#BLOCK-END
+
+[0;-2;1]
+Object Flower Blue 0
+#BLOCK-END
+
+[-1;-2;1]
+Object Flower Blue 0
+#BLOCK-END
+
+[-2;-2;1]
+Object Flower Blue 0
 #BLOCK-END
 
 [2;2;0]

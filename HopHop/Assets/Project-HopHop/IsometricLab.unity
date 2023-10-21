@@ -149,7 +149,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 682874903}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -128, y: 192, z: 3}
+  m_LocalPosition: {x: -192, y: 224, z: 4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -197,7 +197,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1751606581, guid: 013f40b6c87bb8d478bc8dc3db09ee08, type: 3}
+  m_Sprite: {fileID: 1927596961, guid: 85178faa3a43b81449c0de5bbe76d9d6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -224,13 +224,13 @@ MonoBehaviour:
   m_tag: []
   m_posType: 0
   m_pos:
-    X: 3
+    X: 4
     Y: 1
     H: 1
   m_moveData:
     Type: 0
     Dir: 
-    DirDuration: 
+    Duration: 
     Index: 0
     Quantity: 1
   m_followData:
@@ -239,7 +239,7 @@ MonoBehaviour:
   m_actionData:
     Type: 0
     Action: []
-    ActionDuration: 
+    Duration: 
     Index: 0
     Quantity: 1
   m_eventData:
@@ -518,7 +518,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20dfe5cac98ae8f44870f7ba416fb601, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_gameConfig: {fileID: 11400000, guid: 121794dcf8ec4c1409ce28859f38b51a, type: 2}
   m_levelConfig: {fileID: 11400000, guid: 206d520694dc71b4fa9dfc82ef08c5ce, type: 2}
   m_characterConfig: {fileID: 11400000, guid: a7be0641b56742b4790794b4bbeba9fa, type: 2}
   m_isometricConfig: {fileID: 11400000, guid: 4b3dce31945c8fb4e9a56cc6aef6a2e1, type: 2}

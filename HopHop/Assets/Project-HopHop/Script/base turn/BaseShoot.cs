@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class BaseShoot : MonoBehaviour
 {
@@ -18,6 +20,13 @@ public class BaseShoot : MonoBehaviour
 
     private BaseBody m_body;
     private IsometricBlock m_block;
+
+    //**Editor**
+    [Space]
+    [SerializeField] private IsoDir m_editorSpawm = IsoDir.None;
+    [SerializeField] private IsoDir m_editorMove = IsoDir.None;
+    [SerializeField] private int m_editorSpeed = 0;
+    //**Editor**
 
     private void Awake()
     {
@@ -80,7 +89,7 @@ public class BaseShoot : MonoBehaviour
         if (m_turnTime == 0)
         {
             m_turnCommand = m_dataAction.Action[m_dataAction.Index];
-            m_turnTime = m_dataAction.ActionDuration[m_dataAction.Index];
+            m_turnTime = m_dataAction.Duration[m_dataAction.Index];
             m_turnTimeCurrent = 0;
         }
         //
@@ -88,12 +97,12 @@ public class BaseShoot : MonoBehaviour
         //
         List<string> Command = QEncypt.GetDencyptString('-', m_turnCommand);
         //
-        if (Command[0] == GameManager.GameConfig.Command.Wait)
+        if (Command[0] == GameConfigCommand.Wait)
         {
             //"wait"
         }
         else
-        if (Command[0] == GameManager.GameConfig.Command.Shoot)
+        if (Command[0] == GameConfigCommand.Shoot)
         {
             //"shoot-[1]-[2]-[3]"
             IsometricVector DirSpawm = IsometricVector.GetDirDeEncypt(Command[1]);
@@ -138,7 +147,7 @@ public class BaseShoot : MonoBehaviour
         IsometricBlock Block = m_block.WorldManager.World.GetBlockCurrent(m_block.Pos + DirSpawm);
         if (Block != null)
         {
-            if (Block.Tag.Contains(GameManager.GameConfig.Tag.Player))
+            if (Block.Tag.Contains(GameConfigTag.Player))
             {
                 Debug.Log("[Debug] Bullet hit Player!!");
             }
@@ -150,4 +159,68 @@ public class BaseShoot : MonoBehaviour
         IsometricBlock Bullet = m_block.WorldManager.World.SetBlockCreate(m_block.Pos + DirSpawm, m_bullet.gameObject);
         Bullet.GetComponent<BaseBullet>().SetInit(DirMove, Speed);
     } //Shoot Bullet!!
+
+    //**Editor**
+
+    public void SetEditorShoot()
+    {
+        IsometricBlock Block = GetComponent<IsometricBlock>();
+        string Data = string.Format("{0}-{1}-{2}-{3}", GameConfigCommand.Shoot, IsometricVector.GetDirEncypt(m_editorSpawm), IsometricVector.GetDirEncypt(m_editorMove), m_editorSpeed);
+        Block.Data.Action.SetDataAdd(Data);
+    }
+
+    public void SetEditorWait()
+    {
+        IsometricBlock Block = GetComponent<IsometricBlock>();
+        string Data = string.Format("{0}", GameConfigCommand.Wait);
+        Block.Data.Action.SetDataAdd(new IsometricDataBlockActionSingle(Data, 1));
+    }
+
+    //**Editor**
 }
+
+#if UNITY_EDITOR
+
+[CustomEditor(typeof(BaseShoot))]
+[CanEditMultipleObjects]
+public class BaseShootEditor : Editor
+{
+    private BaseShoot m_target;
+
+    private SerializedProperty m_bullet;
+
+    private SerializedProperty m_editorSpawm;
+    private SerializedProperty m_editorMove;
+    private SerializedProperty m_editorSpeed;
+
+    private void OnEnable()
+    {
+        m_target = target as BaseShoot;
+
+        m_bullet = QEditorCustom.GetField(this, "m_bullet");
+
+        m_editorSpawm = QEditorCustom.GetField(this, "m_editorSpawm");
+        m_editorMove = QEditorCustom.GetField(this, "m_editorMove");
+        m_editorSpeed = QEditorCustom.GetField(this, "m_editorSpeed");
+    }
+
+    public override void OnInspectorGUI()
+    {
+        QEditorCustom.SetUpdate(this);
+        //
+        QEditorCustom.SetField(m_bullet);
+        //
+        QEditorCustom.SetField(m_editorSpawm);
+        QEditorCustom.SetField(m_editorMove);
+        QEditorCustom.SetField(m_editorSpeed);
+        //
+        if (QEditor.SetButton("Shoot"))
+            m_target.SetEditorShoot();
+        if (QEditor.SetButton("Wait"))
+            m_target.SetEditorWait();
+        //
+        QEditorCustom.SetApply(this);
+    }
+}
+
+#endif

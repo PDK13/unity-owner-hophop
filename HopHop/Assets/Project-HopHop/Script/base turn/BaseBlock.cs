@@ -1,7 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
 
-public class BaseObject : MonoBehaviour
+public class BaseBlock : MonoBehaviour
 {
     private bool m_turnControl = false;
     //
@@ -83,7 +83,7 @@ public class BaseObject : MonoBehaviour
         if (m_turnLength == 0)
         {
             m_turnDir = IsometricVector.GetDir(m_dataMove.Dir[m_dataMove.Index]) * m_dataMove.Quantity;
-            m_turnLength = m_dataMove.DirDuration[m_dataMove.Index];
+            m_turnLength = m_dataMove.Duration[m_dataMove.Index];
             m_turnLengthCurrent = 0;
         }
         //

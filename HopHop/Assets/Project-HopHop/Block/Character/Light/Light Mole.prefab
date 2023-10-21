@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 8373056385654926143}
   - component: {fileID: 44393240911007880}
   - component: {fileID: 2819261235910797173}
-  - component: {fileID: -8119463416522552909}
   - component: {fileID: -4144767439766445150}
+  - component: {fileID: -8119463416522552909}
   m_Layer: 0
   m_Name: Light Mole
   m_TagString: Untagged
@@ -183,19 +183,6 @@ MonoBehaviour:
     Y: 0
     H: 0
   CharacterPush: 1
---- !u!114 &-8119463416522552909
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 44393240911007885}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c54ab2f10156ac498f9d94eb6e0eab4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_bullet: {fileID: -7103428136409996234, guid: e8ecb6f1ef2f19545b012d49048b273e, type: 3}
 --- !u!114 &-4144767439766445150
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,3 +197,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_character: 9
   m_skin: 0
+--- !u!114 &-8119463416522552909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 44393240911007885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c54ab2f10156ac498f9d94eb6e0eab4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_bullet: {fileID: -7103428136409996234, guid: e8ecb6f1ef2f19545b012d49048b273e, type: 3}
