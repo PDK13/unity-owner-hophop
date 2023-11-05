@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
@@ -84,17 +83,20 @@ public class QCircle
 
     #region ==================================== Deg by Pos & Dir
 
-    public static float GetDeg360(Vector2 Dir)
+    public static float GetDegPoint(Vector2 PointA, Vector2 PointB, bool Convert360 = false)
     {
-        //Get Deg from Center (0; 0)
-        float Deg = Mathf.Atan2(Dir.y, Dir.x) * Mathf.Rad2Deg;
-        return Deg >= 0 ? Deg : 360 + Deg;
+        //Get Deg from Point A and B with Vector Right Primary
+        //
+        float Deg = Mathf.Atan2(PointB.y - PointA.y, PointB.x - PointA.x) * Mathf.Rad2Deg;
+        return Deg < 0 && Convert360 ? 360 + Deg : Deg;
     }
 
-    public static float GetDeg360(Vector2 Center, Vector2 Pos)
+    public static float GetDegDir(Vector2 Dir, bool Convert360 = false)
     {
-        //Get Deg from Center
-        return GetDeg360(Pos - Center);
+        //Get Deg from Center (0;0) with Vector Right Primary
+        //
+        float Deg = Mathf.Atan2(Dir.y, Dir.x) * Mathf.Rad2Deg;
+        return Deg < 0 && Convert360 ? 360 + Deg : Deg;
     }
 
     #endregion

@@ -1,7 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using System;
-using UnityEngine.Audio;
 using UnityEngine.Video;
 #if UNITY_EDITOR
 using UnityEditor;

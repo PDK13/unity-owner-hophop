@@ -103,6 +103,34 @@ public class QPath
 
     #endregion
 
+    #region ==================================== File
+
+    //Name
+
+    public static string GetFileName(string PathPrimary)
+    {
+        return Path.GetFileNameWithoutExtension(PathPrimary);
+    }
+
+    public static string GetFileName(PathType PathType, params string[] PathChild)
+    {
+        return GetFileName(GetPath(PathType, PathChild));
+    }
+
+    //Extension
+
+    public static string GetFileExtension(string PathPrimary)
+    {
+        return Path.GetExtension(PathPrimary);
+    }
+
+    public static string GetFileExtension(PathType PathType, params string[] PathChild)
+    {
+        return GetFileExtension(GetPath(PathType, PathChild));
+    }
+
+    #endregion
+
     #region ==================================== Path Pannel
 
 #if UNITY_EDITOR
@@ -155,7 +183,9 @@ public class QPath
 
     #endregion
 
-    #region ==================================== Path File Exist
+    #region ==================================== Path Exist
+
+    //File
 
     public static bool GetPathFileExist(string PathFile)
     {
@@ -167,9 +197,7 @@ public class QPath
         return File.Exists(GetPath(PathType, PathChild));
     }
 
-    #endregion
-
-    #region ==================================== Path Folder Exist
+    //Folder
 
     public static bool GetPathFolderExist(string PathFolder)
     {
