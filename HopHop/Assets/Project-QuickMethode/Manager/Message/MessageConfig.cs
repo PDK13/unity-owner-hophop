@@ -47,7 +47,7 @@ public class MessageConfigSingle
     public float DelaySpace;
     public float DelayFinal;
 
-    public string Text => m_color != Color.clear ? QColor.GetColorHexFormat(m_color, m_text) : m_text;
+    public string Text => m_color != Color.clear ? QColor.GetTextHexFormat(m_color, m_text) : m_text;
 
     public MessageConfigSingle(string Text, Color Color, float DelayAlpha, float DelaySpace, float DelayFinal)
     {

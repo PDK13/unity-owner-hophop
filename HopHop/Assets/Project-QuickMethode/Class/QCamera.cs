@@ -1,5 +1,12 @@
+using System.IO;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
+/// <summary>
+/// Camera ORTHOGRAPHIC 2D only!
+/// </summary>
 public class QCamera
 {
     //Required only ONE Main Camera (with tag Main Camera) for the true result!!
@@ -64,65 +71,65 @@ public class QCamera
     }
 
     #endregion
-} //Note: Current ORTHOGRAPHIC 2D only!!
+}
 
-public class QResolution
+public class QScreenCapture
 {
-    #region ==================================== Convert
+    //Get Image from 'QSprite.GetScreenShot()' class!
 
-    public enum UnitScaleType { Width, Height, Span, Primary, Tarket, }
+#if UNITY_EDITOR
 
-    public static Vector2 GetSizeUnitScaled(Sprite SpritePrimary, Sprite SpriteTarket, UnitScaleType SpriteScale)
+    [MenuItem("Tools/ScreenCapture")]
+    private static void SetScreenCapture()
     {
-        return GetSizeUnitScaled(QSprite.GetSpriteSizeUnit(SpritePrimary), QSprite.GetSpriteSizeUnit(SpriteTarket), SpriteScale);
+        int Index = 0;
+        while (QPath.GetPathFileExist(QPath.GetPath(QPath.PathType.Picture, string.Format("{0}_{1}.png", Application.productName, Index)))) Index++;
+        SetScreenCapture(QPath.GetPath(QPath.PathType.Picture, string.Format("{0}_{1}.png", Application.productName, Index)));
     }
 
-    public static Vector2 GetSizeUnitScaled(Vector2 SizeUnitPrimary, Vector2 SizeUnitTarket, UnitScaleType SpriteScale)
+#endif
+
+    public static void SetScreenCapture(string Path)
     {
-        Vector2 SizeUnitFinal = new Vector2();
+        ScreenCapture.CaptureScreenshot(Path);
+        Debug.Log("[ScreenCapture] " + Path);
+    }
+}
 
-        switch (SpriteScale)
-        {
-            case UnitScaleType.Width:
-                {
-                    float OffsetX = SizeUnitTarket.x / SizeUnitPrimary.x;
-                    float SizeUnitFinalX = SizeUnitPrimary.x * OffsetX;
-                    float SizeUnitFinalY = SizeUnitPrimary.y * OffsetX;
-                    SizeUnitFinal = new Vector2(SizeUnitFinalX, SizeUnitFinalY);
-                }
-                break;
-            case UnitScaleType.Height:
-                {
-                    float OffsetY = SizeUnitTarket.y / SizeUnitPrimary.y;
-                    float SizeUnitFinalX = SizeUnitPrimary.x * OffsetY;
-                    float SizeUnitFinalY = SizeUnitPrimary.y * OffsetY;
-                    SizeUnitFinal = new Vector2(SizeUnitFinalX, SizeUnitFinalY);
-                }
-                break;
-            case UnitScaleType.Span:
-                {
-                    float OffsetX = SizeUnitTarket.x / SizeUnitPrimary.x;
-                    float OffsetY = SizeUnitTarket.y / SizeUnitPrimary.y;
-                    if (OffsetX < OffsetY)
-                    {
-                        SizeUnitFinal = GetSizeUnitScaled(SizeUnitPrimary, SizeUnitTarket, UnitScaleType.Height);
-                    }
-                    else
-                    {
-                        SizeUnitFinal = GetSizeUnitScaled(SizeUnitPrimary, SizeUnitTarket, UnitScaleType.Width);
-                    }
-                }
-                break;
-            case UnitScaleType.Primary:
-                SizeUnitFinal = SizeUnitPrimary;
-                break;
-            case UnitScaleType.Tarket:
-                SizeUnitFinal = SizeUnitTarket;
-                break;
-        }
-
-        return SizeUnitFinal;
+public class QScreenShot
+{
+    //Get Image from 'QSprite.GetScreenShot()' class!
+    
+    /// <summary>
+    /// Work inside 'OnPostRender()' methode with Camera component!
+    /// </summary>
+    public static void SetScreenShotFullScreen()
+    {
+        int Index = 0;
+        while (QPath.GetPathFileExist(QPath.GetPath(QPath.PathType.Picture, string.Format("{0}_{1}.png", Application.productName, Index)))) Index++;
+        SetScreenShotFullScreen(QPath.GetPath(QPath.PathType.Picture, string.Format("{0}_{1}.png", Application.productName, Index)));
     }
 
-    #endregion
+    /// <summary>
+    /// Work inside 'OnPostRender()' methode with Camera component!
+    /// </summary>
+    public static void SetScreenShotFullScreen(string Path)
+    {
+        SetScreenShot(Camera.main.pixelWidth, Camera.main.pixelHeight, 0f, 0f, Path);
+    }
+
+    /// <summary>
+    /// Work inside 'OnPostRender()' methode with Camera component!
+    /// </summary>
+    public static void SetScreenShot(int Width, int Height, float PosX, float PosY, string Path)
+    {
+        Texture2D TextureScreen = new Texture2D(Width, Height, TextureFormat.RGB24, false);
+        Rect RectScreen = new Rect(PosX, PosY, Width, Height);
+        TextureScreen.ReadPixels(RectScreen, 0, 0);
+        //
+        byte[] ByteEncode = TextureScreen.EncodeToPNG();
+        File.WriteAllBytes(Path, ByteEncode);
+        //
+        Debug.Log("[ScreenShot] " + Path);
+    }
 }

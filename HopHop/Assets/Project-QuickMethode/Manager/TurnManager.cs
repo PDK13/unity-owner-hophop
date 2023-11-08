@@ -9,7 +9,7 @@ using UnityEditor;
 
 public class TurnManager : MonoBehaviour
 {
-    public static TurnManager Instance;
+    public static TurnManager Instance { private set; get; }
 
     #region Varible: Setting
 

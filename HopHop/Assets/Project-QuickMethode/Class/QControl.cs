@@ -1,3 +1,6 @@
+using System;
+using System.IO;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -28,11 +31,6 @@ public class QScene
     public static void SetSceneChance(string SceneName, LoadSceneMode LoadSceneMode = LoadSceneMode.Single)
     {
         SceneManager.LoadScene(SceneName, LoadSceneMode);
-    }
-
-    public static (int Index, string Name) GetSceneCurrent()
-    {
-        return (GetSceneCurrentBuildIndex(), GetSceneCurrentName());
     }
 
     public static string GetSceneCurrentName()
@@ -114,11 +112,10 @@ public class QControl
     }
 
     #endregion
+}
 
-    #region ==================================== Device
-
-    #region Android - Vibrator
-
+public class QDeviceVibrate
+{
     public static bool VibrateHandle = true;
 
 #if UNITY_ANDROID
@@ -198,8 +195,4 @@ public class QControl
             }
 #endif
     }
-
-    #endregion
-
-    #endregion
 }
