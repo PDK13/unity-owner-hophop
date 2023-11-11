@@ -146,7 +146,7 @@ public class IsometricTool : EditorWindow
         }
         //
         m_manager.SetInit();
-        m_manager.List.SetList(m_manager.Config, false);
+        m_manager.List.SetList(m_manager.IsometricConfig, false);
         m_manager.World.SetWorldRead(m_manager.transform);
         //
         m_listTag = new List<string>();
@@ -497,7 +497,7 @@ public class IsometricTool : EditorWindow
                 m_indexTag = 0;
                 m_indexName = 0;
                 //
-                m_manager.List.SetList(m_manager.Config, false);
+                m_manager.List.SetList(m_manager.IsometricConfig, false);
                 //
                 m_pathOpen = Path.Path;
                 IsometricDataFile.SetFileRead(m_manager, QPath.GetPath(QPath.PathType.None, Path.Path));
