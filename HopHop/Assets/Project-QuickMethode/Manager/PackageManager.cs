@@ -19,7 +19,7 @@ public class PackageManager : MonoBehaviour
         //
         while (!pack.IsCompleted) yield return null;
         //
-        foreach(string Package in m_package)
+        foreach (string Package in m_package)
         {
             var haveProgrids = pack.Result.FirstOrDefault(q => q.name == Package);
             if (haveProgrids == null)

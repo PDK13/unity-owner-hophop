@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 #if UNITY_EDITOR
@@ -25,7 +24,7 @@ public class MessageDataConfig : ScriptableObject
             if (Author.Count == 0)
                 return NameFound;
             //
-            foreach(MessageDataConfigTextAuthor AuthorItem in Author)
+            foreach (MessageDataConfigTextAuthor AuthorItem in Author)
                 NameFound.Add(AuthorItem.Name);
             //
             return NameFound;

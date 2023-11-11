@@ -99,7 +99,7 @@ public class QScreenCapture
 public class QScreenShot
 {
     //Get Image from 'QSprite.GetScreenShot()' class!
-    
+
     /// <summary>
     /// Work inside 'OnPostRender()' methode with Camera component!
     /// </summary>

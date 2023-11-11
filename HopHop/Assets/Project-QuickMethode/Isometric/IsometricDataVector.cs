@@ -217,7 +217,7 @@ public struct IsometricVector : IEquatable<IsometricVector>
     {
         return new Vector3(Dir.X, Dir.Y, Dir.H);
     }
-    
+
     public static string GetDirEncypt(IsoDir Dir)
     {
         switch (Dir)

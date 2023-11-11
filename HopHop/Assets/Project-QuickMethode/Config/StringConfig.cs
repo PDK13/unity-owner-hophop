@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,7 +6,8 @@ using UnityEngine;
 public class StringConfig : ScriptableObject
 {
     [SerializeField] private string m_colorClear = "#clear";
-    [SerializeField] private List<StringColorConfig> m_color = new List<StringColorConfig>()
+    [SerializeField]
+    private List<StringColorConfig> m_color = new List<StringColorConfig>()
     {
         new StringColorConfig("#red", Color.red),
         new StringColorConfig("#blue", Color.blue),

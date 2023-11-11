@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
-using System;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -444,7 +443,7 @@ public class QAssetsDatabase : QPath
     }
 
 #endif
-    
+
     #endregion
 }
 

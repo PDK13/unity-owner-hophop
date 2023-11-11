@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -217,8 +216,8 @@ public class BaseEnermyMove : MonoBehaviour
     public void SetEditorMove()
     {
         IsometricBlock Block = GetComponent<IsometricBlock>();
-        string Data = string.Format("{0}-{1}-{2}-{3}-{4}", 
-            GameConfigInit.Move, 
+        string Data = string.Format("{0}-{1}-{2}-{3}-{4}",
+            GameConfigInit.Move,
             IsometricVector.GetDirEncypt(m_moveDir),
             m_checkPlayerHit ? 1 : 0,
             m_checkStopAhead ? 1 : 0,
