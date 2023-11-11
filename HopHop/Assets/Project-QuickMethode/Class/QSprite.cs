@@ -5,7 +5,7 @@ public class QSprite
 {
     #region ==================================== File
 
-    public static Sprite GetScreenShot(string Path)
+    public static Sprite GetSprite(string Path)
     {
         Texture2D TextureScreen = null;
         byte[] ByteEncode;
@@ -24,17 +24,17 @@ public class QSprite
 
     #region ==================================== Sprite
 
-    public static Vector2 GetSpriteSizePixel(Sprite From)
+    public static Vector2 GetSizePixel(Sprite From)
     {
-        return GetSpriteSizeUnit(From) * GetSpritePixelPerUnit(From) * 1.0f;
+        return GetSizeUnit(From) * GetPixelPerUnit(From) * 1.0f;
     }
 
-    public static Vector2 GetSpriteSizeUnit(Sprite From)
+    public static Vector2 GetSizeUnit(Sprite From)
     {
         return From.bounds.size * 1.0f;
     }
 
-    public static float GetSpritePixelPerUnit(Sprite From)
+    public static float GetPixelPerUnit(Sprite From)
     {
         return From.pixelsPerUnit * 1.0f;
     }
@@ -158,14 +158,13 @@ public class QSprite
     }
 
     #endregion
+}
 
-    #region ==================================== Convert
-
-    public enum UnitScaleType { Width, Height, Span, Primary, Tarket, }
-
+public class QSpriteScale
+{
     public static Vector2 GetSizeUnitScaled(Sprite SpritePrimary, Sprite SpriteTarket, UnitScaleType SpriteScale)
     {
-        return GetSizeUnitScaled(QSprite.GetSpriteSizeUnit(SpritePrimary), QSprite.GetSpriteSizeUnit(SpriteTarket), SpriteScale);
+        return GetSizeUnitScaled(QSprite.GetSizeUnit(SpritePrimary), QSprite.GetSizeUnit(SpriteTarket), SpriteScale);
     }
 
     public static Vector2 GetSizeUnitScaled(Vector2 SizeUnitPrimary, Vector2 SizeUnitTarket, UnitScaleType SpriteScale)
@@ -176,32 +175,28 @@ public class QSprite
         {
             case UnitScaleType.Width:
                 {
-                    float OffsetX = SizeUnitTarket.x / SizeUnitPrimary.x;
-                    float SizeUnitFinalX = SizeUnitPrimary.x * OffsetX;
-                    float SizeUnitFinalY = SizeUnitPrimary.y * OffsetX;
+                    float RatioX = SizeUnitTarket.x / SizeUnitPrimary.x;
+                    float SizeUnitFinalX = SizeUnitPrimary.x * RatioX;
+                    float SizeUnitFinalY = SizeUnitPrimary.y * RatioX;
                     SizeUnitFinal = new Vector2(SizeUnitFinalX, SizeUnitFinalY);
                 }
                 break;
             case UnitScaleType.Height:
                 {
-                    float OffsetY = SizeUnitTarket.y / SizeUnitPrimary.y;
-                    float SizeUnitFinalX = SizeUnitPrimary.x * OffsetY;
-                    float SizeUnitFinalY = SizeUnitPrimary.y * OffsetY;
+                    float RatioY = SizeUnitTarket.y / SizeUnitPrimary.y;
+                    float SizeUnitFinalX = SizeUnitPrimary.x * RatioY;
+                    float SizeUnitFinalY = SizeUnitPrimary.y * RatioY;
                     SizeUnitFinal = new Vector2(SizeUnitFinalX, SizeUnitFinalY);
                 }
                 break;
             case UnitScaleType.Span:
                 {
-                    float OffsetX = SizeUnitTarket.x / SizeUnitPrimary.x;
-                    float OffsetY = SizeUnitTarket.y / SizeUnitPrimary.y;
-                    if (OffsetX < OffsetY)
-                    {
+                    float RatioX = SizeUnitTarket.x / SizeUnitPrimary.x;
+                    float RatioY = SizeUnitTarket.y / SizeUnitPrimary.y;
+                    if (RatioX < RatioY)
                         SizeUnitFinal = GetSizeUnitScaled(SizeUnitPrimary, SizeUnitTarket, UnitScaleType.Height);
-                    }
                     else
-                    {
                         SizeUnitFinal = GetSizeUnitScaled(SizeUnitPrimary, SizeUnitTarket, UnitScaleType.Width);
-                    }
                 }
                 break;
             case UnitScaleType.Primary:
@@ -215,5 +210,6 @@ public class QSprite
         return SizeUnitFinal;
     }
 
-    #endregion
 }
+
+public enum UnitScaleType { Primary, Tarket, Span, Width, Height, }

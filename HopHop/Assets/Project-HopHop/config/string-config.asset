@@ -30,8 +30,7 @@ MonoBehaviour:
     Color: {r: 1, g: 0, b: 1, a: 1}
   - Code: '#black'
     Color: {r: 0, g: 0, b: 0, a: 1}
+  m_codeEmty: '#emty'
   m_codeReturn: '#return'
   m_code: []
-  m_sprite:
-  - Code: '#sprite'
-    Sprite: {fileID: -4978916580138753622, guid: 3ae1bf998043ea84ab9bcb41d86a3f28, type: 3}
+  m_sprite: []

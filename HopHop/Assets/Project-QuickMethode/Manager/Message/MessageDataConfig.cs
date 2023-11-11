@@ -1,30 +1,177 @@
-using System.Collections.Generic;
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "message-data-config", menuName = "Message Config/Data Config", order = 0)]
+[CreateAssetMenu(fileName = "message-config", menuName = "Message/Message Config", order = 0)]
 public class MessageDataConfig : ScriptableObject
 {
-    public List<MessageDataConfigText> Message;
+    public List<MessageDataConfigTextAuthor> Author = new List<MessageDataConfigTextAuthor>();
 
-    public List<MessageDataConfigChoice> Choice;
+    public MessageDataTextDelayDefault MessageTextDelayDefault;
 
-    public bool ChoiceAvaible => Choice == null ? false : Choice.Count > 0;
+    public List<string> AuthorName
+    {
+        get
+        {
+            List<string> NameFound = new List<string>();
+            //
+            if (Author == null)
+                return NameFound;
+            //
+            if (Author.Count == 0)
+                return NameFound;
+            //
+            foreach(MessageDataConfigTextAuthor AuthorItem in Author)
+                NameFound.Add(AuthorItem.Name);
+            //
+            return NameFound;
+        }
+    }
+
+    public List<Sprite> AuthorAvatar
+    {
+        get
+        {
+            if (Author == null)
+                return null;
+            //
+            if (Author.Count == 0)
+                return null;
+            //
+            List<Sprite> NameFound = new List<Sprite>();
+            //
+            foreach (MessageDataConfigTextAuthor AuthorItem in Author)
+                NameFound.Add(AuthorItem.Avatar);
+            //
+            return NameFound;
+        }
+    }
+
+    public Sprite GetAvatar(string Name)
+    {
+        return Author.Find(t => t.Name == Name).Avatar;
+    }
+}
+
+//Data
+
+[Serializable]
+public class MessageDataConfigTextAuthor
+{
+    public string Name;
+    public Sprite Avatar;
 }
 
 [Serializable]
-public class MessageDataConfigText
+public class MessageDataText
+{
+    public int AuthorIndex; //Use index for 'AuthorName' and 'AuthorAvatar'!!
+    public string Message;
+    //
+    public float DelayAlpha;
+    public float DelaySpace;
+    public float DelayMark;
+    //
+    public string TriggerCode;
+    public GameObject TriggerObject;
+
+    public MessageDataText()
+    {
+        //...
+    }
+
+    public MessageDataText(MessageDataTextDelayDefault Default)
+    {
+        DelayAlpha = Default.DelayAlpha;
+        DelaySpace = Default.DelaySpace;
+        DelayMark = Default.DelayMark;
+    }
+}
+
+[Serializable]
+public class MessageDataChoice
 {
     public string Text;
+    //
+    public int AuthorIndex;
+    public string Message;
+    //
+    public MessageDataConfigText Next;
+}
+
+//Editor
+
+[Serializable]
+public class MessageDataTextDelayDefault
+{
     public float DelayAlpha;
     public float DelaySpace;
     public float DelayMark;
 }
 
-[Serializable]
-public class MessageDataConfigChoice 
+#if UNITY_EDITOR
+
+[CustomEditor(typeof(MessageDataConfig))]
+public class MessageDataConfigEditor : Editor
 {
-    public string Name;
-    public string Description;
-    public MessageDataConfig Next;
+    private MessageDataConfig m_target;
+
+    private SerializedProperty Author;
+    private SerializedProperty MessageTextDelayDefault;
+
+    private void OnEnable()
+    {
+        m_target = target as MessageDataConfig;
+        //
+        Author = QEditorCustom.GetField(this, "Author");
+        MessageTextDelayDefault = QEditorCustom.GetField(this, "MessageTextDelayDefault");
+        //
+        SetConfigAuthorFixed();
+    }
+
+    private void OnDisable()
+    {
+        SetConfigAuthorFixed();
+    }
+
+    private void OnDestroy()
+    {
+        SetConfigAuthorFixed();
+    }
+
+    public override void OnInspectorGUI()
+    {
+        QEditorCustom.SetUpdate(this);
+        //
+        QEditorCustom.SetField(Author);
+        QEditorCustom.SetField(MessageTextDelayDefault);
+        //
+        QEditorCustom.SetApply(this);
+    }
+
+    //
+
+    private void SetConfigAuthorFixed()
+    {
+        bool RemoveEmty = false;
+        int Index = 0;
+        while (Index < m_target.Author.Count)
+        {
+            if (m_target.Author[Index].Name == "")
+            {
+                RemoveEmty = true;
+                m_target.Author.RemoveAt(Index);
+            }
+            else
+                Index++;
+        }
+        QEditorCustom.SetDirty(m_target);
+        //
+        if (RemoveEmty)
+            Debug.Log("[Message] Author(s) emty have been remove from list");
+    }
 }
+
+#endif

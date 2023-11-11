@@ -101,6 +101,17 @@ public class QEditor
 
     #endregion
 
+    #region ------------------------------------ Dirty: Modify an object without creating an undo entry, but still ensure the change is registered and not lost...
+
+    //Data in 'ScriptableObject' will not be saved if not called 'Dirty' at the end of 'OnInspectorGUI()' methode!
+
+    public static void SetDirty(Object Target)
+    {
+        EditorUtility.SetDirty(Target);
+    }
+
+    #endregion
+
     #region ------------------------------------ Label
 
     public static void SetLabel(string Label, GUIStyle GUIStyle = null, params GUILayoutOption[] GUILayoutOption)
@@ -270,6 +281,11 @@ public class QEditor
         return (GameObject)EditorGUILayout.ObjectField("", Value, typeof(GameObject), true, GUILayoutOption);
     }
 
+    public static T SetField<T>(T Value, params GUILayoutOption[] GUILayoutOption) where T : ScriptableObject
+    {
+        return (T)EditorGUILayout.ObjectField("", Value, typeof(T), true, GUILayoutOption);
+    }
+
     #endregion
 
     #endregion
@@ -300,7 +316,7 @@ public class QEditor
         GUI.backgroundColor = Color;
     }
 
-    public static void SetSpace(float Space)
+    public static void SetSpace(float Space = 10)
     {
         GUILayout.Space(Space);
     }
@@ -403,7 +419,7 @@ public class QEditor
 ///<summary>
 ///Caution: Unity Editor only!
 ///</summary>
-public class QEditorWindow
+public class QEditorWindow : QEditor
 {
     #region ==================================== GUI Primary
 
@@ -453,7 +469,7 @@ public class QEditorWindow
 ///<summary>
 ///Caution: Unity Editor only!
 ///</summary>
-public class QEditorCustom
+public class QEditorCustom : QEditor
 {
     #region ==================================== GUI Primary
 
@@ -508,7 +524,7 @@ public class QEditorCustom
 ///<summary>
 ///Caution: Unity Editor only!
 ///</summary>
-public class QEditorObject
+public class QEditorObject : QEditor
 {
     #region ==================================== GUI Primary
 

@@ -121,7 +121,7 @@ public class QGizmos
 
     public static void SetSprite2D(SpriteRenderer From, Color Color)
     {
-        Vector2 Size = QSprite.GetSpriteSizeUnit(From.sprite);
+        Vector2 Size = QSprite.GetSizeUnit(From.sprite);
         Vector2 Pos = From.transform.position;
 
         Vector2 TL = Vector2.up * Size.y / 2 + Vector2.left * Size.x / 2;

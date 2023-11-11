@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
+using System;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -339,6 +340,38 @@ public class QAssetsDatabase : QPath
         }
         //
         return ObjectsFound;
+    }
+
+    public static List<T> GetScriptableObject<T>(string NameSpecial, string PathAssets = "Assets/") where T : ScriptableObject
+    {
+        if (PathAssets == null)
+            PathAssets = "Assets/";
+        else
+        if (PathAssets == "")
+            PathAssets = "Assets/";
+        else
+        if (!GetPathFolderExist(PathAssets))
+            return null;
+        //
+        List<T> ObjectsFound = new List<T>();
+        //
+        string[] GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:ScriptableObject"), new string[] { PathAssets });
+        //
+        foreach (string GUIDPath in GUIDPathUnityFound)
+        {
+            string AssetsSinglePath = AssetDatabase.GUIDToAssetPath(GUIDPath);
+            T ObjectFound = AssetDatabase.LoadAssetAtPath<T>(AssetsSinglePath);
+            //
+            if (ObjectFound == null)
+                continue;
+            //
+            if (!ObjectFound.GetType().Equals(typeof(T)))
+                continue;
+            //
+            ObjectsFound.Add(ObjectFound);
+        }
+        //
+        return ObjectsFound as List<T>;
     }
 
     #endregion

@@ -148,29 +148,31 @@ public class QComponent
     public static T GetComponent<T>(GameObject From) where T : Component
     {
         //Get Component from GameObject. If null, Add Component to GameObject.
-
+        //
         if (From.GetComponent<T>() == null)
-        {
             return From.AddComponent<T>();
-        }
         else
-        {
             return From.GetComponent<T>();
-        }
     }
 
     public static T GetComponent<T>(Transform From) where T : Component
     {
         //Get Component from GameObject. If null, Add Component to GameObject.
-
+        //
         if (From.GetComponent<T>() == null)
-        {
             return From.gameObject.AddComponent<T>();
-        }
         else
-        {
             return From.gameObject.GetComponent<T>();
-        }
+    }
+
+    public static T GetComponent<T>(Component From) where T : Component
+    {
+        //Get Component from GameObject. If null, Add Component to GameObject.
+        //
+        if (From.GetComponent<T>() == null)
+            return From.gameObject.AddComponent<T>();
+        else
+            return From.gameObject.GetComponent<T>();
     }
 
     #endregion

@@ -12,7 +12,10 @@ public class MessageManager : MonoBehaviour
 
     #region Varible: Setting
 
+    [SerializeField] private MessageDataConfig m_messageConfig;
     [SerializeField] private StringConfig m_stringConfig;
+
+    private string m_debugError = "";
 
     #endregion
 
@@ -27,7 +30,25 @@ public class MessageManager : MonoBehaviour
 
     #region Event
 
-    public Action<MessageStageType> onStage;
+    /// <summary>
+    /// Message system stage current active
+    /// </summary>
+    public Action<MessageStageType> onStageActive;
+
+    /// <summary>
+    /// Message system current author and trigger active
+    /// </summary>
+    public Action<MessageDataText> onTextActive;
+
+    /// <summary>
+    /// Message system current choice check
+    /// </summary>
+    public Action<int, MessageDataChoice> onChoiceCheck;
+
+    /// <summary>
+    /// Message system current choice active
+    /// </summary>
+    public Action<int, MessageDataChoice> onChoiceActive;
 
     #endregion
 
@@ -45,20 +66,23 @@ public class MessageManager : MonoBehaviour
     }
 
     private MessageCommandType m_command = MessageCommandType.Text;
-    [SerializeField] private MessageDataConfig m_data;
+    [SerializeField] private MessageDataConfigText m_data;
 
     [SerializeField] private TextMeshProUGUI m_tmp;
     [SerializeField] private string m_current = "";
 
     private Coroutine m_iSetMessageShowSingle;
 
-    public List<MessageDataConfigChoice> ChoiceList => m_data.Choice;
+    public List<MessageDataChoice> ChoiceList => m_data.Choice; //Should get this data when message at choice stage!!
 
     [SerializeField] private bool m_active = false;
     [SerializeField] private bool m_choice = false;
 
     [SerializeField] private MessageStageType m_stage = MessageStageType.None;
 
+    /// <summary>
+    /// Message system stage current
+    /// </summary>
     public MessageStageType Stage => m_stage;
 
     #endregion
@@ -68,6 +92,8 @@ public class MessageManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         //
         Instance = this;
+        //
+        SetConfigFind();
     }
 
     private void OnDestroy()
@@ -75,9 +101,47 @@ public class MessageManager : MonoBehaviour
         StopAllCoroutines();
     }
 
+    #region Config
+
+    public void SetConfigFind()
+    {
+        if (m_messageConfig != null)
+            return;
+        //
+        var AuthorConfigFound = QAssetsDatabase.GetScriptableObject<MessageDataConfig>("");
+        //
+        if (AuthorConfigFound == null)
+        {
+            m_debugError = "Config not found, please create one";
+            Debug.Log("[Message] " + m_debugError);
+            return;
+        }
+        //
+        if (AuthorConfigFound.Count == 0)
+        {
+            m_debugError = "Config not found, please create one";
+            Debug.Log("[Message] " + m_debugError);
+            return;
+        }
+        //
+        if (AuthorConfigFound.Count > 1)
+            Debug.Log("[Message] Config found more than one, get the first one found");
+        //
+        m_messageConfig = AuthorConfigFound[0];
+        //
+        m_debugError = "";
+    }
+
+    #endregion
+
     #region Main
 
-    public void SetStart(TextMeshProUGUI TextMessPro, MessageDataConfig MessageData)
+    /// <summary>
+    /// Start message with config data
+    /// </summary>
+    /// <param name="TextMessPro"></param>
+    /// <param name="MessageData"></param>
+    public void SetStart(TextMeshProUGUI TextMessPro, MessageDataConfigText MessageData)
     {
         if (m_active)
             return;
@@ -85,11 +149,15 @@ public class MessageManager : MonoBehaviour
         m_data = MessageData;
         m_tmp = TextMessPro;
         //
-        StartCoroutine(ISetMessageShow());
+        StartCoroutine(ISetMessageShow(false));
     }
 
-    private IEnumerator ISetMessageShow()
+    private IEnumerator ISetMessageShow(bool WaitForNextMessage)
     {
+        if (WaitForNextMessage)
+            //Not check when first show message!!
+            yield return new WaitUntil(() => m_command == MessageCommandType.Next);
+        //
         m_command = MessageCommandType.None;
         m_active = true;
         m_choice = false;
@@ -101,8 +169,8 @@ public class MessageManager : MonoBehaviour
         //
         for (int i = 0; i < m_data.Message.Count; i++)
         {
-            MessageDataConfigText MessageSingle = m_data.Message[i];
-            m_current = MessageSingle.Text;
+            MessageDataText MessageSingle = m_data.Message[i];
+            m_current = MessageSingle.Message;
             //
             //MESSAGE:
             if (m_current == null)
@@ -113,6 +181,8 @@ public class MessageManager : MonoBehaviour
             else
             {
                 //BEGIN:
+                onTextActive?.Invoke(m_data.Message[i]);
+                //
                 m_tmp.text = "";
                 //
                 if (m_stringConfig != null)
@@ -165,7 +235,7 @@ public class MessageManager : MonoBehaviour
         }
     }
 
-    private IEnumerator ISetMessageShowSingle(MessageDataConfigText MessageSingle)
+    private IEnumerator ISetMessageShowSingle(MessageDataText MessageSingle)
     {
         bool HtmlFormat = false;
         //
@@ -217,13 +287,16 @@ public class MessageManager : MonoBehaviour
     private void SetStage(MessageStageType Stage)
     {
         m_stage = Stage;
-        onStage?.Invoke(Stage);
+        onStageActive?.Invoke(Stage);
     }
 
     #endregion
 
     #region Control
 
+    /// <summary>
+    /// Next message; or continue message after choice option delay continue message
+    /// </summary>
     public void SetNext()
     {
         if (m_command != MessageCommandType.Wait)
@@ -236,6 +309,9 @@ public class MessageManager : MonoBehaviour
             Debug.Log("[Message] Next!");
     }
 
+    /// <summary>
+    /// Skip current message, until got choice option or end message
+    /// </summary>
     public void SetSkip()
     {
         if (m_command != MessageCommandType.Text)
@@ -250,29 +326,65 @@ public class MessageManager : MonoBehaviour
             Debug.Log("[Message] Skip!");
     }
 
-    public void SetChoice(int ChoiceIndex)
+    /// <summary>
+    /// Check choice option of message when avaible
+    /// </summary>
+    /// <param name="ChoiceIndex"></param>
+    public void SetChoiceCheck(int ChoiceIndex)
     {
         if (m_command != MessageCommandType.Choice)
-            //When current message in done show up and got choice option, press Choice Option to move on next message!
+            //When current message in done show up and got choice option, move choice option to get imformation of choice!
             return;
         //
         if (ChoiceIndex < 0 || ChoiceIndex > m_data.Choice.Count - 1)
             return;
         //
-        m_command = MessageCommandType.Choice;
-        m_data = m_data.Choice[ChoiceIndex].Next;
-        StartCoroutine(ISetMessageShow());
-        //
-        if ((int)m_debug > (int)DebugType.None)
-            Debug.LogFormat("[Message] Choice {0}: {1}", ChoiceIndex, m_data.Choice[ChoiceIndex].Name);
+        onChoiceCheck?.Invoke(ChoiceIndex, m_data.Choice[ChoiceIndex]);
     }
 
+    /// <summary>
+    /// Choice option of message when avaible
+    /// </summary>
+    /// <param name="ChoiceIndex"></param>
+    /// <param name="NextMessage">If false, must call 'Next' methode for continue message of last option choice</param>
+    public void SetChoiceActive(int ChoiceIndex, bool NextMessage = true)
+    {
+        if (m_command != MessageCommandType.Choice)
+            //When current message in done show up and got choice option, press choice option to move on next message!
+            return;
+        //
+        if (ChoiceIndex < 0 || ChoiceIndex > m_data.Choice.Count - 1)
+            return;
+        //
+        m_command = NextMessage ? MessageCommandType.Next : MessageCommandType.Wait;
+        m_data = m_data.Choice[ChoiceIndex].Next;
+        //
+        onChoiceActive?.Invoke(ChoiceIndex, m_data.Choice[ChoiceIndex]);
+        //
+        StartCoroutine(ISetMessageShow(true));
+        //
+        if ((int)m_debug > (int)DebugType.None)
+            Debug.LogFormat("[Message] Choice {0}: {1}", ChoiceIndex, m_data.Choice[ChoiceIndex].Text);
+    }
+
+    /// <summary>
+    /// Stop message
+    /// </summary>
     public void SetStop()
     {
         StopAllCoroutines();
         StopCoroutine(m_iSetMessageShowSingle);
         //
+        m_command = MessageCommandType.None;
+        m_active = false;
+        m_choice = false;
+        //
+        SetStage(MessageStageType.End);
+        //
         m_tmp.text = "";
+        //
+        if ((int)m_debug > (int)DebugType.None)
+            Debug.LogFormat("[Message] Stop!");
     }
 
     #endregion
@@ -281,13 +393,13 @@ public class MessageManager : MonoBehaviour
 public enum MessageStageType
 {
     None,
-    //
+    //Trigger when Start
     Start,
-    //
+    //Trigger when Show
     Text,
     Wait,
     Choice,
-    //
+    //Trigger when End
     End,
 }
 
@@ -296,8 +408,9 @@ public enum MessageStageType
 [CustomEditor(typeof(MessageManager))]
 public class MessageManagerEditor : Editor
 {
-    private MessageManager Target;
+    private MessageManager m_target;
 
+    private SerializedProperty m_messageConfig;
     private SerializedProperty m_stringConfig;
 
     private SerializedProperty m_debug;
@@ -308,8 +421,9 @@ public class MessageManagerEditor : Editor
 
     private void OnEnable()
     {
-        Target = target as MessageManager;
+        m_target = target as MessageManager;
         //
+        m_messageConfig = QEditorCustom.GetField(this, "m_messageConfig");
         m_stringConfig = QEditorCustom.GetField(this, "m_stringConfig");
         //
         m_debug = QEditorCustom.GetField(this, "m_debug");
@@ -317,12 +431,15 @@ public class MessageManagerEditor : Editor
         m_tmp = QEditorCustom.GetField(this, "m_tmp");
         m_current = QEditorCustom.GetField(this, "m_current");
         m_stage = QEditorCustom.GetField(this, "m_stage");
+        //
+        m_target.SetConfigFind();
     }
 
     public override void OnInspectorGUI()
     {
         QEditorCustom.SetUpdate(this);
         //
+        QEditorCustom.SetField(m_messageConfig);
         QEditorCustom.SetField(m_stringConfig);
         //
         QEditorCustom.SetField(m_debug);

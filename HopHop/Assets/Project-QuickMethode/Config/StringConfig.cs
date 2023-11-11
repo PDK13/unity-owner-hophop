@@ -20,6 +20,7 @@ public class StringConfig : ScriptableObject
     };
 
     [Space]
+    [SerializeField] private string m_codeEmty = "#emty";
     [SerializeField] private string m_codeReturn = "#return";
     [SerializeField] private List<StringCodeConfig> m_code = new List<StringCodeConfig>();
 
@@ -34,6 +35,7 @@ public class StringConfig : ScriptableObject
             Value = Value.Replace(Item.Code, string.Format("<{0}>", QColor.GetTextHexCode(Item.Color)));
         //
         //CODE:
+        Value = Value.Replace(m_codeEmty, "");
         Value = Value.Replace(m_codeReturn, "\n");
         foreach (StringCodeConfig Item in m_code)
             Value = Value.Replace(Item.Code, Item.Value);
