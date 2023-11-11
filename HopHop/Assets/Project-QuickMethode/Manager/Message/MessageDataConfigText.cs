@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using System;
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
-using Unity.VisualScripting;
+#endif
 
 [CreateAssetMenu(fileName = "message-text-config", menuName = "Message/Text Config", order = 0)]
 public class MessageDataConfigText : ScriptableObject
