@@ -1,9 +1,9 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 [CreateAssetMenu(fileName = "character-config", menuName = "", order = 0)]
 public class CharacterConfig : ScriptableObject
@@ -58,6 +58,8 @@ public class CharacterConfig : ScriptableObject
     }
 
     //Editor
+
+#if UNITY_EDITOR
 
     public void SetRefresh()
     {
@@ -128,6 +130,8 @@ public class CharacterConfig : ScriptableObject
         for (int i = 0; i < AnimatorGet.Count; i++)
             GetConfig(CharacterType.Wolf).Skin.Add(new ConfigCharacterSkin(null, AnimatorGet[i]));
     }
+
+#endif
 }
 
 public enum CharacterType

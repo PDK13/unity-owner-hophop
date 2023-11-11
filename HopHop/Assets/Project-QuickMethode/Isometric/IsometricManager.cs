@@ -27,11 +27,20 @@ public class IsometricManager : MonoBehaviour
 
     #endregion
 
+    private void Awake()
+    {
+#if UNITY_EDITOR
+        SetConfigFind();
+#endif
+    }
+
     public void SetInit()
     {
         World = new IsometricDataWorld(this);
         List = new IsometricDataList();
     }
+
+#if UNITY_EDITOR
 
     public void SetConfigFind()
     {
@@ -62,6 +71,7 @@ public class IsometricManager : MonoBehaviour
         m_debugError = "";
     }
 
+#endif
 }
 
 [Serializable]

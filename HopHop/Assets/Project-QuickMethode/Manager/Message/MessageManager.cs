@@ -94,7 +94,9 @@ public class MessageManager : MonoBehaviour
         //
         Instance = this;
         //
+#if UNITY_EDITOR
         SetConfigFind();
+#endif
     }
 
     private void OnDestroy()
@@ -103,6 +105,8 @@ public class MessageManager : MonoBehaviour
     }
 
     #region Config
+
+#if UNITY_EDITOR
 
     public void SetConfigFind()
     {
@@ -132,6 +136,8 @@ public class MessageManager : MonoBehaviour
         //
         m_debugError = "";
     }
+
+#endif
 
     #endregion
 

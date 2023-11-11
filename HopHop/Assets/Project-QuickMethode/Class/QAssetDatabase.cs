@@ -92,6 +92,14 @@ public class QAssetsDatabase : QPath
 
     #region ==================================== Get
 
+#if UNITY_EDITOR
+
+    /// <summary>
+    /// Caution: Unity Editor only!
+    /// </summary>
+    /// <param name="NameSpecial"></param>
+    /// <param name="PathAssets"></param>
+    /// <returns></returns>
     public static List<AnimationClip> GetAnimationClip(string NameSpecial, string PathAssets = "Assets/")
     {
         if (PathAssets == null)
@@ -117,6 +125,12 @@ public class QAssetsDatabase : QPath
         return ObjectsFound;
     }
 
+    /// <summary>
+    /// Caution: Unity Editor only!
+    /// </summary>
+    /// <param name="NameSpecial"></param>
+    /// <param name="PathAssets"></param>
+    /// <returns></returns>
     public static List<AudioClip> GetAudioClip(string NameSpecial, string PathAssets = "Assets/")
     {
         if (PathAssets == null)
@@ -142,6 +156,12 @@ public class QAssetsDatabase : QPath
         return ObjectsFound;
     }
 
+    /// <summary>
+    /// Caution: Unity Editor only!
+    /// </summary>
+    /// <param name="NameSpecial"></param>
+    /// <param name="PathAssets"></param>
+    /// <returns></returns>
     public static List<Font> GetFont(string NameSpecial, string PathAssets = "Assets/")
     {
         if (PathAssets == null)
@@ -167,6 +187,12 @@ public class QAssetsDatabase : QPath
         return ObjectsFound;
     }
 
+    /// <summary>
+    /// Caution: Unity Editor only!
+    /// </summary>
+    /// <param name="NameSpecial"></param>
+    /// <param name="PathAssets"></param>
+    /// <returns></returns>
     public static List<Material> GetMaterial(string NameSpecial, string PathAssets = "Assets/")
     {
         if (PathAssets == null)
@@ -192,6 +218,12 @@ public class QAssetsDatabase : QPath
         return ObjectsFound;
     }
 
+    /// <summary>
+    /// Caution: Unity Editor only!
+    /// </summary>
+    /// <param name="NameSpecial"></param>
+    /// <param name="PathAssets"></param>
+    /// <returns></returns>
     public static List<PhysicMaterial> GetPhysicMaterial(string NameSpecial, string PathAssets = "Assets/")
     {
         if (PathAssets == null)
@@ -217,6 +249,12 @@ public class QAssetsDatabase : QPath
         return ObjectsFound;
     }
 
+    /// <summary>
+    /// Caution: Unity Editor only!
+    /// </summary>
+    /// <param name="NameSpecial"></param>
+    /// <param name="PathAssets"></param>
+    /// <returns></returns>
     public static List<Texture> GetTexture(string NameSpecial, string PathAssets = "Assets/")
     {
         if (PathAssets == null)
@@ -242,6 +280,12 @@ public class QAssetsDatabase : QPath
         return ObjectsFound;
     }
 
+    /// <summary>
+    /// Caution: Unity Editor only!
+    /// </summary>
+    /// <param name="NameSpecial"></param>
+    /// <param name="PathAssets"></param>
+    /// <returns></returns>
     public static List<VideoClip> GetVideoClip(string NameSpecial, string PathAssets = "Assets/")
     {
         if (PathAssets == null)
@@ -267,6 +311,12 @@ public class QAssetsDatabase : QPath
         return ObjectsFound;
     }
 
+    /// <summary>
+    /// Caution: Unity Editor only!
+    /// </summary>
+    /// <param name="NameSpecial"></param>
+    /// <param name="PathAssets"></param>
+    /// <returns></returns>
     public static List<GameObject> GetPrefab(string NameSpecial, string PathAssets = "Assets/")
     {
         if (PathAssets == null)
@@ -292,6 +342,12 @@ public class QAssetsDatabase : QPath
         return ObjectsFound;
     }
 
+    /// <summary>
+    /// Caution: Unity Editor only!
+    /// </summary>
+    /// <param name="NameSpecial"></param>
+    /// <param name="PathAssets"></param>
+    /// <returns></returns>
     public static List<Sprite> GetSprite(string NameSpecial, string PathAssets = "Assets/")
     {
         if (PathAssets == null)
@@ -317,6 +373,12 @@ public class QAssetsDatabase : QPath
         return ObjectsFound;
     }
 
+    /// <summary>
+    /// Caution: Unity Editor only!
+    /// </summary>
+    /// <param name="NameSpecial"></param>
+    /// <param name="PathAssets"></param>
+    /// <returns></returns>
     public static List<RuntimeAnimatorController> GetAnimatorController(string NameSpecial, string PathAssets = "Assets/")
     {
         if (PathAssets == null)
@@ -342,6 +404,13 @@ public class QAssetsDatabase : QPath
         return ObjectsFound;
     }
 
+    /// <summary>
+    /// Caution: Unity Editor only!
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="NameSpecial"></param>
+    /// <param name="PathAssets"></param>
+    /// <returns></returns>
     public static List<T> GetScriptableObject<T>(string NameSpecial, string PathAssets = "Assets/") where T : ScriptableObject
     {
         if (PathAssets == null)
@@ -374,6 +443,8 @@ public class QAssetsDatabase : QPath
         return ObjectsFound as List<T>;
     }
 
+#endif
+    
     #endregion
 }
 
