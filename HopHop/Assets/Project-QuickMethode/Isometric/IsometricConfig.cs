@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "isometric-block-config", menuName = "Isometric/Block Config", order = 0)]
+[CreateAssetMenu(fileName = "isometric-config", menuName = "Isometric/Isometric Config", order = 0)]
 public class IsometricConfig : ScriptableObject
 {
     [Serializable]
