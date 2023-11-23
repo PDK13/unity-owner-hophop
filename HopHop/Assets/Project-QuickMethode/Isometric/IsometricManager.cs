@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-public class IsometricManager : MonoBehaviour
+public class IsometricManager : SingletonManager<IsometricManager>
 {
     #region Varible: Game Config
 
@@ -27,8 +27,10 @@ public class IsometricManager : MonoBehaviour
 
     #endregion
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+        //
 #if UNITY_EDITOR
         SetConfigFind();
 #endif

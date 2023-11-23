@@ -4,10 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //From: Kiệt
-public class CoroutineManager : MonoBehaviour
+public class CoroutineManager : SingletonManager<CoroutineManager>
 {
-    public static CoroutineManager Instance { get; private set; }
-
     private class CoroutineTask
     {
         public long Id { get; set; }
@@ -60,9 +58,10 @@ public class CoroutineManager : MonoBehaviour
 
     private static Dictionary<string, CoroutineTask> m_iCoroutines;
 
-    private void Awake()
+    protected override void Awake()
     {
-        Instance = this;
+        base.Awake();
+        //
         m_iCoroutines = new Dictionary<string, CoroutineTask>();
     }
 

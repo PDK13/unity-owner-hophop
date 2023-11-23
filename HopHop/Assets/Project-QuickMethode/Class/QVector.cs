@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
 public class QVector
 {
@@ -28,6 +29,32 @@ public class QVector
     {
         //Get Dir Reflect (Phản xạ) from Dir to!!
         return Vector3.Reflect(Dir, Collision.contacts[0].normal);
+    }
+
+    #endregion
+
+    #region ==================================== Distance
+
+    public static float GetDistance(params Vector2[] Points)
+    {
+        if (Points.Length < 2)
+            return 0;
+        //
+        float Distance = 0f;
+        for (int i = 1; i < Points.Length; i++)
+            Distance += Vector2.Distance(Points[i - 1], Points[i]);
+        return Distance;
+    }
+
+    public static float GetDistance(params Vector3[] Points)
+    {
+        if (Points.Length < 2)
+            return 0;
+        //
+        float Distance = 0f;
+        for (int i = 1; i < Points.Length; i++)
+            Distance += Vector3.Distance(Points[i - 1], Points[i]);
+        return Distance;
     }
 
     #endregion

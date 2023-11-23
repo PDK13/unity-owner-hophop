@@ -1,7 +1,8 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : SingletonManager<GameManager>
 {
     public static LevelConfig LevelConfig;
     public static CharacterConfig CharacterConfig;
@@ -22,13 +23,9 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
-    #region Varible: Turn
-
-    #endregion
-
-    private void Awake()
+    protected override void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        base.Awake();
         //
         LevelConfig = m_levelConfig;
         CharacterConfig = m_characterConfig;
@@ -36,6 +33,8 @@ public class GameManager : MonoBehaviour
         Application.targetFrameRate = 60;
         //
         Time.timeScale = 2;
+        //
+        Screen.SetResolution(1920, 1080, true);
     }
 
     private void Start()
@@ -46,17 +45,25 @@ public class GameManager : MonoBehaviour
         SetWorldLoad(m_levelConfig.Level[0].Level[0]);
     }
 
-    private void Update()
+    //
+
+    public void SetCameraFollow(Transform Target)
     {
-        if (Input.GetKeyDown(KeyCode.F11))
+        if (Camera.main == null)
         {
-            Screen.fullScreen = !Screen.fullScreen;
-            //
-            if (!Screen.fullScreen)
-                Screen.SetResolution(960, 480, false);
+            Debug.Log("[Manager] Main camera not found, so can't change target!");
+            return;
         }
+        //
+        if (Target == null)
+            Camera.main.transform.parent = this.transform;
+        else
+            Camera.main.transform.parent = Target;
+        //
+        Camera.main.transform.localPosition = Vector3.back * 100f;
     }
 
+    //
     private void SetWorldLoad(TextAsset WorldData)
     {
         StartCoroutine(ISetWorldLoad(WorldData));

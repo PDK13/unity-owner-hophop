@@ -7,10 +7,8 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-public class TurnManager : MonoBehaviour
+public class TurnManager : SingletonManager<TurnManager>
 {
-    public static TurnManager Instance { private set; get; }
-
     #region Varible: Setting
 
     [SerializeField][Min(0)] private float m_delayTurn = 1f;
@@ -114,11 +112,9 @@ public class TurnManager : MonoBehaviour
 
     private bool m_stop = false;
 
-    private void Awake()
+    protected override void Awake()
     {
-        DontDestroyOnLoad(gameObject);
-        //
-        Instance = this;
+        base.Awake();
         //
 #if UNITY_EDITOR
         EditorApplication.playModeStateChanged += SetPlayModeStateChange;

@@ -7,10 +7,8 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-public class MessageManager : MonoBehaviour
+public class MessageManager : SingletonManager<MessageManager>
 {
-    public static MessageManager Instance { private set; get; }
-
     #region Varible: Setting
 
     [SerializeField] private MessageDataConfig m_messageConfig;
@@ -88,11 +86,9 @@ public class MessageManager : MonoBehaviour
 
     #endregion
 
-    private void Awake()
+    protected override void Awake()
     {
-        DontDestroyOnLoad(gameObject);
-        //
-        Instance = this;
+        base.Awake();
         //
 #if UNITY_EDITOR
         SetConfigFind();

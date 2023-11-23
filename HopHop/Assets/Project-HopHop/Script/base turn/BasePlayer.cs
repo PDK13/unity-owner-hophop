@@ -25,6 +25,10 @@ public class BasePlayer : MonoBehaviour
         //
         m_body.onMove += SetMove;
         m_body.onMoveForce += SetMove;
+        //
+        //Camera:
+        if (GameManager.Instance != null)
+            GameManager.Instance.SetCameraFollow(this.transform);
     }
 
     private void OnDestroy()
@@ -37,6 +41,10 @@ public class BasePlayer : MonoBehaviour
         //
         m_body.onMove -= SetMove;
         m_body.onMoveForce -= SetMove;
+        //
+        //Camera:
+        if (GameManager.Instance != null)
+            GameManager.Instance.SetCameraFollow(null);
     }
 
     private void Update()
