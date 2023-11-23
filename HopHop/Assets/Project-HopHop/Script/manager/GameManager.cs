@@ -46,6 +46,17 @@ public class GameManager : MonoBehaviour
         SetWorldLoad(m_levelConfig.Level[0].Level[0]);
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F11))
+        {
+            Screen.fullScreen = !Screen.fullScreen;
+            //
+            if (!Screen.fullScreen)
+                Screen.SetResolution(960, 480, false);
+        }
+    }
+
     private void SetWorldLoad(TextAsset WorldData)
     {
         StartCoroutine(ISetWorldLoad(WorldData));
