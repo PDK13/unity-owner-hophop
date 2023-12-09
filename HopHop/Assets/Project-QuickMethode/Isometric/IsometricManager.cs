@@ -49,7 +49,7 @@ public class IsometricManager : SingletonManager<IsometricManager>
         if (m_isometricConfig != null)
             return;
         //
-        var AuthorConfigFound = QAssetsDatabase.GetScriptableObject<IsometricConfig>("");
+        var AuthorConfigFound = QUnityAssets.GetScriptableObject<IsometricConfig>("");
         //
         if (AuthorConfigFound == null)
         {
@@ -138,28 +138,28 @@ public class IsometricManagerEditor : Editor
     {
         m_target = target as IsometricManager;
         //
-        m_isometricConfig = QEditorCustom.GetField(this, "m_isometricConfig");
+        m_isometricConfig = QUnityEditorCustom.GetField(this, "m_isometricConfig");
         //
-        Game = QEditorCustom.GetField(this, "Game");
-        World = QEditorCustom.GetField(this, "World");
-        List = QEditorCustom.GetField(this, "List");
+        Game = QUnityEditorCustom.GetField(this, "Game");
+        World = QUnityEditorCustom.GetField(this, "World");
+        List = QUnityEditorCustom.GetField(this, "List");
         //
         m_target.SetConfigFind();
     }
 
     public override void OnInspectorGUI()
     {
-        QEditorCustom.SetUpdate(this);
+        QUnityEditorCustom.SetUpdate(this);
         //
-        QEditorCustom.SetField(m_isometricConfig);
+        QUnityEditorCustom.SetField(m_isometricConfig);
         //
-        QEditorCustom.SetField(Game);
-        QEditorCustom.SetField(World);
-        QEditorCustom.SetField(List);
+        QUnityEditorCustom.SetField(Game);
+        QUnityEditorCustom.SetField(World);
+        QUnityEditorCustom.SetField(List);
         //
-        QEditor.SetDisableGroupEnd();
+        QUnityEditor.SetDisableGroupEnd();
         //
-        QEditorCustom.SetApply(this);
+        QUnityEditorCustom.SetApply(this);
     }
 }
 

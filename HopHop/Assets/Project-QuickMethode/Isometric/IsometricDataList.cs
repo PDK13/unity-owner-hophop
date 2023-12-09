@@ -105,7 +105,7 @@ public class IsometricDataList
         else
             this.BlockList.Clear();
         //
-        List<GameObject> BlockList = QResources.GetPrefab(PathChildInResources);
+        GameObject[] BlockList = QResources.GetPrefab(PathChildInResources);
         //
         foreach (GameObject BlockPrefab in BlockList)
         {

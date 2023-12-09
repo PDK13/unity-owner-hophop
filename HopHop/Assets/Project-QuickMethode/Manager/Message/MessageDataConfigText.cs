@@ -51,17 +51,17 @@ public class MessageDataConfigTextEditor : Editor
     {
         if (m_debugError != "")
         {
-            QEditorCustom.SetLabel(m_debugError, QEditorCustom.GetGUILabel(FontStyle.Normal, TextAnchor.MiddleCenter));
+            QUnityEditorCustom.SetLabel(m_debugError, QUnityEditorCustom.GetGUILabel(FontStyle.Normal, TextAnchor.MiddleCenter));
             return;
         }
         //
         SetGUIGroupMessage();
         //
-        QEditorCustom.SetSpace(10f);
+        QUnityEditorCustom.SetSpace(10f);
         //
         SetGUIGroupChoice();
         //
-        QEditorCustom.SetDirty(m_target);
+        QUnityEditorCustom.SetDirty(m_target);
     }
 
     //
@@ -71,7 +71,7 @@ public class MessageDataConfigTextEditor : Editor
         if (m_messageConfig != null)
             return;
         //
-        var AuthorConfigFound = QAssetsDatabase.GetScriptableObject<MessageDataConfig>("");
+        var AuthorConfigFound = QUnityAssets.GetScriptableObject<MessageDataConfig>("");
         //
         if (AuthorConfigFound == null)
         {
@@ -114,22 +114,22 @@ public class MessageDataConfigTextEditor : Editor
 
     private void SetGUIGroupMessage()
     {
-        QEditorCustom.SetLabel("MESSAGE", QEditorCustom.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter));
+        QUnityEditorCustom.SetLabel("MESSAGE", QUnityEditorCustom.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter));
         //
         //COUNT:
-        QEditorCustom.SetHorizontalBegin();
-        QEditorCustom.SetLabel("Count", null, QEditorCustom.GetGUIWidth(LABEL_WIDTH));
+        QUnityEditorCustom.SetHorizontalBegin();
+        QUnityEditorCustom.SetLabel("Count", null, QUnityEditorCustom.GetGUIWidth(LABEL_WIDTH));
         //
-        m_messageCount = QEditorCustom.SetField(m_messageCount);
+        m_messageCount = QUnityEditorCustom.SetField(m_messageCount);
         //
-        if (QEditorCustom.SetButton("+"))
+        if (QUnityEditorCustom.SetButton("+"))
             m_messageCount++;
         //
-        if (QEditorCustom.SetButton("-"))
+        if (QUnityEditorCustom.SetButton("-"))
             if (m_messageCount > 0)
                 m_messageCount--;
         //
-        QEditorCustom.SetHorizontalEnd();
+        QUnityEditorCustom.SetHorizontalEnd();
         //COUNT:
         //
         while (m_messageCount > m_target.Message.Count)
@@ -145,124 +145,124 @@ public class MessageDataConfigTextEditor : Editor
             m_messageTriggerShow.RemoveAt(m_messageTriggerShow.Count - 1);
         }
         //
-        QEditorCustom.SetSpace(10);
+        QUnityEditorCustom.SetSpace(10);
         //
-        m_scrollMessage = QEditorCustom.SetScrollViewBegin(m_scrollMessage, QEditorCustom.GetGUIHeight(POPUP_HEIGHT));
+        m_scrollMessage = QUnityEditorCustom.SetScrollViewBegin(m_scrollMessage, QUnityEditorCustom.GetGUIHeight(POPUP_HEIGHT));
         for (int i = 0; i < m_target.Message.Count; i++)
         {
             //ITEM:
-            QEditorCustom.SetHorizontalBegin();
-            QEditorCustom.SetLabel(i.ToString(), QEditorCustom.GetGUILabel(FontStyle.Normal, TextAnchor.MiddleCenter), QEditorCustom.GetGUIWidth(25));
+            QUnityEditorCustom.SetHorizontalBegin();
+            QUnityEditorCustom.SetLabel(i.ToString(), QUnityEditorCustom.GetGUILabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorCustom.GetGUIWidth(25));
             //
-            QEditorCustom.SetVerticalBegin();
+            QUnityEditorCustom.SetVerticalBegin();
             //ITEM - AUTHOR
-            QEditorCustom.SetHorizontalBegin();
-            QEditorCustom.SetLabel("Author", null, QEditorCustom.GetGUIWidth(LABEL_WIDTH));
-            m_target.Message[i].AuthorIndex = QEditorCustom.SetPopup(m_target.Message[i].AuthorIndex, m_authorName);
-            QEditorCustom.SetHorizontalEnd();
+            QUnityEditorCustom.SetHorizontalBegin();
+            QUnityEditorCustom.SetLabel("Author", null, QUnityEditorCustom.GetGUIWidth(LABEL_WIDTH));
+            m_target.Message[i].AuthorIndex = QUnityEditorCustom.SetPopup(m_target.Message[i].AuthorIndex, m_authorName);
+            QUnityEditorCustom.SetHorizontalEnd();
             //ITEM - AUTHOR
             //
             //ITEM - MESSAGE:
-            QEditorCustom.SetHorizontalBegin();
-            QEditorCustom.SetLabel("Message", null, QEditorCustom.GetGUIWidth(LABEL_WIDTH));
-            m_target.Message[i].Message = QEditorCustom.SetField(m_target.Message[i].Message);
-            QEditorCustom.SetHorizontalEnd();
+            QUnityEditorCustom.SetHorizontalBegin();
+            QUnityEditorCustom.SetLabel("Message", null, QUnityEditorCustom.GetGUIWidth(LABEL_WIDTH));
+            m_target.Message[i].Message = QUnityEditorCustom.SetField(m_target.Message[i].Message);
+            QUnityEditorCustom.SetHorizontalEnd();
             //ITEM - MESSAGE:
             //
             //ITEM - DELAY
-            QEditorCustom.SetHorizontalBegin();
-            if (QEditorCustom.SetButton("Delay", null, QEditorCustom.GetGUIWidth(LABEL_WIDTH)))
+            QUnityEditorCustom.SetHorizontalBegin();
+            if (QUnityEditorCustom.SetButton("Delay", null, QUnityEditorCustom.GetGUIWidth(LABEL_WIDTH)))
                 m_messageDelayShow[i] = !m_messageDelayShow[i];
             //
             if (m_messageDelayShow[i])
             {
-                QEditorCustom.SetVerticalBegin();
+                QUnityEditorCustom.SetVerticalBegin();
                 //
-                QEditorCustom.SetHorizontalBegin();
-                QEditorCustom.SetLabel("Alpha", null, QEditorCustom.GetGUIWidth(LABEL_WIDTH));
-                m_target.Message[i].DelayAlpha = QEditorCustom.SetField(m_target.Message[i].DelayAlpha);
-                QEditorCustom.SetHorizontalEnd();
+                QUnityEditorCustom.SetHorizontalBegin();
+                QUnityEditorCustom.SetLabel("Alpha", null, QUnityEditorCustom.GetGUIWidth(LABEL_WIDTH));
+                m_target.Message[i].DelayAlpha = QUnityEditorCustom.SetField(m_target.Message[i].DelayAlpha);
+                QUnityEditorCustom.SetHorizontalEnd();
                 //
-                QEditorCustom.SetHorizontalBegin();
-                QEditorCustom.SetLabel("Space", null, QEditorCustom.GetGUIWidth(LABEL_WIDTH));
-                m_target.Message[i].DelaySpace = QEditorCustom.SetField(m_target.Message[i].DelaySpace);
-                QEditorCustom.SetHorizontalEnd();
+                QUnityEditorCustom.SetHorizontalBegin();
+                QUnityEditorCustom.SetLabel("Space", null, QUnityEditorCustom.GetGUIWidth(LABEL_WIDTH));
+                m_target.Message[i].DelaySpace = QUnityEditorCustom.SetField(m_target.Message[i].DelaySpace);
+                QUnityEditorCustom.SetHorizontalEnd();
                 //
-                QEditorCustom.SetHorizontalBegin();
-                QEditorCustom.SetLabel("Mark", null, QEditorCustom.GetGUIWidth(LABEL_WIDTH));
-                m_target.Message[i].DelayMark = QEditorCustom.SetField(m_target.Message[i].DelayMark);
-                QEditorCustom.SetHorizontalEnd();
-                QEditorCustom.SetVerticalEnd();
+                QUnityEditorCustom.SetHorizontalBegin();
+                QUnityEditorCustom.SetLabel("Mark", null, QUnityEditorCustom.GetGUIWidth(LABEL_WIDTH));
+                m_target.Message[i].DelayMark = QUnityEditorCustom.SetField(m_target.Message[i].DelayMark);
+                QUnityEditorCustom.SetHorizontalEnd();
+                QUnityEditorCustom.SetVerticalEnd();
             }
             else
             {
-                QEditorCustom.SetLabel("Alpha: " + m_target.Message[i].DelayAlpha, null, QEditorCustom.GetGUIWidth(LABEL_WIDTH));
-                QEditorCustom.SetLabel("Space: " + m_target.Message[i].DelaySpace, null, QEditorCustom.GetGUIWidth(LABEL_WIDTH));
-                QEditorCustom.SetLabel("Mark: " + m_target.Message[i].DelayMark, null, QEditorCustom.GetGUIWidth(LABEL_WIDTH));
+                QUnityEditorCustom.SetLabel("Alpha: " + m_target.Message[i].DelayAlpha, null, QUnityEditorCustom.GetGUIWidth(LABEL_WIDTH));
+                QUnityEditorCustom.SetLabel("Space: " + m_target.Message[i].DelaySpace, null, QUnityEditorCustom.GetGUIWidth(LABEL_WIDTH));
+                QUnityEditorCustom.SetLabel("Mark: " + m_target.Message[i].DelayMark, null, QUnityEditorCustom.GetGUIWidth(LABEL_WIDTH));
             }
             //
-            QEditorCustom.SetHorizontalEnd();
+            QUnityEditorCustom.SetHorizontalEnd();
             //
             //ITEM - DELAY
             //
             //ITEM - TRIGGER:
-            QEditorCustom.SetHorizontalBegin();
-            if (QEditorCustom.SetButton("Trigger", null, QEditorCustom.GetGUIWidth(LABEL_WIDTH)))
+            QUnityEditorCustom.SetHorizontalBegin();
+            if (QUnityEditorCustom.SetButton("Trigger", null, QUnityEditorCustom.GetGUIWidth(LABEL_WIDTH)))
                 m_messageTriggerShow[i] = !m_messageTriggerShow[i];
             //
             if (m_messageTriggerShow[i])
             {
-                QEditorCustom.SetVerticalBegin();
+                QUnityEditorCustom.SetVerticalBegin();
                 //
-                QEditorCustom.SetHorizontalBegin();
-                QEditorCustom.SetLabel("Code", null, QEditorCustom.GetGUIWidth(LABEL_WIDTH));
-                m_target.Message[i].TriggerCode = QEditorCustom.SetField(m_target.Message[i].TriggerCode);
-                QEditorCustom.SetHorizontalEnd();
+                QUnityEditorCustom.SetHorizontalBegin();
+                QUnityEditorCustom.SetLabel("Code", null, QUnityEditorCustom.GetGUIWidth(LABEL_WIDTH));
+                m_target.Message[i].TriggerCode = QUnityEditorCustom.SetField(m_target.Message[i].TriggerCode);
+                QUnityEditorCustom.SetHorizontalEnd();
                 //
-                QEditorCustom.SetHorizontalBegin();
-                QEditorCustom.SetLabel("Object", null, QEditorCustom.GetGUIWidth(LABEL_WIDTH));
-                m_target.Message[i].TriggerObject = QEditorCustom.SetField(m_target.Message[i].TriggerObject);
-                QEditorCustom.SetHorizontalEnd();
+                QUnityEditorCustom.SetHorizontalBegin();
+                QUnityEditorCustom.SetLabel("Object", null, QUnityEditorCustom.GetGUIWidth(LABEL_WIDTH));
+                m_target.Message[i].TriggerObject = QUnityEditorCustom.SetField(m_target.Message[i].TriggerObject);
+                QUnityEditorCustom.SetHorizontalEnd();
                 //
-                QEditorCustom.SetVerticalEnd();
+                QUnityEditorCustom.SetVerticalEnd();
             }
             else
             {
-                QEditorCustom.SetLabel("Code: " + m_target.Message[i].TriggerCode, null, QEditorCustom.GetGUIWidth(LABEL_WIDTH * 2 + 4));
-                QEditorCustom.SetLabel("" + (m_target.Message[i].TriggerObject != null ? m_target.Message[i].TriggerObject.name : ""));
+                QUnityEditorCustom.SetLabel("Code: " + m_target.Message[i].TriggerCode, null, QUnityEditorCustom.GetGUIWidth(LABEL_WIDTH * 2 + 4));
+                QUnityEditorCustom.SetLabel("" + (m_target.Message[i].TriggerObject != null ? m_target.Message[i].TriggerObject.name : ""));
             }
             //
-            QEditorCustom.SetHorizontalEnd();
+            QUnityEditorCustom.SetHorizontalEnd();
             //
             //ITEM - TRIGGER:
             //
-            QEditorCustom.SetHorizontalEnd();
+            QUnityEditorCustom.SetHorizontalEnd();
             //ITEM:
-            QEditorCustom.SetVerticalEnd();
+            QUnityEditorCustom.SetVerticalEnd();
             //
-            QEditorCustom.SetSpace(10);
+            QUnityEditorCustom.SetSpace(10);
         }
-        QEditorCustom.SetScrollViewEnd();
+        QUnityEditorCustom.SetScrollViewEnd();
     }
 
     private void SetGUIGroupChoice()
     {
-        QEditorCustom.SetLabel("CHOICE", QEditorCustom.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter));
+        QUnityEditorCustom.SetLabel("CHOICE", QUnityEditorCustom.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter));
         //
         //COUNT:
-        QEditorCustom.SetHorizontalBegin();
-        QEditorCustom.SetLabel("Count", null, QEditorCustom.GetGUIWidth(LABEL_WIDTH));
+        QUnityEditorCustom.SetHorizontalBegin();
+        QUnityEditorCustom.SetLabel("Count", null, QUnityEditorCustom.GetGUIWidth(LABEL_WIDTH));
         //
-        m_choiceCount = QEditorCustom.SetField(m_choiceCount);
+        m_choiceCount = QUnityEditorCustom.SetField(m_choiceCount);
         //
-        if (QEditorCustom.SetButton("+"))
+        if (QUnityEditorCustom.SetButton("+"))
             m_choiceCount++;
         //
-        if (QEditorCustom.SetButton("-"))
+        if (QUnityEditorCustom.SetButton("-"))
             if (m_choiceCount > 0)
                 m_choiceCount--;
         //
-        QEditorCustom.SetHorizontalEnd();
+        QUnityEditorCustom.SetHorizontalEnd();
         //COUNT:
         //
         while (m_choiceCount > m_target.Choice.Count)
@@ -270,51 +270,51 @@ public class MessageDataConfigTextEditor : Editor
         while (m_choiceCount < m_target.Choice.Count)
             m_target.Choice.RemoveAt(m_target.Choice.Count - 1);
         //
-        QEditorCustom.SetSpace(10);
+        QUnityEditorCustom.SetSpace(10);
         //
-        m_scrollChoice = QEditorCustom.SetScrollViewBegin(m_scrollChoice, QEditorCustom.GetGUIHeight(POPUP_HEIGHT));
+        m_scrollChoice = QUnityEditorCustom.SetScrollViewBegin(m_scrollChoice, QUnityEditorCustom.GetGUIHeight(POPUP_HEIGHT));
         for (int i = 0; i < m_target.Choice.Count; i++)
         {
             //ITEM:
-            QEditorCustom.SetHorizontalBegin();
-            QEditorCustom.SetLabel(i.ToString(), QEditorCustom.GetGUILabel(FontStyle.Normal, TextAnchor.MiddleCenter), QEditorCustom.GetGUIWidth(25));
+            QUnityEditorCustom.SetHorizontalBegin();
+            QUnityEditorCustom.SetLabel(i.ToString(), QUnityEditorCustom.GetGUILabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorCustom.GetGUIWidth(25));
             //
-            QEditorCustom.SetVerticalBegin();
+            QUnityEditorCustom.SetVerticalBegin();
             //ITEM - MESSAGE:
-            QEditorCustom.SetHorizontalBegin();
-            QEditorCustom.SetLabel("Text", null, QEditorCustom.GetGUIWidth(LABEL_WIDTH));
-            m_target.Choice[i].Text = QEditorCustom.SetField(m_target.Choice[i].Text);
-            QEditorCustom.SetHorizontalEnd();
+            QUnityEditorCustom.SetHorizontalBegin();
+            QUnityEditorCustom.SetLabel("Text", null, QUnityEditorCustom.GetGUIWidth(LABEL_WIDTH));
+            m_target.Choice[i].Text = QUnityEditorCustom.SetField(m_target.Choice[i].Text);
+            QUnityEditorCustom.SetHorizontalEnd();
             //ITEM - MESSAGE:
             //
             //ITEM - AUTHOR
-            QEditorCustom.SetHorizontalBegin();
-            QEditorCustom.SetLabel("Author", null, QEditorCustom.GetGUIWidth(LABEL_WIDTH));
-            m_target.Choice[i].AuthorIndex = QEditorCustom.SetPopup(m_target.Choice[i].AuthorIndex, m_authorName);
-            QEditorCustom.SetHorizontalEnd();
+            QUnityEditorCustom.SetHorizontalBegin();
+            QUnityEditorCustom.SetLabel("Author", null, QUnityEditorCustom.GetGUIWidth(LABEL_WIDTH));
+            m_target.Choice[i].AuthorIndex = QUnityEditorCustom.SetPopup(m_target.Choice[i].AuthorIndex, m_authorName);
+            QUnityEditorCustom.SetHorizontalEnd();
             //ITEM - AUTHOR
             //
             //ITEM - MESSAGE:
-            QEditorCustom.SetHorizontalBegin();
-            QEditorCustom.SetLabel("Message", null, QEditorCustom.GetGUIWidth(LABEL_WIDTH));
-            m_target.Choice[i].Message = QEditorCustom.SetField(m_target.Choice[i].Message);
-            QEditorCustom.SetHorizontalEnd();
+            QUnityEditorCustom.SetHorizontalBegin();
+            QUnityEditorCustom.SetLabel("Message", null, QUnityEditorCustom.GetGUIWidth(LABEL_WIDTH));
+            m_target.Choice[i].Message = QUnityEditorCustom.SetField(m_target.Choice[i].Message);
+            QUnityEditorCustom.SetHorizontalEnd();
             //ITEM - MESSAGE:
             //
             //ITEM - NEXT:
-            QEditorCustom.SetHorizontalBegin();
-            QEditorCustom.SetLabel("Next", null, QEditorCustom.GetGUIWidth(LABEL_WIDTH));
-            m_target.Choice[i].Next = QEditorCustom.SetField<MessageDataConfigText>(m_target.Choice[i].Next);
-            QEditorCustom.SetHorizontalEnd();
+            QUnityEditorCustom.SetHorizontalBegin();
+            QUnityEditorCustom.SetLabel("Next", null, QUnityEditorCustom.GetGUIWidth(LABEL_WIDTH));
+            m_target.Choice[i].Next = QUnityEditorCustom.SetField<MessageDataConfigText>(m_target.Choice[i].Next);
+            QUnityEditorCustom.SetHorizontalEnd();
             //ITEM - NEXT:
             //
-            QEditorCustom.SetHorizontalEnd();
+            QUnityEditorCustom.SetHorizontalEnd();
             //ITEM:
-            QEditorCustom.SetVerticalEnd();
+            QUnityEditorCustom.SetVerticalEnd();
             //
-            QEditorCustom.SetSpace(10);
+            QUnityEditorCustom.SetSpace(10);
         }
-        QEditorCustom.SetScrollViewEnd();
+        QUnityEditorCustom.SetScrollViewEnd();
     }
 }
 

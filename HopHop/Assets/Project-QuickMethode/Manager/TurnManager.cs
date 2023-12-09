@@ -75,14 +75,10 @@ public class TurnManager : SingletonManager<TurnManager>
         public bool GetEnd(GameObject UnitCheck)
         {
             if (!Unit.Contains(UnitCheck))
-            {
                 return false;
-            }
             //
             if (!UnitEndTurn.Contains(UnitCheck) && !UnitEndMove.Contains(UnitCheck))
-            {
                 return false;
-            }
             //
             return true;
         }
@@ -145,9 +141,7 @@ public class TurnManager : SingletonManager<TurnManager>
     public static void SetStart()
     {
         if ((int)Instance.m_debug >= (int)DebugType.None)
-        {
             Debug.LogWarning("[Turn] START!!");
-        }
         //
         Instance.m_turnPass = 0;
         Instance.m_turnQueue.RemoveAll(t => t.Turn == "");
@@ -191,7 +185,7 @@ public class TurnManager : SingletonManager<TurnManager>
             //
             onTurn?.Invoke(m_turnPass);
             //
-            Instance.SetAdd();
+            Instance.SetAddWait();
             //
             yield return null;
             //
@@ -224,44 +218,41 @@ public class TurnManager : SingletonManager<TurnManager>
         //Complete!!
     }
 
-    private void SetAdd()
+    private void SetAddWait()
     {
-        foreach (TurnSingle TurnCheck in Instance.m_turnQueue)
-        {
-            TurnCheck.SetWaitAdd();
-        }
+        foreach (TurnSingle TurnCheck in Instance.m_turnQueue) TurnCheck.SetWaitAdd();
     }
 
     #region Enum
 
-    public static void SetInit<EnumType>(EnumType Turn, GameObject Unit)
+    public static void SetInit<T>(T Turn, GameObject Unit) where T : Enum
     {
         SetInit(QEnum.GetChoice(Turn), Turn.ToString(), Unit);
     } //Init on Start!!
 
-    public static void SetRemove<EnumType>(EnumType Turn, GameObject Unit)
+    public static void SetRemove<T>(T Turn, GameObject Unit) where T : Enum
     {
         SetRemove(Turn.ToString(), Unit);
     } //Remove on Destroy!!
 
-    public static void SetEndMove<EnumType>(EnumType Turn, GameObject Unit)
+    public static void SetEndMove<T>(T Turn, GameObject Unit) where T : Enum
     {
         SetEndMove(Turn.ToString(), Unit);
     } //End!!
 
-    public static void SetEndTurn<EnumType>(EnumType Turn, GameObject Unit)
+    public static void SetEndTurn<T>(T Turn, GameObject Unit) where T : Enum
     {
         SetEndTurn(Turn.ToString(), Unit);
     } //End!!
 
-    public static void SetAdd<EnumType>(EnumType Turn, GameObject Unit, int After = 0)
+    public static void SetAdd<T>(T Turn, GameObject Unit, int After = 0) where T : Enum
     {
         SetAdd(QEnum.GetChoice(Turn), Turn.ToString(), Unit, After);
     } //Add Turn Special!!
 
-    public static void SetAdd<EnumType>(EnumType Turn, GameObject Unit, string After)
+    public static void SetAdd<T>(T Turn, GameObject Unit, string After) where T : Enum
     {
-        SetAdd(Turn.ToString(), Unit, After);
+        SetAdd(QEnum.GetChoice(Turn), Turn.ToString(), Unit, After);
     } //Add Turn Special!!
 
     #endregion
@@ -273,28 +264,20 @@ public class TurnManager : SingletonManager<TurnManager>
         for (int i = 0; i < Instance.m_turnQueue.Count; i++)
         {
             if (Instance.m_turnQueue[i].Turn != Turn)
-            {
                 continue;
-            }
             //
             if (Instance.m_turnQueue[i].Unit.Contains(Unit))
-            {
                 return;
-            }
             //
             if ((int)Instance.m_debug >= (int)DebugType.Full)
-            {
                 Debug.LogFormat("[Turn] <Init> {0}", Turn.ToString());
-            }
             //
             Instance.m_turnQueue[i].UnitWaitAdd.Add(Unit);
             return;
         }
         //
         if ((int)Instance.m_debug >= (int)DebugType.Full)
-        {
             Debug.LogFormat("[Turn] <Init> {0}", Turn.ToString());
-        }
         //
         Instance.m_turnQueue.Add(new TurnSingle(Start, Turn, Unit));
     } //Init on Start!!
@@ -304,14 +287,10 @@ public class TurnManager : SingletonManager<TurnManager>
         for (int i = 0; i < Instance.m_turnQueue.Count; i++)
         {
             if (Instance.m_turnQueue[i].Turn != Turn)
-            {
                 continue;
-            }
             //
             if (!Instance.m_turnQueue[i].Unit.Contains(Unit))
-            {
                 return;
-            }
             //
             if (Instance.m_turnQueue[i] == Instance.m_turnCurrent)
             {
@@ -321,9 +300,7 @@ public class TurnManager : SingletonManager<TurnManager>
                 Instance.m_turnQueue[i].UnitWaitAdd.Remove(Unit);
                 //
                 if ((int)Instance.m_debug >= (int)DebugType.Full)
-                {
                     SetDebug(Turn, "Remove Same");
-                }
                 //
                 SetEndCheck(Turn);
             }
@@ -335,9 +312,7 @@ public class TurnManager : SingletonManager<TurnManager>
                 Instance.m_turnQueue[i].UnitWaitAdd.Remove(Unit);
                 //
                 if ((int)Instance.m_debug >= (int)DebugType.Full)
-                {
                     SetDebug(Turn, "Remove Un-Same");
-                }
                 //
             }
             //
@@ -348,21 +323,15 @@ public class TurnManager : SingletonManager<TurnManager>
     public static void SetEndMove(string Turn, GameObject Unit)
     {
         if (Instance.m_turnCurrent.Turn != Turn)
-        {
             return;
-        }
         //
         if (Instance.m_turnCurrent.GetEnd(Unit))
-        {
             return;
-        }
         //
         Instance.m_turnCurrent.UnitEndMove.Add(Unit);
         //
         if ((int)Instance.m_debug >= (int)DebugType.Full)
-        {
             SetDebug(Turn, "End Move");
-        }
         //
         SetEndCheck(Turn);
     } //End!!
@@ -370,21 +339,15 @@ public class TurnManager : SingletonManager<TurnManager>
     public static void SetEndTurn(string Turn, GameObject Unit)
     {
         if (Instance.m_turnCurrent.Turn != Turn)
-        {
             return;
-        }
         //
         if (Instance.m_turnCurrent.GetEnd(Unit))
-        {
             return;
-        }
         //
         Instance.m_turnCurrent.UnitEndTurn.Add(Unit);
         //
         if ((int)Instance.m_debug >= (int)DebugType.Full)
-        {
             SetDebug(Turn, "End Turn");
-        }
         //
         SetEndCheck(Turn);
     } //End!!
@@ -394,9 +357,7 @@ public class TurnManager : SingletonManager<TurnManager>
         if (Instance.m_turnCurrent.EndTurn)
         {
             if ((int)Instance.m_debug >= (int)DebugType.Primary)
-            {
                 SetDebug(Turn, "Next Turn");
-            }
             //
             Instance.m_turnCurrent.UnitEndMove.Clear();
             Instance.m_turnCurrent.UnitEndTurn.Clear();
@@ -411,9 +372,7 @@ public class TurnManager : SingletonManager<TurnManager>
         if (Instance.m_turnCurrent.EndMove)
         {
             if ((int)Instance.m_debug >= (int)DebugType.Primary)
-            {
                 SetDebug(Turn, "Next Turn by Move");
-            }
             //
             Instance.m_turnCurrent.UnitEndMove.Clear();
             //
@@ -470,16 +429,12 @@ public class TurnManager : SingletonManager<TurnManager>
         for (int i = 0; i < Instance.m_turnQueue.Count; i++)
         {
             if (Instance.m_turnQueue[i].Turn != After)
-            {
                 continue;
-            }
             //
             if (Instance.m_turnQueue[i].Turn == Turn)
             {
                 if (Instance.m_turnQueue[i].Unit.Contains(Unit))
-                {
                     return;
-                }
                 //
                 Instance.m_turnQueue[i].SetAdd(Unit);
             }
@@ -529,31 +484,31 @@ public class GameTurnEditor : Editor
     {
         Target = target as TurnManager;
         //
-        m_delayTurn = QEditorCustom.GetField(this, "m_delayTurn");
-        m_delayStep = QEditorCustom.GetField(this, "m_delayStep");
+        m_delayTurn = QUnityEditorCustom.GetField(this, "m_delayTurn");
+        m_delayStep = QUnityEditorCustom.GetField(this, "m_delayStep");
         //
-        m_debug = QEditorCustom.GetField(this, "m_debug");
-        m_turnCurrent = QEditorCustom.GetField(this, "m_turnCurrent");
-        m_turnQueue = QEditorCustom.GetField(this, "m_turnQueue");
+        m_debug = QUnityEditorCustom.GetField(this, "m_debug");
+        m_turnCurrent = QUnityEditorCustom.GetField(this, "m_turnCurrent");
+        m_turnQueue = QUnityEditorCustom.GetField(this, "m_turnQueue");
     }
 
     public override void OnInspectorGUI()
     {
-        QEditorCustom.SetUpdate(this);
+        QUnityEditorCustom.SetUpdate(this);
         //
-        QEditorCustom.SetField(m_delayTurn);
-        QEditorCustom.SetField(m_delayStep);
+        QUnityEditorCustom.SetField(m_delayTurn);
+        QUnityEditorCustom.SetField(m_delayStep);
         //
-        QEditorCustom.SetField(m_debug);
+        QUnityEditorCustom.SetField(m_debug);
         //
-        QEditor.SetDisableGroupBegin();
+        QUnityEditor.SetDisableGroupBegin();
         //
-        QEditorCustom.SetField(m_turnCurrent);
-        QEditorCustom.SetField(m_turnQueue);
+        QUnityEditorCustom.SetField(m_turnCurrent);
+        QUnityEditorCustom.SetField(m_turnQueue);
         //
-        QEditor.SetDisableGroupEnd();
+        QUnityEditor.SetDisableGroupEnd();
         //
-        QEditorCustom.SetApply(this);
+        QUnityEditorCustom.SetApply(this);
     }
 }
 

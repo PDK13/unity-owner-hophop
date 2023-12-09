@@ -7,8 +7,6 @@ public class QColor
 
     #region ==================================== Color
 
-    //Key "ref" use to immediately save value to primary varible param!
-
     /// <summary>
     /// Get Color with custom alpha value [0..1]
     /// </summary>
@@ -18,29 +16,6 @@ public class QColor
     public static Color GetColor(Color Color, float Alpha = 1f)
     {
         return new Color(Color.r, Color.g, Color.b, Mathf.Clamp(Alpha, 0f, 1f));
-    }
-
-    #endregion
-
-    #region ==================================== Color - Hex Color
-
-    public static string GetTextHex(Color Color)
-    {
-        return ColorUtility.ToHtmlStringRGB(Color);
-    }
-
-    public static string GetTextHexCode(Color Color)
-    {
-        string ColorHex = GetTextHex(Color);
-        string ColorHexCode = string.Format("#{0}", ColorHex);
-        return ColorHexCode;
-    }
-
-    public static string GetTextHexFormat(Color Color, string Text)
-    {
-        string ColorHex = GetTextHex(Color);
-        string TextFormat = string.Format("<#{0}>{1}</color>", ColorHex, Text);
-        return TextFormat;
     }
 
     #endregion

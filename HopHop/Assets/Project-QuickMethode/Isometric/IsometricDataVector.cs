@@ -462,7 +462,7 @@ public class IsoVectorEditor : PropertyDrawer
 {
     public override VisualElement CreatePropertyGUI(SerializedProperty property)
     {
-        return QEditorObject.GetContainer(
+        return QUnityEditorObject.GetContainer(
             property,
             nameof(IsometricVector.X),
             nameof(IsometricVector.Y),
@@ -471,11 +471,11 @@ public class IsoVectorEditor : PropertyDrawer
 
     public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
     {
-        QEditorObject.SetPropertyBegin(position, property, label);
+        QUnityEditorObject.SetPropertyBegin(position, property, label);
         //
         position = EditorGUI.PrefixLabel(position, GUIUtility.GetControlID(FocusType.Passive), label);
         //
-        QEditor.IndentLevel = 0;
+        QUnityEditor.IndentLevel = 0;
         //
         float SpaceBetween = 5f;
 
@@ -496,16 +496,16 @@ public class IsoVectorEditor : PropertyDrawer
         Rect RecFieldY = new Rect(PosXField + SpaceXField * 1 + SpaceBetween * 1, position.y, WidthField, position.height);
         Rect RecFieldH = new Rect(PosXField + SpaceXField * 2 + SpaceBetween * 2, position.y, WidthField, position.height);
         //
-        QEditor.SetLabel("X", RecLabelX);
-        QEditorObject.SetField(property, nameof(IsometricVector.X), RecFieldX, false);
+        QUnityEditor.SetLabel("X", RecLabelX);
+        QUnityEditorObject.SetField(property, nameof(IsometricVector.X), RecFieldX, false);
 
-        QEditor.SetLabel("Y", RecLabelY);
-        QEditorObject.SetField(property, nameof(IsometricVector.Y), RecFieldY, false);
+        QUnityEditor.SetLabel("Y", RecLabelY);
+        QUnityEditorObject.SetField(property, nameof(IsometricVector.Y), RecFieldY, false);
 
-        QEditor.SetLabel("H", RecLabelH);
-        QEditorObject.SetField(property, nameof(IsometricVector.H), RecFieldH, false);
+        QUnityEditor.SetLabel("H", RecLabelH);
+        QUnityEditorObject.SetField(property, nameof(IsometricVector.H), RecFieldH, false);
         //
-        QEditorObject.SetPropertyEnd();
+        QUnityEditorObject.SetPropertyEnd();
     }
 }
 

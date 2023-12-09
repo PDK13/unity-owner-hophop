@@ -196,29 +196,29 @@ public class BaseShootEditor : Editor
     {
         m_target = target as BaseShoot;
 
-        m_bullet = QEditorCustom.GetField(this, "m_bullet");
+        m_bullet = QUnityEditorCustom.GetField(this, "m_bullet");
 
-        m_editorSpawm = QEditorCustom.GetField(this, "m_editorSpawm");
-        m_editorMove = QEditorCustom.GetField(this, "m_editorMove");
-        m_editorSpeed = QEditorCustom.GetField(this, "m_editorSpeed");
+        m_editorSpawm = QUnityEditorCustom.GetField(this, "m_editorSpawm");
+        m_editorMove = QUnityEditorCustom.GetField(this, "m_editorMove");
+        m_editorSpeed = QUnityEditorCustom.GetField(this, "m_editorSpeed");
     }
 
     public override void OnInspectorGUI()
     {
-        QEditorCustom.SetUpdate(this);
+        QUnityEditorCustom.SetUpdate(this);
         //
-        QEditorCustom.SetField(m_bullet);
+        QUnityEditorCustom.SetField(m_bullet);
         //
-        QEditorCustom.SetField(m_editorSpawm);
-        QEditorCustom.SetField(m_editorMove);
-        QEditorCustom.SetField(m_editorSpeed);
+        QUnityEditorCustom.SetField(m_editorSpawm);
+        QUnityEditorCustom.SetField(m_editorMove);
+        QUnityEditorCustom.SetField(m_editorSpeed);
         //
-        if (QEditor.SetButton("Shoot"))
+        if (QUnityEditor.SetButton("Shoot"))
             m_target.SetEditorShoot();
-        if (QEditor.SetButton("Wait"))
+        if (QUnityEditor.SetButton("Wait"))
             m_target.SetEditorWait();
         //
-        QEditorCustom.SetApply(this);
+        QUnityEditorCustom.SetApply(this);
     }
 }
 

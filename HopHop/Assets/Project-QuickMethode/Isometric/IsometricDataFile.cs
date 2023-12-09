@@ -23,14 +23,14 @@ public class IsometricDataFile
 
     public static void SetFileWrite(IsometricManager Manager, string Path)
     {
-        QFileIO FileIO = new QFileIO();
+        QDataFile FileIO = new QDataFile();
 
         SetFileWrite(Manager, FileIO);
 
         FileIO.SetWriteStart(Path);
     }
 
-    private static void SetFileWrite(IsometricManager Manager, QFileIO FileIO)
+    private static void SetFileWrite(IsometricManager Manager, QDataFile FileIO)
     {
         Manager.World.SetWorldOrder();
         //
@@ -157,7 +157,7 @@ public class IsometricDataFile
 
     public static void SetFileRead(IsometricManager Manager, string Path)
     {
-        QFileIO FileIO = new QFileIO();
+        QDataFile FileIO = new QDataFile();
 
         FileIO.SetReadStart(Path);
 
@@ -166,14 +166,14 @@ public class IsometricDataFile
 
     public static void SetFileRead(IsometricManager Manager, TextAsset WorldFile)
     {
-        QFileIO FileIO = new QFileIO();
+        QDataFile FileIO = new QDataFile();
 
         FileIO.SetReadStart(WorldFile);
 
         SetFileRead(Manager, FileIO);
     }
 
-    private static void SetFileRead(IsometricManager Manager, QFileIO FileIO)
+    private static void SetFileRead(IsometricManager Manager, QDataFile FileIO)
     {
         Manager.World.SetWorldRemove(true);
         //

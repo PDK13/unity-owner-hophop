@@ -1,56 +1,9 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class QLayer
-{
-    #region ==================================== Primary
-
-    public const string UNTAGGED = "Untagged";
-
-    public static int GetLayerMask(params string[] LayerName)
-    {
-        return LayerMask.GetMask(LayerName);
-    }
-
-    public static int GetLayerMaskSingle(string LayerName)
-    {
-        return LayerMask.NameToLayer(LayerName);
-    }
-
-    #endregion
-
-    #region ==================================== GameObject & Component
-
-    public static void SetLayerMask(GameObject From, string LayerName)
-    {
-        From.layer = GetLayerMaskSingle(LayerName);
-    }
-
-    public static void SetLayerMask(PlatformEffector2D Platform, params string[] LayerName)
-    {
-        Platform.colliderMask = GetLayerMask(LayerName);
-    }
-
-    public static void SetLayerMask(AreaEffector2D Platform, params string[] LayerName)
-    {
-        Platform.colliderMask = GetLayerMask(LayerName);
-    }
-
-    public static void SetLayerMask(PointEffector2D Platform, params string[] LayerName)
-    {
-        Platform.colliderMask = GetLayerMask(LayerName);
-    }
-
-    public static void SetLayerMask(SurfaceEffector2D Platform, params string[] LayerName)
-    {
-        Platform.colliderMask = GetLayerMask(LayerName);
-    }
-
-    #endregion
-}
-
-public class QCast : QLayer
+public class QCast
 {
     #region ==================================== 3D
 

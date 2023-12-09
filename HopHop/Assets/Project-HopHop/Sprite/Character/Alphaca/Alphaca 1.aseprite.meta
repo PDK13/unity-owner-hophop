@@ -1,7 +1,528 @@
 fileFormatVersion: 2
 guid: b59ca93ffed450b479801dd9cbac78ad
-DefaultImporter:
+ScriptedImporter:
+  internalIDToNameTable: []
   externalObjects: {}
+  serializedVersion: 2
   userData: 
   assetBundleName: 
   assetBundleVariant: 
+  script: {fileID: 11500000, guid: 62a9f0aa5b59740cfbadc7e5f9823bb0, type: 3}
+  textureImporterSettings:
+    alphaSource: 1
+    mipMapMode: 0
+    enableMipMap: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+    convertToNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+    swizzle: 50462976
+    isReadable: 0
+    streamingMipmaps: 0
+    streamingMipmapsPriority: 0
+    vTOnly: 0
+    ignoreMipmapLimit: 0
+    nPOTScale: 1
+    sRGBTexture: 1
+    spriteMode: 2
+    spriteExtrude: 1
+    spriteMeshType: 1
+    alignment: 0
+    spritePivot: {x: 0.5, y: 0.5}
+    spritePixelsToUnits: 100
+    spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+    spriteGenerateFallbackPhysicsShape: 0
+    generateCubemap: 6
+    cubemapConvolution: 0
+    seamlessCubemap: 0
+    alphaIsTransparency: 1
+    spriteTessellationDetail: -1
+    textureType: 8
+    textureShape: 1
+    singleChannelComponent: 0
+    flipbookRows: 0
+    flipbookColumns: 0
+    ignorePngGamma: 0
+    cookieMode: 0
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+    normalMap: 0
+    textureFormat: 0
+    maxTextureSize: 0
+    lightmap: 0
+    compressionQuality: 0
+    linearTexture: 0
+    grayScaleToAlpha: 0
+    rGBM: 0
+    cubemapConvolutionSteps: 0
+    cubemapConvolutionExponent: 0
+    maxTextureSizeSet: 0
+    compressionQualitySet: 0
+    textureFormatSet: 0
+    applyGammaDecoding: 0
+  previousAsepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  asepriteImporterSettings:
+    fileImportMode: 1
+    importHiddenLayers: 0
+    layerImportMode: 1
+    defaultPivotSpace: 0
+    defaultPivotAlignment: 7
+    customPivotPosition: {x: 0.5, y: 0.5}
+    spritePadding: 0
+    generateModelPrefab: 1
+    generateAnimationClips: 1
+    addSortingGroup: 1
+    addShadowCasters: 0
+  importFileNodeState: 1
+  platformSettingsDirtyTick: 0
+  textureAssetName: 
+  singleSpriteImportData:
+  - name: 
+    originalName: 
+    pivot: {x: 0, y: 0}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 0
+      y: 0
+      width: 0
+      height: 0
+    spriteID: 
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 0, y: 0}
+  animatedSpriteImportData:
+  - name: alphaca 1_Frame_0
+    originalName: 
+    pivot: {x: 0.5, y: -0.25531915}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 4
+      width: 60
+      height: 94
+    spriteID: 2b8c14913b70ffb40a40e88bf60aa0a9
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 4}
+  - name: alphaca 1_Frame_1
+    originalName: 
+    pivot: {x: 0.5, y: -0.25531915}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 106
+      width: 60
+      height: 94
+    spriteID: 3cb7822b4c11ac549a11646745d0ade8
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 106}
+  - name: alphaca 1_Frame_6
+    originalName: 
+    pivot: {x: 0.5, y: -0.26666668}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 72
+      y: 412
+      width: 60
+      height: 90
+    spriteID: 334f157f752f6fc45ad4925ffd31eced
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 72, y: 412}
+  - name: alphaca 1_Frame_7
+    originalName: 
+    pivot: {x: 0.5, y: -0.26666668}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 140
+      y: 4
+      width: 60
+      height: 90
+    spriteID: 00c648b2aa5f89547b1185f1f176ca10
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 140, y: 4}
+  - name: alphaca 1_Frame_12
+    originalName: 
+    pivot: {x: 0.5, y: -0.25531915}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 208
+      width: 60
+      height: 94
+    spriteID: 13fce2fbdfb0b214db77f1813b71bb17
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 208}
+  - name: alphaca 1_Frame_13
+    originalName: 
+    pivot: {x: 0.5, y: -0.25531915}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 310
+      width: 60
+      height: 94
+    spriteID: a01331551ec68a54e95ecac49ae48b7f
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 310}
+  - name: alphaca 1_Frame_18
+    originalName: 
+    pivot: {x: 0.5, y: -0.25531915}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 412
+      width: 60
+      height: 94
+    spriteID: 02a2a46a62c162048abedf8e36b01cdf
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 412}
+  - name: alphaca 1_Frame_19
+    originalName: 
+    pivot: {x: 0.5, y: -0.4}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 140
+      y: 102
+      width: 60
+      height: 90
+    spriteID: 8635cbfe6982f884db2b16a4b48eec75
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 140, y: 102}
+  - name: alphaca 1_Frame_24
+    originalName: 
+    pivot: {x: 0.5, y: -0.25531915}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 72
+      y: 4
+      width: 60
+      height: 94
+    spriteID: 7121bfd6716683542b059a797506aa03
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 72, y: 4}
+  - name: alphaca 1_Frame_25
+    originalName: 
+    pivot: {x: 0.5, y: -0.26666668}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 140
+      y: 200
+      width: 60
+      height: 90
+    spriteID: 80bc631f9ac9a7c4f924d2557e19f3aa
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 140, y: 200}
+  - name: alphaca 1_Frame_26
+    originalName: 
+    pivot: {x: 0.5, y: -0.25531915}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 72
+      y: 106
+      width: 60
+      height: 94
+    spriteID: a253ae51099e9e548b1022364621a940
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 72, y: 106}
+  - name: alphaca 1_Frame_27
+    originalName: 
+    pivot: {x: 0.5, y: -0.25531915}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 72
+      y: 208
+      width: 60
+      height: 94
+    spriteID: e983da8f1dfe9364db39d453e53a3e1b
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 72, y: 208}
+  - name: alphaca 1_Frame_28
+    originalName: 
+    pivot: {x: 0.5, y: -0.26666668}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 140
+      y: 298
+      width: 60
+      height: 90
+    spriteID: 4e5a831f9a3252c4d899a91060ba8cfe
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 140, y: 298}
+  - name: alphaca 1_Frame_29
+    originalName: 
+    pivot: {x: 0.5, y: -0.25531915}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 72
+      y: 310
+      width: 60
+      height: 94
+    spriteID: 3ac420fd103302c4d855cbe348f6c55d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 72, y: 310}
+  spriteSheetImportData: []
+  asepriteLayers:
+  - layerIndex: 0
+    guid: -1460748477
+    name: alphaca 1
+    layerFlags: 0
+    layerType: 0
+    blendMode: 0
+    cells:
+    - name: alphaca 1_Frame_0
+      frameIndex: 0
+      cellRect:
+        x: 34
+        y: 24
+        width: 60
+        height: 94
+      spriteId: 2b8c14913b70ffb40a40e88bf60aa0a9
+    - name: alphaca 1_Frame_1
+      frameIndex: 1
+      cellRect:
+        x: 34
+        y: 24
+        width: 60
+        height: 94
+      spriteId: 3cb7822b4c11ac549a11646745d0ade8
+    - name: alphaca 1_Frame_6
+      frameIndex: 6
+      cellRect:
+        x: 34
+        y: 24
+        width: 60
+        height: 90
+      spriteId: 334f157f752f6fc45ad4925ffd31eced
+    - name: alphaca 1_Frame_7
+      frameIndex: 7
+      cellRect:
+        x: 34
+        y: 24
+        width: 60
+        height: 90
+      spriteId: 00c648b2aa5f89547b1185f1f176ca10
+    - name: alphaca 1_Frame_12
+      frameIndex: 12
+      cellRect:
+        x: 34
+        y: 24
+        width: 60
+        height: 94
+      spriteId: 13fce2fbdfb0b214db77f1813b71bb17
+    - name: alphaca 1_Frame_13
+      frameIndex: 13
+      cellRect:
+        x: 34
+        y: 24
+        width: 60
+        height: 94
+      spriteId: a01331551ec68a54e95ecac49ae48b7f
+    - name: alphaca 1_Frame_18
+      frameIndex: 18
+      cellRect:
+        x: 34
+        y: 24
+        width: 60
+        height: 94
+      spriteId: 02a2a46a62c162048abedf8e36b01cdf
+    - name: alphaca 1_Frame_19
+      frameIndex: 19
+      cellRect:
+        x: 34
+        y: 36
+        width: 60
+        height: 90
+      spriteId: 8635cbfe6982f884db2b16a4b48eec75
+    - name: alphaca 1_Frame_24
+      frameIndex: 24
+      cellRect:
+        x: 34
+        y: 24
+        width: 60
+        height: 94
+      spriteId: 7121bfd6716683542b059a797506aa03
+    - name: alphaca 1_Frame_25
+      frameIndex: 25
+      cellRect:
+        x: 34
+        y: 24
+        width: 60
+        height: 90
+      spriteId: 80bc631f9ac9a7c4f924d2557e19f3aa
+    - name: alphaca 1_Frame_26
+      frameIndex: 26
+      cellRect:
+        x: 34
+        y: 24
+        width: 60
+        height: 94
+      spriteId: a253ae51099e9e548b1022364621a940
+    - name: alphaca 1_Frame_27
+      frameIndex: 27
+      cellRect:
+        x: 34
+        y: 24
+        width: 60
+        height: 94
+      spriteId: e983da8f1dfe9364db39d453e53a3e1b
+    - name: alphaca 1_Frame_28
+      frameIndex: 28
+      cellRect:
+        x: 34
+        y: 24
+        width: 60
+        height: 90
+      spriteId: 4e5a831f9a3252c4d899a91060ba8cfe
+    - name: alphaca 1_Frame_29
+      frameIndex: 29
+      cellRect:
+        x: 34
+        y: 24
+        width: 60
+        height: 94
+      spriteId: 3ac420fd103302c4d855cbe348f6c55d
+    linkedCells: []
+    parentIndex: -1
+  platformSettings: []
+  secondarySpriteTextures: []
+  spritePackingTag: 
+  canvasSize: {x: 128, y: 128}

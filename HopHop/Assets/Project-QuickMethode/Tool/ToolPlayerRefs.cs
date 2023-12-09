@@ -53,30 +53,30 @@ public class ToolPlayerRefs : EditorWindow
 
     private void SetGUIRef()
     {
-        QEditor.SetLabel("REF", QEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter));
+        QUnityEditor.SetLabel("REF", QUnityEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter));
         //
-        QEditor.SetHorizontalBegin();
+        QUnityEditor.SetHorizontalBegin();
         {
-            QEditor.SetLabel("Type", QEditor.GetGUILabel(FontStyle.Normal, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this, 0.2f));
-            m_type = (VaribleType)QEditor.SetPopup<VaribleType>((int)m_type, QEditorWindow.GetGUILayoutWidth(this, 0.775f));
+            QUnityEditor.SetLabel("Type", QUnityEditor.GetGUILabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.2f));
+            m_type = (VaribleType)QUnityEditor.SetPopup<VaribleType>((int)m_type, QUnityEditorWindow.GetGUILayoutWidth(this, 0.775f));
         }
-        QEditor.SetHorizontalEnd();
+        QUnityEditor.SetHorizontalEnd();
         //
-        QEditor.SetHorizontalBegin();
+        QUnityEditor.SetHorizontalBegin();
         {
-            QEditor.SetLabel("Name", QEditor.GetGUILabel(FontStyle.Normal, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this, 0.2f));
-            m_name = QEditor.SetField(m_name, null, QEditorWindow.GetGUILayoutWidth(this, 0.775f));
+            QUnityEditor.SetLabel("Name", QUnityEditor.GetGUILabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.2f));
+            m_name = QUnityEditor.SetField(m_name, null, QUnityEditorWindow.GetGUILayoutWidth(this, 0.775f));
         }
-        QEditor.SetHorizontalEnd();
+        QUnityEditor.SetHorizontalEnd();
         //
-        QEditor.SetHorizontalBegin();
+        QUnityEditor.SetHorizontalBegin();
         {
-            QEditor.SetLabel("Value", QEditor.GetGUILabel(FontStyle.Normal, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this, 0.2f));
-            m_value = QEditor.SetField(m_value, null, QEditorWindow.GetGUILayoutWidth(this, 0.775f));
+            QUnityEditor.SetLabel("Value", QUnityEditor.GetGUILabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.2f));
+            m_value = QUnityEditor.SetField(m_value, null, QUnityEditorWindow.GetGUILayoutWidth(this, 0.775f));
         }
-        QEditor.SetHorizontalEnd();
+        QUnityEditor.SetHorizontalEnd();
         //
-        QEditor.SetSpace(10f);
+        QUnityEditor.SetSpace(10f);
     }
 
     #endregion
@@ -85,28 +85,28 @@ public class ToolPlayerRefs : EditorWindow
 
     private void SetGUIOpption()
     {
-        QEditor.SetLabel("OPPTION", QEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter));
+        QUnityEditor.SetLabel("OPPTION", QUnityEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter));
         //
-        QEditor.SetHorizontalBegin();
+        QUnityEditor.SetHorizontalBegin();
         {
             SetGUIButtonSet();
             SetGUIButtonGet();
             SetGUIButtonClear();
             SetGUIButtonClearAll();
         }
-        QEditor.SetHorizontalEnd();
+        QUnityEditor.SetHorizontalEnd();
         //
-        QEditor.SetSpace(10f);
+        QUnityEditor.SetSpace(10f);
     }
 
     private void SetGUIButtonSet()
     {
         if (m_name == "" || m_value == "")
         {
-            QEditor.SetDisableGroupBegin();
+            QUnityEditor.SetDisableGroupBegin();
         }
         //
-        if (QEditor.SetButton("Set", null, QEditorWindow.GetGUILayoutWidth(this, 0.25f)))
+        if (QUnityEditor.SetButton("Set", null, QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
         {
             switch (m_type)
             {
@@ -124,7 +124,7 @@ public class ToolPlayerRefs : EditorWindow
         //
         if (m_name == "" || m_value == "")
         {
-            QEditor.SetDisableGroupEnd();
+            QUnityEditor.SetDisableGroupEnd();
         }
     }
 
@@ -132,10 +132,10 @@ public class ToolPlayerRefs : EditorWindow
     {
         if (m_name == "")
         {
-            QEditor.SetDisableGroupBegin();
+            QUnityEditor.SetDisableGroupBegin();
         }
         //
-        if (QEditor.SetButton("Get", null, QEditorWindow.GetGUILayoutWidth(this, 0.25f)))
+        if (QUnityEditor.SetButton("Get", null, QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
         {
             switch (m_type)
             {
@@ -153,7 +153,7 @@ public class ToolPlayerRefs : EditorWindow
         //
         if (m_name == "")
         {
-            QEditor.SetDisableGroupEnd();
+            QUnityEditor.SetDisableGroupEnd();
         }
     }
 
@@ -161,23 +161,23 @@ public class ToolPlayerRefs : EditorWindow
     {
         if (m_name == "")
         {
-            QEditor.SetDisableGroupBegin();
+            QUnityEditor.SetDisableGroupBegin();
         }
         //
-        if (QEditor.SetButton("Clear", null, QEditorWindow.GetGUILayoutWidth(this, 0.25f)))
+        if (QUnityEditor.SetButton("Clear", null, QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
         {
             QPlayerPrefs.SetValueClear(m_name);
         }
         //
         if (m_name == "")
         {
-            QEditor.SetDisableGroupEnd();
+            QUnityEditor.SetDisableGroupEnd();
         }
     }
 
     private void SetGUIButtonClearAll()
     {
-        if (QEditor.SetButton("Clear all", null, QEditorWindow.GetGUILayoutWidth(this, 0.25f)))
+        if (QUnityEditor.SetButton("Clear all", null, QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
         {
             QPlayerPrefs.SetValueClearAll();
         }
@@ -195,7 +195,7 @@ public class ToolPlayerRefs : EditorWindow
         {
             try
             {
-                QFileIO FileIO = new QFileIO();
+                QDataFile FileIO = new QDataFile();
                 FileIO.SetReadStart(ListPath);
                 int Count = FileIO.GetReadAutoInt();
                 for (int i = 0; i < Count; i++)
@@ -205,14 +205,14 @@ public class ToolPlayerRefs : EditorWindow
             }
             catch
             {
-                QFileIO FileIO = new QFileIO();
+                QDataFile FileIO = new QDataFile();
                 FileIO.SetWriteAdd(0);
                 FileIO.SetWriteStart(ListPath);
             }
         }
         else
         {
-            QFileIO FileIO = new QFileIO();
+            QDataFile FileIO = new QDataFile();
             FileIO.SetWriteAdd(0);
             FileIO.SetWriteStart(ListPath);
         }
@@ -220,7 +220,7 @@ public class ToolPlayerRefs : EditorWindow
 
     private void SetListSave()
     {
-        QFileIO FileIO = new QFileIO();
+        QDataFile FileIO = new QDataFile();
         FileIO.SetWriteAdd(m_list.Count);
         foreach (ListSingle Data in m_list)
         {
@@ -233,18 +233,18 @@ public class ToolPlayerRefs : EditorWindow
 
     private void SetGUIListShow()
     {
-        QEditor.SetLabel("LIST", QEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter));
+        QUnityEditor.SetLabel("LIST", QUnityEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter));
         //
-        if (QEditor.SetButton("Refresh", QEditor.GetGUIButton(FontStyle.Normal, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this, 1f, 0.25f)))
+        if (QUnityEditor.SetButton("Refresh", QUnityEditor.GetGUIButton(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 1f, 0.25f)))
         {
             SetListRefresh();
         }
         //
-        QEditor.SetScrollViewBegin(m_listScrollView);
+        QUnityEditor.SetScrollViewBegin(m_listScrollView);
         //
         for (int i = 0; i <= m_list.Count; i++)
         {
-            QEditor.SetHorizontalBegin();
+            QUnityEditor.SetHorizontalBegin();
             //
             if (i == m_list.Count)
             {
@@ -252,10 +252,10 @@ public class ToolPlayerRefs : EditorWindow
                 //
                 if (m_name == "")
                 {
-                    QEditor.SetDisableGroupBegin();
+                    QUnityEditor.SetDisableGroupBegin();
                 }
                 //
-                if (QEditor.SetButton("[New]", QEditor.GetGUIButton(FontStyle.Normal, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this, 1f, 0.25f)))
+                if (QUnityEditor.SetButton("[New]", QUnityEditor.GetGUIButton(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 1f, 0.25f)))
                 {
                     if (m_name != "")
                     {
@@ -269,37 +269,37 @@ public class ToolPlayerRefs : EditorWindow
                 //
                 if (m_name == "")
                 {
-                    QEditor.SetDisableGroupEnd();
+                    QUnityEditor.SetDisableGroupEnd();
                 }
             }
             else
             {
                 //Data Single!!
                 //
-                if (QEditor.SetButton(m_list[i].Name, QEditor.GetGUIButton(FontStyle.Normal, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this, 0.7f)))
+                if (QUnityEditor.SetButton(m_list[i].Name, QUnityEditor.GetGUIButton(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.7f)))
                 {
                     m_name = m_list[i].Name;
                     m_type = m_list[i].Type;
                 }
                 //
-                VaribleType TypeChild = (VaribleType)QEditor.SetPopup<VaribleType>((int)m_list[i].Type, QEditorWindow.GetGUILayoutWidth(this, 0.2f));
+                VaribleType TypeChild = (VaribleType)QUnityEditor.SetPopup<VaribleType>((int)m_list[i].Type, QUnityEditorWindow.GetGUILayoutWidth(this, 0.2f));
                 if (TypeChild != m_list[i].Type)
                 {
                     m_list[i].Type = TypeChild;
                     SetListSave();
                 }
                 //
-                if (QEditor.SetButton("Del", QEditor.GetGUIButton(FontStyle.Normal, TextAnchor.MiddleCenter), QEditorWindow.GetGUILayoutWidth(this, 0.1f)))
+                if (QUnityEditor.SetButton("Del", QUnityEditor.GetGUIButton(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.1f)))
                 {
                     m_list.RemoveAt(i);
                     SetListSave();
                 }
             }
             //
-            QEditor.SetHorizontalEnd();
+            QUnityEditor.SetHorizontalEnd();
         }
         //
-        QEditor.SetScrollViewEnd();
+        QUnityEditor.SetScrollViewEnd();
     }
 
     #endregion

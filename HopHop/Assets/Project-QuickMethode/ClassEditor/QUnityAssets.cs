@@ -7,62 +7,55 @@ using UnityEditor;
 
 #if UNITY_EDITOR
 
-///<summary>
-///Caution: Unity Editor only!
-///</summary>
-public class QAssetsDatabase : QPath
+///<summary><b>(UnityEditorOnly)</b></summary>
+///<remarks>Excute command(s) of Window and Unity Editor on runtime</remarks>
+public class QUnityAssets
 {
     //Folder "Assets" is the main root of all assets in project, that can find any assets from it.
 
-    #region ==================================== Create Folder
+    #region ==================================== AssetsDatabase : Create Folder
 
+    ///<summary><b>(UnityEditorOnly)</b></summary>
     public static string SetCreateFolder(params string[] PathChildInAssets)
     {
+        Debug.LogFormat("[UnityAssets] Create Folder with path {0}", QPath.GetPath(QPath.PathType.Assets, PathChildInAssets));
+        //
         List<string> Path = new List<string>();
-        //
-        string PathString = "";
-        //
         for (int i = 0; i < PathChildInAssets.Length; i++)
         {
             Path.Add(PathChildInAssets[i]);
-            //
-            QEncypt.GetEncyptAdd('/', PathString, PathChildInAssets[i], out PathString);
-            //
             SetCreateFolderExist(Path.ToArray());
         }
         //
-        return PathString;
+        return QPath.GetPath(QPath.PathType.Assets, PathChildInAssets);
     }
 
+    ///<summary><b>(UnityEditorOnly)</b></summary>
     private static string SetCreateFolderExist(params string[] PathChildInAssets)
     {
-        //If Root Folder not Exist, then can't Create new Folder from that Root Folder
-        //
         string PathInAssets = "Assets";
         //
-        for (int i = 0; i < PathChildInAssets.Length - 1; i++)
-            QEncypt.GetEncyptAdd('/', PathInAssets, PathChildInAssets[i], out PathInAssets);
+        //If Root Folder not Exist, then can't Create new Folder from that Root Folder
         //
-        string PathFolderInAssets = PathChildInAssets[PathChildInAssets.Length - 1];
-
-        if (QPath.GetPathFolderExist(PathType.Assets, PathChildInAssets))
-        {
-            //Debug.LogWarningFormat("[Debug] Folder Exist!!\n{0}", PathInAssets + "/" + PathFolderInAssets);
+        for (int i = 0; i < PathChildInAssets.Length - 1; i++)
+            PathInAssets = QEncypt.GetEncyptAdd('/', PathInAssets, PathChildInAssets[i]);
+        //
+        string FolderName = PathChildInAssets[PathChildInAssets.Length - 1];
+        //
+        if (QPath.GetPathFolderExist(QPath.PathType.Assets, PathChildInAssets))
+            //Exist Folder with path
             return "";
-        }
         //
         try
         {
-            string PathString = AssetDatabase.CreateFolder(PathInAssets, PathFolderInAssets);
-            //
+            string GUID = AssetDatabase.CreateFolder(PathInAssets, FolderName);
             SetRefresh();
-            //
-            return AssetDatabase.GUIDToAssetPath(PathString);
+            return AssetDatabase.GUIDToAssetPath(GUID); //GUID not emty is success!!
         }
-        catch
+        catch 
         {
-            //Debug.LogWarningFormat("[Debug] Root Folder not Exist!!\n{0}", PathInAssets + "/" + PathFolderInAssets);
-            return "";
+            //Something went wrong when created folder?!
+            return ""; 
         }
     }
 
@@ -70,18 +63,20 @@ public class QAssetsDatabase : QPath
 
     #region ==================================== Delete
 
-    public static void SetDelete(PathType PathType, params string[] PathChild)
+    ///<summary><b>(UnityEditorOnly)</b></summary>
+    public static void SetDelete(params string[] PathChildInAssets)
     {
-        FileUtil.DeleteFileOrDirectory(QPath.GetPath(PathType, PathChild) + ".meta");
-        FileUtil.DeleteFileOrDirectory(QPath.GetPath(PathType, PathChild));
+        FileUtil.DeleteFileOrDirectory(QPath.GetPath(QPath.PathType.Assets, PathChildInAssets) + ".meta");
+        FileUtil.DeleteFileOrDirectory(QPath.GetPath(QPath.PathType.Assets, PathChildInAssets));
         //
         SetRefresh();
     }
 
     #endregion
 
-    #region ==================================== Refresh
+    #region ==================================== AssetsDatabase : Refresh
 
+    ///<summary><b>(UnityEditorOnly)</b></summary>
     public static void SetRefresh()
     {
         AssetDatabase.Refresh();
@@ -89,25 +84,14 @@ public class QAssetsDatabase : QPath
 
     #endregion
 
-    #region ==================================== Get
+    #region ==================================== AssetsDatabase : Get Assets
 
-#if UNITY_EDITOR
-
-    /// <summary>
-    /// Caution: Unity Editor only!
-    /// </summary>
-    /// <param name="NameSpecial"></param>
-    /// <param name="PathAssets"></param>
-    /// <returns></returns>
-    public static List<AnimationClip> GetAnimationClip(string NameSpecial, string PathAssets = "Assets/")
+    ///<summary><b>(UnityEditorOnly)</b></summary>
+    public static List<AnimationClip> GetAnimationClip(string NameSpecial, params string[] PathChildInAssets)
     {
-        if (PathAssets == null)
-            PathAssets = "Assets/";
-        else
-        if (PathAssets == "")
-            PathAssets = "Assets/";
-        else
-        if (!GetPathFolderExist(PathAssets))
+        string PathAssets = QPath.GetPath(QPath.PathType.Assets, PathChildInAssets);
+        //
+        if (!QPath.GetPathFolderExist(PathAssets))
             return null;
         //
         List<AnimationClip> ObjectsFound = new List<AnimationClip>();
@@ -124,21 +108,12 @@ public class QAssetsDatabase : QPath
         return ObjectsFound;
     }
 
-    /// <summary>
-    /// Caution: Unity Editor only!
-    /// </summary>
-    /// <param name="NameSpecial"></param>
-    /// <param name="PathAssets"></param>
-    /// <returns></returns>
-    public static List<AudioClip> GetAudioClip(string NameSpecial, string PathAssets = "Assets/")
+    ///<summary><b>(UnityEditorOnly)</b></summary>
+    public static List<AudioClip> GetAudioClip(string NameSpecial, params string[] PathChildInAssets)
     {
-        if (PathAssets == null)
-            PathAssets = "Assets/";
-        else
-        if (PathAssets == "")
-            PathAssets = "Assets/";
-        else
-        if (!GetPathFolderExist(PathAssets))
+        string PathAssets = QPath.GetPath(QPath.PathType.Assets, PathChildInAssets);
+        //
+        if (!QPath.GetPathFolderExist(PathAssets))
             return null;
         //
         List<AudioClip> ObjectsFound = new List<AudioClip>();
@@ -155,21 +130,12 @@ public class QAssetsDatabase : QPath
         return ObjectsFound;
     }
 
-    /// <summary>
-    /// Caution: Unity Editor only!
-    /// </summary>
-    /// <param name="NameSpecial"></param>
-    /// <param name="PathAssets"></param>
-    /// <returns></returns>
-    public static List<Font> GetFont(string NameSpecial, string PathAssets = "Assets/")
+    ///<summary><b>(UnityEditorOnly)</b></summary>
+    public static List<Font> GetFont(string NameSpecial, params string[] PathChildInAssets)
     {
-        if (PathAssets == null)
-            PathAssets = "Assets/";
-        else
-        if (PathAssets == "")
-            PathAssets = "Assets/";
-        else
-        if (!GetPathFolderExist(PathAssets))
+        string PathAssets = QPath.GetPath(QPath.PathType.Assets, PathChildInAssets);
+        //
+        if (!QPath.GetPathFolderExist(PathAssets))
             return null;
         //
         List<Font> ObjectsFound = new List<Font>();
@@ -186,21 +152,12 @@ public class QAssetsDatabase : QPath
         return ObjectsFound;
     }
 
-    /// <summary>
-    /// Caution: Unity Editor only!
-    /// </summary>
-    /// <param name="NameSpecial"></param>
-    /// <param name="PathAssets"></param>
-    /// <returns></returns>
-    public static List<Material> GetMaterial(string NameSpecial, string PathAssets = "Assets/")
+    ///<summary><b>(UnityEditorOnly)</b></summary>
+    public static List<Material> GetMaterial(string NameSpecial, params string[] PathChildInAssets)
     {
-        if (PathAssets == null)
-            PathAssets = "Assets/";
-        else
-        if (PathAssets == "")
-            PathAssets = "Assets/";
-        else
-        if (!GetPathFolderExist(PathAssets))
+        string PathAssets = QPath.GetPath(QPath.PathType.Assets, PathChildInAssets);
+        //
+        if (!QPath.GetPathFolderExist(PathAssets))
             return null;
         //
         List<Material> ObjectsFound = new List<Material>();
@@ -217,21 +174,12 @@ public class QAssetsDatabase : QPath
         return ObjectsFound;
     }
 
-    /// <summary>
-    /// Caution: Unity Editor only!
-    /// </summary>
-    /// <param name="NameSpecial"></param>
-    /// <param name="PathAssets"></param>
-    /// <returns></returns>
-    public static List<PhysicMaterial> GetPhysicMaterial(string NameSpecial, string PathAssets = "Assets/")
+    ///<summary><b>(UnityEditorOnly)</b></summary>
+    public static List<PhysicMaterial> GetPhysicMaterial(string NameSpecial, params string[] PathChildInAssets)
     {
-        if (PathAssets == null)
-            PathAssets = "Assets/";
-        else
-        if (PathAssets == "")
-            PathAssets = "Assets/";
-        else
-        if (!GetPathFolderExist(PathAssets))
+        string PathAssets = QPath.GetPath(QPath.PathType.Assets, PathChildInAssets);
+        //
+        if (!QPath.GetPathFolderExist(PathAssets))
             return null;
         //
         List<PhysicMaterial> ObjectsFound = new List<PhysicMaterial>();
@@ -248,21 +196,12 @@ public class QAssetsDatabase : QPath
         return ObjectsFound;
     }
 
-    /// <summary>
-    /// Caution: Unity Editor only!
-    /// </summary>
-    /// <param name="NameSpecial"></param>
-    /// <param name="PathAssets"></param>
-    /// <returns></returns>
-    public static List<Texture> GetTexture(string NameSpecial, string PathAssets = "Assets/")
+    ///<summary><b>(UnityEditorOnly)</b></summary>
+    public static List<Texture> GetTexture(string NameSpecial, params string[] PathChildInAssets)
     {
-        if (PathAssets == null)
-            PathAssets = "Assets/";
-        else
-        if (PathAssets == "")
-            PathAssets = "Assets/";
-        else
-        if (!GetPathFolderExist(PathAssets))
+        string PathAssets = QPath.GetPath(QPath.PathType.Assets, PathChildInAssets);
+        //
+        if (!QPath.GetPathFolderExist(PathAssets))
             return null;
         //
         List<Texture> ObjectsFound = new List<Texture>();
@@ -279,21 +218,12 @@ public class QAssetsDatabase : QPath
         return ObjectsFound;
     }
 
-    /// <summary>
-    /// Caution: Unity Editor only!
-    /// </summary>
-    /// <param name="NameSpecial"></param>
-    /// <param name="PathAssets"></param>
-    /// <returns></returns>
-    public static List<VideoClip> GetVideoClip(string NameSpecial, string PathAssets = "Assets/")
+    ///<summary><b>(UnityEditorOnly)</b></summary>
+    public static List<VideoClip> GetVideoClip(string NameSpecial, params string[] PathChildInAssets)
     {
-        if (PathAssets == null)
-            PathAssets = "Assets/";
-        else
-        if (PathAssets == "")
-            PathAssets = "Assets/";
-        else
-        if (!GetPathFolderExist(PathAssets))
+        string PathAssets = QPath.GetPath(QPath.PathType.Assets, PathChildInAssets);
+        //
+        if (!QPath.GetPathFolderExist(PathAssets))
             return null;
         //
         List<VideoClip> ObjectsFound = new List<VideoClip>();
@@ -310,21 +240,12 @@ public class QAssetsDatabase : QPath
         return ObjectsFound;
     }
 
-    /// <summary>
-    /// Caution: Unity Editor only!
-    /// </summary>
-    /// <param name="NameSpecial"></param>
-    /// <param name="PathAssets"></param>
-    /// <returns></returns>
-    public static List<GameObject> GetPrefab(string NameSpecial, string PathAssets = "Assets/")
+    ///<summary><b>(UnityEditorOnly)</b></summary>
+    public static List<GameObject> GetPrefab(string NameSpecial, params string[] PathChildInAssets)
     {
-        if (PathAssets == null)
-            PathAssets = "Assets/";
-        else
-        if (PathAssets == "")
-            PathAssets = "Assets/";
-        else
-        if (!GetPathFolderExist(PathAssets))
+        string PathAssets = QPath.GetPath(QPath.PathType.Assets, PathChildInAssets);
+        //
+        if (!QPath.GetPathFolderExist(PathAssets))
             return null;
         //
         List<GameObject> ObjectsFound = new List<GameObject>();
@@ -341,21 +262,12 @@ public class QAssetsDatabase : QPath
         return ObjectsFound;
     }
 
-    /// <summary>
-    /// Caution: Unity Editor only!
-    /// </summary>
-    /// <param name="NameSpecial"></param>
-    /// <param name="PathAssets"></param>
-    /// <returns></returns>
-    public static List<Sprite> GetSprite(string NameSpecial, string PathAssets = "Assets/")
+    ///<summary><b>(UnityEditorOnly)</b></summary>
+    public static List<Sprite> GetSprite(string NameSpecial, params string[] PathChildInAssets)
     {
-        if (PathAssets == null)
-            PathAssets = "Assets/";
-        else
-        if (PathAssets == "")
-            PathAssets = "Assets/";
-        else
-        if (!GetPathFolderExist(PathAssets))
+        string PathAssets = QPath.GetPath(QPath.PathType.Assets, PathChildInAssets);
+        //
+        if (!QPath.GetPathFolderExist(PathAssets))
             return null;
         //
         List<Sprite> ObjectsFound = new List<Sprite>();
@@ -372,21 +284,12 @@ public class QAssetsDatabase : QPath
         return ObjectsFound;
     }
 
-    /// <summary>
-    /// Caution: Unity Editor only!
-    /// </summary>
-    /// <param name="NameSpecial"></param>
-    /// <param name="PathAssets"></param>
-    /// <returns></returns>
-    public static List<RuntimeAnimatorController> GetAnimatorController(string NameSpecial, string PathAssets = "Assets/")
+    ///<summary><b>(UnityEditorOnly)</b></summary>
+    public static List<RuntimeAnimatorController> GetAnimatorController(string NameSpecial, params string[] PathChildInAssets)
     {
-        if (PathAssets == null)
-            PathAssets = "Assets/";
-        else
-        if (PathAssets == "")
-            PathAssets = "Assets/";
-        else
-        if (!GetPathFolderExist(PathAssets))
+        string PathAssets = QPath.GetPath(QPath.PathType.Assets, PathChildInAssets);
+        //
+        if (!QPath.GetPathFolderExist(PathAssets))
             return null;
         //
         List<RuntimeAnimatorController> ObjectsFound = new List<RuntimeAnimatorController>();
@@ -403,22 +306,12 @@ public class QAssetsDatabase : QPath
         return ObjectsFound;
     }
 
-    /// <summary>
-    /// Caution: Unity Editor only!
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="NameSpecial"></param>
-    /// <param name="PathAssets"></param>
-    /// <returns></returns>
-    public static List<T> GetScriptableObject<T>(string NameSpecial, string PathAssets = "Assets/") where T : ScriptableObject
+    ///<summary><b>(UnityEditorOnly)</b></summary>
+    public static List<T> GetScriptableObject<T>(string NameSpecial, params string[] PathChildInAssets) where T : ScriptableObject
     {
-        if (PathAssets == null)
-            PathAssets = "Assets/";
-        else
-        if (PathAssets == "")
-            PathAssets = "Assets/";
-        else
-        if (!GetPathFolderExist(PathAssets))
+        string PathAssets = QPath.GetPath(QPath.PathType.Assets, PathChildInAssets);
+        //
+        if (!QPath.GetPathFolderExist(PathAssets))
             return null;
         //
         List<T> ObjectsFound = new List<T>();
@@ -441,8 +334,6 @@ public class QAssetsDatabase : QPath
         //
         return ObjectsFound as List<T>;
     }
-
-#endif
 
     #endregion
 }

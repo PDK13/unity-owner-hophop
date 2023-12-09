@@ -32,7 +32,7 @@ public class StringConfig : ScriptableObject
         //COLOR:
         Value = Value.Replace(m_colorClear, "</color>");
         foreach (StringColorConfig Item in m_color)
-            Value = Value.Replace(Item.Code, string.Format("<{0}>", QColor.GetTextHexCode(Item.Color)));
+            Value = Value.Replace(Item.Code, string.Format("<{0}>", QText.GetColorHexCode(Item.Color)));
         //
         //CODE:
         Value = Value.Replace(m_codeEmty, "");

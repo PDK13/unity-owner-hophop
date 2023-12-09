@@ -109,7 +109,7 @@ public class MessageManager : SingletonManager<MessageManager>
         if (m_messageConfig != null)
             return;
         //
-        var AuthorConfigFound = QAssetsDatabase.GetScriptableObject<MessageDataConfig>("");
+        var AuthorConfigFound = QUnityAssets.GetScriptableObject<MessageDataConfig>("");
         //
         if (AuthorConfigFound == null)
         {
@@ -426,37 +426,37 @@ public class MessageManagerEditor : Editor
     {
         m_target = target as MessageManager;
         //
-        m_messageConfig = QEditorCustom.GetField(this, "m_messageConfig");
-        m_stringConfig = QEditorCustom.GetField(this, "m_stringConfig");
+        m_messageConfig = QUnityEditorCustom.GetField(this, "m_messageConfig");
+        m_stringConfig = QUnityEditorCustom.GetField(this, "m_stringConfig");
         //
-        m_debug = QEditorCustom.GetField(this, "m_debug");
-        m_data = QEditorCustom.GetField(this, "m_data");
-        m_tmp = QEditorCustom.GetField(this, "m_tmp");
-        m_current = QEditorCustom.GetField(this, "m_current");
-        m_stage = QEditorCustom.GetField(this, "m_stage");
+        m_debug = QUnityEditorCustom.GetField(this, "m_debug");
+        m_data = QUnityEditorCustom.GetField(this, "m_data");
+        m_tmp = QUnityEditorCustom.GetField(this, "m_tmp");
+        m_current = QUnityEditorCustom.GetField(this, "m_current");
+        m_stage = QUnityEditorCustom.GetField(this, "m_stage");
         //
         m_target.SetConfigFind();
     }
 
     public override void OnInspectorGUI()
     {
-        QEditorCustom.SetUpdate(this);
+        QUnityEditorCustom.SetUpdate(this);
         //
-        QEditorCustom.SetField(m_messageConfig);
-        QEditorCustom.SetField(m_stringConfig);
+        QUnityEditorCustom.SetField(m_messageConfig);
+        QUnityEditorCustom.SetField(m_stringConfig);
         //
-        QEditorCustom.SetField(m_debug);
+        QUnityEditorCustom.SetField(m_debug);
         //
-        QEditor.SetDisableGroupBegin();
+        QUnityEditor.SetDisableGroupBegin();
         //
-        QEditorCustom.SetField(m_data);
-        QEditorCustom.SetField(m_tmp);
-        QEditorCustom.SetField(m_current);
-        QEditorCustom.SetField(m_stage);
+        QUnityEditorCustom.SetField(m_data);
+        QUnityEditorCustom.SetField(m_tmp);
+        QUnityEditorCustom.SetField(m_current);
+        QUnityEditorCustom.SetField(m_stage);
         //
-        QEditor.SetDisableGroupEnd();
+        QUnityEditor.SetDisableGroupEnd();
         //
-        QEditorCustom.SetApply(this);
+        QUnityEditorCustom.SetApply(this);
     }
 }
 

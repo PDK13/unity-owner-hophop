@@ -388,12 +388,12 @@ public class BaseBodyEditor : Editor
 
     public override void OnInspectorGUI()
     {
-        QEditorCustom.SetUpdate(this);
+        QUnityEditorCustom.SetUpdate(this);
         //
-        if (QEditor.SetButton("Character Push"))
+        if (QUnityEditor.SetButton("Character Push"))
             m_target.SetEditorCharacterPush();
         //
-        QEditorCustom.SetApply(this);
+        QUnityEditorCustom.SetApply(this);
     }
 }
 

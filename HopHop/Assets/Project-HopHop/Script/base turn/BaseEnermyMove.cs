@@ -245,25 +245,25 @@ public class BaseEnermyMoveEditor : Editor
     {
         m_target = target as BaseEnermyMove;
 
-        m_moveDir = QEditorCustom.GetField(this, "m_moveDir");
-        m_checkPlayerHit = QEditorCustom.GetField(this, "m_checkPlayerHit");
-        m_checkStopBot = QEditorCustom.GetField(this, "m_checkStopBot");
-        m_checkStopAhead = QEditorCustom.GetField(this, "m_checkStopAhead");
+        m_moveDir = QUnityEditorCustom.GetField(this, "m_moveDir");
+        m_checkPlayerHit = QUnityEditorCustom.GetField(this, "m_checkPlayerHit");
+        m_checkStopBot = QUnityEditorCustom.GetField(this, "m_checkStopBot");
+        m_checkStopAhead = QUnityEditorCustom.GetField(this, "m_checkStopAhead");
     }
 
     public override void OnInspectorGUI()
     {
-        QEditorCustom.SetUpdate(this);
+        QUnityEditorCustom.SetUpdate(this);
         //
-        QEditorCustom.SetField(m_moveDir);
-        QEditorCustom.SetField(m_checkPlayerHit);
-        QEditorCustom.SetField(m_checkStopBot);
-        QEditorCustom.SetField(m_checkStopAhead);
+        QUnityEditorCustom.SetField(m_moveDir);
+        QUnityEditorCustom.SetField(m_checkPlayerHit);
+        QUnityEditorCustom.SetField(m_checkStopBot);
+        QUnityEditorCustom.SetField(m_checkStopAhead);
         //
-        if (QEditor.SetButton("Move"))
+        if (QUnityEditor.SetButton("Move"))
             m_target.SetEditorMove();
         //
-        QEditorCustom.SetApply(this);
+        QUnityEditorCustom.SetApply(this);
     }
 }
 

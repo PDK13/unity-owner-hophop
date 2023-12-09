@@ -126,8 +126,8 @@ public class MessageDataConfigEditor : Editor
     {
         m_target = target as MessageDataConfig;
         //
-        Author = QEditorCustom.GetField(this, "Author");
-        MessageTextDelayDefault = QEditorCustom.GetField(this, "MessageTextDelayDefault");
+        Author = QUnityEditorCustom.GetField(this, "Author");
+        MessageTextDelayDefault = QUnityEditorCustom.GetField(this, "MessageTextDelayDefault");
         //
         SetConfigAuthorFixed();
     }
@@ -144,12 +144,12 @@ public class MessageDataConfigEditor : Editor
 
     public override void OnInspectorGUI()
     {
-        QEditorCustom.SetUpdate(this);
+        QUnityEditorCustom.SetUpdate(this);
         //
-        QEditorCustom.SetField(Author);
-        QEditorCustom.SetField(MessageTextDelayDefault);
+        QUnityEditorCustom.SetField(Author);
+        QUnityEditorCustom.SetField(MessageTextDelayDefault);
         //
-        QEditorCustom.SetApply(this);
+        QUnityEditorCustom.SetApply(this);
     }
 
     //
@@ -168,7 +168,7 @@ public class MessageDataConfigEditor : Editor
             else
                 Index++;
         }
-        QEditorCustom.SetDirty(m_target);
+        QUnityEditorCustom.SetDirty(m_target);
         //
         if (RemoveEmty)
             Debug.Log("[Message] Author(s) emty have been remove from list");

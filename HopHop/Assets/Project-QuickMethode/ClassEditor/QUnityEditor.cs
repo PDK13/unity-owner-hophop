@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using System;
+using Object = UnityEngine.Object;
 #if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.UIElements;
@@ -8,13 +10,9 @@ using UnityEditor.UIElements;
 
 #if UNITY_EDITOR
 
-///<summary>
-///Caution: Unity Editor only!
-///</summary>
-public class QEditor
+///<summary><b>(UnityEditorOnly)</b></summary>
+public class QUnityEditor
 {
-    //Can be use for EditorWindow & Editor Script!!
-
     #region ==================================== GUI Group
 
     #region ------------------------------------ Chance Check
@@ -302,9 +300,9 @@ public class QEditor
         return EditorGUILayout.Popup("", IndexChoice, ListChoice.ToArray(), GUILayoutOption);
     }
 
-    public static int SetPopup<EnumType>(int IndexChoice, params GUILayoutOption[] GUILayoutOption)
+    public static int SetPopup<T>(int IndexChoice, params GUILayoutOption[] GUILayoutOption) where T : Enum
     {
-        return EditorGUILayout.Popup("", IndexChoice, QEnum.GetListName<EnumType>().ToArray(), GUILayoutOption);
+        return EditorGUILayout.Popup("", IndexChoice, QEnum.GetListName<T>().ToArray(), GUILayoutOption);
     }
 
     #endregion
@@ -414,12 +412,11 @@ public class QEditor
     }
 
     #endregion
-} //This use for every Editor!!
+}
 
-///<summary>
-///Caution: Unity Editor only!
-///</summary>
-public class QEditorWindow : QEditor
+///<summary><b>(UnityEditorOnly)</b></summary>
+///<remarks>Used for Unity Window Panel (EditorWindow) only</remarks>
+public class QUnityEditorWindow : QUnityEditor
 {
     #region ==================================== GUI Primary
 
@@ -429,22 +426,22 @@ public class QEditorWindow : QEditor
 
     public static GUILayoutOption GetGUILayoutWidth(EditorWindow This, float WidthPercent = 1, float WidthOffset = 0)
     {
-        return QEditor.GetGUIWidth(GetWindowWidth(This) * WidthPercent - WidthOffset - WIDTH_OFFSET);
+        return QUnityEditor.GetGUIWidth(GetWindowWidth(This) * WidthPercent - WidthOffset - WIDTH_OFFSET);
     }
 
     public static GUILayoutOption GetGUILayoutWidthBaseHeight(EditorWindow This, float HeightPercent = 1, float HeightOffset = 0)
     {
-        return QEditor.GetGUIWidth(GetWindowHeight(This) * HeightPercent - HeightOffset - WIDTH_OFFSET);
+        return QUnityEditor.GetGUIWidth(GetWindowHeight(This) * HeightPercent - HeightOffset - WIDTH_OFFSET);
     }
 
     public static GUILayoutOption GetGUILayoutHeight(EditorWindow This, float HeightPercent = 1, float HeightOffset = 0)
     {
-        return QEditor.GetGUIHeight(GetWindowHeight(This) * HeightPercent - HeightOffset);
+        return QUnityEditor.GetGUIHeight(GetWindowHeight(This) * HeightPercent - HeightOffset);
     }
 
     public static GUILayoutOption GetGUILayoutHeightBaseWidth(EditorWindow This, float WidthPercent = 1, float WidthOffset = 0)
     {
-        return QEditor.GetGUIHeight(GetWindowWidth(This) * WidthPercent - WidthOffset);
+        return QUnityEditor.GetGUIHeight(GetWindowWidth(This) * WidthPercent - WidthOffset);
     }
 
     #endregion
@@ -464,12 +461,11 @@ public class QEditorWindow : QEditor
     #endregion
 
     #endregion
-} //This used for Window Editor only!!
+}
 
-///<summary>
-///Caution: Unity Editor only!
-///</summary>
-public class QEditorCustom : QEditor
+///<summary><b>(UnityEditorOnly)</b></summary>
+///<remarks>Used for Script (CustomEditor) only</remarks>
+public class QUnityEditorCustom : QUnityEditor
 {
     #region ==================================== GUI Primary
 
@@ -519,12 +515,11 @@ public class QEditorCustom : QEditor
     #endregion
 
     #endregion
-} //This used for Script Editor (Custom Editor)!!
+}
 
-///<summary>
-///Caution: Unity Editor only!
-///</summary>
-public class QEditorObject : QEditor
+///<summary><b>(UnityEditorOnly)</b></summary>
+///<remarks>Used for Custom Class or Struct (PropertyDrawer) only</remarks>
+public class QUnityEditorObject : QUnityEditor
 {
     #region ==================================== GUI Primary
 
@@ -583,8 +578,6 @@ public class QEditorObject : QEditor
     #endregion
 
     #endregion
-} //This used for Custom Class or Struct (PropertyDrawer)!!
-
-
+}
 
 #endif

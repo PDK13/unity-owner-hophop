@@ -75,7 +75,7 @@ public class QCamera
 
 public class QScreenCapture
 {
-    //Get Image from 'QSprite.GetScreenShot()' class!
+    //Get Image from 'QSprite.GetSprite()'!!
 
 #if UNITY_EDITOR
 
