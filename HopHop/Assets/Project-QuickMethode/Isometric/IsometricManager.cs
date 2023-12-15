@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
+[ExecuteAlways]
 public class IsometricManager : SingletonManager<IsometricManager>
 {
     #region Varible: Game Config
@@ -20,9 +21,7 @@ public class IsometricManager : SingletonManager<IsometricManager>
     #region Varible: World Manager
 
     public IsometricGameDataScene Scene;
-    //
     public IsometricManagerWorld World;
-    //
     public IsometricManagerList List;
 
     #endregion
@@ -31,15 +30,24 @@ public class IsometricManager : SingletonManager<IsometricManager>
     {
         base.Awake();
         //
+        Scene = new IsometricGameDataScene();
+        World = new IsometricManagerWorld(this);
+        List = new IsometricManagerList();
+        //
 #if UNITY_EDITOR
         SetConfigFind();
 #endif
     }
 
-    public void SetInit()
+    private void Reset()
     {
+        Scene = new IsometricGameDataScene();
         World = new IsometricManagerWorld(this);
         List = new IsometricManagerList();
+        //
+#if UNITY_EDITOR
+        SetConfigFind();
+#endif
     }
 
 #if UNITY_EDITOR
@@ -146,8 +154,11 @@ public class IsometricManagerEditor : Editor
         QUnityEditorCustom.SetField(m_isometricConfig);
         //
         QUnityEditorCustom.SetField(Scene);
+        //
+        QUnityEditor.SetDisableGroupBegin();
         QUnityEditorCustom.SetField(World);
         QUnityEditorCustom.SetField(List);
+        QUnityEditor.SetDisableGroupEnd();
         //
         QUnityEditor.SetDisableGroupEnd();
         //

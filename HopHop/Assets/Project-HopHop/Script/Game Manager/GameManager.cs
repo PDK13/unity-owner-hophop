@@ -39,7 +39,6 @@ public class GameManager : SingletonManager<GameManager>
 
     private void Start()
     {
-        m_isometricManager.SetInit();
         m_isometricManager.List.SetList(m_isometricConfig, true);
 
         SetWorldLoad(m_levelConfig.Level[0].Level[0]);
@@ -71,7 +70,7 @@ public class GameManager : SingletonManager<GameManager>
 
     private IEnumerator ISetWorldLoad(TextAsset WorldData)
     {
-        m_isometricManager.World.SetWorldRemove(m_isometricManager.transform);
+        m_isometricManager.World.Current.SetWorldRemove(m_isometricManager.transform);
 
         yield return new WaitForSeconds(1f);
 

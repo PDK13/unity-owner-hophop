@@ -12,7 +12,8 @@ public class SingletonManager<T> : MonoBehaviour where T : MonoBehaviour
             Destroy(this.gameObject);
             return;
         }
-        DontDestroyOnLoad(this.gameObject);
+        if (Application.isPlaying)
+            DontDestroyOnLoad(this.gameObject);
         Instance = GetComponent<T>();
     }
 }

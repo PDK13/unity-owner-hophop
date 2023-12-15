@@ -103,7 +103,7 @@ public class BaseEnermyMove : MonoBehaviour
         int Length = 1; //Follow Character (!)
         //
         //Check if there is a Block ahead?!
-        IsometricBlock Block = m_block.WorldManager.World.GetBlockCurrent(m_block.Pos + Dir * Length);
+        IsometricBlock Block = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + Dir * Length);
         if (Block != null)
         {
             if (Block.Tag.Contains(GameConfigTag.Player))
@@ -162,7 +162,7 @@ public class BaseEnermyMove : MonoBehaviour
         {
             //Continue check move Ahead Bot!!
             //
-            IsometricBlock BlockBot = m_block.WorldManager.World.GetBlockCurrent(m_block.Pos + Dir * Length + IsometricVector.Bot);
+            IsometricBlock BlockBot = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + Dir * Length + IsometricVector.Bot);
             if (BlockBot == null)
                 //Stop Ahead because no block ahead bot!!
                 return false;

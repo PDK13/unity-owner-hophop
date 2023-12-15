@@ -187,7 +187,7 @@ public class BaseBlock : MonoBehaviour
             return;
         }
         //
-        IsometricBlock BlockPush = m_block.WorldManager.World.GetBlockCurrent(m_block.Pos + Dir);
+        IsometricBlock BlockPush = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + Dir);
         if (BlockPush != null)
         {
             BaseBody BodyPush = BlockPush.GetComponent<BaseBody>();
@@ -201,7 +201,7 @@ public class BaseBlock : MonoBehaviour
     private void SetMoveTop(IsometricVector Dir)
     {
         //Top!!
-        IsometricBlock BlockTop = m_block.WorldManager.World.GetBlockCurrent(m_block.Pos + IsometricVector.Top);
+        IsometricBlock BlockTop = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + IsometricVector.Top);
         if (BlockTop != null)
         {
             BaseBody BodyTop = BlockTop.GetComponent<BaseBody>();

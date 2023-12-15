@@ -195,7 +195,7 @@ public class BaseBody : MonoBehaviour
         //
         if (From == IsometricVector.Bot)
         {
-            IsometricBlock BlockNext = m_block.WorldManager.World.GetBlockCurrent(m_block.Pos.Fixed + Dir);
+            IsometricBlock BlockNext = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos.Fixed + Dir);
             if (BlockNext != null)
             {
                 //When Block Bot end move, surely Bot of this will be emty!!
@@ -207,7 +207,7 @@ public class BaseBody : MonoBehaviour
         {
             MoveLastXY = Dir;
             //
-            IsometricBlock BlockNext = m_block.WorldManager.World.GetBlockCurrent(m_block.Pos.Fixed + Dir);
+            IsometricBlock BlockNext = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos.Fixed + Dir);
             if (BlockNext != null)
             {
                 Debug.LogError("[Debug] Push to Wall!!");
@@ -249,7 +249,7 @@ public class BaseBody : MonoBehaviour
             return;
         }
         //
-        IsometricBlock BlockPush = m_block.WorldManager.World.GetBlockCurrent(m_block.Pos + Dir);
+        IsometricBlock BlockPush = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + Dir);
         if (BlockPush != null)
         {
             BaseBody BodyPush = BlockPush.GetComponent<BaseBody>();
@@ -302,7 +302,7 @@ public class BaseBody : MonoBehaviour
             return;
         //
         //Top!!
-        IsometricBlock BlockTop = m_block.WorldManager.World.GetBlockCurrent(m_block.Pos + IsometricVector.Top);
+        IsometricBlock BlockTop = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + IsometricVector.Top);
         if (BlockTop != null)
         {
             BaseBody BodyTop = BlockTop.GetComponent<BaseBody>();
@@ -352,12 +352,12 @@ public class BaseBody : MonoBehaviour
 
     public IsometricBlock GetCheckDir(IsometricVector Dir)
     {
-        return m_block.WorldManager.World.GetBlockCurrent(m_block.Pos.Fixed + Dir);
+        return m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos.Fixed + Dir);
     }
 
     public IsometricBlock GetCheckDir(IsometricVector Dir, IsometricVector DirNext)
     {
-        return m_block.WorldManager.World.GetBlockCurrent(m_block.Pos.Fixed + Dir + DirNext);
+        return m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos.Fixed + Dir + DirNext);
     }
 
     #endregion

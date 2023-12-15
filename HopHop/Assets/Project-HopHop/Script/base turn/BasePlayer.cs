@@ -112,7 +112,7 @@ public class BasePlayer : MonoBehaviour
         int Length = 1; //Follow Character (!)
         //
         //Check if there is a Block ahead?!
-        IsometricBlock Block = m_block.WorldManager.World.GetBlockCurrent(m_block.Pos + Dir * Length);
+        IsometricBlock Block = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + Dir * Length);
         if (Block != null)
         {
             if (Block.Tag.Contains(GameConfigTag.Bullet))
