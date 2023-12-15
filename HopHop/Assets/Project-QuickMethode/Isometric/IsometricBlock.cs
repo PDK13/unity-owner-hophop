@@ -47,7 +47,7 @@ public class IsometricBlock : MonoBehaviour
 
     private void Awake()
     {
-        if (Application.isPlaying && this.name == IsometricDataWorld.CURSON_NAME)
+        if (Application.isPlaying && this.name == IsometricManagerWorld.CURSON_NAME)
             Destroy(this.gameObject);
     }
 
@@ -84,7 +84,7 @@ public class IsometricBlock : MonoBehaviour
         set
         {
             m_worldManager = value;
-            m_sceneData = value.Game.Scene;
+            m_sceneData = value.Scene;
         }
     }
 
@@ -193,7 +193,7 @@ public class IsometricBlock : MonoBehaviour
     {
         if (WorldManager != null)
         {
-            m_sceneData = WorldManager.Game.Scene;
+            m_sceneData = WorldManager.Scene;
         }
 
         Vector3 PosTransform = GetIsoTransform(m_pos);

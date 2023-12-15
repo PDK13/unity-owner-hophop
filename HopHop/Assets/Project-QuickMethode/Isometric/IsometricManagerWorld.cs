@@ -4,9 +4,12 @@ using System.Linq;
 using UnityEngine;
 
 [Serializable]
-public class IsometricDataWorld
+public class IsometricManagerWorld
 {
     public const string CURSON_NAME = "ISO-CURSON";
+
+    public string Name = "";
+    public List<string> Command = new List<string>();
 
     public Action onCreate;
     public Action onRemove;
@@ -16,7 +19,7 @@ public class IsometricDataWorld
 
     private readonly IsometricManager m_manager;
 
-    public IsometricDataWorld(IsometricManager Manager)
+    public IsometricManagerWorld(IsometricManager Manager)
     {
         m_manager = Manager;
         //

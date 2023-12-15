@@ -171,7 +171,7 @@ public class IsometricTool : EditorWindow
         {
             QUnityEditor.SetBackground(Color.white);
             QUnityEditor.SetLabel("RENDERER: ", QUnityEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
-            m_manager.Game.Scene.Renderer = (IsometricRendererType)QUnityEditor.SetPopup<IsometricRendererType>((int)m_manager.Game.Scene.Renderer, QUnityEditorWindow.GetGUILayoutWidth(this, 0.75f, 2.5f));
+            m_manager.Scene.Renderer = (IsometricRendererType)QUnityEditor.SetPopup<IsometricRendererType>((int)m_manager.Scene.Renderer, QUnityEditorWindow.GetGUILayoutWidth(this, 0.75f, 2.5f));
         }
         QUnityEditor.SetHorizontalEnd();
 
@@ -180,11 +180,11 @@ public class IsometricTool : EditorWindow
             QUnityEditor.SetBackground(Color.white);
             QUnityEditor.SetLabel("ROTATE: ", QUnityEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
             QUnityEditor.SetChanceCheckBegin();
-            m_manager.Game.Scene.Rotate = (IsometricRotateType)QUnityEditor.SetPopup<IsometricRotateType>((int)m_manager.Game.Scene.Rotate, QUnityEditorWindow.GetGUILayoutWidth(this, 0.75f, 2.5f));
+            m_manager.Scene.Rotate = (IsometricRotateType)QUnityEditor.SetPopup<IsometricRotateType>((int)m_manager.Scene.Rotate, QUnityEditorWindow.GetGUILayoutWidth(this, 0.75f, 2.5f));
             if (QUnityEditor.SetChanceCheckEnd())
             {
-                m_manager.Game.Scene.Centre = m_curson.Pos;
-                m_manager.Game.Scene.Centre.H = 0;
+                m_manager.Scene.Centre = m_curson.Pos;
+                m_manager.Scene.Centre.H = 0;
             }
         }
         QUnityEditor.SetHorizontalEnd();
@@ -294,11 +294,11 @@ public class IsometricTool : EditorWindow
     {
         if (m_curson == null)
         {
-            Transform Curson = m_manager.transform.Find(IsometricDataWorld.CURSON_NAME);
+            Transform Curson = m_manager.transform.Find(IsometricManagerWorld.CURSON_NAME);
 
             if (Curson == null)
             {
-                GameObject CursonClone = QGameObject.SetCreate(IsometricDataWorld.CURSON_NAME, m_manager.transform);
+                GameObject CursonClone = QGameObject.SetCreate(IsometricManagerWorld.CURSON_NAME, m_manager.transform);
                 m_curson = CursonClone.AddComponent<IsometricBlock>();
             }
             else
@@ -338,7 +338,7 @@ public class IsometricTool : EditorWindow
                     {
                         //Move Curson!!
                         case KeyCode.UpArrow:
-                            m_curson.Pos += IsometricVector.GetRotateDir(IsometricVector.GetDir(IsoDir.Up), m_manager.Game.Scene.Rotate);
+                            m_curson.Pos += IsometricVector.GetRotateDir(IsometricVector.GetDir(IsoDir.Up), m_manager.Scene.Rotate);
                             SetCursonMaskXY();
                             SetCursonHiddenH();
                             SetCursonCheck();
@@ -346,7 +346,7 @@ public class IsometricTool : EditorWindow
                             m_event.Use();
                             break;
                         case KeyCode.DownArrow:
-                            m_curson.Pos += IsometricVector.GetRotateDir(IsometricVector.GetDir(IsoDir.Down), m_manager.Game.Scene.Rotate);
+                            m_curson.Pos += IsometricVector.GetRotateDir(IsometricVector.GetDir(IsoDir.Down), m_manager.Scene.Rotate);
                             SetCursonMaskXY();
                             SetCursonHiddenH();
                             SetCursonCheck();
@@ -354,7 +354,7 @@ public class IsometricTool : EditorWindow
                             m_event.Use();
                             break;
                         case KeyCode.LeftArrow:
-                            m_curson.Pos += IsometricVector.GetRotateDir(IsometricVector.GetDir(IsoDir.Left), m_manager.Game.Scene.Rotate);
+                            m_curson.Pos += IsometricVector.GetRotateDir(IsometricVector.GetDir(IsoDir.Left), m_manager.Scene.Rotate);
                             SetCursonMaskXY();
                             SetCursonHiddenH();
                             SetCursonCheck();
@@ -362,7 +362,7 @@ public class IsometricTool : EditorWindow
                             m_event.Use();
                             break;
                         case KeyCode.RightArrow:
-                            m_curson.Pos += IsometricVector.GetRotateDir(IsometricVector.GetDir(IsoDir.Right), m_manager.Game.Scene.Rotate);
+                            m_curson.Pos += IsometricVector.GetRotateDir(IsometricVector.GetDir(IsoDir.Right), m_manager.Scene.Rotate);
                             SetCursonMaskXY();
                             SetCursonHiddenH();
                             SetCursonCheck();
@@ -370,7 +370,7 @@ public class IsometricTool : EditorWindow
                             m_event.Use();
                             break;
                         case KeyCode.PageUp:
-                            m_curson.Pos += IsometricVector.GetRotateDir(IsometricVector.GetDir(IsoDir.Top), m_manager.Game.Scene.Rotate);
+                            m_curson.Pos += IsometricVector.GetRotateDir(IsometricVector.GetDir(IsoDir.Top), m_manager.Scene.Rotate);
                             SetCursonMaskXY();
                             SetCursonHiddenH();
                             SetCursonCheck();
@@ -378,7 +378,7 @@ public class IsometricTool : EditorWindow
                             m_event.Use();
                             break;
                         case KeyCode.PageDown:
-                            m_curson.Pos += IsometricVector.GetRotateDir(IsometricVector.GetDir(IsoDir.Bot), m_manager.Game.Scene.Rotate);
+                            m_curson.Pos += IsometricVector.GetRotateDir(IsometricVector.GetDir(IsoDir.Bot), m_manager.Scene.Rotate);
                             SetCursonMaskXY();
                             SetCursonHiddenH();
                             SetCursonCheck();

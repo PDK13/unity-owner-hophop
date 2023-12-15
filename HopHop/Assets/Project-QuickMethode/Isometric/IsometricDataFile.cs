@@ -46,15 +46,15 @@ public class IsometricDataFile
         //WORLD START!!
         //
         FileIO.SetWriteAdd(KEY_WORLD_NAME);
-        FileIO.SetWriteAdd((Manager.Game.Name != "") ? Manager.Game.Name : "...");
+        FileIO.SetWriteAdd((Manager.World.Name != "") ? Manager.World.Name : "...");
         //
         FileIO.SetWriteAdd();
         //
         FileIO.SetWriteAdd(KEY_WORLD_COMMAND);
-        FileIO.SetWriteAdd(Manager.Game.Command.Count);
-        for (int i = 0; i < Manager.Game.Command.Count; i++)
+        FileIO.SetWriteAdd(Manager.World.Command.Count);
+        for (int i = 0; i < Manager.World.Command.Count; i++)
         {
-            FileIO.SetWriteAdd(Manager.Game.Command[i]);
+            FileIO.SetWriteAdd(Manager.World.Command[i]);
         }
         //
         FileIO.SetWriteAdd();
@@ -185,15 +185,15 @@ public class IsometricDataFile
             switch (FileIO.GetReadAutoString())
             {
                 case KEY_WORLD_NAME:
-                    Manager.Game.Name = FileIO.GetReadAutoString();
+                    Manager.World.Name = FileIO.GetReadAutoString();
                     break;
                 case KEY_WORLD_COMMAND:
                     int CommandCount = FileIO.GetReadAutoInt();
                     //
-                    Manager.Game.Command = new List<string>();
+                    Manager.World.Command = new List<string>();
                     for (int CommandIndex = 0; CommandIndex < CommandCount; CommandIndex++)
                     {
-                        Manager.Game.Command.Add(FileIO.GetReadAutoString());
+                        Manager.World.Command.Add(FileIO.GetReadAutoString());
                     }
                     break;
                 case KEY_WORLD_BLOCK:

@@ -19,11 +19,11 @@ public class IsometricManager : SingletonManager<IsometricManager>
 
     #region Varible: World Manager
 
-    public IsometricGameData Game;
+    public IsometricGameDataScene Scene;
     //
-    public IsometricDataWorld World;
+    public IsometricManagerWorld World;
     //
-    public IsometricDataList List;
+    public IsometricManagerList List;
 
     #endregion
 
@@ -38,8 +38,8 @@ public class IsometricManager : SingletonManager<IsometricManager>
 
     public void SetInit()
     {
-        World = new IsometricDataWorld(this);
-        List = new IsometricDataList();
+        World = new IsometricManagerWorld(this);
+        List = new IsometricManagerList();
     }
 
 #if UNITY_EDITOR
@@ -74,14 +74,6 @@ public class IsometricManager : SingletonManager<IsometricManager>
     }
 
 #endif
-}
-
-[Serializable]
-public class IsometricGameData
-{
-    public string Name = "";
-    public List<string> Command = new List<string>();
-    public IsometricGameDataScene Scene = new IsometricGameDataScene();
 }
 
 [Serializable]
@@ -130,7 +122,7 @@ public class IsometricManagerEditor : Editor
 
     private SerializedProperty m_isometricConfig;
 
-    private SerializedProperty Game;
+    private SerializedProperty Scene;
     private SerializedProperty World;
     private SerializedProperty List;
 
@@ -140,7 +132,7 @@ public class IsometricManagerEditor : Editor
         //
         m_isometricConfig = QUnityEditorCustom.GetField(this, "m_isometricConfig");
         //
-        Game = QUnityEditorCustom.GetField(this, "Game");
+        Scene = QUnityEditorCustom.GetField(this, "Scene");
         World = QUnityEditorCustom.GetField(this, "World");
         List = QUnityEditorCustom.GetField(this, "List");
         //
@@ -153,7 +145,7 @@ public class IsometricManagerEditor : Editor
         //
         QUnityEditorCustom.SetField(m_isometricConfig);
         //
-        QUnityEditorCustom.SetField(Game);
+        QUnityEditorCustom.SetField(Scene);
         QUnityEditorCustom.SetField(World);
         QUnityEditorCustom.SetField(List);
         //

@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class IsometricDataList
+public class IsometricManagerList
 {
     public Action onListRead;
 
     public List<IsometricDataBlockListTag> BlockList;
 
-    public IsometricDataList()
+    public IsometricManagerList()
     {
         BlockList = new List<IsometricDataBlockListTag>();
     }
