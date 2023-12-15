@@ -119,7 +119,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: tree 0_Frame_0
+  - name: Tree 0_Frame_0
     originalName: 
     pivot: {x: 0.5, y: -0.07692308}
     alignment: 9
@@ -130,7 +130,7 @@ ScriptedImporter:
       y: 4
       width: 104
       height: 117
-    spriteID: 6a7c0bee0997cae45a33b28b60ae0c7c
+    spriteID: 6d4f4420c67ab7142be6cd2d6fe6ffb1
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -139,7 +139,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-  - name: tree 0_Frame_1
+  - name: Tree 0_Frame_1
     originalName: 
     pivot: {x: 0.5, y: -0.07692308}
     alignment: 9
@@ -150,7 +150,7 @@ ScriptedImporter:
       y: 129
       width: 104
       height: 117
-    spriteID: 9dc4a9620c0640d4c86d81071e7aabf8
+    spriteID: d0a07f81e0a320941a656522e870ebac
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -159,7 +159,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 129}
-  - name: tree 0_Frame_2
+  - name: Tree 0_Frame_2
     originalName: 
     pivot: {x: 0.5, y: -0.07692308}
     alignment: 9
@@ -170,7 +170,7 @@ ScriptedImporter:
       y: 254
       width: 104
       height: 117
-    spriteID: a084d8a5b72b59d44b712b34f0548732
+    spriteID: 5eb6a89b0b2c9ec47957d2679ac1cdca
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -179,7 +179,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 254}
-  - name: tree 0_Frame_3
+  - name: Tree 0_Frame_3
     originalName: 
     pivot: {x: 0.5, y: -0.07692308}
     alignment: 9
@@ -190,7 +190,7 @@ ScriptedImporter:
       y: 379
       width: 104
       height: 117
-    spriteID: f672cabc970759c4296e214dc6a1f11f
+    spriteID: e16991fb790ce184ca490ebcbdd12f06
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -199,7 +199,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 379}
-  - name: tree 0_Frame_4
+  - name: Tree 0_Frame_4
     originalName: 
     pivot: {x: 0.5, y: -0.07692308}
     alignment: 9
@@ -210,7 +210,7 @@ ScriptedImporter:
       y: 4
       width: 104
       height: 117
-    spriteID: 867927267dd73884a93e7401742b26aa
+    spriteID: 93bf2707ca41ac645ba4c6fbb3754513
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -219,7 +219,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 116, y: 4}
-  - name: tree 0_Frame_5
+  - name: Tree 0_Frame_5
     originalName: 
     pivot: {x: 0.5, y: -0.07692308}
     alignment: 9
@@ -230,7 +230,7 @@ ScriptedImporter:
       y: 129
       width: 104
       height: 117
-    spriteID: 1c9c6bed4a6a6d640acddda00a73fd41
+    spriteID: 0ee048b31e894fe498417b0347b00f9a
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -239,7 +239,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 116, y: 129}
-  - name: tree 0_Frame_6
+  - name: Tree 0_Frame_6
     originalName: 
     pivot: {x: 0.5, y: -0.07692308}
     alignment: 9
@@ -250,7 +250,7 @@ ScriptedImporter:
       y: 254
       width: 104
       height: 117
-    spriteID: f7e0b83eb40c01f46b09c59aea38405b
+    spriteID: 45c36221095af514f97a663e8e6af6bd
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -259,7 +259,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 116, y: 254}
-  - name: tree 0_Frame_7
+  - name: Tree 0_Frame_7
     originalName: 
     pivot: {x: 0.5, y: -0.07692308}
     alignment: 9
@@ -270,7 +270,7 @@ ScriptedImporter:
       y: 379
       width: 104
       height: 117
-    spriteID: 21c0a4bbd787bd8458573296489891ea
+    spriteID: a5852ac9034b3cd45bf9863bc7ed11c4
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -279,7 +279,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 116, y: 379}
-  - name: tree 0_Frame_8
+  - name: Tree 0_Frame_8
     originalName: 
     pivot: {x: 0.5, y: -0.07692308}
     alignment: 9
@@ -290,7 +290,7 @@ ScriptedImporter:
       y: 4
       width: 104
       height: 117
-    spriteID: bf8fbdee39228b048bcdd754e01c240c
+    spriteID: 7dd4f447c639e9c4aad6bb5ff92185f9
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -299,7 +299,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 228, y: 4}
-  - name: tree 0_Frame_9
+  - name: Tree 0_Frame_9
     originalName: 
     pivot: {x: 0.5, y: -0.07692308}
     alignment: 9
@@ -310,7 +310,7 @@ ScriptedImporter:
       y: 129
       width: 104
       height: 117
-    spriteID: 3372791b6a308cf4c9a3afbb30170ae9
+    spriteID: 93e6c813d6476ff4d9ab414a326d9198
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -319,7 +319,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 228, y: 129}
-  - name: tree 0_Frame_10
+  - name: Tree 0_Frame_10
     originalName: 
     pivot: {x: 0.5, y: -0.07692308}
     alignment: 9
@@ -330,7 +330,7 @@ ScriptedImporter:
       y: 254
       width: 104
       height: 117
-    spriteID: 2b008d9a2cff55c48ae4028560bc2d88
+    spriteID: d20ad717d6815974482f6bf2f522ade0
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -339,7 +339,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 228, y: 254}
-  - name: tree 0_Frame_11
+  - name: Tree 0_Frame_11
     originalName: 
     pivot: {x: 0.5, y: -0.07692308}
     alignment: 9
@@ -350,7 +350,7 @@ ScriptedImporter:
       y: 379
       width: 104
       height: 117
-    spriteID: f60729c4ee7d8104bafeff077b6755a7
+    spriteID: 72877cb45b213db45bd7a08da20eafc4
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -362,108 +362,108 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 607158534
-    name: tree 0
+    guid: 623483174
+    name: Tree 0
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: tree 0_Frame_0
+    - name: Tree 0_Frame_0
       frameIndex: 0
       cellRect:
         x: 12
         y: 9
         width: 104
         height: 117
-      spriteId: 6a7c0bee0997cae45a33b28b60ae0c7c
-    - name: tree 0_Frame_1
+      spriteId: 6d4f4420c67ab7142be6cd2d6fe6ffb1
+    - name: Tree 0_Frame_1
       frameIndex: 1
       cellRect:
         x: 12
         y: 9
         width: 104
         height: 117
-      spriteId: 9dc4a9620c0640d4c86d81071e7aabf8
-    - name: tree 0_Frame_2
+      spriteId: d0a07f81e0a320941a656522e870ebac
+    - name: Tree 0_Frame_2
       frameIndex: 2
       cellRect:
         x: 12
         y: 9
         width: 104
         height: 117
-      spriteId: a084d8a5b72b59d44b712b34f0548732
-    - name: tree 0_Frame_3
+      spriteId: 5eb6a89b0b2c9ec47957d2679ac1cdca
+    - name: Tree 0_Frame_3
       frameIndex: 3
       cellRect:
         x: 12
         y: 9
         width: 104
         height: 117
-      spriteId: f672cabc970759c4296e214dc6a1f11f
-    - name: tree 0_Frame_4
+      spriteId: e16991fb790ce184ca490ebcbdd12f06
+    - name: Tree 0_Frame_4
       frameIndex: 4
       cellRect:
         x: 12
         y: 9
         width: 104
         height: 117
-      spriteId: 867927267dd73884a93e7401742b26aa
-    - name: tree 0_Frame_5
+      spriteId: 93bf2707ca41ac645ba4c6fbb3754513
+    - name: Tree 0_Frame_5
       frameIndex: 5
       cellRect:
         x: 12
         y: 9
         width: 104
         height: 117
-      spriteId: 1c9c6bed4a6a6d640acddda00a73fd41
-    - name: tree 0_Frame_6
+      spriteId: 0ee048b31e894fe498417b0347b00f9a
+    - name: Tree 0_Frame_6
       frameIndex: 6
       cellRect:
         x: 12
         y: 9
         width: 104
         height: 117
-      spriteId: f7e0b83eb40c01f46b09c59aea38405b
-    - name: tree 0_Frame_7
+      spriteId: 45c36221095af514f97a663e8e6af6bd
+    - name: Tree 0_Frame_7
       frameIndex: 7
       cellRect:
         x: 12
         y: 9
         width: 104
         height: 117
-      spriteId: 21c0a4bbd787bd8458573296489891ea
-    - name: tree 0_Frame_8
+      spriteId: a5852ac9034b3cd45bf9863bc7ed11c4
+    - name: Tree 0_Frame_8
       frameIndex: 8
       cellRect:
         x: 12
         y: 9
         width: 104
         height: 117
-      spriteId: bf8fbdee39228b048bcdd754e01c240c
-    - name: tree 0_Frame_9
+      spriteId: 7dd4f447c639e9c4aad6bb5ff92185f9
+    - name: Tree 0_Frame_9
       frameIndex: 9
       cellRect:
         x: 12
         y: 9
         width: 104
         height: 117
-      spriteId: 3372791b6a308cf4c9a3afbb30170ae9
-    - name: tree 0_Frame_10
+      spriteId: 93e6c813d6476ff4d9ab414a326d9198
+    - name: Tree 0_Frame_10
       frameIndex: 10
       cellRect:
         x: 12
         y: 9
         width: 104
         height: 117
-      spriteId: 2b008d9a2cff55c48ae4028560bc2d88
-    - name: tree 0_Frame_11
+      spriteId: d20ad717d6815974482f6bf2f522ade0
+    - name: Tree 0_Frame_11
       frameIndex: 11
       cellRect:
         x: 12
         y: 9
         width: 104
         height: 117
-      spriteId: f60729c4ee7d8104bafeff077b6755a7
+      spriteId: 72877cb45b213db45bd7a08da20eafc4
     linkedCells: []
     parentIndex: -1
   platformSettings: []

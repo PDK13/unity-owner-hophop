@@ -119,7 +119,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: wolf 2_Frame_0
+  - name: Wolf 2_Frame_0
     originalName: 
     pivot: {x: 0.5, y: -0.27906978}
     alignment: 9
@@ -130,7 +130,7 @@ ScriptedImporter:
       y: 4
       width: 56
       height: 86
-    spriteID: 3d7b042c40905e943902d168325d4ee9
+    spriteID: 6c1329a8fb3f4ae4d97bf772f0e2bb0b
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -139,7 +139,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-  - name: wolf 2_Frame_1
+  - name: Wolf 2_Frame_1
     originalName: 
     pivot: {x: 0.5, y: -0.27906978}
     alignment: 9
@@ -150,7 +150,7 @@ ScriptedImporter:
       y: 98
       width: 56
       height: 86
-    spriteID: 6c0eb6b8606010e489d76d0ab9c1aeb2
+    spriteID: 15ca1a5daa05d464699ef10a2fcdc6d4
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -159,7 +159,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 98}
-  - name: wolf 2_Frame_6
+  - name: Wolf 2_Frame_6
     originalName: 
     pivot: {x: 0.5, y: -0.29268292}
     alignment: 9
@@ -170,7 +170,7 @@ ScriptedImporter:
       y: 4
       width: 56
       height: 82
-    spriteID: 47c79b12121f8cd4bab1f2bdc48e435e
+    spriteID: 3b04466700459f9439d1dcf3a49c1bbd
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -179,7 +179,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 68, y: 4}
-  - name: wolf 2_Frame_7
+  - name: Wolf 2_Frame_7
     originalName: 
     pivot: {x: 0.5, y: -0.29268292}
     alignment: 9
@@ -190,7 +190,7 @@ ScriptedImporter:
       y: 94
       width: 56
       height: 82
-    spriteID: 2f63fd86832d14c4dab2ae1941cf24c0
+    spriteID: fdb9a7f5c01c2d7428e52d298ee2545b
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -199,7 +199,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 68, y: 94}
-  - name: wolf 2_Frame_12
+  - name: Wolf 2_Frame_12
     originalName: 
     pivot: {x: 0.5, y: -0.27906978}
     alignment: 9
@@ -210,7 +210,7 @@ ScriptedImporter:
       y: 184
       width: 48
       height: 86
-    spriteID: b706b831044db9145a8669dc569b33d7
+    spriteID: 2ae3baa2675280a4abdc652020a754fd
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -219,7 +219,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 132, y: 184}
-  - name: wolf 2_Frame_13
+  - name: Wolf 2_Frame_13
     originalName: 
     pivot: {x: 0.5, y: -0.27906978}
     alignment: 9
@@ -230,7 +230,7 @@ ScriptedImporter:
       y: 278
       width: 48
       height: 86
-    spriteID: 51a8d5b00f500a34f98711c8e6664769
+    spriteID: 9cb13a09604e27640808952664512a8c
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -239,7 +239,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 132, y: 278}
-  - name: wolf 2_Frame_18
+  - name: Wolf 2_Frame_18
     originalName: 
     pivot: {x: 0.5, y: -0.27906978}
     alignment: 9
@@ -250,7 +250,7 @@ ScriptedImporter:
       y: 192
       width: 56
       height: 86
-    spriteID: 745a64fa163974c4ebb6dc28320f947a
+    spriteID: 6fbf46617f4632147b9326808e65f221
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -259,7 +259,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 192}
-  - name: wolf 2_Frame_19
+  - name: Wolf 2_Frame_19
     originalName: 
     pivot: {x: 0.5, y: -0.4390244}
     alignment: 9
@@ -270,7 +270,7 @@ ScriptedImporter:
       y: 184
       width: 56
       height: 82
-    spriteID: dbb73a9fe1d0a77498f2200175f03b4b
+    spriteID: 2af7c303fd0e88944a655aaba67b1d65
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -279,7 +279,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 68, y: 184}
-  - name: wolf 2_Frame_24
+  - name: Wolf 2_Frame_24
     originalName: 
     pivot: {x: 0.4615385, y: -0.27906978}
     alignment: 9
@@ -290,7 +290,7 @@ ScriptedImporter:
       y: 274
       width: 52
       height: 86
-    spriteID: b922b7f6879306c4ebcae0f75229e9e1
+    spriteID: 9ad337cfcda3cc94086e9eff98184908
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -299,7 +299,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 68, y: 274}
-  - name: wolf 2_Frame_25
+  - name: Wolf 2_Frame_25
     originalName: 
     pivot: {x: 0.4615385, y: -0.29268292}
     alignment: 9
@@ -310,7 +310,7 @@ ScriptedImporter:
       y: 4
       width: 52
       height: 82
-    spriteID: 5acdb9a68922352459da3f0725f1dac1
+    spriteID: 10794b4f292d5d74bb60801e7f9628f5
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -319,7 +319,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 132, y: 4}
-  - name: wolf 2_Frame_26
+  - name: Wolf 2_Frame_26
     originalName: 
     pivot: {x: 0.5, y: -0.27906978}
     alignment: 9
@@ -330,7 +330,7 @@ ScriptedImporter:
       y: 286
       width: 56
       height: 86
-    spriteID: 88f303ab3f8cdfa469fc3ef003dc7b56
+    spriteID: a6599c2357aaf2a42bf3a17bb286b60b
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -339,7 +339,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 286}
-  - name: wolf 2_Frame_27
+  - name: Wolf 2_Frame_27
     originalName: 
     pivot: {x: 0.53846157, y: -0.27906978}
     alignment: 9
@@ -350,7 +350,7 @@ ScriptedImporter:
       y: 368
       width: 52
       height: 86
-    spriteID: 585895c3aaf9d504f8ae8eac068924fc
+    spriteID: 1ccd6786f50cce749b9a31876aefb83b
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -359,7 +359,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 68, y: 368}
-  - name: wolf 2_Frame_28
+  - name: Wolf 2_Frame_28
     originalName: 
     pivot: {x: 0.53846157, y: -0.29268292}
     alignment: 9
@@ -370,7 +370,7 @@ ScriptedImporter:
       y: 94
       width: 52
       height: 82
-    spriteID: da6a67b340942924292ed8f1f51e5a64
+    spriteID: 5b36e6a668995174d91a141d849d6427
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -379,7 +379,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 132, y: 94}
-  - name: wolf 2_Frame_29
+  - name: Wolf 2_Frame_29
     originalName: 
     pivot: {x: 0.5, y: -0.27906978}
     alignment: 9
@@ -390,7 +390,7 @@ ScriptedImporter:
       y: 380
       width: 56
       height: 86
-    spriteID: da9f5ccdbef8d6a4793bb94e58723dc7
+    spriteID: 384e5f3b230aa634481ac47f6a3ed0cc
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -402,124 +402,124 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 524050468
-    name: wolf 2
+    guid: 537072068
+    name: Wolf 2
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: wolf 2_Frame_0
+    - name: Wolf 2_Frame_0
       frameIndex: 0
       cellRect:
         x: 36
         y: 24
         width: 56
         height: 86
-      spriteId: 3d7b042c40905e943902d168325d4ee9
-    - name: wolf 2_Frame_1
+      spriteId: 6c1329a8fb3f4ae4d97bf772f0e2bb0b
+    - name: Wolf 2_Frame_1
       frameIndex: 1
       cellRect:
         x: 36
         y: 24
         width: 56
         height: 86
-      spriteId: 6c0eb6b8606010e489d76d0ab9c1aeb2
-    - name: wolf 2_Frame_6
+      spriteId: 15ca1a5daa05d464699ef10a2fcdc6d4
+    - name: Wolf 2_Frame_6
       frameIndex: 6
       cellRect:
         x: 36
         y: 24
         width: 56
         height: 82
-      spriteId: 47c79b12121f8cd4bab1f2bdc48e435e
-    - name: wolf 2_Frame_7
+      spriteId: 3b04466700459f9439d1dcf3a49c1bbd
+    - name: Wolf 2_Frame_7
       frameIndex: 7
       cellRect:
         x: 36
         y: 24
         width: 56
         height: 82
-      spriteId: 2f63fd86832d14c4dab2ae1941cf24c0
-    - name: wolf 2_Frame_12
+      spriteId: fdb9a7f5c01c2d7428e52d298ee2545b
+    - name: Wolf 2_Frame_12
       frameIndex: 12
       cellRect:
         x: 40
         y: 24
         width: 48
         height: 86
-      spriteId: b706b831044db9145a8669dc569b33d7
-    - name: wolf 2_Frame_13
+      spriteId: 2ae3baa2675280a4abdc652020a754fd
+    - name: Wolf 2_Frame_13
       frameIndex: 13
       cellRect:
         x: 40
         y: 24
         width: 48
         height: 86
-      spriteId: 51a8d5b00f500a34f98711c8e6664769
-    - name: wolf 2_Frame_18
+      spriteId: 9cb13a09604e27640808952664512a8c
+    - name: Wolf 2_Frame_18
       frameIndex: 18
       cellRect:
         x: 36
         y: 24
         width: 56
         height: 86
-      spriteId: 745a64fa163974c4ebb6dc28320f947a
-    - name: wolf 2_Frame_19
+      spriteId: 6fbf46617f4632147b9326808e65f221
+    - name: Wolf 2_Frame_19
       frameIndex: 19
       cellRect:
         x: 36
         y: 36
         width: 56
         height: 82
-      spriteId: dbb73a9fe1d0a77498f2200175f03b4b
-    - name: wolf 2_Frame_24
+      spriteId: 2af7c303fd0e88944a655aaba67b1d65
+    - name: Wolf 2_Frame_24
       frameIndex: 24
       cellRect:
         x: 40
         y: 24
         width: 52
         height: 86
-      spriteId: b922b7f6879306c4ebcae0f75229e9e1
-    - name: wolf 2_Frame_25
+      spriteId: 9ad337cfcda3cc94086e9eff98184908
+    - name: Wolf 2_Frame_25
       frameIndex: 25
       cellRect:
         x: 40
         y: 24
         width: 52
         height: 82
-      spriteId: 5acdb9a68922352459da3f0725f1dac1
-    - name: wolf 2_Frame_26
+      spriteId: 10794b4f292d5d74bb60801e7f9628f5
+    - name: Wolf 2_Frame_26
       frameIndex: 26
       cellRect:
         x: 36
         y: 24
         width: 56
         height: 86
-      spriteId: 88f303ab3f8cdfa469fc3ef003dc7b56
-    - name: wolf 2_Frame_27
+      spriteId: a6599c2357aaf2a42bf3a17bb286b60b
+    - name: Wolf 2_Frame_27
       frameIndex: 27
       cellRect:
         x: 36
         y: 24
         width: 52
         height: 86
-      spriteId: 585895c3aaf9d504f8ae8eac068924fc
-    - name: wolf 2_Frame_28
+      spriteId: 1ccd6786f50cce749b9a31876aefb83b
+    - name: Wolf 2_Frame_28
       frameIndex: 28
       cellRect:
         x: 36
         y: 24
         width: 52
         height: 82
-      spriteId: da6a67b340942924292ed8f1f51e5a64
-    - name: wolf 2_Frame_29
+      spriteId: 5b36e6a668995174d91a141d849d6427
+    - name: Wolf 2_Frame_29
       frameIndex: 29
       cellRect:
         x: 36
         y: 24
         width: 56
         height: 86
-      spriteId: da9f5ccdbef8d6a4793bb94e58723dc7
+      spriteId: 384e5f3b230aa634481ac47f6a3ed0cc
     linkedCells: []
     parentIndex: -1
   platformSettings: []

@@ -119,7 +119,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: dust 0_Frame_0
+  - name: Dust 0_Frame_0
     originalName: 
     pivot: {x: 0.5, y: -0.007936508}
     alignment: 9
@@ -130,7 +130,7 @@ ScriptedImporter:
       y: 4
       width: 128
       height: 126
-    spriteID: 7cc64f4ddb298f8409f49971416da096
+    spriteID: 2f06294286814d54c9d9f469cac5ea1f
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -139,7 +139,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-  - name: dust 0_Frame_1
+  - name: Dust 0_Frame_1
     originalName: 
     pivot: {x: 0.5, y: -0.007936508}
     alignment: 9
@@ -150,7 +150,7 @@ ScriptedImporter:
       y: 4
       width: 128
       height: 126
-    spriteID: f4dfd9c6a4ae1114688bb65fb1e03a4b
+    spriteID: 398c947b7794884448678250e1768265
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -159,7 +159,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 140, y: 4}
-  - name: dust 0_Frame_2
+  - name: Dust 0_Frame_2
     originalName: 
     pivot: {x: 0.5, y: -0.007936508}
     alignment: 9
@@ -170,7 +170,7 @@ ScriptedImporter:
       y: 4
       width: 128
       height: 126
-    spriteID: 97cc456224d285744bd7a6f3cad7e107
+    spriteID: 26a8b0926a2cf7847a9d4f389a1068b1
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -179,7 +179,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 276, y: 4}
-  - name: dust 0_Frame_3
+  - name: Dust 0_Frame_3
     originalName: 
     pivot: {x: 0.5, y: -0.007936508}
     alignment: 9
@@ -190,7 +190,7 @@ ScriptedImporter:
       y: 138
       width: 128
       height: 126
-    spriteID: 6424cbb1f47229b44a93eac6e1d1313a
+    spriteID: 296a6b065aac0074390cdad846cd1eb7
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -199,7 +199,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 138}
-  - name: dust 0_Frame_4
+  - name: Dust 0_Frame_4
     originalName: 
     pivot: {x: 0.5, y: -0.007936508}
     alignment: 9
@@ -210,7 +210,7 @@ ScriptedImporter:
       y: 138
       width: 128
       height: 126
-    spriteID: be86e84a350d5e040b2345289fbd9c6a
+    spriteID: 5af7da6288d5bf743b5b4ccc47560c36
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -219,7 +219,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 140, y: 138}
-  - name: dust 0_Frame_5
+  - name: Dust 0_Frame_5
     originalName: 
     pivot: {x: 0.5, y: -0.007936508}
     alignment: 9
@@ -230,7 +230,7 @@ ScriptedImporter:
       y: 138
       width: 128
       height: 126
-    spriteID: 44770a8f4d4b9aa428751c4872b832e6
+    spriteID: 5aab04fbf4fe4b843a3cdf2b301391c7
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -242,60 +242,60 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 1287771870
-    name: dust 0
+    guid: 1304096510
+    name: Dust 0
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: dust 0_Frame_0
+    - name: Dust 0_Frame_0
       frameIndex: 0
       cellRect:
         x: 0
         y: 1
         width: 128
         height: 126
-      spriteId: 7cc64f4ddb298f8409f49971416da096
-    - name: dust 0_Frame_1
+      spriteId: 2f06294286814d54c9d9f469cac5ea1f
+    - name: Dust 0_Frame_1
       frameIndex: 1
       cellRect:
         x: 0
         y: 1
         width: 128
         height: 126
-      spriteId: f4dfd9c6a4ae1114688bb65fb1e03a4b
-    - name: dust 0_Frame_2
+      spriteId: 398c947b7794884448678250e1768265
+    - name: Dust 0_Frame_2
       frameIndex: 2
       cellRect:
         x: 0
         y: 1
         width: 128
         height: 126
-      spriteId: 97cc456224d285744bd7a6f3cad7e107
-    - name: dust 0_Frame_3
+      spriteId: 26a8b0926a2cf7847a9d4f389a1068b1
+    - name: Dust 0_Frame_3
       frameIndex: 3
       cellRect:
         x: 0
         y: 1
         width: 128
         height: 126
-      spriteId: 6424cbb1f47229b44a93eac6e1d1313a
-    - name: dust 0_Frame_4
+      spriteId: 296a6b065aac0074390cdad846cd1eb7
+    - name: Dust 0_Frame_4
       frameIndex: 4
       cellRect:
         x: 0
         y: 1
         width: 128
         height: 126
-      spriteId: be86e84a350d5e040b2345289fbd9c6a
-    - name: dust 0_Frame_5
+      spriteId: 5af7da6288d5bf743b5b4ccc47560c36
+    - name: Dust 0_Frame_5
       frameIndex: 5
       cellRect:
         x: 0
         y: 1
         width: 128
         height: 126
-      spriteId: 44770a8f4d4b9aa428751c4872b832e6
+      spriteId: 5aab04fbf4fe4b843a3cdf2b301391c7
     linkedCells: []
     parentIndex: -1
   platformSettings: []

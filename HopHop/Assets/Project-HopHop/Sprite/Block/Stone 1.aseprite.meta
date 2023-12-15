@@ -119,7 +119,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: stone 1_Frame_0
+  - name: Stone 1_Frame_0
     originalName: 
     pivot: {x: 0.5, y: -0.33684212}
     alignment: 9
@@ -130,7 +130,7 @@ ScriptedImporter:
       y: 4
       width: 128
       height: 95
-    spriteID: 3d445ce7834e4cd43a8b5befde992cb2
+    spriteID: 2e546d87977015440860c9bc99025c52
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -139,7 +139,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-  - name: stone 1_Frame_1
+  - name: Stone 1_Frame_1
     originalName: 
     pivot: {x: 0.5, y: -0.33684212}
     alignment: 9
@@ -150,7 +150,7 @@ ScriptedImporter:
       y: 4
       width: 128
       height: 95
-    spriteID: c993410764e60914984570e922f091ba
+    spriteID: 70f0328bc786672409d144c9c18aa4a2
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -159,7 +159,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 140, y: 4}
-  - name: stone 1_Frame_2
+  - name: Stone 1_Frame_2
     originalName: 
     pivot: {x: 0.5, y: -0.33684212}
     alignment: 9
@@ -170,7 +170,7 @@ ScriptedImporter:
       y: 4
       width: 128
       height: 95
-    spriteID: 694e668a71a4dfa4c9499364ac49c32c
+    spriteID: 0d1faf8f2df311a48bd51119fe516ea0
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -179,7 +179,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 276, y: 4}
-  - name: stone 1_Frame_3
+  - name: Stone 1_Frame_3
     originalName: 
     pivot: {x: 0.5, y: -0.33684212}
     alignment: 9
@@ -190,7 +190,7 @@ ScriptedImporter:
       y: 107
       width: 128
       height: 95
-    spriteID: 5a8c0fe7329a71b4193f2f5f7e839f92
+    spriteID: f6ae96b6a0feb5a499c6ac10c8e62b68
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -199,7 +199,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 107}
-  - name: stone 1_Frame_4
+  - name: Stone 1_Frame_4
     originalName: 
     pivot: {x: 0.5, y: -0.33684212}
     alignment: 9
@@ -210,7 +210,7 @@ ScriptedImporter:
       y: 107
       width: 128
       height: 95
-    spriteID: 48a8e3eff325ec04786815431444f0be
+    spriteID: d93945e6d73ff9d4294e2ffbf545c349
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -219,7 +219,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 140, y: 107}
-  - name: stone 1_Frame_5
+  - name: Stone 1_Frame_5
     originalName: 
     pivot: {x: 0.5, y: -0.33684212}
     alignment: 9
@@ -230,7 +230,7 @@ ScriptedImporter:
       y: 107
       width: 128
       height: 95
-    spriteID: 896756522e021e54faa17624016d0906
+    spriteID: 7034c49e0e546804aaa5151dfe003aa7
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -242,60 +242,60 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 304301224
-    name: stone 1
+    guid: 730685576
+    name: Stone 1
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: stone 1_Frame_0
+    - name: Stone 1_Frame_0
       frameIndex: 0
       cellRect:
         x: 0
         y: 32
         width: 128
         height: 95
-      spriteId: 3d445ce7834e4cd43a8b5befde992cb2
-    - name: stone 1_Frame_1
+      spriteId: 2e546d87977015440860c9bc99025c52
+    - name: Stone 1_Frame_1
       frameIndex: 1
       cellRect:
         x: 0
         y: 32
         width: 128
         height: 95
-      spriteId: c993410764e60914984570e922f091ba
-    - name: stone 1_Frame_2
+      spriteId: 70f0328bc786672409d144c9c18aa4a2
+    - name: Stone 1_Frame_2
       frameIndex: 2
       cellRect:
         x: 0
         y: 32
         width: 128
         height: 95
-      spriteId: 694e668a71a4dfa4c9499364ac49c32c
-    - name: stone 1_Frame_3
+      spriteId: 0d1faf8f2df311a48bd51119fe516ea0
+    - name: Stone 1_Frame_3
       frameIndex: 3
       cellRect:
         x: 0
         y: 32
         width: 128
         height: 95
-      spriteId: 5a8c0fe7329a71b4193f2f5f7e839f92
-    - name: stone 1_Frame_4
+      spriteId: f6ae96b6a0feb5a499c6ac10c8e62b68
+    - name: Stone 1_Frame_4
       frameIndex: 4
       cellRect:
         x: 0
         y: 32
         width: 128
         height: 95
-      spriteId: 48a8e3eff325ec04786815431444f0be
-    - name: stone 1_Frame_5
+      spriteId: d93945e6d73ff9d4294e2ffbf545c349
+    - name: Stone 1_Frame_5
       frameIndex: 5
       cellRect:
         x: 0
         y: 32
         width: 128
         height: 95
-      spriteId: 896756522e021e54faa17624016d0906
+      spriteId: 7034c49e0e546804aaa5151dfe003aa7
     linkedCells: []
     parentIndex: -1
   platformSettings: []
