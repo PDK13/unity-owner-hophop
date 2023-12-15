@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-[CreateAssetMenu(fileName = "message-text-config", menuName = "Message/Text Config", order = 0)]
+[CreateAssetMenu(fileName = "message-text-config", menuName = "QConfig/Message Text", order = 1)]
 public class MessageDataConfigText : ScriptableObject
 {
     public List<MessageDataText> Message = new List<MessageDataText>();

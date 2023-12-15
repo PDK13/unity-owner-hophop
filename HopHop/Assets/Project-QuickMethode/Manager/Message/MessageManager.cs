@@ -12,7 +12,7 @@ public class MessageManager : SingletonManager<MessageManager>
     #region Varible: Setting
 
     [SerializeField] private MessageDataConfig m_messageConfig;
-    [SerializeField] private StringConfig m_stringConfig;
+    [SerializeField] private StringCodeConfig m_stringConfig;
 
     private string m_debugError = "";
 

@@ -161,6 +161,8 @@ public class QComponent
 {
     #region ==================================== Primary
 
+    //Current
+
     public static T GetComponent<T>(GameObject From) where T : Component
     {
         //Get Component from GameObject. If null, Add Component to GameObject.
@@ -198,6 +200,88 @@ public class QComponent
             return From.gameObject.AddComponent<T>();
         else
             return From.gameObject.GetComponent<T>();
+    }
+
+    //Child
+
+    public static T GetComponentChildren<T>(GameObject From) where T : Component
+    {
+        //Get Component from GameObject. If null, Add Component to GameObject.
+        //
+        if (From == null)
+            return default(T);
+        //
+        if (From.GetComponentInChildren<T>() == null)
+            return From.AddComponent<T>();
+        else
+            return From.GetComponentInChildren<T>();
+    }
+
+    public static T GetComponentChildren<T>(Transform From) where T : Component
+    {
+        //Get Component from GameObject. If null, Add Component to GameObject.
+        //
+        if (From == null)
+            return default(T);
+        //
+        if (From.GetComponentInChildren<T>() == null)
+            return From.gameObject.AddComponent<T>();
+        else
+            return From.gameObject.GetComponentInChildren<T>();
+    }
+
+    public static T GetComponentChildren<T>(Component From) where T : Component
+    {
+        //Get Component from GameObject. If null, Add Component to GameObject.
+        //
+        if (From == null)
+            return default(T);
+        //
+        if (From.GetComponentInChildren<T>() == null)
+            return From.gameObject.AddComponent<T>();
+        else
+            return From.gameObject.GetComponentInChildren<T>();
+    }
+
+    //Parent
+
+    public static T GetComponentParent<T>(GameObject From) where T : Component
+    {
+        //Get Component from GameObject. If null, Add Component to GameObject.
+        //
+        if (From == null)
+            return default(T);
+        //
+        if (From.GetComponentInParent<T>() == null)
+            return From.AddComponent<T>();
+        else
+            return From.GetComponentInParent<T>();
+    }
+
+    public static T GetComponentParent<T>(Transform From) where T : Component
+    {
+        //Get Component from GameObject. If null, Add Component to GameObject.
+        //
+        if (From == null)
+            return default(T);
+        //
+        if (From.GetComponentInParent<T>() == null)
+            return From.gameObject.AddComponent<T>();
+        else
+            return From.gameObject.GetComponentInParent<T>();
+    }
+
+    public static T GetComponentParent<T>(Component From) where T : Component
+    {
+        //Get Component from GameObject. If null, Add Component to GameObject.
+        //
+        if (From == null)
+            return default(T);
+        //
+        if (From.GetComponentInParent<T>() == null)
+            return From.gameObject.AddComponent<T>();
+        else
+            return From.gameObject.GetComponentInParent<T>();
     }
 
     #endregion
