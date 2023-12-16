@@ -8,23 +8,24 @@ using UnityEditor;
 [CreateAssetMenu(fileName = "character-config", menuName = "", order = 0)]
 public class CharacterConfig : ScriptableObject
 {
-    [SerializeField] private string m_animatorPath = "Assets/Project-HopHop/Animation";
+    [Tooltip("Find all assets got true name exist in their name")]
+    [SerializeField] private string m_assetsPath = "Assets/Project-HopHop/Animation";
 
     [Space]
-    public ConfigCharacter Alphaca;
-    public ConfigCharacter Angel;
-    public ConfigCharacter Bug;
-    public ConfigCharacter Bunny;
-    public ConfigCharacter Cat;
-    public ConfigCharacter Devil;
-    public ConfigCharacter Fish;
-    public ConfigCharacter Frog;
-    public ConfigCharacter Mole;
-    public ConfigCharacter Mow;
-    public ConfigCharacter Pig;
-    public ConfigCharacter Wolf;
+    public CharacterConfigData Alphaca;
+    public CharacterConfigData Angel;
+    public CharacterConfigData Bug;
+    public CharacterConfigData Bunny;
+    public CharacterConfigData Cat;
+    public CharacterConfigData Devil;
+    public CharacterConfigData Fish;
+    public CharacterConfigData Frog;
+    public CharacterConfigData Mole;
+    public CharacterConfigData Mow;
+    public CharacterConfigData Pig;
+    public CharacterConfigData Wolf;
 
-    public ConfigCharacter GetConfig(CharacterType Character)
+    public CharacterConfigData GetConfig(CharacterType Character)
     {
         switch (Character)
         {
@@ -63,72 +64,72 @@ public class CharacterConfig : ScriptableObject
 
     public void SetRefresh()
     {
-        SetRefreshAnimatorController();
+        SetRefreshCharacter();
     }
 
-    private void SetRefreshAnimatorController()
+    private void SetRefreshCharacter()
     {
-        List<RuntimeAnimatorController> AnimatorGet;
+        List<RuntimeAnimatorController> AssetsGet;
         //
         GetConfig(CharacterType.Alphaca).Skin.Clear();
-        AnimatorGet = QUnityAssets.GetAnimatorController("Alphaca", m_animatorPath);
-        for (int i = 0; i < AnimatorGet.Count; i++)
-            GetConfig(CharacterType.Alphaca).Skin.Add(new ConfigCharacterSkin(null, AnimatorGet[i]));
+        AssetsGet = QUnityAssets.GetAnimatorController("Alphaca", m_assetsPath);
+        for (int i = 0; i < AssetsGet.Count; i++)
+            GetConfig(CharacterType.Alphaca).Skin.Add(new CharacterConfigSkinData(null, AssetsGet[i]));
         //
         GetConfig(CharacterType.Angel).Skin.Clear();
-        AnimatorGet = QUnityAssets.GetAnimatorController("Angel", m_animatorPath);
-        for (int i = 0; i < AnimatorGet.Count; i++)
-            GetConfig(CharacterType.Angel).Skin.Add(new ConfigCharacterSkin(null, AnimatorGet[i]));
+        AssetsGet = QUnityAssets.GetAnimatorController("Angel", m_assetsPath);
+        for (int i = 0; i < AssetsGet.Count; i++)
+            GetConfig(CharacterType.Angel).Skin.Add(new CharacterConfigSkinData(null, AssetsGet[i]));
         //
         GetConfig(CharacterType.Bug).Skin.Clear();
-        AnimatorGet = QUnityAssets.GetAnimatorController("Bug", m_animatorPath);
-        for (int i = 0; i < AnimatorGet.Count; i++)
-            GetConfig(CharacterType.Bug).Skin.Add(new ConfigCharacterSkin(null, AnimatorGet[i]));
+        AssetsGet = QUnityAssets.GetAnimatorController("Bug", m_assetsPath);
+        for (int i = 0; i < AssetsGet.Count; i++)
+            GetConfig(CharacterType.Bug).Skin.Add(new CharacterConfigSkinData(null, AssetsGet[i]));
         //
         GetConfig(CharacterType.Bunny).Skin.Clear();
-        AnimatorGet = QUnityAssets.GetAnimatorController("Bunny", m_animatorPath);
-        for (int i = 0; i < AnimatorGet.Count; i++)
-            GetConfig(CharacterType.Bunny).Skin.Add(new ConfigCharacterSkin(null, AnimatorGet[i]));
+        AssetsGet = QUnityAssets.GetAnimatorController("Bunny", m_assetsPath);
+        for (int i = 0; i < AssetsGet.Count; i++)
+            GetConfig(CharacterType.Bunny).Skin.Add(new CharacterConfigSkinData(null, AssetsGet[i]));
         //
         GetConfig(CharacterType.Cat).Skin.Clear();
-        AnimatorGet = QUnityAssets.GetAnimatorController("Cat", m_animatorPath);
-        for (int i = 0; i < AnimatorGet.Count; i++)
-            GetConfig(CharacterType.Cat).Skin.Add(new ConfigCharacterSkin(null, AnimatorGet[i]));
+        AssetsGet = QUnityAssets.GetAnimatorController("Cat", m_assetsPath);
+        for (int i = 0; i < AssetsGet.Count; i++)
+            GetConfig(CharacterType.Cat).Skin.Add(new CharacterConfigSkinData(null, AssetsGet[i]));
         //
         GetConfig(CharacterType.Devil).Skin.Clear();
-        AnimatorGet = QUnityAssets.GetAnimatorController("Devil", m_animatorPath);
-        for (int i = 0; i < AnimatorGet.Count; i++)
-            GetConfig(CharacterType.Devil).Skin.Add(new ConfigCharacterSkin(null, AnimatorGet[i]));
+        AssetsGet = QUnityAssets.GetAnimatorController("Devil", m_assetsPath);
+        for (int i = 0; i < AssetsGet.Count; i++)
+            GetConfig(CharacterType.Devil).Skin.Add(new CharacterConfigSkinData(null, AssetsGet[i]));
         //
         GetConfig(CharacterType.Fish).Skin.Clear();
-        AnimatorGet = QUnityAssets.GetAnimatorController("Fish", m_animatorPath);
-        for (int i = 0; i < AnimatorGet.Count; i++)
-            GetConfig(CharacterType.Fish).Skin.Add(new ConfigCharacterSkin(null, AnimatorGet[i]));
+        AssetsGet = QUnityAssets.GetAnimatorController("Fish", m_assetsPath);
+        for (int i = 0; i < AssetsGet.Count; i++)
+            GetConfig(CharacterType.Fish).Skin.Add(new CharacterConfigSkinData(null, AssetsGet[i]));
         //
         GetConfig(CharacterType.Frog).Skin.Clear();
-        AnimatorGet = QUnityAssets.GetAnimatorController("Frog", m_animatorPath);
-        for (int i = 0; i < AnimatorGet.Count; i++)
-            GetConfig(CharacterType.Frog).Skin.Add(new ConfigCharacterSkin(null, AnimatorGet[i]));
+        AssetsGet = QUnityAssets.GetAnimatorController("Frog", m_assetsPath);
+        for (int i = 0; i < AssetsGet.Count; i++)
+            GetConfig(CharacterType.Frog).Skin.Add(new CharacterConfigSkinData(null, AssetsGet[i]));
         //
         GetConfig(CharacterType.Mole).Skin.Clear();
-        AnimatorGet = QUnityAssets.GetAnimatorController("Mole", m_animatorPath);
-        for (int i = 0; i < AnimatorGet.Count; i++)
-            GetConfig(CharacterType.Mole).Skin.Add(new ConfigCharacterSkin(null, AnimatorGet[i]));
+        AssetsGet = QUnityAssets.GetAnimatorController("Mole", m_assetsPath);
+        for (int i = 0; i < AssetsGet.Count; i++)
+            GetConfig(CharacterType.Mole).Skin.Add(new CharacterConfigSkinData(null, AssetsGet[i]));
         //
         GetConfig(CharacterType.Mow).Skin.Clear();
-        AnimatorGet = QUnityAssets.GetAnimatorController("Mow", m_animatorPath);
-        for (int i = 0; i < AnimatorGet.Count; i++)
-            GetConfig(CharacterType.Mow).Skin.Add(new ConfigCharacterSkin(null, AnimatorGet[i]));
+        AssetsGet = QUnityAssets.GetAnimatorController("Mow", m_assetsPath);
+        for (int i = 0; i < AssetsGet.Count; i++)
+            GetConfig(CharacterType.Mow).Skin.Add(new CharacterConfigSkinData(null, AssetsGet[i]));
         //
         GetConfig(CharacterType.Pig).Skin.Clear();
-        AnimatorGet = QUnityAssets.GetAnimatorController("Pig", m_animatorPath);
-        for (int i = 0; i < AnimatorGet.Count; i++)
-            GetConfig(CharacterType.Pig).Skin.Add(new ConfigCharacterSkin(null, AnimatorGet[i]));
+        AssetsGet = QUnityAssets.GetAnimatorController("Pig", m_assetsPath);
+        for (int i = 0; i < AssetsGet.Count; i++)
+            GetConfig(CharacterType.Pig).Skin.Add(new CharacterConfigSkinData(null, AssetsGet[i]));
         //
         GetConfig(CharacterType.Wolf).Skin.Clear();
-        AnimatorGet = QUnityAssets.GetAnimatorController("Wolf", m_animatorPath);
-        for (int i = 0; i < AnimatorGet.Count; i++)
-            GetConfig(CharacterType.Wolf).Skin.Add(new ConfigCharacterSkin(null, AnimatorGet[i]));
+        AssetsGet = QUnityAssets.GetAnimatorController("Wolf", m_assetsPath);
+        for (int i = 0; i < AssetsGet.Count; i++)
+            GetConfig(CharacterType.Wolf).Skin.Add(new CharacterConfigSkinData(null, AssetsGet[i]));
     }
 
 #endif
@@ -151,18 +152,18 @@ public enum CharacterType
 }
 
 [Serializable]
-public class ConfigCharacter
+public class CharacterConfigData
 {
-    public List<ConfigCharacterSkin> Skin;
+    public List<CharacterConfigSkinData> Skin;
 }
 
 [Serializable]
-public class ConfigCharacterSkin
+public class CharacterConfigSkinData
 {
     public Sprite Avartar;
     public RuntimeAnimatorController Animator;
 
-    public ConfigCharacterSkin(Sprite Avartar, RuntimeAnimatorController Animator)
+    public CharacterConfigSkinData(Sprite Avartar, RuntimeAnimatorController Animator)
     {
         this.Avartar = Avartar;
         this.Animator = Animator;

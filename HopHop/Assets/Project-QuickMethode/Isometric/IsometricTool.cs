@@ -146,7 +146,7 @@ public class IsometricTool : EditorWindow
         }
         //
         m_manager.List.SetList(m_manager.IsometricConfig, false);
-        m_manager.World.Current.SetWorldRead(m_manager.transform);
+        m_manager.World.Current.SetWorldRead();
         //
         m_listTag = new List<string>();
         for (int i = 0; i < m_manager.List.BlockList.Count; i++)

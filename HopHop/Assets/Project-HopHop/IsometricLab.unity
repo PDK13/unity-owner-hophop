@@ -3594,7 +3594,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AspectMode: 0
-  m_AspectRatio: 1.7766751
+  m_AspectRatio: 1.7780486
 --- !u!1 &665180249
 GameObject:
   m_ObjectHideFlags: 0
@@ -3845,9 +3845,9 @@ MonoBehaviour:
       Y: 0
       H: 0
     Scale:
-      X: 2
-      Y: 2
-      H: 2
+      X: 1
+      Y: 1
+      H: 1
   m_centre: {x: 0, y: 0, z: 0}
 --- !u!1 &699362668
 GameObject:
@@ -7651,25 +7651,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_isometricConfig: {fileID: 11400000, guid: 4b3dce31945c8fb4e9a56cc6aef6a2e1, type: 2}
-  Game:
-    Name: Hello World
-    Command:
-    - mode-normal
-    - day-light
-    Scene:
-      Renderer: 1
-      Rotate: 0
-      Centre:
-        X: 0
-        Y: 0
-        H: 0
-      Scale:
-        X: 2
-        Y: 2
-        H: 2
+  Scene:
+    Renderer: 1
+    Rotate: 0
+    Centre:
+      X: 0
+      Y: 0
+      H: 0
+    Scale:
+      X: 1
+      Y: 1
+      H: 1
   World:
-    m_worldPosH: []
-    m_worldTag: []
+    m_current:
+      m_name: Camera
+      m_root: {fileID: 1870293903}
+      Command: []
+      PosH: []
+      Tag: []
+    m_room:
+    - m_name: Camera
+      m_root: {fileID: 1870293903}
+      Command: []
+      PosH: []
+      Tag: []
+    - m_name: ISO-CURSON
+      m_root: {fileID: 682874904}
+      Command: []
+      PosH: []
+      Tag: []
   List:
     BlockList:
     - Tag: block

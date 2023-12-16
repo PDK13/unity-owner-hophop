@@ -26,7 +26,7 @@ public class BaseCharacter : MonoBehaviour
 
     public CharacterType Character => m_character;
     //
-    private ConfigCharacter m_configCharacter;
+    private CharacterConfigData m_configCharacter;
     //
     public int Skin => m_skin;
     //

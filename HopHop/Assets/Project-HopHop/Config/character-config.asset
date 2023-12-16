@@ -14,88 +14,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_animatorPath: Assets/Project-HopHop/animation
   Alphaca:
-    Skin:
-    - Avartar: {fileID: 0}
-      Animator: {fileID: 9100000, guid: 6a76a5cfddd148d41b104179338ee3d6, type: 2}
-    - Avartar: {fileID: 0}
-      Animator: {fileID: 9100000, guid: 7ecc24d4b94a4fa4d8cfd9e250e6f773, type: 2}
-    CharacterPush: 1
+    Skin: []
   Angel:
-    Skin:
-    - Avartar: {fileID: 0}
-      Animator: {fileID: 9100000, guid: d9ce07e8a67f3d04a987c339c3948962, type: 2}
-    - Avartar: {fileID: 0}
-      Animator: {fileID: 9100000, guid: 27c4e6e3c49f36842a26726b301de8e2, type: 2}
-    CharacterPush: 1
+    Skin: []
   Bug:
-    Skin:
-    - Avartar: {fileID: 0}
-      Animator: {fileID: 9100000, guid: d587e54e567514142ba7a7f664c102ff, type: 2}
-    - Avartar: {fileID: 0}
-      Animator: {fileID: 9100000, guid: 706410e708f2f9c469a6570a9d9ebf4b, type: 2}
-    CharacterPush: 1
+    Skin: []
   Bunny:
-    Skin:
-    - Avartar: {fileID: 0}
-      Animator: {fileID: 9100000, guid: eaae9b6aca96aac49aeba87cde9d9c70, type: 2}
-    - Avartar: {fileID: 0}
-      Animator: {fileID: 9100000, guid: dba520fff63227045b8740ca44f5d860, type: 2}
-    CharacterPush: 1
+    Skin: []
   Cat:
-    Skin:
-    - Avartar: {fileID: 0}
-      Animator: {fileID: 9100000, guid: c5c52f62c16f46046b45d83e26d51c7d, type: 2}
-    - Avartar: {fileID: 0}
-      Animator: {fileID: 9100000, guid: ffe6224090dd1ba4d95e525c56709bf5, type: 2}
-    CharacterPush: 1
+    Skin: []
   Devil:
-    Skin:
-    - Avartar: {fileID: 0}
-      Animator: {fileID: 9100000, guid: 220f323e7036aec48b73b03ce9043351, type: 2}
-    - Avartar: {fileID: 0}
-      Animator: {fileID: 9100000, guid: bb1fc8fa23fd90e4c9a348ccf7d57ee4, type: 2}
-    CharacterPush: 1
+    Skin: []
   Fish:
-    Skin:
-    - Avartar: {fileID: 0}
-      Animator: {fileID: 9100000, guid: 9ceb856e51ddf854f8d4d6084b7ce99d, type: 2}
-    - Avartar: {fileID: 0}
-      Animator: {fileID: 9100000, guid: 550bc960256cb7e4dbebe4c84094b57d, type: 2}
-    CharacterPush: 1
+    Skin: []
   Frog:
-    Skin:
-    - Avartar: {fileID: 0}
-      Animator: {fileID: 9100000, guid: 46552a8f7ca6b914da94a17a96d01f1d, type: 2}
-    - Avartar: {fileID: 0}
-      Animator: {fileID: 9100000, guid: 25b19ebd4e637ea4c9f6e2b89b8cb7df, type: 2}
-    CharacterPush: 1
+    Skin: []
   Mole:
-    Skin:
-    - Avartar: {fileID: 0}
-      Animator: {fileID: 9100000, guid: 05eed05d9d2b6d94092c7ff7aaa1fd1e, type: 2}
-    - Avartar: {fileID: 0}
-      Animator: {fileID: 9100000, guid: 924b7ce92a13e6f43adba13d57863957, type: 2}
-    CharacterPush: 1
+    Skin: []
   Mow:
-    Skin:
-    - Avartar: {fileID: 0}
-      Animator: {fileID: 9100000, guid: fa8ac882b20aa9648a37b902fc47fa9a, type: 2}
-    - Avartar: {fileID: 0}
-      Animator: {fileID: 9100000, guid: 8caaef81a23c6ba44a844d3ce6f81bca, type: 2}
-    CharacterPush: 0
+    Skin: []
   Pig:
-    Skin:
-    - Avartar: {fileID: 0}
-      Animator: {fileID: 9100000, guid: 91b0766fc4c66d2419d9eb12386ed861, type: 2}
-    - Avartar: {fileID: 0}
-      Animator: {fileID: 9100000, guid: e900d696c6fef7d429a93d9d7cf5322d, type: 2}
-    CharacterPush: 1
+    Skin: []
   Wolf:
-    Skin:
-    - Avartar: {fileID: 0}
-      Animator: {fileID: 9100000, guid: 98a5d29bbcfb4b54bae83dd4f05c0ef8, type: 2}
-    - Avartar: {fileID: 0}
-      Animator: {fileID: 9100000, guid: e0673ec5ef38769458c6beb0bf5dd9a9, type: 2}
-    - Avartar: {fileID: 0}
-      Animator: {fileID: 9100000, guid: 0fce74d2ae69ff94498aca0b2dfc6eea, type: 2}
-    CharacterPush: 1
+    Skin: []

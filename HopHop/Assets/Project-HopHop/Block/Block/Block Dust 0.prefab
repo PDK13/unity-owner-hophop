@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1455909166595997217
+--- !u!1 &1831744179654619828
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,25 +8,25 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1455909166595997228}
-  - component: {fileID: 1455909166595997231}
-  - component: {fileID: 3430691712157824425}
-  - component: {fileID: 1455909166595997230}
-  - component: {fileID: 4963734542536966008}
+  - component: {fileID: 1831744179654619827}
+  - component: {fileID: 1831744179654619826}
+  - component: {fileID: 5247216095480439873}
+  - component: {fileID: 1831744179654619829}
+  - component: {fileID: -5494178555861367860}
   m_Layer: 0
-  m_Name: Bubble Bullet 0
+  m_Name: Block Dust 0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1455909166595997228
+--- !u!4 &1831744179654619827
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1455909166595997217}
+  m_GameObject: {fileID: 1831744179654619828}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -35,13 +35,13 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &1455909166595997231
+--- !u!212 &1831744179654619826
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1455909166595997217}
+  m_GameObject: {fileID: 1831744179654619828}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -250596188, guid: 34687aae0eae3024c938db1fb7ea48f7, type: 3}
+  m_Sprite: {fileID: -2054281346, guid: d7a34574c5da802449166ef49567f784, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -87,17 +87,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &3430691712157824425
+--- !u!95 &5247216095480439873
 Animator:
   serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1455909166595997217}
+  m_GameObject: {fileID: 1831744179654619828}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 6b33e65e55749534fa2dec896da2e5cd, type: 2}
+  m_Controller: {fileID: 9100000, guid: 3cb2157a12b6d114da8bb769de0b5674, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -108,22 +108,22 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1455909166595997230
+--- !u!114 &1831744179654619829
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1455909166595997217}
+  m_GameObject: {fileID: 1831744179654619828}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 88b51ca1839d85a47a182808b3636847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_name: Bubble Bullet 0
+  m_name: Block Dust 0
   m_tag:
-  - bullet
-  m_posType: 1
+  - block
+  m_posType: 0
   m_pos:
     X: 0
     Y: 0
@@ -164,15 +164,15 @@ MonoBehaviour:
       Y: 1
       H: 1
   m_centre: {x: 0, y: 0, z: 0}
---- !u!114 &4963734542536966008
+--- !u!114 &-5494178555861367860
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1455909166595997217}
+  m_GameObject: {fileID: 1831744179654619828}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 241941121b8a275428f5c015e78d7aaa, type: 3}
+  m_Script: {fileID: 11500000, guid: bfc287c449558124f998392227ca3361, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

@@ -12,58 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bef13b7c523e1a942b94b81cb767a6ea, type: 3}
   m_Name: isometric-config
   m_EditorClassIdentifier: 
-  m_blockList:
-  - Name: block
-    Block:
-    - {fileID: 44393240911007880, guid: e6a6ef9d35e94824c90d24f0a9f70445, type: 3}
-    - {fileID: 1831744179654619829, guid: 7a6b9e287bd724d42a0525893eda16d2, type: 3}
-    - {fileID: 44393240911007880, guid: dc639698b19ef444ca3a1988012e2506, type: 3}
-    - {fileID: 1455909166595997230, guid: f688cbcfe8c0f294ca7d99e0239eda7d, type: 3}
-    - {fileID: 1831744179654619829, guid: a5626bcded6a8e74db67959a80c2f493, type: 3}
-    - {fileID: 44393240911007880, guid: f852dd5ef6629984eb5b60401fb9ecb6, type: 3}
-    - {fileID: 44393240911007880, guid: 5a84e1888d2e3c249a15ec44aebb815c, type: 3}
-    - {fileID: 44393240911007880, guid: ef6dded9a5ceae549bb45d45fcae1a05, type: 3}
-    - {fileID: 1455909166595997230, guid: 218a42f8b9ed39b42a68cce7d36b4e7c, type: 3}
-  - Name: character player
-    Block:
-    - {fileID: 44393240911007880, guid: c7dda824b32fcfe4c88c6bccf01ac4ed, type: 3}
-  - Name: character light
-    Block:
-    - {fileID: 44393240911007880, guid: fca164667bfe9994a93ede8464ff1394, type: 3}
-    - {fileID: 44393240911007880, guid: 94d3c6a2d5cd46f4cb39eb2d6ef004d7, type: 3}
-    - {fileID: 44393240911007880, guid: f0c0cb30ee59a974ea8fd0538a61e31d, type: 3}
-    - {fileID: 44393240911007880, guid: 71817dbe38197744d9fd64111af9f02e, type: 3}
-    - {fileID: 44393240911007880, guid: 41201b9a01fe0774a8de897f54735225, type: 3}
-    - {fileID: 44393240911007880, guid: 5ba21ecc26bac394f80e86589e67294f, type: 3}
-    - {fileID: 44393240911007880, guid: 72dadbf741f9a854c8f8da51d414bbb6, type: 3}
-    - {fileID: 44393240911007880, guid: cf6f55c23de10e94ebdcd83b2181fbda, type: 3}
-    - {fileID: 44393240911007880, guid: 21c39bf5afa57e844b6cfcea868e26e7, type: 3}
-    - {fileID: 44393240911007880, guid: 0a6433aa93900ae468cfdf8fdc45328b, type: 3}
-    - {fileID: 44393240911007880, guid: 5f8a4b3194d84f64ab6446fb9fae653d, type: 3}
-    - {fileID: 44393240911007880, guid: 00c9dc5fbfb705f46b6f837143a9488e, type: 3}
-  - Name: character dark
-    Block: []
-  - Name: trap
-    Block:
-    - {fileID: 1455909166595997230, guid: bb1d6f31074e38a4c82d0eaf4f95129c, type: 3}
-    - {fileID: 1455909166595997230, guid: cc00723f6326c324aaef48d0264f6f62, type: 3}
-  - Name: flower 0
-    Block:
-    - {fileID: 44393240911007880, guid: 381915d1355f4b145ad52cfe6b536e1d, type: 3}
-    - {fileID: 44393240911007880, guid: 4d723acb8bc4b7243b9909ed90f662d3, type: 3}
-    - {fileID: 44393240911007880, guid: 376da905a3745de44aa5758eacd1167d, type: 3}
-    - {fileID: 44393240911007880, guid: 3a52f7adab0a0a546a53b79e1251424e, type: 3}
-  - Name: tree 0
-    Block:
-    - {fileID: 44393240911007880, guid: 8858c6ad8b5774e4faa517d88072b92d, type: 3}
-    - {fileID: 44393240911007880, guid: c0c3e781cf7840c43b93ca13edc32d12, type: 3}
-    - {fileID: 44393240911007880, guid: 245a975bf64a50645bac99aab907564b, type: 3}
-    - {fileID: 44393240911007880, guid: 2e46d6d0e5b185b448be8b54c3a7bf37, type: 3}
-    - {fileID: 44393240911007880, guid: 225859dbf44cd0b438d219936e8d7709, type: 3}
-    - {fileID: 44393240911007880, guid: 30b3dee3a46eb364886a9f8c8b0a6f80, type: 3}
-    - {fileID: 44393240911007880, guid: b462267d45bd0784686838b7b39239a0, type: 3}
-    - {fileID: 44393240911007880, guid: 9b72b72e7ed3ab24fac7aa1899bd8cc4, type: 3}
-    - {fileID: 44393240911007880, guid: ccb1f179ea6de5345aec1b85e637636e, type: 3}
-    - {fileID: 44393240911007880, guid: cb0d3768d5812844980b22d86bbb7aaa, type: 3}
-    - {fileID: 44393240911007880, guid: 1bcad9f38dac96c4ab8253cbc943957b, type: 3}
-    - {fileID: 44393240911007880, guid: 092e502cf81c5d341b782b5845a078a0, type: 3}
+  BlockData:
+    m_assetsPath: Assets/Project-HopHop/Block
+    m_list:
+    - Tag: Block
+      Block: []
+    - Tag: Bullet
+      Block: []
+    - Tag: Player
+      Block: []
+    - Tag: Light
+      Block: []
+    - Tag: Dark
+      Block: []
+    - Tag: Flower
+      Block: []
+    - Tag: Tree
+      Block: []
+    - Tag: Trap
+      Block: []

@@ -400,13 +400,16 @@ public class IsometricManagerRoom
 
     #region World Read
 
-    public void SetWorldRead(Transform WorldManager)
+    public bool SetWorldRead()
     {
+        if (m_root == null)
+            return false;
+        //
         //Clear Current World!!
         SetWorldRemove();
 
         //Store Block(s) Found!!
-        List<IsometricBlock> BlockFound = WorldManager.GetComponentsInChildren<IsometricBlock>().ToList();
+        List<IsometricBlock> BlockFound = m_root.GetComponentsInChildren<IsometricBlock>().ToList();
         GameObject BlockStore = QGameObject.SetCreate("BlockStore");
         foreach (IsometricBlock Block in BlockFound)
         {
@@ -417,12 +420,12 @@ public class IsometricManagerRoom
 
             Block.transform.SetParent(BlockStore.transform);
         }
-
+        //
         //Remove All GameObject!!
-        for (int i = WorldManager.transform.childCount - 1; i >= 0; i--)
+        for (int i = m_root.transform.childCount - 1; i >= 0; i--)
         {
 #if UNITY_EDITOR
-            if (WorldManager.GetChild(i).gameObject.name == CURSON_NAME)
+            if (m_root.GetChild(i).gameObject.name == CURSON_NAME)
             {
                 continue;
             }
@@ -434,14 +437,14 @@ public class IsometricManagerRoom
 
             if (Application.isEditor && !Application.isPlaying)
             {
-                GameObject.DestroyImmediate(WorldManager.GetChild(i).gameObject);
+                GameObject.DestroyImmediate(m_root.GetChild(i).gameObject);
             }
             else
             {
-                GameObject.Destroy(WorldManager.GetChild(i).gameObject);
+                GameObject.Destroy(m_root.GetChild(i).gameObject);
             }
         }
-
+        //
         //Add Block(s) Found!!
         foreach (IsometricBlock Block in BlockFound)
         {
@@ -452,7 +455,7 @@ public class IsometricManagerRoom
 
             SetWorldReadBlock(Block);
         }
-
+        //
         //Destroy Block(s) Store!!
         if (Application.isEditor && !Application.isPlaying)
         {
@@ -462,8 +465,10 @@ public class IsometricManagerRoom
         {
             GameObject.Destroy(BlockStore);
         }
-
+        //
         onCreate?.Invoke();
+        //
+        return true;
     }
 
     public void SetWorldReadBlock(IsometricBlock Block)
