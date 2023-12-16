@@ -314,7 +314,7 @@ public class QUnityAssets
         {
             string AssetsSinglePath = AssetDatabase.GUIDToAssetPath(GUIDPath);
             //
-            if (!AssetsSinglePath.Contains(QPath.GetFileName(NameSpecial, FileExtension)))
+            if (!AssetsSinglePath.Contains(QPath.GetFileName("", FileExtension)))
                 continue;
             //
             TextAsset ObjectFound = AssetDatabase.LoadAssetAtPath<TextAsset>(AssetsSinglePath);

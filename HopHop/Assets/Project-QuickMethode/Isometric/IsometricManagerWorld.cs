@@ -54,7 +54,6 @@ public class IsometricManagerWorld
         if (Manager == null)
         {
             Debug.LogFormat("[Isometric] Manager not found to read map!");
-            //
             return;
         }
         //
@@ -62,11 +61,14 @@ public class IsometricManagerWorld
         for (int i = 0; i < Manager.transform.childCount; i++)
             SetGenerate(Manager.transform.GetChild(i), false, false);
         //
+        SetCurrent();
+    }
+
+    public void SetCurrent()
+    {
         m_current = m_room.Count == 0 ? SetGenerate("Temp") : m_room[0];
         m_current.Active = true;
     }
-
-    //
 
     public IsometricManagerRoom SetGenerate(string Name, bool Current = true, bool Active = true)
     {
@@ -166,11 +168,10 @@ public class IsometricManagerWorld
         if (RoomFind == null)
             return;
         //
-        if (m_current.Equals(RoomFind))
-            m_current = null;
+        m_room.Remove(RoomFind);
         RoomFind.SetDestroy();
         //
-        m_room.Remove(RoomFind);
+        SetCurrent();
     }
 
     public void SetRemove(IsometricManagerRoom RoomCheck)
@@ -178,10 +179,9 @@ public class IsometricManagerWorld
         if (RoomCheck == null)
             return;
         //
-        if (m_current.Equals(RoomCheck))
-            m_current = null;
+        m_room.Remove(RoomCheck);
         RoomCheck.SetDestroy();
         //
-        m_room.Remove(RoomCheck);
+        SetCurrent();
     }
 }

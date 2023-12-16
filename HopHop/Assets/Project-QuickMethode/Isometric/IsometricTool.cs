@@ -466,6 +466,32 @@ public class IsometricTool : EditorWindow
 
     private void SetGUIGroupManager()
     {
+        QUnityEditor.SetHorizontalBegin();
+        {
+            QUnityEditor.SetBackground(Color.white);
+            QUnityEditor.SetLabel("NAME: ", QUnityEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
+            m_manager.World.Current.Name = QUnityEditor.SetField(m_manager.World.Current.Name, null, QUnityEditorWindow.GetGUILayoutWidth(this, 0.5f, 2.5f));
+            if (m_manager.World.Current.Emty)
+            {
+                if (QUnityEditor.SetButton("Destroy", QUnityEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
+                {
+                    m_manager.World.SetRemove(m_manager.World.Current);
+                    m_listMapScene = m_manager.World.RoomName;
+                    m_indexMapScene = 0;
+                    QUnityEditor.SetDirty(m_manager.gameObject);
+                }
+            }
+            else
+            {
+                if (QUnityEditor.SetButton("Clear", QUnityEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
+                {
+                    m_manager.World.Current.SetWorldRemove();
+                    QUnityEditor.SetDirty(m_manager.gameObject);
+                }
+            }
+        }
+        QUnityEditor.SetHorizontalEnd();
+        //
         if (m_listMapScene.Count > 0)
         {
             QUnityEditor.SetHorizontalBegin();
@@ -487,11 +513,12 @@ public class IsometricTool : EditorWindow
             QUnityEditor.SetHorizontalBegin();
             {
                 QUnityEditor.SetBackground(Color.white);
-                QUnityEditor.SetLabel("FILE: ", QUnityEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
+                QUnityEditor.SetLabel("CONFIG: ", QUnityEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
                 m_indexMapFile = QUnityEditor.SetPopup(m_indexMapFile, m_listMapFile, QUnityEditorWindow.GetGUILayoutWidth(this, 0.5f, 2.5f));
                 if (QUnityEditor.SetButton("Open", QUnityEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
                 {
                     IsometricDataFile.SetFileRead(m_manager, m_manager.IsometricConfig.Map.ListAssets[m_indexMapFile]);
+                    m_listMapScene = m_manager.World.RoomName;
                     m_listMapFile = m_manager.IsometricConfig.Map.ListName;
                 }
             }
@@ -501,12 +528,9 @@ public class IsometricTool : EditorWindow
         QUnityEditor.SetSpace(5f);
         //
         QUnityEditor.SetHorizontalBegin();
-        if (QUnityEditor.SetButton("Clear", QUnityEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 1f / 3)))
-        {
-            m_manager.World.Current.SetWorldRemove();
-            QUnityEditor.SetDirty(m_manager.gameObject);
-        }
-        if (QUnityEditor.SetButton("Save", QUnityEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 1f / 3)))
+        QUnityEditor.SetBackground(Color.white);
+        QUnityEditor.SetLabel("FILE: ", QUnityEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
+        if (QUnityEditor.SetButton("Save", QUnityEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
         {
             (bool Result, string Path, string Name) Path = QPath.GetPathFileSavePanel("Save", "txt", m_pathSave == "" ? QPath.GetPath(QPath.PathType.Assets) : m_pathSave);
             if (Path.Result)
@@ -516,7 +540,7 @@ public class IsometricTool : EditorWindow
                 QUnityAssets.SetRefresh();
             }
         }
-        if (QUnityEditor.SetButton("Open", QUnityEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 1f / 3)))
+        if (QUnityEditor.SetButton("Open", QUnityEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
         {
             QUnityAssets.SetRefresh();
             //
@@ -532,6 +556,7 @@ public class IsometricTool : EditorWindow
                 //
                 m_pathOpen = Path.Path;
                 IsometricDataFile.SetFileRead(m_manager, QPath.GetPath(QPath.PathType.None, Path.Path));
+                m_listMapScene = m_manager.World.RoomName;
                 m_listMapFile = m_manager.IsometricConfig.Map.ListName;
                 //
                 QUnityEditor.SetDirty(m_manager.gameObject);

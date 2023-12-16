@@ -55,8 +55,8 @@ public class IsometricManagerRoom
     public Action onRemove;
 
     public List<string> Command = new List<string>();
-    public List<IsometricDataRoomPosH> PosH;
-    public List<IsometricDataRoomTag> Tag;
+    public List<IsometricDataRoomPosH> PosH = new List<IsometricDataRoomPosH>();
+    public List<IsometricDataRoomTag> Tag = new List<IsometricDataRoomTag>();
     
     public IsometricManagerRoom(IsometricManager Manager, string Name)
     {
@@ -65,9 +65,6 @@ public class IsometricManagerRoom
         //
         m_root = new GameObject(NameFixed).transform;
         m_root.transform.parent = m_manager.transform;
-        //
-        PosH = new List<IsometricDataRoomPosH>();
-        Tag = new List<IsometricDataRoomTag>();
     }
 
     public IsometricManagerRoom(IsometricManager Manager, Transform Root)
@@ -82,10 +79,9 @@ public class IsometricManagerRoom
         m_name = Root.name.Replace(NAME_ROOM, "");
         //
         m_root = Root;
-        //
-        PosH = new List<IsometricDataRoomPosH>();
-        Tag = new List<IsometricDataRoomTag>();
     }
+
+    public bool Emty => Tag == null ? true : Tag.Count == 0;
 
     public void SetDestroy()
     {
@@ -95,7 +91,7 @@ public class IsometricManagerRoom
             return;
         }
         //
-        MonoBehaviour.Destroy(m_root.gameObject);
+        QGameObject.SetDestroy(m_root.gameObject);
     }
 
     #region ======================================================================== Block
