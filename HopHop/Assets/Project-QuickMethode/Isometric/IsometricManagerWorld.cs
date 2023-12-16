@@ -49,6 +49,13 @@ public class IsometricManagerWorld
         SetInit();
     }
 
+    public void SetRefresh()
+    {
+        m_room = m_room.Where(x => x.Root != null).ToList();
+        foreach (IsometricManagerRoom BlockSingle in m_room)
+            BlockSingle.SetRefresh();
+    }
+
     public void SetInit()
     {
         if (Manager == null)

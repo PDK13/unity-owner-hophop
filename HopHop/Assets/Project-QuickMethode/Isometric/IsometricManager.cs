@@ -10,11 +10,11 @@ public class IsometricManager : SingletonManager<IsometricManager>
 {
     #region Varible: Game Config
 
-    [SerializeField] private IsometricConfig m_isometricConfig;
+    [SerializeField] private IsometricConfig m_config;
 
     private string m_debugError = "";
 
-    public IsometricConfig IsometricConfig => m_isometricConfig;
+    public IsometricConfig Config => m_config;
 
     #endregion
 
@@ -52,7 +52,7 @@ public class IsometricManager : SingletonManager<IsometricManager>
 
     public void SetConfigFind()
     {
-        if (m_isometricConfig != null)
+        if (m_config != null)
             return;
         //
         var Config = QUnityAssets.GetScriptableObject<IsometricConfig>("", "");
@@ -74,7 +74,7 @@ public class IsometricManager : SingletonManager<IsometricManager>
         if (Config.Count > 1)
             Debug.Log("[Message] Config found more than one, get the first one found");
         //
-        m_isometricConfig = Config[0];
+        m_config = Config[0];
         //
         m_debugError = "";
     }

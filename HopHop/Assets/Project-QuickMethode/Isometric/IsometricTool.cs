@@ -152,11 +152,12 @@ public class IsometricTool : EditorWindow
 
     private void SetManagerRefresh()
     {
-        m_manager.IsometricConfig.Reset();
+        m_manager.World.SetRefresh();
+        m_manager.Config.Reset();
         //
-        m_listMapFile = m_manager.IsometricConfig.Map.ListName;
+        m_listMapFile = m_manager.Config.Map.ListName;
         //
-        m_manager.List.SetList(m_manager.IsometricConfig, false);
+        m_manager.List.SetList(m_manager.Config, false);
         m_manager.World.SetInit();
         m_manager.World.Current.SetWorldRead();
         m_listMapScene = m_manager.World.RoomName;
@@ -513,7 +514,7 @@ public class IsometricTool : EditorWindow
             QUnityEditor.SetHorizontalEnd();
         }
         //
-        if (m_manager.IsometricConfig.Map.ListAssets.Count > 0)
+        if (m_manager.Config.Map.ListAssets.Count > 0)
         {
             QUnityEditor.SetHorizontalBegin();
             {
@@ -522,9 +523,9 @@ public class IsometricTool : EditorWindow
                 m_indexMapFile = QUnityEditor.SetPopup(m_indexMapFile, m_listMapFile, QUnityEditorWindow.GetGUILayoutWidth(this, 0.5f, 2.5f));
                 if (QUnityEditor.SetButton("Open", QUnityEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
                 {
-                    IsometricDataFile.SetFileRead(m_manager, m_manager.IsometricConfig.Map.ListAssets[m_indexMapFile]);
+                    IsometricDataFile.SetFileRead(m_manager, m_manager.Config.Map.ListAssets[m_indexMapFile]);
                     m_listMapScene = m_manager.World.RoomName;
-                    m_listMapFile = m_manager.IsometricConfig.Map.ListName;
+                    m_listMapFile = m_manager.Config.Map.ListName;
                 }
             }
             QUnityEditor.SetHorizontalEnd();
@@ -557,12 +558,12 @@ public class IsometricTool : EditorWindow
                 m_indexTag = 0;
                 m_indexName = 0;
                 //
-                m_manager.List.SetList(m_manager.IsometricConfig, false);
+                m_manager.List.SetList(m_manager.Config, false);
                 //
                 m_pathOpen = Path.Path;
                 IsometricDataFile.SetFileRead(m_manager, QPath.GetPath(QPath.PathType.None, Path.Path));
                 m_listMapScene = m_manager.World.RoomName;
-                m_listMapFile = m_manager.IsometricConfig.Map.ListName;
+                m_listMapFile = m_manager.Config.Map.ListName;
                 //
                 QUnityEditor.SetDirty(m_manager.gameObject);
             }

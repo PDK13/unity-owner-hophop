@@ -83,6 +83,15 @@ public class IsometricManagerRoom
 
     public bool Emty => Tag == null ? true : Tag.Count == 0;
 
+    public void SetRefresh()
+    {
+        foreach (var Data in PosH)
+            Data.SetRefresh();
+        //
+        foreach (var Data in Tag)
+            Data.SetRefresh();
+    }
+
     public void SetDestroy()
     {
         if (m_root == null)
@@ -832,6 +841,11 @@ public class IsometricDataRoomPosH
         this.PosH = PosH;
         this.Block = Block;
     }
+
+    public void SetRefresh()
+    {
+        Block = Block.Where(x => x == null).ToList();
+    }
 }
 
 [Serializable]
@@ -850,5 +864,10 @@ public class IsometricDataRoomTag
     {
         this.Tag = Tag;
         this.Block = Block;
+    }
+
+    public void SetRefresh()
+    {
+        Block = Block.Where(x => x == null).ToList();
     }
 }
