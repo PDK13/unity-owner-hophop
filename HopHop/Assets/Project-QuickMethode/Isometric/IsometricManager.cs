@@ -20,9 +20,9 @@ public class IsometricManager : SingletonManager<IsometricManager>
 
     #region Varible: World Manager
 
-    public IsometricGameDataScene Scene;
+    public IsometricGameDataScene Scene = new IsometricGameDataScene();
     public IsometricManagerWorld World;
-    public IsometricManagerList List;
+    public IsometricManagerList List = new IsometricManagerList();
 
     #endregion
 
@@ -30,7 +30,6 @@ public class IsometricManager : SingletonManager<IsometricManager>
     {
         base.Awake();
         //
-        Scene = new IsometricGameDataScene();
         World = new IsometricManagerWorld(this);
         List = new IsometricManagerList();
         //
@@ -41,7 +40,6 @@ public class IsometricManager : SingletonManager<IsometricManager>
 
     private void Reset()
     {
-        Scene = new IsometricGameDataScene();
         World = new IsometricManagerWorld(this);
         List = new IsometricManagerList();
         //

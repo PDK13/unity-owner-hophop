@@ -175,7 +175,6 @@ public class IsometricDataFile
 
     private static void SetFileRead(IsometricManager Manager, QDataFile FileIO)
     {
-        Manager.World.Current.SetWorldRemove(true);
         //
         //WORLD START!!
         //
@@ -185,7 +184,8 @@ public class IsometricDataFile
             switch (FileIO.GetReadAutoString())
             {
                 case KEY_WORLD_NAME:
-                    Manager.World.Current.Name = FileIO.GetReadAutoString();
+                    Manager.World.SetGenerate(FileIO.GetReadAutoString());
+                    Manager.World.Current.SetWorldRemove(true);
                     break;
                 case KEY_WORLD_COMMAND:
                     int CommandCount = FileIO.GetReadAutoInt();

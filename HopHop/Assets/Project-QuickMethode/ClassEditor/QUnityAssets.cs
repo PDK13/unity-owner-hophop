@@ -95,7 +95,7 @@ public class QUnityAssets
         List<GameObject> ObjectsFound = new List<GameObject>();
         //
         string[] GUIDPathUnityFound;
-        if (PathChildInAssets.Length == 0)
+        if (PathChildInAssets.Length == 0 || (PathChildInAssets.Length == 1 && PathChildInAssets[0] == ""))
             GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:Prefab"));
         else
             GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:Prefab"), PathChildInAssets);
@@ -116,7 +116,7 @@ public class QUnityAssets
         List<AnimationClip> ObjectsFound = new List<AnimationClip>();
         //
         string[] GUIDPathUnityFound;
-        if (PathChildInAssets.Length == 0)
+        if (PathChildInAssets.Length == 0 || (PathChildInAssets.Length == 1 && PathChildInAssets[0] == ""))
             GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:AnimationClip"));
         else
             GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:AnimationClip"), PathChildInAssets);
@@ -137,7 +137,7 @@ public class QUnityAssets
         List<AudioClip> ObjectsFound = new List<AudioClip>();
         //
         string[] GUIDPathUnityFound;
-        if (PathChildInAssets.Length == 0)
+        if (PathChildInAssets.Length == 0 || (PathChildInAssets.Length == 1 && PathChildInAssets[0] == ""))
             GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:AudioClip"));
         else
             GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:AudioClip"), PathChildInAssets);
@@ -158,7 +158,7 @@ public class QUnityAssets
         List<Font> ObjectsFound = new List<Font>();
         //
         string[] GUIDPathUnityFound;
-        if (PathChildInAssets.Length == 0)
+        if (PathChildInAssets.Length == 0 || (PathChildInAssets.Length == 1 && PathChildInAssets[0] == ""))
             GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:Font"));
         else
             GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:Font"), PathChildInAssets);
@@ -179,7 +179,7 @@ public class QUnityAssets
         List<Material> ObjectsFound = new List<Material>();
         //
         string[] GUIDPathUnityFound;
-        if (PathChildInAssets.Length == 0)
+        if (PathChildInAssets.Length == 0 || (PathChildInAssets.Length == 1 && PathChildInAssets[0] == ""))
             GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:Material"));
         else
             GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:Material"), PathChildInAssets);
@@ -200,7 +200,7 @@ public class QUnityAssets
         List<PhysicMaterial> ObjectsFound = new List<PhysicMaterial>();
         //
         string[] GUIDPathUnityFound;
-        if (PathChildInAssets.Length == 0)
+        if (PathChildInAssets.Length == 0 || (PathChildInAssets.Length == 1 && PathChildInAssets[0] == ""))
             GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:PhysicMaterial"));
         else
             GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:PhysicMaterial"), PathChildInAssets);
@@ -221,7 +221,7 @@ public class QUnityAssets
         List<Texture> ObjectsFound = new List<Texture>();
         //
         string[] GUIDPathUnityFound;
-        if (PathChildInAssets.Length == 0)
+        if (PathChildInAssets.Length == 0 || (PathChildInAssets.Length == 1 && PathChildInAssets[0] == ""))
             GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:Texture"));
         else
             GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:Texture"), PathChildInAssets);
@@ -242,7 +242,7 @@ public class QUnityAssets
         List<VideoClip> ObjectsFound = new List<VideoClip>();
         //
         string[] GUIDPathUnityFound;
-        if (PathChildInAssets.Length == 0)
+        if (PathChildInAssets.Length == 0 || (PathChildInAssets.Length == 1 && PathChildInAssets[0] == ""))
             GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:VideoClip"));
         else
             GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:VideoClip"), PathChildInAssets);
@@ -263,7 +263,7 @@ public class QUnityAssets
         List<Sprite> ObjectsFound = new List<Sprite>();
         //
         string[] GUIDPathUnityFound;
-        if (PathChildInAssets.Length == 0)
+        if (PathChildInAssets.Length == 0 || (PathChildInAssets.Length == 1 && PathChildInAssets[0] == ""))
             GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:Sprite"));
         else
             GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:Sprite"), PathChildInAssets);
@@ -284,7 +284,7 @@ public class QUnityAssets
         List<RuntimeAnimatorController> ObjectsFound = new List<RuntimeAnimatorController>();
         //
         string[] GUIDPathUnityFound;
-        if (PathChildInAssets.Length == 0)
+        if (PathChildInAssets.Length == 0 || (PathChildInAssets.Length == 1 && PathChildInAssets[0] == ""))
             GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:AnimationController"));
         else
             GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:AnimationController"), PathChildInAssets);
@@ -305,7 +305,7 @@ public class QUnityAssets
         List<TextAsset> ObjectsFound = new List<TextAsset>();
         //
         string[] GUIDPathUnityFound;
-        if (PathChildInAssets.Length == 0)
+        if (PathChildInAssets.Length == 0 || (PathChildInAssets.Length == 1 && PathChildInAssets[0] == ""))
             GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:TextAsset"));
         else
             GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:TextAsset"), PathChildInAssets);
@@ -332,7 +332,7 @@ public class QUnityAssets
         List<T> ObjectsFound = new List<T>();
         //
         string[] GUIDPathUnityFound;
-        if (PathChildInAssets.Length == 0)
+        if (PathChildInAssets.Length == 0 || (PathChildInAssets.Length == 1 && PathChildInAssets[0] == ""))
             GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:Prefab"));
         else
             GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:Prefab"), PathChildInAssets);
@@ -357,7 +357,7 @@ public class QUnityAssets
         List<T> ObjectsFound = new List<T>();
         //
         string[] GUIDPathUnityFound;
-        if (PathChildInAssets.Length == 0)
+        if (PathChildInAssets.Length == 0 || (PathChildInAssets.Length == 1 && PathChildInAssets[0] == ""))
             GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:ScriptableObject"));
         else
             GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:ScriptableObject"), PathChildInAssets);

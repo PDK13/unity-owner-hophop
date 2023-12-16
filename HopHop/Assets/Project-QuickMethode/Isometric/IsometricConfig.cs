@@ -36,14 +36,32 @@ public class IsometricConfigBlockData
 
     [SerializeField] private List<ListData> m_list;
 
-    public List<IsometricBlock> ListAll
+    public List<IsometricBlock> ListAssets
     {
         get
         {
+#if UNITY_EDITOR
+            SetRefresh();
+#endif
             List<IsometricBlock> BlockList = new List<IsometricBlock>();
-            foreach (ListData BlockListCheck in m_list)
-                foreach (IsometricBlock BlockCheck in BlockListCheck.Block)
+            foreach (ListData DataCheck in m_list)
+                foreach (IsometricBlock BlockCheck in DataCheck.Block)
                     BlockList.Add(BlockCheck);
+            return BlockList;
+        }
+    }
+
+    public List<string> ListName
+    {
+        get
+        {
+#if UNITY_EDITOR
+            SetRefresh();
+#endif
+            List<string> BlockList = new List<string>();
+            foreach (ListData DataCheck in m_list)
+                foreach (IsometricBlock BlockCheck in DataCheck.Block)
+                    BlockList.Add(BlockCheck.name);
             return BlockList;
         }
     }
@@ -84,14 +102,32 @@ public class IsometricConfigMapData
 
     [SerializeField] private List<ListData> m_list;
 
-    public List<TextAsset> ListAll
+    public List<TextAsset> ListAssets
     {
         get
         {
+#if UNITY_EDITOR
+            SetRefresh();
+#endif
             List<TextAsset> BlockList = new List<TextAsset>();
-            foreach (ListData BlockListCheck in m_list)
-                foreach (TextAsset BlockCheck in BlockListCheck.Map)
+            foreach (ListData DataCheck in m_list)
+                foreach (TextAsset BlockCheck in DataCheck.Map)
                     BlockList.Add(BlockCheck);
+            return BlockList;
+        }
+    }
+
+    public List<string> ListName
+    {
+        get
+        {
+#if UNITY_EDITOR
+            SetRefresh();
+#endif
+            List<string> BlockList = new List<string>();
+            foreach (ListData DataCheck in m_list)
+                foreach (TextAsset BlockCheck in DataCheck.Map)
+                    BlockList.Add(BlockCheck.name);
             return BlockList;
         }
     }

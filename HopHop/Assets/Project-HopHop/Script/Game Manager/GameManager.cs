@@ -38,7 +38,7 @@ public class GameManager : SingletonManager<GameManager>
     {
         m_isometricManager.List.SetList(m_isometricConfig, true);
 
-        SetWorldLoad(IsometricManager.Instance.IsometricConfig.Map.ListAll[0]);
+        SetWorldLoad(IsometricManager.Instance.IsometricConfig.Map.ListAssets[0]);
     }
 
     //

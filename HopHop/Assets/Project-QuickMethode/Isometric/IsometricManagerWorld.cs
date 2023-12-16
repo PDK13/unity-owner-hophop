@@ -54,34 +54,57 @@ public class IsometricManagerWorld
         if (Manager == null)
         {
             Debug.LogFormat("[Isometric] Manager not found to read map!");
+            //
             return;
         }
         //
         m_room.Clear();
         for (int i = 0; i < Manager.transform.childCount; i++)
-            SetGenerate(Manager, Manager.transform.GetChild(i), false);
+            SetGenerate(Manager.transform.GetChild(i), false, false);
         //
-        m_current = m_room.Count == 0 ? SetGenerate(Manager, "") : m_room[0];
+        m_current = m_room.Count == 0 ? SetGenerate("Temp") : m_room[0];
+        m_current.Active = true;
     }
 
     //
 
-    public IsometricManagerRoom SetGenerate(IsometricManager Manager, string Name, bool Active = true)
+    public IsometricManagerRoom SetGenerate(string Name, bool Current = true, bool Active = true)
     {
-        IsometricManagerRoom RoomGenerate = new IsometricManagerRoom(Manager, Name);
-        m_room.Add(RoomGenerate);
+        IsometricManagerRoom Room = m_room.Find(t => t.Name.Contains(Name));
+        if (Room != null)
+        {
+            Debug.LogFormat("[Isometric] Manager aldready add {0} at a room in world", Name);
+            //
+            if (Current)
+            {
+                if (m_current != null)
+                    m_current.Active = false;
+                m_current = Room;
+            }
+            //
+            Room.Active = Active;
+            Room.SetWorldRead();
+            //
+            return Room;
+        }
         //
-        if (Active)
+        Room = new IsometricManagerRoom(Manager, Name);
+        m_room.Add(Room);
+        //
+        if (Current)
         {
             if (m_current != null)
                 m_current.Active = false;
-            m_current = RoomGenerate;
+            m_current = Room;
         }
         //
-        return RoomGenerate;
+        Room.Active = Active;
+        Room.SetWorldRead();
+        //
+        return Room;
     }
 
-    public IsometricManagerRoom SetGenerate(IsometricManager Manager, Transform Root, bool Active = true)
+    public IsometricManagerRoom SetGenerate(Transform Root, bool Current = true, bool Active = true)
     {
         if (!Root.name.Contains(IsometricManagerRoom.NAME_ROOM))
         {
@@ -89,24 +112,38 @@ public class IsometricManagerWorld
             return null;
         }
         //
-        if (m_room.Exists(t => t.Root.Equals(Root)))
+        IsometricManagerRoom Room = m_room.Find(t => t.Root.Equals(Root));
+        if (Room != null)
         {
             Debug.LogFormat("[Isometric] Manager aldready add {0} at a room in world", Root.name);
-            return null;
+            //
+            if (Current)
+            {
+                if (m_current != null)
+                    m_current.Active = false;
+                m_current = Room;
+            }
+            //
+            Room.Active = Active;
+            Room.SetWorldRead();
+            //
+            return Room;
         }
         //
-        IsometricManagerRoom RoomGenerate = new IsometricManagerRoom(Manager, Root);
+        Room = new IsometricManagerRoom(Manager, Root);
+        m_room.Add(Room);
         //
-        m_room.Add(RoomGenerate);
-        //
-        if (Active)
+        if (Current)
         {
             if (m_current != null)
                 m_current.Active = false;
-            m_current = RoomGenerate;
+            m_current = Room;
         }
         //
-        return RoomGenerate;
+        Room.Active = Active;
+        Room.SetWorldRead();
+        //
+        return Room;
     }
 
     public IsometricManagerRoom SetActive(string Name)
@@ -118,6 +155,7 @@ public class IsometricManagerWorld
         if (m_current != null)
             m_current.Active = false;
         m_current = RoomFind;
+        m_current.Active = true;
         //
         return RoomFind;
     }

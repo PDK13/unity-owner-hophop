@@ -14,7 +14,15 @@ public class IsometricManagerRoom
     [SerializeField] private string m_name;
     [SerializeField] private Transform m_root;
 
-    public string Name { get => m_name; set => m_name = value; }
+    public string Name 
+    {
+        get => m_name;
+        set
+        {
+            m_name = value;
+            m_root.name = NameFixed;
+        }
+    }
 
     public string NameFixed => string.Format("{0}{1}", NAME_ROOM, m_name);
 
@@ -71,7 +79,7 @@ public class IsometricManagerRoom
         }
         //
         m_manager = Manager;
-        m_name = Root.name;
+        m_name = Root.name.Replace(NAME_ROOM, "");
         //
         m_root = Root;
         //
