@@ -13,7 +13,6 @@ public class IsometricManagerRoom
     //
     [SerializeField] private string m_name;
     [SerializeField] private Transform m_root;
-    private bool m_active = true;
 
     public string Name { get => m_name; set => m_name = value; }
 
@@ -30,19 +29,17 @@ public class IsometricManagerRoom
                 Debug.LogFormat("[Isometric] Room not exist for excute command!");
                 return false;
             }
-            m_root.gameObject.SetActive(m_active);
-            return m_active;
+            //
+            return m_root.gameObject.activeInHierarchy;
         }
         set
         {
             if (m_root == null)
             {
-                m_active = false;
                 Debug.LogFormat("[Isometric] Room not exist for excute command!");
                 return;
             }
-            m_active = value;
-            m_root.gameObject.SetActive(m_active);
+            m_root.gameObject.SetActive(value);
         }
     }
     

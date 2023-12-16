@@ -92,21 +92,13 @@ public class QUnityAssets
     ///<summary><b>(UnityEditorOnly)</b></summary>
     public static List<GameObject> GetPrefab(string NameSpecial, params string[] PathChildInAssets)
     {
-        string PathAssets = QPath.GetPath(QPath.PathType.None, PathChildInAssets);
-        //
-        if (!QPath.GetPathFolderExist(QPath.PathType.Assets, PathAssets))
-        {
-            Debug.LogFormat("[Assets] Path {0} not exist!", PathAssets);
-            return null;
-        }
-        //
         List<GameObject> ObjectsFound = new List<GameObject>();
         //
         string[] GUIDPathUnityFound;
-        if (PathAssets == "")
+        if (PathChildInAssets.Length == 0)
             GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:Prefab"));
         else
-            GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:Prefab"), new string[] { PathAssets });
+            GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:Prefab"), PathChildInAssets);
         //
         foreach (string GUIDPath in GUIDPathUnityFound)
         {
@@ -121,21 +113,13 @@ public class QUnityAssets
     ///<summary><b>(UnityEditorOnly)</b></summary>
     public static List<AnimationClip> GetAnimationClip(string NameSpecial, params string[] PathChildInAssets)
     {
-        string PathAssets = QPath.GetPath(QPath.PathType.None, PathChildInAssets);
-        //
-        if (!QPath.GetPathFolderExist(QPath.PathType.Assets, PathAssets))
-        {
-            Debug.LogFormat("[Assets] Path {0} not exist!", PathAssets);
-            return null;
-        }
-        //
         List<AnimationClip> ObjectsFound = new List<AnimationClip>();
         //
         string[] GUIDPathUnityFound;
-        if (PathAssets == "")
+        if (PathChildInAssets.Length == 0)
             GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:AnimationClip"));
         else
-            GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:AnimationClip"), new string[] { PathAssets });
+            GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:AnimationClip"), PathChildInAssets);
         //
         foreach (string GUIDPath in GUIDPathUnityFound)
         {
@@ -150,21 +134,13 @@ public class QUnityAssets
     ///<summary><b>(UnityEditorOnly)</b></summary>
     public static List<AudioClip> GetAudioClip(string NameSpecial, params string[] PathChildInAssets)
     {
-        string PathAssets = QPath.GetPath(QPath.PathType.None, PathChildInAssets);
-        //
-        if (!QPath.GetPathFolderExist(QPath.PathType.Assets, PathAssets))
-        {
-            Debug.LogFormat("[Assets] Path {0} not exist!", PathAssets);
-            return null;
-        }
-        //
         List<AudioClip> ObjectsFound = new List<AudioClip>();
         //
         string[] GUIDPathUnityFound;
-        if (PathAssets == "")
+        if (PathChildInAssets.Length == 0)
             GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:AudioClip"));
         else
-            GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:AudioClip"), new string[] { PathAssets });
+            GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:AudioClip"), PathChildInAssets);
         //
         foreach (string GUIDPath in GUIDPathUnityFound)
         {
@@ -179,21 +155,13 @@ public class QUnityAssets
     ///<summary><b>(UnityEditorOnly)</b></summary>
     public static List<Font> GetFont(string NameSpecial, params string[] PathChildInAssets)
     {
-        string PathAssets = QPath.GetPath(QPath.PathType.None, PathChildInAssets);
-        //
-        if (!QPath.GetPathFolderExist(QPath.PathType.Assets, PathAssets))
-        {
-            Debug.LogFormat("[Assets] Path {0} not exist!", PathAssets);
-            return null;
-        }
-        //
         List<Font> ObjectsFound = new List<Font>();
         //
         string[] GUIDPathUnityFound;
-        if (PathAssets == "")
+        if (PathChildInAssets.Length == 0)
             GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:Font"));
         else
-            GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:Font"), new string[] { PathAssets });
+            GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:Font"), PathChildInAssets);
         //
         foreach (string GUIDPath in GUIDPathUnityFound)
         {
@@ -208,21 +176,13 @@ public class QUnityAssets
     ///<summary><b>(UnityEditorOnly)</b></summary>
     public static List<Material> GetMaterial(string NameSpecial, params string[] PathChildInAssets)
     {
-        string PathAssets = QPath.GetPath(QPath.PathType.None, PathChildInAssets);
-        //
-        if (!QPath.GetPathFolderExist(QPath.PathType.Assets, PathAssets))
-        {
-            Debug.LogFormat("[Assets] Path {0} not exist!", PathAssets);
-            return null;
-        }
-        //
         List<Material> ObjectsFound = new List<Material>();
         //
         string[] GUIDPathUnityFound;
-        if (PathAssets == "")
+        if (PathChildInAssets.Length == 0)
             GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:Material"));
         else
-            GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:Material"), new string[] { PathAssets });
+            GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:Material"), PathChildInAssets);
         //
         foreach (string GUIDPath in GUIDPathUnityFound)
         {
@@ -237,21 +197,13 @@ public class QUnityAssets
     ///<summary><b>(UnityEditorOnly)</b></summary>
     public static List<PhysicMaterial> GetPhysicMaterial(string NameSpecial, params string[] PathChildInAssets)
     {
-        string PathAssets = QPath.GetPath(QPath.PathType.None, PathChildInAssets);
-        //
-        if (!QPath.GetPathFolderExist(QPath.PathType.Assets, PathAssets))
-        {
-            Debug.LogFormat("[Assets] Path {0} not exist!", PathAssets);
-            return null;
-        }
-        //
         List<PhysicMaterial> ObjectsFound = new List<PhysicMaterial>();
         //
         string[] GUIDPathUnityFound;
-        if (PathAssets == "")
+        if (PathChildInAssets.Length == 0)
             GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:PhysicMaterial"));
         else
-            GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:PhysicMaterial"), new string[] { PathAssets });
+            GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:PhysicMaterial"), PathChildInAssets);
         //
         foreach (string GUIDPath in GUIDPathUnityFound)
         {
@@ -266,21 +218,13 @@ public class QUnityAssets
     ///<summary><b>(UnityEditorOnly)</b></summary>
     public static List<Texture> GetTexture(string NameSpecial, params string[] PathChildInAssets)
     {
-        string PathAssets = QPath.GetPath(QPath.PathType.None, PathChildInAssets);
-        //
-        if (!QPath.GetPathFolderExist(QPath.PathType.Assets, PathAssets))
-        {
-            Debug.LogFormat("[Assets] Path {0} not exist!", PathAssets);
-            return null;
-        }
-        //
         List<Texture> ObjectsFound = new List<Texture>();
         //
         string[] GUIDPathUnityFound;
-        if (PathAssets == "")
+        if (PathChildInAssets.Length == 0)
             GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:Texture"));
         else
-            GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:Texture"), new string[] { PathAssets });
+            GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:Texture"), PathChildInAssets);
         //
         foreach (string GUIDPath in GUIDPathUnityFound)
         {
@@ -295,21 +239,13 @@ public class QUnityAssets
     ///<summary><b>(UnityEditorOnly)</b></summary>
     public static List<VideoClip> GetVideoClip(string NameSpecial, params string[] PathChildInAssets)
     {
-        string PathAssets = QPath.GetPath(QPath.PathType.None, PathChildInAssets);
-        //
-        if (!QPath.GetPathFolderExist(QPath.PathType.Assets, PathAssets))
-        {
-            Debug.LogFormat("[Assets] Path {0} not exist!", PathAssets);
-            return null;
-        }
-        //
         List<VideoClip> ObjectsFound = new List<VideoClip>();
         //
         string[] GUIDPathUnityFound;
-        if (PathAssets == "")
+        if (PathChildInAssets.Length == 0)
             GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:VideoClip"));
         else
-            GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:VideoClip"), new string[] { PathAssets });
+            GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:VideoClip"), PathChildInAssets);
         //
         foreach (string GUIDPath in GUIDPathUnityFound)
         {
@@ -324,21 +260,13 @@ public class QUnityAssets
     ///<summary><b>(UnityEditorOnly)</b></summary>
     public static List<Sprite> GetSprite(string NameSpecial, params string[] PathChildInAssets)
     {
-        string PathAssets = QPath.GetPath(QPath.PathType.None, PathChildInAssets);
-        //
-        if (!QPath.GetPathFolderExist(QPath.PathType.Assets, PathAssets))
-        {
-            Debug.LogFormat("[Assets] Path {0} not exist!", PathAssets);
-            return null;
-        }
-        //
         List<Sprite> ObjectsFound = new List<Sprite>();
         //
         string[] GUIDPathUnityFound;
-        if (PathAssets == "")
+        if (PathChildInAssets.Length == 0)
             GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:Sprite"));
         else
-            GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:Sprite"), new string[] { PathAssets });
+            GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:Sprite"), PathChildInAssets);
         //
         foreach (string GUIDPath in GUIDPathUnityFound)
         {
@@ -353,21 +281,13 @@ public class QUnityAssets
     ///<summary><b>(UnityEditorOnly)</b></summary>
     public static List<RuntimeAnimatorController> GetAnimatorController(string NameSpecial, params string[] PathChildInAssets)
     {
-        string PathAssets = QPath.GetPath(QPath.PathType.None, PathChildInAssets);
-        //
-        if (!QPath.GetPathFolderExist(QPath.PathType.Assets, PathAssets))
-        {
-            Debug.LogFormat("[Assets] Path {0} not exist!", PathAssets);
-            return null;
-        }
-        //
         List<RuntimeAnimatorController> ObjectsFound = new List<RuntimeAnimatorController>();
         //
         string[] GUIDPathUnityFound;
-        if (PathAssets == "")
+        if (PathChildInAssets.Length == 0)
             GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:AnimationController"));
         else
-            GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:AnimationController"), new string[] { PathAssets });
+            GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:AnimationController"), PathChildInAssets);
         //
         foreach (string GUIDPath in GUIDPathUnityFound)
         {
@@ -382,21 +302,13 @@ public class QUnityAssets
     ///<summary><b>(UnityEditorOnly)</b></summary>
     public static List<TextAsset> GetTextAsset(string NameSpecial, QPath.ExtensionType FileExtension, params string[] PathChildInAssets)
     {
-        string PathAssets = QPath.GetPath(QPath.PathType.None, PathChildInAssets);
-        //
-        if (!QPath.GetPathFolderExist(QPath.PathType.Assets, PathAssets))
-        {
-            Debug.LogFormat("[Assets] Path {0} not exist!", PathAssets);
-            return null;
-        }
-        //
         List<TextAsset> ObjectsFound = new List<TextAsset>();
         //
         string[] GUIDPathUnityFound;
-        if (PathAssets == "")
+        if (PathChildInAssets.Length == 0)
             GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:TextAsset"));
         else
-            GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:TextAsset"), new string[] { PathAssets });        
+            GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:TextAsset"), PathChildInAssets);
         //
         foreach (string GUIDPath in GUIDPathUnityFound)
         {
@@ -417,21 +329,13 @@ public class QUnityAssets
     ///<summary><b>(UnityEditorOnly)</b></summary>
     public static List<T> GetPrefab<T>(string NameSpecial, params string[] PathChildInAssets) where T : Component
     {
-        string PathAssets = QPath.GetPath(QPath.PathType.None, PathChildInAssets);
-        //
-        if (!QPath.GetPathFolderExist(QPath.PathType.Assets, PathAssets))
-        {
-            Debug.LogFormat("[Assets] Path {0} not exist!", PathAssets);
-            return null;
-        }
-        //
         List<T> ObjectsFound = new List<T>();
         //
         string[] GUIDPathUnityFound;
-        if (PathAssets == "")
+        if (PathChildInAssets.Length == 0)
             GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:Prefab"));
         else
-            GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:Prefab"), new string[] { PathAssets });        
+            GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:Prefab"), PathChildInAssets);
         //
         foreach (string GUIDPath in GUIDPathUnityFound)
         {
@@ -450,21 +354,13 @@ public class QUnityAssets
     ///<summary><b>(UnityEditorOnly)</b></summary>
     public static List<T> GetScriptableObject<T>(string NameSpecial, params string[] PathChildInAssets) where T : ScriptableObject
     {
-        string PathAssets = QPath.GetPath(QPath.PathType.None, PathChildInAssets);
-        //
-        if (!QPath.GetPathFolderExist(QPath.PathType.Assets, PathAssets))
-        {
-            Debug.LogFormat("[Assets] Path {0} not exist!", PathAssets);
-            return null;
-        }
-        //
         List<T> ObjectsFound = new List<T>();
         //
         string[] GUIDPathUnityFound;
-        if (PathAssets == "")
+        if (PathChildInAssets.Length == 0)
             GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:ScriptableObject"));
         else
-            GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:ScriptableObject"), new string[] { PathAssets });
+            GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:ScriptableObject"), PathChildInAssets);
         //
         foreach (string GUIDPath in GUIDPathUnityFound)
         {

@@ -35,5 +35,4 @@ MonoBehaviour:
     m_assetsPath: Assets/Project-HopHop/Map
     m_list:
     - Tag: temp
-      Map:
-      - {fileID: 4900000, guid: 3a54a010d219faa47881f4f5cb2423c3, type: 3}
+      Map: []

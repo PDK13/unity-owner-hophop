@@ -16,6 +16,20 @@ public class IsometricManagerWorld
 
     public IsometricManagerRoom Current => m_current;
 
+    public bool CurrentAvaible
+    {
+        get
+        {
+            if (m_current == null)
+                return false;
+            //
+            if (m_current.Root == null)
+                return false;
+            //
+            return true;
+        }
+    }
+
     public List<string> RoomName
     {
         get
@@ -43,9 +57,11 @@ public class IsometricManagerWorld
             return;
         }
         //
+        m_room.Clear();
         for (int i = 0; i < Manager.transform.childCount; i++)
             SetGenerate(Manager, Manager.transform.GetChild(i), false);
-        m_current = m_room.Count == 0 ? null : m_room[0];
+        //
+        m_current = m_room.Count == 0 ? SetGenerate(Manager, "") : m_room[0];
     }
 
     //
@@ -72,6 +88,13 @@ public class IsometricManagerWorld
             Debug.LogFormat("[Isometric] Manager can't add {0} at a room in world", Root.name);
             return null;
         }
+        //
+        if (m_room.Exists(t => t.Root.Equals(Root)))
+        {
+            Debug.LogFormat("[Isometric] Manager aldready add {0} at a room in world", Root.name);
+            return null;
+        }
+        //
         IsometricManagerRoom RoomGenerate = new IsometricManagerRoom(Manager, Root);
         //
         m_room.Add(RoomGenerate);
