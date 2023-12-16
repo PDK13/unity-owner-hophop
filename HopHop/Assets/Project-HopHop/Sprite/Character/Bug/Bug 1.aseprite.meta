@@ -119,7 +119,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: Bug 1_Frame_0
+  - name: bug 1_Frame_0
     originalName: 
     pivot: {x: 0.5, y: -0.25}
     alignment: 9
@@ -130,7 +130,7 @@ ScriptedImporter:
       y: 4
       width: 60
       height: 96
-    spriteID: 4403821264e1d094c8159188af42ef9c
+    spriteID: ad114c9c12e58e949bbea0b5176f83f0
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -139,7 +139,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-  - name: Bug 1_Frame_1
+  - name: bug 1_Frame_1
     originalName: 
     pivot: {x: 0.5, y: -0.25}
     alignment: 9
@@ -150,7 +150,7 @@ ScriptedImporter:
       y: 4
       width: 60
       height: 96
-    spriteID: 25a54b5d78742be4bafd264d01cd4b30
+    spriteID: c328fedb7945bf9468a9900994c18eca
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -159,7 +159,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 72, y: 4}
-  - name: Bug 1_Frame_6
+  - name: bug 1_Frame_6
     originalName: 
     pivot: {x: 0.5, y: -0.25531915}
     alignment: 9
@@ -170,7 +170,7 @@ ScriptedImporter:
       y: 108
       width: 60
       height: 94
-    spriteID: 75776d723b160874eb73a54168267082
+    spriteID: 5adaf0680a6580c468cfc166a0cbaef0
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -179,7 +179,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 140, y: 108}
-  - name: Bug 1_Frame_7
+  - name: bug 1_Frame_7
     originalName: 
     pivot: {x: 0.5, y: -0.25531915}
     alignment: 9
@@ -190,7 +190,7 @@ ScriptedImporter:
       y: 108
       width: 60
       height: 94
-    spriteID: be18c0fda9f17714a8a8fa2081fd3272
+    spriteID: 564abe5bf3339ac42916756d0965d058
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -199,7 +199,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 208, y: 108}
-  - name: Bug 1_Frame_12
+  - name: bug 1_Frame_12
     originalName: 
     pivot: {x: 0.5, y: -0.25}
     alignment: 9
@@ -210,7 +210,7 @@ ScriptedImporter:
       y: 4
       width: 60
       height: 96
-    spriteID: 91c1851320605514ebcc321e79329298
+    spriteID: c82261cf69f11c142a2e99e695dab35b
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -219,7 +219,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 140, y: 4}
-  - name: Bug 1_Frame_13
+  - name: bug 1_Frame_13
     originalName: 
     pivot: {x: 0.5, y: -0.25}
     alignment: 9
@@ -230,7 +230,7 @@ ScriptedImporter:
       y: 4
       width: 60
       height: 96
-    spriteID: c5025685acb89b94ab462f938079eb76
+    spriteID: 5fd8b518b63bbf24ab7d2963d4718a8c
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -239,7 +239,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 208, y: 4}
-  - name: Bug 1_Frame_18
+  - name: bug 1_Frame_18
     originalName: 
     pivot: {x: 0.5, y: -0.25}
     alignment: 9
@@ -250,7 +250,7 @@ ScriptedImporter:
       y: 4
       width: 60
       height: 96
-    spriteID: 32bd1e7d491058d47b1030a336a4f567
+    spriteID: 86a1f6b34c19c444caf5c55c52c50133
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -259,7 +259,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 276, y: 4}
-  - name: Bug 1_Frame_19
+  - name: bug 1_Frame_19
     originalName: 
     pivot: {x: 0.5, y: -0.39130434}
     alignment: 9
@@ -270,7 +270,7 @@ ScriptedImporter:
       y: 108
       width: 60
       height: 92
-    spriteID: f2f9ae0dcb5e93f4bbe568864b8d87e5
+    spriteID: 68a1b3df80950164ca776efe224780fb
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -279,7 +279,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 276, y: 108}
-  - name: Bug 1_Frame_24
+  - name: bug 1_Frame_24
     originalName: 
     pivot: {x: 0.5, y: -0.25}
     alignment: 9
@@ -290,7 +290,7 @@ ScriptedImporter:
       y: 4
       width: 60
       height: 96
-    spriteID: fd6552a3f0b5b67429209de07c3364a5
+    spriteID: 7ee4b1e969a108b45beea087d894dfc2
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -299,7 +299,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 344, y: 4}
-  - name: Bug 1_Frame_25
+  - name: bug 1_Frame_25
     originalName: 
     pivot: {x: 0.5, y: -0.26086956}
     alignment: 9
@@ -310,7 +310,7 @@ ScriptedImporter:
       y: 108
       width: 60
       height: 92
-    spriteID: 88cf6810bd03e0546af53cd9708211a3
+    spriteID: 5dea5c5cd6200cb418397799541ed5f9
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -319,7 +319,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 344, y: 108}
-  - name: Bug 1_Frame_26
+  - name: bug 1_Frame_26
     originalName: 
     pivot: {x: 0.5, y: -0.25}
     alignment: 9
@@ -330,7 +330,7 @@ ScriptedImporter:
       y: 4
       width: 60
       height: 96
-    spriteID: a5f365c526d7d294c97409ed3dbb7f82
+    spriteID: 5b0b98e0eb1a6dd4d95e4faa2572d888
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -339,7 +339,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 412, y: 4}
-  - name: Bug 1_Frame_27
+  - name: bug 1_Frame_27
     originalName: 
     pivot: {x: 0.5, y: -0.25}
     alignment: 9
@@ -350,7 +350,7 @@ ScriptedImporter:
       y: 108
       width: 60
       height: 96
-    spriteID: 0a7a876824ddd9d4f8fb5daef5e834e9
+    spriteID: 6ca5b1af20bb23348b722d7143314bdc
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -359,7 +359,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 108}
-  - name: Bug 1_Frame_28
+  - name: bug 1_Frame_28
     originalName: 
     pivot: {x: 0.5, y: -0.26086956}
     alignment: 9
@@ -370,7 +370,7 @@ ScriptedImporter:
       y: 108
       width: 60
       height: 92
-    spriteID: f9716e360c3a2064c9b58336eaa4bf5e
+    spriteID: eae77cc734603814d96e5bcd85a7b475
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -379,7 +379,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 412, y: 108}
-  - name: Bug 1_Frame_29
+  - name: bug 1_Frame_29
     originalName: 
     pivot: {x: 0.5, y: -0.25}
     alignment: 9
@@ -390,7 +390,7 @@ ScriptedImporter:
       y: 108
       width: 60
       height: 96
-    spriteID: d1e8a862669cc4345bff74e5a6f9e028
+    spriteID: 7ad41d20e7c362840b0f25b01f52448e
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -402,124 +402,124 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -90463027
-    name: Bug 1
+    guid: -103433811
+    name: bug 1
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: Bug 1_Frame_0
+    - name: bug 1_Frame_0
       frameIndex: 0
       cellRect:
         x: 34
         y: 24
         width: 60
         height: 96
-      spriteId: 4403821264e1d094c8159188af42ef9c
-    - name: Bug 1_Frame_1
+      spriteId: ad114c9c12e58e949bbea0b5176f83f0
+    - name: bug 1_Frame_1
       frameIndex: 1
       cellRect:
         x: 34
         y: 24
         width: 60
         height: 96
-      spriteId: 25a54b5d78742be4bafd264d01cd4b30
-    - name: Bug 1_Frame_6
+      spriteId: c328fedb7945bf9468a9900994c18eca
+    - name: bug 1_Frame_6
       frameIndex: 6
       cellRect:
         x: 34
         y: 24
         width: 60
         height: 94
-      spriteId: 75776d723b160874eb73a54168267082
-    - name: Bug 1_Frame_7
+      spriteId: 5adaf0680a6580c468cfc166a0cbaef0
+    - name: bug 1_Frame_7
       frameIndex: 7
       cellRect:
         x: 34
         y: 24
         width: 60
         height: 94
-      spriteId: be18c0fda9f17714a8a8fa2081fd3272
-    - name: Bug 1_Frame_12
+      spriteId: 564abe5bf3339ac42916756d0965d058
+    - name: bug 1_Frame_12
       frameIndex: 12
       cellRect:
         x: 34
         y: 24
         width: 60
         height: 96
-      spriteId: 91c1851320605514ebcc321e79329298
-    - name: Bug 1_Frame_13
+      spriteId: c82261cf69f11c142a2e99e695dab35b
+    - name: bug 1_Frame_13
       frameIndex: 13
       cellRect:
         x: 34
         y: 24
         width: 60
         height: 96
-      spriteId: c5025685acb89b94ab462f938079eb76
-    - name: Bug 1_Frame_18
+      spriteId: 5fd8b518b63bbf24ab7d2963d4718a8c
+    - name: bug 1_Frame_18
       frameIndex: 18
       cellRect:
         x: 34
         y: 24
         width: 60
         height: 96
-      spriteId: 32bd1e7d491058d47b1030a336a4f567
-    - name: Bug 1_Frame_19
+      spriteId: 86a1f6b34c19c444caf5c55c52c50133
+    - name: bug 1_Frame_19
       frameIndex: 19
       cellRect:
         x: 34
         y: 36
         width: 60
         height: 92
-      spriteId: f2f9ae0dcb5e93f4bbe568864b8d87e5
-    - name: Bug 1_Frame_24
+      spriteId: 68a1b3df80950164ca776efe224780fb
+    - name: bug 1_Frame_24
       frameIndex: 24
       cellRect:
         x: 34
         y: 24
         width: 60
         height: 96
-      spriteId: fd6552a3f0b5b67429209de07c3364a5
-    - name: Bug 1_Frame_25
+      spriteId: 7ee4b1e969a108b45beea087d894dfc2
+    - name: bug 1_Frame_25
       frameIndex: 25
       cellRect:
         x: 34
         y: 24
         width: 60
         height: 92
-      spriteId: 88cf6810bd03e0546af53cd9708211a3
-    - name: Bug 1_Frame_26
+      spriteId: 5dea5c5cd6200cb418397799541ed5f9
+    - name: bug 1_Frame_26
       frameIndex: 26
       cellRect:
         x: 34
         y: 24
         width: 60
         height: 96
-      spriteId: a5f365c526d7d294c97409ed3dbb7f82
-    - name: Bug 1_Frame_27
+      spriteId: 5b0b98e0eb1a6dd4d95e4faa2572d888
+    - name: bug 1_Frame_27
       frameIndex: 27
       cellRect:
         x: 34
         y: 24
         width: 60
         height: 96
-      spriteId: 0a7a876824ddd9d4f8fb5daef5e834e9
-    - name: Bug 1_Frame_28
+      spriteId: 6ca5b1af20bb23348b722d7143314bdc
+    - name: bug 1_Frame_28
       frameIndex: 28
       cellRect:
         x: 34
         y: 24
         width: 60
         height: 92
-      spriteId: f9716e360c3a2064c9b58336eaa4bf5e
-    - name: Bug 1_Frame_29
+      spriteId: eae77cc734603814d96e5bcd85a7b475
+    - name: bug 1_Frame_29
       frameIndex: 29
       cellRect:
         x: 34
         y: 24
         width: 60
         height: 96
-      spriteId: d1e8a862669cc4345bff74e5a6f9e028
+      spriteId: 7ad41d20e7c362840b0f25b01f52448e
     linkedCells: []
     parentIndex: -1
   platformSettings: []

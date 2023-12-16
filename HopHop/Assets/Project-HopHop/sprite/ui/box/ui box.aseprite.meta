@@ -119,7 +119,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: UI Box_Frame_0
+  - name: ui box_Frame_0
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -130,7 +130,7 @@ ScriptedImporter:
       y: 4
       width: 128
       height: 128
-    spriteID: 2b8b55c95ece6234faf3f065b43d7684
+    spriteID: 98afee884daba5f4a970811197492ecb
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -139,7 +139,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-  - name: UI Box_Frame_1
+  - name: ui box_Frame_1
     originalName: 
     pivot: {x: 0.5, y: -0.5}
     alignment: 9
@@ -150,7 +150,7 @@ ScriptedImporter:
       y: 140
       width: 64
       height: 64
-    spriteID: 3609dca185a6b0a4bba715cf79e84403
+    spriteID: a700db2196beea04bb5c92f60b2361e4
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -159,7 +159,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 140}
-  - name: UI Box_Frame_2
+  - name: ui box_Frame_2
     originalName: 
     pivot: {x: 0.5, y: -0.9545455}
     alignment: 9
@@ -170,7 +170,7 @@ ScriptedImporter:
       y: 140
       width: 44
       height: 44
-    spriteID: 8e44f0c36078e724a9b6b1d09c3551a8
+    spriteID: 2fbfb0f4a7d38d749a5c297f41c6f4a0
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -182,36 +182,36 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 1316755849
-    name: UI Box
+    guid: -147430423
+    name: ui box
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: UI Box_Frame_0
+    - name: ui box_Frame_0
       frameIndex: 0
       cellRect:
         x: 0
         y: 0
         width: 128
         height: 128
-      spriteId: 2b8b55c95ece6234faf3f065b43d7684
-    - name: UI Box_Frame_1
+      spriteId: 98afee884daba5f4a970811197492ecb
+    - name: ui box_Frame_1
       frameIndex: 1
       cellRect:
         x: 32
         y: 32
         width: 64
         height: 64
-      spriteId: 3609dca185a6b0a4bba715cf79e84403
-    - name: UI Box_Frame_2
+      spriteId: a700db2196beea04bb5c92f60b2361e4
+    - name: ui box_Frame_2
       frameIndex: 2
       cellRect:
         x: 42
         y: 42
         width: 44
         height: 44
-      spriteId: 8e44f0c36078e724a9b6b1d09c3551a8
+      spriteId: 2fbfb0f4a7d38d749a5c297f41c6f4a0
     linkedCells: []
     parentIndex: -1
   platformSettings: []

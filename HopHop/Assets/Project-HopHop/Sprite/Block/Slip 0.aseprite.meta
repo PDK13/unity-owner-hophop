@@ -119,7 +119,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: Slip 0_Frame_0
+  - name: slip 0_Frame_0
     originalName: 
     pivot: {x: 0.5, y: -0.007936508}
     alignment: 9
@@ -130,7 +130,7 @@ ScriptedImporter:
       y: 4
       width: 128
       height: 126
-    spriteID: fef5a74bed83be947981d4ddb500a05e
+    spriteID: 7c39b11ead39b3b438f6198c6cfedcd5
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -139,7 +139,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-  - name: Slip 0_Frame_1
+  - name: slip 0_Frame_1
     originalName: 
     pivot: {x: 0.5, y: -0.007936508}
     alignment: 9
@@ -150,7 +150,7 @@ ScriptedImporter:
       y: 4
       width: 128
       height: 126
-    spriteID: f2987708fe3e0814c8e346b527dc8027
+    spriteID: a3124406db4aa0449ae3cbabe0ea1706
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -159,7 +159,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 140, y: 4}
-  - name: Slip 0_Frame_2
+  - name: slip 0_Frame_2
     originalName: 
     pivot: {x: 0.5, y: -0.007936508}
     alignment: 9
@@ -170,7 +170,7 @@ ScriptedImporter:
       y: 4
       width: 128
       height: 126
-    spriteID: a3bce65af85c2fc4a99448fbc9c68c1d
+    spriteID: 2e5bff7bb28f58b4b8cf4810bf43af88
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -179,7 +179,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 276, y: 4}
-  - name: Slip 0_Frame_3
+  - name: slip 0_Frame_3
     originalName: 
     pivot: {x: 0.5, y: -0.007936508}
     alignment: 9
@@ -190,7 +190,7 @@ ScriptedImporter:
       y: 138
       width: 128
       height: 126
-    spriteID: e07828dfb6a0bbb489a641700e707a48
+    spriteID: 3d23d4017f7a08c46a6be625346159bc
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -199,7 +199,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 138}
-  - name: Slip 0_Frame_4
+  - name: slip 0_Frame_4
     originalName: 
     pivot: {x: 0.5, y: -0.007936508}
     alignment: 9
@@ -210,7 +210,7 @@ ScriptedImporter:
       y: 138
       width: 128
       height: 126
-    spriteID: 92280d9da35fb2b4197ecfef245e7369
+    spriteID: e116820cba69699448f577568081d04f
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -219,7 +219,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 140, y: 138}
-  - name: Slip 0_Frame_5
+  - name: slip 0_Frame_5
     originalName: 
     pivot: {x: 0.5, y: -0.007936508}
     alignment: 9
@@ -230,7 +230,7 @@ ScriptedImporter:
       y: 138
       width: 128
       height: 126
-    spriteID: 0d52cfa1c90be2542ae7ee4c62899927
+    spriteID: 869571ab2271b484289e2a78c7dc66e9
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -242,60 +242,60 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 652476604
-    name: Slip 0
+    guid: 639505820
+    name: slip 0
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: Slip 0_Frame_0
+    - name: slip 0_Frame_0
       frameIndex: 0
       cellRect:
         x: 0
         y: 1
         width: 128
         height: 126
-      spriteId: fef5a74bed83be947981d4ddb500a05e
-    - name: Slip 0_Frame_1
+      spriteId: 7c39b11ead39b3b438f6198c6cfedcd5
+    - name: slip 0_Frame_1
       frameIndex: 1
       cellRect:
         x: 0
         y: 1
         width: 128
         height: 126
-      spriteId: f2987708fe3e0814c8e346b527dc8027
-    - name: Slip 0_Frame_2
+      spriteId: a3124406db4aa0449ae3cbabe0ea1706
+    - name: slip 0_Frame_2
       frameIndex: 2
       cellRect:
         x: 0
         y: 1
         width: 128
         height: 126
-      spriteId: a3bce65af85c2fc4a99448fbc9c68c1d
-    - name: Slip 0_Frame_3
+      spriteId: 2e5bff7bb28f58b4b8cf4810bf43af88
+    - name: slip 0_Frame_3
       frameIndex: 3
       cellRect:
         x: 0
         y: 1
         width: 128
         height: 126
-      spriteId: e07828dfb6a0bbb489a641700e707a48
-    - name: Slip 0_Frame_4
+      spriteId: 3d23d4017f7a08c46a6be625346159bc
+    - name: slip 0_Frame_4
       frameIndex: 4
       cellRect:
         x: 0
         y: 1
         width: 128
         height: 126
-      spriteId: 92280d9da35fb2b4197ecfef245e7369
-    - name: Slip 0_Frame_5
+      spriteId: e116820cba69699448f577568081d04f
+    - name: slip 0_Frame_5
       frameIndex: 5
       cellRect:
         x: 0
         y: 1
         width: 128
         height: 126
-      spriteId: 0d52cfa1c90be2542ae7ee4c62899927
+      spriteId: 869571ab2271b484289e2a78c7dc66e9
     linkedCells: []
     parentIndex: -1
   platformSettings: []

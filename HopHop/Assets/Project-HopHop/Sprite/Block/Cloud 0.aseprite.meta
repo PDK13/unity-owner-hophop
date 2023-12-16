@@ -119,7 +119,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: Cloud 0_Frame_0
+  - name: cloud 0_Frame_0
     originalName: 
     pivot: {x: 0.5, y: -0.45783132}
     alignment: 9
@@ -130,7 +130,7 @@ ScriptedImporter:
       y: 4
       width: 104
       height: 83
-    spriteID: c210b817405337b4595911e5bbf50879
+    spriteID: f1fcc9c4be1a6284fb04fb6b0ba16dd3
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -139,7 +139,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-  - name: Cloud 0_Frame_1
+  - name: cloud 0_Frame_1
     originalName: 
     pivot: {x: 0.5, y: -0.45783132}
     alignment: 9
@@ -150,7 +150,7 @@ ScriptedImporter:
       y: 95
       width: 104
       height: 83
-    spriteID: b79b29a201bcaa84e935f090d3ba265a
+    spriteID: e9b8023c333e8c0449d25fddd049c3a2
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -159,7 +159,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 95}
-  - name: Cloud 0_Frame_2
+  - name: cloud 0_Frame_2
     originalName: 
     pivot: {x: 0.5, y: -0.45783132}
     alignment: 9
@@ -170,7 +170,7 @@ ScriptedImporter:
       y: 186
       width: 104
       height: 83
-    spriteID: 04e84ada62893f74aa3fe3c5eabd645c
+    spriteID: 448cb4397e49fcf48b97d65bc5ef3430
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -179,7 +179,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 186}
-  - name: Cloud 0_Frame_3
+  - name: cloud 0_Frame_3
     originalName: 
     pivot: {x: 0.5, y: -0.45783132}
     alignment: 9
@@ -190,7 +190,7 @@ ScriptedImporter:
       y: 277
       width: 104
       height: 83
-    spriteID: 40a19fff19566e14098b6cfcc7e34d01
+    spriteID: f4a78afb59a58104ea0f40ae493a69b5
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -199,7 +199,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 277}
-  - name: Cloud 0_Frame_4
+  - name: cloud 0_Frame_4
     originalName: 
     pivot: {x: 0.5, y: -0.45783132}
     alignment: 9
@@ -210,7 +210,7 @@ ScriptedImporter:
       y: 368
       width: 104
       height: 83
-    spriteID: 16808508affa4c14e858e6ece2f023a0
+    spriteID: 23aaee9990cd5c444bfb9f8f5411921f
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -219,7 +219,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 368}
-  - name: Cloud 0_Frame_5
+  - name: cloud 0_Frame_5
     originalName: 
     pivot: {x: 0.5, y: -0.45783132}
     alignment: 9
@@ -230,7 +230,7 @@ ScriptedImporter:
       y: 4
       width: 104
       height: 83
-    spriteID: 9d5d45f3ec85fc14e940cbd90539a508
+    spriteID: 3fcae3f889aef0c4abd3d06b375439d2
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -242,60 +242,60 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 928809397
-    name: Cloud 0
+    guid: 502475861
+    name: cloud 0
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: Cloud 0_Frame_0
+    - name: cloud 0_Frame_0
       frameIndex: 0
       cellRect:
         x: 12
         y: 38
         width: 104
         height: 83
-      spriteId: c210b817405337b4595911e5bbf50879
-    - name: Cloud 0_Frame_1
+      spriteId: f1fcc9c4be1a6284fb04fb6b0ba16dd3
+    - name: cloud 0_Frame_1
       frameIndex: 1
       cellRect:
         x: 12
         y: 38
         width: 104
         height: 83
-      spriteId: b79b29a201bcaa84e935f090d3ba265a
-    - name: Cloud 0_Frame_2
+      spriteId: e9b8023c333e8c0449d25fddd049c3a2
+    - name: cloud 0_Frame_2
       frameIndex: 2
       cellRect:
         x: 12
         y: 38
         width: 104
         height: 83
-      spriteId: 04e84ada62893f74aa3fe3c5eabd645c
-    - name: Cloud 0_Frame_3
+      spriteId: 448cb4397e49fcf48b97d65bc5ef3430
+    - name: cloud 0_Frame_3
       frameIndex: 3
       cellRect:
         x: 12
         y: 38
         width: 104
         height: 83
-      spriteId: 40a19fff19566e14098b6cfcc7e34d01
-    - name: Cloud 0_Frame_4
+      spriteId: f4a78afb59a58104ea0f40ae493a69b5
+    - name: cloud 0_Frame_4
       frameIndex: 4
       cellRect:
         x: 12
         y: 38
         width: 104
         height: 83
-      spriteId: 16808508affa4c14e858e6ece2f023a0
-    - name: Cloud 0_Frame_5
+      spriteId: 23aaee9990cd5c444bfb9f8f5411921f
+    - name: cloud 0_Frame_5
       frameIndex: 5
       cellRect:
         x: 12
         y: 38
         width: 104
         height: 83
-      spriteId: 9d5d45f3ec85fc14e940cbd90539a508
+      spriteId: 3fcae3f889aef0c4abd3d06b375439d2
     linkedCells: []
     parentIndex: -1
   platformSettings: []

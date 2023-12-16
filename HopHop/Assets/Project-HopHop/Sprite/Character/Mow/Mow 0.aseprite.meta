@@ -119,7 +119,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: Mow 0_Frame_0
+  - name: mow 0_Frame_0
     originalName: 
     pivot: {x: 0.5, y: -0.27906978}
     alignment: 9
@@ -130,7 +130,7 @@ ScriptedImporter:
       y: 4
       width: 60
       height: 86
-    spriteID: a24f79db37a82bb429476dc8d47b813d
+    spriteID: 0c71dc833facb814c97717f67dca291d
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -139,7 +139,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-  - name: Mow 0_Frame_1
+  - name: mow 0_Frame_1
     originalName: 
     pivot: {x: 0.5, y: -0.27906978}
     alignment: 9
@@ -150,7 +150,7 @@ ScriptedImporter:
       y: 98
       width: 60
       height: 86
-    spriteID: 8183263302cd83844adc398a8ca47f9d
+    spriteID: 2d6d5317d65b91b4d99649606a63d949
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -159,7 +159,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 98}
-  - name: Mow 0_Frame_6
+  - name: mow 0_Frame_6
     originalName: 
     pivot: {x: 0.5, y: -0.29268292}
     alignment: 9
@@ -170,7 +170,7 @@ ScriptedImporter:
       y: 4
       width: 60
       height: 82
-    spriteID: 579be5d2629740547a5503b12b689edd
+    spriteID: d4751af5dcdc21f40aa57bb15f2ac498
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -179,7 +179,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 140, y: 4}
-  - name: Mow 0_Frame_7
+  - name: mow 0_Frame_7
     originalName: 
     pivot: {x: 0.5, y: -0.29268292}
     alignment: 9
@@ -190,7 +190,7 @@ ScriptedImporter:
       y: 94
       width: 60
       height: 82
-    spriteID: 9efa96723d6481b4c93f7e7fa19b51f0
+    spriteID: 0d65003369413314d91ca81ab66c44d4
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -199,7 +199,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 140, y: 94}
-  - name: Mow 0_Frame_12
+  - name: mow 0_Frame_12
     originalName: 
     pivot: {x: 0.5, y: -0.27906978}
     alignment: 9
@@ -210,7 +210,7 @@ ScriptedImporter:
       y: 192
       width: 60
       height: 86
-    spriteID: a9863da27b96e4f448c1f331a6bfb900
+    spriteID: ed2875052202bc94c8b20d9d73d123ab
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -219,7 +219,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 192}
-  - name: Mow 0_Frame_13
+  - name: mow 0_Frame_13
     originalName: 
     pivot: {x: 0.5, y: -0.27906978}
     alignment: 9
@@ -230,7 +230,7 @@ ScriptedImporter:
       y: 286
       width: 60
       height: 86
-    spriteID: c123fbdabb7e3bc40bcb1169fbc8a494
+    spriteID: aa63a801cba3bab429c13f5d18a5a7e1
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -239,7 +239,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 286}
-  - name: Mow 0_Frame_18
+  - name: mow 0_Frame_18
     originalName: 
     pivot: {x: 0.5, y: -0.27906978}
     alignment: 9
@@ -250,7 +250,7 @@ ScriptedImporter:
       y: 380
       width: 60
       height: 86
-    spriteID: 05aead4b26489714eb380134a6c36180
+    spriteID: 394c9ffbeff2cdf41adc1c7b0e403173
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -259,7 +259,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 380}
-  - name: Mow 0_Frame_19
+  - name: mow 0_Frame_19
     originalName: 
     pivot: {x: 0.5, y: -0.4390244}
     alignment: 9
@@ -270,7 +270,7 @@ ScriptedImporter:
       y: 184
       width: 60
       height: 82
-    spriteID: 893d32a3e823196429e841e782883782
+    spriteID: 5c3f40e683f806441a7cd520485d0d61
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -279,7 +279,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 140, y: 184}
-  - name: Mow 0_Frame_24
+  - name: mow 0_Frame_24
     originalName: 
     pivot: {x: 0.5, y: -0.27906978}
     alignment: 9
@@ -290,7 +290,7 @@ ScriptedImporter:
       y: 4
       width: 60
       height: 86
-    spriteID: 6d8e7baa9d2a3e24caa0de807f202820
+    spriteID: 52755a428396b364cafb0db17e6f25d9
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -299,7 +299,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 72, y: 4}
-  - name: Mow 0_Frame_25
+  - name: mow 0_Frame_25
     originalName: 
     pivot: {x: 0.5, y: -0.28915662}
     alignment: 9
@@ -310,7 +310,7 @@ ScriptedImporter:
       y: 380
       width: 60
       height: 83
-    spriteID: be34bb3b15ebe7041a7c4da4fffde4c7
+    spriteID: b8b22944efc804e49ba5d3a359211647
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -319,7 +319,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 72, y: 380}
-  - name: Mow 0_Frame_26
+  - name: mow 0_Frame_26
     originalName: 
     pivot: {x: 0.5, y: -0.27906978}
     alignment: 9
@@ -330,7 +330,7 @@ ScriptedImporter:
       y: 98
       width: 60
       height: 86
-    spriteID: c311345ba1439624fa77a8a8c87b1b92
+    spriteID: a0c41b420bb47fb4898d7d55bfa245cb
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -339,7 +339,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 72, y: 98}
-  - name: Mow 0_Frame_27
+  - name: mow 0_Frame_27
     originalName: 
     pivot: {x: 0.5, y: -0.27906978}
     alignment: 9
@@ -350,7 +350,7 @@ ScriptedImporter:
       y: 192
       width: 60
       height: 86
-    spriteID: ad67922d27f67e341ad48fcadd2e2341
+    spriteID: eb7378ca357c9254cb2869d8ffc7fc75
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -359,7 +359,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 72, y: 192}
-  - name: Mow 0_Frame_28
+  - name: mow 0_Frame_28
     originalName: 
     pivot: {x: 0.5, y: -0.29268292}
     alignment: 9
@@ -370,7 +370,7 @@ ScriptedImporter:
       y: 274
       width: 60
       height: 82
-    spriteID: 1191ece4f75442443aee3cd15b526e42
+    spriteID: d0660e8c0b8f8a34fa09735925a28876
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -379,7 +379,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 140, y: 274}
-  - name: Mow 0_Frame_29
+  - name: mow 0_Frame_29
     originalName: 
     pivot: {x: 0.5, y: -0.27906978}
     alignment: 9
@@ -390,7 +390,7 @@ ScriptedImporter:
       y: 286
       width: 60
       height: 86
-    spriteID: de2fecd26c951e945b6bb02ed2dbd6c3
+    spriteID: 94580f52f957466498672ab5f39b136f
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -402,124 +402,124 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -1332117523
-    name: Mow 0
+    guid: -1345088307
+    name: mow 0
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: Mow 0_Frame_0
+    - name: mow 0_Frame_0
       frameIndex: 0
       cellRect:
         x: 34
         y: 24
         width: 60
         height: 86
-      spriteId: a24f79db37a82bb429476dc8d47b813d
-    - name: Mow 0_Frame_1
+      spriteId: 0c71dc833facb814c97717f67dca291d
+    - name: mow 0_Frame_1
       frameIndex: 1
       cellRect:
         x: 34
         y: 24
         width: 60
         height: 86
-      spriteId: 8183263302cd83844adc398a8ca47f9d
-    - name: Mow 0_Frame_6
+      spriteId: 2d6d5317d65b91b4d99649606a63d949
+    - name: mow 0_Frame_6
       frameIndex: 6
       cellRect:
         x: 34
         y: 24
         width: 60
         height: 82
-      spriteId: 579be5d2629740547a5503b12b689edd
-    - name: Mow 0_Frame_7
+      spriteId: d4751af5dcdc21f40aa57bb15f2ac498
+    - name: mow 0_Frame_7
       frameIndex: 7
       cellRect:
         x: 34
         y: 24
         width: 60
         height: 82
-      spriteId: 9efa96723d6481b4c93f7e7fa19b51f0
-    - name: Mow 0_Frame_12
+      spriteId: 0d65003369413314d91ca81ab66c44d4
+    - name: mow 0_Frame_12
       frameIndex: 12
       cellRect:
         x: 34
         y: 24
         width: 60
         height: 86
-      spriteId: a9863da27b96e4f448c1f331a6bfb900
-    - name: Mow 0_Frame_13
+      spriteId: ed2875052202bc94c8b20d9d73d123ab
+    - name: mow 0_Frame_13
       frameIndex: 13
       cellRect:
         x: 34
         y: 24
         width: 60
         height: 86
-      spriteId: c123fbdabb7e3bc40bcb1169fbc8a494
-    - name: Mow 0_Frame_18
+      spriteId: aa63a801cba3bab429c13f5d18a5a7e1
+    - name: mow 0_Frame_18
       frameIndex: 18
       cellRect:
         x: 34
         y: 24
         width: 60
         height: 86
-      spriteId: 05aead4b26489714eb380134a6c36180
-    - name: Mow 0_Frame_19
+      spriteId: 394c9ffbeff2cdf41adc1c7b0e403173
+    - name: mow 0_Frame_19
       frameIndex: 19
       cellRect:
         x: 34
         y: 36
         width: 60
         height: 82
-      spriteId: 893d32a3e823196429e841e782883782
-    - name: Mow 0_Frame_24
+      spriteId: 5c3f40e683f806441a7cd520485d0d61
+    - name: mow 0_Frame_24
       frameIndex: 24
       cellRect:
         x: 34
         y: 24
         width: 60
         height: 86
-      spriteId: 6d8e7baa9d2a3e24caa0de807f202820
-    - name: Mow 0_Frame_25
+      spriteId: 52755a428396b364cafb0db17e6f25d9
+    - name: mow 0_Frame_25
       frameIndex: 25
       cellRect:
         x: 34
         y: 24
         width: 60
         height: 83
-      spriteId: be34bb3b15ebe7041a7c4da4fffde4c7
-    - name: Mow 0_Frame_26
+      spriteId: b8b22944efc804e49ba5d3a359211647
+    - name: mow 0_Frame_26
       frameIndex: 26
       cellRect:
         x: 34
         y: 24
         width: 60
         height: 86
-      spriteId: c311345ba1439624fa77a8a8c87b1b92
-    - name: Mow 0_Frame_27
+      spriteId: a0c41b420bb47fb4898d7d55bfa245cb
+    - name: mow 0_Frame_27
       frameIndex: 27
       cellRect:
         x: 34
         y: 24
         width: 60
         height: 86
-      spriteId: ad67922d27f67e341ad48fcadd2e2341
-    - name: Mow 0_Frame_28
+      spriteId: eb7378ca357c9254cb2869d8ffc7fc75
+    - name: mow 0_Frame_28
       frameIndex: 28
       cellRect:
         x: 34
         y: 24
         width: 60
         height: 82
-      spriteId: 1191ece4f75442443aee3cd15b526e42
-    - name: Mow 0_Frame_29
+      spriteId: d0660e8c0b8f8a34fa09735925a28876
+    - name: mow 0_Frame_29
       frameIndex: 29
       cellRect:
         x: 34
         y: 24
         width: 60
         height: 86
-      spriteId: de2fecd26c951e945b6bb02ed2dbd6c3
+      spriteId: 94580f52f957466498672ab5f39b136f
     linkedCells: []
     parentIndex: -1
   platformSettings: []
