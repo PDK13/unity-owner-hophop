@@ -1,5 +1,5 @@
 #WORLD-NAME
-Temp 1
+Temp1
 
 #WORLD-COMMAND
 0

@@ -342,6 +342,9 @@ public class IsometricTool : EditorWindow
         //
         if (m_curson != null)
         {
+            if (!m_curson.transform.parent.Equals(m_manager.World.Current.Root))
+                m_curson.transform.SetParent(m_manager.World.Current.Root, true);
+            //
             if (m_manager.List.BlockList.Count > 0)
             {
                 m_curson.GetComponent<SpriteRenderer>().sprite = m_manager.List.BlockList[m_indexTag].Block[m_indexName].GetComponent<SpriteRenderer>().sprite;
