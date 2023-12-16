@@ -3707,148 +3707,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &682874903
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 682874904}
-  - component: {fileID: 682874905}
-  - component: {fileID: 682874906}
-  m_Layer: 0
-  m_Name: ISO-CURSON
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &682874904
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 682874903}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -3}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1321004996}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &682874905
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 682874903}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: -1751606581, guid: 013f40b6c87bb8d478bc8dc3db09ee08, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 128, y: 128}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
---- !u!114 &682874906
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 682874903}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88b51ca1839d85a47a182808b3636847, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_name: b
-  m_tag: []
-  m_posType: 0
-  m_pos:
-    X: -1
-    Y: -1
-    H: 1
-  m_initData:
-    Data: []
-  m_moveData:
-    Type: 0
-    Dir: 
-    Duration: 
-    Index: 0
-    Quantity: 1
-  m_followData:
-    Identity: 
-    IdentityGet: 
-  m_actionData:
-    Type: 0
-    Action: []
-    Duration: 
-    Index: 0
-    Quantity: 1
-  m_eventData:
-    Identity: []
-    IdentityGet: []
-  m_teleportData:
-    Name: 
-    Pos:
-      X: 0
-      Y: 0
-      H: 0
-  m_sceneData:
-    Renderer: 1
-    Rotate: 0
-    Centre:
-      X: 0
-      Y: 0
-      H: 0
-    Scale:
-      X: 1
-      Y: 1
-      H: 1
-  m_centre: {x: 0, y: 0, z: 0}
 --- !u!1 &699362668
 GameObject:
   m_ObjectHideFlags: 0
@@ -7635,7 +7493,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1870293903}
-  - {fileID: 682874904}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1321004997
@@ -7664,22 +7521,12 @@ MonoBehaviour:
       H: 1
   World:
     m_current:
-      m_name: Camera
-      m_root: {fileID: 1870293903}
+      m_name: 
+      m_root: {fileID: 0}
       Command: []
       PosH: []
       Tag: []
-    m_room:
-    - m_name: Camera
-      m_root: {fileID: 1870293903}
-      Command: []
-      PosH: []
-      Tag: []
-    - m_name: ISO-CURSON
-      m_root: {fileID: 682874904}
-      Command: []
-      PosH: []
-      Tag: []
+    m_room: []
   List:
     BlockList:
     - Tag: block
@@ -7693,6 +7540,10 @@ MonoBehaviour:
       - {fileID: 44393240911007880, guid: 5a84e1888d2e3c249a15ec44aebb815c, type: 3}
       - {fileID: 44393240911007880, guid: ef6dded9a5ceae549bb45d45fcae1a05, type: 3}
       - {fileID: 1455909166595997230, guid: 218a42f8b9ed39b42a68cce7d36b4e7c, type: 3}
+    - Tag: bullet
+      Block:
+      - {fileID: 1455909166595997230, guid: 740db2b1ad6f89045af8c08341d89a25, type: 3}
+      - {fileID: 1455909166595997230, guid: e8ecb6f1ef2f19545b012d49048b273e, type: 3}
     - Tag: player
       Block:
       - {fileID: 44393240911007880, guid: c7dda824b32fcfe4c88c6bccf01ac4ed, type: 3}
@@ -7710,10 +7561,6 @@ MonoBehaviour:
       - {fileID: 44393240911007880, guid: 0a6433aa93900ae468cfdf8fdc45328b, type: 3}
       - {fileID: 44393240911007880, guid: 5f8a4b3194d84f64ab6446fb9fae653d, type: 3}
       - {fileID: 44393240911007880, guid: 00c9dc5fbfb705f46b6f837143a9488e, type: 3}
-    - Tag: trap
-      Block:
-      - {fileID: 1455909166595997230, guid: bb1d6f31074e38a4c82d0eaf4f95129c, type: 3}
-      - {fileID: 1455909166595997230, guid: cc00723f6326c324aaef48d0264f6f62, type: 3}
     - Tag: flower
       Block:
       - {fileID: 44393240911007880, guid: 381915d1355f4b145ad52cfe6b536e1d, type: 3}
@@ -7734,6 +7581,10 @@ MonoBehaviour:
       - {fileID: 44393240911007880, guid: cb0d3768d5812844980b22d86bbb7aaa, type: 3}
       - {fileID: 44393240911007880, guid: 1bcad9f38dac96c4ab8253cbc943957b, type: 3}
       - {fileID: 44393240911007880, guid: 092e502cf81c5d341b782b5845a078a0, type: 3}
+    - Tag: trap
+      Block:
+      - {fileID: 1455909166595997230, guid: bb1d6f31074e38a4c82d0eaf4f95129c, type: 3}
+      - {fileID: 1455909166595997230, guid: cc00723f6326c324aaef48d0264f6f62, type: 3}
 --- !u!114 &1321004998
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7746,7 +7597,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20dfe5cac98ae8f44870f7ba416fb601, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_levelConfig: {fileID: 11400000, guid: 206d520694dc71b4fa9dfc82ef08c5ce, type: 2}
   m_characterConfig: {fileID: 11400000, guid: a7be0641b56742b4790794b4bbeba9fa, type: 2}
   m_isometricConfig: {fileID: 11400000, guid: 4b3dce31945c8fb4e9a56cc6aef6a2e1, type: 2}
   m_isometricManager: {fileID: 1321004997}

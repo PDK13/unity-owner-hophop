@@ -85,6 +85,9 @@ public class QPath
                 break;
         }
         //
+        if (PathChild == null)
+            PathChild = new string[1] { "" };
+        //
         foreach (string PathChildAdd in PathChild)
             PathFinal = QEncypt.GetEncyptAdd('/', PathFinal, PathChildAdd);
         //

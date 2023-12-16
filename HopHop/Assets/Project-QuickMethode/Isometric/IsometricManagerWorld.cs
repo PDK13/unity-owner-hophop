@@ -7,6 +7,8 @@ using UnityEngine;
 [Serializable]
 public class IsometricManagerWorld
 {
+    [HideInInspector] private IsometricManager Manager;
+
     [SerializeField] private IsometricManagerRoom m_current = null;
     [SerializeField] private List<IsometricManagerRoom> m_room = new List<IsometricManagerRoom>();
 
@@ -29,6 +31,18 @@ public class IsometricManagerWorld
 
     public IsometricManagerWorld(IsometricManager Manager)
     {
+        this.Manager = Manager;
+        SetInit();
+    }
+
+    public void SetInit()
+    {
+        if (Manager == null)
+        {
+            Debug.LogFormat("[Isometric] Manager not found to read map!");
+            return;
+        }
+        //
         for (int i = 0; i < Manager.transform.childCount; i++)
             SetGenerate(Manager, Manager.transform.GetChild(i), false);
         m_current = m_room.Count == 0 ? null : m_room[0];
@@ -53,7 +67,13 @@ public class IsometricManagerWorld
 
     public IsometricManagerRoom SetGenerate(IsometricManager Manager, Transform Root, bool Active = true)
     {
+        if (!Root.name.Contains(IsometricManagerRoom.NAME_ROOM))
+        {
+            Debug.LogFormat("[Isometric] Manager can't add {0} at a room in world", Root.name);
+            return null;
+        }
         IsometricManagerRoom RoomGenerate = new IsometricManagerRoom(Manager, Root);
+        //
         m_room.Add(RoomGenerate);
         //
         if (Active)

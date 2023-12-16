@@ -57,26 +57,26 @@ public class IsometricManager : SingletonManager<IsometricManager>
         if (m_isometricConfig != null)
             return;
         //
-        var AuthorConfigFound = QUnityAssets.GetScriptableObject<IsometricConfig>("");
+        var Config = QUnityAssets.GetScriptableObject<IsometricConfig>("", "");
         //
-        if (AuthorConfigFound == null)
+        if (Config == null)
         {
             m_debugError = "Config not found, please create one";
             Debug.Log("[Message] " + m_debugError);
             return;
         }
         //
-        if (AuthorConfigFound.Count == 0)
+        if (Config.Count == 0)
         {
             m_debugError = "Config not found, please create one";
             Debug.Log("[Message] " + m_debugError);
             return;
         }
         //
-        if (AuthorConfigFound.Count > 1)
+        if (Config.Count > 1)
             Debug.Log("[Message] Config found more than one, get the first one found");
         //
-        m_isometricConfig = AuthorConfigFound[0];
+        m_isometricConfig = Config[0];
         //
         m_debugError = "";
     }

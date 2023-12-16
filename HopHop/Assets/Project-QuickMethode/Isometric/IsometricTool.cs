@@ -83,10 +83,16 @@ public class IsometricTool : EditorWindow
             return;
         }
         //
-        if (GetManager())
-            SetManager(true);
-        else
+        //if (GetManager())
+        //    SetManager(true);
+        //else
+        //    return;
+        //
+        if (m_manager.World.Current == null)
+        {
+            Debug.LogFormat("[Isometric] Room not exist for excute command!");
             return;
+        }
         //
         QUnityEditor.SetLabel("TOOL MANAGER", QUnityEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this));
         //
@@ -146,7 +152,9 @@ public class IsometricTool : EditorWindow
         }
         //
         m_manager.List.SetList(m_manager.IsometricConfig, false);
-        m_manager.World.Current.SetWorldRead();
+        m_manager.World = new IsometricManagerWorld(m_manager);
+        if (m_manager.World.Current != null)
+            m_manager.World.Current.SetWorldRead();
         //
         m_listTag = new List<string>();
         for (int i = 0; i < m_manager.List.BlockList.Count; i++)
@@ -228,6 +236,12 @@ public class IsometricTool : EditorWindow
 
     private void SetGUIButtonFocus(float WidthPercent)
     {
+        if (m_manager.World.Current == null)
+        {
+            Debug.LogFormat("[Isometric] Room not exist for excute command!");
+            return;
+        }
+        //
         if (QUnityEditor.SetButton("FOCUS", QUnityEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, WidthPercent)))
         {
             IsometricBlock BlockFocus = m_manager.World.Current.GetBlockPrimary(m_curson.Pos);
@@ -291,13 +305,19 @@ public class IsometricTool : EditorWindow
 
     private void SetCursonControl()
     {
+        if (m_manager.World.Current == null)
+        {
+            Debug.LogFormat("[Isometric] Room not exist for excute command!");
+            return;
+        }
+        //
         if (m_curson == null)
         {
-            Transform Curson = m_manager.transform.Find(IsometricManagerRoom.CURSON_NAME);
-
+            Transform Curson = m_manager.World.Current.Root.transform.Find(IsometricManagerRoom.NAME_CURSON);
+            //
             if (Curson == null)
             {
-                GameObject CursonClone = QGameObject.SetCreate(IsometricManagerRoom.CURSON_NAME, m_manager.transform);
+                GameObject CursonClone = QGameObject.SetCreate(IsometricManagerRoom.NAME_CURSON, m_manager.transform);
                 m_curson = CursonClone.AddComponent<IsometricBlock>();
             }
             else
@@ -402,6 +422,12 @@ public class IsometricTool : EditorWindow
 
     private void SetCursonCheck()
     {
+        if (m_manager.World.Current == null)
+        {
+            Debug.LogFormat("[Isometric] Room not exist for excute command!");
+            return;
+        }
+        //
         if (m_check)
         {
             IsometricBlock BlockFocus = m_manager.World.Current.GetBlockPrimary(m_curson.Pos);
@@ -422,6 +448,12 @@ public class IsometricTool : EditorWindow
 
     private void SetCursonMaskXY()
     {
+        if (m_manager.World.Current == null)
+        {
+            Debug.LogFormat("[Isometric] Room not exist for excute command!");
+            return;
+        }
+        //
         if (m_maskXY)
         {
             bool CentreFound = m_manager.World.Current.SetEditorMask(m_curson.Pos, Color.red, Color.white, Color.yellow);
@@ -436,6 +468,12 @@ public class IsometricTool : EditorWindow
 
     private void SetCursonHiddenH()
     {
+        if (m_manager.World.Current == null)
+        {
+            Debug.LogFormat("[Isometric] Room not exist for excute command!");
+            return;
+        }
+        //
         if (m_hiddenH)
         {
             m_manager.World.Current.SetEditorHidden(m_curson.Pos.HInt, 0.01f);
@@ -452,21 +490,38 @@ public class IsometricTool : EditorWindow
 
     private void SetGUIGroupManager()
     {
+        if (m_manager.World.Current == null)
+        {
+            Debug.LogFormat("[Isometric] Room not exist for excute command!");
+            return;
+        }
+        //
         QUnityEditor.SetHorizontalBegin();
         if (QUnityEditor.SetButton("Refresh", QUnityEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 1f / 2)))
         {
-            m_maskXY = false;
-            m_hiddenH = false;
-            m_indexTag = 0;
-            m_indexName = 0;
-            //
             if (GetManager())
+            {
                 SetManager(true);
-            //
-            SetCursonMaskXY();
-            SetCursonHiddenH();
-            //
-            QUnityAssets.SetRefresh();
+                //
+                m_maskXY = false;
+                m_hiddenH = false;
+                m_indexTag = 0;
+                m_indexName = 0;
+                //
+                SetCursonMaskXY();
+                SetCursonHiddenH();
+                //
+                QUnityAssets.SetRefresh();
+            }
+            else
+            {
+                m_maskXY = false;
+                m_hiddenH = false;
+                m_indexTag = 0;
+                m_indexName = 0;
+                //
+                QUnityAssets.SetRefresh();
+            }
         }
         if (QUnityEditor.SetButton("Clear", QUnityEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 1f / 2)))
         {
