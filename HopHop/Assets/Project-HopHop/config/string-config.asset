@@ -9,7 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fc0172c442e35540b257e9f2617a67a, type: 3}
+  m_Script: {fileID: 11500000, guid: 20896fe8ec525134b998e7b8f4e4c110, type: 3}
   m_Name: string-config
   m_EditorClassIdentifier: 
   m_colorClear: '#clear'

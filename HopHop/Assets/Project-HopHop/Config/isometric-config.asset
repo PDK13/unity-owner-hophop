@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bef13b7c523e1a942b94b81cb767a6ea, type: 3}
   m_Name: isometric-config
   m_EditorClassIdentifier: 
-  BlockData:
+  Block:
     m_assetsPath: Assets/Project-HopHop/Block
     m_list:
     - Tag: Block
@@ -31,3 +31,9 @@ MonoBehaviour:
       Block: []
     - Tag: Trap
       Block: []
+  Map:
+    m_assetsPath: Assets/Project-HopHop/Map
+    m_list:
+    - Tag: temp
+      Map:
+      - {fileID: 4900000, guid: 3a54a010d219faa47881f4f5cb2423c3, type: 3}

@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class GameManager : SingletonManager<GameManager>
 {
-    public static LevelConfig LevelConfig;
     public static CharacterConfig CharacterConfig;
     //
-    [SerializeField] private LevelConfig m_levelConfig;
     [SerializeField] private CharacterConfig m_characterConfig;
     [SerializeField] private IsometricConfig m_isometricConfig;
     //
@@ -27,7 +25,6 @@ public class GameManager : SingletonManager<GameManager>
     {
         base.Awake();
         //
-        LevelConfig = m_levelConfig;
         CharacterConfig = m_characterConfig;
         //
         Application.targetFrameRate = 60;
@@ -41,7 +38,7 @@ public class GameManager : SingletonManager<GameManager>
     {
         m_isometricManager.List.SetList(m_isometricConfig, true);
 
-        SetWorldLoad(m_levelConfig.Level[0].Level[0]);
+        SetWorldLoad(IsometricManager.Instance.IsometricConfig.Map.ListAll[0]);
     }
 
     //

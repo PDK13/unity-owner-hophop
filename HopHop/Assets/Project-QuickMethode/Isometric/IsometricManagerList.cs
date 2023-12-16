@@ -18,7 +18,7 @@ public class IsometricManagerList
 
     public void SetList(IsometricConfig IsometricConfig, bool All)
     {
-        SetList(IsometricConfig.BlockData.BlockListAll, All);
+        SetList(IsometricConfig.Block.ListAll, All);
     }
 
     public void SetList(List<IsometricBlock> BlockList, bool All)

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
+using System.IO;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -332,6 +333,35 @@ public class QUnityAssets
         {
             string AssetsSinglePath = AssetDatabase.GUIDToAssetPath(GUIDPath);
             RuntimeAnimatorController ObjectFound = AssetDatabase.LoadAssetAtPath<RuntimeAnimatorController>(AssetsSinglePath);
+            ObjectsFound.Add(ObjectFound);
+        }
+        //
+        return ObjectsFound;
+    }
+
+    ///<summary><b>(UnityEditorOnly)</b></summary>
+    public static List<TextAsset> GetTextAsset(string NameSpecial, QPath.ExtensionType FileExtension, params string[] PathChildInAssets)
+    {
+        string PathAssets = QPath.GetPath(QPath.PathType.None, PathChildInAssets);
+        //
+        if (!QPath.GetPathFolderExist(PathAssets))
+        {
+            Debug.LogFormat("[Assets] Path {0} not exist!", PathAssets);
+            return null;
+        }
+        //
+        List<TextAsset> ObjectsFound = new List<TextAsset>();
+        //
+        string[] GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:TextAsset"), new string[] { PathAssets });
+        //
+        foreach (string GUIDPath in GUIDPathUnityFound)
+        {
+            string AssetsSinglePath = AssetDatabase.GUIDToAssetPath(GUIDPath);
+            //
+            if (!AssetsSinglePath.Contains(QPath.GetFileName(NameSpecial, FileExtension)))
+                continue;
+            //
+            TextAsset ObjectFound = AssetDatabase.LoadAssetAtPath<TextAsset>(AssetsSinglePath);
             ObjectsFound.Add(ObjectFound);
         }
         //

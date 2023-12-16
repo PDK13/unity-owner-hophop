@@ -24,6 +24,38 @@ public class QPath
         Video, 
     }
 
+    public enum ExtensionType
+    {
+        //Script
+        cs,
+        //Image
+        jpg,
+        jpeg,
+        png,
+        gif,
+        tiff,
+        psd,
+        pdf,
+        eps,
+        ai,
+        //Media (Sound & Movie)
+        mp3,
+        mp4,
+        wav,
+        ogg,
+        //Text
+        txt,
+        html,
+        htm,
+        xml,
+        bytes,
+        json,
+        csv,
+        yaml,
+        fnt,
+        md,
+    }
+
     public static string GetPath(PathType PathType, params string[] PathChild)
     {
         string PathFinal = "";
@@ -61,30 +93,37 @@ public class QPath
 
     #endregion
 
-    #region ==================================== File
+    #region ==================================== File Name & Extension
 
-    //Name
+    //primary
 
-    public static string GetFileName(string PathPrimary)
+    public static string GetFileName(string Name, ExtensionType Extension)
+    {
+        return string.Format("{0}.{1}", Name, Extension.ToString());
+    }
+
+    //Get File Name from Path
+
+    public static string GetFileNameFromPath(string PathPrimary)
     {
         return Path.GetFileNameWithoutExtension(PathPrimary);
     }
 
-    public static string GetFileName(PathType PathType, params string[] PathChild)
+    public static string GetFileNameFromPath(PathType PathType, params string[] PathChild)
     {
-        return GetFileName(GetPath(PathType, PathChild));
+        return GetFileNameFromPath(GetPath(PathType, PathChild));
     }
 
-    //Extension
+    //Get File Extension from Path
 
-    public static string GetFileExtension(string PathPrimary)
+    public static string GetFileExtensionFromPath(string PathPrimary)
     {
         return Path.GetExtension(PathPrimary);
     }
 
-    public static string GetFileExtension(PathType PathType, params string[] PathChild)
+    public static string GetFileExtensionFromPath(PathType PathType, params string[] PathChild)
     {
-        return GetFileExtension(GetPath(PathType, PathChild));
+        return GetFileExtensionFromPath(GetPath(PathType, PathChild));
     }
 
     #endregion

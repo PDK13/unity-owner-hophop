@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using System.Collections;
+using static UnityEngine.GraphicsBuffer;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -9,7 +11,14 @@ using UnityEditor;
 [CreateAssetMenu(fileName = "isometric-config", menuName = "QConfig/Isometric Block", order = 0)]
 public class IsometricConfig : ScriptableObject
 {
-    public IsometricConfigBlockData BlockData = new IsometricConfigBlockData();
+    public IsometricConfigBlockData Block = new IsometricConfigBlockData();
+    public IsometricConfigMapData Map = new IsometricConfigMapData();
+
+    public void Reset()
+    {
+        Block.SetRefresh();
+        Map.SetRefresh();
+    }
 }
 
 [Serializable]
@@ -19,20 +28,20 @@ public class IsometricConfigBlockData
     [SerializeField] private string m_assetsPath = "Assets/Project-HopHop/Block";
 
     [Serializable]
-    private class BlockListData
+    private class ListData
     {
         public string Tag;
         public List<IsometricBlock> Block;
     }
 
-    [SerializeField] private List<BlockListData> m_list;
+    [SerializeField] private List<ListData> m_list;
 
-    public List<IsometricBlock> BlockListAll
+    public List<IsometricBlock> ListAll
     {
         get
         {
             List<IsometricBlock> BlockList = new List<IsometricBlock>();
-            foreach (BlockListData BlockListCheck in m_list)
+            foreach (ListData BlockListCheck in m_list)
                 foreach (IsometricBlock BlockCheck in BlockListCheck.Block)
                     BlockList.Add(BlockCheck);
             return BlockList;
@@ -45,7 +54,7 @@ public class IsometricConfigBlockData
     {
         List<IsometricBlock> AssetsGet;
         //
-        foreach (BlockListData BlockSingle in m_list)
+        foreach (ListData BlockSingle in m_list)
         {
             AssetsGet = QUnityAssets.GetPrefab<IsometricBlock>(BlockSingle.Tag, m_assetsPath);
             BlockSingle.Block.Clear();
@@ -60,6 +69,54 @@ public class IsometricConfigBlockData
 #endif
 }
 
+[Serializable]
+public class IsometricConfigMapData
+{
+    [Tooltip("Find all assets got tag exist in their name")]
+    [SerializeField] private string m_assetsPath = "Assets/Project-HopHop/Map";
+
+    [Serializable]
+    private class ListData
+    {
+        public string Tag = "";
+        public List<TextAsset> Map;
+    }
+
+    [SerializeField] private List<ListData> m_list;
+
+    public List<TextAsset> ListAll
+    {
+        get
+        {
+            List<TextAsset> BlockList = new List<TextAsset>();
+            foreach (ListData BlockListCheck in m_list)
+                foreach (TextAsset BlockCheck in BlockListCheck.Map)
+                    BlockList.Add(BlockCheck);
+            return BlockList;
+        }
+    }
+
+#if UNITY_EDITOR
+
+    public void SetRefresh()
+    {
+        List<TextAsset> AssetsGet;
+        //
+        foreach (ListData BlockSingle in m_list)
+        {
+            AssetsGet = QUnityAssets.GetTextAsset(BlockSingle.Tag, QPath.ExtensionType.txt, m_assetsPath);
+            BlockSingle.Map.Clear();
+            for (int i = 0; i < AssetsGet.Count; i++)
+                BlockSingle.Map.Add(AssetsGet[i]);
+            //
+            BlockSingle.Map = BlockSingle.Map.Where(x => x != null).ToList();
+            BlockSingle.Map = BlockSingle.Map.OrderBy(t => t.name).ToList();
+        }
+    }
+
+#endif
+}
+
 #if UNITY_EDITOR
 
 [CustomEditor(typeof(IsometricConfig))]
@@ -67,24 +124,28 @@ public class IsometricConfigEditor : Editor
 {
     private IsometricConfig m_target;
 
-    private SerializedProperty BlockData;
+    private SerializedProperty Block;
+    private SerializedProperty Map;
 
     private void OnEnable()
     {
         m_target = (target as IsometricConfig);
 
-        BlockData = QUnityEditorCustom.GetField(this, "BlockData");
+        Block = QUnityEditorCustom.GetField(this, "Block");
+        Map = QUnityEditorCustom.GetField(this, "Map");
     }
 
     public override void OnInspectorGUI()
     {
         serializedObject.Update();
 
-        QUnityEditorCustom.SetField(BlockData);
+        QUnityEditorCustom.SetField(Block);
+        QUnityEditorCustom.SetField(Map);
 
         if (QUnityEditor.SetButton("Refresh"))
         {
-            m_target.BlockData.SetRefresh();
+            m_target.Block.SetRefresh();
+            m_target.Map.SetRefresh();
         }
 
         QUnityEditorCustom.SetApply(this);
