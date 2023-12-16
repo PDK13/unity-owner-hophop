@@ -152,6 +152,8 @@ public class IsometricTool : EditorWindow
 
     private void SetManagerRefresh()
     {
+        m_manager.IsometricConfig.Reset();
+        //
         m_listMapFile = m_manager.IsometricConfig.Map.ListName;
         //
         m_manager.List.SetList(m_manager.IsometricConfig, false);
