@@ -435,6 +435,9 @@ public class IsometricTool : EditorWindow
 
     private void SetCursonMaskXY()
     {
+        if (m_curson == null)
+            return;
+        //
         if (!m_manager.World.CurrentAvaible)
             return;
         //
@@ -452,6 +455,9 @@ public class IsometricTool : EditorWindow
 
     private void SetCursonHiddenH()
     {
+        if (m_curson == null)
+            return;
+        //
         if (!m_manager.World.CurrentAvaible)
             return;
         //
