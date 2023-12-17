@@ -1,0 +1,177 @@
+#WORLD-NAME
+Lab
+
+#WORLD-COMMAND
+0
+
+#WORLD-BLOCK
+42
+
+[2;2;0]
+Object Flower Blue 0
+#BLOCK-END
+
+[1;2;0]
+Object Flower Blue 0
+#BLOCK-END
+
+[0;2;0]
+Object Flower Blue 0
+#BLOCK-END
+
+[-1;2;0]
+Object Flower Blue 0
+#BLOCK-END
+
+[-2;2;0]
+Object Flower Blue 0
+#BLOCK-END
+
+[2;1;0]
+Object Flower Blue 0
+#BLOCK-END
+
+[-2;1;0]
+Object Flower Blue 0
+#BLOCK-END
+
+[2;0;0]
+Object Flower Blue 0
+#BLOCK-END
+
+[0;0;0]
+Player Angle
+#BLOCK-END
+
+[-2;0;0]
+Object Flower Blue 0
+#BLOCK-END
+
+[2;-1;0]
+Object Flower Blue 0
+#BLOCK-END
+
+[-2;-1;0]
+Object Flower Blue 0
+#BLOCK-END
+
+[2;-2;0]
+Object Flower Blue 0
+#BLOCK-END
+
+[1;-2;0]
+Object Flower Blue 0
+#BLOCK-END
+
+[0;-2;0]
+Object Flower Blue 0
+#BLOCK-END
+
+[-1;-2;0]
+Object Flower Blue 0
+#BLOCK-END
+
+[-2;-2;0]
+Object Flower Blue 0
+#BLOCK-END
+
+[2;2;-1]
+Block Normal 0
+#BLOCK-END
+
+[1;2;-1]
+Block Normal 0
+#BLOCK-END
+
+[0;2;-1]
+Block Normal 0
+#BLOCK-END
+
+[-1;2;-1]
+Block Normal 0
+#BLOCK-END
+
+[-2;2;-1]
+Block Normal 0
+#BLOCK-END
+
+[2;1;-1]
+Block Normal 0
+#BLOCK-END
+
+[1;1;-1]
+Block Normal 0
+#BLOCK-END
+
+[0;1;-1]
+Block Normal 0
+#BLOCK-END
+
+[-1;1;-1]
+Block Normal 0
+#BLOCK-END
+
+[-2;1;-1]
+Block Normal 0
+#BLOCK-END
+
+[2;0;-1]
+Block Normal 0
+#BLOCK-END
+
+[1;0;-1]
+Block Normal 0
+#BLOCK-END
+
+[0;0;-1]
+Block Normal 0
+#BLOCK-END
+
+[-1;0;-1]
+Block Normal 0
+#BLOCK-END
+
+[-2;0;-1]
+Block Normal 0
+#BLOCK-END
+
+[2;-1;-1]
+Block Normal 0
+#BLOCK-END
+
+[1;-1;-1]
+Block Normal 0
+#BLOCK-END
+
+[0;-1;-1]
+Block Normal 0
+#BLOCK-END
+
+[-1;-1;-1]
+Block Normal 0
+#BLOCK-END
+
+[-2;-1;-1]
+Block Normal 0
+#BLOCK-END
+
+[2;-2;-1]
+Block Normal 0
+#BLOCK-END
+
+[1;-2;-1]
+Block Normal 0
+#BLOCK-END
+
+[0;-2;-1]
+Block Normal 0
+#BLOCK-END
+
+[-1;-2;-1]
+Block Normal 0
+#BLOCK-END
+
+[-2;-2;-1]
+Block Normal 0
+#BLOCK-END
+#WORLD-END

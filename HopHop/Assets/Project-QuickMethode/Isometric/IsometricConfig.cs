@@ -2,8 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using System.Collections;
-using static UnityEngine.GraphicsBuffer;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -14,11 +12,15 @@ public class IsometricConfig : ScriptableObject
     public IsometricConfigBlockData Block = new IsometricConfigBlockData();
     public IsometricConfigMapData Map = new IsometricConfigMapData();
 
+#if UNITY_EDITOR
+
     public void Reset()
     {
         Block.SetRefresh();
         Map.SetRefresh();
     }
+
+#endif
 }
 
 [Serializable]

@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -8,23 +7,12 @@ using UnityEditor;
 [ExecuteAlways]
 public class IsometricManager : SingletonManager<IsometricManager>
 {
-    #region Varible: Game Config
+    public IsometricConfig Config;
 
-    [SerializeField] private IsometricConfig m_config;
-
-    private string m_debugError = "";
-
-    public IsometricConfig Config => m_config;
-
-    #endregion
-
-    #region Varible: World Manager
-
+    [Space]
     public IsometricGameDataScene Scene = new IsometricGameDataScene();
     public IsometricManagerWorld World;
     public IsometricManagerList List = new IsometricManagerList();
-
-    #endregion
 
     protected override void Awake()
     {
@@ -52,31 +40,27 @@ public class IsometricManager : SingletonManager<IsometricManager>
 
     public void SetConfigFind()
     {
-        if (m_config != null)
+        if (this.Config != null)
             return;
         //
-        var Config = QUnityAssets.GetScriptableObject<IsometricConfig>("", "");
+        var Config = QUnityAssets.GetScriptableObject<IsometricConfig>("");
         //
         if (Config == null)
         {
-            m_debugError = "Config not found, please create one";
-            Debug.Log("[Message] " + m_debugError);
+            Debug.Log("[Message] Config not found, please create one");
             return;
         }
         //
         if (Config.Count == 0)
         {
-            m_debugError = "Config not found, please create one";
-            Debug.Log("[Message] " + m_debugError);
+            Debug.Log("[Message] Config not found, please create one");
             return;
         }
         //
         if (Config.Count > 1)
             Debug.Log("[Message] Config found more than one, get the first one found");
         //
-        m_config = Config[0];
-        //
-        m_debugError = "";
+        this.Config = Config[0];
     }
 
 #endif
@@ -126,7 +110,7 @@ public class IsometricManagerEditor : Editor
 {
     private IsometricManager m_target;
 
-    private SerializedProperty m_isometricConfig;
+    private SerializedProperty Config;
 
     private SerializedProperty Scene;
     private SerializedProperty World;
@@ -136,7 +120,7 @@ public class IsometricManagerEditor : Editor
     {
         m_target = target as IsometricManager;
         //
-        m_isometricConfig = QUnityEditorCustom.GetField(this, "m_isometricConfig");
+        Config = QUnityEditorCustom.GetField(this, "Config");
         //
         Scene = QUnityEditorCustom.GetField(this, "Scene");
         World = QUnityEditorCustom.GetField(this, "World");
@@ -149,7 +133,7 @@ public class IsometricManagerEditor : Editor
     {
         QUnityEditorCustom.SetUpdate(this);
         //
-        QUnityEditorCustom.SetField(m_isometricConfig);
+        QUnityEditorCustom.SetField(Config);
         //
         QUnityEditorCustom.SetField(Scene);
         //

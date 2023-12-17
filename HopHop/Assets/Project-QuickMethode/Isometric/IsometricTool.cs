@@ -157,7 +157,6 @@ public class IsometricTool : EditorWindow
         //
         m_manager.List.SetList(m_manager.Config, false);
         m_manager.World.SetInit();
-        m_manager.World.Current.SetWorldRead();
         m_listMapScene = m_manager.World.RoomName;
         //
         m_listTag = new List<string>();
