@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e6b9d668513edc4c9d87c86dc2b5268, type: 3}
   m_Name: character-config
   m_EditorClassIdentifier: 
-  m_animatorPath: Assets/Project-HopHop/animation
+  m_assetsPath: Assets/Project-HopHop/Animation
   Alphaca:
     Skin: []
   Angel:

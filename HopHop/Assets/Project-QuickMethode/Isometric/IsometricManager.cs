@@ -14,32 +14,14 @@ public class IsometricManager : SingletonManager<IsometricManager>
     public IsometricManagerWorld World;
     public IsometricManagerList List = new IsometricManagerList();
 
-    protected override void Awake()
-    {
-        base.Awake();
-        //
-        World = new IsometricManagerWorld(this);
-        List = new IsometricManagerList();
-        //
-#if UNITY_EDITOR
-        SetConfigFind();
-#endif
-    }
-
     private void Reset()
     {
-        World = new IsometricManagerWorld(this);
-        List = new IsometricManagerList();
-        //
-#if UNITY_EDITOR
-        SetConfigFind();
-#endif
+        SetEditorConfigFind();
     }
 
-#if UNITY_EDITOR
-
-    public void SetConfigFind()
+    public void SetEditorConfigFind()
     {
+#if UNITY_EDITOR
         if (this.Config != null)
             return;
         //
@@ -61,9 +43,14 @@ public class IsometricManager : SingletonManager<IsometricManager>
             Debug.Log("[Message] Config found more than one, get the first one found");
         //
         this.Config = Config[0];
+#endif
     }
 
-#endif
+    public void SetEditorDataRefresh()
+    {
+        World = new IsometricManagerWorld(this);
+        List = new IsometricManagerList(Config, true);
+    }
 }
 
 [Serializable]
@@ -126,7 +113,7 @@ public class IsometricManagerEditor : Editor
         World = QUnityEditorCustom.GetField(this, "World");
         List = QUnityEditorCustom.GetField(this, "List");
         //
-        m_target.SetConfigFind();
+        m_target.SetEditorConfigFind();
     }
 
     public override void OnInspectorGUI()

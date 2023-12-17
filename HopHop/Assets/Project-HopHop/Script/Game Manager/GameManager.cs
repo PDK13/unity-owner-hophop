@@ -66,7 +66,9 @@ public class GameManager : SingletonManager<GameManager>
 
     private IEnumerator ISetWorldLoad(TextAsset WorldData)
     {
-        m_isometricManager.World.Current.SetWorldRemove(m_isometricManager.transform);
+        yield return null;
+
+        m_isometricManager.World.SetRemoveAll();
 
         yield return new WaitForSeconds(1f);
 

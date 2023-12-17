@@ -284,9 +284,9 @@ public class QUnityAssets
         //
         string[] GUIDPathUnityFound;
         if (PathChildInAssets.Length == 0 || (PathChildInAssets.Length == 1 && PathChildInAssets[0] == ""))
-            GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:AnimationController"));
+            GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:AnimatorController"));
         else
-            GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:AnimationController"), PathChildInAssets);
+            GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:AnimatorController"), PathChildInAssets);
         //
         foreach (string GUIDPath in GUIDPathUnityFound)
         {

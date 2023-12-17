@@ -9,9 +9,26 @@ public class IsometricManagerList
 
     public List<IsometricDataBlockListTag> BlockList;
 
+    public List<string> ListTag
+    {
+        get
+        {
+            List<string> ListTag = new List<string>();
+            for (int i = 0; i < BlockList.Count; i++)
+                ListTag.Add(BlockList[i].Tag);
+            return ListTag;
+        }
+    }
+
     public IsometricManagerList()
     {
         BlockList = new List<IsometricDataBlockListTag>();
+    }
+
+    public IsometricManagerList(IsometricConfig IsometricConfig, bool All)
+    {
+        BlockList = new List<IsometricDataBlockListTag>();
+        SetList(IsometricConfig, All);
     }
 
     #region Read

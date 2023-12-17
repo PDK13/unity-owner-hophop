@@ -47,7 +47,7 @@ public class IsometricBlock : MonoBehaviour
 
     private void Awake()
     {
-        if (Application.isPlaying && this.name == IsometricManagerRoom.NAME_CURSON)
+        if (Application.isPlaying && this.name == IsometricManagerMap.NAME_CURSON)
             Destroy(this.gameObject);
     }
 

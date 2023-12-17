@@ -4,24 +4,20 @@ using System.Linq;
 using UnityEngine;
 
 [Serializable]
-public class IsometricManagerRoom
+public class IsometricManagerMap
 {
     public const string NAME_CURSON = "iso-curson";
     public const string NAME_ROOM = "iso-room-";
 
     private IsometricManager m_manager;
-    //
+
     [SerializeField] private string m_name;
     [SerializeField] private Transform m_root;
 
     public string Name 
     {
         get => m_name;
-        set
-        {
-            m_name = value;
-            m_root.name = NameFixed;
-        }
+        set { m_name = value; m_root.name = NameFixed; }
     }
 
     public string NameFixed => string.Format("{0}{1}", NAME_ROOM, m_name);
@@ -30,25 +26,8 @@ public class IsometricManagerRoom
 
     public bool Active
     {
-        get
-        {
-            if (m_root == null)
-            {
-                Debug.LogFormat("[Isometric] Room not exist for excute command!");
-                return false;
-            }
-            //
-            return m_root.gameObject.activeInHierarchy;
-        }
-        set
-        {
-            if (m_root == null)
-            {
-                Debug.LogFormat("[Isometric] Room not exist for excute command!");
-                return;
-            }
-            m_root.gameObject.SetActive(value);
-        }
+        get => m_root.gameObject.activeInHierarchy;
+        set => m_root.gameObject.SetActive(value);
     }
     
     public Action onCreate;
@@ -57,31 +36,18 @@ public class IsometricManagerRoom
     public List<string> Command = new List<string>();
     public List<IsometricDataRoomPosH> PosH = new List<IsometricDataRoomPosH>();
     public List<IsometricDataRoomTag> Tag = new List<IsometricDataRoomTag>();
-    
-    public IsometricManagerRoom(IsometricManager Manager, string Name)
-    {
-        m_manager = Manager;
-        m_name = Name;
-        //
-        m_root = new GameObject(NameFixed).transform;
-        m_root.transform.parent = m_manager.transform;
-    }
-
-    public IsometricManagerRoom(IsometricManager Manager, Transform Root)
-    {
-        if (!Root.name.Contains(NAME_ROOM))
-        {
-            Debug.LogFormat("[Isometric] Manager can't add {0} at a room in world", Root.name);
-            return;
-        }
-        //
-        m_manager = Manager;
-        m_name = Root.name.Replace(NAME_ROOM, "");
-        //
-        m_root = Root;
-    }
 
     public bool Emty => Tag == null ? true : Tag.Count == 0;
+
+    public IsometricManagerMap(IsometricManager Manager)
+    {
+        if (Manager == null)
+        {
+            Debug.Log("[Isometric] Manager can't be null!");
+            return;
+        }
+        m_manager = Manager;
+    }
 
     public void SetRefresh()
     {
@@ -92,16 +58,36 @@ public class IsometricManagerRoom
             Data.SetRefresh();
     }
 
-    public void SetDestroy()
+    #region ======================================================================== Init
+
+    public void SetInit()
     {
-        if (m_root == null)
-        {
-            Debug.LogFormat("[Isometric] Room not exist for excute command!");
+        if (m_root != null)
             return;
-        }
         //
-        QGameObject.SetDestroy(m_root.gameObject);
+        m_root = new GameObject(NameFixed).transform;
+        m_root.transform.parent = m_manager.transform;
     }
+
+    public void SetInit(string Name)
+    {
+        m_name = Name;
+        //
+        m_root = new GameObject(NameFixed).transform;
+        m_root.transform.parent = m_manager.transform;
+    }
+
+    public void SetInit(Transform Root)
+    {
+        if (m_manager == null)
+            return;
+        //
+        m_name = Root.name.Replace(NAME_ROOM, "");
+        //
+        m_root = Root;
+    }
+
+    #endregion
 
     #region ======================================================================== Block
 
@@ -109,12 +95,6 @@ public class IsometricManagerRoom
 
     public IsometricBlock SetBlockCreate(IsometricVector Pos, GameObject BlockPrefab, IsometricDataFileBlockData Data = null)
     {
-        if (m_root == null)
-        {
-            Debug.LogFormat("[Isometric] Room not exist for excute command!");
-            return null;
-        }
-        //
         if (BlockPrefab == null)
         {
             Debug.LogWarningFormat("Block {0} not found!", Pos.Encypt);
@@ -219,12 +199,6 @@ public class IsometricManagerRoom
 
     public IsometricBlock GetBlockPrimary(IsometricVector Pos)
     {
-        if (m_root == null)
-        {
-            Debug.LogFormat("[Isometric] Room not exist for excute command!");
-            return null;
-        }
-        //
         //World
         int IndexPosH = GetWorldIndexPosH(Pos.Fixed.HInt);
         if (IndexPosH == -1)
@@ -247,12 +221,6 @@ public class IsometricManagerRoom
 
     public IsometricBlock GetBlockCurrent(IsometricVector Pos, params string[] Tag)
     {
-        if (m_root == null)
-        {
-            Debug.LogFormat("[Isometric] Room not exist for excute command!");
-            return null;
-        }
-        //
         if (Tag.Length > 0)
         {
             //Find all Block with know tag - More Quickly!!
@@ -298,12 +266,6 @@ public class IsometricManagerRoom
 
     public List<IsometricBlock> GetBlockCurrentAll(IsometricVector Pos, params string[] Tag)
     {
-        if (m_root == null)
-        {
-            Debug.LogFormat("[Isometric] Room not exist for excute command!");
-            return null;
-        }
-        //
         List<IsometricBlock> List = new List<IsometricBlock>();
 
         if (Tag.Length > 0)
@@ -351,12 +313,6 @@ public class IsometricManagerRoom
 
     public List<IsometricBlock> GetBlockCurrentAll(string Tag)
     {
-        if (m_root == null)
-        {
-            Debug.LogFormat("[Isometric] Room not exist for excute command!");
-            return null;
-        }
-        //
         foreach (IsometricDataRoomTag Check in this.Tag)
         {
             if (Check.Tag != Tag)
@@ -375,12 +331,6 @@ public class IsometricManagerRoom
 
     public void SetBlockRemovePrimary(IsometricVector Pos, float Delay = 0)
     {
-        if (m_root == null)
-        {
-            Debug.LogFormat("[Isometric] Room not exist for excute command!");
-            return;
-        }
-        //
         //World
         int IndexPosH = GetWorldIndexPosH(Pos.Fixed.HInt);
         if (IndexPosH == -1)
@@ -435,12 +385,6 @@ public class IsometricManagerRoom
 
     public void SetBlockRemoveInstant(IsometricBlock Block, float Delay)
     {
-        if (m_root == null)
-        {
-            Debug.LogFormat("[Isometric] Room not exist for excute command!");
-            return;
-        }
-        //
         if (Block.PosType == IsometricPosType.Track)
         {
             //World
@@ -474,12 +418,6 @@ public class IsometricManagerRoom
 
     public bool SetWorldRead()
     {
-        if (m_root == null)
-        {
-            Debug.LogFormat("[Isometric] Room not exist for excute command!");
-            return false;
-        }
-        //
         //Clear Current World!!
         SetWorldRemove();
 
@@ -606,12 +544,6 @@ public class IsometricManagerRoom
 
     public void SetWorldRemove(bool Full = false)
     {
-        if (m_root == null)
-        {
-            Debug.LogFormat("[Isometric] Room not exist for excute command!");
-            return;
-        }
-        //
         for (int i = PosH.Count - 1; i >= 0; i--)
         {
             for (int j = PosH[i].Block.Count - 1; j >= 0; j--)

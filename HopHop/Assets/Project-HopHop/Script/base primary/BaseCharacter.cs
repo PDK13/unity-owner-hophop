@@ -39,12 +39,12 @@ public class BaseCharacter : MonoBehaviour
         m_block = GetComponent<IsometricBlock>();
         m_body = GetComponent<BaseBody>();
         m_animator = GetComponent<Animator>();
-        //
-        SetCharacter(m_character, m_skin);
     }
 
     private void Start()
     {
+        SetCharacter(m_character, m_skin);
+        //
         m_body.onMove += SetOnMove;
         m_body.onMoveForce += SetOnMove;
         m_body.onGravity += SetOnGravity;
