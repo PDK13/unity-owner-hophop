@@ -13,7 +13,24 @@ public class IsometricManagerWorld
 
     //
 
-    public IsometricManagerMap Current => m_current;
+    public IsometricManagerMap Current
+    {
+        get
+        {
+            if (m_current != null)
+            {
+                if (m_current.Root == null)
+                    m_current = null;
+            }
+            return m_current;
+        }
+        set
+        {
+            if (value.Root.parent != m_manager.transform)
+                return;
+            m_current = value;
+        }
+    }
 
     public List<string> ListMapName
     {
@@ -50,13 +67,10 @@ public class IsometricManagerWorld
         for (int i = 0; i < m_manager.transform.childCount; i++)
             SetGenerate(m_manager.transform.GetChild(i));
         //
-        SetCurrent();
-    }
-
-    public void SetCurrent()
-    {
-        m_current = m_map.Count == 0 ? SetGenerate("Temp") : m_map[0];
-        m_current.Active = true;
+        for (int i = 0; i < m_map.Count; i++)
+            m_map[i].Active = false;
+        //
+        m_current = null;
     }
 
     public IsometricManagerMap SetGenerate(string Name)
@@ -64,10 +78,7 @@ public class IsometricManagerWorld
         IsometricManagerMap Room = m_map.Find(t => t.Name.Contains(Name));
         if (Room != null)
         {
-            Debug.LogFormat("[Isometric] Manager aldready add {0} at a room in world", Name);
-            //
             Room.SetWorldRead();
-            //
             return Room;
         }
         //
@@ -82,18 +93,12 @@ public class IsometricManagerWorld
     public IsometricManagerMap SetGenerate(Transform Root)
     {
         if (!Root.name.Contains(IsometricManagerMap.NAME_ROOM))
-        {
-            Debug.LogFormat("[Isometric] Manager can't add {0} at a room in world", Root.name);
             return null;
-        }
         //
         IsometricManagerMap Room = m_map.Find(t => t.Root.Equals(Root));
         if (Room != null)
         {
-            Debug.LogFormat("[Isometric] Manager aldready add {0} at a room in world", Root.name);
-            //
             Room.SetWorldRead();
-            //
             return Room;
         }
         //
@@ -106,19 +111,23 @@ public class IsometricManagerWorld
         return Room;
     }
 
-    public IsometricManagerMap SetActive(string Name)
+    //
+
+    public void SetActive(string Name)
     {
-        IsometricManagerMap RoomFind = m_map.Find(t => t.Name == Name);
-        if (RoomFind == null)
-            return null;
-        //
-        if (m_current != null)
-            m_current.Active = false;
-        m_current = RoomFind;
-        m_current.Active = true;
-        //
-        return RoomFind;
+        for (int i = 0; i < m_map.Count; i++) 
+        {
+            if (m_map[i].Name == Name)
+            {
+                m_current = m_map[i];
+                m_current.Active = true;
+            }
+            else
+                m_map[i].Active = false;
+        }
     }
+
+    //
 
     public void SetRemove(string Name)
     {
@@ -128,8 +137,6 @@ public class IsometricManagerWorld
         //
         QGameObject.SetDestroy(RoomFind.Root);
         m_map.Remove(RoomFind);
-        //
-        SetCurrent();
     }
 
     public void SetRemove(IsometricManagerMap RoomCheck)
@@ -137,10 +144,8 @@ public class IsometricManagerWorld
         if (RoomCheck == null)
             return;
         //
-        QGameObject.SetDestroy(RoomCheck.Root);
+        QGameObject.SetDestroy(RoomCheck.Root.gameObject);
         m_map.Remove(RoomCheck);
-        //
-        SetCurrent();
     }
 
     public void SetRemoveAll()

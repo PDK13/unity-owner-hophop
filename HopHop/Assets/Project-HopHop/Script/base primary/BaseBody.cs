@@ -24,11 +24,17 @@ public class BaseBody : MonoBehaviour
 
     private void Awake()
     {
+        if (!GameManager.GameStart)
+            return;
+        //
         m_block = GetComponent<IsometricBlock>();
     }
 
     private void Start()
     {
+        if (!GameManager.GameStart)
+            return;
+        //
         m_characterPush = m_block.Data.Init.Data.Exists(t => t.Contains(GameConfigInit.CharacterPush));
     }
 

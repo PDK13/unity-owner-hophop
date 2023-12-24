@@ -19,14 +19,16 @@ public class IsometricTool : EditorWindow
     private IsometricManager m_manager;
     private bool m_managerUpdate = false;
 
-    private string m_pathOpen = "";
-    private string m_pathSave = "";
+    private string m_mapName = "";
 
     private List<string> m_listMapScene = new List<string>();
     private int m_indexMapScene;
 
     private List<string> m_listMapFile = new List<string>();
     private int m_indexMapFile;
+
+    private string m_pathOpen = "";
+    private string m_pathSave = "";
 
     #endregion
 
@@ -80,11 +82,7 @@ public class IsometricTool : EditorWindow
         if (Application.isPlaying)
             return;
         //
-        if (SetManagerFind())
-        {
-            SetManagerInit();
-            SetManagerRefresh();
-        }
+        SetManagerFind();
     }
 
     private void OnGUI()
@@ -95,45 +93,33 @@ public class IsometricTool : EditorWindow
             return;
         }
         //
-        QUnityEditor.SetLabel("ISOMETRIC MANAGER", QUnityEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this));
-        //
-        if (m_manager == null)
+        if (!SetManagerFind())
         {
-            if (QUnityEditor.SetButton("Refresh"))
-                SetManagerFind();
             QUnityEditor.SetLabel("(Not found isometric manager)", QUnityEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this));
             return;
         }
         //
+        //START TOOL EDITOR:
+        //
+        QUnityEditor.SetLabel("ISOMETRIC MANAGER", QUnityEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this));
+        //
         if (QUnityEditor.SetButton("Refresh"))
             SetManagerRefresh();
         //
-        if (m_manager.World.Current == null)
-        {
-            m_manager.World.SetCurrent();
-            SetManagerRefresh();
-        }
-        else
-        if (m_manager.World.Current.Root == null)
-        {
-            m_manager.World.Current.SetInit();
-            SetManagerRefresh();
-        }
-        else
-        {
-            //m_manager.World.SetRefresh();
-            //m_manager.Config.SetRefresh();
-        }
-        //
-        SetCursonControl();
-        //
         QUnityEditor.SetSpace(5f);
-        QUnityEditor.SetLabel("TOOL MANAGER", QUnityEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this));
         //
         SetGUIGroupManager();
         //
+        if (m_manager.World.Current == null)
+        {
+            QUnityEditor.SetLabel("(Not found current map)", QUnityEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this));
+            return;
+        }
+        //
         QUnityEditor.SetSpace(5f);
         QUnityEditor.SetLabel("CURSON MANAGER", QUnityEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this));
+        //
+        SetCursonControl();
         //
         SetGUIGroupCurson();
         //
@@ -158,27 +144,21 @@ public class IsometricTool : EditorWindow
         }
     }
 
-    #region Manager
-
-    private void SetManagerInit()
-    {
-        m_manager.SetEditorConfigFind();
-        m_manager.SetEditorDataRefresh();
-    }
+    #region Init
 
     private bool SetManagerFind()
     {
         if (m_manager == null)
             m_manager = GameObject.FindFirstObjectByType<IsometricManager>();
         //
-        if (m_manager == null)
-            return false;
-        //
-        return true;
+        return m_manager != null;
     }
 
     private void SetManagerRefresh()
     {
+        m_manager.SetEditorConfigFind();
+        m_manager.SetEditorDataRefresh();
+        //
         m_manager.World.SetRefresh();
         m_manager.Config.SetRefresh();
         //
@@ -204,12 +184,181 @@ public class IsometricTool : EditorWindow
 
     #endregion
 
+    #region Manager
+
+    private void SetGUIGroupManager()
+    {
+        SetGUIManagerName();
+        //
+        QUnityEditor.SetSpace(5f);
+        //
+        SetGUIManagerScene();
+        //
+        SetGUIManagerConfig();
+        //
+        QUnityEditor.SetSpace(5f);
+        //
+        SetGUIManagerFile();
+    }
+
+    private void SetGUIManagerName()
+    {
+        QUnityEditor.SetHorizontalBegin();
+        QUnityEditor.SetBackground(Color.white);
+        QUnityEditor.SetLabel("NAME: ", QUnityEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
+        m_mapName = QUnityEditor.SetField(m_mapName, null, QUnityEditorWindow.GetGUILayoutWidth(this, 0.5f, 2.5f));
+        if (m_manager.World.Current != null)
+        {
+            if (m_manager.World.Current.Emty)
+            {
+                if (QUnityEditor.SetButton("Destroy", QUnityEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
+                {
+                    m_manager.World.SetRemove(m_manager.World.Current);
+                    m_manager.World.SetRefresh();
+                    m_listMapScene = m_manager.World.ListMapName;
+                    m_indexMapScene = 0;
+                    QUnityEditor.SetDirty(m_manager.gameObject);
+                }
+            }
+            else
+            {
+                if (QUnityEditor.SetButton("Clear", QUnityEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
+                {
+                    m_manager.World.Current.SetWorldRemove();
+                    QUnityEditor.SetDirty(m_manager.gameObject);
+                }
+            }
+        }
+        QUnityEditor.SetHorizontalEnd();
+        //
+        QUnityEditor.SetHorizontalBegin();
+        QUnityEditor.SetBackground(Color.white);
+        QUnityEditor.SetLabel("", QUnityEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
+        if (QUnityEditor.SetButton("New", QUnityEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
+        {
+            m_manager.World.SetGenerate(m_mapName);
+            m_manager.World.SetActive(m_mapName);
+            //
+            m_manager.World.SetRefresh();
+            m_listMapScene = m_manager.World.ListMapName;
+            //
+            QUnityEditor.SetDirty(m_manager.gameObject);
+        }
+        if (m_manager.World.Current != null)
+        {
+            if (QUnityEditor.SetButton("Rename", QUnityEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
+            {
+                m_manager.World.Current.Name = m_mapName;
+                //
+                m_manager.World.SetRefresh();
+                m_listMapScene = m_manager.World.ListMapName;
+                //
+                QUnityEditor.SetDirty(m_manager.gameObject);
+            }
+        }
+        QUnityEditor.SetHorizontalEnd();
+    }
+
+    private void SetGUIManagerScene()
+    {
+        if (m_listMapScene.Count <= 0)
+            return;
+        //
+        QUnityEditor.SetHorizontalBegin();
+        QUnityEditor.SetBackground(Color.white);
+        QUnityEditor.SetLabel("SCENE: ", QUnityEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
+        m_indexMapScene = QUnityEditor.SetPopup(m_indexMapScene, m_listMapScene, QUnityEditorWindow.GetGUILayoutWidth(this, 0.5f, 2.5f));
+        if (QUnityEditor.SetButton("Active", QUnityEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
+        {
+            m_manager.World.SetRefresh();
+            m_manager.World.SetActive(m_listMapScene[m_indexMapScene]);
+            //
+            m_mapName = m_manager.World.Current.Name;
+            //
+            QUnityEditor.SetDirty(m_manager.gameObject);
+        }
+        QUnityEditor.SetHorizontalEnd();
+    }
+
+    private void SetGUIManagerConfig()
+    {
+        if (m_manager.Config.Map.ListAssets.Count <= 0)
+            return;
+        //
+        QUnityEditor.SetHorizontalBegin();
+        QUnityEditor.SetBackground(Color.white);
+        QUnityEditor.SetLabel("CONFIG: ", QUnityEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
+        m_indexMapFile = QUnityEditor.SetPopup(m_indexMapFile, m_listMapFile, QUnityEditorWindow.GetGUILayoutWidth(this, 0.5f, 2.5f));
+        if (QUnityEditor.SetButton("Open", QUnityEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
+        {
+            IsometricDataFile.SetFileRead(m_manager, m_manager.Config.Map.ListAssets[m_indexMapFile]);
+            m_listMapScene = m_manager.World.ListMapName;
+            m_listMapFile = m_manager.Config.Map.ListName;
+            //
+            m_mapName = m_manager.World.Current.Name;
+            //
+            QUnityEditor.SetDirty(m_manager.gameObject);
+        }
+        QUnityEditor.SetHorizontalEnd();
+    }
+
+    private void SetGUIManagerFile()
+    {
+        QUnityEditor.SetHorizontalBegin();
+        QUnityEditor.SetBackground(Color.white);
+        QUnityEditor.SetLabel("FILE: ", QUnityEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
+        if (QUnityEditor.SetButton("Open", QUnityEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
+        {
+            QUnityAssets.SetRefresh();
+            //
+            (bool Result, string Path, string Name) Path = QPath.GetPathFileOpenPanel("Open", "txt", m_pathOpen == "" ? QPath.GetPath(QPath.PathType.Assets) : m_pathOpen);
+            if (Path.Result)
+            {
+                m_maskXY = false;
+                m_hiddenH = false;
+                m_indexTag = 0;
+                m_indexName = 0;
+                //
+                m_manager.List.SetList(m_manager.Config, false);
+                //
+                m_pathOpen = Path.Path;
+                IsometricDataFile.SetFileRead(m_manager, QPath.GetPath(QPath.PathType.None, Path.Path));
+                m_listMapScene = m_manager.World.ListMapName;
+                m_listMapFile = m_manager.Config.Map.ListName;
+                //
+                m_mapName = m_manager.World.Current.Name;
+                //
+                QUnityEditor.SetDirty(m_manager.gameObject);
+            }
+        }
+        //
+        if (m_manager.World.Current != null)
+        {
+            if (QUnityEditor.SetButton("Save", QUnityEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
+            {
+                (bool Result, string Path, string Name) Path = QPath.GetPathFileSavePanel("Save", "txt", m_pathSave == "" ? QPath.GetPath(QPath.PathType.Assets) : m_pathSave);
+                if (Path.Result)
+                {
+                    m_pathSave = Path.Path;
+                    IsometricDataFile.SetFileWrite(m_manager, QPath.GetPath(QPath.PathType.None, Path.Path));
+                    QUnityAssets.SetRefresh();
+                }
+            }
+        }
+        QUnityEditor.SetHorizontalEnd();
+    }
+
+    #endregion
+
     #region Curson
 
     //GUI Curson
 
     private void SetGUIGroupCurson()
     {
+        if (m_curson == null)
+            return;
+        //
         QUnityEditor.SetHorizontalBegin();
         QUnityEditor.SetBackground(Color.white);
         QUnityEditor.SetLabel("RENDERER: ", QUnityEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
@@ -449,6 +598,9 @@ public class IsometricTool : EditorWindow
 
     private void SetCursonMaskXY()
     {
+        if (m_manager.World.Current == null || m_curson == null)
+            return;
+        //
         if (m_maskXY)
         {
             bool CentreFound = m_manager.World.Current.SetEditorMask(m_curson.Pos, Color.red, Color.white, Color.yellow);
@@ -463,116 +615,13 @@ public class IsometricTool : EditorWindow
 
     private void SetCursonHiddenH()
     {
+        if (m_manager.World.Current == null || m_curson == null)
+            return;
+        //
         if (m_hiddenH)
             m_manager.World.Current.SetEditorHidden(m_curson.Pos.HInt, 0.01f);
         else
             m_manager.World.Current.SetEditorHidden(m_curson.Pos.HInt, 1f);
-    }
-
-    #endregion
-
-    #region Manager
-
-    private void SetGUIGroupManager()
-    {
-        QUnityEditor.SetHorizontalBegin();
-        {
-            QUnityEditor.SetBackground(Color.white);
-            QUnityEditor.SetLabel("NAME: ", QUnityEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
-            m_manager.World.Current.Name = QUnityEditor.SetField(m_manager.World.Current.Name, null, QUnityEditorWindow.GetGUILayoutWidth(this, 0.5f, 2.5f));
-            if (m_manager.World.Current.Emty)
-            {
-                if (QUnityEditor.SetButton("Destroy", QUnityEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
-                {
-                    m_manager.World.SetRemove(m_manager.World.Current);
-                    m_manager.World.SetRefresh();
-                    m_listMapScene = m_manager.World.ListMapName;
-                    m_indexMapScene = 0;
-                    QUnityEditor.SetDirty(m_manager.gameObject);
-                }
-            }
-            else
-            {
-                if (QUnityEditor.SetButton("Clear", QUnityEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
-                {
-                    m_manager.World.Current.SetWorldRemove();
-                    QUnityEditor.SetDirty(m_manager.gameObject);
-                }
-            }
-        }
-        QUnityEditor.SetHorizontalEnd();
-        //
-        if (m_listMapScene.Count > 0)
-        {
-            QUnityEditor.SetHorizontalBegin();
-            {
-                QUnityEditor.SetBackground(Color.white);
-                QUnityEditor.SetLabel("SCENE: ", QUnityEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
-                m_indexMapScene = QUnityEditor.SetPopup(m_indexMapScene, m_listMapScene, QUnityEditorWindow.GetGUILayoutWidth(this, 0.5f, 2.5f));
-                if (QUnityEditor.SetButton("Active", QUnityEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
-                {
-                    m_manager.World.SetActive(m_listMapScene[m_indexMapScene]);
-                    QUnityEditor.SetDirty(m_manager.gameObject);
-                }
-            }
-            QUnityEditor.SetHorizontalEnd();
-        }
-        //
-        if (m_manager.Config.Map.ListAssets.Count > 0)
-        {
-            QUnityEditor.SetHorizontalBegin();
-            {
-                QUnityEditor.SetBackground(Color.white);
-                QUnityEditor.SetLabel("CONFIG: ", QUnityEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
-                m_indexMapFile = QUnityEditor.SetPopup(m_indexMapFile, m_listMapFile, QUnityEditorWindow.GetGUILayoutWidth(this, 0.5f, 2.5f));
-                if (QUnityEditor.SetButton("Open", QUnityEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
-                {
-                    IsometricDataFile.SetFileRead(m_manager, m_manager.Config.Map.ListAssets[m_indexMapFile]);
-                    m_listMapScene = m_manager.World.ListMapName;
-                    m_listMapFile = m_manager.Config.Map.ListName;
-                }
-            }
-            QUnityEditor.SetHorizontalEnd();
-        }
-        //
-        QUnityEditor.SetSpace(5f);
-        //
-        QUnityEditor.SetHorizontalBegin();
-        QUnityEditor.SetBackground(Color.white);
-        QUnityEditor.SetLabel("FILE: ", QUnityEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
-        if (QUnityEditor.SetButton("Save", QUnityEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
-        {
-            (bool Result, string Path, string Name) Path = QPath.GetPathFileSavePanel("Save", "txt", m_pathSave == "" ? QPath.GetPath(QPath.PathType.Assets) : m_pathSave);
-            if (Path.Result)
-            {
-                m_pathSave = Path.Path;
-                IsometricDataFile.SetFileWrite(m_manager, QPath.GetPath(QPath.PathType.None, Path.Path));
-                QUnityAssets.SetRefresh();
-            }
-        }
-        if (QUnityEditor.SetButton("Open", QUnityEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
-        {
-            QUnityAssets.SetRefresh();
-            //
-            (bool Result, string Path, string Name) Path = QPath.GetPathFileOpenPanel("Open", "txt", m_pathOpen == "" ? QPath.GetPath(QPath.PathType.Assets) : m_pathOpen);
-            if (Path.Result)
-            {
-                m_maskXY = false;
-                m_hiddenH = false;
-                m_indexTag = 0;
-                m_indexName = 0;
-                //
-                m_manager.List.SetList(m_manager.Config, false);
-                //
-                m_pathOpen = Path.Path;
-                IsometricDataFile.SetFileRead(m_manager, QPath.GetPath(QPath.PathType.None, Path.Path));
-                m_listMapScene = m_manager.World.ListMapName;
-                m_listMapFile = m_manager.Config.Map.ListName;
-                //
-                QUnityEditor.SetDirty(m_manager.gameObject);
-            }
-        }
-        QUnityEditor.SetHorizontalEnd();
     }
 
     #endregion

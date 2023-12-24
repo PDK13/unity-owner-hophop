@@ -12,6 +12,9 @@ public class BasePlayer : MonoBehaviour
 
     private void Awake()
     {
+        if (!GameManager.GameStart)
+            return;
+        //
         m_body = GetComponent<BaseBody>();
         m_character = GetComponent<BaseCharacter>();
         m_block = GetComponent<IsometricBlock>();
@@ -19,6 +22,9 @@ public class BasePlayer : MonoBehaviour
 
     private void Start()
     {
+        if (!GameManager.GameStart)
+            return;
+        //
         TurnManager.SetInit(TurnType.Player, gameObject);
         TurnManager.Instance.onTurn += SetControlTurn;
         TurnManager.Instance.onStepStart += SetControlStep;
@@ -33,6 +39,9 @@ public class BasePlayer : MonoBehaviour
 
     private void OnDestroy()
     {
+        if (!GameManager.GameStart)
+            return;
+        //
         StopAllCoroutines();
         //
         TurnManager.SetRemove(TurnType.Player, gameObject);

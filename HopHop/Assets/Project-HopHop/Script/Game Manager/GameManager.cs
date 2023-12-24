@@ -3,10 +3,11 @@ using UnityEngine;
 
 public class GameManager : SingletonManager<GameManager>
 {
+    public static bool GameStart = false;
+    //
     public static CharacterConfig CharacterConfig;
     //
     [SerializeField] private CharacterConfig m_characterConfig;
-    [SerializeField] private IsometricConfig m_isometricConfig;
     //
     [Space]
     [SerializeField] private IsometricManager m_isometricManager;
@@ -35,8 +36,6 @@ public class GameManager : SingletonManager<GameManager>
 
     private void Start()
     {
-        m_isometricManager.List.SetList(m_isometricConfig, true);
-
         SetWorldLoad(IsometricManager.Instance.Config.Map.ListAssets[0]);
     }
 
@@ -66,10 +65,6 @@ public class GameManager : SingletonManager<GameManager>
 
     private IEnumerator ISetWorldLoad(TextAsset WorldData)
     {
-        yield return null;
-
-        m_isometricManager.World.SetRemoveAll();
-
         yield return new WaitForSeconds(1f);
 
         IsometricDataFile.SetFileRead(m_isometricManager, WorldData);
@@ -77,5 +72,7 @@ public class GameManager : SingletonManager<GameManager>
         yield return new WaitForSeconds(1f);
 
         TurnManager.SetStart();
+        //
+        GameStart = true;
     }
 }

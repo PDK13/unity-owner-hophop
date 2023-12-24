@@ -185,10 +185,9 @@ public class IsometricDataFile
             {
                 case KEY_WORLD_NAME:
                     string MapName = FileIO.GetReadAutoString();
-                    if (Manager.World.Current.Name == MapName)
-                        Manager.World.Current.SetWorldRemove(true);
-                    Manager.World.SetGenerate(MapName);
+                    Manager.World.Current = Manager.World.SetGenerate(MapName);
                     Manager.World.SetActive(MapName);
+                    Manager.World.Current.SetWorldRemove(true);
                     break;
                 case KEY_WORLD_COMMAND:
                     int CommandCount = FileIO.GetReadAutoInt();

@@ -14,6 +14,19 @@ public class IsometricManager : SingletonManager<IsometricManager>
     public IsometricManagerWorld World;
     public IsometricManagerList List = new IsometricManagerList();
 
+    protected override void Awake()
+    {
+        base.Awake();
+        //
+        if (!Application.isPlaying)
+        {
+            World = new IsometricManagerWorld(this);
+            World.SetRemoveAll();
+            //
+            List = new IsometricManagerList(Config, true);
+        }
+    }
+
     private void Reset()
     {
         SetEditorConfigFind();

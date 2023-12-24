@@ -12,6 +12,9 @@ public class BaseFollow : MonoBehaviour
 
     private void Awake()
     {
+        if (!GameManager.GameStart)
+            return;
+        //
         m_character = GetComponent<BaseCharacter>();
         m_body = GetComponent<BaseBody>();
         m_block = GetComponent<IsometricBlock>();
@@ -19,6 +22,9 @@ public class BaseFollow : MonoBehaviour
 
     private void Start()
     {
+        if (!GameManager.GameStart)
+            return;
+        //
         TurnManager.SetInit(TurnType.Follow, gameObject);
         TurnManager.Instance.onTurn += SetControlTurn;
         TurnManager.Instance.onStepStart += SetControlStep;
@@ -32,6 +38,9 @@ public class BaseFollow : MonoBehaviour
 
     private void OnDestroy()
     {
+        if (!GameManager.GameStart)
+            return;
+        //
         TurnManager.SetRemove(TurnType.Follow, gameObject);
         TurnManager.Instance.onTurn -= SetControlTurn;
         TurnManager.Instance.onStepStart -= SetControlStep;
