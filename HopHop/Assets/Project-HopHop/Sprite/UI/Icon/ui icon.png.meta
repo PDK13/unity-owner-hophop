@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 24569e83c768cde4b91434067a874f82
+guid: 6e355764ca3ceff488b3d136ae1e3374
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -136,70 +136,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ui box_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 25, y: 25, z: 25, w: 25}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: be62fa3d4da2a5441a11d62a32c191ad
-      internalID: -1482863131
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ui box_1
-      rect:
-        serializedVersion: 2
-        x: 128
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 25, y: 25, z: 25, w: 25}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: de2c3fb8ee08b3a46bb35665972e05d9
-      internalID: 2138821968
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ui box_2
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 18, y: 18, z: 18, w: 18}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ca85a2f03bab42c46a859c14fa7fa777
-      internalID: 702011790
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ui box_3
+      name: ui icon_0
       rect:
         serializedVersion: 2
         x: 384
@@ -207,14 +144,14 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 18, y: 18, z: 18, w: 18}
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d3d8182ca60dd0240bdf12ec94ef0db3
-      internalID: -1057629198
+      spriteID: cf0139954b50d8c4b8fe7c3926681bb1
+      internalID: 1395027861
       vertices: []
       indices: 
       edges: []
@@ -230,10 +167,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      ui box_0: -1482863131
-      ui box_1: 2138821968
-      ui box_2: 702011790
-      ui box_3: -1057629198
+      ui icon_0: 1395027861
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
