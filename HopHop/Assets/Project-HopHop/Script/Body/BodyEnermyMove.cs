@@ -1,11 +1,12 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static Unity.Collections.AllocatorManager;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class BodyEnermyMove : BodyEnermy, IBodyMove
 {
-    [SerializeField] private IsoDir m_moveDir = IsoDir.None;
+    private IsoDir m_moveDir = IsoDir.None;
 
     protected override void Start()
     {
@@ -178,8 +179,35 @@ public class BodyEnermyMove : BodyEnermy, IBodyMove
             m_checkPlayerHit ? 1 : 0,
             m_checkStopAhead ? 1 : 0,
             m_checkStopBot ? 1 : 0);
-        Block.Data.Init.Data.Add(Data);
+        if (!Block.Data.Init.Data.Contains(Data))
+            Block.Data.Init.Data.Add(Data);
     }
 
     //**Editor**
 }
+
+#if UNITY_EDITOR
+
+[CustomEditor(typeof(BodyEnermyMove))]
+[CanEditMultipleObjects]
+public class BodyEnermyMoveEditor : Editor
+{
+    private BodyEnermyMove m_target;
+
+    private void OnEnable()
+    {
+        m_target = target as BodyEnermyMove;
+    }
+
+    public override void OnInspectorGUI()
+    {
+        QUnityEditorCustom.SetUpdate(this);
+        //
+        if (QUnityEditor.SetButton("Move"))
+            m_target.SetEditorMove();
+        //
+        QUnityEditorCustom.SetApply(this);
+    }
+}
+
+#endif

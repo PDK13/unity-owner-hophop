@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 44393240911007887}
   - component: {fileID: 5839525824939966151}
   - component: {fileID: 44393240911007880}
-  - component: {fileID: 2898535318419994080}
-  - component: {fileID: 2268218478505088259}
-  - component: {fileID: 7886185234414709923}
+  - component: {fileID: 991548727783961000}
+  - component: {fileID: 1834981403596458818}
+  - component: {fileID: -5411448209850636593}
   m_Layer: 0
   m_Name: Player Angle
   m_TagString: Untagged
@@ -169,7 +169,7 @@ MonoBehaviour:
       Y: 1
       H: 1
   m_centre: {x: 0, y: 0, z: 0}
---- !u!114 &2898535318419994080
+--- !u!114 &991548727783961000
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -181,7 +181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19ee9a8a7098dfb489d74c2174becedf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2268218478505088259
+--- !u!114 &1834981403596458818
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -195,7 +195,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_character: 0
   m_skin: 0
---- !u!114 &7886185234414709923
+--- !u!114 &-5411448209850636593
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -204,7 +204,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 44393240911007885}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2fdc10c653dff84f8159ad4b86621cf, type: 3}
+  m_Script: {fileID: 11500000, guid: dddd46067b066fe4e923d119fa3b2e78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CharacterFollow: 0

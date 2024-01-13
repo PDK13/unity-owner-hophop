@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 44393240911007887}
   - component: {fileID: 3030197857352720323}
   - component: {fileID: 44393240911007880}
-  - component: {fileID: -610622741126382297}
-  - component: {fileID: 8455174137221891429}
+  - component: {fileID: 1602330461786483401}
+  - component: {fileID: 821648935911771236}
+  - component: {fileID: 3439366729725530293}
   m_Layer: 0
   m_Name: Light Devil
   m_TagString: Untagged
@@ -169,7 +170,7 @@ MonoBehaviour:
       Y: 1
       H: 1
   m_centre: {x: 0, y: 0, z: 0}
---- !u!114 &-610622741126382297
+--- !u!114 &1602330461786483401
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -181,7 +182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19ee9a8a7098dfb489d74c2174becedf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8455174137221891429
+--- !u!114 &821648935911771236
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -195,3 +196,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_character: 1
   m_skin: 0
+--- !u!114 &3439366729725530293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 44393240911007885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebf2d9ec8c86cd740a51d2009981d4e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

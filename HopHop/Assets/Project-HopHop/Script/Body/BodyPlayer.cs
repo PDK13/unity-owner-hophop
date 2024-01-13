@@ -104,7 +104,7 @@ public class BodyPlayer : MonoBehaviour, IBodyTurn, IBodyMove
         if (!State)
         {
             m_turnActive = false;
-            TurnManager.SetEndTurn(TurnType.Enermy, gameObject);
+            TurnManager.SetEndTurn(TurnType.Player, gameObject);
         }
     }
 
