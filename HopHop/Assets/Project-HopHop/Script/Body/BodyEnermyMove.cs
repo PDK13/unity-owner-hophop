@@ -10,6 +10,8 @@ public class BodyEnermyMove : BodyEnermy, IBodyMove
 
     protected override void Start()
     {
+        base.Start();
+        //
         if (m_block.Data.Init.Data.Exists(t => t.Contains(GameConfigInit.Move)))
         {
             string Data = m_block.Data.Init.Data.Find(t => t.Contains(GameConfigInit.Move));
@@ -29,6 +31,8 @@ public class BodyEnermyMove : BodyEnermy, IBodyMove
 
     protected override void OnDestroy()
     {
+        base.OnDestroy();
+        //
         m_body.onMove -= IMoveForce;
         m_body.onForce -= IForce;
         m_body.onMoveForce -= IMoveForce;
@@ -37,6 +41,11 @@ public class BodyEnermyMove : BodyEnermy, IBodyMove
     }
 
     //
+
+    public override void IOnTurn(int Turn)
+    {
+        m_turnActive = true;
+    }
 
     public override void IOnStep(string Name)
     {
@@ -64,11 +73,6 @@ public class BodyEnermyMove : BodyEnermy, IBodyMove
                 }
             }
         }
-    }
-
-    public override void IOnTurn(int Turn)
-    {
-        m_turnActive = true;
     }
 
     //

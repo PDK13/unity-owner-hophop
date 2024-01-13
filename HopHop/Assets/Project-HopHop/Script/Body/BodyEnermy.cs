@@ -44,12 +44,12 @@ public class BodyEnermy : MonoBehaviour, IBodyTurn
         set => m_turnActive = value;
     }
 
-    public virtual void IOnStep(string Name)
+    public virtual void IOnTurn(int Turn)
     {
 
     }
 
-    public virtual void IOnTurn(int Turn)
+    public virtual void IOnStep(string Name)
     {
 
     }

@@ -79,6 +79,13 @@ public class BodyPlayer : MonoBehaviour, IBodyTurn, IBodyMove
         set => m_turnActive = value;
     }
 
+    public void IOnTurn(int Turn)
+    {
+        //Reset!!
+        //
+        //...
+    }
+
     public void IOnStep(string Name)
     {
         if (Name == TurnType.Player.ToString())
@@ -88,13 +95,6 @@ public class BodyPlayer : MonoBehaviour, IBodyTurn, IBodyMove
                 m_turnActive = true;
             }
         }
-    }
-
-    public void IOnTurn(int Turn)
-    {
-        //Reset!!
-        //
-        //...
     }
 
     //

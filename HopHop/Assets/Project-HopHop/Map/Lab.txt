@@ -41,6 +41,16 @@ Object Flower Blue 0
 
 [1;0;0]
 Light Bug
+#BLOCK-INIT
+1
+move-R-1-0-0
+#BLOCK-MOVE
+1
+4
+1|R
+1|L
+1|L
+1|R
 #BLOCK-END
 
 [0;0;0]
