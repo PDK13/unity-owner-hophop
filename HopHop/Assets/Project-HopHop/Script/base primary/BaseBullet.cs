@@ -44,9 +44,6 @@ public class BaseBullet : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (!GameManager.GameStart)
-            return;
-        //
         StopAllCoroutines();
         //
         TurnManager.SetRemove(TurnType.Object, gameObject);

@@ -16,26 +16,11 @@ public class BaseBody : MonoBehaviour
     private IsometricVector MoveLastXY;
     private IsometricVector? MoveForceXY;
     //
-    private bool m_characterPush = false;
-
-    public bool CharacterPush => m_characterPush;
-    //
     private IsometricBlock m_block;
 
     private void Awake()
     {
-        if (!GameManager.GameStart)
-            return;
-        //
         m_block = GetComponent<IsometricBlock>();
-    }
-
-    private void Start()
-    {
-        if (!GameManager.GameStart)
-            return;
-        //
-        m_characterPush = m_block.Data.Init.Data.Exists(t => t.Contains(GameConfigInit.CharacterPush));
     }
 
     #region Move

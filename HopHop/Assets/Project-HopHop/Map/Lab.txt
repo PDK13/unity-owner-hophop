@@ -5,7 +5,7 @@ Lab
 0
 
 #WORLD-BLOCK
-42
+43
 
 [2;2;0]
 Object Flower Blue 0
@@ -37,6 +37,10 @@ Object Flower Blue 0
 
 [2;0;0]
 Object Flower Blue 0
+#BLOCK-END
+
+[1;0;0]
+Light Bug
 #BLOCK-END
 
 [0;0;0]

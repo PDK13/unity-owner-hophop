@@ -19,18 +19,12 @@ public class BaseBlock : MonoBehaviour
 
     private void Awake()
     {
-        if (!GameManager.GameStart)
-            return;
-        //
         m_body = GetComponent<BaseBody>();
         m_block = GetComponent<IsometricBlock>();
     }
 
     private void Start()
     {
-        if (!GameManager.GameStart)
-            return;
-        //
         m_dataMove = m_block.Data.Move;
         m_dataFollow = m_block.Data.Follow;
         //
@@ -49,9 +43,6 @@ public class BaseBlock : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (!GameManager.GameStart)
-            return;
-        //
         StopAllCoroutines();
         //
         if (m_dataMove.DataExist)

@@ -29,18 +29,12 @@ public class BaseShoot : MonoBehaviour
 
     private void Awake()
     {
-        if (!GameManager.GameStart)
-            return;
-        //
         m_body = GetComponent<BaseBody>();
         m_block = GetComponent<IsometricBlock>();
     }
 
     private void Start()
     {
-        if (!GameManager.GameStart)
-            return;
-        //
         m_dataAction = m_block.Data.Action;
 
         if (m_dataAction != null)
@@ -56,9 +50,6 @@ public class BaseShoot : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (!GameManager.GameStart)
-            return;
-        //
         StopAllCoroutines();
         //
         if (m_dataAction != null)

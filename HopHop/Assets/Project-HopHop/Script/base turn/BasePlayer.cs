@@ -12,9 +12,6 @@ public class BasePlayer : MonoBehaviour
 
     private void Awake()
     {
-        if (!GameManager.GameStart)
-            return;
-        //
         m_body = GetComponent<BaseBody>();
         m_character = GetComponent<BaseCharacter>();
         m_block = GetComponent<IsometricBlock>();
@@ -22,9 +19,6 @@ public class BasePlayer : MonoBehaviour
 
     private void Start()
     {
-        if (!GameManager.GameStart)
-            return;
-        //
         TurnManager.SetInit(TurnType.Player, gameObject);
         TurnManager.Instance.onTurn += SetControlTurn;
         TurnManager.Instance.onStepStart += SetControlStep;
@@ -39,9 +33,6 @@ public class BasePlayer : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (!GameManager.GameStart)
-            return;
-        //
         StopAllCoroutines();
         //
         TurnManager.SetRemove(TurnType.Player, gameObject);
@@ -139,21 +130,6 @@ public class BasePlayer : MonoBehaviour
                     //Surely can't continue move to this Pos, because this Block can't be push!!
                     return;
                 }
-                //
-                if (BlockBody.CharacterPush)
-                {
-                    if (BlockBody.GetCheckDir(Dir))
-                    {
-                        //Surely can't continue move to this Pos, because this Block can't be push to the Pos ahead!!
-                        return;
-                    }
-                    BlockBody.SetControlPush(Dir, m_block.Pos);
-                }
-                else
-                    //Surely can't continue move to this Pos, because this Block can't be push by character!!
-                    return;
-                //
-                //Fine to continue push this Block ahead!!
             }
         }
         //Fine to continue move to pos ahead!!

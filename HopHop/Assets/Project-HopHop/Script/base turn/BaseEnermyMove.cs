@@ -17,9 +17,6 @@ public class BaseEnermyMove : MonoBehaviour
 
     private void Awake()
     {
-        if (!GameManager.GameStart)
-            return;
-        //
         m_character = GetComponent<BaseCharacter>();
         m_body = GetComponent<BaseBody>();
         m_block = GetComponent<IsometricBlock>();
@@ -27,9 +24,6 @@ public class BaseEnermyMove : MonoBehaviour
 
     private void Start()
     {
-        if (!GameManager.GameStart)
-            return;
-        //
         if (!m_block.Data.Init.Data.Exists(t => t.Contains(GameConfigInit.Move)))
             return;
         //
@@ -53,9 +47,6 @@ public class BaseEnermyMove : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (!GameManager.GameStart)
-            return;
-        //
         TurnManager.SetRemove(TurnType.Enermy, gameObject);
         TurnManager.Instance.onTurn -= SetControlTurn;
         TurnManager.Instance.onStepStart -= SetControlStep;
@@ -117,7 +108,7 @@ public class BaseEnermyMove : MonoBehaviour
         {
             if (Block.Tag.Contains(GameConfigTag.Player))
             {
-                if (m_checkPlayerHit || !Block.GetComponent<BaseBody>().CharacterPush)
+                if (m_checkPlayerHit)
                 {
                     Debug.Log("[Debug] Enermy hit Player!!");
                     //
@@ -149,20 +140,6 @@ public class BaseEnermyMove : MonoBehaviour
                     //Surely can't continue move to this Pos, because this Block can't be push!!
                     return false;
                 }
-                //
-                if (BlockBody.CharacterPush)
-                {
-                    if (BlockBody.GetCheckDir(Dir))
-                    {
-                        //Surely can't continue move to this Pos, because this Block can't be push to the Pos ahead!!
-                        return false;
-                    }
-                    BlockBody.SetControlPush(Dir, m_block.Pos);
-                }
-                else
-                    //Surely can't continue move to this Pos, because this Block can't be push by character!!
-                    return false;
-                //
                 //Fine to continue push this Block ahead!!
             }
         }

@@ -36,9 +36,6 @@ public class BaseCharacter : MonoBehaviour
 
     private void Awake()
     {
-        if (!GameManager.GameStart)
-            return;
-        //
         m_block = GetComponent<IsometricBlock>();
         m_body = GetComponent<BaseBody>();
         m_animator = GetComponent<Animator>();
@@ -46,9 +43,6 @@ public class BaseCharacter : MonoBehaviour
 
     private void Start()
     {
-        if (!GameManager.GameStart)
-            return;
-        //
         SetCharacter(m_character, m_skin);
         //
         m_body.onMove += SetOnMove;
@@ -60,9 +54,6 @@ public class BaseCharacter : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (!GameManager.GameStart)
-            return;
-        //
         m_body.onMove -= SetOnMove;
         m_body.onMoveForce -= SetOnMove;
         m_body.onGravity -= SetOnGravity;
