@@ -53,7 +53,8 @@ public class BaseBody : MonoBehaviour
                 onMove?.Invoke(false, Dir);
             });
         //
-        SetNextPush(Dir);
+        //NOTE: Not use PUSH option for normal move!
+        //SetNextPush(Dir);
     }
 
     public bool SetControlMoveForce()
