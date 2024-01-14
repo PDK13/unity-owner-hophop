@@ -1,8 +1,6 @@
 #if UNITY_EDITOR
 
 using System.Collections.Generic;
-using Unity.Collections.LowLevel.Unsafe;
-using Unity.VisualScripting.FullSerializer;
 using UnityEditor;
 using UnityEngine;
 
