@@ -49,8 +49,8 @@ public enum TurnType
     None,
     Gravity,
     Player,
-    Follow,
     Enermy,
     Block,
-    Object,
+    Bullet,
+    Shoot,
 }

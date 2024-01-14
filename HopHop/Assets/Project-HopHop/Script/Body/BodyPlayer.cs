@@ -4,12 +4,12 @@ public class BodyPlayer : MonoBehaviour, IBodyTurn, IBodyPhysic
 {
     private bool m_turnActive = false;
 
-    private BaseBody m_body;
+    private BodyPhysic m_body;
     private IsometricBlock m_block;
 
     private void Awake()
     {
-        m_body = GetComponent<BaseBody>();
+        m_body = GetComponent<BodyPhysic>();
         m_block = GetComponent<IsometricBlock>();
     }
 
@@ -129,11 +129,11 @@ public class BodyPlayer : MonoBehaviour, IBodyTurn, IBodyPhysic
             {
                 Debug.Log("[Debug] Bullet hit Player!!");
                 //
-                Block.GetComponent<BaseBullet>().SetHit();
+                Block.GetComponent<BodyBullet>().SetHit();
             }
             else
             {
-                BaseBody BlockBody = Block.GetComponent<BaseBody>();
+                BodyPhysic BlockBody = Block.GetComponent<BodyPhysic>();
                 //
                 if (BlockBody == null)
                 {

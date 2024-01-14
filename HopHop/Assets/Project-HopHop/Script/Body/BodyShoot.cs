@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
-public class BaseShoot : MonoBehaviour
+public class BodyShoot : MonoBehaviour, IBodyTurn
 {
-    [SerializeField] private BaseBullet m_bullet;
+    [SerializeField] private BodyBullet m_bullet;
 
     private bool m_turnControl = false;
 
@@ -17,7 +19,6 @@ public class BaseShoot : MonoBehaviour
 
     private bool TurnEnd => m_turnTimeCurrent == m_turnTime && m_turnTime != 0;
 
-    private BaseBody m_body;
     private IsometricBlock m_block;
 
     //**Editor**
@@ -29,7 +30,6 @@ public class BaseShoot : MonoBehaviour
 
     private void Awake()
     {
-        m_body = GetComponent<BaseBody>();
         m_block = GetComponent<IsometricBlock>();
     }
 
@@ -41,29 +41,35 @@ public class BaseShoot : MonoBehaviour
         {
             if (m_dataAction.DataExist)
             {
-                TurnManager.SetInit(TurnType.Object, gameObject);
-                TurnManager.Instance.onTurn += SetControlTurn;
-                TurnManager.Instance.onStepStart += SetControlStep;
+                TurnManager.SetInit(TurnType.Shoot, gameObject);
+                TurnManager.Instance.onTurn += IOnTurn;
+                TurnManager.Instance.onStepStart += IOnStep;
             }
         }
     }
 
     private void OnDestroy()
     {
-        StopAllCoroutines();
-        //
         if (m_dataAction != null)
         {
             if (m_dataAction.DataExist)
             {
-                TurnManager.SetRemove(TurnType.Object, gameObject);
-                TurnManager.Instance.onTurn -= SetControlTurn;
-                TurnManager.Instance.onStepStart -= SetControlStep;
+                TurnManager.SetRemove(TurnType.Shoot, gameObject);
+                TurnManager.Instance.onTurn -= IOnTurn;
+                TurnManager.Instance.onStepStart -= IOnStep;
             }
         }
     }
 
-    private void SetControlTurn(int Turn)
+    //
+
+    public bool ITurnActive
+    {
+        get => m_turnControl;
+        set => m_turnControl = value;
+    }
+
+    public void IOnTurn(int Turn)
     {
         //Reset!!
         m_turnTime = 0;
@@ -72,16 +78,18 @@ public class BaseShoot : MonoBehaviour
         m_turnControl = true;
     }
 
-    private void SetControlStep(string Name)
+    public void IOnStep(string Name)
     {
         if (m_turnControl)
         {
-            if (Name == TurnType.Object.ToString())
+            if (Name == TurnType.Shoot.ToString())
             {
                 SetControlAction();
             }
         }
     }
+
+    //
 
     private void SetControlAction()
     {
@@ -138,7 +146,7 @@ public class BaseShoot : MonoBehaviour
         yield return new WaitForSeconds(GameManager.TimeMove * 1);
         //
         m_turnControl = false;
-        TurnManager.SetEndTurn(TurnType.Object, gameObject); //Follow Object (!)
+        TurnManager.SetEndTurn(TurnType.Shoot, gameObject); //Follow Object (!)
     }
 
     private void SetShoot(IsometricVector DirSpawm, IsometricVector DirMove, int Speed)
@@ -156,7 +164,7 @@ public class BaseShoot : MonoBehaviour
         }
         //
         IsometricBlock Bullet = m_block.WorldManager.World.Current.SetBlockCreate(m_block.Pos + DirSpawm, m_bullet.gameObject);
-        Bullet.GetComponent<BaseBullet>().SetInit(DirMove, Speed);
+        Bullet.GetComponent<BodyBullet>().SetInit(DirMove, Speed);
     } //Shoot Bullet!!
 
     //**Editor**
@@ -180,11 +188,11 @@ public class BaseShoot : MonoBehaviour
 
 #if UNITY_EDITOR
 
-[CustomEditor(typeof(BaseShoot))]
+[CustomEditor(typeof(BodyShoot))]
 [CanEditMultipleObjects]
-public class BaseShootEditor : Editor
+public class BodyShootEditor : Editor
 {
-    private BaseShoot m_target;
+    private BodyShoot m_target;
 
     private SerializedProperty m_bullet;
 
@@ -194,7 +202,7 @@ public class BaseShootEditor : Editor
 
     private void OnEnable()
     {
-        m_target = target as BaseShoot;
+        m_target = target as BodyShoot;
 
         m_bullet = QUnityEditorCustom.GetField(this, "m_bullet");
 

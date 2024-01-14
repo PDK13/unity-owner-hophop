@@ -1,7 +1,9 @@
 using DG.Tweening;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseBullet : MonoBehaviour
+public class BodyBullet : MonoBehaviour, IBodyTurn
 {
     private const string ANIM_BLOW = "Blow";
 
@@ -18,18 +20,18 @@ public class BaseBullet : MonoBehaviour
     private bool TurnEnd => m_turnLengthCurrent == m_turnLength && m_turnLength != 0;
 
     private Animator m_animator;
-    private BaseBody m_body;
+    private BodyPhysic m_body;
     private IsometricBlock m_block;
 
     public void SetInit(IsometricVector Dir, int Speed)
     {
         m_animator = GetComponent<Animator>();
-        m_body = GetComponent<BaseBody>();
+        m_body = GetComponent<BodyPhysic>();
         m_block = GetComponent<IsometricBlock>();
         //
-        TurnManager.SetInit(TurnType.Object, gameObject);
-        TurnManager.Instance.onTurn += SetControlTurn;
-        TurnManager.Instance.onStepStart += SetControlStep;
+        TurnManager.SetInit(TurnType.Bullet, gameObject);
+        TurnManager.Instance.onTurn += IOnTurn;
+        TurnManager.Instance.onStepStart += IOnStep;
         //
         if (m_body != null)
         {
@@ -46,9 +48,9 @@ public class BaseBullet : MonoBehaviour
     {
         StopAllCoroutines();
         //
-        TurnManager.SetRemove(TurnType.Object, gameObject);
-        TurnManager.Instance.onTurn -= SetControlTurn;
-        TurnManager.Instance.onStepStart -= SetControlStep;
+        TurnManager.SetRemove(TurnType.Bullet, gameObject);
+        TurnManager.Instance.onTurn -= IOnTurn;
+        TurnManager.Instance.onStepStart -= IOnStep;
         //
         if (m_body != null)
         {
@@ -56,7 +58,11 @@ public class BaseBullet : MonoBehaviour
         }
     }
 
-    private void SetControlTurn(int Turn)
+    //
+
+    public bool ITurnActive { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+
+    public void IOnTurn(int Turn)
     {
         //Reset!!
         m_turnLength = 0;
@@ -65,16 +71,18 @@ public class BaseBullet : MonoBehaviour
         m_turnControl = true;
     }
 
-    private void SetControlStep(string Name)
+    public void IOnStep(string Name)
     {
         if (m_turnControl)
         {
-            if (Name == TurnType.Object.ToString())
+            if (Name == TurnType.Bullet.ToString())
             {
                 SetControlMove();
             }
         }
     }
+
+    //
 
     private void SetControlMove()
     {
@@ -129,11 +137,11 @@ public class BaseBullet : MonoBehaviour
                 if (TurnEnd)
                 {
                     m_turnControl = false;
-                    TurnManager.SetEndTurn(TurnType.Object, gameObject); //Follow Object (!)
+                    TurnManager.SetEndTurn(TurnType.Bullet, gameObject); //Follow Object (!)
                 }
                 else
                 {
-                    TurnManager.SetEndMove(TurnType.Object, gameObject); //Follow Object (!)
+                    TurnManager.SetEndMove(TurnType.Bullet, gameObject); //Follow Object (!)
                 }
                 //
                 //Check if Bot can't stand on!!
@@ -146,10 +154,10 @@ public class BaseBullet : MonoBehaviour
     public void SetHit()
     {
         m_turnControl = false;
-        TurnManager.SetEndTurn(TurnType.Object, gameObject); //Follow Object (!)
-        TurnManager.SetRemove(TurnType.Object, gameObject);
-        TurnManager.Instance.onTurn -= SetControlTurn;
-        TurnManager.Instance.onStepStart -= SetControlStep;
+        TurnManager.SetEndTurn(TurnType.Bullet, gameObject); //Follow Object (!)
+        TurnManager.SetRemove(TurnType.Bullet, gameObject);
+        TurnManager.Instance.onTurn -= IOnTurn;
+        TurnManager.Instance.onStepStart -= IOnStep;
         //
         SetControlAnimation(ANIM_BLOW);
         m_block.WorldManager.World.Current.SetBlockRemoveInstant(m_block, DESTROY_DELAY);

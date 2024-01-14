@@ -26,7 +26,7 @@ public class BodyBlockMove : BodyBlock
         //
         if (m_dataMove.DataExist)
         {
-            TurnManager.SetInit(TurnType.Object, gameObject);
+            TurnManager.SetInit(TurnType.Block, gameObject);
             TurnManager.Instance.onTurn += IOnTurn;
             TurnManager.Instance.onStepStart += IOnStep;
         }
@@ -41,7 +41,7 @@ public class BodyBlockMove : BodyBlock
     {
         if (m_dataMove.DataExist)
         {
-            TurnManager.SetRemove(TurnType.Object, gameObject);
+            TurnManager.SetRemove(TurnType.Block, gameObject);
             TurnManager.Instance.onTurn -= IOnTurn;
             TurnManager.Instance.onStepStart -= IOnStep;
         }
@@ -67,7 +67,7 @@ public class BodyBlockMove : BodyBlock
     {
         if (m_turnActive)
         {
-            if (Name == TurnType.Object.ToString())
+            if (Name == TurnType.Block.ToString())
             {
                 SetControlMove();
             }
@@ -106,13 +106,13 @@ public class BodyBlockMove : BodyBlock
                 if (TurnEnd)
                 {
                     m_turnActive = false;
-                    TurnManager.SetEndTurn(TurnType.Object, gameObject); //Follow Object (!)
+                    TurnManager.SetEndTurn(TurnType.Block, gameObject); //Follow Object (!)
                     //
                     m_turnDir = IsometricVector.None;
                 }
                 else
                 {
-                    TurnManager.SetEndMove(TurnType.Object, gameObject); //Follow Object (!)
+                    TurnManager.SetEndMove(TurnType.Block, gameObject); //Follow Object (!)
                 }
             });
         //
@@ -188,7 +188,7 @@ public class BodyBlockMove : BodyBlock
         IsometricBlock BlockPush = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + Dir);
         if (BlockPush != null)
         {
-            BaseBody BodyPush = BlockPush.GetComponent<BaseBody>();
+            BodyPhysic BodyPush = BlockPush.GetComponent<BodyPhysic>();
             if (BodyPush != null)
             {
                 BodyPush.SetControlPush(Dir, Dir * -1); //Push!!
@@ -202,7 +202,7 @@ public class BodyBlockMove : BodyBlock
         IsometricBlock BlockTop = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + IsometricVector.Top);
         if (BlockTop != null)
         {
-            BaseBody BodyTop = BlockTop.GetComponent<BaseBody>();
+            BodyPhysic BodyTop = BlockTop.GetComponent<BodyPhysic>();
             if (BodyTop != null)
             {
                 if (Dir == IsometricVector.Top || Dir == IsometricVector.Bot)

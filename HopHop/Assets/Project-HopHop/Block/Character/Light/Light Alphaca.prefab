@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 242784294885808899}
   - component: {fileID: -5459734095070432351}
   - component: {fileID: 5660565434583021301}
+  - component: {fileID: -1345750663056547756}
   m_Layer: 0
   m_Name: Light Alphaca
   m_TagString: Untagged
@@ -208,3 +209,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebf2d9ec8c86cd740a51d2009981d4e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-1345750663056547756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 44393240911007885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c9f9950db637784598efaa0d9095a88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_bullet: {fileID: 1261736322470851628, guid: 740db2b1ad6f89045af8c08341d89a25, type: 3}
+  m_editorSpawm: 0
+  m_editorMove: 0
+  m_editorSpeed: 0

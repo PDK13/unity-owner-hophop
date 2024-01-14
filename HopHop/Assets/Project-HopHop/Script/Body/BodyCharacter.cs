@@ -2,7 +2,7 @@ using System.Collections;
 using System.Linq;
 using UnityEngine;
 
-public class BaseCharacter : MonoBehaviour
+public class BodyCharacter : MonoBehaviour
 {
     private const int INDEX_MOVE = 0;
     private const int INDEX_ACTION = 1;
@@ -31,13 +31,13 @@ public class BaseCharacter : MonoBehaviour
     public int Skin => m_skin;
     //
     private IsometricBlock m_block;
-    private BaseBody m_body;
+    private BodyPhysic m_body;
     private Animator m_animator;
 
     private void Awake()
     {
         m_block = GetComponent<IsometricBlock>();
-        m_body = GetComponent<BaseBody>();
+        m_body = GetComponent<BodyPhysic>();
         m_animator = GetComponent<Animator>();
     }
 

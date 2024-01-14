@@ -11,12 +11,12 @@ public class BodyEnermyMove : BodyEnermy, IBodyPhysic
     protected bool m_checkStopBot = false;
     protected bool m_checkStopAhead = false;
 
-    protected BaseBody m_body;
+    protected BodyPhysic m_body;
     protected IsometricBlock m_block;
 
     protected void Awake()
     {
-        m_body = GetComponent<BaseBody>();
+        m_body = GetComponent<BodyPhysic>();
         m_block = GetComponent<IsometricBlock>();
     }
 
@@ -135,7 +135,7 @@ public class BodyEnermyMove : BodyEnermy, IBodyPhysic
             {
                 Debug.Log("[Debug] Bullet hit Enermy!!");
                 //
-                Block.GetComponent<BaseBullet>().SetHit();
+                Block.GetComponent<BodyBullet>().SetHit();
             }
             else
             if (m_checkStopAhead)
@@ -145,7 +145,7 @@ public class BodyEnermyMove : BodyEnermy, IBodyPhysic
             {
                 //None Stop Ahead and continue check move ahead!!
                 //
-                BaseBody BlockBody = Block.GetComponent<BaseBody>();
+                BodyPhysic BlockBody = Block.GetComponent<BodyPhysic>();
                 //
                 if (BlockBody == null)
                 {

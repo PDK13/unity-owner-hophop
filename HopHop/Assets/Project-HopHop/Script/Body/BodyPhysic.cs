@@ -3,7 +3,7 @@ using System;
 using UnityEditor;
 using UnityEngine;
 
-public class BaseBody : MonoBehaviour
+public class BodyPhysic : MonoBehaviour
 {
     private bool m_turnControl = false;
     //
@@ -141,7 +141,7 @@ public class BaseBody : MonoBehaviour
             {
                 Debug.Log("[Debug] Bullet hit Player!!");
                 //
-                Block.GetComponent<BaseBullet>().SetHit();
+                Block.GetComponent<BodyBullet>().SetHit();
             }
             else
             {
@@ -244,7 +244,7 @@ public class BaseBody : MonoBehaviour
         IsometricBlock BlockPush = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + Dir);
         if (BlockPush != null)
         {
-            BaseBody BodyPush = BlockPush.GetComponent<BaseBody>();
+            BodyPhysic BodyPush = BlockPush.GetComponent<BodyPhysic>();
             if (BodyPush != null)
             {
                 BodyPush.SetControlPush(Dir, Dir * -1); //Push!!
@@ -297,7 +297,7 @@ public class BaseBody : MonoBehaviour
         IsometricBlock BlockTop = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + IsometricVector.Top);
         if (BlockTop != null)
         {
-            BaseBody BodyTop = BlockTop.GetComponent<BaseBody>();
+            BodyPhysic BodyTop = BlockTop.GetComponent<BodyPhysic>();
             if (BodyTop != null)
             {
                 if (Dir == IsometricVector.Top || Dir == IsometricVector.Bot)
@@ -367,15 +367,15 @@ public class BaseBody : MonoBehaviour
 
 #if UNITY_EDITOR
 
-[CustomEditor(typeof(BaseBody))]
+[CustomEditor(typeof(BodyPhysic))]
 [CanEditMultipleObjects]
 public class BaseBodyEditor : Editor
 {
-    private BaseBody m_target;
+    private BodyPhysic m_target;
 
     private void OnEnable()
     {
-        m_target = target as BaseBody;
+        m_target = target as BodyPhysic;
     }
 
     public override void OnInspectorGUI()
