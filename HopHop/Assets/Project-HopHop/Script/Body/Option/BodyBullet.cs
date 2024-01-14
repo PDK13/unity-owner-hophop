@@ -34,9 +34,7 @@ public class BodyBullet : MonoBehaviour, IBodyTurn
         TurnManager.Instance.onStepStart += IOnStep;
         //
         if (m_body != null)
-        {
             m_body.onGravity += SetGravity;
-        }
         //
         m_speed = Speed;
         m_turnDir = Dir;
@@ -46,16 +44,12 @@ public class BodyBullet : MonoBehaviour, IBodyTurn
 
     private void OnDestroy()
     {
-        StopAllCoroutines();
-        //
         TurnManager.SetRemove(TurnType.Bullet, gameObject);
         TurnManager.Instance.onTurn -= IOnTurn;
         TurnManager.Instance.onStepStart -= IOnStep;
         //
         if (m_body != null)
-        {
             m_body.onGravity -= SetGravity;
-        }
     }
 
     //
