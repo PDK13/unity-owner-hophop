@@ -21,7 +21,8 @@ public class GameConfigAction
 
 public class GameConfigInit
 {
-    public const string Move = "move"; //move-[move]-[ahead]-[bot]
+    public const string MoveCheckAhead = "move-check-ahead";
+    public const string MoveCheckAheadBot = "move-check-ahead-bot";
 
     //Character
     public const string CharacterPush = "character-push";
@@ -49,8 +50,8 @@ public enum TurnType
     None,
     Gravity,
     Player,
-    Enermy,
-    Block,
+    MovePhysic,
+    MoveStatic,
     Bullet,
     Shoot,
 }

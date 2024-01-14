@@ -1,8 +1,10 @@
 using DG.Tweening;
 using UnityEngine;
 
-public class BodyBlockMove : BodyBlock
+public class BodyMoveStatic : MonoBehaviour, IBodyTurn
 {
+    protected bool m_turnActive = false;
+
     private IsometricDataMove m_dataMove;
     private IsometricDataFollow m_dataFollow;
     //
@@ -19,14 +21,14 @@ public class BodyBlockMove : BodyBlock
         m_block = GetComponent<IsometricBlock>();
     }
 
-    protected override void Start()
+    protected void Start()
     {
         m_dataMove = m_block.Data.Move;
         m_dataFollow = m_block.Data.Follow;
         //
-        if (m_dataMove.DataExist)
+        if (m_dataMove.Data.Count > 0)
         {
-            TurnManager.SetInit(TurnType.Block, gameObject);
+            TurnManager.SetInit(TurnType.MoveStatic, gameObject);
             TurnManager.Instance.onTurn += IOnTurn;
             TurnManager.Instance.onStepStart += IOnStep;
         }
@@ -37,11 +39,11 @@ public class BodyBlockMove : BodyBlock
         }
     }
 
-    protected override void OnDestroy()
+    protected void OnDestroy()
     {
-        if (m_dataMove.DataExist)
+        if (m_dataMove.Data.Count > 0)
         {
-            TurnManager.SetRemove(TurnType.Block, gameObject);
+            TurnManager.SetRemove(TurnType.MoveStatic, gameObject);
             TurnManager.Instance.onTurn -= IOnTurn;
             TurnManager.Instance.onStepStart -= IOnStep;
         }
@@ -54,7 +56,13 @@ public class BodyBlockMove : BodyBlock
 
     //
 
-    public override void IOnTurn(int Turn)
+    public bool ITurnActive
+    {
+        get => m_turnActive;
+        set => m_turnActive = value;
+    }
+
+    public void IOnTurn(int Turn)
     {
         //Reset!!
         m_turnLength = 0;
@@ -63,11 +71,11 @@ public class BodyBlockMove : BodyBlock
         m_turnActive = true;
     }
 
-    public override void IOnStep(string Name)
+    public void IOnStep(string Name)
     {
         if (m_turnActive)
         {
-            if (Name == TurnType.Block.ToString())
+            if (Name == TurnType.MoveStatic.ToString())
             {
                 SetControlMove();
             }
@@ -80,8 +88,8 @@ public class BodyBlockMove : BodyBlock
     {
         if (m_turnLength == 0)
         {
-            m_turnDir = IsometricVector.GetDir(m_dataMove.Dir[m_dataMove.Index]) * m_dataMove.Quantity;
-            m_turnLength = m_dataMove.Duration[m_dataMove.Index];
+            m_turnDir = m_dataMove.DirCombineCurrent;
+            m_turnLength = m_dataMove.Data[m_dataMove.Index].Duration;
             m_turnLengthCurrent = 0;
         }
         //
@@ -106,13 +114,13 @@ public class BodyBlockMove : BodyBlock
                 if (TurnEnd)
                 {
                     m_turnActive = false;
-                    TurnManager.SetEndTurn(TurnType.Block, gameObject); //Follow Object (!)
+                    TurnManager.SetEndTurn(TurnType.MoveStatic, gameObject); //Follow Object (!)
                     //
                     m_turnDir = IsometricVector.None;
                 }
                 else
                 {
-                    TurnManager.SetEndMove(TurnType.Block, gameObject); //Follow Object (!)
+                    TurnManager.SetEndMove(TurnType.MoveStatic, gameObject); //Follow Object (!)
                 }
             });
         //
@@ -126,25 +134,7 @@ public class BodyBlockMove : BodyBlock
         SetMoveTop(m_turnDir);
         //
         if (TurnEnd)
-        {
-            m_dataMove.Index += m_dataMove.Quantity;
-            //
-            if (m_dataMove.Type == DataBlockType.Forward && m_dataMove.Index > m_dataMove.DataCount - 1)
-            {
-                //End Here!!
-            }
-            else
-            if (m_dataMove.Type == DataBlockType.Loop && m_dataMove.Index > m_dataMove.DataCount - 1)
-            {
-                m_dataMove.Index = 0;
-            }
-            else
-            if (m_dataMove.Type == DataBlockType.Revert && (m_dataMove.Index < 0 || m_dataMove.Index > m_dataMove.DataCount - 1))
-            {
-                m_dataMove.Quantity *= -1;
-                m_dataMove.Index += m_dataMove.Quantity;
-            }
-        }
+            m_dataMove.SetDirNext();
     }
 
     private void SetControlFollow(string Identity, IsometricVector Dir)

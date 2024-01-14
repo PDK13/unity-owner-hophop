@@ -133,14 +133,10 @@ MonoBehaviour:
     Y: 0
     H: 0
   m_initData:
-    Data:
-    - move-N-1-0-0
+    Data: []
   m_moveData:
     Type: 0
-    Dir: 
-    Duration: 
-    Index: 0
-    Quantity: 1
+    m_data: []
   m_followData:
     Identity: 
     IdentityGet: 
@@ -209,6 +205,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebf2d9ec8c86cd740a51d2009981d4e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_moveCheckAhead: 0
+  m_moveCheckAheadBot: 0
 --- !u!114 &-1345750663056547756
 MonoBehaviour:
   m_ObjectHideFlags: 0

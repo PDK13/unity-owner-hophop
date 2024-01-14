@@ -4,12 +4,14 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-public class BodyEnermyMove : BodyEnermy, IBodyPhysic
+public class BodyMovePhysic : MonoBehaviour, IBodyPhysic
 {
-    private IsoDir m_moveDir = IsoDir.None;
-    protected bool m_checkPlayerHit = true;
-    protected bool m_checkStopBot = false;
-    protected bool m_checkStopAhead = false;
+    protected bool m_turnActive = false;
+
+    private IsometricDataMove m_dataMove;
+
+    protected bool m_moveCheckAhead = false;
+    protected bool m_moveCheckAheadBot = false;
 
     protected BodyPhysic m_body;
     protected IsometricBlock m_block;
@@ -20,19 +22,19 @@ public class BodyEnermyMove : BodyEnermy, IBodyPhysic
         m_block = GetComponent<IsometricBlock>();
     }
 
-    protected override void Start()
+    protected void Start()
     {
-        base.Start();
+        m_dataMove = m_block.Data.Move;
         //
-        if (m_block.Data.Init.Data.Exists(t => t.Contains(GameConfigInit.Move)))
+        if (m_dataMove.Data.Count > 0)
         {
-            string Data = m_block.Data.Init.Data.Find(t => t.Contains(GameConfigInit.Move));
-            List<string> Command = QEncypt.GetDencyptString('-', Data);
-            m_moveDir = IsometricVector.GetDir(IsometricVector.GetDirDeEncypt(Command[1]));
-            m_checkPlayerHit = Command[2] == "1" ? true : false;
-            m_checkStopBot = Command[3] == "1" ? true : false;
-            m_checkStopAhead = Command[4] == "1" ? true : false;
+            TurnManager.SetInit(TurnType.MovePhysic, gameObject);
+            TurnManager.Instance.onTurn += IOnTurn;
+            TurnManager.Instance.onStepStart += IOnStep;
         }
+        //
+        m_moveCheckAhead = m_block.Data.Init.Data.Exists(t => t == GameConfigInit.MoveCheckAhead);
+        m_moveCheckAheadBot = m_block.Data.Init.Data.Exists(t => t == GameConfigInit.MoveCheckAheadBot);
         //
         m_body.onMove += IMoveForce;
         m_body.onForce += IForce;
@@ -41,9 +43,14 @@ public class BodyEnermyMove : BodyEnermy, IBodyPhysic
         m_body.onPush += IPush;
     }
 
-    protected override void OnDestroy()
+    protected void OnDestroy()
     {
-        base.OnDestroy();
+        if (m_dataMove.Data.Count > 0)
+        {
+            TurnManager.SetRemove(TurnType.MovePhysic, gameObject);
+            TurnManager.Instance.onTurn -= IOnTurn;
+            TurnManager.Instance.onStepStart -= IOnStep;
+        }
         //
         m_body.onMove -= IMoveForce;
         m_body.onForce -= IForce;
@@ -54,35 +61,41 @@ public class BodyEnermyMove : BodyEnermy, IBodyPhysic
 
     //
 
-    public override void IOnTurn(int Turn)
+    public bool ITurnActive
+    {
+        get => m_turnActive;
+        set => m_turnActive = value;
+    }
+
+    public void IOnTurn(int Turn)
     {
         m_turnActive = true;
     }
 
-    public override void IOnStep(string Name)
+    public void IOnStep(string Name)
     {
         if (m_turnActive)
         {
-            if (Name == TurnType.Enermy.ToString())
+            if (Name == TurnType.MovePhysic.ToString())
             {
                 if (!m_body.SetControlMoveForce())
                 {
-                    if (!IMove(IsometricVector.GetDir(m_moveDir)))
+                    if (!IMove(m_dataMove.DirCombineCurrent))
                     {
-                        m_moveDir = IsometricVector.GetDir(IsometricVector.GetDir(m_moveDir) * -1);
-                        if (!IMove(IsometricVector.GetDir(m_moveDir)))
+                        m_dataMove.SetDirRevert();
+                        m_dataMove.SetDirNext();
+                        if (!IMove(m_dataMove.DirCombineCurrent))
                         {
-                            m_moveDir = IsometricVector.GetDir(IsometricVector.GetDir(m_moveDir) * -1);
+                            m_dataMove.SetDirRevert();
+                            m_dataMove.SetDirNext();
                             //
                             m_turnActive = false;
-                            TurnManager.SetEndTurn(TurnType.Enermy, gameObject); //Follow Enermy (!)
+                            TurnManager.SetEndTurn(TurnType.MovePhysic, gameObject);
                         }
                     }
                 }
                 else
-                {
                     m_turnActive = false;
-                }
             }
         }
     }
@@ -94,7 +107,7 @@ public class BodyEnermyMove : BodyEnermy, IBodyPhysic
         if (!State)
         {
             m_turnActive = false;
-            TurnManager.SetEndTurn(TurnType.Enermy, gameObject);
+            TurnManager.SetEndTurn(TurnType.MovePhysic, gameObject);
         }
     }
 
@@ -105,10 +118,10 @@ public class BodyEnermyMove : BodyEnermy, IBodyPhysic
 
     public bool IMove(IsometricVector Dir)
     {
-        if (m_moveDir == IsoDir.None)
+        if (m_dataMove.DirCombineCurrent == IsometricVector.None)
         {
             m_turnActive = false;
-            TurnManager.SetEndTurn(TurnType.Enermy, gameObject); //Follow Enermy (!)
+            TurnManager.SetEndTurn(TurnType.MovePhysic, gameObject); //Follow Enermy (!)
             return true;
         }
         //
@@ -118,19 +131,6 @@ public class BodyEnermyMove : BodyEnermy, IBodyPhysic
         IsometricBlock Block = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + Dir * Length);
         if (Block != null)
         {
-            if (Block.Tag.Contains(GameConfigTag.Player))
-            {
-                if (m_checkPlayerHit)
-                {
-                    Debug.Log("[Debug] Enermy hit Player!!");
-                    //
-                    m_turnActive = false;
-                    TurnManager.SetEndTurn(TurnType.Enermy, gameObject); //Follow Enermy (!)
-                    //
-                    return true;
-                }
-            }
-            else
             if (Block.Tag.Contains(GameConfigTag.Bullet))
             {
                 Debug.Log("[Debug] Bullet hit Enermy!!");
@@ -138,7 +138,7 @@ public class BodyEnermyMove : BodyEnermy, IBodyPhysic
                 Block.GetComponent<BodyBullet>().SetHit();
             }
             else
-            if (m_checkStopAhead)
+            if (m_moveCheckAhead)
                 //Stop Ahead when there is an burden ahead!!
                 return false;
             //else
@@ -156,7 +156,7 @@ public class BodyEnermyMove : BodyEnermy, IBodyPhysic
             }
         }
         else
-        if (m_checkStopBot)
+        if (m_moveCheckAheadBot)
         {
             //Continue check move Ahead Bot!!
             //
@@ -170,6 +170,8 @@ public class BodyEnermyMove : BodyEnermy, IBodyPhysic
         m_turnActive = false;
         //
         m_body.SetControlMove(Dir);
+        //
+        m_dataMove.SetDirNext();
         //
         return true;
     }
@@ -186,17 +188,18 @@ public class BodyEnermyMove : BodyEnermy, IBodyPhysic
 
     //**Editor**
 
-    public void SetEditorMove()
+    public void SetEditorCheckMoveAhead()
     {
         IsometricBlock Block = GetComponent<IsometricBlock>();
-        string Data = string.Format("{0}-{1}-{2}-{3}-{4}",
-            GameConfigInit.Move,
-            IsometricVector.GetDirEncypt(m_moveDir),
-            m_checkPlayerHit ? 1 : 0,
-            m_checkStopAhead ? 1 : 0,
-            m_checkStopBot ? 1 : 0);
-        if (!Block.Data.Init.Data.Contains(Data))
-            Block.Data.Init.Data.Add(Data);
+        if (!Block.Data.Init.Data.Contains(GameConfigInit.MoveCheckAhead))
+            Block.Data.Init.Data.Add(GameConfigInit.MoveCheckAhead);
+    }
+
+    public void SetEditorCheckMoveAheadBot()
+    {
+        IsometricBlock Block = GetComponent<IsometricBlock>();
+        if (!Block.Data.Init.Data.Contains(GameConfigInit.MoveCheckAheadBot))
+            Block.Data.Init.Data.Add(GameConfigInit.MoveCheckAheadBot);
     }
 
     //**Editor**
@@ -204,23 +207,26 @@ public class BodyEnermyMove : BodyEnermy, IBodyPhysic
 
 #if UNITY_EDITOR
 
-[CustomEditor(typeof(BodyEnermyMove))]
+[CustomEditor(typeof(BodyMovePhysic))]
 [CanEditMultipleObjects]
 public class BodyEnermyMoveEditor : Editor
 {
-    private BodyEnermyMove m_target;
+    private BodyMovePhysic m_target;
 
     private void OnEnable()
     {
-        m_target = target as BodyEnermyMove;
+        m_target = target as BodyMovePhysic;
     }
 
     public override void OnInspectorGUI()
     {
         QUnityEditorCustom.SetUpdate(this);
         //
-        if (QUnityEditor.SetButton("Move"))
-            m_target.SetEditorMove();
+        if (QUnityEditor.SetButton("Move Check Ahead"))
+            m_target.SetEditorCheckMoveAhead();
+        //
+        if (QUnityEditor.SetButton("Move Check Ahead Bot"))
+            m_target.SetEditorCheckMoveAheadBot();
         //
         QUnityEditorCustom.SetApply(this);
     }

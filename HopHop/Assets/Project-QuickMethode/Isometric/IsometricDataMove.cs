@@ -6,57 +6,88 @@ using UnityEngine;
 public class IsometricDataMove
 {
     public DataBlockType Type = DataBlockType.Forward;
-    public List<IsoDir> Dir = new List<IsoDir>();
-    public List<int> Duration = new List<int>();
 
-    [HideInInspector]
-    public int Index = 0;
-    [HideInInspector]
-    public int Quantity = 1;
+    //
+
+    [SerializeField] private List<IsometricDataBlockMoveSingle> m_data = new List<IsometricDataBlockMoveSingle>();
+    private int m_index = 0;
+    private int m_quantity = 1;
+
+    //
 
     public List<IsometricDataBlockMoveSingle> Data
     {
         get
         {
-            List<IsometricDataBlockMoveSingle> Data = new List<IsometricDataBlockMoveSingle>();
-            for (int i = 0; i < Dir.Count; i++)
-                Data.Add(new IsometricDataBlockMoveSingle(Dir[i], (Duration.Count == Dir.Count ? Duration[i] : 1)));
-            //
-            return Data;
+            if (m_data == null)
+                m_data = new List<IsometricDataBlockMoveSingle>();
+            return m_data;
         }
     }
 
-    public int DataCount => Dir.Count;
+    public int Index => m_index;
+
+    public int Quantity => m_quantity;
+
+    //
 
     public void SetDataNew()
     {
-        Dir = new List<IsoDir>();
-        Duration = new List<int>();
+        m_data = new List<IsometricDataBlockMoveSingle>();
     }
 
     public void SetDataAdd(IsometricDataBlockMoveSingle DataSingle)
     {
         if (DataSingle == null)
-        {
             return;
-        }
         //
-        Dir.Add(DataSingle.Dir);
-        Duration.Add(DataSingle.Duration);
+        m_data.Add(DataSingle);
     }
 
     public void SetDataAdd(IsoDir Dir)
     {
-        this.Dir.Add(Dir);
+        m_data.Add(new IsometricDataBlockMoveSingle(Dir, 1));
     }
 
     public void SetDataAdd(IsoDir Dir, int Duration)
     {
-        this.Dir.Add(Dir);
-        this.Duration.Add(Duration);
+        m_data.Add(new IsometricDataBlockMoveSingle(Dir, Duration));
     }
 
-    public bool DataExist => Dir == null ? false : Dir.Count == 0 ? false : true;
+    //
+
+    public IsometricVector DirCombineCurrent => IsometricVector.GetDir(Data[Index].Dir) * Quantity;
+
+    public IsometricVector DirCurrent => IsometricVector.GetDir(Data[Index].Dir);
+
+    public int DurationCurrent => Data[Index].Duration;
+
+    public void SetDirNext()
+    {
+        m_index += m_quantity;
+        //
+        if (m_index < 0 || m_index > m_data.Count - 1)
+        {
+            switch (Type)
+            {
+                case DataBlockType.Forward:
+                    m_index = m_quantity == 1 ? m_data.Count - 1 : 0;
+                    break;
+                case DataBlockType.Loop:
+                    m_index = m_quantity == 1 ? 0 : m_data.Count - 1;
+                    break;
+                case DataBlockType.Revert:
+                    m_quantity *= -1;
+                    m_index += Quantity;
+                    break;
+            }
+        }
+    }
+
+    public void SetDirRevert()
+    {
+        m_quantity *= -1;
+    }
 }
 
 [Serializable]

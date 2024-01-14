@@ -189,7 +189,10 @@ public class CharacterConfigEditor : Editor
         QUnityEditor.SetSpace(10);
         //
         if (QUnityEditor.SetButton("Refresh"))
+        {
             Target.SetRefresh();
+            QUnityEditor.SetDirty(this);
+        }
         //
         QUnityEditorCustom.SetApply(this);
     }

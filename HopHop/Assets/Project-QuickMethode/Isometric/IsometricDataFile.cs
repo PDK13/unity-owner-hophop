@@ -81,7 +81,7 @@ public class IsometricDataFile
                 }
             }
             //
-            if (WorldBlocks[BlockIndex].Data.Move.DataExist)
+            if (WorldBlocks[BlockIndex].Data.Move.Data.Count > 0)
             {
                 FileIO.SetWriteAdd(KEY_BLOCK_MOVE);
                 FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.Move.Type);
@@ -103,7 +103,7 @@ public class IsometricDataFile
                 FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.Follow.IdentityGet);
             }
             //
-            if (WorldBlocks[BlockIndex].Data.Action.DataExist)
+            if (WorldBlocks[BlockIndex].Data.Action.Data.Count > 0)
             {
                 FileIO.SetWriteAdd(KEY_BLOCK_ACTION);
                 FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.Action.Type);

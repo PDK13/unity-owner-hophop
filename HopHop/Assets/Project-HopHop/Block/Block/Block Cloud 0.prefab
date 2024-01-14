@@ -129,7 +129,8 @@ MonoBehaviour:
     Y: 0
     H: 0
   m_initData:
-    Data: []
+    Data:
+    - 
   m_moveData:
     Type: 0
     Dir: 

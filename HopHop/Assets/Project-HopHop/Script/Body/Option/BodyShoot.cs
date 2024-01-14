@@ -39,7 +39,7 @@ public class BodyShoot : MonoBehaviour, IBodyTurn
 
         if (m_dataAction != null)
         {
-            if (m_dataAction.DataExist)
+            if (m_dataAction.Data.Count > 0)
             {
                 TurnManager.SetInit(TurnType.Shoot, gameObject);
                 TurnManager.Instance.onTurn += IOnTurn;
@@ -52,7 +52,7 @@ public class BodyShoot : MonoBehaviour, IBodyTurn
     {
         if (m_dataAction != null)
         {
-            if (m_dataAction.DataExist)
+            if (m_dataAction.Data.Count > 0)
             {
                 TurnManager.SetRemove(TurnType.Shoot, gameObject);
                 TurnManager.Instance.onTurn -= IOnTurn;
@@ -95,8 +95,8 @@ public class BodyShoot : MonoBehaviour, IBodyTurn
     {
         if (m_turnTime == 0)
         {
-            m_turnCommand = m_dataAction.Action[m_dataAction.Index];
-            m_turnTime = m_dataAction.Duration[m_dataAction.Index];
+            m_turnCommand = m_dataAction.ActionCurrent;
+            m_turnTime = m_dataAction.DurationCurrent;
             m_turnTimeCurrent = 0;
         }
         //
@@ -121,24 +121,7 @@ public class BodyShoot : MonoBehaviour, IBodyTurn
         StartCoroutine(ISetDelay());
         //
         if (TurnEnd)
-        {
-            m_dataAction.Index += m_dataAction.Quantity;
-            if (m_dataAction.Type == DataBlockType.Forward && m_dataAction.Index > m_dataAction.DataCount - 1)
-            {
-                //End Here!!
-            }
-            else
-            if (m_dataAction.Type == DataBlockType.Loop && m_dataAction.Index > m_dataAction.DataCount - 1)
-            {
-                m_dataAction.Index = 0;
-            }
-            else
-            if (m_dataAction.Type == DataBlockType.Revert && (m_dataAction.Index < 0 || m_dataAction.Index > m_dataAction.DataCount - 1))
-            {
-                m_dataAction.Quantity *= -1;
-                m_dataAction.Index += m_dataAction.Quantity;
-            }
-        }
+            m_dataAction.SetDirNext();
     }
 
     private IEnumerator ISetDelay()
