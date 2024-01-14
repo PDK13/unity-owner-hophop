@@ -129,23 +129,16 @@ MonoBehaviour:
     Y: 0
     H: 0
   m_initData:
-    Data:
-    - 
+    Data: []
   m_moveData:
     Type: 0
-    Dir: 
-    Duration: 
-    Index: 0
-    Quantity: 1
+    m_data: []
   m_followData:
     Identity: 
     IdentityGet: 
   m_actionData:
     Type: 0
-    Action: []
-    Duration: 
-    Index: 0
-    Quantity: 1
+    m_data: []
   m_eventData:
     Identity: []
     IdentityGet: []
