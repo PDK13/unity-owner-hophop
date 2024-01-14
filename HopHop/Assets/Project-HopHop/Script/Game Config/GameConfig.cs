@@ -51,5 +51,6 @@ public enum TurnType
     Player,
     Follow,
     Enermy,
+    Block,
     Object,
 }

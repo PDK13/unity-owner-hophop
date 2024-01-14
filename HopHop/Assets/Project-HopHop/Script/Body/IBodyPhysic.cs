@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public interface IBodyMove
+public interface IBodyPhysic
 {
     void IMoveForce(bool State, IsometricVector Dir);
 

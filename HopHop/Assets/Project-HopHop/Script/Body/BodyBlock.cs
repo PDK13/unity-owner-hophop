@@ -1,22 +1,22 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static Unity.Collections.AllocatorManager;
 
-public class BodyEnermy : MonoBehaviour, IBodyTurn
+public class BodyBlock : MonoBehaviour, IBodyTurn
 {
     protected bool m_turnActive = false;
 
     protected virtual void Start()
     {
-        TurnManager.SetInit(TurnType.Enermy, gameObject);
+        TurnManager.SetInit(TurnType.Block, gameObject);
         TurnManager.Instance.onTurn += IOnTurn;
         TurnManager.Instance.onStepStart += IOnStep;
     }
 
     protected virtual void OnDestroy()
     {
-        TurnManager.SetRemove(TurnType.Enermy, gameObject);
+        TurnManager.SetRemove(TurnType.Block, gameObject);
         TurnManager.Instance.onTurn -= IOnTurn;
         TurnManager.Instance.onStepStart -= IOnStep;
     }

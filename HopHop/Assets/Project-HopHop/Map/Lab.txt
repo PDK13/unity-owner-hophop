@@ -5,7 +5,7 @@ Lab
 0
 
 #WORLD-BLOCK
-43
+44
 
 [2;2;0]
 Object Flower Blue 0
@@ -187,5 +187,16 @@ Block Normal 0
 
 [-2;-2;-1]
 Block Normal 0
+#BLOCK-END
+
+[2;-3;-1]
+Block Stone 0
+#BLOCK-MOVE
+2
+4
+1|D
+1|D
+1|D
+1|D
 #BLOCK-END
 #WORLD-END

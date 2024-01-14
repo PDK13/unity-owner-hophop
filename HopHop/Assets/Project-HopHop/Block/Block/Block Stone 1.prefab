@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 44393240911007887}
   - component: {fileID: 1859136451984302811}
   - component: {fileID: 44393240911007880}
-  - component: {fileID: 792569818468697268}
+  - component: {fileID: -548615951575969873}
   m_Layer: 0
   m_Name: Block Stone 1
   m_TagString: Untagged
@@ -166,7 +166,7 @@ MonoBehaviour:
       Y: 1
       H: 1
   m_centre: {x: 0, y: 0, z: 0}
---- !u!114 &792569818468697268
+--- !u!114 &-548615951575969873
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -175,6 +175,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 44393240911007885}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bfc287c449558124f998392227ca3361, type: 3}
+  m_Script: {fileID: 11500000, guid: 96295c8cd65fb794d978bcf3989ccbf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

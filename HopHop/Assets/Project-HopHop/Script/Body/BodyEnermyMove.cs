@@ -4,9 +4,21 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-public class BodyEnermyMove : BodyEnermy, IBodyMove
+public class BodyEnermyMove : BodyEnermy, IBodyPhysic
 {
     private IsoDir m_moveDir = IsoDir.None;
+    protected bool m_checkPlayerHit = true;
+    protected bool m_checkStopBot = false;
+    protected bool m_checkStopAhead = false;
+
+    protected BaseBody m_body;
+    protected IsometricBlock m_block;
+
+    protected void Awake()
+    {
+        m_body = GetComponent<BaseBody>();
+        m_block = GetComponent<IsometricBlock>();
+    }
 
     protected override void Start()
     {

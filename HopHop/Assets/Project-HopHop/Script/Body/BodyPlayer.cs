@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static Unity.Collections.AllocatorManager;
 
-public class BodyPlayer : MonoBehaviour, IBodyTurn, IBodyMove
+public class BodyPlayer : MonoBehaviour, IBodyTurn, IBodyPhysic
 {
     private bool m_turnActive = false;
 

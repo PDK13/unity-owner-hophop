@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1831744179654619826}
   - component: {fileID: 5247216095480439873}
   - component: {fileID: 1831744179654619829}
-  - component: {fileID: -5494178555861367860}
+  - component: {fileID: -5631870848132559258}
   m_Layer: 0
   m_Name: Block Slow 0
   m_TagString: Untagged
@@ -167,7 +167,7 @@ MonoBehaviour:
       Y: 1
       H: 1
   m_centre: {x: 0, y: 0, z: 0}
---- !u!114 &-5494178555861367860
+--- !u!114 &-5631870848132559258
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -176,6 +176,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 1831744179654619828}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bfc287c449558124f998392227ca3361, type: 3}
+  m_Script: {fileID: 11500000, guid: 96295c8cd65fb794d978bcf3989ccbf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
