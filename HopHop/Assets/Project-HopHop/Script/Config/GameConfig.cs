@@ -28,6 +28,24 @@ public class GameConfigInit
 
     //
 
+    public static bool GetExist(IsometricDataInit Data, Key Key)
+    {
+        if (Key == Key.None)
+            return false;
+        //
+        string KeyCheck = GetKey(Key);
+        //
+        foreach (string DataCheck in Data.Data)
+        {
+            if (!DataCheck.Contains(KeyCheck))
+                continue;
+            //
+            return true;
+        }
+        //
+        return false;
+    }
+
     public static string GetData(IsometricDataInit Data, Key Key, bool Full = true)
     {
         if (Key == Key.None)
@@ -83,6 +101,24 @@ public class GameConfigAction
     public const string Shoot = "shoot"; //shoot-[spawm]-[move]-[speed]
 
     //
+
+    public static bool GetExist(IsometricDataInit Data, Key Key)
+    {
+        if (Key == Key.None)
+            return false;
+        //
+        string KeyCheck = GetKey(Key);
+        //
+        foreach (string DataCheck in Data.Data)
+        {
+            if (!DataCheck.Contains(KeyCheck))
+                continue;
+            //
+            return true;
+        }
+        //
+        return false;
+    }
 
     public static string GetData(IsometricDataInit Data, Key Key, bool Full = true)
     {

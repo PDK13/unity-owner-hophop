@@ -39,8 +39,8 @@ public class BodyMovePhysic : MonoBehaviour, IBodyPhysic
             TurnManager.Instance.onStepStart += IOnStep;
         }
         //
-        m_moveCheckAhead = GameConfigInit.GetData(m_block.Data.Init, GameConfigInit.Key.MoveCheckAhead) != "";
-        m_moveCheckAheadBot = GameConfigInit.GetData(m_block.Data.Init, GameConfigInit.Key.MoveCheckAheadBot) != "";
+        m_moveCheckAhead = GameConfigInit.GetExist(m_block.Data.Init, GameConfigInit.Key.MoveCheckAhead);
+        m_moveCheckAheadBot = GameConfigInit.GetExist(m_block.Data.Init, GameConfigInit.Key.MoveCheckAheadBot);
         //
         m_body.onMove += IMoveForce;
         m_body.onForce += IForce;

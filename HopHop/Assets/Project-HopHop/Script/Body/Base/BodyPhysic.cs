@@ -15,11 +15,14 @@ public class BodyPhysic : MonoBehaviour
     public Action<bool, IsometricVector> onPush;        //State, Dir
     public Action<bool, IsometricVector> onForce;       //State, Dir
     //
+    [SerializeField] private bool m_bodyStatic = false;
+    //
     private IsometricVector MoveLastXY;
     private IsometricVector? MoveForceXY;
     //
 #if UNITY_EDITOR
 
+    [Space]
     [SerializeField] private string m_editorBodyStatic;
 
 #endif
@@ -29,6 +32,11 @@ public class BodyPhysic : MonoBehaviour
     private void Awake()
     {
         m_block = GetComponent<IsometricBlock>();
+    }
+
+    private void Start()
+    {
+        m_bodyStatic = m_bodyStatic || GameConfigInit.GetExist(m_block.Data.Init, GameConfigInit.Key.BodyStatic);
     }
 
     #region Move
@@ -380,11 +388,15 @@ public class BaseBodyEditor : Editor
 {
     private BodyPhysic m_target;
 
+    private SerializedProperty m_bodyStatic;
+
     private SerializedProperty m_editorBodyStatic;
 
     private void OnEnable()
     {
         m_target = target as BodyPhysic;
+
+        m_bodyStatic = QUnityEditorCustom.GetField(this, "m_bodyStatic");
 
         m_editorBodyStatic = QUnityEditorCustom.GetField(this, "m_editorBodyStatic");
     }
@@ -392,6 +404,8 @@ public class BaseBodyEditor : Editor
     public override void OnInspectorGUI()
     {
         QUnityEditorCustom.SetUpdate(this);
+        //
+        QUnityEditorCustom.SetField(m_bodyStatic);
         //
         QUnityEditorCustom.SetField(m_editorBodyStatic);
         //

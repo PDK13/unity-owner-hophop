@@ -8,9 +8,9 @@ public class BodyMoveStatic : MonoBehaviour, IBodyTurn
 {
     protected bool m_turnActive = false;
 
-    private IsometricDataMove m_dataMove;
-    private string m_dataFollowIdentity;
-    private string m_dataFollowIdentityCheck;
+    private IsometricDataMove m_move;
+    private string m_followIdentity;
+    private string m_followIdentityCheck;
     //
     private IsometricVector m_turnDir;
     private int m_turnLength = 0;
@@ -34,31 +34,31 @@ public class BodyMoveStatic : MonoBehaviour, IBodyTurn
 
     protected void Start()
     {
-        m_dataMove = m_block.Data.Move;
-        m_dataFollowIdentity = GameConfigInit.GetData(m_block.Data.Init, GameConfigInit.Key.FollowIdentity, false);
-        m_dataFollowIdentityCheck = GameConfigInit.GetData(m_block.Data.Init, GameConfigInit.Key.FollowIdentityCheck, false );
+        m_move = m_block.Data.Move;
+        m_followIdentity = GameConfigInit.GetData(m_block.Data.Init, GameConfigInit.Key.FollowIdentity, false);
+        m_followIdentityCheck = GameConfigInit.GetData(m_block.Data.Init, GameConfigInit.Key.FollowIdentityCheck, false);
         //
-        if (m_dataMove.Data.Count > 0)
+        if (m_move.Data.Count > 0)
         {
             TurnManager.SetInit(TurnType.MoveStatic, gameObject);
             TurnManager.Instance.onTurn += IOnTurn;
             TurnManager.Instance.onStepStart += IOnStep;
         }
         //
-        if (m_dataFollowIdentityCheck != "")
+        if (m_followIdentityCheck != "")
             GameEvent.onFollow += SetControlFollow;
     }
 
     protected void OnDestroy()
     {
-        if (m_dataMove.Data.Count > 0)
+        if (m_move.Data.Count > 0)
         {
             TurnManager.SetRemove(TurnType.MoveStatic, gameObject);
             TurnManager.Instance.onTurn -= IOnTurn;
             TurnManager.Instance.onStepStart -= IOnStep;
         }
         //
-        if (m_dataFollowIdentityCheck != "")
+        if (m_followIdentityCheck != "")
             GameEvent.onFollow -= SetControlFollow;
     }
 
@@ -96,8 +96,8 @@ public class BodyMoveStatic : MonoBehaviour, IBodyTurn
     {
         if (m_turnLength == 0)
         {
-            m_turnDir = m_dataMove.DirCombineCurrent;
-            m_turnLength = m_dataMove.Data[m_dataMove.Index].Duration;
+            m_turnDir = m_move.DirCombineCurrent;
+            m_turnLength = m_move.Data[m_move.Index].Duration;
             m_turnLength = Mathf.Clamp(m_turnLength, 1, m_turnLength); //Avoid bug by duration 0 value!
             m_turnLengthCurrent = 0;
         }
@@ -133,20 +133,20 @@ public class BodyMoveStatic : MonoBehaviour, IBodyTurn
                 }
             });
         //
-        if (m_dataFollowIdentity != "")
-            GameEvent.SetFollow(m_dataFollowIdentity, m_turnDir);
+        if (m_followIdentity != "")
+            GameEvent.SetFollow(m_followIdentity, m_turnDir);
         //
         SetMovePush(m_turnDir);
         //
         SetMoveTop(m_turnDir);
         //
         if (TurnEnd)
-            m_dataMove.SetDirNext();
+            m_move.SetDirNext();
     }
 
     private void SetControlFollow(string Identity, IsometricVector Dir)
     {
-        if (m_dataFollowIdentityCheck == "" || Identity != m_dataFollowIdentityCheck)
+        if (m_followIdentityCheck == "" || Identity != m_followIdentityCheck)
         {
             return;
         }
