@@ -46,19 +46,12 @@ public class IsometricDataAction
 
     public void SetDataAdd(string Action)
     {
-        m_data.Add(new IsometricDataBlockActionSingle(Action, 1));
-    }
-
-    public void SetDataAdd(string Action, int Duration)
-    {
-        m_data.Add(new IsometricDataBlockActionSingle(Action, Duration));
+        m_data.Add(new IsometricDataBlockActionSingle(Action));
     }
 
     //
 
-    public string ActionCurrent => Data[Index].Action;
-
-    public int DurationCurrent => Data[Index].Duration;
+    public List<string> ActionCurrent => Data[Index].Action;
 
     public void SetDirNext()
     {
@@ -93,15 +86,18 @@ public class IsometricDataBlockActionSingle
 {
     public const char KEY_VALUE_ENCYPT = '|';
 
-    public string Action = "";
-    public int Duration = 1;
+    public List<string> Action = new List<string>();
 
-    public string Encypt => QEncypt.GetEncypt(KEY_VALUE_ENCYPT, Duration.ToString(), Action);
+    public string Encypt => QEncypt.GetEncypt(KEY_VALUE_ENCYPT, QEncypt.GetEncypt(KEY_VALUE_ENCYPT, Action));
 
-    public IsometricDataBlockActionSingle(string Action, int Time)
+    public IsometricDataBlockActionSingle(List<string> Action)
     {
         this.Action = Action;
-        this.Duration = Time;
+    }
+
+    public IsometricDataBlockActionSingle(string ActionSingle)
+    {
+        this.Action = new List<string>() { ActionSingle };
     }
 
     public static IsometricDataBlockActionSingle GetDencypt(string Value)
@@ -112,6 +108,6 @@ public class IsometricDataBlockActionSingle
         }
         //
         List<string> DataString = QEncypt.GetDencyptString(KEY_VALUE_ENCYPT, Value);
-        return new IsometricDataBlockActionSingle(DataString[1], int.Parse(DataString[0]));
+        return new IsometricDataBlockActionSingle(DataString);
     }
 }

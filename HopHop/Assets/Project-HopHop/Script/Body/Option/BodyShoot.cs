@@ -13,11 +13,7 @@ public class BodyShoot : MonoBehaviour, IBodyTurn
 
     private IsometricDataAction m_dataAction;
 
-    private string m_turnCommand;
-    private int m_turnTime = 0;
-    private int m_turnTimeCurrent = 0;
-
-    private bool TurnEnd => m_turnTimeCurrent == m_turnTime && m_turnTime != 0;
+    private List<string> m_turnCommand;
 
     private IsometricBlock m_block;
 
@@ -72,9 +68,6 @@ public class BodyShoot : MonoBehaviour, IBodyTurn
     public void IOnTurn(int Turn)
     {
         //Reset!!
-        m_turnTime = 0;
-        m_turnTimeCurrent = 0;
-        //
         m_turnControl = true;
     }
 
@@ -93,35 +86,26 @@ public class BodyShoot : MonoBehaviour, IBodyTurn
 
     private void SetControlAction()
     {
-        if (m_turnTime == 0)
+        m_turnCommand = this.m_dataAction.ActionCurrent;
+        foreach (string CommandChild in m_turnCommand)
         {
-            m_turnCommand = m_dataAction.ActionCurrent;
-            m_turnTime = m_dataAction.DurationCurrent;
-            m_turnTimeCurrent = 0;
-        }
-        //
-        m_turnTimeCurrent++;
-        //
-        List<string> Command = QEncypt.GetDencyptString('-', m_turnCommand);
-        //
-        if (Command[0] == GameConfigAction.Wait)
-        {
-            //"wait"
-        }
-        else
-        if (Command[0] == GameConfigAction.Shoot)
-        {
-            //"shoot-[1]-[2]-[3]"
-            IsometricVector DirSpawm = IsometricVector.GetDirDeEncypt(Command[1]);
-            IsometricVector DirMove = IsometricVector.GetDirDeEncypt(Command[2]);
-            int Speed = int.Parse(Command[3]);
-            SetShoot(DirSpawm, DirMove, Speed);
+            List<string> Command = QEncypt.GetDencyptString('-', CommandChild);
+            //
+            switch (Command[0])
+            {
+                case GameConfigAction.Shoot:
+                    //"shoot-[1]-[2]-[3]"
+                    IsometricVector DirSpawm = IsometricVector.GetDirDeEncypt(Command[1]);
+                    IsometricVector DirMove = IsometricVector.GetDirDeEncypt(Command[2]);
+                    int Speed = int.Parse(Command[3]);
+                    SetShoot(DirSpawm, DirMove, Speed);
+                    break;
+            }
         }
         //
         StartCoroutine(ISetDelay());
         //
-        if (TurnEnd)
-            m_dataAction.SetDirNext();
+        m_dataAction.SetDirNext();
     }
 
     private IEnumerator ISetDelay()
@@ -129,7 +113,7 @@ public class BodyShoot : MonoBehaviour, IBodyTurn
         yield return new WaitForSeconds(GameManager.TimeMove * 1);
         //
         m_turnControl = false;
-        TurnManager.SetEndTurn(TurnType.Shoot, gameObject); //Follow Object (!)
+        TurnManager.SetEndTurn(TurnType.Shoot, gameObject);
     }
 
     private void SetShoot(IsometricVector DirSpawm, IsometricVector DirMove, int Speed)
@@ -157,13 +141,6 @@ public class BodyShoot : MonoBehaviour, IBodyTurn
         IsometricBlock Block = GetComponent<IsometricBlock>();
         string Data = string.Format("{0}-{1}-{2}-{3}", GameConfigAction.Shoot, IsometricVector.GetDirEncypt(m_editorSpawm), IsometricVector.GetDirEncypt(m_editorMove), m_editorSpeed);
         Block.Data.Action.SetDataAdd(Data);
-    }
-
-    public void SetEditorWait()
-    {
-        IsometricBlock Block = GetComponent<IsometricBlock>();
-        string Data = string.Format("{0}", GameConfigAction.Wait);
-        Block.Data.Action.SetDataAdd(new IsometricDataBlockActionSingle(Data, 1));
     }
 
     //**Editor**
@@ -206,8 +183,6 @@ public class BodyShootEditor : Editor
         //
         if (QUnityEditor.SetButton("Shoot"))
             m_target.SetEditorShoot();
-        if (QUnityEditor.SetButton("Wait"))
-            m_target.SetEditorWait();
         //
         QUnityEditorCustom.SetApply(this);
     }

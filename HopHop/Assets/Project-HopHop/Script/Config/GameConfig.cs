@@ -14,9 +14,7 @@ public class GameConfigEvent
 
 public class GameConfigAction
 {
-    public const string Wait = "wait";
     public const string Shoot = "shoot"; //shoot-[spawm]-[move]-[speed]
-    public const string Move = "move";
 }
 
 public class GameConfigInit

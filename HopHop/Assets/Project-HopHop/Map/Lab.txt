@@ -219,5 +219,10 @@ Block Normal 0
 
 [1;-5;-1]
 Block Normal 0
+#BLOCK-ACTION
+0
+2
+shoot-U-U-1|shoot-U-U-2
+shoot-U-U-1
 #BLOCK-END
 #WORLD-END
