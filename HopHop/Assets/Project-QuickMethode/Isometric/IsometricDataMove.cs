@@ -171,13 +171,13 @@ public class IsometricDataBlockMoveSingleEditor : PropertyDrawer
 
         float WidthField = position.width / 2f;
 
-        float PosXLabel = position.x;
+        float PosXLabel = position.x - 9f;
 
         float PosXField = PosXLabel;
         float SpaceXField = WidthField;
         //
-        Rect RecFieldDir = new Rect(PosXField + SpaceXField * 0 + SpaceBetween * 0, position.y, WidthField, position.height);
-        Rect RecFieldDuration = new Rect(PosXField + SpaceXField * 1 + SpaceBetween * 1, position.y, WidthField, position.height);
+        Rect RecFieldDir = new Rect(PosXField, position.y, WidthField, position.height);
+        Rect RecFieldDuration = new Rect(PosXField + SpaceXField + SpaceBetween - 4f, position.y, WidthField + 9f, position.height);
         //
         QUnityEditorObject.SetField(property, nameof(IsometricDataBlockMoveSingle.Dir), RecFieldDir, false);
 
