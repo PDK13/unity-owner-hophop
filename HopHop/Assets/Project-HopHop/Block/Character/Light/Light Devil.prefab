@@ -136,22 +136,13 @@ MonoBehaviour:
     - character-push
   m_moveData:
     Type: 0
-    Dir: 
-    Duration: 
-    Index: 0
-    Quantity: 1
-  m_followData:
-    Identity: 
-    IdentityGet: 
+    m_data: []
   m_actionData:
     Type: 0
-    Action: []
-    Duration: 
-    Index: 0
-    Quantity: 1
+    m_data: []
   m_eventData:
     Identity: []
-    IdentityGet: []
+    IdentityCheck: []
   m_teleportData:
     Name: 
     Pos:
@@ -182,6 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19ee9a8a7098dfb489d74c2174becedf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_editorBodyStatic: 
 --- !u!114 &821648935911771236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,3 +200,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebf2d9ec8c86cd740a51d2009981d4e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_editorMoveCheckAhead: 
+  m_editorMoveCheckAheadBot: 

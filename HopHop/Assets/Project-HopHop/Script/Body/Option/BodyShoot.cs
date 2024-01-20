@@ -17,12 +17,15 @@ public class BodyShoot : MonoBehaviour, IBodyTurn
 
     private IsometricBlock m_block;
 
-    //**Editor**
+#if UNITY_EDITOR
+
     [Space]
     [SerializeField] private IsoDir m_editorSpawm = IsoDir.None;
     [SerializeField] private IsoDir m_editorMove = IsoDir.None;
     [SerializeField] private int m_editorSpeed = 0;
-    //**Editor**
+    [SerializeField] private string m_editorShoot;
+
+#endif
 
     private void Awake()
     {
@@ -87,14 +90,14 @@ public class BodyShoot : MonoBehaviour, IBodyTurn
     private void SetControlAction()
     {
         m_turnCommand = this.m_dataAction.ActionCurrent;
-        foreach (string CommandChild in m_turnCommand)
+        foreach (string CommandCheck in m_turnCommand)
         {
-            List<string> Command = QEncypt.GetDencyptString('-', CommandChild);
+            List<string> Command = QEncypt.GetDencyptString('-', CommandCheck);
             //
             switch (Command[0])
             {
                 case GameConfigAction.Shoot:
-                    //"shoot-[1]-[2]-[3]"
+                    //shoot-[1]-[2]-[3]
                     IsometricVector DirSpawm = IsometricVector.GetDirDeEncypt(Command[1]);
                     IsometricVector DirMove = IsometricVector.GetDirDeEncypt(Command[2]);
                     int Speed = int.Parse(Command[3]);
@@ -134,16 +137,14 @@ public class BodyShoot : MonoBehaviour, IBodyTurn
         Bullet.GetComponent<BodyBullet>().SetInit(DirMove, Speed);
     } //Shoot Bullet!!
 
-    //**Editor**
+#if UNITY_EDITOR
 
     public void SetEditorShoot()
     {
-        IsometricBlock Block = GetComponent<IsometricBlock>();
-        string Data = string.Format("{0}-{1}-{2}-{3}", GameConfigAction.Shoot, IsometricVector.GetDirEncypt(m_editorSpawm), IsometricVector.GetDirEncypt(m_editorMove), m_editorSpeed);
-        Block.Data.Action.SetDataAdd(Data);
+        m_editorShoot = string.Format("{0}-{1}-{2}-{3}", GameConfigAction.Shoot, IsometricVector.GetDirEncypt(m_editorSpawm), IsometricVector.GetDirEncypt(m_editorMove), m_editorSpeed);
     }
 
-    //**Editor**
+#endif
 }
 
 #if UNITY_EDITOR
@@ -159,6 +160,7 @@ public class BodyShootEditor : Editor
     private SerializedProperty m_editorSpawm;
     private SerializedProperty m_editorMove;
     private SerializedProperty m_editorSpeed;
+    private SerializedProperty m_editorShoot;
 
     private void OnEnable()
     {
@@ -169,6 +171,7 @@ public class BodyShootEditor : Editor
         m_editorSpawm = QUnityEditorCustom.GetField(this, "m_editorSpawm");
         m_editorMove = QUnityEditorCustom.GetField(this, "m_editorMove");
         m_editorSpeed = QUnityEditorCustom.GetField(this, "m_editorSpeed");
+        m_editorShoot = QUnityEditorCustom.GetField(this, "m_editorShoot");
     }
 
     public override void OnInspectorGUI()
@@ -180,8 +183,9 @@ public class BodyShootEditor : Editor
         QUnityEditorCustom.SetField(m_editorSpawm);
         QUnityEditorCustom.SetField(m_editorMove);
         QUnityEditorCustom.SetField(m_editorSpeed);
+        QUnityEditorCustom.SetField(m_editorShoot);
         //
-        if (QUnityEditor.SetButton("Shoot"))
+        if (QUnityEditor.SetButton("Editor Generate"))
             m_target.SetEditorShoot();
         //
         QUnityEditorCustom.SetApply(this);

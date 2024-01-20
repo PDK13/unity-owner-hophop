@@ -11,8 +11,6 @@ public class IsometricDataFile
 
     private const string KEY_BLOCK_INIT = "#BLOCK-INIT";
     private const string KEY_BLOCK_MOVE = "#BLOCK-MOVE";
-    private const string KEY_BLOCK_FOLLOW = "#BLOCK-FOLLOW";
-    private const string KEY_BLOCK_FOLLOW_GET = "#BLOCK-FOLLOW_GET";
     private const string KEY_BLOCK_ACTION = "#BLOCK-ACTION";
     private const string KEY_BLOCK_EVENT = "#BLOCK-EVENT";
     private const string KEY_BLOCK_EVENT_GET = "#BLOCK-EVENT_GET";
@@ -92,17 +90,6 @@ public class IsometricDataFile
                 }
             }
             //
-            if (WorldBlocks[BlockIndex].Data.Follow.DataExist)
-            {
-                FileIO.SetWriteAdd(KEY_BLOCK_FOLLOW);
-                FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.Follow.Identity);
-            }
-            if (WorldBlocks[BlockIndex].Data.Follow.DataGetExist)
-            {
-                FileIO.SetWriteAdd(KEY_BLOCK_FOLLOW_GET);
-                FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.Follow.IdentityGet);
-            }
-            //
             if (WorldBlocks[BlockIndex].Data.Action.Data.Count > 0)
             {
                 FileIO.SetWriteAdd(KEY_BLOCK_ACTION);
@@ -126,10 +113,10 @@ public class IsometricDataFile
             if (WorldBlocks[BlockIndex].Data.Event.DataGetExist)
             {
                 FileIO.SetWriteAdd(KEY_BLOCK_EVENT_GET);
-                FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.Event.IdentityGet.Count);
-                for (int DataIndex = 0; DataIndex < WorldBlocks[BlockIndex].Data.Event.IdentityGet.Count; DataIndex++)
+                FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.Event.IdentityCheck.Count);
+                for (int DataIndex = 0; DataIndex < WorldBlocks[BlockIndex].Data.Event.IdentityCheck.Count; DataIndex++)
                 {
-                    FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.Event.IdentityGet[DataIndex]);
+                    FileIO.SetWriteAdd(WorldBlocks[BlockIndex].Data.Event.IdentityCheck[DataIndex]);
                 }
             }
             //
@@ -238,12 +225,6 @@ public class IsometricDataFile
                                         Data.Move.SetDataAdd(IsometricDataBlockMoveSingle.GetDencypt(FileIO.GetReadAutoString()));
                                     }
                                     break;
-                                case KEY_BLOCK_FOLLOW:
-                                    Data.Follow.Identity = FileIO.GetReadAutoString();
-                                    break;
-                                case KEY_BLOCK_FOLLOW_GET:
-                                    Data.Follow.IdentityGet = FileIO.GetReadAutoString();
-                                    break;
                                 case KEY_BLOCK_ACTION:
                                     Data.Action = new IsometricDataAction
                                     {
@@ -265,11 +246,11 @@ public class IsometricDataFile
                                     }
                                     break;
                                 case KEY_BLOCK_EVENT_GET:
-                                    Data.Event.IdentityGet = new List<string>();
+                                    Data.Event.IdentityCheck = new List<string>();
                                     int EventGetCount = FileIO.GetReadAutoInt();
                                     for (int DataIndex = 0; DataIndex < EventGetCount; DataIndex++)
                                     {
-                                        Data.Event.IdentityGet.Add(FileIO.GetReadAutoString());
+                                        Data.Event.IdentityCheck.Add(FileIO.GetReadAutoString());
                                     }
                                     break;
                                 case KEY_BLOCK_TELEPORT:
@@ -327,7 +308,6 @@ public class IsometricDataFileBlockData
 {
     public IsometricDataInit Init = new IsometricDataInit();
     public IsometricDataMove Move = new IsometricDataMove();
-    public IsometricDataFollow Follow = new IsometricDataFollow();
     public IsometricDataAction Action = new IsometricDataAction();
     public IsometricDataEvent Event = new IsometricDataEvent();
     public IsometricDataTeleport Teleport = new IsometricDataTeleport();

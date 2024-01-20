@@ -1,29 +1,116 @@
-using UnityEngine;
-
-public class GameConfigKey
+public class GameConfigInit
 {
-    public const string Player = "turn-player";
-    public const string Object = "turn-object";
-}
+    public enum Key
+    {
+        None,
+        //Follow
+        FollowIdentity,
+        FollowIdentityCheck,
+        //Move
+        MoveCheckAhead,
+        MoveCheckAheadBot,
+        //Body
+        BodyStatic,
+    }
 
-public class GameConfigEvent
-{
-    [Tooltip("In 'Event Data', create 1 data with name of this and value is the key same as main block follow")]
-    public const string Follow = "event-follow";
+    public const string None = "";
+
+    //Follow
+    public const string FollowIdentity = "follow-identity"; //follow-identity-[identity]
+    public const string FollowIdentityCheck = "follow-identity-check"; //follow-identity-check-[identity]
+
+    //Move
+    public const string MoveCheckAhead = "move-check-ahead";
+    public const string MoveCheckAheadBot = "move-check-ahead-bot";
+
+    //Body
+    public const string BodyStatic = "body-static";
+
+    //
+
+    public static string GetData(IsometricDataInit Data, Key Key, bool Full = true)
+    {
+        if (Key == Key.None)
+            return None;
+        //
+        string KeyCheck = GetKey(Key);
+        //
+        foreach (string DataCheck in Data.Data)
+        {
+            if (!DataCheck.Contains(KeyCheck))
+                continue;
+            //
+            return Full ? DataCheck : DataCheck.Replace(KeyCheck, "");
+        }
+        //
+        return None;
+    }
+
+    public static string GetKey(Key Key)
+    {
+        switch (Key)
+        {
+            //Follow
+            case Key.FollowIdentity:
+                return FollowIdentity;
+            case Key.FollowIdentityCheck:
+                return FollowIdentityCheck;
+            //Move
+            case Key.MoveCheckAhead:
+                return MoveCheckAhead;
+            case Key.MoveCheckAheadBot:
+                return MoveCheckAheadBot;
+            //Body
+            case Key.BodyStatic:
+                return BodyStatic;
+        }
+        return None;
+    }
 }
 
 public class GameConfigAction
 {
+    public enum Key
+    {
+        None,
+        //
+        Shoot,
+    }
+
+    public const string None = "";
+
+    //Shoot
     public const string Shoot = "shoot"; //shoot-[spawm]-[move]-[speed]
-}
 
-public class GameConfigInit
-{
-    public const string MoveCheckAhead = "move-check-ahead";
-    public const string MoveCheckAheadBot = "move-check-ahead-bot";
+    //
 
-    //Character
-    public const string CharacterPush = "character-push";
+    public static string GetData(IsometricDataInit Data, Key Key, bool Full = true)
+    {
+        if (Key == Key.None)
+            return None;
+        //
+        string KeyCheck = GetKey(Key);
+        //
+        foreach (string DataCheck in Data.Data)
+        {
+            if (!DataCheck.Contains(KeyCheck))
+                continue;
+            //
+            return Full ? DataCheck : DataCheck.Replace(KeyCheck, "");
+        }
+        //
+        return None;
+    }
+
+    public static string GetKey(Key Key)
+    {
+        switch (Key)
+        {
+            case Key.Shoot:
+                return Shoot;
+        }
+        return None;
+    }
 }
 
 public class GameConfigTag

@@ -26,7 +26,6 @@ public class IsometricBlock : MonoBehaviour
     [Space]
     [SerializeField] private IsometricDataInit m_initData = new IsometricDataInit();
     [SerializeField] private IsometricDataMove m_moveData = new IsometricDataMove();
-    [SerializeField] private IsometricDataFollow m_followData = new IsometricDataFollow();
     [SerializeField] private IsometricDataAction m_actionData = new IsometricDataAction();
     [SerializeField] private IsometricDataEvent m_eventData = new IsometricDataEvent();
     [SerializeField] private IsometricDataTeleport m_teleportData = new IsometricDataTeleport();
@@ -100,7 +99,6 @@ public class IsometricBlock : MonoBehaviour
             {
                 Init = m_initData,
                 Move = m_moveData,
-                Follow = m_followData,
                 Action = m_actionData,
                 Event = m_eventData,
                 Teleport = m_teleportData
@@ -111,7 +109,6 @@ public class IsometricBlock : MonoBehaviour
         {
             m_initData = value.Init;
             m_moveData = value.Move;
-            m_followData = value.Follow;
             m_actionData = value.Action;
             m_eventData = value.Event;
             m_teleportData = value.Teleport;

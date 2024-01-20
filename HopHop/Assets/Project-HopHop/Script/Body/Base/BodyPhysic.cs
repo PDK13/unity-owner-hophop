@@ -1,7 +1,9 @@
 using DG.Tweening;
 using System;
-using UnityEditor;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class BodyPhysic : MonoBehaviour
 {
@@ -16,6 +18,12 @@ public class BodyPhysic : MonoBehaviour
     private IsometricVector MoveLastXY;
     private IsometricVector? MoveForceXY;
     //
+#if UNITY_EDITOR
+
+    [SerializeField] private string m_editorBodyStatic;
+
+#endif
+
     private IsometricBlock m_block;
 
     private void Awake()
@@ -356,10 +364,9 @@ public class BodyPhysic : MonoBehaviour
 
     //**Editor**
 
-    public void SetEditorCharacterPush()
+    public void SetEditorBody()
     {
-        IsometricBlock Block = GetComponent<IsometricBlock>();
-        Block.Data.Init.Data.Add(GameConfigInit.CharacterPush);
+        m_editorBodyStatic = GameConfigInit.GetKey(GameConfigInit.Key.BodyStatic);
     }
 
     //**Editor**
@@ -373,17 +380,23 @@ public class BaseBodyEditor : Editor
 {
     private BodyPhysic m_target;
 
+    private SerializedProperty m_editorBodyStatic;
+
     private void OnEnable()
     {
         m_target = target as BodyPhysic;
+
+        m_editorBodyStatic = QUnityEditorCustom.GetField(this, "m_editorBodyStatic");
     }
 
     public override void OnInspectorGUI()
     {
         QUnityEditorCustom.SetUpdate(this);
         //
-        if (QUnityEditor.SetButton("Character Push"))
-            m_target.SetEditorCharacterPush();
+        QUnityEditorCustom.SetField(m_editorBodyStatic);
+        //
+        if (QUnityEditor.SetButton("Editor Generate"))
+            m_target.SetEditorBody();
         //
         QUnityEditorCustom.SetApply(this);
     }

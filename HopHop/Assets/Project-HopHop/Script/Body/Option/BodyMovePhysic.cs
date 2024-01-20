@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -12,6 +11,13 @@ public class BodyMovePhysic : MonoBehaviour, IBodyPhysic
 
     protected bool m_moveCheckAhead = false;
     protected bool m_moveCheckAheadBot = false;
+
+#if UNITY_EDITOR
+
+    [SerializeField] private string m_editorMoveCheckAhead;
+    [SerializeField] private string m_editorMoveCheckAheadBot;
+
+#endif
 
     protected BodyPhysic m_body;
     protected IsometricBlock m_block;
@@ -33,8 +39,8 @@ public class BodyMovePhysic : MonoBehaviour, IBodyPhysic
             TurnManager.Instance.onStepStart += IOnStep;
         }
         //
-        m_moveCheckAhead = m_block.Data.Init.Data.Exists(t => t == GameConfigInit.MoveCheckAhead);
-        m_moveCheckAheadBot = m_block.Data.Init.Data.Exists(t => t == GameConfigInit.MoveCheckAheadBot);
+        m_moveCheckAhead = GameConfigInit.GetData(m_block.Data.Init, GameConfigInit.Key.MoveCheckAhead) != "";
+        m_moveCheckAheadBot = GameConfigInit.GetData(m_block.Data.Init, GameConfigInit.Key.MoveCheckAheadBot) != "";
         //
         m_body.onMove += IMoveForce;
         m_body.onForce += IForce;
@@ -186,23 +192,15 @@ public class BodyMovePhysic : MonoBehaviour, IBodyPhysic
         //...
     }
 
-    //**Editor**
+#if UNITY_EDITOR
 
-    public void SetEditorCheckMoveAhead()
+    public void SetEditorMove()
     {
-        IsometricBlock Block = GetComponent<IsometricBlock>();
-        if (!Block.Data.Init.Data.Contains(GameConfigInit.MoveCheckAhead))
-            Block.Data.Init.Data.Add(GameConfigInit.MoveCheckAhead);
+        m_editorMoveCheckAhead = GameConfigInit.GetKey(GameConfigInit.Key.FollowIdentity);
+        m_editorMoveCheckAheadBot = GameConfigInit.GetKey(GameConfigInit.Key.FollowIdentityCheck);
     }
 
-    public void SetEditorCheckMoveAheadBot()
-    {
-        IsometricBlock Block = GetComponent<IsometricBlock>();
-        if (!Block.Data.Init.Data.Contains(GameConfigInit.MoveCheckAheadBot))
-            Block.Data.Init.Data.Add(GameConfigInit.MoveCheckAheadBot);
-    }
-
-    //**Editor**
+#endif
 }
 
 #if UNITY_EDITOR
@@ -213,20 +211,26 @@ public class BodyEnermyMoveEditor : Editor
 {
     private BodyMovePhysic m_target;
 
+    private SerializedProperty m_editorMoveCheckAhead;
+    private SerializedProperty m_editorMoveCheckAheadBot;
+
     private void OnEnable()
     {
         m_target = target as BodyMovePhysic;
+
+        m_editorMoveCheckAhead = QUnityEditorCustom.GetField(this, "m_editorMoveCheckAhead");
+        m_editorMoveCheckAheadBot = QUnityEditorCustom.GetField(this, "m_editorMoveCheckAheadBot");
     }
 
     public override void OnInspectorGUI()
     {
         QUnityEditorCustom.SetUpdate(this);
         //
-        if (QUnityEditor.SetButton("Move Check Ahead"))
-            m_target.SetEditorCheckMoveAhead();
+        QUnityEditorCustom.SetField(m_editorMoveCheckAhead);
+        QUnityEditorCustom.SetField(m_editorMoveCheckAheadBot);
         //
-        if (QUnityEditor.SetButton("Move Check Ahead Bot"))
-            m_target.SetEditorCheckMoveAheadBot();
+        if (QUnityEditor.SetButton("Editor Generate"))
+            m_target.SetEditorMove();
         //
         QUnityEditorCustom.SetApply(this);
     }

@@ -137,18 +137,12 @@ MonoBehaviour:
   m_moveData:
     Type: 0
     m_data: []
-  m_followData:
-    Identity: 
-    IdentityGet: 
   m_actionData:
     Type: 0
-    Action: []
-    Duration: 
-    Index: 0
-    Quantity: 1
+    m_data: []
   m_eventData:
     Identity: []
-    IdentityGet: []
+    IdentityCheck: []
   m_teleportData:
     Name: 
     Pos:
@@ -179,6 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19ee9a8a7098dfb489d74c2174becedf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_editorBodyStatic: 
 --- !u!114 &-5459734095070432351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,8 +200,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebf2d9ec8c86cd740a51d2009981d4e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_moveCheckAhead: 0
-  m_moveCheckAheadBot: 0
+  m_editorMoveCheckAhead: 
+  m_editorMoveCheckAheadBot: 
 --- !u!114 &-1345750663056547756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -220,6 +215,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_bullet: {fileID: 1261736322470851628, guid: 740db2b1ad6f89045af8c08341d89a25, type: 3}
-  m_editorSpawm: 0
-  m_editorMove: 0
+  m_editorSpawm: -1
+  m_editorMove: -1
   m_editorSpeed: 0
+  m_editorShoot: 

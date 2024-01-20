@@ -1,16 +1,27 @@
 using DG.Tweening;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class BodyMoveStatic : MonoBehaviour, IBodyTurn
 {
     protected bool m_turnActive = false;
 
     private IsometricDataMove m_dataMove;
-    private IsometricDataFollow m_dataFollow;
+    private string m_dataFollowIdentity;
+    private string m_dataFollowIdentityCheck;
     //
     private IsometricVector m_turnDir;
     private int m_turnLength = 0;
     private int m_turnLengthCurrent = 0;
+
+#if UNITY_EDITOR
+
+    [SerializeField] private string m_editorFollowIdentity;
+    [SerializeField] private string m_editorFollowIdentityCheck;
+
+#endif
 
     private bool TurnEnd => m_turnLengthCurrent == m_turnLength && m_turnLength != 0;
     //
@@ -24,7 +35,8 @@ public class BodyMoveStatic : MonoBehaviour, IBodyTurn
     protected void Start()
     {
         m_dataMove = m_block.Data.Move;
-        m_dataFollow = m_block.Data.Follow;
+        m_dataFollowIdentity = GameConfigInit.GetData(m_block.Data.Init, GameConfigInit.Key.FollowIdentity, false);
+        m_dataFollowIdentityCheck = GameConfigInit.GetData(m_block.Data.Init, GameConfigInit.Key.FollowIdentityCheck, false );
         //
         if (m_dataMove.Data.Count > 0)
         {
@@ -33,10 +45,8 @@ public class BodyMoveStatic : MonoBehaviour, IBodyTurn
             TurnManager.Instance.onStepStart += IOnStep;
         }
         //
-        if (m_dataFollow.IdentityGet != "")
-        {
+        if (m_dataFollowIdentityCheck != "")
             GameEvent.onFollow += SetControlFollow;
-        }
     }
 
     protected void OnDestroy()
@@ -48,10 +58,8 @@ public class BodyMoveStatic : MonoBehaviour, IBodyTurn
             TurnManager.Instance.onStepStart -= IOnStep;
         }
         //
-        if (m_dataFollow.IdentityGet != "")
-        {
+        if (m_dataFollowIdentityCheck != "")
             GameEvent.onFollow -= SetControlFollow;
-        }
     }
 
     //
@@ -124,10 +132,8 @@ public class BodyMoveStatic : MonoBehaviour, IBodyTurn
                 }
             });
         //
-        if (m_dataFollow.Identity != "")
-        {
-            GameEvent.SetFollow(m_dataFollow.Identity, m_turnDir);
-        }
+        if (m_dataFollowIdentity != "")
+            GameEvent.SetFollow(m_dataFollowIdentity, m_turnDir);
         //
         SetMovePush(m_turnDir);
         //
@@ -139,7 +145,7 @@ public class BodyMoveStatic : MonoBehaviour, IBodyTurn
 
     private void SetControlFollow(string Identity, IsometricVector Dir)
     {
-        if (Identity != m_dataFollow.IdentityGet)
+        if (m_dataFollowIdentityCheck == "" || Identity != m_dataFollowIdentityCheck)
         {
             return;
         }
@@ -206,4 +212,50 @@ public class BodyMoveStatic : MonoBehaviour, IBodyTurn
             }
         }
     }
+
+#if UNITY_EDITOR
+
+    public void SetEditorFollowIdentity()
+    {
+        m_block = GetComponent<IsometricBlock>();
+        m_editorFollowIdentity = GameConfigInit.GetKey(GameConfigInit.Key.FollowIdentity) + "-" + m_block.Pos.ToString();
+        m_editorFollowIdentityCheck = GameConfigInit.GetKey(GameConfigInit.Key.FollowIdentityCheck) + "-" + m_block.Pos.ToString();
+    }
+
+#endif
 }
+
+#if UNITY_EDITOR
+
+[CustomEditor(typeof(BodyMoveStatic))]
+[CanEditMultipleObjects]
+public class BodyMoveStaticEditor : Editor
+{
+    private BodyMoveStatic m_target;
+
+    private SerializedProperty m_editorFollowIdentity;
+    private SerializedProperty m_editorFollowIdentityCheck;
+
+    private void OnEnable()
+    {
+        m_target = target as BodyMoveStatic;
+
+        m_editorFollowIdentity = QUnityEditorCustom.GetField(this, "m_editorFollowIdentity");
+        m_editorFollowIdentityCheck = QUnityEditorCustom.GetField(this, "m_editorFollowIdentityCheck");
+    }
+
+    public override void OnInspectorGUI()
+    {
+        QUnityEditorCustom.SetUpdate(this);
+        //
+        QUnityEditorCustom.SetField(m_editorFollowIdentity);
+        QUnityEditorCustom.SetField(m_editorFollowIdentityCheck);
+        //
+        if (QUnityEditor.SetButton("Editor Generate"))
+            m_target.SetEditorFollowIdentity();
+        //
+        QUnityEditorCustom.SetApply(this);
+    }
+}
+
+#endif
