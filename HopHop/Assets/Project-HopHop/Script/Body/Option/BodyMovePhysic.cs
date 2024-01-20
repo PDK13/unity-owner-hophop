@@ -196,8 +196,8 @@ public class BodyMovePhysic : MonoBehaviour, IBodyPhysic
 
     public void SetEditorMove()
     {
-        m_editorMoveCheckAhead = GameConfigInit.GetKey(GameConfigInit.Key.FollowIdentity);
-        m_editorMoveCheckAheadBot = GameConfigInit.GetKey(GameConfigInit.Key.FollowIdentityCheck);
+        m_editorMoveCheckAhead = GameConfigInit.GetKey(GameConfigInit.Key.MoveCheckAhead);
+        m_editorMoveCheckAheadBot = GameConfigInit.GetKey(GameConfigInit.Key.MoveCheckAheadBot);
     }
 
 #endif
