@@ -114,13 +114,13 @@ public class BodyMoveStatic : MonoBehaviour, IBodyTurn
                 if (TurnEnd)
                 {
                     m_turnActive = false;
-                    TurnManager.SetEndTurn(TurnType.MoveStatic, gameObject); //Follow Object (!)
+                    TurnManager.SetEndTurn(TurnType.MoveStatic, gameObject);
                     //
                     m_turnDir = IsometricVector.None;
                 }
                 else
                 {
-                    TurnManager.SetEndMove(TurnType.MoveStatic, gameObject); //Follow Object (!)
+                    TurnManager.SetEndMove(TurnType.MoveStatic, gameObject);
                 }
             });
         //

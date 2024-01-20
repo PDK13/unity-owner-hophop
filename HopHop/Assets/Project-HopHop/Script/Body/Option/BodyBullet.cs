@@ -131,11 +131,11 @@ public class BodyBullet : MonoBehaviour, IBodyTurn
                 if (TurnEnd)
                 {
                     m_turnControl = false;
-                    TurnManager.SetEndTurn(TurnType.Bullet, gameObject); //Follow Object (!)
+                    TurnManager.SetEndTurn(TurnType.Bullet, gameObject);
                 }
                 else
                 {
-                    TurnManager.SetEndMove(TurnType.Bullet, gameObject); //Follow Object (!)
+                    TurnManager.SetEndMove(TurnType.Bullet, gameObject);
                 }
                 //
                 //Check if Bot can't stand on!!
@@ -148,7 +148,7 @@ public class BodyBullet : MonoBehaviour, IBodyTurn
     public void SetHit()
     {
         m_turnControl = false;
-        TurnManager.SetEndTurn(TurnType.Bullet, gameObject); //Follow Object (!)
+        TurnManager.SetEndTurn(TurnType.Bullet, gameObject);
         TurnManager.SetRemove(TurnType.Bullet, gameObject);
         TurnManager.Instance.onTurn -= IOnTurn;
         TurnManager.Instance.onStepStart -= IOnStep;

@@ -234,6 +234,8 @@ public class IsometricTool : EditorWindow
         QUnityEditor.SetLabel("", QUnityEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
         if (QUnityEditor.SetButton("New", QUnityEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
         {
+            SetManagerRefresh();
+            //
             m_manager.World.SetGenerate(m_mapName);
             m_manager.World.SetActive(m_mapName);
             //

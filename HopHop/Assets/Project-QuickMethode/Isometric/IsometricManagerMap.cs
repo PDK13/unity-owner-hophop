@@ -71,6 +71,9 @@ public class IsometricManagerMap
 
     public void SetInit(string Name)
     {
+        if (m_manager == null)
+            return;
+        //
         m_name = Name;
         //
         m_root = new GameObject(NameFixed).transform;
@@ -418,6 +421,9 @@ public class IsometricManagerMap
 
     public bool SetWorldRead()
     {
+        if (m_root == null)
+            return false;
+        //
         //Clear Current World!!
         SetWorldRemove();
 

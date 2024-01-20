@@ -40,8 +40,8 @@ public class IsometricDataMove
 
     public void SetDataAdd(IsometricDataBlockMoveSingle DataSingle)
     {
-        //if (DataSingle == null)
-        //    return;
+        if (DataSingle == null)
+            return;
         //
         m_data.Add(DataSingle);
     }
@@ -93,12 +93,12 @@ public class IsometricDataMove
 }
 
 [Serializable]
-public struct IsometricDataBlockMoveSingle : IEquatable<IsometricDataBlockMoveSingle>
+public class IsometricDataBlockMoveSingle : IEquatable<IsometricDataBlockMoveSingle>
 {
     public const char KEY_VALUE_ENCYPT = '|';
 
-    public IsoDir Dir;
-    public int Duration;
+    public IsoDir Dir = IsoDir.None;
+    public int Duration = 1;
 
     public string Encypt => QEncypt.GetEncypt(KEY_VALUE_ENCYPT, Duration.ToString(), IsometricVector.GetDirEncypt(Dir));
 
@@ -110,10 +110,10 @@ public struct IsometricDataBlockMoveSingle : IEquatable<IsometricDataBlockMoveSi
 
     public static IsometricDataBlockMoveSingle GetDencypt(string Value)
     {
-        //if (Value == "")
-        //{
-        //    return null;
-        //}
+        if (Value == "")
+        {
+            return null;
+        }
         //
         List<string> DataString = QEncypt.GetDencyptString(KEY_VALUE_ENCYPT, Value);
         return new IsometricDataBlockMoveSingle(IsometricVector.GetDirDeEncyptEnum(DataString[1]), int.Parse(DataString[0]));

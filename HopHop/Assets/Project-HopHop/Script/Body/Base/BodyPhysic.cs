@@ -145,7 +145,7 @@ public class BodyPhysic : MonoBehaviour
             }
             else
             {
-                TurnManager.SetEndTurn(TurnType.Gravity, gameObject); //Follow Object (!)
+                TurnManager.SetEndTurn(TurnType.Gravity, gameObject);
                 TurnManager.Instance.onStepStart -= SetControlGravity;
                 //
                 SetStandOnForce();
