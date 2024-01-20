@@ -132,8 +132,7 @@ MonoBehaviour:
     Y: 0
     H: 0
   m_initData:
-    Data:
-    - character-push
+    Data: []
   m_moveData:
     Type: 0
     m_data: []

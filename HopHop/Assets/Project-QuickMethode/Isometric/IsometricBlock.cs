@@ -15,9 +15,12 @@ public class IsometricBlock : MonoBehaviour
 
     [Space]
     [SerializeField] private IsometricPosType m_posType = IsometricPosType.Track;
+    
+    //After generate map, this pos will be use to renderer in scene!
     [SerializeField] private IsometricVector m_pos = new IsometricVector();
 
-    private IsometricVector m_posPrimary = new IsometricVector();
+    //While generate map, this pos will be use to create this block in scene!
+    [SerializeField] private IsometricVector m_posPrimary = new IsometricVector();
 
     #endregion
 

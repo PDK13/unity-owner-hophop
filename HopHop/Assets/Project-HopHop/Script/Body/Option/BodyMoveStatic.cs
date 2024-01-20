@@ -98,6 +98,7 @@ public class BodyMoveStatic : MonoBehaviour, IBodyTurn
         {
             m_turnDir = m_dataMove.DirCombineCurrent;
             m_turnLength = m_dataMove.Data[m_dataMove.Index].Duration;
+            m_turnLength = Mathf.Clamp(m_turnLength, 1, m_turnLength); //Avoid bug by duration 0 value!
             m_turnLengthCurrent = 0;
         }
         //

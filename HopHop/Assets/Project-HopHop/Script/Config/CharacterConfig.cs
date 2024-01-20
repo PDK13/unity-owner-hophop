@@ -65,6 +65,7 @@ public class CharacterConfig : ScriptableObject
     public void SetRefresh()
     {
         SetRefreshCharacter();
+        QUnityEditor.SetDirty(this);
     }
 
     private void SetRefreshCharacter()

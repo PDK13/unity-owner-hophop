@@ -439,7 +439,7 @@ public struct IsometricVector : IEquatable<IsometricVector>
 
     public override string ToString()
     {
-        return $"[{X}, {Y}, {H}]";
+        return $"[{X},{Y},{H}]";
     }
 
     public override bool Equals(object obj)

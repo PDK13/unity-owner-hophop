@@ -5,88 +5,123 @@ Lab
 0
 
 #WORLD-BLOCK
-49
+61
 
-[2;2;0]
+[3;3;0]
 Object Flower Blue 0
 #BLOCK-END
 
-[1;2;0]
+[2;3;0]
 Object Flower Blue 0
 #BLOCK-END
 
-[0;2;0]
+[1;3;0]
 Object Flower Blue 0
 #BLOCK-END
 
-[-1;2;0]
+[0;3;0]
 Object Flower Blue 0
 #BLOCK-END
 
-[-2;2;0]
+[-1;3;0]
 Object Flower Blue 0
 #BLOCK-END
 
-[2;1;0]
+[-2;3;0]
 Object Flower Blue 0
 #BLOCK-END
 
-[-2;1;0]
+[-3;3;0]
 Object Flower Blue 0
 #BLOCK-END
 
-[2;0;0]
+[3;2;0]
 Object Flower Blue 0
 #BLOCK-END
 
-[1;0;0]
-Light Bug
-#BLOCK-INIT
-1
-move-check-ahead
-#BLOCK-MOVE
-1
-1
-1|R
+[-3;2;0]
+Object Flower Blue 0
+#BLOCK-END
+
+[3;1;0]
+Object Flower Blue 0
+#BLOCK-END
+
+[-3;1;0]
+Object Flower Blue 0
+#BLOCK-END
+
+[3;0;0]
+Object Flower Blue 0
 #BLOCK-END
 
 [0;0;0]
 Player Angle
 #BLOCK-END
 
-[-2;0;0]
+[-3;0;0]
 Object Flower Blue 0
 #BLOCK-END
 
-[2;-1;0]
+[3;-1;0]
 Object Flower Blue 0
 #BLOCK-END
 
-[-2;-1;0]
+[-3;-1;0]
 Object Flower Blue 0
 #BLOCK-END
 
-[2;-2;0]
+[3;-2;0]
 Object Flower Blue 0
 #BLOCK-END
 
-[0;-2;0]
+[1;-2;0]
+Light Alphaca
+#BLOCK-MOVE
+2
+3
+0|L
+0|L
+0|L
+#BLOCK-END
+
+[-3;-2;0]
 Object Flower Blue 0
 #BLOCK-END
 
-[-1;-2;0]
+[3;-3;0]
 Object Flower Blue 0
 #BLOCK-END
 
-[-2;-2;0]
+[2;-3;0]
 Object Flower Blue 0
 #BLOCK-END
 
-[1;5;-1]
+[1;-3;0]
+Object Flower Blue 0
+#BLOCK-END
+
+[0;-3;0]
+Object Flower Blue 0
+#BLOCK-END
+
+[-1;-3;0]
+Object Flower Blue 0
+#BLOCK-END
+
+[-2;-3;0]
+Object Flower Blue 0
+#BLOCK-END
+
+[-3;-3;0]
+Object Flower Blue 0
+#BLOCK-END
+
+[3;3;-1]
 Block Normal 0
 #BLOCK-END
 
-[1;4;-1]
+[2;3;-1]
 Block Normal 0
 #BLOCK-END
 
@@ -94,27 +129,43 @@ Block Normal 0
 Block Normal 0
 #BLOCK-END
 
-[2;2;-1]
+[0;3;-1]
+Block Normal 0
+#BLOCK-END
+
+[-1;3;-1]
+Block Normal 0
+#BLOCK-END
+
+[-2;3;-1]
+Block Normal 0
+#BLOCK-END
+
+[-3;3;-1]
+Block Normal 0
+#BLOCK-END
+
+[3;2;-1]
 Block Normal 0
 #BLOCK-END
 
 [1;2;-1]
+Block Stone 0
+#BLOCK-INIT
+1
+follow-identity-[1,2,-1]
+#BLOCK-MOVE
+2
+2
+1|D
+1|D
+#BLOCK-END
+
+[-3;2;-1]
 Block Normal 0
 #BLOCK-END
 
-[0;2;-1]
-Block Normal 0
-#BLOCK-END
-
-[-1;2;-1]
-Block Normal 0
-#BLOCK-END
-
-[-2;2;-1]
-Block Normal 0
-#BLOCK-END
-
-[2;1;-1]
+[3;1;-1]
 Block Normal 0
 #BLOCK-END
 
@@ -130,11 +181,11 @@ Block Normal 0
 Block Normal 0
 #BLOCK-END
 
-[-2;1;-1]
+[-3;1;-1]
 Block Normal 0
 #BLOCK-END
 
-[2;0;-1]
+[3;0;-1]
 Block Normal 0
 #BLOCK-END
 
@@ -150,11 +201,11 @@ Block Normal 0
 Block Normal 0
 #BLOCK-END
 
-[-2;0;-1]
+[-3;0;-1]
 Block Normal 0
 #BLOCK-END
 
-[2;-1;-1]
+[3;-1;-1]
 Block Normal 0
 #BLOCK-END
 
@@ -170,59 +221,50 @@ Block Normal 0
 Block Normal 0
 #BLOCK-END
 
-[-2;-1;-1]
+[-3;-1;-1]
 Block Normal 0
 #BLOCK-END
 
-[2;-2;-1]
+[3;-2;-1]
 Block Normal 0
 #BLOCK-END
 
 [1;-2;-1]
+Block Stone 0
+#BLOCK-INIT
+1
+follow-identity-check-[1,2,-1]
+#BLOCK-END
+
+[-3;-2;-1]
 Block Normal 0
 #BLOCK-END
 
-[0;-2;-1]
-Block Normal 0
-#BLOCK-END
-
-[-1;-2;-1]
-Block Normal 0
-#BLOCK-END
-
-[-2;-2;-1]
+[3;-3;-1]
 Block Normal 0
 #BLOCK-END
 
 [2;-3;-1]
-Block Stone 0
-#BLOCK-MOVE
-2
-4
-1|D
-1|D
-1|D
-1|D
-#BLOCK-FOLLOW
-follow
+Block Normal 0
 #BLOCK-END
 
 [1;-3;-1]
-Block Stone 0
-#BLOCK-FOLLOW_GET
-follow
-#BLOCK-END
-
-[1;-4;-1]
 Block Normal 0
 #BLOCK-END
 
-[1;-5;-1]
+[0;-3;-1]
 Block Normal 0
-#BLOCK-ACTION
-0
-2
-shoot-U-U-1|shoot-U-U-2
-shoot-U-U-1
+#BLOCK-END
+
+[-1;-3;-1]
+Block Normal 0
+#BLOCK-END
+
+[-2;-3;-1]
+Block Normal 0
+#BLOCK-END
+
+[-3;-3;-1]
+Block Normal 0
 #BLOCK-END
 #WORLD-END
