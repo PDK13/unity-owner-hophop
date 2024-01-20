@@ -78,4 +78,5 @@ MonoBehaviour:
     m_list:
     - Tag: Lab
       Map:
+      - {fileID: 4900000, guid: b2de289a8efade346a26065b3868e81f, type: 3}
       - {fileID: 4900000, guid: c5ed5b4b6186fab408d97d46930a4f72, type: 3}

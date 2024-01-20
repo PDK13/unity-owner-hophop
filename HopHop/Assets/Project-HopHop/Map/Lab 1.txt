@@ -5,7 +5,6 @@ Lab
 0
 
 #WORLD-BLOCK
-61
 
 [3;3;0]
 Object Flower Blue 0
@@ -73,25 +72,6 @@ Object Flower Blue 0
 
 [3;-2;0]
 Object Flower Blue 0
-#BLOCK-END
-
-[1;-2;0]
-Light Alphaca
-#BLOCK-INIT
-2
-move-check-ahead
-move-check-ahead-bot
-#BLOCK-MOVE
-2
-4
-1|R
-1|R
-1|R
-1|R
-#BLOCK-ACTION
-0
-1
-shoot-D-D-1
 #BLOCK-END
 
 [-3;-2;0]
@@ -276,4 +256,6 @@ Block Normal 0
 [-3;-3;-1]
 Block Normal 0
 #BLOCK-END
+#WORLD-BLOCK-END
+
 #WORLD-END

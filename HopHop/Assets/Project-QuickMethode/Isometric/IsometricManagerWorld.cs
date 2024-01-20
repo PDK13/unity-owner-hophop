@@ -75,7 +75,7 @@ public class IsometricManagerWorld
 
     public IsometricManagerMap SetGenerate(string Name)
     {
-        IsometricManagerMap Room = m_map.Find(t => t.Name.Contains(Name));
+        IsometricManagerMap Room = m_map.Find(t => t.Name == Name);
         if (Room != null)
         {
             Room.SetWorldRead();
