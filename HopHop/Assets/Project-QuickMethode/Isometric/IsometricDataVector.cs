@@ -20,11 +20,11 @@ public struct IsometricVector : IEquatable<IsometricVector>
         H = HTB;
     }
 
-    public IsometricVector(IsometricVector IsoVector)
+    public IsometricVector(IsometricVector IsometricVector)
     {
-        X = IsoVector.X;
-        Y = IsoVector.Y;
-        H = IsoVector.H;
+        X = IsometricVector.X;
+        Y = IsometricVector.Y;
+        H = IsometricVector.H;
     }
 
     public IsometricVector(Vector3 Vector)
@@ -371,44 +371,44 @@ public struct IsometricVector : IEquatable<IsometricVector>
 
     #region Operator
 
-    public static IsometricVector operator +(IsometricVector IsoVector)
+    public static IsometricVector operator +(IsometricVector IsometricVector)
     {
-        return IsoVector;
+        return IsometricVector;
     }
 
-    public static IsometricVector operator -(IsometricVector IsoVector)
+    public static IsometricVector operator -(IsometricVector IsometricVector)
     {
-        return new IsometricVector(IsoVector.X * -1, IsoVector.Y * -1, IsoVector.H * -1);
+        return new IsometricVector(IsometricVector.X * -1, IsometricVector.Y * -1, IsometricVector.H * -1);
     }
 
-    public static IsometricVector operator +(IsometricVector IsoVectorA, IsometricVector IsoVectorB)
+    public static IsometricVector operator +(IsometricVector IsometricVectorA, IsometricVector IsometricVectorB)
     {
-        return new IsometricVector(IsoVectorA.X + IsoVectorB.X, IsoVectorA.Y + IsoVectorB.Y, IsoVectorA.H + IsoVectorB.H);
+        return new IsometricVector(IsometricVectorA.X + IsometricVectorB.X, IsometricVectorA.Y + IsometricVectorB.Y, IsometricVectorA.H + IsometricVectorB.H);
     }
 
-    public static IsometricVector operator -(IsometricVector IsoVectorA, IsometricVector IsoVectorB)
+    public static IsometricVector operator -(IsometricVector IsometricVectorA, IsometricVector IsometricVectorB)
     {
-        return new IsometricVector(IsoVectorA.X - IsoVectorB.X, IsoVectorA.Y - IsoVectorB.Y, IsoVectorA.H - IsoVectorB.H);
+        return new IsometricVector(IsometricVectorA.X - IsometricVectorB.X, IsometricVectorA.Y - IsometricVectorB.Y, IsometricVectorA.H - IsometricVectorB.H);
     }
 
-    public static IsometricVector operator *(IsometricVector IsoVectorA, float Number)
+    public static IsometricVector operator *(IsometricVector IsometricVectorA, float Number)
     {
-        return new IsometricVector(IsoVectorA.X * Number, IsoVectorA.Y * Number, IsoVectorA.H * Number);
+        return new IsometricVector(IsometricVectorA.X * Number, IsometricVectorA.Y * Number, IsometricVectorA.H * Number);
     }
 
-    public static IsometricVector operator /(IsometricVector IsoVectorA, float Number)
+    public static IsometricVector operator /(IsometricVector IsometricVectorA, float Number)
     {
-        return new IsometricVector(IsoVectorA.X / Number, IsoVectorA.Y / Number, IsoVectorA.H / Number);
+        return new IsometricVector(IsometricVectorA.X / Number, IsometricVectorA.Y / Number, IsometricVectorA.H / Number);
     }
 
-    public static bool operator ==(IsometricVector IsoVectorA, IsometricVector IsoVectorB)
+    public static bool operator ==(IsometricVector IsometricVectorA, IsometricVector IsometricVectorB)
     {
-        return IsoVectorA.X == IsoVectorB.X && IsoVectorA.Y == IsoVectorB.Y && IsoVectorA.H == IsoVectorB.H;
+        return IsometricVectorA.X == IsometricVectorB.X && IsometricVectorA.Y == IsometricVectorB.Y && IsometricVectorA.H == IsometricVectorB.H;
     }
 
-    public static bool operator !=(IsometricVector IsoVectorA, IsometricVector IsoVectorB)
+    public static bool operator !=(IsometricVector IsometricVectorA, IsometricVector IsometricVectorB)
     {
-        return IsoVectorA.X != IsoVectorB.X || IsoVectorA.Y != IsoVectorB.Y || IsoVectorA.H != IsoVectorB.H;
+        return IsometricVectorA.X != IsometricVectorB.X || IsometricVectorA.Y != IsometricVectorB.Y || IsometricVectorA.H != IsometricVectorB.H;
     }
 
     #endregion
@@ -458,7 +458,7 @@ public struct IsometricVector : IEquatable<IsometricVector>
 #if UNITY_EDITOR
 
 [CustomPropertyDrawer(typeof(IsometricVector))]
-public class IsoVectorEditor : PropertyDrawer
+public class IsometricVectorEditor : PropertyDrawer
 {
     public override VisualElement CreatePropertyGUI(SerializedProperty property)
     {

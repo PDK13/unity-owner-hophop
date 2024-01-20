@@ -168,7 +168,7 @@ public class MessageDataConfigEditor : Editor
             else
                 Index++;
         }
-        QUnityEditorCustom.SetDirty(m_target);
+        QUnityEditor.SetDirty(m_target);
         //
         if (RemoveEmty)
             Debug.Log("[Message] Author(s) emty have been remove from list");

@@ -416,7 +416,7 @@ public class QUnityEditor
 
 ///<summary><b>(UnityEditorOnly)</b></summary>
 ///<remarks>Used for Unity Window Panel (EditorWindow) only</remarks>
-public class QUnityEditorWindow : QUnityEditor
+public class QUnityEditorWindow
 {
     #region ==================================== GUI Primary
 
@@ -464,9 +464,14 @@ public class QUnityEditorWindow : QUnityEditor
 }
 
 ///<summary><b>(UnityEditorOnly)</b></summary>
-///<remarks>Used for Script (CustomEditor) only</remarks>
-public class QUnityEditorCustom : QUnityEditor
+///<remarks>
+///Used for Script (CustomEditor) only<br></br>
+///If "override void OnGUI" is not running on editor, go to Project Settings/Editor and turn on "Use IMGUI Default Inspector"!
+///</remarks>
+public class QUnityEditorCustom
 {
+    //IMPORTANCE: If "override void OnGUI" is not running on editor, go to Project Settings/Editor and turn on "Use IMGUI Default Inspector"!
+
     #region ==================================== GUI Primary
 
     #region ------------------------------------ Get Field
@@ -519,7 +524,7 @@ public class QUnityEditorCustom : QUnityEditor
 
 ///<summary><b>(UnityEditorOnly)</b></summary>
 ///<remarks>Used for Custom Class or Struct (PropertyDrawer) only</remarks>
-public class QUnityEditorObject : QUnityEditor
+public class QUnityEditorObject
 {
     #region ==================================== GUI Primary
 
