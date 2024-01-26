@@ -119,7 +119,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: fish 0_Frame_0
+  - name: Fish 0_Frame_0
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -130,7 +130,7 @@ ScriptedImporter:
       y: 4
       width: 128
       height: 128
-    spriteID: b4a28fb4f250a4843bc7ec98ac541e2e
+    spriteID: fc17cbc082931b74a973abdd4f3db2d3
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -139,7 +139,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-  - name: fish 0_Frame_1
+  - name: Fish 0_Frame_1
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -150,7 +150,7 @@ ScriptedImporter:
       y: 140
       width: 128
       height: 128
-    spriteID: 60265d3a915b54e419070432a8296dcb
+    spriteID: df628945b7e927b4b82f39954236b8d9
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -159,7 +159,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 140}
-  - name: fish 0_Frame_6
+  - name: Fish 0_Frame_6
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -170,7 +170,7 @@ ScriptedImporter:
       y: 276
       width: 128
       height: 128
-    spriteID: 6703f424d5ac16c47bede63172f1d4c9
+    spriteID: 105a8f076740ec4418f8031e6224ec4d
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -179,7 +179,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 276}
-  - name: fish 0_Frame_7
+  - name: Fish 0_Frame_7
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -190,7 +190,7 @@ ScriptedImporter:
       y: 412
       width: 128
       height: 128
-    spriteID: a665dc74bd29d504bbf1db9adf68c51e
+    spriteID: 0713b73796d63f64b93bdf696254a954
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -199,7 +199,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 412}
-  - name: fish 0_Frame_12
+  - name: Fish 0_Frame_12
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -210,7 +210,7 @@ ScriptedImporter:
       y: 548
       width: 128
       height: 128
-    spriteID: 31c1997b76ebf6c4eb46541910c79c1c
+    spriteID: a0fa14c36c7a2e74899800ab75a3ac9e
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -219,7 +219,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 548}
-  - name: fish 0_Frame_13
+  - name: Fish 0_Frame_13
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -230,7 +230,7 @@ ScriptedImporter:
       y: 684
       width: 128
       height: 128
-    spriteID: 620456e6e1fba3640b748c0f1bca406b
+    spriteID: df939ec56ac7d37469fe71b5855fd869
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -239,7 +239,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 684}
-  - name: fish 0_Frame_18
+  - name: Fish 0_Frame_18
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -250,7 +250,7 @@ ScriptedImporter:
       y: 820
       width: 128
       height: 128
-    spriteID: f4cd5aaa58ce54645b3149f3142ba332
+    spriteID: 88cc817c6fad1c245b47b89e2dacef77
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -259,7 +259,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 820}
-  - name: fish 0_Frame_19
+  - name: Fish 0_Frame_19
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -270,7 +270,7 @@ ScriptedImporter:
       y: 4
       width: 128
       height: 128
-    spriteID: 5986efd7f8a2fd24b9a483ca306f2a9d
+    spriteID: 903bc3ee5785d064d88ec17149a6ff8e
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -279,7 +279,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 140, y: 4}
-  - name: fish 0_Frame_24
+  - name: Fish 0_Frame_24
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -290,7 +290,7 @@ ScriptedImporter:
       y: 140
       width: 128
       height: 128
-    spriteID: a6a359c9153eddf4d8ca6662f91cf04d
+    spriteID: ca92e634292fc214fbdd8eb7ec4b2f28
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -299,7 +299,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 140, y: 140}
-  - name: fish 0_Frame_25
+  - name: Fish 0_Frame_25
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -310,7 +310,7 @@ ScriptedImporter:
       y: 276
       width: 128
       height: 128
-    spriteID: 58db5aaeab1595a498259723c743a706
+    spriteID: 9ed3238d00fd1d348a4d8ed3e377a702
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -319,7 +319,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 140, y: 276}
-  - name: fish 0_Frame_26
+  - name: Fish 0_Frame_26
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -330,7 +330,7 @@ ScriptedImporter:
       y: 412
       width: 128
       height: 128
-    spriteID: 5a8995c718cb6fd40bda354c38dea49d
+    spriteID: 04ac4361476d8a4439084d7a50cb0dca
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -339,7 +339,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 140, y: 412}
-  - name: fish 0_Frame_27
+  - name: Fish 0_Frame_27
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -350,7 +350,7 @@ ScriptedImporter:
       y: 548
       width: 128
       height: 128
-    spriteID: 0b57f0bfeb9b951428045ac363a9c15c
+    spriteID: e7dbd893eef83bf4bbc34a5d7c1fa0ff
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -359,7 +359,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 140, y: 548}
-  - name: fish 0_Frame_28
+  - name: Fish 0_Frame_28
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -370,7 +370,7 @@ ScriptedImporter:
       y: 684
       width: 128
       height: 128
-    spriteID: e2a81c7c32d8dbf47b0b8b65eb4e1267
+    spriteID: bcedaaf87d4288d43b17b86d57ffd229
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -379,7 +379,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 140, y: 684}
-  - name: fish 0_Frame_29
+  - name: Fish 0_Frame_29
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -390,7 +390,7 @@ ScriptedImporter:
       y: 820
       width: 128
       height: 128
-    spriteID: 658b55b914e405745b8e09d97da5a285
+    spriteID: 36c53406bbac39947b8f3d213c7338f5
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -402,124 +402,124 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 571994564
-    name: fish 0
+    guid: 584965348
+    name: Fish 0
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: fish 0_Frame_0
+    - name: Fish 0_Frame_0
       frameIndex: 0
       cellRect:
         x: 0
         y: 0
         width: 128
         height: 128
-      spriteId: b4a28fb4f250a4843bc7ec98ac541e2e
-    - name: fish 0_Frame_1
+      spriteId: fc17cbc082931b74a973abdd4f3db2d3
+    - name: Fish 0_Frame_1
       frameIndex: 1
       cellRect:
         x: 0
         y: 0
         width: 128
         height: 128
-      spriteId: 60265d3a915b54e419070432a8296dcb
-    - name: fish 0_Frame_6
+      spriteId: df628945b7e927b4b82f39954236b8d9
+    - name: Fish 0_Frame_6
       frameIndex: 6
       cellRect:
         x: 0
         y: 0
         width: 128
         height: 128
-      spriteId: 6703f424d5ac16c47bede63172f1d4c9
-    - name: fish 0_Frame_7
+      spriteId: 105a8f076740ec4418f8031e6224ec4d
+    - name: Fish 0_Frame_7
       frameIndex: 7
       cellRect:
         x: 0
         y: 0
         width: 128
         height: 128
-      spriteId: a665dc74bd29d504bbf1db9adf68c51e
-    - name: fish 0_Frame_12
+      spriteId: 0713b73796d63f64b93bdf696254a954
+    - name: Fish 0_Frame_12
       frameIndex: 12
       cellRect:
         x: 0
         y: 0
         width: 128
         height: 128
-      spriteId: 31c1997b76ebf6c4eb46541910c79c1c
-    - name: fish 0_Frame_13
+      spriteId: a0fa14c36c7a2e74899800ab75a3ac9e
+    - name: Fish 0_Frame_13
       frameIndex: 13
       cellRect:
         x: 0
         y: 0
         width: 128
         height: 128
-      spriteId: 620456e6e1fba3640b748c0f1bca406b
-    - name: fish 0_Frame_18
+      spriteId: df939ec56ac7d37469fe71b5855fd869
+    - name: Fish 0_Frame_18
       frameIndex: 18
       cellRect:
         x: 0
         y: 0
         width: 128
         height: 128
-      spriteId: f4cd5aaa58ce54645b3149f3142ba332
-    - name: fish 0_Frame_19
+      spriteId: 88cc817c6fad1c245b47b89e2dacef77
+    - name: Fish 0_Frame_19
       frameIndex: 19
       cellRect:
         x: 0
         y: 0
         width: 128
         height: 128
-      spriteId: 5986efd7f8a2fd24b9a483ca306f2a9d
-    - name: fish 0_Frame_24
+      spriteId: 903bc3ee5785d064d88ec17149a6ff8e
+    - name: Fish 0_Frame_24
       frameIndex: 24
       cellRect:
         x: 0
         y: 0
         width: 128
         height: 128
-      spriteId: a6a359c9153eddf4d8ca6662f91cf04d
-    - name: fish 0_Frame_25
+      spriteId: ca92e634292fc214fbdd8eb7ec4b2f28
+    - name: Fish 0_Frame_25
       frameIndex: 25
       cellRect:
         x: 0
         y: 0
         width: 128
         height: 128
-      spriteId: 58db5aaeab1595a498259723c743a706
-    - name: fish 0_Frame_26
+      spriteId: 9ed3238d00fd1d348a4d8ed3e377a702
+    - name: Fish 0_Frame_26
       frameIndex: 26
       cellRect:
         x: 0
         y: 0
         width: 128
         height: 128
-      spriteId: 5a8995c718cb6fd40bda354c38dea49d
-    - name: fish 0_Frame_27
+      spriteId: 04ac4361476d8a4439084d7a50cb0dca
+    - name: Fish 0_Frame_27
       frameIndex: 27
       cellRect:
         x: 0
         y: 0
         width: 128
         height: 128
-      spriteId: 0b57f0bfeb9b951428045ac363a9c15c
-    - name: fish 0_Frame_28
+      spriteId: e7dbd893eef83bf4bbc34a5d7c1fa0ff
+    - name: Fish 0_Frame_28
       frameIndex: 28
       cellRect:
         x: 0
         y: 0
         width: 128
         height: 128
-      spriteId: e2a81c7c32d8dbf47b0b8b65eb4e1267
-    - name: fish 0_Frame_29
+      spriteId: bcedaaf87d4288d43b17b86d57ffd229
+    - name: Fish 0_Frame_29
       frameIndex: 29
       cellRect:
         x: 0
         y: 0
         width: 128
         height: 128
-      spriteId: 658b55b914e405745b8e09d97da5a285
+      spriteId: 36c53406bbac39947b8f3d213c7338f5
     linkedCells: []
     parentIndex: -1
   platformSettings: []

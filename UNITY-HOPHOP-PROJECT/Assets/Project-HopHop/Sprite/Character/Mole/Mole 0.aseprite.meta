@@ -119,7 +119,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: mole 0_Frame_0
+  - name: Mole 0_Frame_0
     originalName: 
     pivot: {x: 0.5, y: -0.26666668}
     alignment: 9
@@ -130,7 +130,7 @@ ScriptedImporter:
       y: 4
       width: 60
       height: 90
-    spriteID: 74bb0c8aca289d54595e1dbf49ecdf23
+    spriteID: cd8716907e5b00b44b053788075edbef
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -139,7 +139,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-  - name: mole 0_Frame_1
+  - name: Mole 0_Frame_1
     originalName: 
     pivot: {x: 0.5, y: -0.26666668}
     alignment: 9
@@ -150,7 +150,7 @@ ScriptedImporter:
       y: 102
       width: 60
       height: 90
-    spriteID: 76fd90a5f97f7cd4aba98dd0f53d035e
+    spriteID: 72ae5a780b93b9f44821c763fcbcbd4c
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -159,7 +159,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 102}
-  - name: mole 0_Frame_6
+  - name: Mole 0_Frame_6
     originalName: 
     pivot: {x: 0.5, y: -0.27906978}
     alignment: 9
@@ -170,7 +170,7 @@ ScriptedImporter:
       y: 396
       width: 60
       height: 86
-    spriteID: 322898469f08a2b4a8830b1d8340902a
+    spriteID: 9df540911c6a05c438323f196646e293
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -179,7 +179,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 72, y: 396}
-  - name: mole 0_Frame_7
+  - name: Mole 0_Frame_7
     originalName: 
     pivot: {x: 0.5, y: -0.27906978}
     alignment: 9
@@ -190,7 +190,7 @@ ScriptedImporter:
       y: 4
       width: 60
       height: 86
-    spriteID: 68655f931ce72934fbfb0985a9860621
+    spriteID: fa54c4d5b9c3a5b4d9bdd95652a04c25
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -199,7 +199,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 140, y: 4}
-  - name: mole 0_Frame_12
+  - name: Mole 0_Frame_12
     originalName: 
     pivot: {x: 0.5, y: -0.26666668}
     alignment: 9
@@ -210,7 +210,7 @@ ScriptedImporter:
       y: 200
       width: 60
       height: 90
-    spriteID: 59a078b56627c1a45af9fabaa2ee9555
+    spriteID: a456b1cf418f7ee458dff84880beb3c6
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -219,7 +219,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 200}
-  - name: mole 0_Frame_13
+  - name: Mole 0_Frame_13
     originalName: 
     pivot: {x: 0.5, y: -0.26666668}
     alignment: 9
@@ -230,7 +230,7 @@ ScriptedImporter:
       y: 298
       width: 60
       height: 90
-    spriteID: 7afd91a45476ac143817495eb83f1527
+    spriteID: 085266bb01f09ed46bb2d6035b1720ce
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -239,7 +239,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 298}
-  - name: mole 0_Frame_18
+  - name: Mole 0_Frame_18
     originalName: 
     pivot: {x: 0.5, y: -0.26666668}
     alignment: 9
@@ -250,7 +250,7 @@ ScriptedImporter:
       y: 396
       width: 60
       height: 90
-    spriteID: 33125b3d7c2d9d24e84db6ed8b0f5259
+    spriteID: ea044dbe36379954fad1032b2fd1d637
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -259,7 +259,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 396}
-  - name: mole 0_Frame_19
+  - name: Mole 0_Frame_19
     originalName: 
     pivot: {x: 0.5, y: -0.41860464}
     alignment: 9
@@ -270,7 +270,7 @@ ScriptedImporter:
       y: 98
       width: 60
       height: 86
-    spriteID: 8c0188f48e401834dae55d58dc4251d4
+    spriteID: e64e272a2c924cb408e6889612167506
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -279,7 +279,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 140, y: 98}
-  - name: mole 0_Frame_24
+  - name: Mole 0_Frame_24
     originalName: 
     pivot: {x: 0.5, y: -0.26666668}
     alignment: 9
@@ -290,7 +290,7 @@ ScriptedImporter:
       y: 4
       width: 60
       height: 90
-    spriteID: 850511c76ada0524ca4684483275d627
+    spriteID: afcaec257e09ade42af82256057994d3
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -299,7 +299,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 72, y: 4}
-  - name: mole 0_Frame_25
+  - name: Mole 0_Frame_25
     originalName: 
     pivot: {x: 0.5, y: -0.27906978}
     alignment: 9
@@ -310,7 +310,7 @@ ScriptedImporter:
       y: 192
       width: 60
       height: 86
-    spriteID: 8c506a00c58b44842bd4fde9cd1a6e08
+    spriteID: c12cb9fcea2c92244b2567b2f1e99621
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -319,7 +319,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 140, y: 192}
-  - name: mole 0_Frame_26
+  - name: Mole 0_Frame_26
     originalName: 
     pivot: {x: 0.5, y: -0.26666668}
     alignment: 9
@@ -330,7 +330,7 @@ ScriptedImporter:
       y: 102
       width: 60
       height: 90
-    spriteID: a9be8cd7e2e31324ca64fdd191a99674
+    spriteID: 58a79e64a05c7494c87b21362c17f01f
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -339,7 +339,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 72, y: 102}
-  - name: mole 0_Frame_27
+  - name: Mole 0_Frame_27
     originalName: 
     pivot: {x: 0.5, y: -0.26666668}
     alignment: 9
@@ -350,7 +350,7 @@ ScriptedImporter:
       y: 200
       width: 60
       height: 90
-    spriteID: d68aee9f71d70404c8da1a6a88db1bd5
+    spriteID: 9d33f996b8d006744a8de9642b16e703
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -359,7 +359,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 72, y: 200}
-  - name: mole 0_Frame_28
+  - name: Mole 0_Frame_28
     originalName: 
     pivot: {x: 0.5, y: -0.27906978}
     alignment: 9
@@ -370,7 +370,7 @@ ScriptedImporter:
       y: 286
       width: 60
       height: 86
-    spriteID: aec27b10f25f4354b8edc1a857a239d2
+    spriteID: a324d5e0bf28a684d8058ce6ae9b7412
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -379,7 +379,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 140, y: 286}
-  - name: mole 0_Frame_29
+  - name: Mole 0_Frame_29
     originalName: 
     pivot: {x: 0.5, y: -0.26666668}
     alignment: 9
@@ -390,7 +390,7 @@ ScriptedImporter:
       y: 298
       width: 60
       height: 90
-    spriteID: 97145d41a86aa564683b738d609d4ff0
+    spriteID: 8e5fe114e5778b147a940250c97cfbba
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -402,124 +402,124 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 1397296915
-    name: mole 0
+    guid: 1410318515
+    name: Mole 0
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: mole 0_Frame_0
+    - name: Mole 0_Frame_0
       frameIndex: 0
       cellRect:
         x: 34
         y: 24
         width: 60
         height: 90
-      spriteId: 74bb0c8aca289d54595e1dbf49ecdf23
-    - name: mole 0_Frame_1
+      spriteId: cd8716907e5b00b44b053788075edbef
+    - name: Mole 0_Frame_1
       frameIndex: 1
       cellRect:
         x: 34
         y: 24
         width: 60
         height: 90
-      spriteId: 76fd90a5f97f7cd4aba98dd0f53d035e
-    - name: mole 0_Frame_6
+      spriteId: 72ae5a780b93b9f44821c763fcbcbd4c
+    - name: Mole 0_Frame_6
       frameIndex: 6
       cellRect:
         x: 34
         y: 24
         width: 60
         height: 86
-      spriteId: 322898469f08a2b4a8830b1d8340902a
-    - name: mole 0_Frame_7
+      spriteId: 9df540911c6a05c438323f196646e293
+    - name: Mole 0_Frame_7
       frameIndex: 7
       cellRect:
         x: 34
         y: 24
         width: 60
         height: 86
-      spriteId: 68655f931ce72934fbfb0985a9860621
-    - name: mole 0_Frame_12
+      spriteId: fa54c4d5b9c3a5b4d9bdd95652a04c25
+    - name: Mole 0_Frame_12
       frameIndex: 12
       cellRect:
         x: 34
         y: 24
         width: 60
         height: 90
-      spriteId: 59a078b56627c1a45af9fabaa2ee9555
-    - name: mole 0_Frame_13
+      spriteId: a456b1cf418f7ee458dff84880beb3c6
+    - name: Mole 0_Frame_13
       frameIndex: 13
       cellRect:
         x: 34
         y: 24
         width: 60
         height: 90
-      spriteId: 7afd91a45476ac143817495eb83f1527
-    - name: mole 0_Frame_18
+      spriteId: 085266bb01f09ed46bb2d6035b1720ce
+    - name: Mole 0_Frame_18
       frameIndex: 18
       cellRect:
         x: 34
         y: 24
         width: 60
         height: 90
-      spriteId: 33125b3d7c2d9d24e84db6ed8b0f5259
-    - name: mole 0_Frame_19
+      spriteId: ea044dbe36379954fad1032b2fd1d637
+    - name: Mole 0_Frame_19
       frameIndex: 19
       cellRect:
         x: 34
         y: 36
         width: 60
         height: 86
-      spriteId: 8c0188f48e401834dae55d58dc4251d4
-    - name: mole 0_Frame_24
+      spriteId: e64e272a2c924cb408e6889612167506
+    - name: Mole 0_Frame_24
       frameIndex: 24
       cellRect:
         x: 34
         y: 24
         width: 60
         height: 90
-      spriteId: 850511c76ada0524ca4684483275d627
-    - name: mole 0_Frame_25
+      spriteId: afcaec257e09ade42af82256057994d3
+    - name: Mole 0_Frame_25
       frameIndex: 25
       cellRect:
         x: 34
         y: 24
         width: 60
         height: 86
-      spriteId: 8c506a00c58b44842bd4fde9cd1a6e08
-    - name: mole 0_Frame_26
+      spriteId: c12cb9fcea2c92244b2567b2f1e99621
+    - name: Mole 0_Frame_26
       frameIndex: 26
       cellRect:
         x: 34
         y: 24
         width: 60
         height: 90
-      spriteId: a9be8cd7e2e31324ca64fdd191a99674
-    - name: mole 0_Frame_27
+      spriteId: 58a79e64a05c7494c87b21362c17f01f
+    - name: Mole 0_Frame_27
       frameIndex: 27
       cellRect:
         x: 34
         y: 24
         width: 60
         height: 90
-      spriteId: d68aee9f71d70404c8da1a6a88db1bd5
-    - name: mole 0_Frame_28
+      spriteId: 9d33f996b8d006744a8de9642b16e703
+    - name: Mole 0_Frame_28
       frameIndex: 28
       cellRect:
         x: 34
         y: 24
         width: 60
         height: 86
-      spriteId: aec27b10f25f4354b8edc1a857a239d2
-    - name: mole 0_Frame_29
+      spriteId: a324d5e0bf28a684d8058ce6ae9b7412
+    - name: Mole 0_Frame_29
       frameIndex: 29
       cellRect:
         x: 34
         y: 24
         width: 60
         height: 90
-      spriteId: 97145d41a86aa564683b738d609d4ff0
+      spriteId: 8e5fe114e5778b147a940250c97cfbba
     linkedCells: []
     parentIndex: -1
   platformSettings: []

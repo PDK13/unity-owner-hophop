@@ -119,7 +119,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: bunny 1_Frame_0
+  - name: Bunny 1_Frame_0
     originalName: 
     pivot: {x: 0.5, y: -0.25}
     alignment: 9
@@ -130,7 +130,7 @@ ScriptedImporter:
       y: 4
       width: 56
       height: 96
-    spriteID: d76d07f1e04a12647a31b180a3b6e5b7
+    spriteID: 7ef977e36d4651642bfcc5ecf1b5597c
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -139,7 +139,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-  - name: bunny 1_Frame_1
+  - name: Bunny 1_Frame_1
     originalName: 
     pivot: {x: 0.5, y: -0.25}
     alignment: 9
@@ -150,7 +150,7 @@ ScriptedImporter:
       y: 108
       width: 56
       height: 96
-    spriteID: cb741023b1b54ff45b117e1891c98b30
+    spriteID: 4d3c1fefcfe47e9489c5af22c3d8a33d
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -159,7 +159,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 108}
-  - name: bunny 1_Frame_6
+  - name: Bunny 1_Frame_6
     originalName: 
     pivot: {x: 0.5, y: -0.26086956}
     alignment: 9
@@ -170,7 +170,7 @@ ScriptedImporter:
       y: 108
       width: 56
       height: 92
-    spriteID: ff40027683fb2fc40b5462d037bb0020
+    spriteID: 9622c9bc2166ed947acd14f983c72341
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -179,7 +179,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 132, y: 108}
-  - name: bunny 1_Frame_7
+  - name: Bunny 1_Frame_7
     originalName: 
     pivot: {x: 0.5, y: -0.26086956}
     alignment: 9
@@ -190,7 +190,7 @@ ScriptedImporter:
       y: 208
       width: 56
       height: 92
-    spriteID: 0fd5bcf553751924090bead9585277b3
+    spriteID: cd3797c46762dd74c828d7aab284181e
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -199,7 +199,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 132, y: 208}
-  - name: bunny 1_Frame_12
+  - name: Bunny 1_Frame_12
     originalName: 
     pivot: {x: 0.5, y: -0.25}
     alignment: 9
@@ -210,7 +210,7 @@ ScriptedImporter:
       y: 212
       width: 56
       height: 96
-    spriteID: 43c83adf6d74f214c84e76ea2075519e
+    spriteID: 762f1d6a1168d934ba5b75b95e0bc250
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -219,7 +219,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 212}
-  - name: bunny 1_Frame_13
+  - name: Bunny 1_Frame_13
     originalName: 
     pivot: {x: 0.5, y: -0.25}
     alignment: 9
@@ -230,7 +230,7 @@ ScriptedImporter:
       y: 316
       width: 56
       height: 96
-    spriteID: be8c57de6e60f6d458ee5e2fb641e946
+    spriteID: 5dc2233c30233374ea15fedaef0de345
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -239,7 +239,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 316}
-  - name: bunny 1_Frame_18
+  - name: Bunny 1_Frame_18
     originalName: 
     pivot: {x: 0.5, y: -0.25}
     alignment: 9
@@ -250,7 +250,7 @@ ScriptedImporter:
       y: 4
       width: 56
       height: 96
-    spriteID: c42137bc94a096941b24f35d4ccee15f
+    spriteID: 13badc6f364e62e49a453c967708b234
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -259,7 +259,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 68, y: 4}
-  - name: bunny 1_Frame_19
+  - name: Bunny 1_Frame_19
     originalName: 
     pivot: {x: 0.5, y: -0.39130434}
     alignment: 9
@@ -270,7 +270,7 @@ ScriptedImporter:
       y: 308
       width: 56
       height: 92
-    spriteID: 914cd2397d114b243a05ebacc9c20723
+    spriteID: de7a33fa7b14bbb45bbc8f06650ffd6a
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -279,7 +279,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 132, y: 308}
-  - name: bunny 1_Frame_24
+  - name: Bunny 1_Frame_24
     originalName: 
     pivot: {x: 0.5, y: -0.25}
     alignment: 9
@@ -290,7 +290,7 @@ ScriptedImporter:
       y: 108
       width: 56
       height: 96
-    spriteID: 89b3f9f94b2d0b04fb4f1a662906069e
+    spriteID: c75f5041690c85041b8a5b381b785ea7
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -299,7 +299,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 68, y: 108}
-  - name: bunny 1_Frame_25
+  - name: Bunny 1_Frame_25
     originalName: 
     pivot: {x: 0.5, y: -0.26086956}
     alignment: 9
@@ -310,7 +310,7 @@ ScriptedImporter:
       y: 408
       width: 56
       height: 92
-    spriteID: 1c279150f6b962540bf6d0ab925134c9
+    spriteID: 523c2404dc8852c44a45f8db454d3ade
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -319,7 +319,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 132, y: 408}
-  - name: bunny 1_Frame_26
+  - name: Bunny 1_Frame_26
     originalName: 
     pivot: {x: 0.5, y: -0.25}
     alignment: 9
@@ -330,7 +330,7 @@ ScriptedImporter:
       y: 212
       width: 56
       height: 96
-    spriteID: 4f3d64ede4f03af41aae5a2693cd2093
+    spriteID: 4b5a23e9719321943affd35b51cb27be
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -339,7 +339,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 68, y: 212}
-  - name: bunny 1_Frame_27
+  - name: Bunny 1_Frame_27
     originalName: 
     pivot: {x: 0.5, y: -0.25}
     alignment: 9
@@ -350,7 +350,7 @@ ScriptedImporter:
       y: 316
       width: 56
       height: 96
-    spriteID: 8ec0ae22450f6df4b8b1dd237d30d60e
+    spriteID: 0b28762c468022f4b87ea5ac32125fbe
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -359,7 +359,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 68, y: 316}
-  - name: bunny 1_Frame_28
+  - name: Bunny 1_Frame_28
     originalName: 
     pivot: {x: 0.5, y: -0.26086956}
     alignment: 9
@@ -370,7 +370,7 @@ ScriptedImporter:
       y: 4
       width: 56
       height: 92
-    spriteID: e6359a5a5e12a9b41b4d8f1cf023daaa
+    spriteID: 3f441257367434249a5250d79c1e599d
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -379,7 +379,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 196, y: 4}
-  - name: bunny 1_Frame_29
+  - name: Bunny 1_Frame_29
     originalName: 
     pivot: {x: 0.5, y: -0.25}
     alignment: 9
@@ -390,7 +390,7 @@ ScriptedImporter:
       y: 4
       width: 56
       height: 96
-    spriteID: 5615584ac8e72e04190c8875eb8ba90a
+    spriteID: 3f03cf68b356f1349bc7877565655c75
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -402,124 +402,124 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -2115097909
-    name: bunny 1
+    guid: -1685410517
+    name: Bunny 1
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: bunny 1_Frame_0
+    - name: Bunny 1_Frame_0
       frameIndex: 0
       cellRect:
         x: 36
         y: 24
         width: 56
         height: 96
-      spriteId: d76d07f1e04a12647a31b180a3b6e5b7
-    - name: bunny 1_Frame_1
+      spriteId: 7ef977e36d4651642bfcc5ecf1b5597c
+    - name: Bunny 1_Frame_1
       frameIndex: 1
       cellRect:
         x: 36
         y: 24
         width: 56
         height: 96
-      spriteId: cb741023b1b54ff45b117e1891c98b30
-    - name: bunny 1_Frame_6
+      spriteId: 4d3c1fefcfe47e9489c5af22c3d8a33d
+    - name: Bunny 1_Frame_6
       frameIndex: 6
       cellRect:
         x: 36
         y: 24
         width: 56
         height: 92
-      spriteId: ff40027683fb2fc40b5462d037bb0020
-    - name: bunny 1_Frame_7
+      spriteId: 9622c9bc2166ed947acd14f983c72341
+    - name: Bunny 1_Frame_7
       frameIndex: 7
       cellRect:
         x: 36
         y: 24
         width: 56
         height: 92
-      spriteId: 0fd5bcf553751924090bead9585277b3
-    - name: bunny 1_Frame_12
+      spriteId: cd3797c46762dd74c828d7aab284181e
+    - name: Bunny 1_Frame_12
       frameIndex: 12
       cellRect:
         x: 36
         y: 24
         width: 56
         height: 96
-      spriteId: 43c83adf6d74f214c84e76ea2075519e
-    - name: bunny 1_Frame_13
+      spriteId: 762f1d6a1168d934ba5b75b95e0bc250
+    - name: Bunny 1_Frame_13
       frameIndex: 13
       cellRect:
         x: 36
         y: 24
         width: 56
         height: 96
-      spriteId: be8c57de6e60f6d458ee5e2fb641e946
-    - name: bunny 1_Frame_18
+      spriteId: 5dc2233c30233374ea15fedaef0de345
+    - name: Bunny 1_Frame_18
       frameIndex: 18
       cellRect:
         x: 36
         y: 24
         width: 56
         height: 96
-      spriteId: c42137bc94a096941b24f35d4ccee15f
-    - name: bunny 1_Frame_19
+      spriteId: 13badc6f364e62e49a453c967708b234
+    - name: Bunny 1_Frame_19
       frameIndex: 19
       cellRect:
         x: 36
         y: 36
         width: 56
         height: 92
-      spriteId: 914cd2397d114b243a05ebacc9c20723
-    - name: bunny 1_Frame_24
+      spriteId: de7a33fa7b14bbb45bbc8f06650ffd6a
+    - name: Bunny 1_Frame_24
       frameIndex: 24
       cellRect:
         x: 36
         y: 24
         width: 56
         height: 96
-      spriteId: 89b3f9f94b2d0b04fb4f1a662906069e
-    - name: bunny 1_Frame_25
+      spriteId: c75f5041690c85041b8a5b381b785ea7
+    - name: Bunny 1_Frame_25
       frameIndex: 25
       cellRect:
         x: 36
         y: 24
         width: 56
         height: 92
-      spriteId: 1c279150f6b962540bf6d0ab925134c9
-    - name: bunny 1_Frame_26
+      spriteId: 523c2404dc8852c44a45f8db454d3ade
+    - name: Bunny 1_Frame_26
       frameIndex: 26
       cellRect:
         x: 36
         y: 24
         width: 56
         height: 96
-      spriteId: 4f3d64ede4f03af41aae5a2693cd2093
-    - name: bunny 1_Frame_27
+      spriteId: 4b5a23e9719321943affd35b51cb27be
+    - name: Bunny 1_Frame_27
       frameIndex: 27
       cellRect:
         x: 36
         y: 24
         width: 56
         height: 96
-      spriteId: 8ec0ae22450f6df4b8b1dd237d30d60e
-    - name: bunny 1_Frame_28
+      spriteId: 0b28762c468022f4b87ea5ac32125fbe
+    - name: Bunny 1_Frame_28
       frameIndex: 28
       cellRect:
         x: 36
         y: 24
         width: 56
         height: 92
-      spriteId: e6359a5a5e12a9b41b4d8f1cf023daaa
-    - name: bunny 1_Frame_29
+      spriteId: 3f441257367434249a5250d79c1e599d
+    - name: Bunny 1_Frame_29
       frameIndex: 29
       cellRect:
         x: 36
         y: 24
         width: 56
         height: 96
-      spriteId: 5615584ac8e72e04190c8875eb8ba90a
+      spriteId: 3f03cf68b356f1349bc7877565655c75
     linkedCells: []
     parentIndex: -1
   platformSettings: []

@@ -6,8 +6,8 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: alphaca 0 happy
-  serializedVersion: 6
+  m_Name: Alphaca 0 Happy
+  serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
   m_UseHighQualityCurve: 1
@@ -18,7 +18,8 @@ AnimationClip:
   m_ScaleCurves: []
   m_FloatCurves: []
   m_PPtrCurves:
-  - curve:
+  - serializedVersion: 2
+    curve:
     - time: 0
       value: {fileID: -1253647600, guid: 05859c7a8cfb2a941aa494ec2b49d60e, type: 3}
     - time: 0.2
@@ -27,6 +28,7 @@ AnimationClip:
     path: 
     classID: 212
     script: {fileID: 0}
+    flags: 2
   m_SampleRate: 5
   m_WrapMode: 0
   m_Bounds:
@@ -41,6 +43,8 @@ AnimationClip:
       typeID: 212
       customType: 23
       isPPtrCurve: 1
+      isIntCurve: 0
+      isSerializeReferenceCurve: 0
     pptrCurveMapping:
     - {fileID: -1253647600, guid: 05859c7a8cfb2a941aa494ec2b49d60e, type: 3}
     - {fileID: 1204719462, guid: 05859c7a8cfb2a941aa494ec2b49d60e, type: 3}

@@ -119,7 +119,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: bubble 1_Frame_0
+  - name: Bubble 1_Frame_0
     originalName: 
     pivot: {x: 0.5, y: -5}
     alignment: 9
@@ -130,7 +130,7 @@ ScriptedImporter:
       y: 464
       width: 12
       height: 12
-    spriteID: 03733063c7cfa804bbb29da7787ef3eb
+    spriteID: 7016e0a93e31caa4885313354a5ce596
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -139,7 +139,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 32, y: 464}
-  - name: bubble 1_Frame_1
+  - name: Bubble 1_Frame_1
     originalName: 
     pivot: {x: 0.5, y: -2.8}
     alignment: 9
@@ -150,7 +150,7 @@ ScriptedImporter:
       y: 464
       width: 20
       height: 20
-    spriteID: acfcccf111689cb47b02985842e69536
+    spriteID: 6db07b6fbc93eac49bd5fed30e389fca
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -159,7 +159,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 464}
-  - name: bubble 1_Frame_2
+  - name: Bubble 1_Frame_2
     originalName: 
     pivot: {x: 0.5, y: -0.7692308}
     alignment: 9
@@ -170,7 +170,7 @@ ScriptedImporter:
       y: 232
       width: 52
       height: 52
-    spriteID: 8a87d4127b26c3a46ab88d5d177f07ed
+    spriteID: 605f27a6818d1c3458d3550c77b1c1b8
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -179,7 +179,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 84, y: 232}
-  - name: bubble 1_Frame_3
+  - name: Bubble 1_Frame_3
     originalName: 
     pivot: {x: 0.5, y: -0.47058824}
     alignment: 9
@@ -190,7 +190,7 @@ ScriptedImporter:
       y: 84
       width: 68
       height: 68
-    spriteID: 42772f1b5ced1d7488123aa7d14d6d5c
+    spriteID: d92c3f671c3669545b2d143b97fda0be
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -199,7 +199,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 84}
-  - name: bubble 1_Frame_4
+  - name: Bubble 1_Frame_4
     originalName: 
     pivot: {x: 0.5, y: -0.47058824}
     alignment: 9
@@ -210,7 +210,7 @@ ScriptedImporter:
       y: 160
       width: 68
       height: 68
-    spriteID: 350a7e62120269040b74da5f8a186f12
+    spriteID: 4af83aab6eb5b344997bffe6215c66b5
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -219,7 +219,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 160}
-  - name: bubble 1_Frame_5
+  - name: Bubble 1_Frame_5
     originalName: 
     pivot: {x: 0.5, y: -0.45588234}
     alignment: 9
@@ -230,7 +230,7 @@ ScriptedImporter:
       y: 236
       width: 68
       height: 68
-    spriteID: 1799d93bebdc0964f97ee8ea9329cdfb
+    spriteID: 1a4ccb7f9b35bee44b87136d305d2486
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -239,7 +239,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 236}
-  - name: bubble 1_Frame_6
+  - name: Bubble 1_Frame_6
     originalName: 
     pivot: {x: 0.5, y: -0.47058824}
     alignment: 9
@@ -250,7 +250,7 @@ ScriptedImporter:
       y: 312
       width: 68
       height: 68
-    spriteID: 9eaa34e663639ca43a7f7133c62b5fe9
+    spriteID: 81287162e6713fc428562d6d7e14c020
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -259,7 +259,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 312}
-  - name: bubble 1_Frame_7
+  - name: Bubble 1_Frame_7
     originalName: 
     pivot: {x: 0.5, y: -0.48529413}
     alignment: 9
@@ -270,7 +270,7 @@ ScriptedImporter:
       y: 388
       width: 68
       height: 68
-    spriteID: c536341f50b02184eb55df8e580d7507
+    spriteID: b232ea33003d6a14ea04daa62c9656df
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -279,7 +279,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 388}
-  - name: bubble 1_Frame_8
+  - name: Bubble 1_Frame_8
     originalName: 
     pivot: {x: 0.5, y: -0.47058824}
     alignment: 9
@@ -290,7 +290,7 @@ ScriptedImporter:
       y: 4
       width: 68
       height: 68
-    spriteID: c767dd2c0b60cd7408aa7d27bc97d99e
+    spriteID: 01e7f7c11a2974a4692582b1136b066a
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -299,7 +299,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 84, y: 4}
-  - name: bubble 1_Frame_9
+  - name: Bubble 1_Frame_9
     originalName: 
     pivot: {x: 0.5, y: -0.47058824}
     alignment: 9
@@ -310,7 +310,7 @@ ScriptedImporter:
       y: 80
       width: 68
       height: 68
-    spriteID: a82ef65caebbff546b239fd45fd6d852
+    spriteID: 1f27c00b365e95144ab4bf135efe19f6
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -319,7 +319,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 84, y: 80}
-  - name: bubble 1_Frame_10
+  - name: Bubble 1_Frame_10
     originalName: 
     pivot: {x: 0.5, y: -0.47058824}
     alignment: 9
@@ -330,7 +330,7 @@ ScriptedImporter:
       y: 156
       width: 68
       height: 68
-    spriteID: 30ef93cab056d934ab3e05060b455391
+    spriteID: 288dc7f19a5c63a41a2c54ec3e4aa41c
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -339,7 +339,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 84, y: 156}
-  - name: bubble 1_Frame_11
+  - name: Bubble 1_Frame_11
     originalName: 
     pivot: {x: 0.5, y: -0.41666666}
     alignment: 9
@@ -350,7 +350,7 @@ ScriptedImporter:
       y: 4
       width: 72
       height: 72
-    spriteID: 3cf002f7b81c28044ba6902b798ce55b
+    spriteID: 316507e50bc7bb942ac4e5da46c18725
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -362,108 +362,108 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 1625627643
-    name: bubble 1
+    guid: 2055365851
+    name: Bubble 1
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: bubble 1_Frame_0
+    - name: Bubble 1_Frame_0
       frameIndex: 0
       cellRect:
         x: 58
         y: 60
         width: 12
         height: 12
-      spriteId: 03733063c7cfa804bbb29da7787ef3eb
-    - name: bubble 1_Frame_1
+      spriteId: 7016e0a93e31caa4885313354a5ce596
+    - name: Bubble 1_Frame_1
       frameIndex: 1
       cellRect:
         x: 54
         y: 56
         width: 20
         height: 20
-      spriteId: acfcccf111689cb47b02985842e69536
-    - name: bubble 1_Frame_2
+      spriteId: 6db07b6fbc93eac49bd5fed30e389fca
+    - name: Bubble 1_Frame_2
       frameIndex: 2
       cellRect:
         x: 38
         y: 40
         width: 52
         height: 52
-      spriteId: 8a87d4127b26c3a46ab88d5d177f07ed
-    - name: bubble 1_Frame_3
+      spriteId: 605f27a6818d1c3458d3550c77b1c1b8
+    - name: Bubble 1_Frame_3
       frameIndex: 3
       cellRect:
         x: 30
         y: 32
         width: 68
         height: 68
-      spriteId: 42772f1b5ced1d7488123aa7d14d6d5c
-    - name: bubble 1_Frame_4
+      spriteId: d92c3f671c3669545b2d143b97fda0be
+    - name: Bubble 1_Frame_4
       frameIndex: 4
       cellRect:
         x: 30
         y: 32
         width: 68
         height: 68
-      spriteId: 350a7e62120269040b74da5f8a186f12
-    - name: bubble 1_Frame_5
+      spriteId: 4af83aab6eb5b344997bffe6215c66b5
+    - name: Bubble 1_Frame_5
       frameIndex: 5
       cellRect:
         x: 30
         y: 31
         width: 68
         height: 68
-      spriteId: 1799d93bebdc0964f97ee8ea9329cdfb
-    - name: bubble 1_Frame_6
+      spriteId: 1a4ccb7f9b35bee44b87136d305d2486
+    - name: Bubble 1_Frame_6
       frameIndex: 6
       cellRect:
         x: 30
         y: 32
         width: 68
         height: 68
-      spriteId: 9eaa34e663639ca43a7f7133c62b5fe9
-    - name: bubble 1_Frame_7
+      spriteId: 81287162e6713fc428562d6d7e14c020
+    - name: Bubble 1_Frame_7
       frameIndex: 7
       cellRect:
         x: 30
         y: 33
         width: 68
         height: 68
-      spriteId: c536341f50b02184eb55df8e580d7507
-    - name: bubble 1_Frame_8
+      spriteId: b232ea33003d6a14ea04daa62c9656df
+    - name: Bubble 1_Frame_8
       frameIndex: 8
       cellRect:
         x: 30
         y: 32
         width: 68
         height: 68
-      spriteId: c767dd2c0b60cd7408aa7d27bc97d99e
-    - name: bubble 1_Frame_9
+      spriteId: 01e7f7c11a2974a4692582b1136b066a
+    - name: Bubble 1_Frame_9
       frameIndex: 9
       cellRect:
         x: 30
         y: 32
         width: 68
         height: 68
-      spriteId: a82ef65caebbff546b239fd45fd6d852
-    - name: bubble 1_Frame_10
+      spriteId: 1f27c00b365e95144ab4bf135efe19f6
+    - name: Bubble 1_Frame_10
       frameIndex: 10
       cellRect:
         x: 30
         y: 32
         width: 68
         height: 68
-      spriteId: 30ef93cab056d934ab3e05060b455391
-    - name: bubble 1_Frame_11
+      spriteId: 288dc7f19a5c63a41a2c54ec3e4aa41c
+    - name: Bubble 1_Frame_11
       frameIndex: 11
       cellRect:
         x: 28
         y: 30
         width: 72
         height: 72
-      spriteId: 3cf002f7b81c28044ba6902b798ce55b
+      spriteId: 316507e50bc7bb942ac4e5da46c18725
     linkedCells: []
     parentIndex: -1
   platformSettings: []

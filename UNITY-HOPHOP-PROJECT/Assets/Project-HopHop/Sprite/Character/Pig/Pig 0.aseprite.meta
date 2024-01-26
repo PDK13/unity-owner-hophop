@@ -119,7 +119,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: pig 0_Frame_0
+  - name: Pig 0_Frame_0
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -130,7 +130,7 @@ ScriptedImporter:
       y: 4
       width: 128
       height: 128
-    spriteID: 09ef4bcef705c8b4a80b65f61ae61b04
+    spriteID: 7eabed87fbda1ce4b97afb826b3c8aea
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -139,7 +139,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-  - name: pig 0_Frame_1
+  - name: Pig 0_Frame_1
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -150,7 +150,7 @@ ScriptedImporter:
       y: 140
       width: 128
       height: 128
-    spriteID: 8afcff279661a3340941f6ba78eaad79
+    spriteID: cb0976d04f29273408408ec0e1a8e32a
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -159,7 +159,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 140}
-  - name: pig 0_Frame_6
+  - name: Pig 0_Frame_6
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -170,7 +170,7 @@ ScriptedImporter:
       y: 276
       width: 128
       height: 128
-    spriteID: 81797a82be5f7db4cb182681e218cf69
+    spriteID: 779b716602d367647a90e8144c47a455
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -179,7 +179,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 276}
-  - name: pig 0_Frame_7
+  - name: Pig 0_Frame_7
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -190,7 +190,7 @@ ScriptedImporter:
       y: 412
       width: 128
       height: 128
-    spriteID: 18cdcd5058cd1e14d95e974b083f4e0c
+    spriteID: 7ea2673af5b690f45a4e819a5b139b3a
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -199,7 +199,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 412}
-  - name: pig 0_Frame_12
+  - name: Pig 0_Frame_12
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -210,7 +210,7 @@ ScriptedImporter:
       y: 548
       width: 128
       height: 128
-    spriteID: 9d1e508f977b4cf46bd063133f226f23
+    spriteID: c85811bd9f5f4384c8d08f78f446134e
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -219,7 +219,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 548}
-  - name: pig 0_Frame_13
+  - name: Pig 0_Frame_13
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -230,7 +230,7 @@ ScriptedImporter:
       y: 684
       width: 128
       height: 128
-    spriteID: ef504d9f193f7e742a4bb8422ba68fb7
+    spriteID: d31cb09b21d837d429b52f7d69edfcac
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -239,7 +239,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 684}
-  - name: pig 0_Frame_18
+  - name: Pig 0_Frame_18
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -250,7 +250,7 @@ ScriptedImporter:
       y: 820
       width: 128
       height: 128
-    spriteID: 199c32a876e134b478c50c63389f86e6
+    spriteID: e788afb941b69f4458ee0e82eb2692e1
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -259,7 +259,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 820}
-  - name: pig 0_Frame_19
+  - name: Pig 0_Frame_19
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -270,7 +270,7 @@ ScriptedImporter:
       y: 4
       width: 128
       height: 128
-    spriteID: ce5ebd03f9aae1b4b80f9120280261e2
+    spriteID: b2b8e353ec1c5294d9e6f4a09a0f6fbc
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -279,7 +279,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 140, y: 4}
-  - name: pig 0_Frame_24
+  - name: Pig 0_Frame_24
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -290,7 +290,7 @@ ScriptedImporter:
       y: 140
       width: 128
       height: 128
-    spriteID: 9c8c0cdc482a87849b3038c763a40c7f
+    spriteID: 0ea3b6623febce14185015f3c67a4b45
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -299,7 +299,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 140, y: 140}
-  - name: pig 0_Frame_25
+  - name: Pig 0_Frame_25
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -310,7 +310,7 @@ ScriptedImporter:
       y: 276
       width: 128
       height: 128
-    spriteID: 020aebea74310f94ab7c84a934d0e268
+    spriteID: 748be05f8dd98d9428560a96e966e8e8
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -319,7 +319,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 140, y: 276}
-  - name: pig 0_Frame_26
+  - name: Pig 0_Frame_26
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -330,7 +330,7 @@ ScriptedImporter:
       y: 412
       width: 128
       height: 128
-    spriteID: b9e52841b01b4b7478c38da4b1618fe1
+    spriteID: f8ae00767ee6d6740b72521408e34c2f
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -339,7 +339,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 140, y: 412}
-  - name: pig 0_Frame_27
+  - name: Pig 0_Frame_27
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -350,7 +350,7 @@ ScriptedImporter:
       y: 548
       width: 128
       height: 128
-    spriteID: 6fb4cf8507b30d34093855b5e7133eee
+    spriteID: 6f7f817a0d926b343a6e10b63f7c2475
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -359,7 +359,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 140, y: 548}
-  - name: pig 0_Frame_28
+  - name: Pig 0_Frame_28
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -370,7 +370,7 @@ ScriptedImporter:
       y: 684
       width: 128
       height: 128
-    spriteID: 19fe09a0937f4b548af84da8f10db13a
+    spriteID: ae2f38a2a5b2b004eb243a1b39d076b4
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -379,7 +379,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 140, y: 684}
-  - name: pig 0_Frame_29
+  - name: Pig 0_Frame_29
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -390,7 +390,7 @@ ScriptedImporter:
       y: 820
       width: 128
       height: 128
-    spriteID: c74ef213eb05e254b8014ef6f08917be
+    spriteID: 12fb640e5b2b305459b89cd0d5dedec1
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -402,124 +402,124 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -926770970
-    name: pig 0
+    guid: -910446330
+    name: Pig 0
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: pig 0_Frame_0
+    - name: Pig 0_Frame_0
       frameIndex: 0
       cellRect:
         x: 0
         y: 0
         width: 128
         height: 128
-      spriteId: 09ef4bcef705c8b4a80b65f61ae61b04
-    - name: pig 0_Frame_1
+      spriteId: 7eabed87fbda1ce4b97afb826b3c8aea
+    - name: Pig 0_Frame_1
       frameIndex: 1
       cellRect:
         x: 0
         y: 0
         width: 128
         height: 128
-      spriteId: 8afcff279661a3340941f6ba78eaad79
-    - name: pig 0_Frame_6
+      spriteId: cb0976d04f29273408408ec0e1a8e32a
+    - name: Pig 0_Frame_6
       frameIndex: 6
       cellRect:
         x: 0
         y: 0
         width: 128
         height: 128
-      spriteId: 81797a82be5f7db4cb182681e218cf69
-    - name: pig 0_Frame_7
+      spriteId: 779b716602d367647a90e8144c47a455
+    - name: Pig 0_Frame_7
       frameIndex: 7
       cellRect:
         x: 0
         y: 0
         width: 128
         height: 128
-      spriteId: 18cdcd5058cd1e14d95e974b083f4e0c
-    - name: pig 0_Frame_12
+      spriteId: 7ea2673af5b690f45a4e819a5b139b3a
+    - name: Pig 0_Frame_12
       frameIndex: 12
       cellRect:
         x: 0
         y: 0
         width: 128
         height: 128
-      spriteId: 9d1e508f977b4cf46bd063133f226f23
-    - name: pig 0_Frame_13
+      spriteId: c85811bd9f5f4384c8d08f78f446134e
+    - name: Pig 0_Frame_13
       frameIndex: 13
       cellRect:
         x: 0
         y: 0
         width: 128
         height: 128
-      spriteId: ef504d9f193f7e742a4bb8422ba68fb7
-    - name: pig 0_Frame_18
+      spriteId: d31cb09b21d837d429b52f7d69edfcac
+    - name: Pig 0_Frame_18
       frameIndex: 18
       cellRect:
         x: 0
         y: 0
         width: 128
         height: 128
-      spriteId: 199c32a876e134b478c50c63389f86e6
-    - name: pig 0_Frame_19
+      spriteId: e788afb941b69f4458ee0e82eb2692e1
+    - name: Pig 0_Frame_19
       frameIndex: 19
       cellRect:
         x: 0
         y: 0
         width: 128
         height: 128
-      spriteId: ce5ebd03f9aae1b4b80f9120280261e2
-    - name: pig 0_Frame_24
+      spriteId: b2b8e353ec1c5294d9e6f4a09a0f6fbc
+    - name: Pig 0_Frame_24
       frameIndex: 24
       cellRect:
         x: 0
         y: 0
         width: 128
         height: 128
-      spriteId: 9c8c0cdc482a87849b3038c763a40c7f
-    - name: pig 0_Frame_25
+      spriteId: 0ea3b6623febce14185015f3c67a4b45
+    - name: Pig 0_Frame_25
       frameIndex: 25
       cellRect:
         x: 0
         y: 0
         width: 128
         height: 128
-      spriteId: 020aebea74310f94ab7c84a934d0e268
-    - name: pig 0_Frame_26
+      spriteId: 748be05f8dd98d9428560a96e966e8e8
+    - name: Pig 0_Frame_26
       frameIndex: 26
       cellRect:
         x: 0
         y: 0
         width: 128
         height: 128
-      spriteId: b9e52841b01b4b7478c38da4b1618fe1
-    - name: pig 0_Frame_27
+      spriteId: f8ae00767ee6d6740b72521408e34c2f
+    - name: Pig 0_Frame_27
       frameIndex: 27
       cellRect:
         x: 0
         y: 0
         width: 128
         height: 128
-      spriteId: 6fb4cf8507b30d34093855b5e7133eee
-    - name: pig 0_Frame_28
+      spriteId: 6f7f817a0d926b343a6e10b63f7c2475
+    - name: Pig 0_Frame_28
       frameIndex: 28
       cellRect:
         x: 0
         y: 0
         width: 128
         height: 128
-      spriteId: 19fe09a0937f4b548af84da8f10db13a
-    - name: pig 0_Frame_29
+      spriteId: ae2f38a2a5b2b004eb243a1b39d076b4
+    - name: Pig 0_Frame_29
       frameIndex: 29
       cellRect:
         x: 0
         y: 0
         width: 128
         height: 128
-      spriteId: c74ef213eb05e254b8014ef6f08917be
+      spriteId: 12fb640e5b2b305459b89cd0d5dedec1
     linkedCells: []
     parentIndex: -1
   platformSettings: []

@@ -119,7 +119,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: alphaca 0_Frame_0
+  - name: Alphaca 0_Frame_0
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -130,7 +130,7 @@ ScriptedImporter:
       y: 4
       width: 128
       height: 128
-    spriteID: 464bea44d6e402a40a53ba221057661c
+    spriteID: 14d761d338e08e440a326274e5f6a146
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -139,7 +139,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-  - name: alphaca 0_Frame_1
+  - name: Alphaca 0_Frame_1
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -150,7 +150,7 @@ ScriptedImporter:
       y: 140
       width: 128
       height: 128
-    spriteID: 6bf84b0fe024dd8479346e89537a834f
+    spriteID: be3b47709bc0a5440ad154fef6e04df8
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -159,7 +159,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 140}
-  - name: alphaca 0_Frame_6
+  - name: Alphaca 0_Frame_6
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -170,7 +170,7 @@ ScriptedImporter:
       y: 276
       width: 128
       height: 128
-    spriteID: 3a836a97d1c85f74d938510c5a862903
+    spriteID: 1877f349d3fa0b94ebb90878cd379f16
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -179,7 +179,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 276}
-  - name: alphaca 0_Frame_7
+  - name: Alphaca 0_Frame_7
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -190,7 +190,7 @@ ScriptedImporter:
       y: 412
       width: 128
       height: 128
-    spriteID: 6bea79b521cd34042b4692e27aa7d86b
+    spriteID: 0861aed9a9101684d80512f2570e05fe
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -199,7 +199,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 412}
-  - name: alphaca 0_Frame_12
+  - name: Alphaca 0_Frame_12
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -210,7 +210,7 @@ ScriptedImporter:
       y: 548
       width: 128
       height: 128
-    spriteID: e22d7443738433b4eb7429a0104b57cc
+    spriteID: dce2e00aaee939e46a87eea374d85a68
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -219,7 +219,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 548}
-  - name: alphaca 0_Frame_13
+  - name: Alphaca 0_Frame_13
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -230,7 +230,7 @@ ScriptedImporter:
       y: 684
       width: 128
       height: 128
-    spriteID: de96a6d72b7385f4ab5854d313622be9
+    spriteID: e39755c26dbd3ae4a99ed2f97ce7bcc5
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -239,7 +239,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 684}
-  - name: alphaca 0_Frame_18
+  - name: Alphaca 0_Frame_18
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -250,7 +250,7 @@ ScriptedImporter:
       y: 820
       width: 128
       height: 128
-    spriteID: a74df0727ee3de54eb2c21172f7aeec2
+    spriteID: cee0c167f258b5b4182e5e68ee64aa62
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -259,7 +259,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 820}
-  - name: alphaca 0_Frame_19
+  - name: Alphaca 0_Frame_19
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -270,7 +270,7 @@ ScriptedImporter:
       y: 4
       width: 128
       height: 128
-    spriteID: 33b06627ffebd40479be84a1e4858aa9
+    spriteID: 63cfe03516ff5f64fbd98b492c1632e7
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -279,7 +279,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 140, y: 4}
-  - name: alphaca 0_Frame_24
+  - name: Alphaca 0_Frame_24
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -290,7 +290,7 @@ ScriptedImporter:
       y: 140
       width: 128
       height: 128
-    spriteID: ab0b647adc00aa2429c7b850aa5f81fd
+    spriteID: ccbb39469ae373b4baa49f4e75a6ea36
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -299,7 +299,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 140, y: 140}
-  - name: alphaca 0_Frame_25
+  - name: Alphaca 0_Frame_25
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -310,7 +310,7 @@ ScriptedImporter:
       y: 276
       width: 128
       height: 128
-    spriteID: f73951d9f8512914caa556c011fb302b
+    spriteID: 98815a3693b97604fa8c6c5c9a612978
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -319,7 +319,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 140, y: 276}
-  - name: alphaca 0_Frame_26
+  - name: Alphaca 0_Frame_26
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -330,7 +330,7 @@ ScriptedImporter:
       y: 412
       width: 128
       height: 128
-    spriteID: 750988f2ac86df64aaba14ccbdf3f478
+    spriteID: f111809636ba15f43b0613355f077349
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -339,7 +339,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 140, y: 412}
-  - name: alphaca 0_Frame_27
+  - name: Alphaca 0_Frame_27
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -350,7 +350,7 @@ ScriptedImporter:
       y: 548
       width: 128
       height: 128
-    spriteID: 837186d4b3f57674bb999c19a68bd57e
+    spriteID: 6226917596d913542bce7a9cfa66e5e2
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -359,7 +359,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 140, y: 548}
-  - name: alphaca 0_Frame_28
+  - name: Alphaca 0_Frame_28
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -370,7 +370,7 @@ ScriptedImporter:
       y: 684
       width: 128
       height: 128
-    spriteID: c2083a222a09eac4facc077435cf21ef
+    spriteID: 0bbb5616ea11afe42a139a34c51048d2
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -379,7 +379,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 140, y: 684}
-  - name: alphaca 0_Frame_29
+  - name: Alphaca 0_Frame_29
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -390,7 +390,7 @@ ScriptedImporter:
       y: 820
       width: 128
       height: 128
-    spriteID: 8d8c65cbb499f1e4889a14d4982ec4d9
+    spriteID: d82d5931dbe97114687a20b6205c9e9d
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -402,124 +402,124 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -1460748874
-    name: alphaca 0
+    guid: -162638378
+    name: Alphaca 0
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: alphaca 0_Frame_0
+    - name: Alphaca 0_Frame_0
       frameIndex: 0
       cellRect:
         x: 0
         y: 0
         width: 128
         height: 128
-      spriteId: 464bea44d6e402a40a53ba221057661c
-    - name: alphaca 0_Frame_1
+      spriteId: 14d761d338e08e440a326274e5f6a146
+    - name: Alphaca 0_Frame_1
       frameIndex: 1
       cellRect:
         x: 0
         y: 0
         width: 128
         height: 128
-      spriteId: 6bf84b0fe024dd8479346e89537a834f
-    - name: alphaca 0_Frame_6
+      spriteId: be3b47709bc0a5440ad154fef6e04df8
+    - name: Alphaca 0_Frame_6
       frameIndex: 6
       cellRect:
         x: 0
         y: 0
         width: 128
         height: 128
-      spriteId: 3a836a97d1c85f74d938510c5a862903
-    - name: alphaca 0_Frame_7
+      spriteId: 1877f349d3fa0b94ebb90878cd379f16
+    - name: Alphaca 0_Frame_7
       frameIndex: 7
       cellRect:
         x: 0
         y: 0
         width: 128
         height: 128
-      spriteId: 6bea79b521cd34042b4692e27aa7d86b
-    - name: alphaca 0_Frame_12
+      spriteId: 0861aed9a9101684d80512f2570e05fe
+    - name: Alphaca 0_Frame_12
       frameIndex: 12
       cellRect:
         x: 0
         y: 0
         width: 128
         height: 128
-      spriteId: e22d7443738433b4eb7429a0104b57cc
-    - name: alphaca 0_Frame_13
+      spriteId: dce2e00aaee939e46a87eea374d85a68
+    - name: Alphaca 0_Frame_13
       frameIndex: 13
       cellRect:
         x: 0
         y: 0
         width: 128
         height: 128
-      spriteId: de96a6d72b7385f4ab5854d313622be9
-    - name: alphaca 0_Frame_18
+      spriteId: e39755c26dbd3ae4a99ed2f97ce7bcc5
+    - name: Alphaca 0_Frame_18
       frameIndex: 18
       cellRect:
         x: 0
         y: 0
         width: 128
         height: 128
-      spriteId: a74df0727ee3de54eb2c21172f7aeec2
-    - name: alphaca 0_Frame_19
+      spriteId: cee0c167f258b5b4182e5e68ee64aa62
+    - name: Alphaca 0_Frame_19
       frameIndex: 19
       cellRect:
         x: 0
         y: 0
         width: 128
         height: 128
-      spriteId: 33b06627ffebd40479be84a1e4858aa9
-    - name: alphaca 0_Frame_24
+      spriteId: 63cfe03516ff5f64fbd98b492c1632e7
+    - name: Alphaca 0_Frame_24
       frameIndex: 24
       cellRect:
         x: 0
         y: 0
         width: 128
         height: 128
-      spriteId: ab0b647adc00aa2429c7b850aa5f81fd
-    - name: alphaca 0_Frame_25
+      spriteId: ccbb39469ae373b4baa49f4e75a6ea36
+    - name: Alphaca 0_Frame_25
       frameIndex: 25
       cellRect:
         x: 0
         y: 0
         width: 128
         height: 128
-      spriteId: f73951d9f8512914caa556c011fb302b
-    - name: alphaca 0_Frame_26
+      spriteId: 98815a3693b97604fa8c6c5c9a612978
+    - name: Alphaca 0_Frame_26
       frameIndex: 26
       cellRect:
         x: 0
         y: 0
         width: 128
         height: 128
-      spriteId: 750988f2ac86df64aaba14ccbdf3f478
-    - name: alphaca 0_Frame_27
+      spriteId: f111809636ba15f43b0613355f077349
+    - name: Alphaca 0_Frame_27
       frameIndex: 27
       cellRect:
         x: 0
         y: 0
         width: 128
         height: 128
-      spriteId: 837186d4b3f57674bb999c19a68bd57e
-    - name: alphaca 0_Frame_28
+      spriteId: 6226917596d913542bce7a9cfa66e5e2
+    - name: Alphaca 0_Frame_28
       frameIndex: 28
       cellRect:
         x: 0
         y: 0
         width: 128
         height: 128
-      spriteId: c2083a222a09eac4facc077435cf21ef
-    - name: alphaca 0_Frame_29
+      spriteId: 0bbb5616ea11afe42a139a34c51048d2
+    - name: Alphaca 0_Frame_29
       frameIndex: 29
       cellRect:
         x: 0
         y: 0
         width: 128
         height: 128
-      spriteId: 8d8c65cbb499f1e4889a14d4982ec4d9
+      spriteId: d82d5931dbe97114687a20b6205c9e9d
     linkedCells: []
     parentIndex: -1
   platformSettings: []
