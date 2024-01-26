@@ -1,0 +1,70 @@
+=============== 
+Unity generated
+===============
+Temp/
+Library/
+
+=====================================
+Visual Studio / MonoDevelop generated
+=====================================
+ExportedObj/
+obj/
+*.svd
+*.userprefs
+/*.csproj
+*.pidb
+*.suo
+/*.sln
+*.user
+*.unityproj
+*.booproj
+.vs
+*.dwlt
+
+============
+OS generated
+============
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+remote_config_data
+Logs/
+temp_res
+release
+.vsconfig
+.vs
+.idea
+.vs/
+.idea/
+Layouts/
+UserSettings/
+Assets/BuildReports/
+.vscode/settings.json
+Bundles/
+Build/
+Assets/FindReference2/
+Assets/FindReference2.meta
+Assets/FR2_Cache.asset
+Assets/FR2_Cache.asset.meta
+Assets/DOTween/
+Assets/Editor/
+Assets/Plugins/
+Assets/Firebase/
+Assets/ExternalDependencyManager/
+Assets/Editor Default Resources/Firebase/firebase_lockup_dark.png.meta
+Assets/Editor Default Resources/
+Assets/Editor Default Resources.meta
+Assets/ExternalDependencyManager.meta
+Assets/Firebase.meta
+Assets/Plugins.meta
+Assets/DOTween.meta
+Assets/Resources/
+Assets/Resources.meta
+*.ini
+Assets/TextMesh Pro/
+Assets/TextMesh Pro.meta
+ProjectSettings/SceneTemplateSettings.json
