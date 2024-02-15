@@ -13,7 +13,7 @@ public class GameManager : SingletonManager<GameManager>
     #region Varible: Time
 
     private static float m_timeMove = 1.2f;
-    private static float m_timeRatio = 1f;
+    private static float m_timeRatio = 1f * 0.5f;
 
     public static float TimeMove => m_timeMove * m_timeRatio;
 
