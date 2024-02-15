@@ -187,7 +187,7 @@ public class BodyMovePhysic : MonoBehaviour, IBodyPhysic
         //...
     }
 
-    public void IPush(bool State, IsometricVector Dir)
+    public void IPush(bool State, IsometricVector Dir, IsometricVector From)
     {
         //...
     }

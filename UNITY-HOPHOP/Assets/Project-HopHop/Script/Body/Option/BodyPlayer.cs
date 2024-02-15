@@ -156,7 +156,7 @@ public class BodyPlayer : MonoBehaviour, IBodyTurn, IBodyPhysic
         //...
     }
 
-    public void IPush(bool State, IsometricVector Dir)
+    public void IPush(bool State, IsometricVector Dir, IsometricVector From)
     {
         //...
     }

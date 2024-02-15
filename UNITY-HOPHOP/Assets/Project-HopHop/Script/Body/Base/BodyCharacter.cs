@@ -250,9 +250,9 @@ public class BodyCharacter : MonoBehaviour
             SetAnimationStand(m_body.GetCheckDir(IsometricVector.Bot));
     }
 
-    private void SetOnPush(bool State, IsometricVector Dir)
+    private void SetOnPush(bool State, IsometricVector Dir, IsometricVector From)
     {
-        if (State && Dir != IsometricVector.None && Dir != IsometricVector.Top && Dir != IsometricVector.Bot)
+        if (State && Dir != IsometricVector.None && Dir != IsometricVector.Top && Dir != IsometricVector.Bot && From != IsometricVector.Bot)
             SetAnimationMove(m_body.GetCheckDir(IsometricVector.Bot), m_body.GetCheckDir(IsometricVector.Bot, Dir));
         else
             SetAnimationStand(m_body.GetCheckDir(IsometricVector.Bot));

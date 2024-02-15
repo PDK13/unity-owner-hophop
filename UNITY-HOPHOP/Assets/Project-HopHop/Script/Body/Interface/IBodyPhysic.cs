@@ -8,5 +8,5 @@ public interface IBodyPhysic
 
     void IGravity(bool State);
 
-    void IPush(bool State, IsometricVector Dir);
+    void IPush(bool State, IsometricVector Dir, IsometricVector From);
 }

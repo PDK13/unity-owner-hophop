@@ -9,11 +9,11 @@ public class BodyPhysic : MonoBehaviour
 {
     private bool m_turnControl = false;
     //
-    public Action<bool, IsometricVector> onMove;        //State
-    public Action<bool, IsometricVector> onMoveForce;   //State
-    public Action<bool> onGravity;                      //State
-    public Action<bool, IsometricVector> onPush;        //State, Dir
-    public Action<bool, IsometricVector> onForce;       //State, Dir
+    public Action<bool, IsometricVector> onMove;                    //State
+    public Action<bool, IsometricVector> onMoveForce;               //State
+    public Action<bool> onGravity;                                  //State
+    public Action<bool, IsometricVector> onForce;                   //State, Dir
+    public Action<bool, IsometricVector, IsometricVector> onPush;   //State, Dir, From
     //
     [SerializeField] private bool m_bodyStatic = false;
     //
@@ -201,9 +201,10 @@ public class BodyPhysic : MonoBehaviour
         if (Dir == IsometricVector.None)
             return;
         //
+        IsometricBlock BlockNext = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos.Fixed + Dir);
+        //
         if (From == IsometricVector.Bot)
         {
-            IsometricBlock BlockNext = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos.Fixed + Dir);
             if (BlockNext != null)
             {
                 //When Block Bot end move, surely Bot of this will be emty!!
@@ -215,7 +216,6 @@ public class BodyPhysic : MonoBehaviour
         {
             MoveLastXY = Dir;
             //
-            IsometricBlock BlockNext = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos.Fixed + Dir);
             if (BlockNext != null)
             {
                 Debug.LogError("[Debug] Push to Wall!!");
@@ -235,7 +235,7 @@ public class BodyPhysic : MonoBehaviour
             .SetEase(Ease.Linear)
             .OnStart(() =>
             {
-                onPush?.Invoke(true, Dir);
+                onPush?.Invoke(true, Dir, From);
             })
             .OnUpdate(() =>
             {
@@ -244,7 +244,7 @@ public class BodyPhysic : MonoBehaviour
             .OnComplete(() =>
             {
                 SetStandOnForce();
-                onPush?.Invoke(false, Dir);
+                onPush?.Invoke(false, Dir, From);
             });
         //
         SetNextPush(Dir);
