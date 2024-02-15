@@ -573,6 +573,9 @@ public class IsometricTool : EditorWindow
                             m_event.Use();
                             QUnityEditor.SetDirty(m_manager.gameObject);
                             break;
+                        //default:
+                        //    Debug.Log("[IsometricTool] Key Pressed: " + QText.GetKeyboardFormat(Event.current.keyCode));
+                        //    break;
                     }
                 }
                 break;
