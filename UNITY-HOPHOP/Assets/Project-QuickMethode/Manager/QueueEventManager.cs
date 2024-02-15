@@ -9,16 +9,11 @@ public class QueueEventManager : SingletonManager<QueueEventManager>
     /// <summary>
     /// Add new or get the exist of group queue event!
     /// </summary>
-    public QueueEventData SetGroup(string GroupName = "", bool ClearExist = false)
+    public QueueEventData SetGroup(string GroupName = "")
     {
         QueueEventData EventData = m_queueEvent.Find(t => t.GroupName == GroupName);
         if (EventData != null)
-        {
-            if (ClearExist)
-                EventData.SetClear();
-            //
             return EventData;
-        }
         //
         EventData = new QueueEventData(GroupName);
         m_queueEvent.Add(EventData);
@@ -26,36 +21,16 @@ public class QueueEventManager : SingletonManager<QueueEventManager>
     }
 
     /// <summary>
-    /// Invoke group queue event!
-    /// </summary>
-    public bool SetInvoke(string GroupName = "")
-    {
-        QueueEventData EventData = m_queueEvent.Find(t => t.GroupName == GroupName);
-        if (EventData == null)
-            return false;
-        //
-        if (!EventData.Avaible)
-            return false;
-        //
-        EventData.SetInvoke();
-        //
-        return true;
-    }
-
-    /// <summary>
     /// Remove group queue!
     /// </summary>
     /// <param name="GroupName"></param>
     /// <returns></returns>
-    public bool SetRemove(string GroupName = "")
+    public void SetRemove(string GroupName = "")
     {
         QueueEventData EventData = m_queueEvent.Find(t => t.GroupName == GroupName);
         if (EventData == null)
-            return false;
-        //
+            return;
         m_queueEvent.Remove(EventData);
-        //
-        return true;
     }
 }
 
@@ -64,21 +39,8 @@ public class QueueEventData
 {
     public string GroupName = "";
 
-    public bool ClearOnFinish = true;
-
-    private List<IQueueEvent> m_eventList = new List<IQueueEvent>();
-    private int m_eventIndex = 0;
-
-    public bool Avaible
-    {
-        get
-        {
-            if (m_eventList == null)
-                m_eventList = new List<IQueueEvent>();
-            //
-            return m_eventIndex < m_eventList.Count;
-        }
-    }
+    private List<IQueueEvent> m_eventQueue = new List<IQueueEvent>();
+    private int m_eventQueueIndex = 0;
 
     //
 
@@ -86,8 +48,8 @@ public class QueueEventData
     {
         this.GroupName = GroupName;
         //
-        m_eventList = new List<IQueueEvent>();
-        m_eventIndex = 0;
+        m_eventQueue = new List<IQueueEvent>();
+        m_eventQueueIndex = 0;
     }
 
     //
@@ -95,47 +57,40 @@ public class QueueEventData
     /// <summary>
     /// Add a event to queue!
     /// </summary>
-    /// <param name="Event"></param>
-    public void SetAdd(IQueueEvent Event)
+    /// <param name="EventQueue"></param>
+    /// <param name="AddForce">When TRUE, the event will be add without check exist!</param>
+    public void SetAdd(IQueueEvent EventQueue, bool AddForce = false)
     {
-        if (m_eventList == null)
-            m_eventList = new List<IQueueEvent>();
-        //
-        if (m_eventList.Contains(Event))
+        if (!AddForce && m_eventQueue.Contains(EventQueue))
             return;
         //
-        m_eventList.Add(Event);
+        m_eventQueue.Add(EventQueue);
     }
 
     /// <summary>
     /// Start invoke the first event or continue the next event in queue!
     /// </summary>
-    public void SetInvoke()
+    /// <param name="EventFinal">When event(s) in queue are invoked, then invoke this final event!</param>
+    public void SetInvoke(IQueueEvent EventFinal = null)
     {
-        if (m_eventList == null)
-            m_eventList = new List<IQueueEvent>();
-        //
-        if (!Avaible)
+        if (m_eventQueueIndex <= m_eventQueue.Count - 1)
         {
-            if (ClearOnFinish)
-                SetClear();
-            return;
+            m_eventQueue[m_eventQueueIndex].SetInvoke();
+            m_eventQueueIndex++;
         }
-        //
-        m_eventList[m_eventIndex].SetInvoke();
-        m_eventIndex++;
+        else
+        if (EventFinal != null)
+            EventFinal.SetInvoke();
     }
 
     /// <summary>
-    /// Clear all event(s) in queue!
+    /// Reset index of event(s) in queue!
     /// </summary>
-    public void SetClear()
+    public void SetReset(bool ClearQueue)
     {
-        if (m_eventList == null)
-            m_eventList = new List<IQueueEvent>();
-        //
-        m_eventList.Clear();
-        m_eventIndex = 0;
+        if (ClearQueue)
+            m_eventQueue = new List<IQueueEvent>();
+        m_eventQueueIndex = 0;
     }
 }
 
