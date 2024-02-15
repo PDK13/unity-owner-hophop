@@ -169,6 +169,7 @@ public class GameConfigTag
 public enum TurnType
 {
     None,
+    //
     Gravity,
     Player,
     MovePhysic,

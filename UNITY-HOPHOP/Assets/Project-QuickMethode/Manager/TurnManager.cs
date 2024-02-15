@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -56,7 +57,7 @@ public class TurnManager : SingletonManager<TurnManager>
 
         public bool EndTurnRemove = false;
 
-        public TurnSingle(int Start, string Turn, GameObject Unit)
+        public TurnSingle(string Turn, int Start, GameObject Unit)
         {
             this.Start = Start;
             //
@@ -100,9 +101,8 @@ public class TurnManager : SingletonManager<TurnManager>
 
     public List<string> TurnRemove = new List<string>()
     {
-        "None",
-        "Gravity",
-    };
+        "None"
+    }; //When Turn add to this list, they will be auto remove out of Queue when complete!
 
     #endregion
 
@@ -123,9 +123,7 @@ public class TurnManager : SingletonManager<TurnManager>
         //This used for stop Current Turn coroutine called by ended Playing on Editor Mode!!
         //
         if (state == PlayModeStateChange.ExitingPlayMode)
-        {
             Instance.m_stop = true;
-        }
     }
 #endif
 
@@ -138,6 +136,8 @@ public class TurnManager : SingletonManager<TurnManager>
 #endif
     }
 
+    #region Main
+
     public static void SetStart()
     {
         if ((int)Instance.m_debug >= (int)DebugType.None)
@@ -146,18 +146,18 @@ public class TurnManager : SingletonManager<TurnManager>
         Instance.m_turnPass = 0;
         Instance.m_turnQueue.RemoveAll(t => t.Turn == "");
         Instance.m_turnQueue = Instance.m_turnQueue.OrderBy(t => t.Start).ToList();
-        Instance.m_turnQueue.Insert(0, new TurnSingle(int.MaxValue, "", Instance.gameObject));
+        Instance.m_turnQueue.Insert(0, new TurnSingle("", int.MaxValue, Instance.gameObject));
         //
         Instance.SetCurrent();
     } //Start!!
+
+    //
 
     private void SetCurrent()
     {
 #if UNITY_EDITOR
         if (Instance.m_stop)
-        {
             return;
-        }
 #endif
         //
         if (Instance != null)
@@ -185,7 +185,7 @@ public class TurnManager : SingletonManager<TurnManager>
             //
             onTurn?.Invoke(m_turnPass);
             //
-            Instance.SetAddWait();
+            Instance.SetWait();
             //
             yield return null;
             //
@@ -218,49 +218,45 @@ public class TurnManager : SingletonManager<TurnManager>
         //Complete!!
     }
 
-    private void SetAddWait()
+    private void SetWait()
     {
         foreach (TurnSingle TurnCheck in Instance.m_turnQueue) TurnCheck.SetWaitAdd();
     }
 
-    #region Enum
+    //
 
-    public static void SetInit<T>(T Turn, GameObject Unit) where T : Enum
+    public static void SetAutoRemove(string Turn, bool Add = true)
     {
-        SetInit(QEnum.GetChoice(Turn), Turn.ToString(), Unit);
-    } //Init on Start!!
+        if (string.IsNullOrEmpty(Turn))
+        {
+            Debug.LogError("[Turn] Turn name not valid!");
+            return;
+        }
+        //
+        if (Add && !Instance.TurnRemove.Contains(Turn))
+            Instance.TurnRemove.Add(Turn);
+        else
+        if (!Add && Instance.TurnRemove.Contains(Turn))
+            Instance.TurnRemove.Remove(Turn);
+    }
 
-    public static void SetRemove<T>(T Turn, GameObject Unit) where T : Enum
+    public static void SetAutoRemove<T>(T Turn) where T : Enum
     {
-        SetRemove(Turn.ToString(), Unit);
-    } //Remove on Destroy!!
-
-    public static void SetEndMove<T>(T Turn, GameObject Unit) where T : Enum
-    {
-        SetEndMove(Turn.ToString(), Unit);
-    } //End!!
-
-    public static void SetEndTurn<T>(T Turn, GameObject Unit) where T : Enum
-    {
-        SetEndTurn(Turn.ToString(), Unit);
-    } //End!!
-
-    public static void SetAdd<T>(T Turn, GameObject Unit, int After = 0) where T : Enum
-    {
-        SetAdd(QEnum.GetChoice(Turn), Turn.ToString(), Unit, After);
-    } //Add Turn Special!!
-
-    public static void SetAdd<T>(T Turn, GameObject Unit, string After) where T : Enum
-    {
-        SetAdd(QEnum.GetChoice(Turn), Turn.ToString(), Unit, After);
-    } //Add Turn Special!!
+        SetAutoRemove(Turn.ToString());
+    }
 
     #endregion
 
-    #region Int & String
+    #region Turn ~ Int & String
 
-    public static void SetInit(int Start, string Turn, GameObject Unit)
+    public static void SetInit(string Turn, int Start, GameObject Unit)
     {
+        if (string.IsNullOrEmpty(Turn))
+        {
+            Debug.LogError("[Turn] Turn name not valid!");
+            return;
+        }
+        //
         for (int i = 0; i < Instance.m_turnQueue.Count; i++)
         {
             if (Instance.m_turnQueue[i].Turn != Turn)
@@ -279,11 +275,17 @@ public class TurnManager : SingletonManager<TurnManager>
         if ((int)Instance.m_debug >= (int)DebugType.Full)
             Debug.LogFormat("[Turn] <Init> {0}", Turn.ToString());
         //
-        Instance.m_turnQueue.Add(new TurnSingle(Start, Turn, Unit));
+        Instance.m_turnQueue.Add(new TurnSingle(Turn, Start, Unit));
     } //Init on Start!!
 
     public static void SetRemove(string Turn, GameObject Unit)
     {
+        if (string.IsNullOrEmpty(Turn))
+        {
+            Debug.LogError("[Turn] Turn name not valid!");
+            return;
+        }
+        //
         for (int i = 0; i < Instance.m_turnQueue.Count; i++)
         {
             if (Instance.m_turnQueue[i].Turn != Turn)
@@ -322,6 +324,12 @@ public class TurnManager : SingletonManager<TurnManager>
 
     public static void SetEndMove(string Turn, GameObject Unit)
     {
+        if (string.IsNullOrEmpty(Turn))
+        {
+            Debug.LogError("[Turn] Turn name not valid!");
+            return;
+        }
+        //
         if (Instance.m_turnCurrent.Turn != Turn)
             return;
         //
@@ -338,6 +346,12 @@ public class TurnManager : SingletonManager<TurnManager>
 
     public static void SetEndTurn(string Turn, GameObject Unit)
     {
+        if (string.IsNullOrEmpty(Turn))
+        {
+            Debug.LogError("[Turn] Turn name not valid!");
+            return;
+        }
+        //
         if (Instance.m_turnCurrent.Turn != Turn)
             return;
         //
@@ -390,8 +404,14 @@ public class TurnManager : SingletonManager<TurnManager>
         }
     } //Swap Current Turn to Last!!
 
-    public static void SetAdd(int Start, string Turn, GameObject Unit, int After = 0)
+    public static void SetAdd(string Turn, int Start, GameObject Unit, int After = 0)
     {
+        if (string.IsNullOrEmpty(Turn))
+        {
+            Debug.LogError("[Turn] Turn name not valid!");
+            return;
+        }
+        //
         if (After < 0)
         {
             return;
@@ -399,7 +419,7 @@ public class TurnManager : SingletonManager<TurnManager>
         //
         if (After > Instance.m_turnQueue.Count - 1)
         {
-            Instance.m_turnQueue.Add(new TurnSingle(Start, Turn, Unit));
+            Instance.m_turnQueue.Add(new TurnSingle(Turn, Start, Unit));
             Instance.m_turnQueue[Instance.m_turnQueue.Count - 1].EndTurnRemove = Instance.TurnRemove.Contains(Turn);
         }
         else
@@ -414,7 +434,7 @@ public class TurnManager : SingletonManager<TurnManager>
         }
         else
         {
-            Instance.m_turnQueue.Insert(After, new TurnSingle(Start, Turn, Unit));
+            Instance.m_turnQueue.Insert(After, new TurnSingle(Turn, Start, Unit));
             Instance.m_turnQueue[After].EndTurnRemove = Instance.TurnRemove.Contains(Turn);
         }
         //
@@ -424,8 +444,14 @@ public class TurnManager : SingletonManager<TurnManager>
         }
     } //Add Turn Special!!
 
-    public static void SetAdd(int Start, string Turn, GameObject Unit, string After)
+    public static void SetAdd(string Turn, int Start, GameObject Unit, string After)
     {
+        if (string.IsNullOrEmpty(Turn))
+        {
+            Debug.LogError("[Turn] Turn name not valid!");
+            return;
+        }
+        //
         for (int i = 0; i < Instance.m_turnQueue.Count; i++)
         {
             if (Instance.m_turnQueue[i].Turn != After)
@@ -440,7 +466,7 @@ public class TurnManager : SingletonManager<TurnManager>
             }
             else
             {
-                Instance.m_turnQueue.Insert(i, new TurnSingle(Start, Turn.ToString(), Unit));
+                Instance.m_turnQueue.Insert(i, new TurnSingle(Turn.ToString(), Start, Unit));
                 Instance.m_turnQueue[i].EndTurnRemove = Instance.TurnRemove.Contains(Turn);
             }
             //
@@ -451,6 +477,40 @@ public class TurnManager : SingletonManager<TurnManager>
         {
             SetDebug(Turn, string.Format("Add [{0}]", After));
         }
+    } //Add Turn Special!!
+
+    #endregion
+
+    #region Turn ~ Enum
+
+    public static void SetInit<T>(T Turn, GameObject Unit) where T : Enum
+    {
+        SetInit(Turn.ToString(), QEnum.GetChoice(Turn), Unit);
+    } //Init on Start!!
+
+    public static void SetRemove<T>(T Turn, GameObject Unit) where T : Enum
+    {
+        SetRemove(Turn.ToString(), Unit);
+    } //Remove on Destroy!!
+
+    public static void SetEndMove<T>(T Turn, GameObject Unit) where T : Enum
+    {
+        SetEndMove(Turn.ToString(), Unit);
+    } //End!!
+
+    public static void SetEndTurn<T>(T Turn, GameObject Unit) where T : Enum
+    {
+        SetEndTurn(Turn.ToString(), Unit);
+    } //End!!
+
+    public static void SetAdd<T>(T Turn, GameObject Unit, int After = 0) where T : Enum
+    {
+        SetAdd(Turn.ToString(), QEnum.GetChoice(Turn), Unit, After);
+    } //Add Turn Special!!
+
+    public static void SetAdd<T>(T Turn, GameObject Unit, string After) where T : Enum
+    {
+        SetAdd(Turn.ToString(), QEnum.GetChoice(Turn), Unit, After);
     } //Add Turn Special!!
 
     #endregion

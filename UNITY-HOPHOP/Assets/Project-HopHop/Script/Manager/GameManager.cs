@@ -69,6 +69,8 @@ public class GameManager : SingletonManager<GameManager>
         //
         yield return new WaitForSeconds(1f);
         //
+        TurnManager.SetAutoRemove(TurnType.None);
+        TurnManager.SetAutoRemove(TurnType.Gravity);
         TurnManager.SetStart();
     }
 
