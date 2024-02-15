@@ -119,9 +119,20 @@ public class IsometricManagerMap
         Block.Pos = Pos.Fixed;
         Block.PosPrimary = Pos.Fixed;
 
-        //Block Data
-        Block.Data = Data != null ? Data : new IsometricDataFileBlockData();
-
+        //Data
+        if (Data == null && !Application.isPlaying)
+        {
+            //Check old Block exist in current Pos for save it's data to new Block!
+            IsometricBlock BlockExist = GetBlockCurrent(Pos);
+            if (BlockExist != null)
+                Block.Data = BlockExist.Data;
+            else
+                Block.Data = Data != null ? Data : new IsometricDataFileBlockData();
+        }
+        else
+            Block.Data = Data != null ? Data : new IsometricDataFileBlockData();
+        //
+        //Remove
         if (Block.PosType == IsometricPosType.Free && Application.isPlaying)
         {
             //When in playing, FREE Block's Pos Primary will not be track, so just can be find by it own Tag!
