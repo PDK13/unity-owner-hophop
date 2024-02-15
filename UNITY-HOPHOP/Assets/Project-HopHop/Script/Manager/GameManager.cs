@@ -12,8 +12,8 @@ public class GameManager : SingletonManager<GameManager>
 
     #region Varible: Time
 
-    public static float m_timeMove = 1.2f;
-    public static float m_timeRatio = 1f;
+    private static float m_timeMove = 1.2f;
+    private static float m_timeRatio = 1f;
 
     public static float TimeMove => m_timeMove * m_timeRatio;
 
@@ -22,13 +22,10 @@ public class GameManager : SingletonManager<GameManager>
     protected override void Awake()
     {
         base.Awake();
-        //
-
     }
 
     private void Start()
     {
-        Time.timeScale = 2;
         Application.targetFrameRate = 60;
         Screen.SetResolution(1920, 1080, true);
         //
@@ -73,5 +70,12 @@ public class GameManager : SingletonManager<GameManager>
         yield return new WaitForSeconds(1f);
         //
         TurnManager.SetStart();
+    }
+
+    //
+
+    public static void SetTimeRatio(float TimeRatio = 1.0f)
+    {
+        m_timeRatio = TimeRatio;
     }
 }
