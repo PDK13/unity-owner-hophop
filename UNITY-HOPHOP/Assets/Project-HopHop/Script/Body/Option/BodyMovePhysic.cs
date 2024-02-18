@@ -30,7 +30,7 @@ public class BodyMovePhysic : MonoBehaviour, IBodyPhysic
 
     protected void Start()
     {
-        m_dataMove = m_block.Data.Move;
+        m_dataMove = GetComponent<IsometricDataMove>();
         //
         if (m_dataMove.Data.Count > 0)
         {
@@ -39,8 +39,8 @@ public class BodyMovePhysic : MonoBehaviour, IBodyPhysic
             TurnManager.Instance.onStepStart += IOnStep;
         }
         //
-        m_moveCheckAhead = GameConfigInit.GetExist(m_block.Data.Init, GameConfigInit.Key.MoveCheckAhead);
-        m_moveCheckAheadBot = GameConfigInit.GetExist(m_block.Data.Init, GameConfigInit.Key.MoveCheckAheadBot);
+        m_moveCheckAhead = GameConfigInit.GetExist(GetComponent<IsometricDataInit>(), GameConfigInit.Key.MoveCheckAhead);
+        m_moveCheckAheadBot = GameConfigInit.GetExist(GetComponent<IsometricDataInit>(), GameConfigInit.Key.MoveCheckAheadBot);
         //
         m_body.onMove += IMoveForce;
         m_body.onForce += IForce;

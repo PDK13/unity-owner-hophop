@@ -34,9 +34,9 @@ public class BodyMoveStatic : MonoBehaviour, IBodyTurn
 
     protected void Start()
     {
-        m_move = m_block.Data.Move;
-        m_followIdentity = GameConfigInit.GetData(m_block.Data.Init, GameConfigInit.Key.FollowIdentity, false);
-        m_followIdentityCheck = GameConfigInit.GetData(m_block.Data.Init, GameConfigInit.Key.FollowIdentityCheck, false);
+        m_move = GetComponent<IsometricDataMove>();
+        m_followIdentity = GameConfigInit.GetData(GetComponent<IsometricDataInit>(), GameConfigInit.Key.FollowIdentity, false);
+        m_followIdentityCheck = GameConfigInit.GetData(GetComponent<IsometricDataInit>(), GameConfigInit.Key.FollowIdentityCheck, false);
         //
         if (m_move.Data.Count > 0)
         {

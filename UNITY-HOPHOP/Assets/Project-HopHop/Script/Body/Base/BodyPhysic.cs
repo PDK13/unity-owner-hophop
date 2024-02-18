@@ -36,7 +36,9 @@ public class BodyPhysic : MonoBehaviour
 
     private void Start()
     {
-        m_bodyStatic = m_bodyStatic || GameConfigInit.GetExist(m_block.Data.Init, GameConfigInit.Key.BodyStatic);
+        m_bodyStatic =
+            m_bodyStatic ||
+            GameConfigInit.GetExist(GetComponent<IsometricDataInit>(), GameConfigInit.Key.BodyStatic);
     }
 
     #region Move

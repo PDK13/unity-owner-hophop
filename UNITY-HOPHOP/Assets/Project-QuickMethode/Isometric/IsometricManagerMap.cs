@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [Serializable]
@@ -14,7 +15,7 @@ public class IsometricManagerMap
     [SerializeField] private string m_name;
     [SerializeField] private Transform m_root;
 
-    public string Name 
+    public string Name
     {
         get => m_name;
         set { m_name = value; m_root.name = NameFixed; }
@@ -29,7 +30,7 @@ public class IsometricManagerMap
         get => m_root.gameObject.activeInHierarchy;
         set => m_root.gameObject.SetActive(value);
     }
-    
+
     public Action onCreate;
     public Action onRemove;
 
@@ -96,41 +97,57 @@ public class IsometricManagerMap
 
     #region Block Create
 
-    public IsometricBlock SetBlockCreate(IsometricVector Pos, GameObject BlockPrefab, IsometricDataFileBlockData Data = null)
+    public IsometricBlock SetBlockCreate(IsometricVector Pos, GameObject BlockPrefab, bool CheckData)
     {
         if (BlockPrefab == null)
         {
             Debug.LogWarningFormat("Block {0} not found!", Pos.Encypt);
             return null;
         }
-
+        //
         if (BlockPrefab.GetComponent<IsometricBlock>() == null)
         {
             Debug.LogWarningFormat("Block {0} {1} not found IsometricBlock!", Pos.Encypt, BlockPrefab.name);
             return null;
         }
-
+        //
         //Create
         GameObject BlockObject = QGameObject.SetCreate(BlockPrefab);
-
+        //
         //Block
         IsometricBlock Block = QComponent.GetComponent<IsometricBlock>(BlockObject);
         Block.WorldManager = m_manager;
         Block.Pos = Pos.Fixed;
         Block.PosPrimary = Pos.Fixed;
-
+        //
         //Data
-        if (Data == null && !Application.isPlaying)
+        if (CheckData)
         {
-            //Check old Block exist in current Pos for save it's data to new Block!
-            IsometricBlock BlockExist = GetBlockCurrent(Pos);
+            IsometricBlock BlockExist = GetBlockCurrent(Pos); //Check old Block exist in current Pos for save it's data to new Block!
             if (BlockExist != null)
-                Block.Data = BlockExist.Data;
-            else
-                Block.Data = Data != null ? Data : new IsometricDataFileBlockData();
+            {
+                foreach (var DataExist in BlockExist.GetComponents<IsometricDataInit>())
+                {
+                    var DataNew = Block.AddComponent<IsometricDataInit>();
+                    DataNew.SetValue(DataExist);
+                }
+                foreach (var DataExist in BlockExist.GetComponents<IsometricDataMove>())
+                {
+                    var DataNew = Block.AddComponent<IsometricDataMove>();
+                    DataNew.SetValue(DataExist);
+                }
+                foreach (var DataExist in BlockExist.GetComponents<IsometricDataAction>())
+                {
+                    var DataNew = Block.AddComponent<IsometricDataAction>();
+                    DataNew.SetValue(DataExist);
+                }
+                foreach (var DataExist in BlockExist.GetComponents<IsometricDataTeleport>())
+                {
+                    var DataNew = Block.AddComponent<IsometricDataTeleport>();
+                    DataNew.SetValue(DataExist);
+                }
+            }
         }
-        else
-            Block.Data = Data != null ? Data : new IsometricDataFileBlockData();
         //
         //Remove
         if (Block.PosType == IsometricPosType.Free && Application.isPlaying)

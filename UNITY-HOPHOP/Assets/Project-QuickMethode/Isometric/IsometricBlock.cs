@@ -15,23 +15,12 @@ public class IsometricBlock : MonoBehaviour
 
     [Space]
     [SerializeField] private IsometricPosType m_posType = IsometricPosType.Track;
-    
+
     //After generate map, this pos will be use to renderer in scene!
     [SerializeField] private IsometricVector m_pos = new IsometricVector();
 
     //While generate map, this pos will be use to create this block in scene!
     [SerializeField] private IsometricVector m_posPrimary = new IsometricVector();
-
-    #endregion
-
-    #region Varible: Data Manager
-
-    [Space]
-    [SerializeField] private IsometricDataInit m_initData = new IsometricDataInit();
-    [SerializeField] private IsometricDataMove m_moveData = new IsometricDataMove();
-    [SerializeField] private IsometricDataAction m_actionData = new IsometricDataAction();
-    [SerializeField] private IsometricDataEvent m_eventData = new IsometricDataEvent();
-    [SerializeField] private IsometricDataTeleport m_teleportData = new IsometricDataTeleport();
 
     #endregion
 
@@ -87,34 +76,6 @@ public class IsometricBlock : MonoBehaviour
         {
             m_worldManager = value;
             m_sceneData = value.Scene;
-        }
-    }
-
-    #endregion
-
-    #region ================================================================== Data Manager
-
-    public IsometricDataFileBlockData Data
-    {
-        get
-        {
-            IsometricDataFileBlockData Data = new IsometricDataFileBlockData
-            {
-                Init = m_initData,
-                Move = m_moveData,
-                Action = m_actionData,
-                Event = m_eventData,
-                Teleport = m_teleportData
-            };
-            return Data;
-        }
-        set
-        {
-            m_initData = value.Init;
-            m_moveData = value.Move;
-            m_actionData = value.Action;
-            m_eventData = value.Event;
-            m_teleportData = value.Teleport;
         }
     }
 

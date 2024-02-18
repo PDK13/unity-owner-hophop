@@ -7,7 +7,7 @@ using UnityEditor;
 #endif
 
 [Serializable]
-public class IsometricDataMove
+public class IsometricDataMove : MonoBehaviour
 {
     public DataBlockType Type = DataBlockType.Forward;
 
@@ -21,6 +21,7 @@ public class IsometricDataMove
 
     public List<IsometricDataBlockMoveSingle> Data
     {
+        private set => m_data = value;
         get
         {
             if (m_data == null)
@@ -32,6 +33,14 @@ public class IsometricDataMove
     public int Index => m_index;
 
     public int Quantity => m_quantity;
+
+    //
+
+    public void SetValue(IsometricDataMove Value)
+    {
+        Type = Value.Type;
+        Data = Value.Data;
+    }
 
     //
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
-public class IsometricDataAction
+public class IsometricDataAction : MonoBehaviour
 {
     public DataBlockType Type = DataBlockType.Forward;
 
@@ -17,6 +17,7 @@ public class IsometricDataAction
 
     public List<IsometricDataBlockActionSingle> Data
     {
+        private set => m_data = value;
         get
         {
             if (m_data == null)
@@ -28,6 +29,14 @@ public class IsometricDataAction
     public int Index => m_index;
 
     public int Quantity => m_quantity;
+
+    //
+
+    public void SetValue(IsometricDataAction Value)
+    {
+        Type = Value.Type;
+        Data = Value.Data;
+    }
 
     //
 

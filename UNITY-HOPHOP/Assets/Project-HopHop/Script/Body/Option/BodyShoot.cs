@@ -34,7 +34,7 @@ public class BodyShoot : MonoBehaviour, IBodyTurn
 
     private void Start()
     {
-        m_dataAction = m_block.Data.Action;
+        m_dataAction = GetComponent<IsometricDataAction>();
 
         if (m_dataAction != null)
         {
@@ -133,7 +133,7 @@ public class BodyShoot : MonoBehaviour, IBodyTurn
             return;
         }
         //
-        IsometricBlock Bullet = m_block.WorldManager.World.Current.SetBlockCreate(m_block.Pos + DirSpawm, m_bullet.gameObject);
+        IsometricBlock Bullet = m_block.WorldManager.World.Current.SetBlockCreate(m_block.Pos + DirSpawm, m_bullet.gameObject, false);
         Bullet.GetComponent<BodyBullet>().SetInit(DirMove, Speed);
     } //Shoot Bullet!!
 

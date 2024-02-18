@@ -1,13 +1,24 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 [Serializable]
-public class IsometricDataTeleport
+public class IsometricDataTeleport : MonoBehaviour
 {
     public const char KEY_VALUE_ENCYPT = '|';
 
     public string Name = "";
     public IsometricVector Pos = IsometricVector.None;
+
+    //
+
+    public void SetValue(IsometricDataTeleport Value)
+    {
+        Name = Value.Name;
+        Pos = Value.Pos;
+    }
+
+    //
 
     public string Encypt => QEncypt.GetEncypt(KEY_VALUE_ENCYPT, Name, Pos.Encypt);
 
