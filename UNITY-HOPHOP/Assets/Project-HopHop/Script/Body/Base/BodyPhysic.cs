@@ -372,14 +372,14 @@ public class BodyPhysic : MonoBehaviour
 
     #endregion
 
-    //**Editor**
+#if UNITY_EDITOR
 
     public void SetEditorBody()
     {
         m_editorBodyStatic = GameConfigInit.GetKey(GameConfigInit.Key.BodyStatic);
     }
 
-    //**Editor**
+#endif
 }
 
 #if UNITY_EDITOR
