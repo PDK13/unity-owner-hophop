@@ -57,7 +57,7 @@ public class QDateTime
         //Month
         if (DateFrom.Month > DateTo.Month)
             return (false, false, true);
-        if (DateFrom.Month < DateTo.Month) 
+        if (DateFrom.Month < DateTo.Month)
             return (true, false, false);
         //Day
         if (DateFrom.Day > DateTo.Day)

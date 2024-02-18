@@ -115,7 +115,7 @@ public class IsometricManagerWorld
 
     public void SetActive(string Name)
     {
-        for (int i = 0; i < m_map.Count; i++) 
+        for (int i = 0; i < m_map.Count; i++)
         {
             if (m_map[i].Name == Name)
             {
