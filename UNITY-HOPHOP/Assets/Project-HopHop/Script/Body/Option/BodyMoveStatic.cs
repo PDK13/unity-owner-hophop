@@ -38,11 +38,14 @@ public class BodyMoveStatic : MonoBehaviour, IBodyTurn
         m_followIdentity = GameConfigInit.GetData(GetComponent<IsometricDataInit>(), GameConfigInit.Key.FollowIdentity, false);
         m_followIdentityCheck = GameConfigInit.GetData(GetComponent<IsometricDataInit>(), GameConfigInit.Key.FollowIdentityCheck, false);
         //
-        if (m_move.Data.Count > 0)
+        if (m_move != null)
         {
-            TurnManager.SetInit(TurnType.MoveStatic, gameObject);
-            TurnManager.Instance.onTurn += IOnTurn;
-            TurnManager.Instance.onStepStart += IOnStep;
+            if (m_move.Data.Count > 0)
+            {
+                TurnManager.SetInit(TurnType.MoveStatic, gameObject);
+                TurnManager.Instance.onTurn += IOnTurn;
+                TurnManager.Instance.onStepStart += IOnStep;
+            }
         }
         //
         if (m_followIdentityCheck != "")
@@ -51,11 +54,14 @@ public class BodyMoveStatic : MonoBehaviour, IBodyTurn
 
     protected void OnDestroy()
     {
-        if (m_move.Data.Count > 0)
+        if (m_move != null)
         {
-            TurnManager.SetRemove(TurnType.MoveStatic, gameObject);
-            TurnManager.Instance.onTurn -= IOnTurn;
-            TurnManager.Instance.onStepStart -= IOnStep;
+            if (m_move.Data.Count > 0)
+            {
+                TurnManager.SetRemove(TurnType.MoveStatic, gameObject);
+                TurnManager.Instance.onTurn -= IOnTurn;
+                TurnManager.Instance.onStepStart -= IOnStep;
+            }
         }
         //
         if (m_followIdentityCheck != "")

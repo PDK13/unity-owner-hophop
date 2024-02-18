@@ -30,7 +30,7 @@ public class GameConfigInit
 
     public static bool GetExist(IsometricDataInit Data, Key Key)
     {
-        if (Key == Key.None)
+        if (Data == null || Key == Key.None)
             return false;
         //
         string KeyCheck = GetKey(Key);
@@ -48,7 +48,7 @@ public class GameConfigInit
 
     public static string GetData(IsometricDataInit Data, Key Key, bool Full = true)
     {
-        if (Key == Key.None)
+        if (Data == null || Key == Key.None)
             return None;
         //
         string KeyCheck = GetKey(Key);
@@ -104,7 +104,7 @@ public class GameConfigAction
 
     public static bool GetExist(IsometricDataInit Data, Key Key)
     {
-        if (Key == Key.None)
+        if (Data == null || Key == Key.None)
             return false;
         //
         string KeyCheck = GetKey(Key);
@@ -122,7 +122,7 @@ public class GameConfigAction
 
     public static string GetData(IsometricDataInit Data, Key Key, bool Full = true)
     {
-        if (Key == Key.None)
+        if (Data == null || Key == Key.None)
             return None;
         //
         string KeyCheck = GetKey(Key);

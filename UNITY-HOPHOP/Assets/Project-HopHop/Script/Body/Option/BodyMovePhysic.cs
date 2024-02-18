@@ -32,11 +32,14 @@ public class BodyMovePhysic : MonoBehaviour, IBodyPhysic
     {
         m_dataMove = GetComponent<IsometricDataMove>();
         //
-        if (m_dataMove.Data.Count > 0)
+        if (m_dataMove != null)
         {
-            TurnManager.SetInit(TurnType.MovePhysic, gameObject);
-            TurnManager.Instance.onTurn += IOnTurn;
-            TurnManager.Instance.onStepStart += IOnStep;
+            if (m_dataMove.Data.Count > 0)
+            {
+                TurnManager.SetInit(TurnType.MovePhysic, gameObject);
+                TurnManager.Instance.onTurn += IOnTurn;
+                TurnManager.Instance.onStepStart += IOnStep;
+            }
         }
         //
         m_moveCheckAhead = GameConfigInit.GetExist(GetComponent<IsometricDataInit>(), GameConfigInit.Key.MoveCheckAhead);
@@ -51,11 +54,14 @@ public class BodyMovePhysic : MonoBehaviour, IBodyPhysic
 
     protected void OnDestroy()
     {
-        if (m_dataMove.Data.Count > 0)
+        if (m_dataMove != null)
         {
-            TurnManager.SetRemove(TurnType.MovePhysic, gameObject);
-            TurnManager.Instance.onTurn -= IOnTurn;
-            TurnManager.Instance.onStepStart -= IOnStep;
+            if (m_dataMove.Data.Count > 0)
+            {
+                TurnManager.SetRemove(TurnType.MovePhysic, gameObject);
+                TurnManager.Instance.onTurn -= IOnTurn;
+                TurnManager.Instance.onStepStart -= IOnStep;
+            }
         }
         //
         m_body.onMove -= IMoveForce;
