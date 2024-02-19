@@ -27,7 +27,7 @@ public class PlayerRefsTool : EditorWindow
     private List<ListSingle> m_list = new List<ListSingle>();
     private Vector2 m_listScrollView;
 
-    private string ListPath => QPath.GetPath(QPath.PathType.Assets, @"..", "ToolPlayRefs.txt");
+    private string ListPath => QPath.GetPath(QPath.PathType.Assets, "ToolPlayRefs.txt");
 
     [MenuItem("Tools/PlayerPrefs")]
     public static void Init()
