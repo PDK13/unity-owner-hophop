@@ -172,8 +172,8 @@ public enum TurnType
     //
     Gravity,
     Player,
-    MovePhysic,
-    MoveStatic,
     Bullet,
     Shoot,
+    MovePhysic,
+    MoveStatic,
 }

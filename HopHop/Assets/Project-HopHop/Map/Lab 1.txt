@@ -66,6 +66,13 @@ Object Flower Blue 0
 Object Flower Blue 0
 #BLOCK-END
 
+[1;-1;0]
+Block Stone 0
+#BLOCK-INIT
+1
+follow-identity-check-[1,2,-1]
+#BLOCK-END
+
 [-3;-1;0]
 Object Flower Blue 0
 #BLOCK-END
