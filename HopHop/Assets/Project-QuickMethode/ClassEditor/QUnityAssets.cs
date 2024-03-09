@@ -52,10 +52,10 @@ public class QUnityAssets
             SetRefresh();
             return AssetDatabase.GUIDToAssetPath(GUID); //GUID not emty is success!!
         }
-        catch
+        catch 
         {
             //Something went wrong when created folder?!
-            return "";
+            return ""; 
         }
     }
 

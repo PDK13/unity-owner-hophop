@@ -66,28 +66,28 @@ public class QCircle
 
     public static float GetDegOppositeUD(float Deg360)
     {
-        if (0f == Deg360 || Deg360 == 360f)
+        if (0f == Deg360 || Deg360 == 360f) 
             return 180f;
 
-        if (0f < Deg360 && Deg360 < 90f)
+        if (0f < Deg360 && Deg360 < 90f) 
             return 90f + (90f - Deg360);
 
-        if (Deg360 == 90f)
+        if (Deg360 == 90f) 
             return 90f;
 
-        if (90f < Deg360 && Deg360 < 180f)
+        if (90f < Deg360 && Deg360 < 180f) 
             return 90f - (Deg360 - 90f);
 
-        if (Deg360 == 180f)
+        if (Deg360 == 180f) 
             return 0f;
 
-        if (180f < Deg360 && Deg360 < 270f)
+        if (180f < Deg360 && Deg360 < 270f) 
             return 270f + (270f - Deg360);
 
-        if (Deg360 == 270f)
+        if (Deg360 == 270f) 
             return 270f;
 
-        if (270f < Deg360 && Deg360 < 360f)
+        if (270f < Deg360 && Deg360 < 360f) 
             return 270f - (Deg360 - 270f);
 
         Debug.LogError("Sonething wrong here!");

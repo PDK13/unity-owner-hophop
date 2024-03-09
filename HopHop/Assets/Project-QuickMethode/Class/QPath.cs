@@ -10,16 +10,16 @@ public class QPath
 {
     #region ==================================== Path Get
 
-    public enum PathType
-    {
-        None,
-        Persistent,
-        Assets,
-        Resources,
-        Document,
-        Picture,
-        Music,
-        Video,
+    public enum PathType 
+    { 
+        None, 
+        Persistent, 
+        Assets, 
+        Resources, 
+        Document, 
+        Picture, 
+        Music, 
+        Video, 
     }
 
     public enum ExtensionType

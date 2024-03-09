@@ -13,126 +13,86 @@ public class QCast
     {
         RaycastHit RaycastHit = new RaycastHit();
         Physics.Linecast(PosStart, PosEnd, out RaycastHit);
-
-        if (RaycastHit.collider == null)
-        {
-            return null;
-        }
-
-        return (RaycastHit.collider.gameObject, RaycastHit.point);
+        //
+        return RaycastHit.collider == null ? null : (RaycastHit.collider.gameObject, RaycastHit.point);
     }
 
     public static (GameObject Target, Vector3 Point)? GetRaycast(Vector3 PosStart, Vector3 PosEnd, float Distance)
     {
         Vector3 Dir = (PosEnd - PosStart).normalized;
-
+        //
         RaycastHit RaycastHit = new RaycastHit();
         Physics.Raycast(PosStart, Dir, out RaycastHit, Distance);
-
-        if (RaycastHit.collider == null)
-        {
-            return null;
-        }
-
-        return (RaycastHit.collider.gameObject, RaycastHit.point);
+        //
+        return RaycastHit.collider == null ? null : (RaycastHit.collider.gameObject, RaycastHit.point);
     }
 
     public static (GameObject Target, Vector3 Point)? GetRaycastDir(Vector3 PosStart, Vector3 Dir, float Distance)
     {
         RaycastHit RaycastHit = new RaycastHit();
         Physics.Raycast(PosStart, Dir.normalized, out RaycastHit, Distance);
-
-        if (RaycastHit.collider == null)
-        {
-            return null;
-        }
-
-        return (RaycastHit.collider.gameObject, RaycastHit.point);
+        //
+        return RaycastHit.collider == null ? null : (RaycastHit.collider.gameObject, RaycastHit.point);
     }
 
     public static (GameObject Target, Vector3 Point)? GetBoxCast(Vector3 PosStart, Vector3 PosEnd, Vector3 Size, Vector3 Rotation, float Distance)
     {
         Vector3 Dir = (PosEnd - PosStart).normalized;
         Quaternion Quaternion = Quaternion.Euler(Rotation);
-
+        //
         RaycastHit RaycastHit = new RaycastHit();
         Physics.BoxCast(PosStart, Size, Dir, out RaycastHit, Quaternion, Distance);
-
-        if (RaycastHit.collider == null)
-        {
-            return null;
-        }
-
-        return (RaycastHit.collider.gameObject, RaycastHit.point);
+        //
+        return RaycastHit.collider == null ? null : (RaycastHit.collider.gameObject, RaycastHit.point);
     }
 
     public static (GameObject Target, Vector3 Point)? GetBoxCastDir(Vector3 PosStart, Vector3 Dir, Vector3 Size, Vector3 Rotation, float Distance)
     {
         Quaternion Quaternion = Quaternion.Euler(Rotation);
-
+        //
         RaycastHit RaycastHit = new RaycastHit();
         Physics.BoxCast(PosStart, Size, Dir.normalized, out RaycastHit, Quaternion, Distance);
-
-        if (RaycastHit.collider == null)
-        {
-            return null;
-        }
-
-        return (RaycastHit.collider.gameObject, RaycastHit.point);
+        //
+        return RaycastHit.collider == null ? null : (RaycastHit.collider.gameObject, RaycastHit.point);
     }
 
     public static (GameObject Target, Vector3 Point)? GetSphereCast(Vector3 PosStart, Vector3 PosEnd, float Radius, float Distance)
     {
         Vector3 Dir = (PosEnd - PosStart).normalized;
-
+        //
         RaycastHit RaycastHit = new RaycastHit();
         Physics.SphereCast(PosStart, Radius / 2, Dir, out RaycastHit, Distance);
-
-        if (RaycastHit.collider == null)
-        {
-            return null;
-        }
-
-        return (RaycastHit.collider.gameObject, RaycastHit.point);
+        //
+        return RaycastHit.collider == null ? null : (RaycastHit.collider.gameObject, RaycastHit.point);
     }
 
     public static (GameObject Target, Vector3 Point)? GetSphereCastDir(Vector3 PosStart, Vector3 Dir, float Radius, float Distance)
     {
         RaycastHit RaycastHit = new RaycastHit();
         Physics.SphereCast(PosStart, Radius / 2, Dir.normalized, out RaycastHit, Distance);
-
-        if (RaycastHit.collider == null)
-        {
-            return null;
-        }
-
-        return (RaycastHit.collider.gameObject, RaycastHit.point);
+        return RaycastHit.collider == null ? null : (RaycastHit.collider.gameObject, RaycastHit.point);
     }
 
     public static List<GameObject> GetBoxOverlap(Vector3 PosStart, Vector3 Size, Vector3 Rotation)
     {
         Quaternion Quaternion = Quaternion.Euler(Rotation);
         Collider[] ObjectsHit = Physics.OverlapBox(PosStart, Size, Quaternion);
-
+        //
         List<GameObject> ObjectsHitList = new List<GameObject>();
         foreach (Collider ObjectHit in ObjectsHit)
-        {
             ObjectsHitList.Add(ObjectHit.gameObject);
-        }
-
+        //
         return ObjectsHitList;
     }
 
     public static List<GameObject> GetCircleOverlap(Vector3 PosStart, float Size)
     {
         Collider[] ObjectsHit = Physics.OverlapSphere(PosStart, Size);
-
+        //
         List<GameObject> ObjectsHitList = new List<GameObject>();
         foreach (Collider ObjectHit in ObjectsHit)
-        {
             ObjectsHitList.Add(ObjectHit.gameObject);
-        }
-
+        //
         return ObjectsHitList;
     }
 
@@ -143,129 +103,90 @@ public class QCast
     public static (GameObject Target, Vector3 Point)? GetLineCast(Vector3 PosStart, Vector3 PosEnd, LayerMask Tarket)
     {
         RaycastHit RaycastHit = new RaycastHit();
-
+        //
         Physics.Linecast(PosStart, PosEnd, out RaycastHit, Tarket);
-
-        if (RaycastHit.collider == null)
-        {
-            return null;
-        }
-
-        return (RaycastHit.collider.gameObject, RaycastHit.point);
+        //
+        return RaycastHit.collider == null ? null : (RaycastHit.collider.gameObject, RaycastHit.point);
     }
 
     public static (GameObject Target, Vector3 Point)? GetRaycast(Vector3 PosStart, Vector3 PosEnd, float Distance, LayerMask Tarket)
     {
         Vector3 Dir = (PosEnd - PosStart).normalized;
-
+        //
         RaycastHit RaycastHit = new RaycastHit();
         Physics.Raycast(PosStart, Dir, out RaycastHit, Distance, Tarket);
-
-        if (RaycastHit.collider == null)
-        {
-            return null;
-        }
-
-        return (RaycastHit.collider.gameObject, RaycastHit.point);
+        //
+        return RaycastHit.collider == null ? null : (RaycastHit.collider.gameObject, RaycastHit.point);
     }
 
     public static (GameObject Target, Vector3 Point)? GetRaycastDir(Vector3 PosStart, Vector3 Dir, float Distance, LayerMask Tarket)
     {
         RaycastHit RaycastHit = new RaycastHit();
         Physics.Raycast(PosStart, Dir.normalized, out RaycastHit, Distance, Tarket);
-
-        if (RaycastHit.collider == null)
-        {
-            return null;
-        }
-
-        return (RaycastHit.collider.gameObject, RaycastHit.point);
+        //
+        return RaycastHit.collider == null ? null : (RaycastHit.collider.gameObject, RaycastHit.point);
     }
 
     public static (GameObject Target, Vector3 Point)? GetBoxCast(Vector3 PosStart, Vector3 PosEnd, Vector3 Size, Vector3 Rotation, float Distance, LayerMask Tarket)
     {
         Vector3 Dir = (PosEnd - PosStart).normalized;
         Quaternion Quaternion = Quaternion.Euler(Rotation);
-
+        //
         RaycastHit RaycastHit = new RaycastHit();
         Physics.BoxCast(PosStart, Size, Dir, out RaycastHit, Quaternion, Distance, Tarket);
-
-        if (RaycastHit.collider == null)
-        {
-            return null;
-        }
-
-        return (RaycastHit.collider.gameObject, RaycastHit.point);
+        //
+        return RaycastHit.collider == null ? null : (RaycastHit.collider.gameObject, RaycastHit.point);
     }
 
     public static (GameObject Target, Vector3 Point)? GetBoxCastDir(Vector3 PosStart, Vector3 Dir, Vector3 Size, Vector3 Rotation, float Distance, LayerMask Tarket)
     {
         Quaternion Quaternion = Quaternion.Euler(Rotation);
-
+        //
         RaycastHit RaycastHit = new RaycastHit();
         Physics.BoxCast(PosStart, Size, Dir.normalized, out RaycastHit, Quaternion, Distance, Tarket);
-
-        if (RaycastHit.collider == null)
-        {
-            return null;
-        }
-
-        return (RaycastHit.collider.gameObject, RaycastHit.point);
+        //
+        return RaycastHit.collider == null ? null : (RaycastHit.collider.gameObject, RaycastHit.point);
     }
 
     public static (GameObject Target, Vector3 Point)? GetSphereCast(Vector3 PosStart, Vector3 PosEnd, float Radius, float Distance, LayerMask Tarket)
     {
         Vector3 Dir = (PosEnd - PosStart).normalized;
-
+        //
         RaycastHit RaycastHit = new RaycastHit();
         Physics.SphereCast(PosStart, Radius / 2, Dir, out RaycastHit, Distance, Tarket);
-
-        if (RaycastHit.collider == null)
-        {
-            return null;
-        }
-
-        return (RaycastHit.collider.gameObject, RaycastHit.point);
+        //
+        return RaycastHit.collider == null ? null : (RaycastHit.collider.gameObject, RaycastHit.point);
     }
 
     public static (GameObject Target, Vector3 Point)? GetSphereCastDir(Vector3 PosStart, Vector3 Dir, float Radius, float Distance, LayerMask Tarket)
     {
         RaycastHit RaycastHit = new RaycastHit();
         Physics.SphereCast(PosStart, Radius / 2, Dir.normalized, out RaycastHit, Distance, Tarket);
-
-        if (RaycastHit.collider == null)
-        {
-            return null;
-        }
-
-        return (RaycastHit.collider.gameObject, RaycastHit.point);
+        //
+        return RaycastHit.collider == null ? null : (RaycastHit.collider.gameObject, RaycastHit.point);
     }
 
     public static List<GameObject> GetBoxOverlap(Vector3 PosStart, Vector3 Size, Vector3 Rotation, LayerMask Tarket)
     {
         Quaternion Quaternion = Quaternion.Euler(Rotation);
-
+        //
         Collider[] ObjectsHit = Physics.OverlapBox(PosStart, Size, Quaternion, Tarket);
-
+        //
         List<GameObject> ObjectsHitList = new List<GameObject>();
         foreach (Collider ObjectHit in ObjectsHit)
-        {
             ObjectsHitList.Add(ObjectHit.gameObject);
-        }
-
+        //
         return ObjectsHitList;
     }
 
     public static List<GameObject> GetCircleOverlap(Vector3 PosStart, float Size, LayerMask Tarket)
     {
         Collider[] ObjectsHit = Physics.OverlapSphere(PosStart, Size, Tarket);
-
+        //
         List<GameObject> ObjectsHitList = new List<GameObject>();
         foreach (Collider ObjectHit in ObjectsHit)
-        {
             ObjectsHitList.Add(ObjectHit.gameObject);
-        }
-
+        //
         return ObjectsHitList;
     }
 
@@ -280,176 +201,93 @@ public class QCast
     public static (GameObject Target, Vector2 Point)? GetLineCast2D(Vector2 PosStart, Vector2 PosEnd)
     {
         RaycastHit2D RaycastHit = Physics2D.Linecast(PosStart, PosEnd);
-
-        if (RaycastHit.collider == null)
-        {
-            return null;
-        }
-
-        return (RaycastHit.collider.gameObject, RaycastHit.point);
+        //
+        return RaycastHit.collider == null ? null : (RaycastHit.collider.gameObject, RaycastHit.point);
     }
 
     public static (GameObject Target, Vector2 Point)? GetRaycast2D(Vector2 PosStart, Vector2 PosEnd, float Distance)
     {
         Vector2 Dir = (PosEnd - PosStart).normalized;
-
-        if (Dir == Vector2.zero)
-        {
-            return (null, PosStart);
-        }
-
+        //
         RaycastHit2D RaycastHit = Physics2D.Raycast(PosStart, Dir, Distance);
-
-        if (RaycastHit.collider == null)
-        {
-            return null;
-        }
-
-        return (RaycastHit.collider.gameObject, RaycastHit.point);
+        //
+        return RaycastHit.collider == null ? null : (RaycastHit.collider.gameObject, RaycastHit.point);
     }
 
     public static (GameObject Target, Vector2 Point)? GetRaycast2DDir(Vector2 PosStart, Vector2 Dir, float Distance)
     {
-        if (Dir == Vector2.zero)
-        {
-            return (null, PosStart);
-        }
-
         RaycastHit2D RaycastHit = Physics2D.Raycast(PosStart, Dir.normalized, Distance);
-
-        if (RaycastHit.collider == null)
-        {
-            return null;
-        }
-
-        return (RaycastHit.collider.gameObject, RaycastHit.point);
+        //
+        return RaycastHit.collider == null ? null : (RaycastHit.collider.gameObject, RaycastHit.point);
     }
 
     public static (GameObject Target, Vector2 Point)? GetBoxCast2D(Vector2 PosStart, Vector2 PosEnd, Vector2 Size, float Rotation, float Distance)
     {
         Vector2 Dir = (PosEnd - PosStart).normalized;
-
-        if (Dir == Vector2.zero)
-        {
-            return (null, PosStart);
-        }
-
+        //
         RaycastHit2D RaycastHit = Physics2D.BoxCast(PosStart, Size, Rotation, Dir, Distance);
-
-        if (RaycastHit.collider == null)
-        {
-            return null;
-        }
-
-        return (RaycastHit.collider.gameObject, RaycastHit.point);
+        //
+        return RaycastHit.collider == null ? null : (RaycastHit.collider.gameObject, RaycastHit.point);
     }
 
     public static (GameObject Target, Vector2 Point)? GetBoxCast2DDir(Vector2 PosStart, Vector2 Dir, Vector2 Size, float Rotation, float Distance)
     {
-        if (Dir == Vector2.zero)
-        {
-            return (null, PosStart);
-        }
-
         RaycastHit2D RaycastHit = Physics2D.BoxCast(PosStart, Size, Rotation, Dir.normalized, Distance);
-
-        if (RaycastHit.collider == null)
-        {
-            return null;
-        }
-
-        return (RaycastHit.collider.gameObject, RaycastHit.point);
+        //
+        return RaycastHit.collider == null ? null : (RaycastHit.collider.gameObject, RaycastHit.point);
     }
 
     public static (GameObject Target, Vector2 Point)? GetCircleCast2D(Vector2 PosStart, Vector2 PosEnd, float Radius, float Distance)
     {
         Vector2 Dir = (PosEnd - PosStart).normalized;
-
-        if (Dir == Vector2.zero)
-        {
-            return (null, PosStart);
-        }
-
+        //
         RaycastHit2D RaycastHit = Physics2D.CircleCast(PosStart, Radius / 2, Dir, Distance);
-
-        if (RaycastHit.collider == null)
-        {
-            return null;
-        }
-
-        return (RaycastHit.collider.gameObject, RaycastHit.point);
+        //
+        return RaycastHit.collider == null ? null : (RaycastHit.collider.gameObject, RaycastHit.point);
     }
 
     public static (GameObject Target, Vector2 Point)? GetCircleCast2DDir(Vector2 PosStart, Vector2 Dir, float Radius, float Distance)
     {
-        if (Dir == Vector2.zero)
-        {
-            return (null, PosStart);
-        }
-
         RaycastHit2D RaycastHit = Physics2D.CircleCast(PosStart, Radius / 2, Dir.normalized, Distance);
-
-        if (RaycastHit.collider == null)
-        {
-            return null;
-        }
-
-        return (RaycastHit.collider.gameObject, RaycastHit.point);
+        //
+        return RaycastHit.collider == null ? null : (RaycastHit.collider.gameObject, RaycastHit.point);
     }
 
     public static GameObject GetOverlapCircle2D(Vector2 PosStart, float Radius)
     {
         Collider2D ColliderHit = Physics2D.OverlapCircle(PosStart, Radius);
-
-        if (ColliderHit == null)
-        {
-            return null;
-        }
-
-        return ColliderHit.gameObject;
+        //
+        return ColliderHit == null ? null : ColliderHit.gameObject;
     }
 
     public static List<GameObject> GetOverlapCircleAll2D(Vector2 PosStart, float Radius)
     {
         Collider2D[] ColliderHit = Physics2D.OverlapCircleAll(PosStart, Radius);
-
+        //
         List<GameObject> ColliderHitList = new List<GameObject>();
         for (int i = 0; i < ColliderHit.Length; i++)
-        {
             if (ColliderHit[i] != null)
-            {
                 ColliderHitList.Add(ColliderHit[i].gameObject);
-            }
-        }
-
+        //
         return ColliderHitList;
     }
 
     public static GameObject GetOverlapBox2D(Vector2 PosStart, Vector2 Size, float Rotation)
     {
         Collider2D ColliderHit = Physics2D.OverlapBox(PosStart, Size, Rotation);
-
-        if (ColliderHit == null)
-        {
-            return null;
-        }
-
-        return ColliderHit.gameObject;
+        //
+        return ColliderHit == null ? null : ColliderHit.gameObject;
     }
 
     public static List<GameObject> GetOverlapBoxAll2D(Vector2 PosStart, Vector2 Size, float Rotation)
     {
         Collider2D[] ColliderHit = Physics2D.OverlapBoxAll(PosStart, Size, Rotation);
-
+        //
         List<GameObject> ColliderHitList = new List<GameObject>();
         for (int i = 0; i < ColliderHit.Length; i++)
-        {
             if (ColliderHit[i] != null)
-            {
                 ColliderHitList.Add(ColliderHit[i].gameObject);
-            }
-        }
-
+        //
         return ColliderHitList;
     }
 
@@ -460,176 +298,93 @@ public class QCast
     public static (GameObject Target, Vector2 Point)? GetLineCast2D(Vector2 PosStart, Vector2 PosEnd, LayerMask Tarket)
     {
         RaycastHit2D RaycastHit = Physics2D.Linecast(PosStart, PosEnd, Tarket);
-
-        if (RaycastHit.collider == null)
-        {
-            return null;
-        }
-
-        return (RaycastHit.collider.gameObject, RaycastHit.point);
+        //
+        return RaycastHit.collider == null ? null : (RaycastHit.collider.gameObject, RaycastHit.point);
     }
 
     public static (GameObject Target, Vector2 Point)? GetRaycast2D(Vector2 PosStart, Vector2 PosEnd, float Distance, LayerMask Tarket)
     {
         Vector2 Dir = (PosEnd - PosStart).normalized;
-
-        if (Dir == Vector2.zero)
-        {
-            return (null, PosStart);
-        }
-
+        //
         RaycastHit2D RaycastHit = Physics2D.Raycast(PosStart, Dir, Distance, Tarket);
-
-        if (RaycastHit.collider == null)
-        {
-            return null;
-        }
-
-        return (RaycastHit.collider.gameObject, RaycastHit.point);
+        //
+        return RaycastHit.collider == null ? null : (RaycastHit.collider.gameObject, RaycastHit.point);
     }
 
     public static (GameObject Target, Vector2 Point)? GetRaycast2DDir(Vector2 PosStart, Vector2 Dir, float Distance, LayerMask Tarket)
     {
-        if (Dir == Vector2.zero)
-        {
-            return (null, PosStart);
-        }
-
         RaycastHit2D RaycastHit = Physics2D.Raycast(PosStart, Dir.normalized, Distance, Tarket);
-
-        if (RaycastHit.collider == null)
-        {
-            return null;
-        }
-
-        return (RaycastHit.collider.gameObject, RaycastHit.point);
+        //
+        return RaycastHit.collider == null ? null : (RaycastHit.collider.gameObject, RaycastHit.point);
     }
 
     public static (GameObject Target, Vector2 Point)? GetBoxCast2D(Vector2 PosStart, Vector2 PosEnd, Vector2 Size, float Rotation, float Distance, LayerMask Tarket)
     {
         Vector2 Dir = (PosEnd - PosStart).normalized;
-
-        if (Dir == Vector2.zero)
-        {
-            return (null, PosStart);
-        }
-
+        //
         RaycastHit2D RaycastHit = Physics2D.BoxCast(PosStart, Size, Rotation, Dir, Distance, Tarket);
-
-        if (RaycastHit.collider == null)
-        {
-            return null;
-        }
-
-        return (RaycastHit.collider.gameObject, RaycastHit.point);
+        //
+        return RaycastHit.collider == null ? null : (RaycastHit.collider.gameObject, RaycastHit.point);
     }
 
     public static (GameObject Target, Vector2 Point)? GetBoxCast2DDir(Vector2 PosStart, Vector2 Dir, Vector2 Size, float Rotation, float Distance, LayerMask Tarket)
     {
-        if (Dir == Vector2.zero)
-        {
-            return (null, PosStart);
-        }
-
         RaycastHit2D RaycastHit = Physics2D.BoxCast(PosStart, Size, Rotation, Dir.normalized, Distance, Tarket);
-
-        if (RaycastHit.collider == null)
-        {
-            return null;
-        }
-
-        return (RaycastHit.collider.gameObject, RaycastHit.point);
+        //
+        return RaycastHit.collider == null ? null : (RaycastHit.collider.gameObject, RaycastHit.point);
     }
 
     public static (GameObject Target, Vector2 Point)? GetCircleCast2D(Vector2 PosStart, Vector2 PosEnd, float Radius, float Distance, LayerMask Tarket)
     {
         Vector2 Dir = (PosEnd - PosStart).normalized;
-
-        if (Dir == Vector2.zero)
-        {
-            return (null, PosStart);
-        }
-
+        //
         RaycastHit2D RaycastHit = Physics2D.CircleCast(PosStart, Radius / 2, Dir, Distance, Tarket);
-
-        if (RaycastHit.collider == null)
-        {
-            return null;
-        }
-
-        return (RaycastHit.collider.gameObject, RaycastHit.point);
+        //
+        return RaycastHit.collider == null ? null : (RaycastHit.collider.gameObject, RaycastHit.point);
     }
 
     public static (GameObject Target, Vector2 Point)? GetCircleCast2DDir(Vector2 PosStart, Vector2 Dir, float Radius, float Distance, LayerMask Tarket)
     {
-        if (Dir == Vector2.zero)
-        {
-            return (null, PosStart);
-        }
-
         RaycastHit2D RaycastHit = Physics2D.CircleCast(PosStart, Radius / 2, Dir.normalized, Distance, Tarket);
-
-        if (RaycastHit.collider == null)
-        {
-            return null;
-        }
-
-        return (RaycastHit.collider.gameObject, RaycastHit.point);
+        //
+        return RaycastHit.collider == null ? null : (RaycastHit.collider.gameObject, RaycastHit.point);
     }
 
     public static GameObject GetOverlapCircle2D(Vector2 PosStart, float Radius, LayerMask Tarket)
     {
         Collider2D ColliderHit = Physics2D.OverlapCircle(PosStart, Radius, Tarket);
-
-        if (ColliderHit == null)
-        {
-            return null;
-        }
-
-        return ColliderHit.gameObject;
+        //
+        return ColliderHit == null ? null : ColliderHit.gameObject;
     }
 
     public static List<GameObject> GetOverlapCircleAll2D(Vector2 PosStart, float Radius, LayerMask Tarket)
     {
         Collider2D[] ColliderHit = Physics2D.OverlapCircleAll(PosStart, Radius, Tarket);
-
+        //
         List<GameObject> ColliderHitList = new List<GameObject>();
         for (int i = 0; i < ColliderHit.Length; i++)
-        {
             if (ColliderHit[i] != null)
-            {
                 ColliderHitList.Add(ColliderHit[i].gameObject);
-            }
-        }
-
+        //
         return ColliderHitList;
     }
 
     public static GameObject GetOverlapBox2D(Vector2 PosStart, Vector2 Size, float Rotation, LayerMask Tarket)
     {
         Collider2D ColliderHit = Physics2D.OverlapBox(PosStart, Size, Rotation, Tarket);
-
-        if (ColliderHit == null)
-        {
-            return null;
-        }
-
-        return ColliderHit.gameObject;
+        //
+        return ColliderHit == null ? null : ColliderHit.gameObject;
     }
 
     public static List<GameObject> GetOverlapBoxAll2D(Vector2 PosStart, Vector2 Size, float Rotation, LayerMask Tarket)
     {
         Collider2D[] ColliderHit = Physics2D.OverlapBoxAll(PosStart, Size, Rotation, Tarket);
-
+        //
         List<GameObject> ColliderHitList = new List<GameObject>();
         for (int i = 0; i < ColliderHit.Length; i++)
-        {
             if (ColliderHit[i] != null)
-            {
                 ColliderHitList.Add(ColliderHit[i].gameObject);
-            }
-        }
-
+        //
         return ColliderHitList;
     }
 
@@ -923,66 +678,4 @@ public class QCollider2D
     }
 
     #endregion
-}
-
-public class QTrajectory
-{
-    public static List<Vector3> GetTrajectory(Vector3 From, float Deg, float Force, float GravityScale, float VelocityDrag = 0f)
-    {
-        //NOTE:
-        //- Can be used for LineRenderer Component.
-        //- Can be used for Bullet GameObject with Rigidbody and Rigidbody2D Componenet.
-
-        List<Vector3> TrajectoryPath = new List<Vector3>();
-
-        Vector3 GravityGolbal = Vector3.down * (-Physics2D.gravity);
-        float Step = Time.fixedDeltaTime / Physics.defaultSolverVelocityIterations;
-        Vector3 Accel = GravityGolbal * GravityScale * Step * Step;
-        float Drag = 1f - Step * VelocityDrag;
-        Vector3 Dir = QCircle.GetPosXY(Deg, 1f).normalized * Force;
-        Vector3 Move = Dir * Step;
-
-        Vector3 Pos = From;
-        TrajectoryPath.Add(Pos);
-        for (int i = 0; i < 500; i++)
-        {
-            Move += Accel;
-            Move *= Drag;
-            Pos += Move;
-            TrajectoryPath.Add(Pos);
-        }
-
-        return TrajectoryPath;
-    }
-
-    public static float? GetDegToTarget(Vector3 From, Vector3 To, float Force, float GravityScale, bool DegHigh = true)
-    {
-        //Get the Deg to hit Target!
-
-        Vector3 Dir = To - From;
-        float HeightY = Dir.y;
-        Dir.y = 0f;
-        float LengthX = Dir.magnitude;
-        float Gravity = -Physics2D.gravity.y * GravityScale;
-        float SpeedSQR = Force * Force;
-        float UnderSQR = (SpeedSQR * SpeedSQR) - Gravity * (Gravity * LengthX * LengthX + 2 * HeightY * SpeedSQR);
-        if (UnderSQR >= 0)
-        {
-            float UnderSQRT = Mathf.Sqrt(UnderSQR);
-            float AngleHigh = SpeedSQR + UnderSQRT;
-            float AngleLow = SpeedSQR - UnderSQRT;
-
-            return DegHigh ? Mathf.Atan2(AngleHigh, Gravity * LengthX) * Mathf.Rad2Deg : Mathf.Atan2(AngleLow, Gravity * LengthX) * Mathf.Rad2Deg;
-        }
-
-        return null;
-    }
-
-    public static void SetForceToBullet(Rigidbody2D From, float Deg, float Force, float GravityScale, float VelocityDrag = 0f)
-    {
-        From.gameObject.SetActive(true);
-        From.velocity = QCircle.GetPosXY(Deg, 1f).normalized * Force;
-        From.gravityScale = GravityScale;
-        From.drag = VelocityDrag;
-    }
 }
