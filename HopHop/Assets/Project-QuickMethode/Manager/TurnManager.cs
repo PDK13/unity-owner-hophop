@@ -256,6 +256,12 @@ public class TurnManager : SingletonManager<TurnManager>
             return;
         }
         //
+        if (Unit == null)
+        {
+            Debug.LogError("[Turn] Turn object is null!");
+            return;
+        }
+        //
         for (int i = 0; i < Instance.m_turnQueue.Count; i++)
         {
             if (Instance.m_turnQueue[i].Turn != Turn)
@@ -282,6 +288,12 @@ public class TurnManager : SingletonManager<TurnManager>
         if (string.IsNullOrEmpty(Turn))
         {
             Debug.LogError("[Turn] Turn name not valid!");
+            return;
+        }
+        //
+        if (Unit == null)
+        {
+            Debug.LogError("[Turn] Turn object is null!");
             return;
         }
         //
@@ -329,6 +341,12 @@ public class TurnManager : SingletonManager<TurnManager>
             return;
         }
         //
+        if (Unit == null)
+        {
+            Debug.LogError("[Turn] Turn object is null!");
+            return;
+        }
+        //
         if (Instance.m_turnCurrent.Turn != Turn)
             return;
         //
@@ -348,6 +366,12 @@ public class TurnManager : SingletonManager<TurnManager>
         if (string.IsNullOrEmpty(Turn))
         {
             Debug.LogError("[Turn] Turn name not valid!");
+            return;
+        }
+        //
+        if (Unit == null)
+        {
+            Debug.LogError("[Turn] Turn object is null!");
             return;
         }
         //
@@ -411,6 +435,12 @@ public class TurnManager : SingletonManager<TurnManager>
             return;
         }
         //
+        if (Unit == null)
+        {
+            Debug.LogError("[Turn] Turn object is null!");
+            return;
+        }
+        //
         if (After < 0)
         {
             return;
@@ -448,6 +478,12 @@ public class TurnManager : SingletonManager<TurnManager>
         if (string.IsNullOrEmpty(Turn))
         {
             Debug.LogError("[Turn] Turn name not valid!");
+            return;
+        }
+        //
+        if (Unit == null)
+        {
+            Debug.LogError("[Turn] Turn object is null!");
             return;
         }
         //
