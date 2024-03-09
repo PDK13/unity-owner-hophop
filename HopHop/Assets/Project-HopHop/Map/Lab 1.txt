@@ -38,6 +38,10 @@ Object Flower Blue 0
 Object Flower Blue 0
 #BLOCK-END
 
+[1;2;0]
+Object Switch Stone 0
+#BLOCK-END
+
 [-3;2;0]
 Object Flower Blue 0
 #BLOCK-END
@@ -68,9 +72,6 @@ Object Flower Blue 0
 
 [1;-1;0]
 Block Stone 0
-#BLOCK-INIT
-1
-follow-identity-check-[1,2,-1]
 #BLOCK-END
 
 [-3;-1;0]
@@ -145,16 +146,24 @@ Block Normal 0
 Block Normal 0
 #BLOCK-END
 
+[2;2;-1]
+Block Stone 0
+#BLOCK-END
+
 [1;2;-1]
 Block Stone 0
-#BLOCK-INIT
-1
-follow-identity-[1,2,-1]
-#BLOCK-MOVE
-2
-2
-1|D
-1|D
+#BLOCK-END
+
+[0;2;-1]
+Block Stone 0
+#BLOCK-END
+
+[-1;2;-1]
+Block Stone 0
+#BLOCK-END
+
+[-2;2;-1]
+Block Stone 0
 #BLOCK-END
 
 [-3;2;-1]
@@ -163,6 +172,10 @@ Block Normal 0
 
 [3;1;-1]
 Block Normal 0
+#BLOCK-END
+
+[2;1;-1]
+Block Stone 0
 #BLOCK-END
 
 [1;1;-1]
@@ -177,12 +190,20 @@ Block Normal 0
 Block Normal 0
 #BLOCK-END
 
+[-2;1;-1]
+Block Stone 0
+#BLOCK-END
+
 [-3;1;-1]
 Block Normal 0
 #BLOCK-END
 
 [3;0;-1]
 Block Normal 0
+#BLOCK-END
+
+[2;0;-1]
+Block Stone 0
 #BLOCK-END
 
 [1;0;-1]
@@ -197,12 +218,20 @@ Block Normal 0
 Block Normal 0
 #BLOCK-END
 
+[-2;0;-1]
+Block Stone 0
+#BLOCK-END
+
 [-3;0;-1]
 Block Normal 0
 #BLOCK-END
 
 [3;-1;-1]
 Block Normal 0
+#BLOCK-END
+
+[2;-1;-1]
+Block Stone 0
 #BLOCK-END
 
 [1;-1;-1]
@@ -217,6 +246,10 @@ Block Normal 0
 Block Normal 0
 #BLOCK-END
 
+[-2;-1;-1]
+Block Stone 0
+#BLOCK-END
+
 [-3;-1;-1]
 Block Normal 0
 #BLOCK-END
@@ -225,11 +258,24 @@ Block Normal 0
 Block Normal 0
 #BLOCK-END
 
+[2;-2;-1]
+Block Stone 0
+#BLOCK-END
+
 [1;-2;-1]
 Block Stone 0
-#BLOCK-INIT
-1
-follow-identity-check-[1,2,-1]
+#BLOCK-END
+
+[0;-2;-1]
+Block Stone 0
+#BLOCK-END
+
+[-1;-2;-1]
+Block Stone 0
+#BLOCK-END
+
+[-2;-2;-1]
+Block Stone 0
 #BLOCK-END
 
 [-3;-2;-1]

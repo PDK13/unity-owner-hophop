@@ -73,10 +73,13 @@ MonoBehaviour:
       Block:
       - {fileID: 1455909166595997230, guid: bb1d6f31074e38a4c82d0eaf4f95129c, type: 3}
       - {fileID: 1455909166595997230, guid: cc00723f6326c324aaef48d0264f6f62, type: 3}
+    - Tag: Switch
+      Block:
+      - {fileID: 44393240911007880, guid: f3796a1a3a0f27c46aebeae5a7e0d2e0, type: 3}
   Map:
     m_assetsPath: Assets/Project-HopHop/Map
     m_list:
     - Tag: Lab
       Map:
       - {fileID: 4900000, guid: b2de289a8efade346a26065b3868e81f, type: 3}
-      - {fileID: 4900000, guid: c5ed5b4b6186fab408d97d46930a4f72, type: 3}
+      - {fileID: 4900000, guid: 4ac5d56a7d52c574aa3eb6b79febf253, type: 3}

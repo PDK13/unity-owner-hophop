@@ -6,6 +6,9 @@ public class GameConfigInit
         //Follow
         FollowIdentity,
         FollowIdentityCheck,
+        //Switch
+        SwitchIdentity,
+        SwitchIdentityCheck,
         //Move
         MoveCheckAhead,
         MoveCheckAheadBot,
@@ -18,6 +21,10 @@ public class GameConfigInit
     //Follow
     public const string FollowIdentity = "follow-identity"; //follow-identity-[identity]
     public const string FollowIdentityCheck = "follow-identity-check"; //follow-identity-check-[identity]
+
+    //Follow
+    public const string SwitchIdentity = "switch-identity"; //switch-identity-[identity]
+    public const string SwitchIdentityCheck = "switch-identity-check"; //switch-identity-check-[identity]
 
     //Move
     public const string MoveCheckAhead = "move-check-ahead";
