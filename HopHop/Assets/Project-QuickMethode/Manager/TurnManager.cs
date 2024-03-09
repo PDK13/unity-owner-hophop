@@ -129,6 +129,7 @@ public class TurnManager : SingletonManager<TurnManager>
     private void OnDestroy()
     {
         StopAllCoroutines();
+        Instance.StopAllCoroutines();
         //
 #if UNITY_EDITOR
         EditorApplication.playModeStateChanged -= SetPlayModeStateChange;
@@ -140,7 +141,7 @@ public class TurnManager : SingletonManager<TurnManager>
     public static void SetStart()
     {
         if ((int)Instance.m_debug >= (int)DebugType.None)
-            Debug.LogWarning("[Turn] START!!");
+            Debug.LogFormat("[Turn] START!!");
         //
         Instance.m_turnPass = 0;
         Instance.m_turnQueue.RemoveAll(t => t.Turn == "");
@@ -180,7 +181,7 @@ public class TurnManager : SingletonManager<TurnManager>
             m_turnPass++;
             //
             if ((int)Instance.m_debug >= (int)DebugType.None)
-                Debug.LogWarningFormat("[Turn] <TURN {0} START>", m_turnPass);
+                Debug.LogFormat("[Turn] <TURN {0} START>", m_turnPass);
             //
             onTurn?.Invoke(m_turnPass);
             //
@@ -206,7 +207,7 @@ public class TurnManager : SingletonManager<TurnManager>
         if (m_turnCurrent != null)
         {
             if ((int)Instance.m_debug >= (int)DebugType.Full)
-                Debug.LogWarningFormat("[Turn] <TURN {1} START> {2} / {3}", m_turnPass, m_turnCurrent.Turn, m_turnCurrent.UnitEndTurn.Count, m_turnCurrent.Unit.Count);
+                Debug.LogFormat("[Turn] <TURN {1} START> {2} / {3}", m_turnPass, m_turnCurrent.Turn, m_turnCurrent.UnitEndTurn.Count, m_turnCurrent.Unit.Count);
         }
         //
         if (DelayNewStep && m_delayStep > 0)
