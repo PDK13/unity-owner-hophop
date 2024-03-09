@@ -197,7 +197,7 @@ public class IsometricDataFile
                             {
                                 case KEY_BLOCK_INIT:
                                     {
-                                        var BlockData = Block.AddComponent<IsometricDataInit>();
+                                        IsometricDataInit BlockData = Block.GetComponent<IsometricDataInit>() ?? Block.AddComponent<IsometricDataInit>();
                                         //
                                         BlockData.Data = new List<string>();
                                         int InitCount = FileIO.GetReadAutoInt();
@@ -207,7 +207,7 @@ public class IsometricDataFile
                                     break;
                                 case KEY_BLOCK_MOVE:
                                     {
-                                        var BlockData = Block.AddComponent<IsometricDataMove>();
+                                        IsometricDataMove BlockData = Block.GetComponent<IsometricDataMove>() ?? Block.AddComponent<IsometricDataMove>();
                                         //
                                         BlockData.Type = FileIO.GetReadAutoEnum<DataBlockType>();
                                         BlockData.SetDataNew();
@@ -218,7 +218,7 @@ public class IsometricDataFile
                                     break;
                                 case KEY_BLOCK_ACTION:
                                     {
-                                        var BlockData = Block.AddComponent<IsometricDataAction>();
+                                        IsometricDataAction BlockData = Block.GetComponent<IsometricDataAction>() ?? Block.AddComponent<IsometricDataAction>();
                                         //
                                         BlockData.Type = FileIO.GetReadAutoEnum<DataBlockType>();
                                         BlockData.SetDataNew();
@@ -229,7 +229,7 @@ public class IsometricDataFile
                                     break;
                                 case KEY_BLOCK_TELEPORT:
                                     {
-                                        var BlockData = Block.AddComponent<IsometricDataTeleport>();
+                                        IsometricDataTeleport BlockData = Block.GetComponent<IsometricDataTeleport>() ?? Block.AddComponent<IsometricDataTeleport>();
                                         //
                                         BlockData.SetValue(IsometricDataTeleport.GetDencypt(FileIO.GetReadAutoString()));
                                     }
