@@ -228,7 +228,7 @@ public class TurnManager : SingletonManager<TurnManager>
     {
         if (string.IsNullOrEmpty(Turn))
         {
-            Debug.LogError("[Turn] Turn name not valid!");
+            Debug.LogWarning("[Turn] Turn name not valid!");
             return;
         }
         //
@@ -252,13 +252,13 @@ public class TurnManager : SingletonManager<TurnManager>
     {
         if (string.IsNullOrEmpty(Turn))
         {
-            Debug.LogError("[Turn] Turn name not valid!");
+            Debug.LogWarning("[Turn] Turn name not valid!");
             return;
         }
         //
         if (Unit == null)
         {
-            Debug.LogError("[Turn] Turn object is null!");
+            Debug.LogWarning("[Turn] Turn object is null!");
             return;
         }
         //
@@ -287,13 +287,13 @@ public class TurnManager : SingletonManager<TurnManager>
     {
         if (string.IsNullOrEmpty(Turn))
         {
-            Debug.LogError("[Turn] Turn name not valid!");
+            Debug.LogWarning("[Turn] Turn name not valid!");
             return;
         }
         //
         if (Unit == null)
         {
-            Debug.LogError("[Turn] Turn object is null!");
+            Debug.LogWarning("[Turn] Turn object is null!");
             return;
         }
         //
@@ -337,13 +337,13 @@ public class TurnManager : SingletonManager<TurnManager>
     {
         if (string.IsNullOrEmpty(Turn))
         {
-            Debug.LogError("[Turn] Turn name not valid!");
+            Debug.LogWarning("[Turn] Turn name not valid!");
             return;
         }
         //
         if (Unit == null)
         {
-            Debug.LogError("[Turn] Turn object is null!");
+            Debug.LogWarning("[Turn] Turn object is null!");
             return;
         }
         //
@@ -365,13 +365,13 @@ public class TurnManager : SingletonManager<TurnManager>
     {
         if (string.IsNullOrEmpty(Turn))
         {
-            Debug.LogError("[Turn] Turn name not valid!");
+            Debug.LogWarning("[Turn] Turn name not valid!");
             return;
         }
         //
         if (Unit == null)
         {
-            Debug.LogError("[Turn] Turn object is null!");
+            Debug.LogWarning("[Turn] Turn object is null!");
             return;
         }
         //
@@ -431,13 +431,13 @@ public class TurnManager : SingletonManager<TurnManager>
     {
         if (string.IsNullOrEmpty(Turn))
         {
-            Debug.LogError("[Turn] Turn name not valid!");
+            Debug.LogWarning("[Turn] Turn name not valid!");
             return;
         }
         //
         if (Unit == null)
         {
-            Debug.LogError("[Turn] Turn object is null!");
+            Debug.LogWarning("[Turn] Turn object is null!");
             return;
         }
         //
@@ -477,13 +477,13 @@ public class TurnManager : SingletonManager<TurnManager>
     {
         if (string.IsNullOrEmpty(Turn))
         {
-            Debug.LogError("[Turn] Turn name not valid!");
+            Debug.LogWarning("[Turn] Turn name not valid!");
             return;
         }
         //
         if (Unit == null)
         {
-            Debug.LogError("[Turn] Turn object is null!");
+            Debug.LogWarning("[Turn] Turn object is null!");
             return;
         }
         //
