@@ -534,7 +534,7 @@ public class TurnManager : SingletonManager<TurnManager>
         SetEndMove(Step.ToString(), Unit);
     } //End!!
 
-    public static void SetEndTurn<T>(T Step, ITurnManager Unit) where T : Enum
+    public static void SetEndStep<T>(T Step, ITurnManager Unit) where T : Enum
     {
         SetEndTurn(Step.ToString(), Unit);
     } //End!!

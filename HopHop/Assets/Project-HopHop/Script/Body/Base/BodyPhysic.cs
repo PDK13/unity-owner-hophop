@@ -161,6 +161,9 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
     private void SetForceGravity()
     {
         TurnManager.SetAdd(TurnType.Gravity, this);
+        TurnManager.Instance.onTurn += ITurn;
+        TurnManager.Instance.onStepStart += IStepStart;
+        TurnManager.Instance.onStepEnd += IStepEnd;
     }
 
     private void SetControlGravity()
@@ -176,7 +179,10 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
             }
             else
             {
-                TurnManager.SetEndTurn(TurnType.Gravity, this);
+                TurnManager.SetEndStep(TurnType.Gravity, this);
+                TurnManager.Instance.onTurn -= ITurn;
+                TurnManager.Instance.onStepStart -= IStepStart;
+                TurnManager.Instance.onStepEnd -= IStepEnd;
                 //
                 SetStandOnForce();
                 onGravity?.Invoke(false);

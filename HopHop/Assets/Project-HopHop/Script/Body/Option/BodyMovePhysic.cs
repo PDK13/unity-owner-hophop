@@ -37,6 +37,9 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic
             if (m_dataMove.Data.Count > 0)
             {
                 TurnManager.SetInit(TurnType.MovePhysic, this);
+                TurnManager.Instance.onTurn += ITurn;
+                TurnManager.Instance.onStepStart += IStepStart;
+                TurnManager.Instance.onStepEnd += IStepEnd;
             }
         }
         //
@@ -57,6 +60,9 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic
             if (m_dataMove.Data.Count > 0)
             {
                 TurnManager.SetRemove(TurnType.MovePhysic, this);
+                TurnManager.Instance.onTurn -= ITurn;
+                TurnManager.Instance.onStepStart -= IStepStart;
+                TurnManager.Instance.onStepEnd -= IStepEnd;
             }
         }
         //
@@ -98,7 +104,7 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic
                             m_dataMove.SetDirNext();
                             //
                             m_turnActive = false;
-                            TurnManager.SetEndTurn(TurnType.MovePhysic, this);
+                            TurnManager.SetEndStep(TurnType.MovePhysic, this);
                         }
                     }
                 }
@@ -117,7 +123,7 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic
         if (!State)
         {
             m_turnActive = false;
-            TurnManager.SetEndTurn(TurnType.MovePhysic, this);
+            TurnManager.SetEndStep(TurnType.MovePhysic, this);
         }
     }
 
@@ -131,7 +137,7 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic
         if (m_dataMove.DirCombineCurrent == IsometricVector.None)
         {
             m_turnActive = false;
-            TurnManager.SetEndTurn(TurnType.MovePhysic, this); //Follow Enermy (!)
+            TurnManager.SetEndStep(TurnType.MovePhysic, this); //Follow Enermy (!)
             return true;
         }
         //

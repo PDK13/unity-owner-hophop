@@ -41,6 +41,9 @@ public class BodyShoot : MonoBehaviour, ITurnManager
             if (m_dataAction.Data.Count > 0)
             {
                 TurnManager.SetInit(TurnType.Shoot, this);
+                TurnManager.Instance.onTurn += ITurn;
+                TurnManager.Instance.onStepStart += IStepStart;
+                TurnManager.Instance.onStepEnd += IStepEnd;
             }
         }
     }
@@ -52,6 +55,9 @@ public class BodyShoot : MonoBehaviour, ITurnManager
             if (m_dataAction.Data.Count > 0)
             {
                 TurnManager.SetRemove(TurnType.Shoot, this);
+                TurnManager.Instance.onTurn -= ITurn;
+                TurnManager.Instance.onStepStart -= IStepStart;
+                TurnManager.Instance.onStepEnd -= IStepEnd;
             }
         }
     }
@@ -116,7 +122,7 @@ public class BodyShoot : MonoBehaviour, ITurnManager
         yield return new WaitForSeconds(GameManager.TimeMove * 1);
         //
         m_turnControl = false;
-        TurnManager.SetEndTurn(TurnType.Shoot, this);
+        TurnManager.SetEndStep(TurnType.Shoot, this);
     }
 
     private void SetShoot(IsometricVector DirSpawm, IsometricVector DirMove, int Speed)

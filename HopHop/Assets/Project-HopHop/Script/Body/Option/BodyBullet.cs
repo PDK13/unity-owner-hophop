@@ -29,6 +29,9 @@ public class BodyBullet : MonoBehaviour, ITurnManager
         m_block = GetComponent<IsometricBlock>();
         //
         TurnManager.SetInit(TurnType.Bullet, this);
+        TurnManager.Instance.onTurn += ITurn;
+        TurnManager.Instance.onStepStart += IStepStart;
+        TurnManager.Instance.onStepEnd += IStepEnd;
         //
         if (m_body != null)
             m_body.onGravity += SetGravity;
@@ -42,6 +45,9 @@ public class BodyBullet : MonoBehaviour, ITurnManager
     private void OnDestroy()
     {
         TurnManager.SetRemove(TurnType.Bullet, this);
+        TurnManager.Instance.onTurn -= ITurn;
+        TurnManager.Instance.onStepStart -= IStepStart;
+        TurnManager.Instance.onStepEnd -= IStepEnd;
         //
         if (m_body != null)
             m_body.onGravity -= SetGravity;
@@ -134,7 +140,7 @@ public class BodyBullet : MonoBehaviour, ITurnManager
                 if (TurnEnd)
                 {
                     m_turnActive = false;
-                    TurnManager.SetEndTurn(TurnType.Bullet, this);
+                    TurnManager.SetEndStep(TurnType.Bullet, this);
                 }
                 else
                 {
@@ -151,8 +157,11 @@ public class BodyBullet : MonoBehaviour, ITurnManager
     public void SetHit()
     {
         m_turnActive = false;
-        TurnManager.SetEndTurn(TurnType.Bullet, this);
+        TurnManager.SetEndStep(TurnType.Bullet, this);
         TurnManager.SetRemove(TurnType.Bullet, this);
+        TurnManager.Instance.onTurn -= ITurn;
+        TurnManager.Instance.onStepStart -= IStepStart;
+        TurnManager.Instance.onStepEnd -= IStepEnd;
         //
         SetControlAnimation(ANIM_BLOW);
         m_block.WorldManager.World.Current.SetBlockRemoveInstant(m_block, DESTROY_DELAY);
