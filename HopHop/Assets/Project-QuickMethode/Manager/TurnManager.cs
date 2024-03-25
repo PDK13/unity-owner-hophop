@@ -704,7 +704,7 @@ public interface ITurnManager
 
 public interface ITurnManagerOptional
 {
-    void ISetStepAdd(string Step, ITurnManager Unit);
+    void ISetStepAdd(string Step);
 
-    void ISetStepRemove(string Step, ITurnManager Unit);
+    void ISetStepRemove(string Step);
 }
