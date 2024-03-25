@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-public class BodyMovePhysic : MonoBehaviour, IBodyPhysic
+public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic
 {
     protected bool m_turnActive = false;
 
@@ -36,9 +36,10 @@ public class BodyMovePhysic : MonoBehaviour, IBodyPhysic
         {
             if (m_dataMove.Data.Count > 0)
             {
-                TurnManager.SetInit(TurnType.MovePhysic, gameObject);
-                TurnManager.Instance.onTurn += IOnTurn;
-                TurnManager.Instance.onStepStart += IOnStep;
+                TurnManager.SetInit(TurnType.MovePhysic, this);
+                TurnManager.Instance.onTurn += ITurn;
+                TurnManager.Instance.onStepStart += IStepStart;
+                TurnManager.Instance.onStepEnd += IStepEnd;
             }
         }
         //
@@ -58,9 +59,10 @@ public class BodyMovePhysic : MonoBehaviour, IBodyPhysic
         {
             if (m_dataMove.Data.Count > 0)
             {
-                TurnManager.SetRemove(TurnType.MovePhysic, gameObject);
-                TurnManager.Instance.onTurn -= IOnTurn;
-                TurnManager.Instance.onStepStart -= IOnStep;
+                TurnManager.SetRemove(TurnType.MovePhysic, this);
+                TurnManager.Instance.onTurn -= ITurn;
+                TurnManager.Instance.onStepStart -= IStepStart;
+                TurnManager.Instance.onStepEnd -= IStepEnd;
             }
         }
         //
@@ -79,38 +81,40 @@ public class BodyMovePhysic : MonoBehaviour, IBodyPhysic
         set => m_turnActive = value;
     }
 
-    public void IOnTurn(int Turn)
+    public void ITurn(int Turn)
     {
         m_turnActive = true;
     }
 
-    public void IOnStep(string Name)
+    public void IStepStart(string Step)
     {
-        if (m_turnActive)
+        if (!m_turnActive)
+            return;
+        //
+        if (Step != TurnType.MovePhysic.ToString())
+            return;
+        //
+        if (!m_body.SetControlMoveForce())
         {
-            if (Name == TurnType.MovePhysic.ToString())
+            if (!IMove(m_dataMove.DirCombineCurrent))
             {
-                if (!m_body.SetControlMoveForce())
+                m_dataMove.SetDirRevert();
+                m_dataMove.SetDirNext();
+                if (!IMove(m_dataMove.DirCombineCurrent))
                 {
-                    if (!IMove(m_dataMove.DirCombineCurrent))
-                    {
-                        m_dataMove.SetDirRevert();
-                        m_dataMove.SetDirNext();
-                        if (!IMove(m_dataMove.DirCombineCurrent))
-                        {
-                            m_dataMove.SetDirRevert();
-                            m_dataMove.SetDirNext();
-                            //
-                            m_turnActive = false;
-                            TurnManager.SetEndTurn(TurnType.MovePhysic, gameObject);
-                        }
-                    }
-                }
-                else
+                    m_dataMove.SetDirRevert();
+                    m_dataMove.SetDirNext();
+                    //
                     m_turnActive = false;
+                    TurnManager.SetEndStep(TurnType.MovePhysic, this);
+                }
             }
         }
+        else
+            m_turnActive = false;
     }
+
+    public void IStepEnd(string Step) { }
 
     //
 
@@ -119,7 +123,7 @@ public class BodyMovePhysic : MonoBehaviour, IBodyPhysic
         if (!State)
         {
             m_turnActive = false;
-            TurnManager.SetEndTurn(TurnType.MovePhysic, gameObject);
+            TurnManager.SetEndStep(TurnType.MovePhysic, this);
         }
     }
 
@@ -133,7 +137,7 @@ public class BodyMovePhysic : MonoBehaviour, IBodyPhysic
         if (m_dataMove.DirCombineCurrent == IsometricVector.None)
         {
             m_turnActive = false;
-            TurnManager.SetEndTurn(TurnType.MovePhysic, gameObject); //Follow Enermy (!)
+            TurnManager.SetEndStep(TurnType.MovePhysic, this); //Follow Enermy (!)
             return true;
         }
         //

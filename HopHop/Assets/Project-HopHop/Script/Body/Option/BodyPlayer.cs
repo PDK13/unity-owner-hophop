@@ -15,9 +15,10 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic
 
     private void Start()
     {
-        TurnManager.SetInit(TurnType.Player, gameObject);
-        TurnManager.Instance.onTurn += IOnTurn;
-        TurnManager.Instance.onStepStart += IOnStepStart;
+        TurnManager.SetInit(TurnType.Player, this);
+        TurnManager.Instance.onTurn += ITurn;
+        TurnManager.Instance.onStepStart += IStepStart;
+        TurnManager.Instance.onStepEnd += IStepEnd;
         //
         m_body.onMove += IMoveForce;
         m_body.onForce += IForce;
@@ -32,9 +33,10 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic
 
     private void OnDestroy()
     {
-        TurnManager.SetRemove(TurnType.Player, gameObject);
-        TurnManager.Instance.onTurn -= IOnTurn;
-        TurnManager.Instance.onStepStart -= IOnStepStart;
+        TurnManager.SetRemove(TurnType.Player, this);
+        TurnManager.Instance.onTurn -= ITurn;
+        TurnManager.Instance.onStepStart -= IStepStart;
+        TurnManager.Instance.onStepEnd -= IStepEnd;
         //
         m_body.onMove -= IMoveForce;
         m_body.onForce -= IForce;
@@ -68,7 +70,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic
             IMove(IsometricVector.None);
     }
 
-    //
+    #region Turn
 
     public bool TurnActive
     {
@@ -76,34 +78,36 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic
         set => m_turnActive = value;
     }
 
-    public void IOnTurn(int Turn)
+    public void ITurn(int Turn)
     {
         //Reset!!
         //
         //...
     }
 
-    public void IOnStepStart(string Name)
+    public void IStepStart(string Step)
     {
-        if (Name == TurnType.Player.ToString())
-        {
-            if (!m_body.SetControlMoveForce())
-            {
-                m_turnActive = true;
-            }
-        }
+        if (Step != TurnType.Player.ToString())
+            return;
+        //
+        if (m_body.SetControlMoveForce())
+            return;
+        //
+        m_turnActive = true;
     }
 
-    public void IOnStepEnd(string Name) { }
+    public void IStepEnd(string Step) { }
 
-    //
+    #endregion
+
+    #region Move
 
     public void IMoveForce(bool State, IsometricVector Dir)
     {
         if (!State)
         {
             m_turnActive = false;
-            TurnManager.SetEndTurn(TurnType.Player, gameObject);
+            TurnManager.SetEndStep(TurnType.Player, this);
         }
     }
 
@@ -117,7 +121,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic
         if (Dir == IsometricVector.None)
         {
             m_turnActive = false;
-            TurnManager.SetEndTurn(TurnType.Player, gameObject); //Follow Player (!)
+            TurnManager.SetEndStep(TurnType.Player, this); //Follow Player (!)
             return false;
         }
         //
@@ -162,4 +166,6 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic
     {
         //...
     }
+
+    #endregion
 }

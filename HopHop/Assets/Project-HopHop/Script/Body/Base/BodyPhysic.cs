@@ -36,9 +36,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
 
     private void Start()
     {
-        m_bodyStatic =
-            m_bodyStatic ||
-            GameConfigInit.GetExist(GetComponent<IsometricDataInit>(), GameConfigInit.Key.BodyStatic);
+        m_bodyStatic = m_bodyStatic || GameConfigInit.GetExist(GetComponent<IsometricDataInit>(), GameConfigInit.Key.BodyStatic);
     }
 
     #region Turn
@@ -49,11 +47,11 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
         set => m_turnActive = value;
     }
 
-    public void IOnTurn(int Turn) { }
+    public void ITurn(int Turn) { }
 
-    public void IOnStepStart(string Name)
+    public void IStepStart(string Step)
     {
-        if (Name != TurnType.Gravity.ToString())
+        if (Step != TurnType.Gravity.ToString())
         {
             m_turnActive = false;
             return;
@@ -64,7 +62,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
         SetControlGravity();
     }
 
-    public void IOnStepEnd(string Name) { }
+    public void IStepEnd(string Step) { }
 
     #endregion
 
@@ -160,8 +158,10 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
 
     private void SetForceGravity()
     {
-        TurnManager.SetAdd(TurnType.Gravity, gameObject);
-        TurnManager.Instance.onStepStart += IOnStepStart;
+        TurnManager.SetAdd(TurnType.Gravity, this);
+        TurnManager.Instance.onTurn += ITurn;
+        TurnManager.Instance.onStepStart += IStepStart;
+        TurnManager.Instance.onStepEnd += IStepEnd;
     }
 
     private void SetControlGravity()
@@ -177,8 +177,10 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
             }
             else
             {
-                TurnManager.SetEndTurn(TurnType.Gravity, gameObject);
-                TurnManager.Instance.onStepStart -= IOnStepStart;
+                TurnManager.SetEndStep(TurnType.Gravity, this);
+                TurnManager.Instance.onTurn -= ITurn;
+                TurnManager.Instance.onStepStart -= IStepStart;
+                TurnManager.Instance.onStepEnd -= IStepEnd;
                 //
                 SetStandOnForce();
                 onGravity?.Invoke(false);

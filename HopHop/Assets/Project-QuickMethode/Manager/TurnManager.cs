@@ -29,13 +29,20 @@ public class TurnManager : SingletonManager<TurnManager>
 
     #region Event
 
+    //Main events for every unit(s) and other progess(s)!
+
     public Action<int> onTurn;          //<Turn>
-    public Action<string> onStepStart;  //<Name>
-    public Action<string> onStepEnd;    //<Name>
+    public Action<string> onStepStart;  //<Step>
+    public Action<string> onStepEnd;    //<Step>
+
+    //Optionals event for every unit(s) and other progess(s)!
+
+    public Action<string, ITurnManager> onStepAdd;      //<Step,Object>
+    public Action<string, ITurnManager> onStepRemove;   //<Step,Object>
 
     #endregion
 
-    #region Varible: Turn Manager
+    #region Varible: Step Manager
 
     private int m_turnPass = 0;
 
@@ -46,33 +53,38 @@ public class TurnManager : SingletonManager<TurnManager>
 
         public string Step = "None";
 
-        public List<GameObject> Unit;
-        public List<GameObject> UnitEndStep;
-        public List<GameObject> UnitEndMove;
-        public List<GameObject> UnitWaitAdd;
+        public List<ITurnManager> Unit;
+        public List<ITurnManager> UnitEndStep;
+        public List<ITurnManager> UnitEndMove;
+
+        //IMFORTANCE: New unit(s) not add into main queue unless current STEP ended, to avoid bug in check old unit(s) end their MOVE!
+
+        public List<ITurnManager> UnitWaitAdd; //Unit WAIT for add into main queue!
 
         public bool EndMove => UnitEndMove.Count == Unit.Count - UnitEndStep.Count;
         public bool EndStep => UnitEndStep.Count == Unit.Count;
 
         public bool EndStepRemove = false;
 
-        public StepSingle(string Step, int Start, GameObject Unit)
+        public StepSingle(string Step, int Start, ITurnManager Unit)
         {
             this.Start = Start;
             //
             this.Step = Step;
             //
-            this.Unit = new List<GameObject>();
-            UnitEndStep = new List<GameObject>();
-            UnitEndMove = new List<GameObject>();
-            UnitWaitAdd = new List<GameObject>
+            this.Unit = new List<ITurnManager>();
+            UnitEndStep = new List<ITurnManager>();
+            UnitEndMove = new List<ITurnManager>();
+            UnitWaitAdd = new List<ITurnManager>
             {
                 //
                 Unit
             };
         }
 
-        public bool GetEnd(GameObject UnitCheck)
+        //
+
+        public bool GetEnd(ITurnManager UnitCheck)
         {
             if (!Unit.Contains(UnitCheck))
                 return false;
@@ -83,11 +95,20 @@ public class TurnManager : SingletonManager<TurnManager>
             return true;
         }
 
-        public void SetAdd(GameObject Unit)
+        //
+
+        /// <summary>
+        /// Add unit to WAIT!
+        /// </summary>
+        /// <param name="Unit"></param>
+        public void SetAdd(ITurnManager Unit)
         {
             UnitWaitAdd.Add(Unit);
         }
 
+        /// <summary>
+        /// Add WAIT unit(s) to main queue!
+        /// </summary>
         public void SetWaitAdd()
         {
             Unit.AddRange(UnitWaitAdd);
@@ -101,7 +122,7 @@ public class TurnManager : SingletonManager<TurnManager>
     public List<string> StepRemove = new List<string>()
     {
         "None"
-    }; //When Turn add to this list, they will be auto remove out of Queue when complete!
+    }; //When Step add to this list, they will be auto remove out of Queue when their Move complete!
 
     #endregion
 
@@ -119,7 +140,7 @@ public class TurnManager : SingletonManager<TurnManager>
 #if UNITY_EDITOR
     private static void SetPlayModeStateChange(PlayModeStateChange State)
     {
-        //This used for stop Current Turn coroutine called by ended Playing on Editor Mode!!
+        //NOTE: This used for stop Current Step coroutine called by ended Playing on Editor Mode!!
         //
         if (State == PlayModeStateChange.ExitingPlayMode)
             Instance.m_stop = true;
@@ -138,15 +159,19 @@ public class TurnManager : SingletonManager<TurnManager>
 
     #region Main
 
+    /// <summary>
+    /// Start main progess!
+    /// </summary>
     public static void SetStart()
     {
-        if ((int)Instance.m_debug >= (int)DebugType.None)
-            Debug.LogFormat("[Turn] START!!");
+        SetDebug("[START]", DebugType.None);
         //
         Instance.m_turnPass = 0;
         Instance.m_stepQueue.RemoveAll(t => t.Step == "");
         Instance.m_stepQueue = Instance.m_stepQueue.OrderBy(t => t.Start).ToList();
-        Instance.m_stepQueue.Insert(0, new StepSingle("", int.MaxValue, Instance.gameObject));
+        //
+        //NOTE: Create a STEP of EMTY to guild Manager know when end of TURN!
+        Instance.m_stepQueue.Insert(0, new StepSingle("", int.MaxValue, null));
         //
         Instance.SetCurrent();
     } //Start!!
@@ -162,11 +187,11 @@ public class TurnManager : SingletonManager<TurnManager>
         //
         if (Instance != null)
             Instance.StartCoroutine(Instance.ISetCurrent());
-    } //Force Turn Next!!
+    } //Force Next!!
 
     private IEnumerator ISetCurrent()
     {
-        //Delay an Frame to wait for any Object complete Create and Init!!
+        //NOTE: Delay an Frame to wait for any Object complete Create and Init!!
         //
         yield return null;
         //
@@ -174,14 +199,17 @@ public class TurnManager : SingletonManager<TurnManager>
         //
         bool DelayNewStep = true;
         //
+        //NOTE: Check if current STEP is EMTY (Created at start for manager know when end of TURN)!
+        //
         if (m_stepCurrent.Step == "")
         {
+            //NOTE: New TURN occured!
+            //
+            SetDebug(string.Format("[TURN] '{0}'", m_turnPass), DebugType.None);
+            //
             DelayNewStep = false;
             //
             m_turnPass++;
-            //
-            if ((int)Instance.m_debug >= (int)DebugType.None)
-                Debug.LogFormat("[Turn] <TURN {0} START>", m_turnPass);
             //
             onTurn?.Invoke(m_turnPass);
             //
@@ -191,47 +219,51 @@ public class TurnManager : SingletonManager<TurnManager>
             //
             SetEndSwap(m_stepCurrent.Step);
             //
+            //NOTE: Delay before start new Step!!
+            //
             if (m_delayTurn > 0)
-                yield return new WaitForSeconds(m_delayTurn); //Delay before start new Turn!!
+                yield return new WaitForSeconds(m_delayTurn);
         }
         //
-        //Fine to Start new Turn!!
+        //NOTE: Fine to Start new Step!!
         //
         m_stepCurrent = m_stepQueue[0];
         //
         if (m_stepCurrent.Unit.Count == 0)
-        {
+            //NOTE: At the start, no unit(s) in queue, so add WAIT unit into queue!
             m_stepCurrent.SetWaitAdd();
-        }
         //
-        if (m_stepCurrent != null)
-        {
-            if ((int)Instance.m_debug >= (int)DebugType.Full)
-                Debug.LogFormat("[Turn] <TURN {1} START> {2} / {3}", m_turnPass, m_stepCurrent.Step, m_stepCurrent.UnitEndStep.Count, m_stepCurrent.Unit.Count);
-        }
+        SetDebug(string.Format("CURRENT '{0}' END in {1} / {2}", m_stepCurrent.Step, m_stepCurrent.UnitEndStep.Count, m_stepCurrent.Unit.Count), DebugType.Full);
+        //
+        //NOTE: Delay before start new Step in new Turn!!
         //
         if (DelayNewStep && m_delayStep > 0)
-            yield return new WaitForSeconds(m_delayStep); //Delay before start new Step in new Turn!!
+            yield return new WaitForSeconds(m_delayStep);
         //
         onStepStart?.Invoke(m_stepCurrent.Step);
         //
-        //Complete!!
+        //NOTE: Complete!!
     }
 
     private void SetWait()
     {
-        foreach (StepSingle TurnCheck in Instance.m_stepQueue) TurnCheck.SetWaitAdd();
+        //NOTE: Add WAIT unit(s) to main queue!
+        //
+        foreach (StepSingle TurnCheck in Instance.m_stepQueue)
+            TurnCheck.SetWaitAdd();
     }
 
     //
 
+    /// <summary>
+    /// Add or remove STEP that to check for remove when STEP end!
+    /// </summary>
+    /// <param name="Step"></param>
+    /// <param name="Add"></param>
     public static void SetAutoRemove(string Step, bool Add = true)
     {
         if (string.IsNullOrEmpty(Step))
-        {
-            Debug.LogWarning("[Turn] Turn name not valid!");
             return;
-        }
         //
         if (Add && !Instance.StepRemove.Contains(Step))
             Instance.StepRemove.Add(Step);
@@ -240,28 +272,34 @@ public class TurnManager : SingletonManager<TurnManager>
             Instance.StepRemove.Remove(Step);
     }
 
-    public static void SetAutoRemove<T>(T Step) where T : Enum
+    /// <summary>
+    /// Add or remove STEP that to check for remove when STEP end!
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="Step"></param>
+    /// <param name="Add"></param>
+    public static void SetAutoRemove<T>(T Step, bool Add = true) where T : Enum
     {
-        SetAutoRemove(Step.ToString());
+        SetAutoRemove(Step.ToString(), Add);
     }
 
     #endregion
 
-    #region Turn ~ Int & String
+    #region Step ~ Int & String
 
-    public static void SetInit(string Step, int Start, GameObject Unit)
+    /// <summary>
+    /// Add a unit to main queue before start!
+    /// </summary>
+    /// <param name="Step"></param>
+    /// <param name="Start"></param>
+    /// <param name="Unit"></param>
+    public static void SetInit(string Step, int Start, ITurnManager Unit)
     {
         if (string.IsNullOrEmpty(Step))
-        {
-            Debug.LogWarning("[Turn] Turn name not valid!");
             return;
-        }
         //
         if (Unit == null)
-        {
-            Debug.LogWarning("[Turn] Turn object is null!");
             return;
-        }
         //
         for (int i = 0; i < Instance.m_stepQueue.Count; i++)
         {
@@ -271,82 +309,76 @@ public class TurnManager : SingletonManager<TurnManager>
             if (Instance.m_stepQueue[i].Unit.Contains(Unit))
                 return;
             //
-            if ((int)Instance.m_debug >= (int)DebugType.Full)
-                Debug.LogFormat("[Turn] <Init> {0}", Step.ToString());
-            //
             Instance.m_stepQueue[i].UnitWaitAdd.Add(Unit);
+            SetDebug(string.Format("[INIT] '{0}'", Step.ToString()), DebugType.Full);
+            //
             return;
         }
-        //
-        if ((int)Instance.m_debug >= (int)DebugType.Full)
-            Debug.LogFormat("[Turn] <Init> {0}", Step.ToString());
         //
         Instance.m_stepQueue.Add(new StepSingle(Step, Start, Unit));
+        //
+        Instance.onStepAdd?.Invoke(Step, Unit);
+        //
+        SetDebug(string.Format("[INIT] '{0}'", Step.ToString()), DebugType.Full);
     } //Init on Start!!
 
-    public static void SetRemove(string Step, GameObject Unit)
+    /// <summary>
+    /// Remove a unit from main queue!
+    /// </summary>
+    /// <param name="Step"></param>
+    /// <param name="Unit"></param>
+    public static void SetRemove(string Step, ITurnManager Unit)
     {
         if (string.IsNullOrEmpty(Step))
-        {
-            Debug.LogWarning("[Turn] Turn name not valid!");
             return;
-        }
         //
         if (Unit == null)
-        {
-            Debug.LogWarning("[Turn] Turn object is null!");
             return;
+        //
+        var StepFind = Instance.m_stepQueue.Find(t => t.Step == Step);
+        if (StepFind == null)
+            return;
+        //
+        var UnitFind = StepFind.Unit.Find(t => t == Unit);
+        if (UnitFind == null)
+            return;
+        //
+        if (StepFind == Instance.m_stepCurrent)
+        {
+            StepFind.Unit.Remove(Unit);
+            StepFind.UnitEndMove.Remove(Unit);
+            StepFind.UnitEndStep.Remove(Unit);
+            StepFind.UnitWaitAdd.Remove(Unit);
+            //
+            SetEndCheck(Step);
+            //
+            SetDebug(string.Format("[REMOVE-STEP] '{0}' SAME", Step), DebugType.Full);
+        }
+        else
+        {
+            StepFind.Unit.Remove(Unit);
+            StepFind.UnitEndMove.Remove(Unit);
+            StepFind.UnitEndStep.Remove(Unit);
+            StepFind.UnitWaitAdd.Remove(Unit);
+            //
+            SetDebug(string.Format("[REMOVE-STEP] '{0}' UN-SAME", Step), DebugType.Full);
         }
         //
-        for (int i = 0; i < Instance.m_stepQueue.Count; i++)
-        {
-            if (Instance.m_stepQueue[i].Step != Step)
-                continue;
-            //
-            if (!Instance.m_stepQueue[i].Unit.Contains(Unit))
-                return;
-            //
-            if (Instance.m_stepQueue[i] == Instance.m_stepCurrent)
-            {
-                Instance.m_stepQueue[i].Unit.Remove(Unit);
-                Instance.m_stepQueue[i].UnitEndMove.Remove(Unit);
-                Instance.m_stepQueue[i].UnitEndStep.Remove(Unit);
-                Instance.m_stepQueue[i].UnitWaitAdd.Remove(Unit);
-                //
-                if ((int)Instance.m_debug >= (int)DebugType.Full)
-                    SetDebug(Step, "Remove Same");
-                //
-                SetEndCheck(Step);
-            }
-            else
-            {
-                Instance.m_stepQueue[i].Unit.Remove(Unit);
-                Instance.m_stepQueue[i].UnitEndMove.Remove(Unit);
-                Instance.m_stepQueue[i].UnitEndStep.Remove(Unit);
-                Instance.m_stepQueue[i].UnitWaitAdd.Remove(Unit);
-                //
-                if ((int)Instance.m_debug >= (int)DebugType.Full)
-                    SetDebug(Step, "Remove Un-Same");
-                //
-            }
-            //
-            break;
-        }
+        Instance.onStepRemove?.Invoke(Step, Unit);
     } //Remove on Destroy!!
 
-    public static void SetEndMove(string Step, GameObject Unit)
+    /// <summary>
+    /// Accept a unit that completed it's MOVE, but not it's STEP!
+    /// </summary>
+    /// <param name="Step"></param>
+    /// <param name="Unit"></param>
+    public static void SetEndMove(string Step, ITurnManager Unit)
     {
         if (string.IsNullOrEmpty(Step))
-        {
-            Debug.LogWarning("[Turn] Turn name not valid!");
             return;
-        }
         //
         if (Unit == null)
-        {
-            Debug.LogWarning("[Turn] Turn object is null!");
             return;
-        }
         //
         if (Instance.m_stepCurrent.Step != Step)
             return;
@@ -356,25 +388,23 @@ public class TurnManager : SingletonManager<TurnManager>
         //
         Instance.m_stepCurrent.UnitEndMove.Add(Unit);
         //
-        if ((int)Instance.m_debug >= (int)DebugType.Full)
-            SetDebug(Step, "End Move");
-        //
         SetEndCheck(Step);
+        //
+        SetDebug(string.Format("[END-MOVE] '{0}'", Step), DebugType.Full);
     } //End!!
 
-    public static void SetEndTurn(string Step, GameObject Unit)
+    /// <summary>
+    /// Accept a unit that completed it's MOVE and it's STEP!
+    /// </summary>
+    /// <param name="Step"></param>
+    /// <param name="Unit"></param>
+    public static void SetEndStep(string Step, ITurnManager Unit)
     {
         if (string.IsNullOrEmpty(Step))
-        {
-            Debug.LogWarning("[Turn] Turn name not valid!");
             return;
-        }
         //
         if (Unit == null)
-        {
-            Debug.LogWarning("[Turn] Turn object is null!");
             return;
-        }
         //
         if (Instance.m_stepCurrent.Step != Step)
             return;
@@ -384,19 +414,15 @@ public class TurnManager : SingletonManager<TurnManager>
         //
         Instance.m_stepCurrent.UnitEndStep.Add(Unit);
         //
-        if ((int)Instance.m_debug >= (int)DebugType.Full)
-            SetDebug(Step, "End Turn");
-        //
         SetEndCheck(Step);
+        //
+        SetDebug(string.Format("[END-STEP] '{0}'", Step), DebugType.Full);
     } //End!!
 
     private static void SetEndCheck(string Step)
     {
         if (Instance.m_stepCurrent.EndStep)
         {
-            if ((int)Instance.m_debug >= (int)DebugType.Primary)
-                SetDebug(Step, "Next Turn");
-            //
             Instance.m_stepCurrent.UnitEndMove.Clear();
             Instance.m_stepCurrent.UnitEndStep.Clear();
             //
@@ -405,47 +431,59 @@ public class TurnManager : SingletonManager<TurnManager>
             SetEndSwap(Step);
             //
             Instance.SetCurrent();
+            //
+            SetDebug(string.Format("[END-CHECK] '{0}'", Step), DebugType.Primary);
         }
         else
         if (Instance.m_stepCurrent.EndMove)
         {
-            if ((int)Instance.m_debug >= (int)DebugType.Primary)
-                SetDebug(Step, "Next Turn by Move");
-            //
             Instance.m_stepCurrent.UnitEndMove.Clear();
             //
             Instance.SetCurrent();
+            //
+            SetDebug(string.Format("[END-CHECK] '{0}' BY MOVE", Step), DebugType.Primary);
         }
-    } //Check End Turn or End Move!!
+    } //Check End Step or End Move!!
 
     private static void SetEndSwap(string Step)
     {
-        Instance.m_stepQueue.RemoveAt(Instance.m_stepQueue.FindIndex(t => t.Step == Step.ToString()));
+        //NOTE: Check to remove STEP in check!
+        //
+        var StepFind = Instance.m_stepQueue.Find(t => t.Step == Step);
+        if (StepFind == null)
+            return;
+        //
+        if (StepFind.EndStepRemove)
+        {
+            foreach (var Unit in StepFind.Unit)
+                Instance.onStepRemove?.Invoke(Step, Unit);
+        }
+        Instance.m_stepQueue.Remove(StepFind);
+        //
+        //NOTE: STEP in check maybe is the current STEP in queue!
         //
         if (!Instance.m_stepCurrent.EndStepRemove)
-        {
+            //NOTE: If not remove STEP at the end current STEP, move current STEP to last in queue!
             Instance.m_stepQueue.Add(Instance.m_stepCurrent);
-        }
-    } //Swap Current Turn to Last!!
+    } //Swap Current Step to Last!!
 
-    public static void SetAdd(string Step, int Start, GameObject Unit, int After = 0)
+    /// <summary>
+    /// Add a unit to main queue after start!
+    /// </summary>
+    /// <param name="Step"></param>
+    /// <param name="Start"></param>
+    /// <param name="Unit"></param>
+    /// <param name="After"></param>
+    public static void SetAdd(string Step, int Start, ITurnManager Unit, int After = 0)
     {
         if (string.IsNullOrEmpty(Step))
-        {
-            Debug.LogWarning("[Turn] Turn name not valid!");
             return;
-        }
         //
         if (Unit == null)
-        {
-            Debug.LogWarning("[Turn] Turn object is null!");
             return;
-        }
         //
         if (After < 0)
-        {
             return;
-        }
         //
         if (After > Instance.m_stepQueue.Count - 1)
         {
@@ -456,9 +494,7 @@ public class TurnManager : SingletonManager<TurnManager>
         if (Instance.m_stepQueue[After].Step == Step)
         {
             if (Instance.m_stepQueue[After].Unit.Contains(Unit))
-            {
                 return;
-            }
             //
             Instance.m_stepQueue[After].SetAdd(Unit);
         }
@@ -468,25 +504,25 @@ public class TurnManager : SingletonManager<TurnManager>
             Instance.m_stepQueue[After].EndStepRemove = Instance.StepRemove.Contains(Step);
         }
         //
-        if ((int)Instance.m_debug >= (int)DebugType.Full)
-        {
-            SetDebug(Step, string.Format("Add [{0}]", After));
-        }
-    } //Add Turn Special!!
+        Instance.onStepAdd?.Invoke(Step, Unit);
+        //
+        SetDebug(string.Format("[ADD] '{0}'", After), DebugType.Full);
+    } //Add Step Special!!
 
-    public static void SetAdd(string Step, int Start, GameObject Unit, string After)
+    /// <summary>
+    /// Add a unit to main queue after start!
+    /// </summary>
+    /// <param name="Step"></param>
+    /// <param name="Start"></param>
+    /// <param name="Unit"></param>
+    /// <param name="After"></param>
+    public static void SetAdd(string Step, int Start, ITurnManager Unit, string After)
     {
         if (string.IsNullOrEmpty(Step))
-        {
-            Debug.LogWarning("[Turn] Turn name not valid!");
             return;
-        }
         //
         if (Unit == null)
-        {
-            Debug.LogWarning("[Turn] Turn object is null!");
             return;
-        }
         //
         for (int i = 0; i < Instance.m_stepQueue.Count; i++)
         {
@@ -509,56 +545,88 @@ public class TurnManager : SingletonManager<TurnManager>
             return;
         }
         //
-        if ((int)Instance.m_debug >= (int)DebugType.Full)
-        {
-            SetDebug(Step, string.Format("Add [{0}]", After));
-        }
-    } //Add Turn Special!!
+        Instance.onStepAdd?.Invoke(Step, Unit);
+        //
+        SetDebug(string.Format("[ADD] '{0}'", After), DebugType.Full);
+    } //Add Step Special!!
 
     #endregion
 
-    #region Turn ~ Enum
+    #region Step ~ Enum
 
-    public static void SetInit<T>(T Step, GameObject Unit) where T : Enum
+    /// <summary>
+    /// Add a unit to main queue before start!
+    /// </summary>
+    /// <param name="Step"></param>
+    /// <param name="Start"></param>
+    /// <param name="Unit"></param>
+    public static void SetInit<T>(T Step, ITurnManager Unit) where T : Enum
     {
-        SetInit(Step.ToString(), QEnum.GetChoice(Step), Unit);
+        SetInit(Step.ToString(), Mathf.Clamp(QEnum.GetChoice(Step), 0, int.MaxValue), Unit);
     } //Init on Start!!
 
-    public static void SetRemove<T>(T Step, GameObject Unit) where T : Enum
+    /// <summary>
+    /// Remove a unit from main queue!
+    /// </summary>
+    /// <param name="Step"></param>
+    /// <param name="Unit"></param>
+    public static void SetRemove<T>(T Step, ITurnManager Unit) where T : Enum
     {
         SetRemove(Step.ToString(), Unit);
     } //Remove on Destroy!!
 
-    public static void SetEndMove<T>(T Step, GameObject Unit) where T : Enum
+    /// <summary>
+    /// Accept a unit that completed it's MOVE, but not it's STEP!
+    /// </summary>
+    /// <param name="Step"></param>
+    /// <param name="Unit"></param>
+    public static void SetEndMove<T>(T Step, ITurnManager Unit) where T : Enum
     {
         SetEndMove(Step.ToString(), Unit);
     } //End!!
 
-    public static void SetEndTurn<T>(T Step, GameObject Unit) where T : Enum
+    /// <summary>
+    /// Accept a unit that completed it's MOVE and it's STEP!
+    /// </summary>
+    /// <param name="Step"></param>
+    /// <param name="Unit"></param>
+    public static void SetEndStep<T>(T Step, ITurnManager Unit) where T : Enum
     {
-        SetEndTurn(Step.ToString(), Unit);
+        SetEndStep(Step.ToString(), Unit);
     } //End!!
 
-    public static void SetAdd<T>(T Step, GameObject Unit, int After = 0) where T : Enum
+    /// <summary>
+    /// Add a unit to main queue after start!
+    /// </summary>
+    /// <param name="Step"></param>
+    /// <param name="Start"></param>
+    /// <param name="Unit"></param>
+    /// <param name="After"></param>
+    public static void SetAdd<T>(T Step, ITurnManager Unit, int After = 0) where T : Enum
     {
-        SetAdd(Step.ToString(), QEnum.GetChoice(Step), Unit, After);
-    } //Add Turn Special!!
+        SetAdd(Step.ToString(), Mathf.Clamp(QEnum.GetChoice(Step), 0, int.MaxValue), Unit, After);
+    } //Add Step Special!!
 
-    public static void SetAdd<T>(T Step, GameObject Unit, string After) where T : Enum
+    /// <summary>
+    /// Add a unit to main queue after start!
+    /// </summary>
+    /// <param name="Step"></param>
+    /// <param name="Start"></param>
+    /// <param name="Unit"></param>
+    /// <param name="After"></param>
+    public static void SetAdd<T>(T Step, ITurnManager Unit, string After) where T : Enum
     {
-        SetAdd(Step.ToString(), QEnum.GetChoice(Step), Unit, After);
-    } //Add Turn Special!!
+        SetAdd(Step.ToString(), Mathf.Clamp(QEnum.GetChoice(Step), 0, int.MaxValue), Unit, After);
+    } //Add Step Special!!
 
     #endregion
 
-    private static void SetDebug(string Step, string Message)
+    private static void SetDebug(string Message, DebugType DebugLimit)
     {
-        Debug.LogFormat("[Turn] <{0} : {1}> [End Turn: {2}] + [End Move: {3}] == {4} ?",
-            Message,
-            Step.ToString(),
-            Instance.m_stepCurrent.UnitEndStep.Count,
-            Instance.m_stepCurrent.UnitEndMove.Count,
-            Instance.m_stepCurrent.Unit.Count);
+        if ((int)Instance.m_debug < (int)DebugLimit)
+            return;
+        //
+        Debug.Log(string.Format("[Turn] {0}", Message));
     }
 }
 
@@ -614,9 +682,16 @@ public class GameTurnEditor : Editor
 
 public interface ITurnManager
 {
-    void IOnTurn(int Turn);
+    void ITurn(int Step);
 
-    void IOnStepStart(string Name);
+    void IStepStart(string Step);
 
-    void IOnStepEnd(string Name);
+    void IStepEnd(string Step);
+}
+
+public interface ITurnManagerOptional
+{
+    void IStepAdd(string Step, ITurnManager Unit);
+
+    void IStepRemove(string Step, ITurnManager Unit);
 }

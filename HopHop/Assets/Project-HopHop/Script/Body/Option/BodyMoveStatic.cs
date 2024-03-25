@@ -42,9 +42,10 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
         {
             if (m_move.Data.Count > 0)
             {
-                TurnManager.SetInit(TurnType.MoveStatic, gameObject);
-                TurnManager.Instance.onTurn += IOnTurn;
-                TurnManager.Instance.onStepStart += IOnStepStart;
+                TurnManager.SetInit(TurnType.MoveStatic, this);
+                TurnManager.Instance.onTurn += ITurn;
+                TurnManager.Instance.onStepStart += IStepStart;
+                TurnManager.Instance.onStepEnd += IStepEnd;
             }
         }
         //
@@ -58,9 +59,10 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
         {
             if (m_move.Data.Count > 0)
             {
-                TurnManager.SetRemove(TurnType.MoveStatic, gameObject);
-                TurnManager.Instance.onTurn -= IOnTurn;
-                TurnManager.Instance.onStepStart -= IOnStepStart;
+                TurnManager.SetRemove(TurnType.MoveStatic, this);
+                TurnManager.Instance.onTurn -= ITurn;
+                TurnManager.Instance.onStepStart -= IStepStart;
+                TurnManager.Instance.onStepEnd -= IStepEnd;
             }
         }
         //
@@ -68,7 +70,7 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
             GameEvent.onFollow -= SetControlFollow;
     }
 
-    //
+    #region Turn
 
     public bool TurnActive
     {
@@ -76,7 +78,7 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
         set => m_turnActive = value;
     }
 
-    public void IOnTurn(int Turn)
+    public void ITurn(int Turn)
     {
         //Reset!!
         m_turnLength = 0;
@@ -85,20 +87,22 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
         m_turnActive = true;
     }
 
-    public void IOnStepStart(string Name)
+    public void IStepStart(string Step)
     {
-        if (m_turnActive)
-        {
-            if (Name == TurnType.MoveStatic.ToString())
-            {
-                SetControlMove();
-            }
-        }
+        if (!m_turnActive)
+            return;
+        //
+        if (Step != TurnType.MoveStatic.ToString())
+            return;
+        //
+        SetControlMove();
     }
 
-    public void IOnStepEnd(string Name) { }
+    public void IStepEnd(string Step) { }
 
-    //
+    #endregion
+
+    #region Move
 
     private void SetControlMove()
     {
@@ -131,13 +135,13 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
                 if (TurnEnd)
                 {
                     m_turnActive = false;
-                    TurnManager.SetEndTurn(TurnType.MoveStatic, gameObject);
+                    TurnManager.SetEndStep(TurnType.MoveStatic, this);
                     //
                     m_turnDir = IsometricVector.None;
                 }
                 else
                 {
-                    TurnManager.SetEndMove(TurnType.MoveStatic, gameObject);
+                    TurnManager.SetEndMove(TurnType.MoveStatic, this);
                 }
             });
         //
@@ -221,6 +225,8 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
             }
         }
     }
+
+    #endregion
 
 #if UNITY_EDITOR
 
