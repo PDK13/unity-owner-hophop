@@ -31,17 +31,8 @@ public class TurnManager : SingletonManager<TurnManager>
 
     //Main events for every unit(s) and other progess(s)!
 
-    /// <summary>
-    /// Invoke when new TURN start!
-    /// </summary>
     public Action<int> onTurn;          //<Turn>
-    /// <summary>
-    /// Invoke when a STEP start!
-    /// </summary>
     public Action<string> onStepStart;  //<Step>
-    /// <summary>
-    /// Invoke when a STEP end!
-    /// </summary>
     public Action<string> onStepEnd;    //<Step>
 
     //Optionals event for every unit(s) and other progess(s)!
