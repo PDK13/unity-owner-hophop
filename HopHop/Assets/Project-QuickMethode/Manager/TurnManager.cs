@@ -205,7 +205,7 @@ public class TurnManager : SingletonManager<TurnManager>
         {
             //NOTE: New TURN occured!
             //
-            SetDebug(string.Format("[TURN] {0}", m_turnPass), DebugType.None);
+            SetDebug(string.Format("[TURN] '{0}'", m_turnPass), DebugType.None);
             //
             DelayNewStep = false;
             //
@@ -222,7 +222,7 @@ public class TurnManager : SingletonManager<TurnManager>
             //NOTE: Delay before start new Step!!
             //
             if (m_delayTurn > 0)
-                yield return new WaitForSeconds(m_delayTurn); 
+                yield return new WaitForSeconds(m_delayTurn);
         }
         //
         //NOTE: Fine to Start new Step!!
@@ -233,12 +233,12 @@ public class TurnManager : SingletonManager<TurnManager>
             //NOTE: At the start, no unit(s) in queue, so add WAIT unit into queue!
             m_stepCurrent.SetWaitAdd();
         //
-        SetDebug(string.Format("STEP {0} END in {1} / {2}", m_stepCurrent.Step, m_stepCurrent.EndStep, m_stepCurrent.Unit.Count), DebugType.Full);
+        SetDebug(string.Format("CURRENT '{0}' END in {1} / {2}", m_stepCurrent.Step, m_stepCurrent.UnitEndStep.Count, m_stepCurrent.Unit.Count), DebugType.Full);
         //
         //NOTE: Delay before start new Step in new Turn!!
         //
         if (DelayNewStep && m_delayStep > 0)
-            yield return new WaitForSeconds(m_delayStep); 
+            yield return new WaitForSeconds(m_delayStep);
         //
         onStepStart?.Invoke(m_stepCurrent.Step);
         //
@@ -249,7 +249,7 @@ public class TurnManager : SingletonManager<TurnManager>
     {
         //NOTE: Add WAIT unit(s) to main queue!
         //
-        foreach (StepSingle TurnCheck in Instance.m_stepQueue) 
+        foreach (StepSingle TurnCheck in Instance.m_stepQueue)
             TurnCheck.SetWaitAdd();
     }
 
@@ -310,7 +310,7 @@ public class TurnManager : SingletonManager<TurnManager>
                 return;
             //
             Instance.m_stepQueue[i].UnitWaitAdd.Add(Unit);
-            SetDebug(string.Format("[INIT] {0}", Step.ToString()), DebugType.Full);
+            SetDebug(string.Format("[INIT] '{0}'", Step.ToString()), DebugType.Full);
             //
             return;
         }
@@ -319,7 +319,7 @@ public class TurnManager : SingletonManager<TurnManager>
         //
         Instance.onStepAdd?.Invoke(Step, Unit);
         //
-        SetDebug(string.Format("[INIT] {0}", Step.ToString()), DebugType.Full);
+        SetDebug(string.Format("[INIT] '{0}'", Step.ToString()), DebugType.Full);
     } //Init on Start!!
 
     /// <summary>
@@ -352,7 +352,7 @@ public class TurnManager : SingletonManager<TurnManager>
             //
             SetEndCheck(Step);
             //
-            SetDebug(string.Format("[REMOVE] STEP {0} SAME", Step), DebugType.Full);
+            SetDebug(string.Format("[REMOVE-STEP] '{0}' SAME", Step), DebugType.Full);
         }
         else
         {
@@ -361,7 +361,7 @@ public class TurnManager : SingletonManager<TurnManager>
             StepFind.UnitEndStep.Remove(Unit);
             StepFind.UnitWaitAdd.Remove(Unit);
             //
-            SetDebug(string.Format("[REMOVE] STEP {0} UN-SAME", Step), DebugType.Full);
+            SetDebug(string.Format("[REMOVE-STEP] '{0}' UN-SAME", Step), DebugType.Full);
         }
         //
         Instance.onStepRemove?.Invoke(Step, Unit);
@@ -390,7 +390,7 @@ public class TurnManager : SingletonManager<TurnManager>
         //
         SetEndCheck(Step);
         //
-        SetDebug(string.Format("[END] MOVE {0}", Step), DebugType.Full);
+        SetDebug(string.Format("[END-MOVE] '{0}'", Step), DebugType.Full);
     } //End!!
 
     /// <summary>
@@ -416,7 +416,7 @@ public class TurnManager : SingletonManager<TurnManager>
         //
         SetEndCheck(Step);
         //
-        SetDebug(string.Format("[END] STEP {0}", Step), DebugType.Full);
+        SetDebug(string.Format("[END-STEP] '{0}'", Step), DebugType.Full);
     } //End!!
 
     private static void SetEndCheck(string Step)
@@ -432,7 +432,7 @@ public class TurnManager : SingletonManager<TurnManager>
             //
             Instance.SetCurrent();
             //
-            SetDebug("[NEXT] STEP", DebugType.Primary);
+            SetDebug(string.Format("[END-CHECK] '{0}'", Step), DebugType.Primary);
         }
         else
         if (Instance.m_stepCurrent.EndMove)
@@ -441,7 +441,7 @@ public class TurnManager : SingletonManager<TurnManager>
             //
             Instance.SetCurrent();
             //
-            SetDebug("[NEXT] STEP BY MOVE", DebugType.Primary);
+            SetDebug(string.Format("[END-CHECK] '{0}' BY MOVE", Step), DebugType.Primary);
         }
     } //Check End Step or End Move!!
 
@@ -455,7 +455,7 @@ public class TurnManager : SingletonManager<TurnManager>
         //
         if (StepFind.EndStepRemove)
         {
-            foreach(var Unit in StepFind.Unit)
+            foreach (var Unit in StepFind.Unit)
                 Instance.onStepRemove?.Invoke(Step, Unit);
         }
         Instance.m_stepQueue.Remove(StepFind);
@@ -506,7 +506,7 @@ public class TurnManager : SingletonManager<TurnManager>
         //
         Instance.onStepAdd?.Invoke(Step, Unit);
         //
-        SetDebug(string.Format("[ADD] {0}", After), DebugType.Full);
+        SetDebug(string.Format("[ADD] '{0}'", After), DebugType.Full);
     } //Add Step Special!!
 
     /// <summary>
@@ -547,7 +547,7 @@ public class TurnManager : SingletonManager<TurnManager>
         //
         Instance.onStepAdd?.Invoke(Step, Unit);
         //
-        SetDebug(string.Format("[ADD] {0}", After), DebugType.Full);
+        SetDebug(string.Format("[ADD] '{0}'", After), DebugType.Full);
     } //Add Step Special!!
 
     #endregion
@@ -626,7 +626,7 @@ public class TurnManager : SingletonManager<TurnManager>
         if ((int)Instance.m_debug < (int)DebugLimit)
             return;
         //
-        string.Format("[Turn] {0}", Message);
+        Debug.Log(string.Format("[Turn] {0}", Message));
     }
 }
 
