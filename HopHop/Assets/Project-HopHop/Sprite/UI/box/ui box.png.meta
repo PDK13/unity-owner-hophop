@@ -136,7 +136,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ui box_0
+      name: UI Box 0
       rect:
         serializedVersion: 2
         x: 0
@@ -157,7 +157,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui box_1
+      name: UI Box 1
       rect:
         serializedVersion: 2
         x: 128
@@ -178,7 +178,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui box_2
+      name: UI Box 2
       rect:
         serializedVersion: 2
         x: 256
@@ -199,7 +199,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ui box_3
+      name: UI Box 3
       rect:
         serializedVersion: 2
         x: 384
@@ -230,10 +230,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      ui box_0: -1482863131
-      ui box_1: 2138821968
-      ui box_2: 702011790
-      ui box_3: -1057629198
+      UI Box 0: -1482863131
+      UI Box 1: 2138821968
+      UI Box 2: 702011790
+      UI Box 3: -1057629198
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

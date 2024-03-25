@@ -136,7 +136,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: ui icon_0
+      name: UI Icon 0
       rect:
         serializedVersion: 2
         x: 384
@@ -144,7 +144,7 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -167,7 +167,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      ui icon_0: 1395027861
+      UI Icon 0: 1395027861
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
