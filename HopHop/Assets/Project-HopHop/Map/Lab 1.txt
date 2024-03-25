@@ -74,10 +74,8 @@ Object Flower Blue 0
 Block Stone 0
 #BLOCK-MOVE
 2
-3
-1|D
-1|D
-1|D
+1
+2|D
 #BLOCK-END
 
 [-3;-1;0]
