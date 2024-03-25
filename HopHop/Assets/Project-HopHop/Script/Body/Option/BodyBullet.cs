@@ -1,7 +1,8 @@
 using DG.Tweening;
 using UnityEngine;
+using System;
 
-public class BodyBullet : MonoBehaviour, IBodyTurn
+public class BodyBullet : MonoBehaviour, ITurnManager
 {
     private const string ANIM_BLOW = "Blow";
 
@@ -9,7 +10,7 @@ public class BodyBullet : MonoBehaviour, IBodyTurn
 
     private int m_speed = 1;
 
-    private bool m_turnControl = false;
+    private bool m_turnActive = false;
 
     private IsometricVector m_turnDir;
     private int m_turnLength = 0;
@@ -29,7 +30,7 @@ public class BodyBullet : MonoBehaviour, IBodyTurn
         //
         TurnManager.SetInit(TurnType.Bullet, gameObject);
         TurnManager.Instance.onTurn += IOnTurn;
-        TurnManager.Instance.onStepStart += IOnStep;
+        TurnManager.Instance.onStepStart += IOnStepStart;
         //
         if (m_body != null)
             m_body.onGravity += SetGravity;
@@ -37,14 +38,14 @@ public class BodyBullet : MonoBehaviour, IBodyTurn
         m_speed = Speed;
         m_turnDir = Dir;
         //
-        m_turnControl = false;
+        m_turnActive = false;
     }
 
     private void OnDestroy()
     {
         TurnManager.SetRemove(TurnType.Bullet, gameObject);
         TurnManager.Instance.onTurn -= IOnTurn;
-        TurnManager.Instance.onStepStart -= IOnStep;
+        TurnManager.Instance.onStepStart -= IOnStepStart;
         //
         if (m_body != null)
             m_body.onGravity -= SetGravity;
@@ -52,7 +53,11 @@ public class BodyBullet : MonoBehaviour, IBodyTurn
 
     //
 
-    public bool ITurnActive { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    public bool TurnActive
+    {
+        get => m_turnActive;
+        set => m_turnActive = value;
+    }
 
     public void IOnTurn(int Turn)
     {
@@ -60,12 +65,12 @@ public class BodyBullet : MonoBehaviour, IBodyTurn
         m_turnLength = 0;
         m_turnLengthCurrent = 0;
         //
-        m_turnControl = true;
+        m_turnActive = true;
     }
 
-    public void IOnStep(string Name)
+    public void IOnStepStart(string Name)
     {
-        if (m_turnControl)
+        if (m_turnActive)
         {
             if (Name == TurnType.Bullet.ToString())
             {
@@ -73,6 +78,8 @@ public class BodyBullet : MonoBehaviour, IBodyTurn
             }
         }
     }
+
+    public void IOnStepEnd(string Name) { }
 
     //
 
@@ -128,7 +135,7 @@ public class BodyBullet : MonoBehaviour, IBodyTurn
                 //
                 if (TurnEnd)
                 {
-                    m_turnControl = false;
+                    m_turnActive = false;
                     TurnManager.SetEndTurn(TurnType.Bullet, gameObject);
                 }
                 else
@@ -145,11 +152,11 @@ public class BodyBullet : MonoBehaviour, IBodyTurn
 
     public void SetHit()
     {
-        m_turnControl = false;
+        m_turnActive = false;
         TurnManager.SetEndTurn(TurnType.Bullet, gameObject);
         TurnManager.SetRemove(TurnType.Bullet, gameObject);
         TurnManager.Instance.onTurn -= IOnTurn;
-        TurnManager.Instance.onStepStart -= IOnStep;
+        TurnManager.Instance.onStepStart -= IOnStepStart;
         //
         SetControlAnimation(ANIM_BLOW);
         m_block.WorldManager.World.Current.SetBlockRemoveInstant(m_block, DESTROY_DELAY);

@@ -5,9 +5,9 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-public class BodyPhysic : MonoBehaviour
+public class BodyPhysic : MonoBehaviour, ITurnManager
 {
-    private bool m_turnControl = false;
+    private bool m_turnActive = false;
     //
     public Action<bool, IsometricVector> onMove;                    //State
     public Action<bool, IsometricVector> onMoveForce;               //State
@@ -40,6 +40,33 @@ public class BodyPhysic : MonoBehaviour
             m_bodyStatic ||
             GameConfigInit.GetExist(GetComponent<IsometricDataInit>(), GameConfigInit.Key.BodyStatic);
     }
+
+    #region Turn
+
+    public bool TurnActive
+    {
+        get => m_turnActive;
+        set => m_turnActive = value;
+    }
+
+    public void IOnTurn(int Turn) { }
+
+    public void IOnStepStart(string Name)
+    {
+        if (Name != TurnType.Gravity.ToString())
+        {
+            m_turnActive = false;
+            return;
+        }
+        //
+        m_turnActive = true;
+        //
+        SetControlGravity();
+    }
+
+    public void IOnStepEnd(string Name) { }
+
+    #endregion
 
     #region Move
 
@@ -110,19 +137,6 @@ public class BodyPhysic : MonoBehaviour
 
     #region Gravity
 
-    private void IOnStep(string Turn)
-    {
-        if (Turn != TurnType.Gravity.ToString())
-        {
-            m_turnControl = false;
-            return;
-        }
-        //
-        m_turnControl = true;
-        //
-        SetControlGravity();
-    }
-
     public IsometricBlock SetCheckGravity(IsometricVector Dir)
     {
         IsometricBlock Block = GetCheckDir(Dir, IsometricVector.Bot);
@@ -147,7 +161,7 @@ public class BodyPhysic : MonoBehaviour
     private void SetForceGravity()
     {
         TurnManager.SetAdd(TurnType.Gravity, gameObject);
-        TurnManager.Instance.onStepStart += IOnStep;
+        TurnManager.Instance.onStepStart += IOnStepStart;
     }
 
     private void SetControlGravity()
@@ -164,12 +178,12 @@ public class BodyPhysic : MonoBehaviour
             else
             {
                 TurnManager.SetEndTurn(TurnType.Gravity, gameObject);
-                TurnManager.Instance.onStepStart -= IOnStep;
+                TurnManager.Instance.onStepStart -= IOnStepStart;
                 //
                 SetStandOnForce();
                 onGravity?.Invoke(false);
                 //
-                m_turnControl = false;
+                m_turnActive = false;
                 return;
             }
         }

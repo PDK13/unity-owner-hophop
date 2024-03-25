@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BodyPlayer : MonoBehaviour, IBodyTurn, IBodyPhysic
+public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic
 {
     private bool m_turnActive = false;
 
@@ -17,7 +17,7 @@ public class BodyPlayer : MonoBehaviour, IBodyTurn, IBodyPhysic
     {
         TurnManager.SetInit(TurnType.Player, gameObject);
         TurnManager.Instance.onTurn += IOnTurn;
-        TurnManager.Instance.onStepStart += IOnStep;
+        TurnManager.Instance.onStepStart += IOnStepStart;
         //
         m_body.onMove += IMoveForce;
         m_body.onForce += IForce;
@@ -34,7 +34,7 @@ public class BodyPlayer : MonoBehaviour, IBodyTurn, IBodyPhysic
     {
         TurnManager.SetRemove(TurnType.Player, gameObject);
         TurnManager.Instance.onTurn -= IOnTurn;
-        TurnManager.Instance.onStepStart -= IOnStep;
+        TurnManager.Instance.onStepStart -= IOnStepStart;
         //
         m_body.onMove -= IMoveForce;
         m_body.onForce -= IForce;
@@ -70,7 +70,7 @@ public class BodyPlayer : MonoBehaviour, IBodyTurn, IBodyPhysic
 
     //
 
-    public bool ITurnActive
+    public bool TurnActive
     {
         get => m_turnActive;
         set => m_turnActive = value;
@@ -83,7 +83,7 @@ public class BodyPlayer : MonoBehaviour, IBodyTurn, IBodyPhysic
         //...
     }
 
-    public void IOnStep(string Name)
+    public void IOnStepStart(string Name)
     {
         if (Name == TurnType.Player.ToString())
         {
@@ -93,6 +93,8 @@ public class BodyPlayer : MonoBehaviour, IBodyTurn, IBodyPhysic
             }
         }
     }
+
+    public void IOnStepEnd(string Name) { }
 
     //
 

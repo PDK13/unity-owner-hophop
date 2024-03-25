@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-public class BodyShoot : MonoBehaviour, IBodyTurn
+public class BodyShoot : MonoBehaviour, ITurnManager
 {
     [SerializeField] private BodyBullet m_bullet;
 
@@ -42,7 +42,7 @@ public class BodyShoot : MonoBehaviour, IBodyTurn
             {
                 TurnManager.SetInit(TurnType.Shoot, gameObject);
                 TurnManager.Instance.onTurn += IOnTurn;
-                TurnManager.Instance.onStepStart += IOnStep;
+                TurnManager.Instance.onStepStart += IOnStepStart;
             }
         }
     }
@@ -55,14 +55,14 @@ public class BodyShoot : MonoBehaviour, IBodyTurn
             {
                 TurnManager.SetRemove(TurnType.Shoot, gameObject);
                 TurnManager.Instance.onTurn -= IOnTurn;
-                TurnManager.Instance.onStepStart -= IOnStep;
+                TurnManager.Instance.onStepStart -= IOnStepStart;
             }
         }
     }
 
     //
 
-    public bool ITurnActive
+    public bool TurnActive
     {
         get => m_turnControl;
         set => m_turnControl = value;
@@ -74,7 +74,7 @@ public class BodyShoot : MonoBehaviour, IBodyTurn
         m_turnControl = true;
     }
 
-    public void IOnStep(string Name)
+    public void IOnStepStart(string Name)
     {
         if (m_turnControl)
         {
@@ -84,6 +84,8 @@ public class BodyShoot : MonoBehaviour, IBodyTurn
             }
         }
     }
+
+    public void IOnStepEnd(string Name) { }
 
     //
 

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-public class BodyMoveStatic : MonoBehaviour, IBodyTurn
+public class BodyMoveStatic : MonoBehaviour, ITurnManager
 {
     protected bool m_turnActive = false;
 
@@ -44,7 +44,7 @@ public class BodyMoveStatic : MonoBehaviour, IBodyTurn
             {
                 TurnManager.SetInit(TurnType.MoveStatic, gameObject);
                 TurnManager.Instance.onTurn += IOnTurn;
-                TurnManager.Instance.onStepStart += IOnStep;
+                TurnManager.Instance.onStepStart += IOnStepStart;
             }
         }
         //
@@ -60,7 +60,7 @@ public class BodyMoveStatic : MonoBehaviour, IBodyTurn
             {
                 TurnManager.SetRemove(TurnType.MoveStatic, gameObject);
                 TurnManager.Instance.onTurn -= IOnTurn;
-                TurnManager.Instance.onStepStart -= IOnStep;
+                TurnManager.Instance.onStepStart -= IOnStepStart;
             }
         }
         //
@@ -70,7 +70,7 @@ public class BodyMoveStatic : MonoBehaviour, IBodyTurn
 
     //
 
-    public bool ITurnActive
+    public bool TurnActive
     {
         get => m_turnActive;
         set => m_turnActive = value;
@@ -85,7 +85,7 @@ public class BodyMoveStatic : MonoBehaviour, IBodyTurn
         m_turnActive = true;
     }
 
-    public void IOnStep(string Name)
+    public void IOnStepStart(string Name)
     {
         if (m_turnActive)
         {
@@ -95,6 +95,8 @@ public class BodyMoveStatic : MonoBehaviour, IBodyTurn
             }
         }
     }
+
+    public void IOnStepEnd(string Name) { }
 
     //
 

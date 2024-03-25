@@ -609,3 +609,14 @@ public class GameTurnEditor : Editor
 }
 
 #endif
+
+//
+
+public interface ITurnManager
+{
+    void IOnTurn(int Turn);
+
+    void IOnStepStart(string Name);
+
+    void IOnStepEnd(string Name);
+}
