@@ -119,7 +119,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: fllower 0_Frame_0
+  - name: Flower 0_Frame_0
     originalName: 
     pivot: {x: 0.47619048, y: -0.19354838}
     alignment: 9
@@ -130,7 +130,7 @@ ScriptedImporter:
       y: 152
       width: 84
       height: 62
-    spriteID: d77bd48e6050a1344b162006303a6394
+    spriteID: 48ad366af42aa5b43916dbfa61a55fee
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -139,7 +139,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 152}
-  - name: fllower 0_Frame_1
+  - name: Flower 0_Frame_1
     originalName: 
     pivot: {x: 0.47619048, y: -0.19354838}
     alignment: 9
@@ -150,7 +150,7 @@ ScriptedImporter:
       y: 222
       width: 84
       height: 62
-    spriteID: 18f96374584a36d46b8944cc3f81546b
+    spriteID: 0db8871fd6adc96469e661544d3ec519
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -159,7 +159,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 222}
-  - name: fllower 0_Frame_2
+  - name: Flower 0_Frame_2
     originalName: 
     pivot: {x: 0.47619048, y: -0.19354838}
     alignment: 9
@@ -170,7 +170,7 @@ ScriptedImporter:
       y: 292
       width: 84
       height: 62
-    spriteID: 40c25605de3f4b04d915078356356efd
+    spriteID: a000481de6eb72b4eae6c9e398a532b9
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -179,7 +179,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 292}
-  - name: fllower 0_Frame_3
+  - name: Flower 0_Frame_3
     originalName: 
     pivot: {x: 0.47619048, y: -0.19354838}
     alignment: 9
@@ -190,7 +190,7 @@ ScriptedImporter:
       y: 362
       width: 84
       height: 62
-    spriteID: 23189a9b1756ce84597666e6214fbf99
+    spriteID: c5999e840673c214cb30d6878a508d27
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -199,7 +199,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 362}
-  - name: fllower 0_Frame_4
+  - name: Flower 0_Frame_4
     originalName: 
     pivot: {x: 0.47619048, y: -0.19354838}
     alignment: 9
@@ -210,7 +210,7 @@ ScriptedImporter:
       y: 432
       width: 84
       height: 62
-    spriteID: 834884d6364b05648934565768ef116c
+    spriteID: 84f2e644f0713f443974c1b3d31ad772
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -219,7 +219,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 432}
-  - name: fllower 0_Frame_5
+  - name: Flower 0_Frame_5
     originalName: 
     pivot: {x: 0.47619048, y: -0.19354838}
     alignment: 9
@@ -230,7 +230,7 @@ ScriptedImporter:
       y: 4
       width: 84
       height: 62
-    spriteID: dacfe1a180070984a8666de0adc8ea11
+    spriteID: 369c78207126a8143aa37b07e01312a8
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -239,7 +239,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 124, y: 4}
-  - name: fllower 0_Frame_6
+  - name: Flower 0_Frame_6
     originalName: 
     pivot: {x: 0.48, y: -0.05882353}
     alignment: 9
@@ -250,7 +250,7 @@ ScriptedImporter:
       y: 76
       width: 100
       height: 68
-    spriteID: b489cb1e163e0154080fe147e015526d
+    spriteID: 33bc64c6efc9f6c4c96f3d309824bb04
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -259,7 +259,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 76}
-  - name: fllower 0_Frame_7
+  - name: Flower 0_Frame_7
     originalName: 
     pivot: {x: 0.5, y: -0.0625}
     alignment: 9
@@ -270,7 +270,7 @@ ScriptedImporter:
       y: 4
       width: 112
       height: 64
-    spriteID: 257d484bb0765a84bb6e89dcd009f330
+    spriteID: 6bfc6b6e85249444b8ccf930aa49b337
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -282,76 +282,76 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 1821695509
-    name: fllower 0
+    guid: -1490836271
+    name: Flower 0
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: fllower 0_Frame_0
+    - name: Flower 0_Frame_0
       frameIndex: 0
       cellRect:
         x: 24
         y: 12
         width: 84
         height: 62
-      spriteId: d77bd48e6050a1344b162006303a6394
-    - name: fllower 0_Frame_1
+      spriteId: 48ad366af42aa5b43916dbfa61a55fee
+    - name: Flower 0_Frame_1
       frameIndex: 1
       cellRect:
         x: 24
         y: 12
         width: 84
         height: 62
-      spriteId: 18f96374584a36d46b8944cc3f81546b
-    - name: fllower 0_Frame_2
+      spriteId: 0db8871fd6adc96469e661544d3ec519
+    - name: Flower 0_Frame_2
       frameIndex: 2
       cellRect:
         x: 24
         y: 12
         width: 84
         height: 62
-      spriteId: 40c25605de3f4b04d915078356356efd
-    - name: fllower 0_Frame_3
+      spriteId: a000481de6eb72b4eae6c9e398a532b9
+    - name: Flower 0_Frame_3
       frameIndex: 3
       cellRect:
         x: 24
         y: 12
         width: 84
         height: 62
-      spriteId: 23189a9b1756ce84597666e6214fbf99
-    - name: fllower 0_Frame_4
+      spriteId: c5999e840673c214cb30d6878a508d27
+    - name: Flower 0_Frame_4
       frameIndex: 4
       cellRect:
         x: 24
         y: 12
         width: 84
         height: 62
-      spriteId: 834884d6364b05648934565768ef116c
-    - name: fllower 0_Frame_5
+      spriteId: 84f2e644f0713f443974c1b3d31ad772
+    - name: Flower 0_Frame_5
       frameIndex: 5
       cellRect:
         x: 24
         y: 12
         width: 84
         height: 62
-      spriteId: dacfe1a180070984a8666de0adc8ea11
-    - name: fllower 0_Frame_6
+      spriteId: 369c78207126a8143aa37b07e01312a8
+    - name: Flower 0_Frame_6
       frameIndex: 6
       cellRect:
         x: 16
         y: 4
         width: 100
         height: 68
-      spriteId: b489cb1e163e0154080fe147e015526d
-    - name: fllower 0_Frame_7
+      spriteId: 33bc64c6efc9f6c4c96f3d309824bb04
+    - name: Flower 0_Frame_7
       frameIndex: 7
       cellRect:
         x: 8
         y: 4
         width: 112
         height: 64
-      spriteId: 257d484bb0765a84bb6e89dcd009f330
+      spriteId: 6bfc6b6e85249444b8ccf930aa49b337
     linkedCells: []
     parentIndex: -1
   platformSettings: []
