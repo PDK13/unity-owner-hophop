@@ -110,7 +110,7 @@ public class BodyPhysic : MonoBehaviour
 
     #region Gravity
 
-    private void SetControlGravity(string Turn)
+    private void IOnStep(string Turn)
     {
         if (Turn != TurnType.Gravity.ToString())
         {
@@ -147,7 +147,7 @@ public class BodyPhysic : MonoBehaviour
     private void SetForceGravity()
     {
         TurnManager.SetAdd(TurnType.Gravity, gameObject);
-        TurnManager.Instance.onStepStart += SetControlGravity;
+        TurnManager.Instance.onStepStart += IOnStep;
     }
 
     private void SetControlGravity()
@@ -164,7 +164,7 @@ public class BodyPhysic : MonoBehaviour
             else
             {
                 TurnManager.SetEndTurn(TurnType.Gravity, gameObject);
-                TurnManager.Instance.onStepStart -= SetControlGravity;
+                TurnManager.Instance.onStepStart -= IOnStep;
                 //
                 SetStandOnForce();
                 onGravity?.Invoke(false);
