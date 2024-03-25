@@ -269,6 +269,11 @@ public class BodyMoveStaticEditor : Editor
         if (QUnityEditor.SetButton("Editor Generate"))
             m_target.SetEditorFollowIdentity();
         //
+        QUnityEditor.SetSpace();
+        //
+        if (QUnityEditor.SetButton("Editor MOVE Component"))
+            QComponent.GetComponent<IsometricDataMove>(m_target.gameObject);
+        //
         QUnityEditorCustom.SetApply(this);
     }
 }

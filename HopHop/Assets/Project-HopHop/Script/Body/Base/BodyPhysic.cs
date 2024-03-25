@@ -430,6 +430,11 @@ public class BaseBodyEditor : Editor
         if (QUnityEditor.SetButton("Editor Generate"))
             m_target.SetEditorBody();
         //
+        QUnityEditor.SetSpace();
+        //
+        if (QUnityEditor.SetButton("Editor INIT Component"))
+            QComponent.GetComponent<IsometricDataInit>(m_target.gameObject);
+        //
         QUnityEditorCustom.SetApply(this);
     }
 }
