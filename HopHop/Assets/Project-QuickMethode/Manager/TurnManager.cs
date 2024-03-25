@@ -31,8 +31,17 @@ public class TurnManager : SingletonManager<TurnManager>
 
     //Main events for every unit(s) and other progess(s)!
 
+    /// <summary>
+    /// Invoke when new TURN start!
+    /// </summary>
     public Action<int> onTurn;          //<Turn>
+    /// <summary>
+    /// Invoke when a STEP start!
+    /// </summary>
     public Action<string> onStepStart;  //<Step>
+    /// <summary>
+    /// Invoke when a STEP end!
+    /// </summary>
     public Action<string> onStepEnd;    //<Step>
 
     //Optionals event for every unit(s) and other progess(s)!
@@ -159,6 +168,9 @@ public class TurnManager : SingletonManager<TurnManager>
 
     #region Main
 
+    /// <summary>
+    /// Start main progess!
+    /// </summary>
     public static void SetStart()
     {
         SetDebug("[START]", DebugType.None);
@@ -252,6 +264,11 @@ public class TurnManager : SingletonManager<TurnManager>
 
     //
 
+    /// <summary>
+    /// Add or remove STEP that to check for remove when STEP end!
+    /// </summary>
+    /// <param name="Step"></param>
+    /// <param name="Add"></param>
     public static void SetAutoRemove(string Step, bool Add = true)
     {
         if (string.IsNullOrEmpty(Step))
@@ -264,15 +281,27 @@ public class TurnManager : SingletonManager<TurnManager>
             Instance.StepRemove.Remove(Step);
     }
 
-    public static void SetAutoRemove<T>(T Step) where T : Enum
+    /// <summary>
+    /// Add or remove STEP that to check for remove when STEP end!
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="Step"></param>
+    /// <param name="Add"></param>
+    public static void SetAutoRemove<T>(T Step, bool Add = true) where T : Enum
     {
-        SetAutoRemove(Step.ToString());
+        SetAutoRemove(Step.ToString(), Add);
     }
 
     #endregion
 
     #region Step ~ Int & String
 
+    /// <summary>
+    /// Add a unit to main queue before start!
+    /// </summary>
+    /// <param name="Step"></param>
+    /// <param name="Start"></param>
+    /// <param name="Unit"></param>
     public static void SetInit(string Step, int Start, ITurnManager Unit)
     {
         if (string.IsNullOrEmpty(Step))
@@ -302,6 +331,11 @@ public class TurnManager : SingletonManager<TurnManager>
         SetDebug(string.Format("[INIT] {0}", Step.ToString()), DebugType.Full);
     } //Init on Start!!
 
+    /// <summary>
+    /// Remove a unit from main queue!
+    /// </summary>
+    /// <param name="Step"></param>
+    /// <param name="Unit"></param>
     public static void SetRemove(string Step, ITurnManager Unit)
     {
         if (string.IsNullOrEmpty(Step))
@@ -342,6 +376,11 @@ public class TurnManager : SingletonManager<TurnManager>
         Instance.onStepRemove?.Invoke(Step, Unit);
     } //Remove on Destroy!!
 
+    /// <summary>
+    /// Accept a unit that completed it's MOVE, but not it's STEP!
+    /// </summary>
+    /// <param name="Step"></param>
+    /// <param name="Unit"></param>
     public static void SetEndMove(string Step, ITurnManager Unit)
     {
         if (string.IsNullOrEmpty(Step))
@@ -363,6 +402,11 @@ public class TurnManager : SingletonManager<TurnManager>
         SetDebug(string.Format("[END] MOVE {0}", Step), DebugType.Full);
     } //End!!
 
+    /// <summary>
+    /// Accept a unit that completed it's MOVE and it's STEP!
+    /// </summary>
+    /// <param name="Step"></param>
+    /// <param name="Unit"></param>
     public static void SetEndStep(string Step, ITurnManager Unit)
     {
         if (string.IsNullOrEmpty(Step))
@@ -432,6 +476,13 @@ public class TurnManager : SingletonManager<TurnManager>
             Instance.m_stepQueue.Add(Instance.m_stepCurrent);
     } //Swap Current Step to Last!!
 
+    /// <summary>
+    /// Add a unit to main queue after start!
+    /// </summary>
+    /// <param name="Step"></param>
+    /// <param name="Start"></param>
+    /// <param name="Unit"></param>
+    /// <param name="After"></param>
     public static void SetAdd(string Step, int Start, ITurnManager Unit, int After = 0)
     {
         if (string.IsNullOrEmpty(Step))
@@ -467,6 +518,13 @@ public class TurnManager : SingletonManager<TurnManager>
         SetDebug(string.Format("[ADD] {0}", After), DebugType.Full);
     } //Add Step Special!!
 
+    /// <summary>
+    /// Add a unit to main queue after start!
+    /// </summary>
+    /// <param name="Step"></param>
+    /// <param name="Start"></param>
+    /// <param name="Unit"></param>
+    /// <param name="After"></param>
     public static void SetAdd(string Step, int Start, ITurnManager Unit, string After)
     {
         if (string.IsNullOrEmpty(Step))
@@ -505,34 +563,69 @@ public class TurnManager : SingletonManager<TurnManager>
 
     #region Step ~ Enum
 
+    /// <summary>
+    /// Add a unit to main queue before start!
+    /// </summary>
+    /// <param name="Step"></param>
+    /// <param name="Start"></param>
+    /// <param name="Unit"></param>
     public static void SetInit<T>(T Step, ITurnManager Unit) where T : Enum
     {
-        SetInit(Step.ToString(), QEnum.GetChoice(Step), Unit);
+        SetInit(Step.ToString(), Mathf.Clamp(QEnum.GetChoice(Step), 0, int.MaxValue), Unit);
     } //Init on Start!!
 
+    /// <summary>
+    /// Remove a unit from main queue!
+    /// </summary>
+    /// <param name="Step"></param>
+    /// <param name="Unit"></param>
     public static void SetRemove<T>(T Step, ITurnManager Unit) where T : Enum
     {
         SetRemove(Step.ToString(), Unit);
     } //Remove on Destroy!!
 
+    /// <summary>
+    /// Accept a unit that completed it's MOVE, but not it's STEP!
+    /// </summary>
+    /// <param name="Step"></param>
+    /// <param name="Unit"></param>
     public static void SetEndMove<T>(T Step, ITurnManager Unit) where T : Enum
     {
         SetEndMove(Step.ToString(), Unit);
     } //End!!
 
+    /// <summary>
+    /// Accept a unit that completed it's MOVE and it's STEP!
+    /// </summary>
+    /// <param name="Step"></param>
+    /// <param name="Unit"></param>
     public static void SetEndStep<T>(T Step, ITurnManager Unit) where T : Enum
     {
         SetEndStep(Step.ToString(), Unit);
     } //End!!
 
+    /// <summary>
+    /// Add a unit to main queue after start!
+    /// </summary>
+    /// <param name="Step"></param>
+    /// <param name="Start"></param>
+    /// <param name="Unit"></param>
+    /// <param name="After"></param>
     public static void SetAdd<T>(T Step, ITurnManager Unit, int After = 0) where T : Enum
     {
-        SetAdd(Step.ToString(), QEnum.GetChoice(Step), Unit, After);
+        SetAdd(Step.ToString(), Mathf.Clamp(QEnum.GetChoice(Step), 0, int.MaxValue), Unit, After);
     } //Add Step Special!!
 
+    /// <summary>
+    /// Add a unit to main queue after start!
+    /// </summary>
+    /// <param name="Step"></param>
+    /// <param name="Start"></param>
+    /// <param name="Unit"></param>
+    /// <param name="After"></param>
     public static void SetAdd<T>(T Step, ITurnManager Unit, string After) where T : Enum
     {
-        SetAdd(Step.ToString(), QEnum.GetChoice(Step), Unit, After);
+        SetAdd(Step.ToString(), Mathf.Clamp(QEnum.GetChoice(Step), 0, int.MaxValue), Unit, After);
     } //Add Step Special!!
 
     #endregion
