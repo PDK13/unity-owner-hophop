@@ -1,6 +1,5 @@
 using DG.Tweening;
 using UnityEngine;
-using System;
 
 public class BodyBullet : MonoBehaviour, ITurnManager
 {
@@ -29,9 +28,9 @@ public class BodyBullet : MonoBehaviour, ITurnManager
         m_block = GetComponent<IsometricBlock>();
         //
         TurnManager.SetInit(TurnType.Bullet, this);
-        TurnManager.Instance.onTurn += ITurn;
-        TurnManager.Instance.onStepStart += IStepStart;
-        TurnManager.Instance.onStepEnd += IStepEnd;
+        TurnManager.Instance.onTurn += ISetTurn;
+        TurnManager.Instance.onStepStart += ISetStepStart;
+        TurnManager.Instance.onStepEnd += ISetStepEnd;
         //
         if (m_body != null)
             m_body.onGravity += SetGravity;
@@ -45,9 +44,9 @@ public class BodyBullet : MonoBehaviour, ITurnManager
     private void OnDestroy()
     {
         TurnManager.SetRemove(TurnType.Bullet, this);
-        TurnManager.Instance.onTurn -= ITurn;
-        TurnManager.Instance.onStepStart -= IStepStart;
-        TurnManager.Instance.onStepEnd -= IStepEnd;
+        TurnManager.Instance.onTurn -= ISetTurn;
+        TurnManager.Instance.onStepStart -= ISetStepStart;
+        TurnManager.Instance.onStepEnd -= ISetStepEnd;
         //
         if (m_body != null)
             m_body.onGravity -= SetGravity;
@@ -61,7 +60,7 @@ public class BodyBullet : MonoBehaviour, ITurnManager
         set => m_turnActive = value;
     }
 
-    public void ITurn(int Turn)
+    public void ISetTurn(int Turn)
     {
         //Reset!!
         m_turnLength = 0;
@@ -70,7 +69,7 @@ public class BodyBullet : MonoBehaviour, ITurnManager
         m_turnActive = true;
     }
 
-    public void IStepStart(string Step)
+    public void ISetStepStart(string Step)
     {
         if (!m_turnActive)
             return;
@@ -81,7 +80,7 @@ public class BodyBullet : MonoBehaviour, ITurnManager
         SetControlMove();
     }
 
-    public void IStepEnd(string Step) { }
+    public void ISetStepEnd(string Step) { }
 
     #endregion
 
@@ -159,9 +158,9 @@ public class BodyBullet : MonoBehaviour, ITurnManager
         m_turnActive = false;
         TurnManager.SetEndStep(TurnType.Bullet, this);
         TurnManager.SetRemove(TurnType.Bullet, this);
-        TurnManager.Instance.onTurn -= ITurn;
-        TurnManager.Instance.onStepStart -= IStepStart;
-        TurnManager.Instance.onStepEnd -= IStepEnd;
+        TurnManager.Instance.onTurn -= ISetTurn;
+        TurnManager.Instance.onStepStart -= ISetStepStart;
+        TurnManager.Instance.onStepEnd -= ISetStepEnd;
         //
         SetControlAnimation(ANIM_BLOW);
         m_block.WorldManager.World.Current.SetBlockRemoveInstant(m_block, DESTROY_DELAY);

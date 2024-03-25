@@ -695,16 +695,16 @@ public class GameTurnEditor : Editor
 
 public interface ITurnManager
 {
-    void ITurn(int Step);
+    void ISetTurn(int Step);
 
-    void IStepStart(string Step);
+    void ISetStepStart(string Step);
 
-    void IStepEnd(string Step);
+    void ISetStepEnd(string Step);
 }
 
 public interface ITurnManagerOptional
 {
-    void IStepAdd(string Step, ITurnManager Unit);
+    void ISetStepAdd(string Step, ITurnManager Unit);
 
-    void IStepRemove(string Step, ITurnManager Unit);
+    void ISetStepRemove(string Step, ITurnManager Unit);
 }

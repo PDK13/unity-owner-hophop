@@ -37,9 +37,9 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic
             if (m_dataMove.Data.Count > 0)
             {
                 TurnManager.SetInit(TurnType.MovePhysic, this);
-                TurnManager.Instance.onTurn += ITurn;
-                TurnManager.Instance.onStepStart += IStepStart;
-                TurnManager.Instance.onStepEnd += IStepEnd;
+                TurnManager.Instance.onTurn += ISetTurn;
+                TurnManager.Instance.onStepStart += ISetStepStart;
+                TurnManager.Instance.onStepEnd += ISetStepEnd;
             }
         }
         //
@@ -60,9 +60,9 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic
             if (m_dataMove.Data.Count > 0)
             {
                 TurnManager.SetRemove(TurnType.MovePhysic, this);
-                TurnManager.Instance.onTurn -= ITurn;
-                TurnManager.Instance.onStepStart -= IStepStart;
-                TurnManager.Instance.onStepEnd -= IStepEnd;
+                TurnManager.Instance.onTurn -= ISetTurn;
+                TurnManager.Instance.onStepStart -= ISetStepStart;
+                TurnManager.Instance.onStepEnd -= ISetStepEnd;
             }
         }
         //
@@ -81,12 +81,12 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic
         set => m_turnActive = value;
     }
 
-    public void ITurn(int Turn)
+    public void ISetTurn(int Turn)
     {
         m_turnActive = true;
     }
 
-    public void IStepStart(string Step)
+    public void ISetStepStart(string Step)
     {
         if (!m_turnActive)
             return;
@@ -114,7 +114,7 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic
             m_turnActive = false;
     }
 
-    public void IStepEnd(string Step) { }
+    public void ISetStepEnd(string Step) { }
 
     //
 

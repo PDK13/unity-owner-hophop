@@ -43,9 +43,9 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
             if (m_move.Data.Count > 0)
             {
                 TurnManager.SetInit(TurnType.MoveStatic, this);
-                TurnManager.Instance.onTurn += ITurn;
-                TurnManager.Instance.onStepStart += IStepStart;
-                TurnManager.Instance.onStepEnd += IStepEnd;
+                TurnManager.Instance.onTurn += ISetTurn;
+                TurnManager.Instance.onStepStart += ISetStepStart;
+                TurnManager.Instance.onStepEnd += ISetStepEnd;
             }
         }
         //
@@ -60,9 +60,9 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
             if (m_move.Data.Count > 0)
             {
                 TurnManager.SetRemove(TurnType.MoveStatic, this);
-                TurnManager.Instance.onTurn -= ITurn;
-                TurnManager.Instance.onStepStart -= IStepStart;
-                TurnManager.Instance.onStepEnd -= IStepEnd;
+                TurnManager.Instance.onTurn -= ISetTurn;
+                TurnManager.Instance.onStepStart -= ISetStepStart;
+                TurnManager.Instance.onStepEnd -= ISetStepEnd;
             }
         }
         //
@@ -78,7 +78,7 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
         set => m_turnActive = value;
     }
 
-    public void ITurn(int Turn)
+    public void ISetTurn(int Turn)
     {
         //Reset!!
         m_turnLength = 0;
@@ -87,7 +87,7 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
         m_turnActive = true;
     }
 
-    public void IStepStart(string Step)
+    public void ISetStepStart(string Step)
     {
         if (!m_turnActive)
             return;
@@ -98,7 +98,7 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
         SetControlMove();
     }
 
-    public void IStepEnd(string Step) { }
+    public void ISetStepEnd(string Step) { }
 
     #endregion
 

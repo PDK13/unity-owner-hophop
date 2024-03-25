@@ -41,9 +41,9 @@ public class BodyShoot : MonoBehaviour, ITurnManager
             if (m_dataAction.Data.Count > 0)
             {
                 TurnManager.SetInit(TurnType.Shoot, this);
-                TurnManager.Instance.onTurn += ITurn;
-                TurnManager.Instance.onStepStart += IStepStart;
-                TurnManager.Instance.onStepEnd += IStepEnd;
+                TurnManager.Instance.onTurn += ISetTurn;
+                TurnManager.Instance.onStepStart += ISetStepStart;
+                TurnManager.Instance.onStepEnd += ISetStepEnd;
             }
         }
     }
@@ -55,9 +55,9 @@ public class BodyShoot : MonoBehaviour, ITurnManager
             if (m_dataAction.Data.Count > 0)
             {
                 TurnManager.SetRemove(TurnType.Shoot, this);
-                TurnManager.Instance.onTurn -= ITurn;
-                TurnManager.Instance.onStepStart -= IStepStart;
-                TurnManager.Instance.onStepEnd -= IStepEnd;
+                TurnManager.Instance.onTurn -= ISetTurn;
+                TurnManager.Instance.onStepStart -= ISetStepStart;
+                TurnManager.Instance.onStepEnd -= ISetStepEnd;
             }
         }
     }
@@ -70,13 +70,13 @@ public class BodyShoot : MonoBehaviour, ITurnManager
         set => m_turnControl = value;
     }
 
-    public void ITurn(int Turn)
+    public void ISetTurn(int Turn)
     {
         //Reset!!
         m_turnControl = true;
     }
 
-    public void IStepStart(string Step)
+    public void ISetStepStart(string Step)
     {
         if (!m_turnControl)
             return;
@@ -87,7 +87,7 @@ public class BodyShoot : MonoBehaviour, ITurnManager
         SetControlAction();
     }
 
-    public void IStepEnd(string Step) { }
+    public void ISetStepEnd(string Step) { }
 
     #endregion
 

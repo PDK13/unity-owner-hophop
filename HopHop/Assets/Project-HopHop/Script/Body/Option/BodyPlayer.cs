@@ -16,9 +16,9 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic
     private void Start()
     {
         TurnManager.SetInit(TurnType.Player, this);
-        TurnManager.Instance.onTurn += ITurn;
-        TurnManager.Instance.onStepStart += IStepStart;
-        TurnManager.Instance.onStepEnd += IStepEnd;
+        TurnManager.Instance.onTurn += ISetTurn;
+        TurnManager.Instance.onStepStart += ISetStepStart;
+        TurnManager.Instance.onStepEnd += ISetStepEnd;
         //
         m_body.onMove += IMoveForce;
         m_body.onForce += IForce;
@@ -34,9 +34,9 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic
     private void OnDestroy()
     {
         TurnManager.SetRemove(TurnType.Player, this);
-        TurnManager.Instance.onTurn -= ITurn;
-        TurnManager.Instance.onStepStart -= IStepStart;
-        TurnManager.Instance.onStepEnd -= IStepEnd;
+        TurnManager.Instance.onTurn -= ISetTurn;
+        TurnManager.Instance.onStepStart -= ISetStepStart;
+        TurnManager.Instance.onStepEnd -= ISetStepEnd;
         //
         m_body.onMove -= IMoveForce;
         m_body.onForce -= IForce;
@@ -78,14 +78,14 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic
         set => m_turnActive = value;
     }
 
-    public void ITurn(int Turn)
+    public void ISetTurn(int Turn)
     {
         //Reset!!
         //
         //...
     }
 
-    public void IStepStart(string Step)
+    public void ISetStepStart(string Step)
     {
         if (Step != TurnType.Player.ToString())
             return;
@@ -96,7 +96,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic
         m_turnActive = true;
     }
 
-    public void IStepEnd(string Step) { }
+    public void ISetStepEnd(string Step) { }
 
     #endregion
 

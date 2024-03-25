@@ -47,9 +47,9 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
         set => m_turnActive = value;
     }
 
-    public void ITurn(int Turn) { }
+    public void ISetTurn(int Turn) { }
 
-    public void IStepStart(string Step)
+    public void ISetStepStart(string Step)
     {
         if (Step != TurnType.Gravity.ToString())
         {
@@ -62,7 +62,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
         SetControlGravity();
     }
 
-    public void IStepEnd(string Step) { }
+    public void ISetStepEnd(string Step) { }
 
     #endregion
 
@@ -159,9 +159,9 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
     private void SetForceGravity()
     {
         TurnManager.SetAdd(TurnType.Gravity, this);
-        TurnManager.Instance.onTurn += ITurn;
-        TurnManager.Instance.onStepStart += IStepStart;
-        TurnManager.Instance.onStepEnd += IStepEnd;
+        TurnManager.Instance.onTurn += ISetTurn;
+        TurnManager.Instance.onStepStart += ISetStepStart;
+        TurnManager.Instance.onStepEnd += ISetStepEnd;
     }
 
     private void SetControlGravity()
@@ -178,9 +178,9 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
             else
             {
                 TurnManager.SetEndStep(TurnType.Gravity, this);
-                TurnManager.Instance.onTurn -= ITurn;
-                TurnManager.Instance.onStepStart -= IStepStart;
-                TurnManager.Instance.onStepEnd -= IStepEnd;
+                TurnManager.Instance.onTurn -= ISetTurn;
+                TurnManager.Instance.onStepStart -= ISetStepStart;
+                TurnManager.Instance.onStepEnd -= ISetStepEnd;
                 //
                 SetStandOnForce();
                 onGravity?.Invoke(false);
