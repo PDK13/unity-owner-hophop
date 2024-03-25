@@ -37,8 +37,8 @@ public class TurnManager : SingletonManager<TurnManager>
 
     //Optionals event for every unit(s) and other progess(s)!
 
-    public Action<string, ITurnManager> onStepAdd;      //<Step,Object>
-    public Action<string, ITurnManager> onStepRemove;   //<Step,Object>
+    public Action<string> onStepAdd;      //<Step>
+    public Action<string> onStepRemove;   //<Step>
 
     #endregion
 
@@ -118,6 +118,21 @@ public class TurnManager : SingletonManager<TurnManager>
 
     [SerializeField] private StepSingle m_stepCurrent;
     [SerializeField] private List<StepSingle> m_stepQueue = new List<StepSingle>();
+
+    public (string Step, int Count) StepCurrent => (m_stepCurrent.Step, m_stepCurrent.Unit.Count);
+
+    public List<(string Step, int Count)> StepQueueCurrent
+    {
+        get
+        {
+            List<(string Step, int Count)> Queue = new List<(string Step, int Count)>();
+            foreach (var StepCheck in m_stepQueue)
+                Queue.Add((StepCheck.Step, StepCheck.Unit.Count));
+            return Queue;
+        }
+    }
+
+    //
 
     public List<string> StepRemove = new List<string>()
     {
@@ -249,8 +264,8 @@ public class TurnManager : SingletonManager<TurnManager>
     {
         //NOTE: Add WAIT unit(s) to main queue!
         //
-        foreach (StepSingle TurnCheck in Instance.m_stepQueue)
-            TurnCheck.SetWaitAdd();
+        foreach (StepSingle StepCheck in Instance.m_stepQueue)
+            StepCheck.SetWaitAdd();
     }
 
     //
@@ -317,7 +332,7 @@ public class TurnManager : SingletonManager<TurnManager>
         //
         Instance.m_stepQueue.Add(new StepSingle(Step, Start, Unit));
         //
-        Instance.onStepAdd?.Invoke(Step, Unit);
+        Instance.onStepAdd?.Invoke(Step);
         //
         SetDebug(string.Format("[INIT] '{0}'", Step.ToString()), DebugType.Full);
     } //Init on Start!!
@@ -364,7 +379,7 @@ public class TurnManager : SingletonManager<TurnManager>
             SetDebug(string.Format("[REMOVE-STEP] '{0}' UN-SAME", Step), DebugType.Full);
         }
         //
-        Instance.onStepRemove?.Invoke(Step, Unit);
+        Instance.onStepRemove?.Invoke(Step);
     } //Remove on Destroy!!
 
     /// <summary>
@@ -454,10 +469,8 @@ public class TurnManager : SingletonManager<TurnManager>
             return;
         //
         if (StepFind.EndStepRemove)
-        {
-            foreach (var Unit in StepFind.Unit)
-                Instance.onStepRemove?.Invoke(Step, Unit);
-        }
+            Instance.onStepRemove?.Invoke(Step);
+        //
         Instance.m_stepQueue.Remove(StepFind);
         //
         //NOTE: STEP in check maybe is the current STEP in queue!
@@ -504,7 +517,7 @@ public class TurnManager : SingletonManager<TurnManager>
             Instance.m_stepQueue[After].EndStepRemove = Instance.StepRemove.Contains(Step);
         }
         //
-        Instance.onStepAdd?.Invoke(Step, Unit);
+        Instance.onStepAdd?.Invoke(Step);
         //
         SetDebug(string.Format("[ADD] '{0}'", After), DebugType.Full);
     } //Add Step Special!!
@@ -545,7 +558,7 @@ public class TurnManager : SingletonManager<TurnManager>
             return;
         }
         //
-        Instance.onStepAdd?.Invoke(Step, Unit);
+        Instance.onStepAdd?.Invoke(Step);
         //
         SetDebug(string.Format("[ADD] '{0}'", After), DebugType.Full);
     } //Add Step Special!!
