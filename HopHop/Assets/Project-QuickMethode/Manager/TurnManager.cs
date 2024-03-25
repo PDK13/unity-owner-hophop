@@ -25,7 +25,7 @@ public class TurnManager : SingletonManager<TurnManager>
 
     #endregion
 
-    //One TURN got many STEP, one STEP got many GameObject that all need to be complete their Move for next STEP or next TURN!!
+    //One TURN got many STEP, one STEP got many ITurnManager that all need to be complete their Move for next STEP or next TURN!!
 
     #region Event
 
@@ -46,33 +46,33 @@ public class TurnManager : SingletonManager<TurnManager>
 
         public string Step = "None";
 
-        public List<GameObject> Unit;
-        public List<GameObject> UnitEndStep;
-        public List<GameObject> UnitEndMove;
-        public List<GameObject> UnitWaitAdd;
+        public List<ITurnManager> Unit;
+        public List<ITurnManager> UnitEndStep;
+        public List<ITurnManager> UnitEndMove;
+        public List<ITurnManager> UnitWaitAdd;
 
         public bool EndMove => UnitEndMove.Count == Unit.Count - UnitEndStep.Count;
         public bool EndStep => UnitEndStep.Count == Unit.Count;
 
         public bool EndStepRemove = false;
 
-        public StepSingle(string Step, int Start, GameObject Unit)
+        public StepSingle(string Step, int Start, ITurnManager Unit)
         {
             this.Start = Start;
             //
             this.Step = Step;
             //
-            this.Unit = new List<GameObject>();
-            UnitEndStep = new List<GameObject>();
-            UnitEndMove = new List<GameObject>();
-            UnitWaitAdd = new List<GameObject>
+            this.Unit = new List<ITurnManager>();
+            UnitEndStep = new List<ITurnManager>();
+            UnitEndMove = new List<ITurnManager>();
+            UnitWaitAdd = new List<ITurnManager>
             {
                 //
                 Unit
             };
         }
 
-        public bool GetEnd(GameObject UnitCheck)
+        public bool GetEnd(ITurnManager UnitCheck)
         {
             if (!Unit.Contains(UnitCheck))
                 return false;
@@ -83,7 +83,7 @@ public class TurnManager : SingletonManager<TurnManager>
             return true;
         }
 
-        public void SetAdd(GameObject Unit)
+        public void SetAdd(ITurnManager Unit)
         {
             UnitWaitAdd.Add(Unit);
         }
@@ -146,7 +146,7 @@ public class TurnManager : SingletonManager<TurnManager>
         Instance.m_turnPass = 0;
         Instance.m_stepQueue.RemoveAll(t => t.Step == "");
         Instance.m_stepQueue = Instance.m_stepQueue.OrderBy(t => t.Start).ToList();
-        Instance.m_stepQueue.Insert(0, new StepSingle("", int.MaxValue, Instance.gameObject));
+        Instance.m_stepQueue.Insert(0, new StepSingle("", int.MaxValue, null));
         //
         Instance.SetCurrent();
     } //Start!!
@@ -249,7 +249,7 @@ public class TurnManager : SingletonManager<TurnManager>
 
     #region Turn ~ Int & String
 
-    public static void SetInit(string Step, int Start, GameObject Unit)
+    public static void SetInit(string Step, int Start, ITurnManager Unit)
     {
         if (string.IsNullOrEmpty(Step))
         {
@@ -284,7 +284,7 @@ public class TurnManager : SingletonManager<TurnManager>
         Instance.m_stepQueue.Add(new StepSingle(Step, Start, Unit));
     } //Init on Start!!
 
-    public static void SetRemove(string Step, GameObject Unit)
+    public static void SetRemove(string Step, ITurnManager Unit)
     {
         if (string.IsNullOrEmpty(Step))
         {
@@ -334,7 +334,7 @@ public class TurnManager : SingletonManager<TurnManager>
         }
     } //Remove on Destroy!!
 
-    public static void SetEndMove(string Step, GameObject Unit)
+    public static void SetEndMove(string Step, ITurnManager Unit)
     {
         if (string.IsNullOrEmpty(Step))
         {
@@ -362,7 +362,7 @@ public class TurnManager : SingletonManager<TurnManager>
         SetEndCheck(Step);
     } //End!!
 
-    public static void SetEndTurn(string Step, GameObject Unit)
+    public static void SetEndTurn(string Step, ITurnManager Unit)
     {
         if (string.IsNullOrEmpty(Step))
         {
@@ -428,7 +428,7 @@ public class TurnManager : SingletonManager<TurnManager>
         }
     } //Swap Current Turn to Last!!
 
-    public static void SetAdd(string Step, int Start, GameObject Unit, int After = 0)
+    public static void SetAdd(string Step, int Start, ITurnManager Unit, int After = 0)
     {
         if (string.IsNullOrEmpty(Step))
         {
@@ -474,7 +474,7 @@ public class TurnManager : SingletonManager<TurnManager>
         }
     } //Add Turn Special!!
 
-    public static void SetAdd(string Step, int Start, GameObject Unit, string After)
+    public static void SetAdd(string Step, int Start, ITurnManager Unit, string After)
     {
         if (string.IsNullOrEmpty(Step))
         {
@@ -519,32 +519,32 @@ public class TurnManager : SingletonManager<TurnManager>
 
     #region Turn ~ Enum
 
-    public static void SetInit<T>(T Step, GameObject Unit) where T : Enum
+    public static void SetInit<T>(T Step, ITurnManager Unit) where T : Enum
     {
         SetInit(Step.ToString(), QEnum.GetChoice(Step), Unit);
     } //Init on Start!!
 
-    public static void SetRemove<T>(T Step, GameObject Unit) where T : Enum
+    public static void SetRemove<T>(T Step, ITurnManager Unit) where T : Enum
     {
         SetRemove(Step.ToString(), Unit);
     } //Remove on Destroy!!
 
-    public static void SetEndMove<T>(T Step, GameObject Unit) where T : Enum
+    public static void SetEndMove<T>(T Step, ITurnManager Unit) where T : Enum
     {
         SetEndMove(Step.ToString(), Unit);
     } //End!!
 
-    public static void SetEndTurn<T>(T Step, GameObject Unit) where T : Enum
+    public static void SetEndTurn<T>(T Step, ITurnManager Unit) where T : Enum
     {
         SetEndTurn(Step.ToString(), Unit);
     } //End!!
 
-    public static void SetAdd<T>(T Step, GameObject Unit, int After = 0) where T : Enum
+    public static void SetAdd<T>(T Step, ITurnManager Unit, int After = 0) where T : Enum
     {
         SetAdd(Step.ToString(), QEnum.GetChoice(Step), Unit, After);
     } //Add Turn Special!!
 
-    public static void SetAdd<T>(T Step, GameObject Unit, string After) where T : Enum
+    public static void SetAdd<T>(T Step, ITurnManager Unit, string After) where T : Enum
     {
         SetAdd(Step.ToString(), QEnum.GetChoice(Step), Unit, After);
     } //Add Turn Special!!
@@ -614,9 +614,9 @@ public class GameTurnEditor : Editor
 
 public interface ITurnManager
 {
-    void IOnTurn(int Turn);
+    void ITurn(int Turn);
 
-    void IOnStepStart(string Name);
+    void IStepStart(string Name);
 
-    void IOnStepEnd(string Name);
+    void IStepEnd(string Name);
 }

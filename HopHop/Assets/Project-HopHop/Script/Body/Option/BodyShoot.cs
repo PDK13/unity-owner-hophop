@@ -40,9 +40,7 @@ public class BodyShoot : MonoBehaviour, ITurnManager
         {
             if (m_dataAction.Data.Count > 0)
             {
-                TurnManager.SetInit(TurnType.Shoot, gameObject);
-                TurnManager.Instance.onTurn += IOnTurn;
-                TurnManager.Instance.onStepStart += IOnStepStart;
+                TurnManager.SetInit(TurnType.Shoot, this);
             }
         }
     }
@@ -53,14 +51,12 @@ public class BodyShoot : MonoBehaviour, ITurnManager
         {
             if (m_dataAction.Data.Count > 0)
             {
-                TurnManager.SetRemove(TurnType.Shoot, gameObject);
-                TurnManager.Instance.onTurn -= IOnTurn;
-                TurnManager.Instance.onStepStart -= IOnStepStart;
+                TurnManager.SetRemove(TurnType.Shoot, this);
             }
         }
     }
 
-    //
+    #region Turn
 
     public bool TurnActive
     {
@@ -68,13 +64,13 @@ public class BodyShoot : MonoBehaviour, ITurnManager
         set => m_turnControl = value;
     }
 
-    public void IOnTurn(int Turn)
+    public void ITurn(int Turn)
     {
         //Reset!!
         m_turnControl = true;
     }
 
-    public void IOnStepStart(string Name)
+    public void IStepStart(string Name)
     {
         if (m_turnControl)
         {
@@ -85,9 +81,11 @@ public class BodyShoot : MonoBehaviour, ITurnManager
         }
     }
 
-    public void IOnStepEnd(string Name) { }
+    public void IStepEnd(string Name) { }
 
-    //
+    #endregion
+
+    #region Move
 
     private void SetControlAction()
     {
@@ -118,7 +116,7 @@ public class BodyShoot : MonoBehaviour, ITurnManager
         yield return new WaitForSeconds(GameManager.TimeMove * 1);
         //
         m_turnControl = false;
-        TurnManager.SetEndTurn(TurnType.Shoot, gameObject);
+        TurnManager.SetEndTurn(TurnType.Shoot, this);
     }
 
     private void SetShoot(IsometricVector DirSpawm, IsometricVector DirMove, int Speed)
@@ -138,6 +136,8 @@ public class BodyShoot : MonoBehaviour, ITurnManager
         IsometricBlock Bullet = m_block.WorldManager.World.Current.SetBlockCreate(m_block.Pos + DirSpawm, m_bullet.gameObject, false);
         Bullet.GetComponent<BodyBullet>().SetInit(DirMove, Speed);
     } //Shoot Bullet!!
+
+    #endregion
 
 #if UNITY_EDITOR
 

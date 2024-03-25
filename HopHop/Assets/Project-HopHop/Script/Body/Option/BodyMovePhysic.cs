@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-public class BodyMovePhysic : MonoBehaviour, IBodyPhysic
+public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic
 {
     protected bool m_turnActive = false;
 
@@ -36,9 +36,7 @@ public class BodyMovePhysic : MonoBehaviour, IBodyPhysic
         {
             if (m_dataMove.Data.Count > 0)
             {
-                TurnManager.SetInit(TurnType.MovePhysic, gameObject);
-                TurnManager.Instance.onTurn += IOnTurn;
-                TurnManager.Instance.onStepStart += IOnStep;
+                TurnManager.SetInit(TurnType.MovePhysic, this);
             }
         }
         //
@@ -58,9 +56,7 @@ public class BodyMovePhysic : MonoBehaviour, IBodyPhysic
         {
             if (m_dataMove.Data.Count > 0)
             {
-                TurnManager.SetRemove(TurnType.MovePhysic, gameObject);
-                TurnManager.Instance.onTurn -= IOnTurn;
-                TurnManager.Instance.onStepStart -= IOnStep;
+                TurnManager.SetRemove(TurnType.MovePhysic, this);
             }
         }
         //
@@ -79,12 +75,12 @@ public class BodyMovePhysic : MonoBehaviour, IBodyPhysic
         set => m_turnActive = value;
     }
 
-    public void IOnTurn(int Turn)
+    public void ITurn(int Turn)
     {
         m_turnActive = true;
     }
 
-    public void IOnStep(string Name)
+    public void IStepStart(string Name)
     {
         if (m_turnActive)
         {
@@ -102,7 +98,7 @@ public class BodyMovePhysic : MonoBehaviour, IBodyPhysic
                             m_dataMove.SetDirNext();
                             //
                             m_turnActive = false;
-                            TurnManager.SetEndTurn(TurnType.MovePhysic, gameObject);
+                            TurnManager.SetEndTurn(TurnType.MovePhysic, this);
                         }
                     }
                 }
@@ -112,6 +108,8 @@ public class BodyMovePhysic : MonoBehaviour, IBodyPhysic
         }
     }
 
+    public void IStepEnd(string Name) { }
+
     //
 
     public void IMoveForce(bool State, IsometricVector Dir)
@@ -119,7 +117,7 @@ public class BodyMovePhysic : MonoBehaviour, IBodyPhysic
         if (!State)
         {
             m_turnActive = false;
-            TurnManager.SetEndTurn(TurnType.MovePhysic, gameObject);
+            TurnManager.SetEndTurn(TurnType.MovePhysic, this);
         }
     }
 
@@ -133,7 +131,7 @@ public class BodyMovePhysic : MonoBehaviour, IBodyPhysic
         if (m_dataMove.DirCombineCurrent == IsometricVector.None)
         {
             m_turnActive = false;
-            TurnManager.SetEndTurn(TurnType.MovePhysic, gameObject); //Follow Enermy (!)
+            TurnManager.SetEndTurn(TurnType.MovePhysic, this); //Follow Enermy (!)
             return true;
         }
         //

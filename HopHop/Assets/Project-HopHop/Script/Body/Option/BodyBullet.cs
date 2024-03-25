@@ -28,9 +28,7 @@ public class BodyBullet : MonoBehaviour, ITurnManager
         m_body = GetComponent<BodyPhysic>();
         m_block = GetComponent<IsometricBlock>();
         //
-        TurnManager.SetInit(TurnType.Bullet, gameObject);
-        TurnManager.Instance.onTurn += IOnTurn;
-        TurnManager.Instance.onStepStart += IOnStepStart;
+        TurnManager.SetInit(TurnType.Bullet, this);
         //
         if (m_body != null)
             m_body.onGravity += SetGravity;
@@ -43,15 +41,13 @@ public class BodyBullet : MonoBehaviour, ITurnManager
 
     private void OnDestroy()
     {
-        TurnManager.SetRemove(TurnType.Bullet, gameObject);
-        TurnManager.Instance.onTurn -= IOnTurn;
-        TurnManager.Instance.onStepStart -= IOnStepStart;
+        TurnManager.SetRemove(TurnType.Bullet, this);
         //
         if (m_body != null)
             m_body.onGravity -= SetGravity;
     }
 
-    //
+    #region Turn
 
     public bool TurnActive
     {
@@ -59,7 +55,7 @@ public class BodyBullet : MonoBehaviour, ITurnManager
         set => m_turnActive = value;
     }
 
-    public void IOnTurn(int Turn)
+    public void ITurn(int Turn)
     {
         //Reset!!
         m_turnLength = 0;
@@ -68,7 +64,7 @@ public class BodyBullet : MonoBehaviour, ITurnManager
         m_turnActive = true;
     }
 
-    public void IOnStepStart(string Name)
+    public void IStepStart(string Name)
     {
         if (m_turnActive)
         {
@@ -79,9 +75,11 @@ public class BodyBullet : MonoBehaviour, ITurnManager
         }
     }
 
-    public void IOnStepEnd(string Name) { }
+    public void IStepEnd(string Name) { }
 
-    //
+    #endregion
+
+    #region Move
 
     private void SetControlMove()
     {
@@ -136,11 +134,11 @@ public class BodyBullet : MonoBehaviour, ITurnManager
                 if (TurnEnd)
                 {
                     m_turnActive = false;
-                    TurnManager.SetEndTurn(TurnType.Bullet, gameObject);
+                    TurnManager.SetEndTurn(TurnType.Bullet, this);
                 }
                 else
                 {
-                    TurnManager.SetEndMove(TurnType.Bullet, gameObject);
+                    TurnManager.SetEndMove(TurnType.Bullet, this);
                 }
                 //
                 //Check if Bot can't stand on!!
@@ -153,10 +151,8 @@ public class BodyBullet : MonoBehaviour, ITurnManager
     public void SetHit()
     {
         m_turnActive = false;
-        TurnManager.SetEndTurn(TurnType.Bullet, gameObject);
-        TurnManager.SetRemove(TurnType.Bullet, gameObject);
-        TurnManager.Instance.onTurn -= IOnTurn;
-        TurnManager.Instance.onStepStart -= IOnStepStart;
+        TurnManager.SetEndTurn(TurnType.Bullet, this);
+        TurnManager.SetRemove(TurnType.Bullet, this);
         //
         SetControlAnimation(ANIM_BLOW);
         m_block.WorldManager.World.Current.SetBlockRemoveInstant(m_block, DESTROY_DELAY);
@@ -183,6 +179,8 @@ public class BodyBullet : MonoBehaviour, ITurnManager
             }
         }
     }
+
+    #endregion
 
     #region Body
 
