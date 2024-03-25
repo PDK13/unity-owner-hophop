@@ -36,9 +36,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
 
     private void Start()
     {
-        m_bodyStatic =
-            m_bodyStatic ||
-            GameConfigInit.GetExist(GetComponent<IsometricDataInit>(), GameConfigInit.Key.BodyStatic);
+        m_bodyStatic = m_bodyStatic || GameConfigInit.GetExist(GetComponent<IsometricDataInit>(), GameConfigInit.Key.BodyStatic);
     }
 
     #region Turn
