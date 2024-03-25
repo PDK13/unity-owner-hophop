@@ -87,13 +87,13 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic
 
     public void IStepStart(string Step)
     {
-        if (Step == TurnType.Player.ToString())
-        {
-            if (!m_body.SetControlMoveForce())
-            {
-                m_turnActive = true;
-            }
-        }
+        if (Step != TurnType.Player.ToString())
+            return;
+        //
+        if (m_body.SetControlMoveForce())
+            return;
+        //
+        m_turnActive = true;
     }
 
     public void IStepEnd(string Step) { }

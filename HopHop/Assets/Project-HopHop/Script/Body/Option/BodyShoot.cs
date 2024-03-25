@@ -78,13 +78,13 @@ public class BodyShoot : MonoBehaviour, ITurnManager
 
     public void IStepStart(string Step)
     {
-        if (m_turnControl)
-        {
-            if (Step == TurnType.Shoot.ToString())
-            {
-                SetControlAction();
-            }
-        }
+        if (!m_turnControl)
+            return;
+        //
+        if (Step != TurnType.Shoot.ToString())
+            return;
+        //
+        SetControlAction();
     }
 
     public void IStepEnd(string Step) { }

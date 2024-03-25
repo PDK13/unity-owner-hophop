@@ -88,30 +88,30 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic
 
     public void IStepStart(string Step)
     {
-        if (m_turnActive)
+        if (!m_turnActive)
+            return;
+        //
+        if (Step != TurnType.MovePhysic.ToString())
+            return;
+        //
+        if (!m_body.SetControlMoveForce())
         {
-            if (Step == TurnType.MovePhysic.ToString())
+            if (!IMove(m_dataMove.DirCombineCurrent))
             {
-                if (!m_body.SetControlMoveForce())
+                m_dataMove.SetDirRevert();
+                m_dataMove.SetDirNext();
+                if (!IMove(m_dataMove.DirCombineCurrent))
                 {
-                    if (!IMove(m_dataMove.DirCombineCurrent))
-                    {
-                        m_dataMove.SetDirRevert();
-                        m_dataMove.SetDirNext();
-                        if (!IMove(m_dataMove.DirCombineCurrent))
-                        {
-                            m_dataMove.SetDirRevert();
-                            m_dataMove.SetDirNext();
-                            //
-                            m_turnActive = false;
-                            TurnManager.SetEndStep(TurnType.MovePhysic, this);
-                        }
-                    }
-                }
-                else
+                    m_dataMove.SetDirRevert();
+                    m_dataMove.SetDirNext();
+                    //
                     m_turnActive = false;
+                    TurnManager.SetEndStep(TurnType.MovePhysic, this);
+                }
             }
         }
+        else
+            m_turnActive = false;
     }
 
     public void IStepEnd(string Step) { }

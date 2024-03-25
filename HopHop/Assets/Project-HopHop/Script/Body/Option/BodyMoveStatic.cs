@@ -89,13 +89,13 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
 
     public void IStepStart(string Step)
     {
-        if (m_turnActive)
-        {
-            if (Step == TurnType.MoveStatic.ToString())
-            {
-                SetControlMove();
-            }
-        }
+        if (!m_turnActive)
+            return;
+        //
+        if (Step != TurnType.MoveStatic.ToString())
+            return;
+        //
+        SetControlMove();
     }
 
     public void IStepEnd(string Step) { }
