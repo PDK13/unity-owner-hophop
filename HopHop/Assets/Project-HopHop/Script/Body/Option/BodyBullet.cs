@@ -70,18 +70,18 @@ public class BodyBullet : MonoBehaviour, ITurnManager
         m_turnActive = true;
     }
 
-    public void IStepStart(string Name)
+    public void IStepStart(string Step)
     {
         if (m_turnActive)
         {
-            if (Name == TurnType.Bullet.ToString())
+            if (Step == TurnType.Bullet.ToString())
             {
                 SetControlMove();
             }
         }
     }
 
-    public void IStepEnd(string Name) { }
+    public void IStepEnd(string Step) { }
 
     #endregion
 

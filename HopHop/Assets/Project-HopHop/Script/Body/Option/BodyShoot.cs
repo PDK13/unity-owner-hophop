@@ -76,18 +76,18 @@ public class BodyShoot : MonoBehaviour, ITurnManager
         m_turnControl = true;
     }
 
-    public void IStepStart(string Name)
+    public void IStepStart(string Step)
     {
         if (m_turnControl)
         {
-            if (Name == TurnType.Shoot.ToString())
+            if (Step == TurnType.Shoot.ToString())
             {
                 SetControlAction();
             }
         }
     }
 
-    public void IStepEnd(string Name) { }
+    public void IStepEnd(string Step) { }
 
     #endregion
 

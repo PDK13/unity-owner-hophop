@@ -86,11 +86,11 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic
         m_turnActive = true;
     }
 
-    public void IStepStart(string Name)
+    public void IStepStart(string Step)
     {
         if (m_turnActive)
         {
-            if (Name == TurnType.MovePhysic.ToString())
+            if (Step == TurnType.MovePhysic.ToString())
             {
                 if (!m_body.SetControlMoveForce())
                 {
@@ -114,7 +114,7 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic
         }
     }
 
-    public void IStepEnd(string Name) { }
+    public void IStepEnd(string Step) { }
 
     //
 

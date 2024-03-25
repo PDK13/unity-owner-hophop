@@ -85,9 +85,9 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic
         //...
     }
 
-    public void IStepStart(string Name)
+    public void IStepStart(string Step)
     {
-        if (Name == TurnType.Player.ToString())
+        if (Step == TurnType.Player.ToString())
         {
             if (!m_body.SetControlMoveForce())
             {
@@ -96,7 +96,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic
         }
     }
 
-    public void IStepEnd(string Name) { }
+    public void IStepEnd(string Step) { }
 
     #endregion
 

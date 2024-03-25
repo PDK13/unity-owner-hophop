@@ -51,9 +51,9 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
 
     public void ITurn(int Turn) { }
 
-    public void IStepStart(string Name)
+    public void IStepStart(string Step)
     {
-        if (Name != TurnType.Gravity.ToString())
+        if (Step != TurnType.Gravity.ToString())
         {
             m_turnActive = false;
             return;
@@ -64,7 +64,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
         SetControlGravity();
     }
 
-    public void IStepEnd(string Name) { }
+    public void IStepEnd(string Step) { }
 
     #endregion
 
