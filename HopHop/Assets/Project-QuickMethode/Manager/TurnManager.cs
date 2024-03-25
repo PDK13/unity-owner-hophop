@@ -25,7 +25,7 @@ public class TurnManager : SingletonManager<TurnManager>
 
     #endregion
 
-    //One TURN got many STEP, one STEP got many ITurnManager that all need to be complete their Move for next STEP or next TURN!!
+    //One TURN got many STEP, one STEP got many GameObject that all need to be complete their Move for next STEP or next TURN!!
 
     #region Event
 
@@ -35,7 +35,7 @@ public class TurnManager : SingletonManager<TurnManager>
 
     #endregion
 
-    #region Varible: Turn Manager
+    #region Varible: Step Manager
 
     private int m_turnPass = 0;
 
@@ -101,7 +101,7 @@ public class TurnManager : SingletonManager<TurnManager>
     public List<string> StepRemove = new List<string>()
     {
         "None"
-    }; //When Turn add to this list, they will be auto remove out of Queue when complete!
+    }; //When Step add to this list, they will be auto remove out of Queue when their Move complete!
 
     #endregion
 
@@ -119,7 +119,7 @@ public class TurnManager : SingletonManager<TurnManager>
 #if UNITY_EDITOR
     private static void SetPlayModeStateChange(PlayModeStateChange State)
     {
-        //This used for stop Current Turn coroutine called by ended Playing on Editor Mode!!
+        //This used for stop Current Step coroutine called by ended Playing on Editor Mode!!
         //
         if (State == PlayModeStateChange.ExitingPlayMode)
             Instance.m_stop = true;
@@ -162,7 +162,7 @@ public class TurnManager : SingletonManager<TurnManager>
         //
         if (Instance != null)
             Instance.StartCoroutine(Instance.ISetCurrent());
-    } //Force Turn Next!!
+    } //Force Next!!
 
     private IEnumerator ISetCurrent()
     {
@@ -229,7 +229,7 @@ public class TurnManager : SingletonManager<TurnManager>
     {
         if (string.IsNullOrEmpty(Step))
         {
-            Debug.LogWarning("[Turn] Turn name not valid!");
+            Debug.LogWarning("[Turn] Step name not valid!");
             return;
         }
         //
@@ -247,19 +247,19 @@ public class TurnManager : SingletonManager<TurnManager>
 
     #endregion
 
-    #region Turn ~ Int & String
+    #region Step ~ Int & String
 
     public static void SetInit(string Step, int Start, ITurnManager Unit)
     {
         if (string.IsNullOrEmpty(Step))
         {
-            Debug.LogWarning("[Turn] Turn name not valid!");
+            Debug.LogWarning("[Turn] Step name not valid!");
             return;
         }
         //
         if (Unit == null)
         {
-            Debug.LogWarning("[Turn] Turn object is null!");
+            Debug.LogWarning("[Turn] Step object is null!");
             return;
         }
         //
@@ -288,13 +288,13 @@ public class TurnManager : SingletonManager<TurnManager>
     {
         if (string.IsNullOrEmpty(Step))
         {
-            Debug.LogWarning("[Turn] Turn name not valid!");
+            Debug.LogWarning("[Turn] Step name not valid!");
             return;
         }
         //
         if (Unit == null)
         {
-            Debug.LogWarning("[Turn] Turn object is null!");
+            Debug.LogWarning("[Turn] Step object is null!");
             return;
         }
         //
@@ -338,13 +338,13 @@ public class TurnManager : SingletonManager<TurnManager>
     {
         if (string.IsNullOrEmpty(Step))
         {
-            Debug.LogWarning("[Turn] Turn name not valid!");
+            Debug.LogWarning("[Turn] Step name not valid!");
             return;
         }
         //
         if (Unit == null)
         {
-            Debug.LogWarning("[Turn] Turn object is null!");
+            Debug.LogWarning("[Turn] Step object is null!");
             return;
         }
         //
@@ -366,13 +366,13 @@ public class TurnManager : SingletonManager<TurnManager>
     {
         if (string.IsNullOrEmpty(Step))
         {
-            Debug.LogWarning("[Turn] Turn name not valid!");
+            Debug.LogWarning("[Turn] Step name not valid!");
             return;
         }
         //
         if (Unit == null)
         {
-            Debug.LogWarning("[Turn] Turn object is null!");
+            Debug.LogWarning("[Turn] Step object is null!");
             return;
         }
         //
@@ -410,13 +410,13 @@ public class TurnManager : SingletonManager<TurnManager>
         if (Instance.m_stepCurrent.EndMove)
         {
             if ((int)Instance.m_debug >= (int)DebugType.Primary)
-                SetDebug(Step, "Next Turn by Move");
+                SetDebug(Step, "Next Step by Move");
             //
             Instance.m_stepCurrent.UnitEndMove.Clear();
             //
             Instance.SetCurrent();
         }
-    } //Check End Turn or End Move!!
+    } //Check End Step or End Move!!
 
     private static void SetEndSwap(string Step)
     {
@@ -426,19 +426,19 @@ public class TurnManager : SingletonManager<TurnManager>
         {
             Instance.m_stepQueue.Add(Instance.m_stepCurrent);
         }
-    } //Swap Current Turn to Last!!
+    } //Swap Current Step to Last!!
 
     public static void SetAdd(string Step, int Start, ITurnManager Unit, int After = 0)
     {
         if (string.IsNullOrEmpty(Step))
         {
-            Debug.LogWarning("[Turn] Turn name not valid!");
+            Debug.LogWarning("[Turn] Step name not valid!");
             return;
         }
         //
         if (Unit == null)
         {
-            Debug.LogWarning("[Turn] Turn object is null!");
+            Debug.LogWarning("[Turn] Step object is null!");
             return;
         }
         //
@@ -472,19 +472,19 @@ public class TurnManager : SingletonManager<TurnManager>
         {
             SetDebug(Step, string.Format("Add [{0}]", After));
         }
-    } //Add Turn Special!!
+    } //Add Step Special!!
 
     public static void SetAdd(string Step, int Start, ITurnManager Unit, string After)
     {
         if (string.IsNullOrEmpty(Step))
         {
-            Debug.LogWarning("[Turn] Turn name not valid!");
+            Debug.LogWarning("[Turn] Step name not valid!");
             return;
         }
         //
         if (Unit == null)
         {
-            Debug.LogWarning("[Turn] Turn object is null!");
+            Debug.LogWarning("[Turn] Step object is null!");
             return;
         }
         //
@@ -513,11 +513,11 @@ public class TurnManager : SingletonManager<TurnManager>
         {
             SetDebug(Step, string.Format("Add [{0}]", After));
         }
-    } //Add Turn Special!!
+    } //Add Step Special!!
 
     #endregion
 
-    #region Turn ~ Enum
+    #region Step ~ Enum
 
     public static void SetInit<T>(T Step, ITurnManager Unit) where T : Enum
     {
@@ -542,12 +542,12 @@ public class TurnManager : SingletonManager<TurnManager>
     public static void SetAdd<T>(T Step, ITurnManager Unit, int After = 0) where T : Enum
     {
         SetAdd(Step.ToString(), QEnum.GetChoice(Step), Unit, After);
-    } //Add Turn Special!!
+    } //Add Step Special!!
 
     public static void SetAdd<T>(T Step, ITurnManager Unit, string After) where T : Enum
     {
         SetAdd(Step.ToString(), QEnum.GetChoice(Step), Unit, After);
-    } //Add Turn Special!!
+    } //Add Step Special!!
 
     #endregion
 
