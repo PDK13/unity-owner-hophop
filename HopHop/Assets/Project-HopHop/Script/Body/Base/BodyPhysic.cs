@@ -23,7 +23,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
 #if UNITY_EDITOR
 
     [Space]
-    [SerializeField] private string m_editorBodyStatic;
+    [SerializeField] private string m_eBodyStatic;
 
 #endif
 
@@ -392,7 +392,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
 
     public void SetEditorBody()
     {
-        m_editorBodyStatic = GameConfigInit.GetKey(GameConfigInit.Key.BodyStatic);
+        m_eBodyStatic = GameConfigInit.GetKey(GameConfigInit.Key.BodyStatic);
     }
 
 #endif
@@ -408,7 +408,7 @@ public class BaseBodyEditor : Editor
 
     private SerializedProperty m_bodyStatic;
 
-    private SerializedProperty m_editorBodyStatic;
+    private SerializedProperty m_eBodyStatic;
 
     private void OnEnable()
     {
@@ -416,7 +416,7 @@ public class BaseBodyEditor : Editor
 
         m_bodyStatic = QUnityEditorCustom.GetField(this, "m_bodyStatic");
 
-        m_editorBodyStatic = QUnityEditorCustom.GetField(this, "m_editorBodyStatic");
+        m_eBodyStatic = QUnityEditorCustom.GetField(this, "m_eBodyStatic");
     }
 
     public override void OnInspectorGUI()
@@ -425,15 +425,10 @@ public class BaseBodyEditor : Editor
         //
         QUnityEditorCustom.SetField(m_bodyStatic);
         //
-        QUnityEditorCustom.SetField(m_editorBodyStatic);
+        QUnityEditorCustom.SetField(m_eBodyStatic);
         //
         if (QUnityEditor.SetButton("Editor Generate"))
             m_target.SetEditorBody();
-        //
-        QUnityEditor.SetSpace();
-        //
-        if (QUnityEditor.SetButton("Editor INIT Component"))
-            QComponent.GetComponent<IsometricDataInit>(m_target.gameObject);
         //
         QUnityEditorCustom.SetApply(this);
     }

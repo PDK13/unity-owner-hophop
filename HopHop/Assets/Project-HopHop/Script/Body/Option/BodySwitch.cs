@@ -11,8 +11,8 @@ public class BodySwitch : MonoBehaviour, IBodySwitch
     //
 #if UNITY_EDITOR
 
-    [SerializeField] private string m_editorSwitchIdentity;
-    [SerializeField] private string m_editorSwitchIdentityCheck;
+    [SerializeField] private string m_eSwitchIdentity;
+    [SerializeField] private string m_eSwitchIdentityCheck;
 
 #endif
     //
@@ -75,8 +75,8 @@ public class BodySwitch : MonoBehaviour, IBodySwitch
     public void SetEditorSwitchIdentity()
     {
         m_block = GetComponent<IsometricBlock>();
-        m_editorSwitchIdentity = GameConfigInit.GetKey(GameConfigInit.Key.SwitchIdentity) + "-" + m_block.Pos.ToString();
-        m_editorSwitchIdentityCheck = GameConfigInit.GetKey(GameConfigInit.Key.SwitchIdentityCheck) + "-" + m_block.Pos.ToString();
+        m_eSwitchIdentity = GameConfigInit.GetKey(GameConfigInit.Key.SwitchIdentity) + "-" + m_block.Pos.ToString();
+        m_eSwitchIdentityCheck = GameConfigInit.GetKey(GameConfigInit.Key.SwitchIdentityCheck) + "-" + m_block.Pos.ToString();
     }
 
 #endif
@@ -90,23 +90,23 @@ public class BodySwitchEditor : Editor
 {
     private BodySwitch m_target;
 
-    private SerializedProperty m_editorSwitchIdentity;
-    private SerializedProperty m_editorSwitchIdentityCheck;
+    private SerializedProperty m_eSwitchIdentity;
+    private SerializedProperty m_eSwitchIdentityCheck;
 
     private void OnEnable()
     {
         m_target = target as BodySwitch;
 
-        m_editorSwitchIdentity = QUnityEditorCustom.GetField(this, "m_editorSwitchIdentity");
-        m_editorSwitchIdentityCheck = QUnityEditorCustom.GetField(this, "m_editorSwitchIdentityCheck");
+        m_eSwitchIdentity = QUnityEditorCustom.GetField(this, "m_eSwitchIdentity");
+        m_eSwitchIdentityCheck = QUnityEditorCustom.GetField(this, "m_eSwitchIdentityCheck");
     }
 
     public override void OnInspectorGUI()
     {
         QUnityEditorCustom.SetUpdate(this);
         //
-        QUnityEditorCustom.SetField(m_editorSwitchIdentity);
-        QUnityEditorCustom.SetField(m_editorSwitchIdentityCheck);
+        QUnityEditorCustom.SetField(m_eSwitchIdentity);
+        QUnityEditorCustom.SetField(m_eSwitchIdentityCheck);
         //
         if (QUnityEditor.SetButton("Editor Generate"))
             m_target.SetEditorSwitchIdentity();

@@ -14,8 +14,8 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic
 
 #if UNITY_EDITOR
 
-    [SerializeField] private string m_editorMoveCheckAhead;
-    [SerializeField] private string m_editorMoveCheckAheadBot;
+    [SerializeField] private string m_eMoveCheckAhead;
+    [SerializeField] private string m_eMoveCheckAheadBot;
 
 #endif
 
@@ -206,8 +206,8 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic
 
     public void SetEditorMove()
     {
-        m_editorMoveCheckAhead = GameConfigInit.GetKey(GameConfigInit.Key.MoveCheckAhead);
-        m_editorMoveCheckAheadBot = GameConfigInit.GetKey(GameConfigInit.Key.MoveCheckAheadBot);
+        m_eMoveCheckAhead = GameConfigInit.GetKey(GameConfigInit.Key.MoveCheckAhead);
+        m_eMoveCheckAheadBot = GameConfigInit.GetKey(GameConfigInit.Key.MoveCheckAheadBot);
     }
 
 #endif
@@ -221,32 +221,26 @@ public class BodyEnermyMoveEditor : Editor
 {
     private BodyMovePhysic m_target;
 
-    private SerializedProperty m_editorMoveCheckAhead;
-    private SerializedProperty m_editorMoveCheckAheadBot;
+    private SerializedProperty m_eMoveCheckAhead;
+    private SerializedProperty m_eMoveCheckAheadBot;
 
     private void OnEnable()
     {
         m_target = target as BodyMovePhysic;
 
-        m_editorMoveCheckAhead = QUnityEditorCustom.GetField(this, "m_editorMoveCheckAhead");
-        m_editorMoveCheckAheadBot = QUnityEditorCustom.GetField(this, "m_editorMoveCheckAheadBot");
+        m_eMoveCheckAhead = QUnityEditorCustom.GetField(this, "m_eMoveCheckAhead");
+        m_eMoveCheckAheadBot = QUnityEditorCustom.GetField(this, "m_eMoveCheckAheadBot");
     }
 
     public override void OnInspectorGUI()
     {
         QUnityEditorCustom.SetUpdate(this);
         //
-        QUnityEditorCustom.SetField(m_editorMoveCheckAhead);
-        QUnityEditorCustom.SetField(m_editorMoveCheckAheadBot);
+        QUnityEditorCustom.SetField(m_eMoveCheckAhead);
+        QUnityEditorCustom.SetField(m_eMoveCheckAheadBot);
         //
         if (QUnityEditor.SetButton("Editor Generate"))
             m_target.SetEditorMove();
-        //
-        QUnityEditor.SetSpace();
-        //
-        if (QUnityEditor.SetButton("Editor MOVE Component"))
-            QComponent.GetComponent<IsometricDataMove>(m_target.gameObject);
-        //
         //
         QUnityEditorCustom.SetApply(this);
     }
