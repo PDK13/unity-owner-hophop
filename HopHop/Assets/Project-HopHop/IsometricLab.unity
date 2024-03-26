@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.3731193, g: 0.38073996, b: 0.35872698, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -20846,11 +20846,12 @@ MonoBehaviour:
   m_messageConfig: {fileID: 11400000, guid: 44960a29c90827f4ea8b0086a70dcb14, type: 2}
   m_stringConfig: {fileID: 11400000, guid: 30a4b23d4142fa5479febd36bc32087d, type: 2}
   m_debug: 0
-  m_data: {fileID: 0}
+  m_command: 1
+  m_currentData: {fileID: 0}
+  m_currentMessage: 
+  m_currentActive: 0
+  m_currentChoice: 0
   m_tmp: {fileID: 0}
-  m_current: 
-  m_active: 0
-  m_choice: 0
   m_stage: 0
 --- !u!1 &1321926850
 GameObject:
