@@ -23,7 +23,7 @@ public class MessageManager : SingletonManager<MessageManager>
     private enum DebugType { None = 0, Primary = 1, Full = int.MaxValue, }
 
     [Space]
-    [SerializeField] private DebugType m_debug = DebugType.None;
+    [SerializeField] private DebugType m_debug = DebugType.Primary;
 
     #endregion
 
@@ -64,18 +64,14 @@ public class MessageManager : SingletonManager<MessageManager>
         Choice,
     }
 
-    private MessageCommandType m_command = MessageCommandType.Text;
-    [SerializeField] private MessageDataConfigText m_data;
-
+    [SerializeField] private MessageCommandType m_command = MessageCommandType.Text;
+    [SerializeField] private MessageDataConfigText m_currentData;
+    [SerializeField] private string m_currentMessage = "";
+    [SerializeField] private bool m_currentActive = false;
+    [SerializeField] private bool m_currentChoice = false;
     [SerializeField] private TextMeshProUGUI m_tmp;
-    [SerializeField] private string m_current = "";
 
     private Coroutine m_iSetMessageShowSingle;
-
-    public List<MessageDataChoice> ChoiceList => m_data.Choice; //Should get this data when message at choice stage!!
-
-    [SerializeField] private bool m_active = false;
-    [SerializeField] private bool m_choice = false;
 
     [SerializeField] private MessageStageType m_stage = MessageStageType.None;
 
@@ -142,99 +138,93 @@ public class MessageManager : SingletonManager<MessageManager>
     /// <summary>
     /// Start message with config data
     /// </summary>
-    /// <param name="TextMessPro"></param>
+    /// <param name="Tmp"></param>
     /// <param name="MessageData"></param>
-    public void SetStart(TextMeshProUGUI TextMessPro, MessageDataConfigText MessageData)
+    public void SetStart(MessageDataConfigText MessageData)
     {
-        if (m_active)
+        if (m_currentActive)
             return;
         //
-        m_data = MessageData;
-        m_tmp = TextMessPro;
-        //
-        StartCoroutine(ISetMessageShow(false));
+        StartCoroutine(ISetMessageShow(MessageData));
     }
 
-    private IEnumerator ISetMessageShow(bool WaitForNextMessage)
+    private IEnumerator ISetMessageShow(MessageDataConfigText MessageData, bool WaitForNextMessage = false)
     {
+        m_currentData = MessageData;
+        //
         if (WaitForNextMessage)
             //Not check when first show message!!
             yield return new WaitUntil(() => m_command == MessageCommandType.Next);
         //
         m_command = MessageCommandType.None;
-        m_active = true;
-        m_choice = false;
+        m_currentActive = true;
+        m_currentChoice = false;
         //
         SetStage(MessageStageType.Start);
         //
-        if ((int)m_debug > (int)DebugType.None)
-            Debug.Log("[Message] Start!");
+        SetDebug("[START]", DebugType.Primary);
         //
-        for (int i = 0; i < m_data.Message.Count; i++)
+        for (int i = 0; i < m_currentData.Message.Count; i++)
         {
-            MessageDataText MessageSingle = m_data.Message[i];
-            m_current = MessageSingle.Message;
+            Current = m_currentData.Message[i];
+            Next = (i < m_currentData.Message.Count - 1) ? m_currentData.Message[i + 1] : null;
+            //
+            m_currentMessage = m_currentData.Message[i].Message;
             //
             //MESSAGE:
-            if (m_current == null)
-                m_tmp.text = "...";
-            else
-            if (m_current == "")
+            if (string.IsNullOrEmpty(m_currentMessage))
                 m_tmp.text = "...";
             else
             {
                 //BEGIN:
-                onTextActive?.Invoke(m_data.Message[i]);
+                onTextActive?.Invoke(m_currentData.Message[i]);
                 //
                 m_tmp.text = "";
                 //
                 if (m_stringConfig != null)
-                    m_current = m_stringConfig.GetColorHexFormatReplace(m_current);
+                    m_currentMessage = m_stringConfig.GetColorHexFormatReplace(m_currentMessage);
                 //
                 //PROGESS:
                 m_command = MessageCommandType.Text;
                 //
                 SetStage(MessageStageType.Text);
                 //
-                if ((int)m_debug > (int)DebugType.None)
-                    Debug.Log("[Message] " + m_current);
+                m_iSetMessageShowSingle = StartCoroutine(ISetMessageShowSingle(m_currentData.Message[i]));
                 //
-                m_iSetMessageShowSingle = StartCoroutine(ISetMessageShowSingle(MessageSingle));
+                SetDebug(string.Format("[Message] Current: '{0}'", m_currentMessage), DebugType.Full);
+                //
                 yield return new WaitUntil(() => m_command == MessageCommandType.Skip || m_command == MessageCommandType.Done);
                 //
                 //DONE:
-                m_tmp.text = m_current;
+                m_tmp.text = m_currentMessage;
             }
             //WAIT:
-            if (m_current != "" && i < m_data.Message.Count - 1)
+            if (!string.IsNullOrEmpty(m_currentMessage) && i < m_currentData.Message.Count - 1)
             {
                 //FINAL:
                 m_command = MessageCommandType.Wait;
                 //
                 SetStage(MessageStageType.Wait);
                 //
-                if ((int)m_debug > (int)DebugType.None)
-                    Debug.Log("[Message] Next?");
+                SetDebug("[Message] Next?", DebugType.Primary);
                 //
                 yield return new WaitUntil(() => m_command == MessageCommandType.Next);
             }
         }
         //
-        m_command = m_data.ChoiceAvaible ? MessageCommandType.Choice : MessageCommandType.None;
-        m_active = m_data.ChoiceAvaible;
-        m_choice = m_data.ChoiceAvaible;
+        m_command = m_currentData.ChoiceAvaible ? MessageCommandType.Choice : MessageCommandType.None;
+        m_currentActive = m_currentData.ChoiceAvaible;
+        m_currentChoice = m_currentData.ChoiceAvaible;
         //
-        SetStage(m_choice ? MessageStageType.Choice : MessageStageType.End);
+        SetStage(m_currentChoice ? MessageStageType.Choice : MessageStageType.End);
         //
-        if (m_choice)
+        if (m_currentChoice)
         {
-            if ((int)m_debug > (int)DebugType.None)
-                Debug.Log("[Message] Choice?");
+            SetDebug("[Message] Choice?", DebugType.Primary);
         }
         else
         {
-            if ((int)m_debug > (int)DebugType.None)
-                Debug.Log("[Message] End!");
+            SetDebug("[Message] End!", DebugType.Primary);
         }
     }
 
@@ -242,7 +232,7 @@ public class MessageManager : SingletonManager<MessageManager>
     {
         bool HtmlFormat = false;
         //
-        foreach (char MessageChar in m_current)
+        foreach (char MessageChar in m_currentMessage)
         {
             //TEXT:
             m_tmp.text += MessageChar;
@@ -289,6 +279,8 @@ public class MessageManager : SingletonManager<MessageManager>
 
     private void SetStage(MessageStageType Stage)
     {
+        SetDebug("[Message] [STAGE] " + Stage.ToString(), DebugType.Full);
+        //
         m_stage = Stage;
         onStageActive?.Invoke(Stage);
     }
@@ -296,6 +288,22 @@ public class MessageManager : SingletonManager<MessageManager>
     #endregion
 
     #region Control
+
+    /// <summary>
+    /// Message current data!
+    /// </summary>
+    public MessageDataText Current { private set; get; } = null;
+
+    /// <summary>
+    /// Message next data!
+    /// </summary>
+    public MessageDataText Next { private set; get; } = null;
+
+    /// <summary>
+    /// Change show message!
+    /// </summary>
+    /// <param name="Tmp"></param>
+    public TextMeshProUGUI TextMeshPro { get => m_tmp; set => m_tmp = value; }
 
     /// <summary>
     /// Next message; or continue message after choice option delay continue message
@@ -308,8 +316,7 @@ public class MessageManager : SingletonManager<MessageManager>
         //
         m_command = MessageCommandType.Next;
         //
-        if ((int)m_debug > (int)DebugType.None)
-            Debug.Log("[Message] Next!");
+        SetDebug("[Message] Next!", DebugType.Primary);
     }
 
     /// <summary>
@@ -325,9 +332,13 @@ public class MessageManager : SingletonManager<MessageManager>
         //
         m_command = MessageCommandType.Skip;
         //
-        if ((int)m_debug > (int)DebugType.None)
-            Debug.Log("[Message] Skip!");
+        SetDebug("[Message] Skip!", DebugType.Primary);
     }
+
+    /// <summary>
+    /// Choice current data!
+    /// </summary>
+    public List<MessageDataChoice> Choice => m_currentData.Choice; //Should get this data when message at choice stage!!
 
     /// <summary>
     /// Check choice option of message when avaible
@@ -339,10 +350,12 @@ public class MessageManager : SingletonManager<MessageManager>
             //When current message in done show up and got choice option, move choice option to get imformation of choice!
             return;
         //
-        if (ChoiceIndex < 0 || ChoiceIndex > m_data.Choice.Count - 1)
+        if (ChoiceIndex < 0 || ChoiceIndex > m_currentData.Choice.Count - 1)
             return;
         //
-        onChoiceCheck?.Invoke(ChoiceIndex, m_data.Choice[ChoiceIndex]);
+        onChoiceCheck?.Invoke(ChoiceIndex, m_currentData.Choice[ChoiceIndex]);
+        //
+        SetDebug(string.Format("[Message] Check {0}: {1}", ChoiceIndex, m_currentData.Choice[ChoiceIndex].Text), DebugType.Full);
     }
 
     /// <summary>
@@ -356,18 +369,16 @@ public class MessageManager : SingletonManager<MessageManager>
             //When current message in done show up and got choice option, press choice option to move on next message!
             return;
         //
-        if (ChoiceIndex < 0 || ChoiceIndex > m_data.Choice.Count - 1)
+        if (ChoiceIndex < 0 || ChoiceIndex > m_currentData.Choice.Count - 1)
             return;
         //
         m_command = NextMessage ? MessageCommandType.Next : MessageCommandType.Wait;
-        m_data = m_data.Choice[ChoiceIndex].Next;
         //
-        onChoiceActive?.Invoke(ChoiceIndex, m_data.Choice[ChoiceIndex]);
+        StartCoroutine(ISetMessageShow(m_currentData.Choice[ChoiceIndex].Next, true));
         //
-        StartCoroutine(ISetMessageShow(true));
+        onChoiceActive?.Invoke(ChoiceIndex, m_currentData.Choice[ChoiceIndex]);
         //
-        if ((int)m_debug > (int)DebugType.None)
-            Debug.LogFormat("[Message] Choice {0}: {1}", ChoiceIndex, m_data.Choice[ChoiceIndex].Text);
+        SetDebug(string.Format("[Message] Choice {0}: {1}", ChoiceIndex, m_currentData.Choice[ChoiceIndex].Text), DebugType.Primary);
     }
 
     /// <summary>
@@ -379,18 +390,25 @@ public class MessageManager : SingletonManager<MessageManager>
         StopCoroutine(m_iSetMessageShowSingle);
         //
         m_command = MessageCommandType.None;
-        m_active = false;
-        m_choice = false;
+        m_currentActive = false;
+        m_currentChoice = false;
         //
         SetStage(MessageStageType.End);
         //
         m_tmp.text = "";
         //
-        if ((int)m_debug > (int)DebugType.None)
-            Debug.LogFormat("[Message] Stop!");
+        SetDebug("[Message] Stop!", DebugType.Primary);
     }
 
     #endregion
+
+    private static void SetDebug(string Message, DebugType DebugLimit)
+    {
+        if ((int)Instance.m_debug < (int)DebugLimit)
+            return;
+        //
+        Debug.Log(string.Format("[Message] {0}", Message));
+    }
 }
 
 public enum MessageStageType
@@ -417,10 +435,12 @@ public class MessageManagerEditor : Editor
     private SerializedProperty m_stringConfig;
 
     private SerializedProperty m_debug;
-    private SerializedProperty m_data;
-    private SerializedProperty m_tmp;
-    private SerializedProperty m_current;
+
+    private SerializedProperty m_command;
+    private SerializedProperty m_currentData;
+    private SerializedProperty m_currentMessage;
     private SerializedProperty m_stage;
+    private SerializedProperty m_tmp;
 
     private void OnEnable()
     {
@@ -430,10 +450,12 @@ public class MessageManagerEditor : Editor
         m_stringConfig = QUnityEditorCustom.GetField(this, "m_stringConfig");
         //
         m_debug = QUnityEditorCustom.GetField(this, "m_debug");
-        m_data = QUnityEditorCustom.GetField(this, "m_data");
-        m_tmp = QUnityEditorCustom.GetField(this, "m_tmp");
-        m_current = QUnityEditorCustom.GetField(this, "m_current");
+        //
+        m_command = QUnityEditorCustom.GetField(this, "m_command");
+        m_currentData = QUnityEditorCustom.GetField(this, "m_currentData");
+        m_currentMessage = QUnityEditorCustom.GetField(this, "m_currentMessage");
         m_stage = QUnityEditorCustom.GetField(this, "m_stage");
+        m_tmp = QUnityEditorCustom.GetField(this, "m_tmp");
         //
         m_target.SetConfigFind();
     }
@@ -449,10 +471,11 @@ public class MessageManagerEditor : Editor
         //
         QUnityEditor.SetDisableGroupBegin();
         //
-        QUnityEditorCustom.SetField(m_data);
-        QUnityEditorCustom.SetField(m_tmp);
-        QUnityEditorCustom.SetField(m_current);
+        QUnityEditorCustom.SetField(m_command);
+        QUnityEditorCustom.SetField(m_currentData);
+        QUnityEditorCustom.SetField(m_currentMessage);
         QUnityEditorCustom.SetField(m_stage);
+        QUnityEditorCustom.SetField(m_tmp);
         //
         QUnityEditor.SetDisableGroupEnd();
         //

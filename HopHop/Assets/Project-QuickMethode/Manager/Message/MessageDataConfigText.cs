@@ -33,6 +33,8 @@ public class MessageDataConfigTextEditor : Editor
     private List<string> m_authorName;
     private List<bool> m_messageDelayShow;
     private List<bool> m_messageTriggerShow;
+    private List<bool> m_choiceAuthorShow;
+    private List<bool> m_choiceTriggerShow;
 
     private Vector2 m_scrollMessage;
     private Vector2 m_scrollChoice;
@@ -109,6 +111,12 @@ public class MessageDataConfigTextEditor : Editor
         m_messageTriggerShow = new List<bool>();
         while (m_messageTriggerShow.Count < m_target.Message.Count) m_messageTriggerShow.Add(false);
         //
+        m_choiceAuthorShow = new List<bool>();
+        while (m_choiceAuthorShow.Count < m_target.Choice.Count) m_choiceAuthorShow.Add(false);
+        //
+        m_choiceTriggerShow = new List<bool>();
+        while (m_choiceTriggerShow.Count < m_target.Choice.Count) m_choiceTriggerShow.Add(false);
+        //
         m_debugError = "";
     }
 
@@ -137,12 +145,16 @@ public class MessageDataConfigTextEditor : Editor
             m_target.Message.Add(new MessageDataText(m_messageConfig.MessageTextDelayDefault));
             m_messageDelayShow.Add(false);
             m_messageTriggerShow.Add(false);
+            m_choiceAuthorShow.Add(false);
+            m_choiceTriggerShow.Add(false);
         }
         while (m_messageCount < m_target.Message.Count)
         {
             m_target.Message.RemoveAt(m_target.Message.Count - 1);
             m_messageDelayShow.RemoveAt(m_messageDelayShow.Count - 1);
             m_messageTriggerShow.RemoveAt(m_messageTriggerShow.Count - 1);
+            m_choiceAuthorShow.RemoveAt(m_choiceAuthorShow.Count - 1);
+            m_choiceTriggerShow.RemoveAt(m_choiceTriggerShow.Count - 1);
         }
         //
         QUnityEditor.SetSpace(10);
@@ -151,10 +163,15 @@ public class MessageDataConfigTextEditor : Editor
         for (int i = 0; i < m_target.Message.Count; i++)
         {
             //ITEM:
+            //
+            //ITEM - NUM:
             QUnityEditor.SetHorizontalBegin();
             QUnityEditor.SetLabel(i.ToString(), QUnityEditor.GetGUILabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditor.GetGUIWidth(25));
+            //ITEM - NUM:
             //
+            //ITEM - MAIN:
             QUnityEditor.SetVerticalBegin();
+            //
             //ITEM - AUTHOR
             QUnityEditor.SetHorizontalBegin();
             QUnityEditor.SetLabel("Author", null, QUnityEditor.GetGUIWidth(LABEL_WIDTH));
@@ -173,7 +190,6 @@ public class MessageDataConfigTextEditor : Editor
             QUnityEditor.SetHorizontalBegin();
             if (QUnityEditor.SetButton("Delay", null, QUnityEditor.GetGUIWidth(LABEL_WIDTH)))
                 m_messageDelayShow[i] = !m_messageDelayShow[i];
-            //
             if (m_messageDelayShow[i])
             {
                 QUnityEditor.SetVerticalBegin();
@@ -196,13 +212,11 @@ public class MessageDataConfigTextEditor : Editor
             }
             else
             {
-                QUnityEditor.SetLabel("Alpha: " + m_target.Message[i].DelayAlpha, null, QUnityEditor.GetGUIWidth(LABEL_WIDTH));
-                QUnityEditor.SetLabel("Space: " + m_target.Message[i].DelaySpace, null, QUnityEditor.GetGUIWidth(LABEL_WIDTH));
-                QUnityEditor.SetLabel("Mark: " + m_target.Message[i].DelayMark, null, QUnityEditor.GetGUIWidth(LABEL_WIDTH));
+                QUnityEditor.SetLabel("Alpha: " + m_target.Message[i].DelayAlpha, null, QUnityEditor.GetGUIWidth(LABEL_WIDTH * 1.25f));
+                QUnityEditor.SetLabel("Space: " + m_target.Message[i].DelaySpace, null, QUnityEditor.GetGUIWidth(LABEL_WIDTH * 1.25f));
+                QUnityEditor.SetLabel("Mark: " + m_target.Message[i].DelayMark, null, QUnityEditor.GetGUIWidth(LABEL_WIDTH * 1.25f));
             }
-            //
             QUnityEditor.SetHorizontalEnd();
-            //
             //ITEM - DELAY
             //
             //ITEM - TRIGGER:
@@ -231,15 +245,16 @@ public class MessageDataConfigTextEditor : Editor
                 QUnityEditor.SetLabel("Code: " + m_target.Message[i].TriggerCode, null, QUnityEditor.GetGUIWidth(LABEL_WIDTH * 2 + 4));
                 QUnityEditor.SetLabel("" + (m_target.Message[i].TriggerObject != null ? m_target.Message[i].TriggerObject.name : ""));
             }
-            //
             QUnityEditor.SetHorizontalEnd();
-            //
             //ITEM - TRIGGER:
             //
             QUnityEditor.SetHorizontalEnd();
-            //ITEM:
-            QUnityEditor.SetVerticalEnd();
+            //ITEM - MAIN:
             //
+            QUnityEditor.SetVerticalEnd();
+            //ITEM:
+            //
+            //NEXT:
             QUnityEditor.SetSpace(10);
         }
         QUnityEditor.SetScrollViewEnd();
@@ -276,28 +291,18 @@ public class MessageDataConfigTextEditor : Editor
         for (int i = 0; i < m_target.Choice.Count; i++)
         {
             //ITEM:
+            //
+            //ITEM - NUM:
             QUnityEditor.SetHorizontalBegin();
             QUnityEditor.SetLabel(i.ToString(), QUnityEditor.GetGUILabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditor.GetGUIWidth(25));
+            //ITEM - NUM:
             //
+            //ITEM - MAIN:
             QUnityEditor.SetVerticalBegin();
             //ITEM - MESSAGE:
             QUnityEditor.SetHorizontalBegin();
             QUnityEditor.SetLabel("Text", null, QUnityEditor.GetGUIWidth(LABEL_WIDTH));
             m_target.Choice[i].Text = QUnityEditor.SetField(m_target.Choice[i].Text);
-            QUnityEditor.SetHorizontalEnd();
-            //ITEM - MESSAGE:
-            //
-            //ITEM - AUTHOR
-            QUnityEditor.SetHorizontalBegin();
-            QUnityEditor.SetLabel("Author", null, QUnityEditor.GetGUIWidth(LABEL_WIDTH));
-            m_target.Choice[i].AuthorIndex = QUnityEditor.SetPopup(m_target.Choice[i].AuthorIndex, m_authorName);
-            QUnityEditor.SetHorizontalEnd();
-            //ITEM - AUTHOR
-            //
-            //ITEM - MESSAGE:
-            QUnityEditor.SetHorizontalBegin();
-            QUnityEditor.SetLabel("Message", null, QUnityEditor.GetGUIWidth(LABEL_WIDTH));
-            m_target.Choice[i].Message = QUnityEditor.SetField(m_target.Choice[i].Message);
             QUnityEditor.SetHorizontalEnd();
             //ITEM - MESSAGE:
             //
@@ -308,10 +313,71 @@ public class MessageDataConfigTextEditor : Editor
             QUnityEditor.SetHorizontalEnd();
             //ITEM - NEXT:
             //
-            QUnityEditor.SetHorizontalEnd();
-            //ITEM:
-            QUnityEditor.SetVerticalEnd();
+            //ITEM - AUTHOR
+            QUnityEditor.SetHorizontalBegin();
+            if (QUnityEditor.SetButton("Extra", null, QUnityEditor.GetGUIWidth(LABEL_WIDTH)))
+                m_choiceAuthorShow[i] = !m_choiceAuthorShow[i];
             //
+            if (m_choiceAuthorShow[i])
+            {
+                QUnityEditor.SetVerticalBegin();
+                //
+                QUnityEditor.SetHorizontalBegin();
+                QUnityEditor.SetLabel("Author", null, QUnityEditor.GetGUIWidth(LABEL_WIDTH));
+                m_target.Choice[i].AuthorIndex = QUnityEditor.SetPopup(m_target.Choice[i].AuthorIndex, m_authorName);
+                QUnityEditor.SetHorizontalEnd();
+                //
+                QUnityEditor.SetHorizontalBegin();
+                QUnityEditor.SetLabel("Message", null, QUnityEditor.GetGUIWidth(LABEL_WIDTH));
+                m_target.Choice[i].Message = QUnityEditor.SetField(m_target.Choice[i].Message);
+                QUnityEditor.SetHorizontalEnd();
+                //
+                QUnityEditor.SetVerticalEnd();
+            }
+            else
+            {
+                QUnityEditor.SetLabel(string.Format("{0} : {1}", m_authorName[m_target.Choice[i].AuthorIndex], m_target.Choice[i].Message), null);
+            }
+            //
+            QUnityEditor.SetHorizontalEnd();
+            //ITEM - AUTHOR
+            //
+            //ITEM - TRIGGER:
+            QUnityEditor.SetHorizontalBegin();
+            if (QUnityEditor.SetButton("Trigger", null, QUnityEditor.GetGUIWidth(LABEL_WIDTH)))
+                m_choiceTriggerShow[i] = !m_choiceTriggerShow[i];
+            //
+            if (m_choiceTriggerShow[i])
+            {
+                QUnityEditor.SetVerticalBegin();
+                //
+                QUnityEditor.SetHorizontalBegin();
+                QUnityEditor.SetLabel("Code", null, QUnityEditor.GetGUIWidth(LABEL_WIDTH));
+                m_target.Choice[i].TriggerCode = QUnityEditor.SetField(m_target.Choice[i].TriggerCode);
+                QUnityEditor.SetHorizontalEnd();
+                //
+                QUnityEditor.SetHorizontalBegin();
+                QUnityEditor.SetLabel("Object", null, QUnityEditor.GetGUIWidth(LABEL_WIDTH));
+                m_target.Choice[i].TriggerObject = QUnityEditor.SetField(m_target.Choice[i].TriggerObject);
+                QUnityEditor.SetHorizontalEnd();
+                //
+                QUnityEditor.SetVerticalEnd();
+            }
+            else
+            {
+                QUnityEditor.SetLabel("Code: " + m_target.Choice[i].TriggerCode, null, QUnityEditor.GetGUIWidth(LABEL_WIDTH * 2 + 4));
+                QUnityEditor.SetLabel("" + (m_target.Choice[i].TriggerObject != null ? m_target.Choice[i].TriggerObject.name : ""));
+            }
+            QUnityEditor.SetHorizontalEnd();
+            //ITEM - TRIGGER:
+            //
+            QUnityEditor.SetHorizontalEnd();
+            //ITEM - MAIN:
+            //
+            QUnityEditor.SetVerticalEnd();
+            //ITEM:
+            //
+            //NEXT:
             QUnityEditor.SetSpace(10);
         }
         QUnityEditor.SetScrollViewEnd();

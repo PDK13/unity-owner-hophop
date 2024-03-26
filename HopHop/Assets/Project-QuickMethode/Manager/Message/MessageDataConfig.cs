@@ -12,6 +12,8 @@ public class MessageDataConfig : ScriptableObject
 
     public MessageDataTextDelayDefault MessageTextDelayDefault;
 
+    //
+
     public List<string> AuthorName
     {
         get
@@ -50,9 +52,16 @@ public class MessageDataConfig : ScriptableObject
         }
     }
 
-    public Sprite GetAvatar(string Name)
+    //
+
+    public MessageDataConfigTextAuthor GetAuthor(int AuthorIndex)
     {
-        return Author.Find(t => t.Name == Name).Avatar;
+        return Author[AuthorIndex];
+    }
+
+    public MessageDataConfigTextAuthor GetAuthor(string Name)
+    {
+        return Author.Find(t => t.Name == Name);
     }
 }
 
@@ -96,10 +105,13 @@ public class MessageDataChoice
 {
     public string Text;
     //
-    public int AuthorIndex;
+    public MessageDataConfigText Next;
+    //
+    public int AuthorIndex; //Use index for 'AuthorName' and 'AuthorAvatar'!!
     public string Message;
     //
-    public MessageDataConfigText Next;
+    public string TriggerCode;
+    public GameObject TriggerObject;
 }
 
 //Editor
