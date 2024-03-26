@@ -119,7 +119,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: UI Icon
+  - name: ui icon
     originalName: 
     pivot: {x: 0.5, y: -4.8333335}
     alignment: 9
@@ -130,7 +130,7 @@ ScriptedImporter:
       y: 4
       width: 12
       height: 12
-    spriteID: b5ff29b41789ad1479b6c514e3f5b2b3
+    spriteID: 2b36062ebc114874c821c54e35da42cc
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -142,20 +142,20 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: 1711818179
-    name: UI Icon
+    guid: -169135517
+    name: ui icon
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: UI Icon
+    - name: ui icon
       frameIndex: 3
       cellRect:
         x: 58
         y: 58
         width: 12
         height: 12
-      spriteId: b5ff29b41789ad1479b6c514e3f5b2b3
+      spriteId: 2b36062ebc114874c821c54e35da42cc
     linkedCells: []
     parentIndex: -1
   platformSettings: []
