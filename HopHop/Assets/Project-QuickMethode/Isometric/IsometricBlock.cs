@@ -1,5 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 [ExecuteAlways]
 public class IsometricBlock : MonoBehaviour
@@ -195,3 +198,66 @@ public class IsometricBlock : MonoBehaviour
 
     #endregion
 }
+
+#if UNITY_EDITOR
+
+[CustomEditor(typeof(IsometricBlock))]
+public class IsometricBlockEditor : Editor
+{
+    private IsometricBlock m_target;
+
+    private SerializedProperty m_name;
+    private SerializedProperty m_tag;
+
+    private SerializedProperty m_posType;
+    private SerializedProperty m_pos;
+    private SerializedProperty m_posPrimary;
+
+    private SerializedProperty m_sceneData;
+    private SerializedProperty m_centre;
+
+    private void OnEnable()
+    {
+        m_target = target as IsometricBlock;
+        //
+        m_name = QUnityEditorCustom.GetField(this, "m_name");
+        m_tag = QUnityEditorCustom.GetField(this, "m_tag");
+
+        m_posType = QUnityEditorCustom.GetField(this, "m_posType");
+        m_pos = QUnityEditorCustom.GetField(this, "m_pos");
+        m_posPrimary = QUnityEditorCustom.GetField(this, "m_posPrimary");
+
+        m_sceneData = QUnityEditorCustom.GetField(this, "m_sceneData");
+        m_centre = QUnityEditorCustom.GetField(this, "m_centre");
+    }
+
+    public override void OnInspectorGUI()
+    {
+        QUnityEditorCustom.SetUpdate(this);
+        //
+        QUnityEditorCustom.SetField(m_name);
+        QUnityEditorCustom.SetField(m_tag);
+
+        QUnityEditorCustom.SetField(m_posType);
+        QUnityEditorCustom.SetField(m_pos);
+        QUnityEditorCustom.SetField(m_posPrimary);
+
+        QUnityEditorCustom.SetField(m_sceneData);
+        QUnityEditorCustom.SetField(m_centre);
+        //
+        QUnityEditor.SetSpace();
+        //
+        if (QUnityEditor.SetButton("Add INIT data"))
+            QComponent.GetComponent<IsometricDataInit>(m_target);
+        if (QUnityEditor.SetButton("Add MOVE data"))
+            QComponent.GetComponent<IsometricDataMove>(m_target);
+        if (QUnityEditor.SetButton("Add ACTION data"))
+            QComponent.GetComponent<IsometricDataAction>(m_target);
+        if (QUnityEditor.SetButton("Add TELEPORT data"))
+            QComponent.GetComponent<IsometricDataTeleport>(m_target);
+        //
+        QUnityEditorCustom.SetApply(this);
+    }
+}
+
+#endif

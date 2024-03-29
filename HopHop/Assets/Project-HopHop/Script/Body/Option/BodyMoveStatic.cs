@@ -18,8 +18,8 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
 
 #if UNITY_EDITOR
 
-    [SerializeField] private string m_editorFollowIdentity;
-    [SerializeField] private string m_editorFollowIdentityCheck;
+    [SerializeField] private string m_eFollowIdentity;
+    [SerializeField] private string m_eFollowIdentityCheck;
 
 #endif
 
@@ -233,8 +233,8 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
     public void SetEditorFollowIdentity()
     {
         m_block = GetComponent<IsometricBlock>();
-        m_editorFollowIdentity = GameConfigInit.GetKey(GameConfigInit.Key.FollowIdentity) + "-" + m_block.Pos.ToString();
-        m_editorFollowIdentityCheck = GameConfigInit.GetKey(GameConfigInit.Key.FollowIdentityCheck) + "-" + m_block.Pos.ToString();
+        m_eFollowIdentity = GameConfigInit.GetKey(GameConfigInit.Key.FollowIdentity) + "-" + m_block.Pos.ToString();
+        m_eFollowIdentityCheck = GameConfigInit.GetKey(GameConfigInit.Key.FollowIdentityCheck) + "-" + m_block.Pos.ToString();
     }
 
 #endif
@@ -248,31 +248,26 @@ public class BodyMoveStaticEditor : Editor
 {
     private BodyMoveStatic m_target;
 
-    private SerializedProperty m_editorFollowIdentity;
-    private SerializedProperty m_editorFollowIdentityCheck;
+    private SerializedProperty m_eFollowIdentity;
+    private SerializedProperty m_eFollowIdentityCheck;
 
     private void OnEnable()
     {
         m_target = target as BodyMoveStatic;
 
-        m_editorFollowIdentity = QUnityEditorCustom.GetField(this, "m_editorFollowIdentity");
-        m_editorFollowIdentityCheck = QUnityEditorCustom.GetField(this, "m_editorFollowIdentityCheck");
+        m_eFollowIdentity = QUnityEditorCustom.GetField(this, "m_eFollowIdentity");
+        m_eFollowIdentityCheck = QUnityEditorCustom.GetField(this, "m_eFollowIdentityCheck");
     }
 
     public override void OnInspectorGUI()
     {
         QUnityEditorCustom.SetUpdate(this);
         //
-        QUnityEditorCustom.SetField(m_editorFollowIdentity);
-        QUnityEditorCustom.SetField(m_editorFollowIdentityCheck);
+        QUnityEditorCustom.SetField(m_eFollowIdentity);
+        QUnityEditorCustom.SetField(m_eFollowIdentityCheck);
         //
         if (QUnityEditor.SetButton("Editor Generate"))
             m_target.SetEditorFollowIdentity();
-        //
-        QUnityEditor.SetSpace();
-        //
-        if (QUnityEditor.SetButton("Editor MOVE Component"))
-            QComponent.GetComponent<IsometricDataMove>(m_target.gameObject);
         //
         QUnityEditorCustom.SetApply(this);
     }
