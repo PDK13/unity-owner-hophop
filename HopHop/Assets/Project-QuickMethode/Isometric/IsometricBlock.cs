@@ -247,14 +247,18 @@ public class IsometricBlockEditor : Editor
         //
         QUnityEditor.SetSpace();
         //
-        if (QUnityEditor.SetButton("Add INIT data"))
+        QUnityEditor.SetHorizontalBegin();
+        if (QUnityEditor.SetButton("INIT"))
             QComponent.GetComponent<IsometricDataInit>(m_target);
-        if (QUnityEditor.SetButton("Add MOVE data"))
+        if (QUnityEditor.SetButton("MOVE"))
             QComponent.GetComponent<IsometricDataMove>(m_target);
-        if (QUnityEditor.SetButton("Add ACTION data"))
+        QUnityEditor.SetHorizontalEnd();
+        QUnityEditor.SetHorizontalBegin();
+        if (QUnityEditor.SetButton("ACTION"))
             QComponent.GetComponent<IsometricDataAction>(m_target);
-        if (QUnityEditor.SetButton("Add TELEPORT data"))
+        if (QUnityEditor.SetButton("TELEPORT"))
             QComponent.GetComponent<IsometricDataTeleport>(m_target);
+        QUnityEditor.SetHorizontalEnd();
         //
         QUnityEditorCustom.SetApply(this);
     }
