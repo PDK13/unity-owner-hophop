@@ -730,7 +730,7 @@ public class IsometricManagerMap
 
     #region ======================================================================== Editor
 
-    public bool SetEditorMask(IsometricVector Pos, Color Mask, Color UnMask, Color Centre)
+    public bool SetEditorMask(IsometricVector PosCurrent, IsometricVector? PosFocus, Color ColorMask, Color ColorUnMask, Color ColorCentre, Color ColorFocus)
     {
         if (m_root == null)
         {
@@ -747,16 +747,19 @@ public class IsometricManagerMap
                 if (Block == null)
                     continue;
                 //
-                if (PosH[i].Block[j].Pos == Pos)
+                if (PosH[i].Block[j].Pos == PosCurrent)
                 {
                     CentreFound = true;
-                    Block.SetSpriteColor(Centre, 1f);
+                    Block.SetSpriteColor(ColorCentre, 1f);
                 }
                 else
-                if (PosH[i].Block[j].Pos.X == Pos.X || PosH[i].Block[j].Pos.Y == Pos.Y)
-                    Block.SetSpriteColor(Mask, 1f);
+                if (PosFocus != null ? PosH[i].Block[j].Pos == PosFocus : false)
+                    Block.SetSpriteColor(ColorFocus, 1f);
                 else
-                    Block.SetSpriteColor(UnMask, 1f);
+                if (PosH[i].Block[j].Pos.X == PosCurrent.X || PosH[i].Block[j].Pos.Y == PosCurrent.Y)
+                    Block.SetSpriteColor(ColorMask, 1f);
+                else
+                    Block.SetSpriteColor(ColorUnMask, 1f);
             }
         }
         //

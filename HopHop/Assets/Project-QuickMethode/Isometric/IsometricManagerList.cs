@@ -69,6 +69,7 @@ public class IsometricManagerList
                 }
                 //
                 if (!All)
+                    //If not need to check all tag of this block!
                     break;
             }
         }
@@ -108,6 +109,7 @@ public class IsometricManagerList
                 }
                 //
                 if (!All)
+                    //If not need to check all tag of this block!
                     break;
             }
         }

@@ -126,6 +126,7 @@ MonoBehaviour:
   m_name: Player Angle
   m_tag:
   - player
+  - light
   - character
   m_posType: 1
   m_pos:
@@ -175,7 +176,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_bodyStatic: 0
-  m_eBodyStatic: 
 --- !u!114 &-5411448209850636593
 MonoBehaviour:
   m_ObjectHideFlags: 0

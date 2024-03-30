@@ -10,6 +10,14 @@ public class IsometricTool : EditorWindow
 
     private enum MainType { World, Custom, }
 
+    //Color
+
+    private readonly Color COLOR_NORMAL = Color.white;
+    private readonly Color COLOR_MASK = Color.gray;
+    private readonly Color COLOR_UNMASK = Color.white;
+    private readonly Color COLOR_CENTRE = Color.cyan;
+    private readonly Color COLOR_FOCUS = Color.red;
+
     //Varible: Manager
 
     private IsometricManager m_manager;
@@ -35,12 +43,12 @@ public class IsometricTool : EditorWindow
 
     //
 
-    private IsometricBlock m_Blockfocus;
+    private IsometricBlock m_blockFocus;
     private Event m_event;
 
     public IsometricBlock BlockCurson => m_manager.World.Current.GetBlockPrimary(m_curson.Pos);
 
-    public IsometricBlock BlockFocus => m_Blockfocus;
+    public IsometricBlock BlockFocus => m_blockFocus;
 
     public Event Event => m_event;
 
@@ -161,6 +169,8 @@ public class IsometricTool : EditorWindow
         //
         m_manager.World.SetRefresh();
         m_manager.Config.SetRefresh();
+        //
+        m_manager.List.SetList(m_manager.Config, false);
         //
         m_listMapScene = m_manager.World.ListMapName;
         m_listMapFile = m_manager.Config.Map.ListName;
@@ -303,13 +313,6 @@ public class IsometricTool : EditorWindow
             (bool Result, string Path, string Name) Path = QPath.GetPathFileOpenPanel("Open", "txt", m_pathOpen == "" ? QPath.GetPath(QPath.PathType.Assets) : m_pathOpen);
             if (Path.Result)
             {
-                m_maskXY = false;
-                m_hiddenH = false;
-                m_indexTag = 0;
-                m_indexName = 0;
-                //
-                m_manager.List.SetList(m_manager.Config, false);
-                //
                 m_pathOpen = Path.Path;
                 IsometricDataFile.SetFileRead(m_manager, QPath.GetPath(QPath.PathType.None, Path.Path));
                 m_listMapScene = m_manager.World.ListMapName;
@@ -370,14 +373,14 @@ public class IsometricTool : EditorWindow
         QUnityEditor.SetLabel(m_curson.Pos.HInt.ToString(), QUnityEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
         QUnityEditor.SetHorizontalEnd();
         //
-        if (m_Blockfocus != null)
+        if (m_blockFocus != null)
         {
             QUnityEditor.SetHorizontalBegin();
             QUnityEditor.SetBackground(Color.white);
             QUnityEditor.SetLabel("FOCUS: ", QUnityEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
-            QUnityEditor.SetLabel(m_Blockfocus.Pos.XInt.ToString(), QUnityEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
-            QUnityEditor.SetLabel(m_Blockfocus.Pos.YInt.ToString(), QUnityEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
-            QUnityEditor.SetLabel(m_Blockfocus.Pos.HInt.ToString(), QUnityEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
+            QUnityEditor.SetLabel(m_blockFocus.Pos.XInt.ToString(), QUnityEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
+            QUnityEditor.SetLabel(m_blockFocus.Pos.YInt.ToString(), QUnityEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
+            QUnityEditor.SetLabel(m_blockFocus.Pos.HInt.ToString(), QUnityEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
             QUnityEditor.SetHorizontalEnd();
         }
         //
@@ -404,7 +407,7 @@ public class IsometricTool : EditorWindow
             if (BlockFocus != null)
             {
                 QGameObject.SetFocus(BlockFocus.gameObject);
-                m_Blockfocus = BlockFocus;
+                m_blockFocus = BlockFocus;
             }
         }
     }
@@ -413,8 +416,13 @@ public class IsometricTool : EditorWindow
     {
         if (QUnityEditor.SetButton("BACK", QUnityEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, WidthPercent)))
         {
-            if (m_Blockfocus != null)
-                m_curson.Pos = m_Blockfocus.Pos;
+            if (m_blockFocus != null)
+            {
+                m_curson.Pos = m_blockFocus.Pos;
+                m_curson.GetComponent<SpriteRenderer>().enabled = false;
+                SetCursonMaskXY();
+                SetCursonHiddenH();
+            }
         }
     }
 
@@ -595,12 +603,24 @@ public class IsometricTool : EditorWindow
         //
         if (m_maskXY)
         {
-            bool CentreFound = m_manager.World.Current.SetEditorMask(m_curson.Pos, Color.red, Color.white, Color.yellow);
+            bool CentreFound = m_manager.World.Current.SetEditorMask(
+                m_curson.Pos,
+                (m_blockFocus != null ? m_blockFocus.Pos : null),
+                COLOR_MASK,
+                COLOR_UNMASK,
+                COLOR_CENTRE,
+                COLOR_FOCUS);
             m_curson.GetComponent<SpriteRenderer>().enabled = !CentreFound;
         }
         else
         {
-            bool CentreFound = m_manager.World.Current.SetEditorMask(m_curson.Pos, Color.white, Color.white, Color.white);
+            bool CentreFound = m_manager.World.Current.SetEditorMask(
+                m_curson.Pos,
+                (m_blockFocus != null ? m_blockFocus.Pos : null),
+                COLOR_NORMAL,
+                COLOR_NORMAL,
+                COLOR_NORMAL,
+                COLOR_FOCUS);
             m_curson.GetComponent<SpriteRenderer>().enabled = !CentreFound;
         }
     }
