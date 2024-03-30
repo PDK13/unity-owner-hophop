@@ -2,9 +2,12 @@ using System;
 using UnityEditor;
 using UnityEngine;
 
-public class BodySwitch : MonoBehaviour, IBodySwitch
+public class BodySwitch : MonoBehaviour, IBodyInteractive, IBodySwitch
 {
     [SerializeField] private bool m_state = true;
+
+    public bool State => m_state;
+
     //
     public Action<bool> onState;
     //
@@ -24,18 +27,18 @@ public class BodySwitch : MonoBehaviour, IBodySwitch
         m_switchIdentityCheck = GameConfigInit.GetData(GetComponent<IsometricDataInit>(), GameConfigInit.Key.SwitchIdentityCheck, false);
         //
         if (!string.IsNullOrEmpty(m_switchIdentityCheck))
-            GameEvent.onSwitch += ISwitch;
+            GameEvent.onSwitch += ISwitchIdentity;
     }
 
     private void OnDestroy()
     {
         if (!string.IsNullOrEmpty(m_switchIdentityCheck))
-            GameEvent.onSwitch -= ISwitch;
+            GameEvent.onSwitch -= ISwitchIdentity;
     }
 
     //
 
-    public void ISwitch(string Identity, bool State)
+    public void ISwitchIdentity(string Identity, bool State)
     {
         if (Identity != m_switchIdentityCheck)
             return;
@@ -43,25 +46,22 @@ public class BodySwitch : MonoBehaviour, IBodySwitch
         onState?.Invoke(State);
     }
 
-    public void ISwitch(bool State)
+    public void ISwitchState(bool State)
     {
         m_state = State;
         onState?.Invoke(State);
         GameEvent.SetSwitch(m_switchIdentity, State);
     }
 
-    //
-
-    public bool State => m_state;
-
-    public void SetSwitch(bool State)
+    public void ISwitchRevert()
     {
-        ISwitch(State);
+        ISwitchState(!m_state);
     }
 
-    public void SetSwitch()
+    public bool IInteractive()
     {
-        ISwitch(!m_state);
+        ISwitchRevert();
+        return true;
     }
 
 #if UNITY_EDITOR
