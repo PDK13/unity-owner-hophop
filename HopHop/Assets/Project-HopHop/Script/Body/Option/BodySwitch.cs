@@ -23,12 +23,14 @@ public class BodySwitch : MonoBehaviour, IBodySwitch
         m_switchIdentity = GameConfigInit.GetData(GetComponent<IsometricDataInit>(), GameConfigInit.Key.SwitchIdentity, false);
         m_switchIdentityCheck = GameConfigInit.GetData(GetComponent<IsometricDataInit>(), GameConfigInit.Key.SwitchIdentityCheck, false);
         //
-        GameEvent.onSwitch += ISwitch;
+        if (!string.IsNullOrEmpty(m_switchIdentityCheck))
+            GameEvent.onSwitch += ISwitch;
     }
 
     private void OnDestroy()
     {
-        GameEvent.onSwitch -= ISwitch;
+        if (!string.IsNullOrEmpty(m_switchIdentityCheck))
+            GameEvent.onSwitch -= ISwitch;
     }
 
     //

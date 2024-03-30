@@ -58,7 +58,7 @@ public class IsometricBlock : MonoBehaviour
 
     #region ================================================================== Block Manager
 
-    public string Name => m_name != "" ? m_name : QGameObject.GetNameReplaceClone(name);
+    public string Name => !string.IsNullOrEmpty(m_name) ? m_name : QGameObject.GetNameReplaceClone(name);
 
     public List<string> Tag => m_tag;
 

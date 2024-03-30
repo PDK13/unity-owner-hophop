@@ -177,7 +177,7 @@ public class IsometricManagerList
 
     public GameObject GetList(string BlockName, string Tag = "")
     {
-        if (Tag != "")
+        if (!string.IsNullOrEmpty(Tag))
         {
             for (int i = 0; i < BlockList.Count; i++)
             {

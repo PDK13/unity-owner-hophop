@@ -46,7 +46,7 @@ public class IsometricDataFile
         //
         //===============================NAME!!
         FileIO.SetWriteAdd(KEY_WORLD_NAME);
-        FileIO.SetWriteAdd((Manager.World.Current.Name != "") ? Manager.World.Current.Name : "...");
+        FileIO.SetWriteAdd((!string.IsNullOrEmpty(Manager.World.Current.Name)) ? Manager.World.Current.Name : "...");
         //===============================NAME!!
         //
         //===============================COMMAND!!

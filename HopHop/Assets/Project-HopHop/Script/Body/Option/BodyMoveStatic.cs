@@ -43,7 +43,7 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
             }
         }
         //
-        if (m_followIdentityCheck != "")
+        if (!string.IsNullOrEmpty(m_followIdentityCheck))
             GameEvent.onFollow += SetControlFollow;
     }
 
@@ -60,7 +60,7 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
             }
         }
         //
-        if (m_followIdentityCheck != "")
+        if (!string.IsNullOrEmpty(m_followIdentityCheck))
             GameEvent.onFollow -= SetControlFollow;
     }
 
@@ -139,7 +139,7 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
                 }
             });
         //
-        if (m_followIdentity != "")
+        if (!string.IsNullOrEmpty(m_followIdentity))
             GameEvent.SetFollow(m_followIdentity, m_turnDir);
         //
         SetMovePush(m_turnDir);
