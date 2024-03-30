@@ -396,6 +396,18 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
         BlockInit.SetValue(GameConfigInit.GetKey(GameConfigInit.Key.BodyStatic));
     }
 
+    public void SetEditorBodyStaticRemove()
+    {
+        IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
+        BlockInit.Data.RemoveAll(t => t.Contains(GameConfigInit.GetKey(GameConfigInit.Key.BodyStatic)));
+    }
+
+    public bool GetEditorBodyStatic()
+    {
+        IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
+        return BlockInit.Data.Contains(GameConfigInit.GetKey(GameConfigInit.Key.BodyStatic));
+    }
+
 #endif
 }
 

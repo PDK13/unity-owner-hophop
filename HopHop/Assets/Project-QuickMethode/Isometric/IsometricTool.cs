@@ -401,7 +401,7 @@ public class IsometricTool : EditorWindow
 
     private void SetGUIButtonFocus(float WidthPercent)
     {
-        if (QUnityEditor.SetButton("FOCUS", QUnityEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, WidthPercent)))
+        if (QUnityEditor.SetButton("FOCUS", QUnityEditor.GetGUIButton(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, WidthPercent)))
         {
             IsometricBlock BlockFocus = BlockCurson;
             if (BlockFocus != null)
@@ -414,7 +414,7 @@ public class IsometricTool : EditorWindow
 
     private void SetGUIButtonBack(float WidthPercent)
     {
-        if (QUnityEditor.SetButton("BACK", QUnityEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, WidthPercent)))
+        if (QUnityEditor.SetButton("BACK", QUnityEditor.GetGUIButton(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, WidthPercent)))
         {
             if (m_blockFocus != null)
             {
