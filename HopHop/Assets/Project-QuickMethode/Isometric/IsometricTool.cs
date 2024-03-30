@@ -605,8 +605,6 @@ public class IsometricTool : EditorWindow
 
     private void SetGUIGroupWorld()
     {
-        QUnityEditor.SetSpace(5f);
-        //
         if (m_listTag.Count == 0)
         {
             QUnityEditor.SetLabel("(Not found tag(s) list)", QUnityEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this));
@@ -618,6 +616,8 @@ public class IsometricTool : EditorWindow
             QUnityEditor.SetLabel("(Not found block(s) list)", QUnityEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this));
             return;
         }
+        //
+        QUnityEditor.SetSpace(5f);
         //
         QUnityEditor.SetHorizontalBegin();
         QUnityEditor.SetBackground(Color.white);
