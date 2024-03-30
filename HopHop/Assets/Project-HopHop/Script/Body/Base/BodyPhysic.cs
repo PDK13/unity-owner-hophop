@@ -20,13 +20,6 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
     private IsometricVector MoveLastXY;
     private IsometricVector? MoveForceXY;
     //
-#if UNITY_EDITOR
-
-    [Space]
-    [SerializeField] private string m_eBodyStatic;
-
-#endif
-
     private IsometricBlock m_block;
 
     private void Awake()
@@ -104,6 +97,12 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
     {
         if (!MoveForceXY.HasValue)
             return false; //Fine to continue own control!!
+        //
+        if (m_bodyStatic)
+        {
+            MoveForceXY = IsometricVector.None;
+            return false;
+        }
         //
         SetCheckGravity(MoveForceXY.Value);
         //
@@ -390,9 +389,11 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
 
 #if UNITY_EDITOR
 
-    public void SetEditorBody()
+    public void SetEditorBodyStatic()
     {
-        m_eBodyStatic = GameConfigInit.GetKey(GameConfigInit.Key.BodyStatic);
+        m_block = QComponent.GetComponent<IsometricBlock>(this);
+        IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
+        BlockInit.SetValue(GameConfigInit.GetKey(GameConfigInit.Key.BodyStatic));
     }
 
 #endif
@@ -408,15 +409,11 @@ public class BaseBodyEditor : Editor
 
     private SerializedProperty m_bodyStatic;
 
-    private SerializedProperty m_eBodyStatic;
-
     private void OnEnable()
     {
         m_target = target as BodyPhysic;
 
         m_bodyStatic = QUnityEditorCustom.GetField(this, "m_bodyStatic");
-
-        m_eBodyStatic = QUnityEditorCustom.GetField(this, "m_eBodyStatic");
     }
 
     public override void OnInspectorGUI()
@@ -424,11 +421,6 @@ public class BaseBodyEditor : Editor
         QUnityEditorCustom.SetUpdate(this);
         //
         QUnityEditorCustom.SetField(m_bodyStatic);
-        //
-        QUnityEditorCustom.SetField(m_eBodyStatic);
-        //
-        if (QUnityEditor.SetButton("Editor Generate"))
-            m_target.SetEditorBody();
         //
         QUnityEditorCustom.SetApply(this);
     }

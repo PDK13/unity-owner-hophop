@@ -53,11 +53,6 @@ public class IsometricDataAction : MonoBehaviour
         m_data.Add(DataSingle);
     }
 
-    public void SetDataAdd(string Action)
-    {
-        m_data.Add(new IsometricDataBlockActionSingle(Action));
-    }
-
     //
 
     public List<string> ActionCurrent => Data[Index].Action;

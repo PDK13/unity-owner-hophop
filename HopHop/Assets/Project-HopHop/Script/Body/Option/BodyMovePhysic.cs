@@ -12,13 +12,6 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic
     protected bool m_moveCheckAhead = false;
     protected bool m_moveCheckAheadBot = false;
 
-#if UNITY_EDITOR
-
-    [SerializeField] private string m_eMoveCheckAhead;
-    [SerializeField] private string m_eMoveCheckAheadBot;
-
-#endif
-
     protected BodyPhysic m_body;
     protected IsometricBlock m_block;
 
@@ -204,10 +197,18 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic
 
 #if UNITY_EDITOR
 
-    public void SetEditorMove()
+    public void SetEditorMoveCheckAhead()
     {
-        m_eMoveCheckAhead = GameConfigInit.GetKey(GameConfigInit.Key.MoveCheckAhead);
-        m_eMoveCheckAheadBot = GameConfigInit.GetKey(GameConfigInit.Key.MoveCheckAheadBot);
+        m_block = QComponent.GetComponent<IsometricBlock>(this);
+        IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
+        BlockInit.SetValue(GameConfigInit.GetKey(GameConfigInit.Key.MoveCheckAhead));
+    }
+
+    public void SetEditorMoveCheckAheadBot()
+    {
+        m_block = QComponent.GetComponent<IsometricBlock>(this);
+        IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
+        BlockInit.SetValue(GameConfigInit.GetKey(GameConfigInit.Key.MoveCheckAheadBot));
     }
 
 #endif
@@ -221,28 +222,20 @@ public class BodyEnermyMoveEditor : Editor
 {
     private BodyMovePhysic m_target;
 
-    private SerializedProperty m_eMoveCheckAhead;
-    private SerializedProperty m_eMoveCheckAheadBot;
-
     private void OnEnable()
     {
         m_target = target as BodyMovePhysic;
-
-        m_eMoveCheckAhead = QUnityEditorCustom.GetField(this, "m_eMoveCheckAhead");
-        m_eMoveCheckAheadBot = QUnityEditorCustom.GetField(this, "m_eMoveCheckAheadBot");
     }
 
     public override void OnInspectorGUI()
     {
-        QUnityEditorCustom.SetUpdate(this);
+        base.OnInspectorGUI();
         //
-        QUnityEditorCustom.SetField(m_eMoveCheckAhead);
-        QUnityEditorCustom.SetField(m_eMoveCheckAheadBot);
+        //QUnityEditorCustom.SetUpdate(this);
         //
-        if (QUnityEditor.SetButton("Editor Generate"))
-            m_target.SetEditorMove();
+        //...
         //
-        QUnityEditorCustom.SetApply(this);
+        //QUnityEditorCustom.SetApply(this);
     }
 }
 

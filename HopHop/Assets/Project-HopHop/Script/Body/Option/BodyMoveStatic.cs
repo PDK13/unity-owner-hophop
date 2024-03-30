@@ -1,5 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -15,13 +16,6 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
     private IsometricVector m_turnDir;
     private int m_turnLength = 0;
     private int m_turnLengthCurrent = 0;
-
-#if UNITY_EDITOR
-
-    [SerializeField] private string m_eFollowIdentity;
-    [SerializeField] private string m_eFollowIdentityCheck;
-
-#endif
 
     private bool TurnEnd => m_turnLengthCurrent == m_turnLength && m_turnLength != 0;
     //
@@ -232,9 +226,15 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
 
     public void SetEditorFollowIdentity()
     {
-        m_block = GetComponent<IsometricBlock>();
-        m_eFollowIdentity = GameConfigInit.GetKey(GameConfigInit.Key.FollowIdentity) + "-" + m_block.Pos.ToString();
-        m_eFollowIdentityCheck = GameConfigInit.GetKey(GameConfigInit.Key.FollowIdentityCheck) + "-" + m_block.Pos.ToString();
+        m_block = QComponent.GetComponent<IsometricBlock>(this);
+        IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
+        BlockInit.SetValue(GameConfigInit.GetKey(GameConfigInit.Key.FollowIdentity) + "-" + m_block.Pos.ToString());
+    }
+
+    public void SetEditorFollowIdentityCheck(IsometricBlock BlockFollow)
+    {
+        IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
+        BlockInit.SetValue(GameConfigInit.GetKey(GameConfigInit.Key.FollowIdentityCheck) + "-" + BlockFollow.Pos.ToString());
     }
 
 #endif
@@ -248,28 +248,20 @@ public class BodyMoveStaticEditor : Editor
 {
     private BodyMoveStatic m_target;
 
-    private SerializedProperty m_eFollowIdentity;
-    private SerializedProperty m_eFollowIdentityCheck;
-
     private void OnEnable()
     {
         m_target = target as BodyMoveStatic;
-
-        m_eFollowIdentity = QUnityEditorCustom.GetField(this, "m_eFollowIdentity");
-        m_eFollowIdentityCheck = QUnityEditorCustom.GetField(this, "m_eFollowIdentityCheck");
+        //
     }
 
     public override void OnInspectorGUI()
     {
-        QUnityEditorCustom.SetUpdate(this);
+        base.OnInspectorGUI();
+        //QUnityEditorCustom.SetUpdate(this);
         //
-        QUnityEditorCustom.SetField(m_eFollowIdentity);
-        QUnityEditorCustom.SetField(m_eFollowIdentityCheck);
+        //...
         //
-        if (QUnityEditor.SetButton("Editor Generate"))
-            m_target.SetEditorFollowIdentity();
-        //
-        QUnityEditorCustom.SetApply(this);
+        //QUnityEditorCustom.SetApply(this);
     }
 }
 

@@ -14,6 +14,8 @@ public class IsometricTool : EditorWindow
 
     private IsometricManager m_manager;
 
+    public IsometricManager Manager => m_manager;
+
     private string m_mapName = "";
 
     private List<string> m_listMapScene = new List<string>();
@@ -27,9 +29,22 @@ public class IsometricTool : EditorWindow
 
     //Varible: Curson
 
-    protected IsometricBlock m_curson;
-    protected IsometricBlock m_focus;
-    protected Event m_event;
+    private IsometricBlock m_curson;
+
+    public IsometricBlock Curson => m_curson;
+
+    //
+
+    private IsometricBlock m_Blockfocus;
+    private Event m_event;
+
+    public IsometricBlock BlockCurson => m_manager.World.Current.GetBlockPrimary(m_curson.Pos);
+
+    public IsometricBlock BlockFocus => m_Blockfocus;
+
+    public Event Event => m_event;
+
+    //
 
     private bool m_check = false; //When turn ON, always focus on Curson!
     private bool m_camera = false; //When turn ON, main Camera always follow Curson!
@@ -56,7 +71,7 @@ public class IsometricTool : EditorWindow
     private Vector2 m_scrollBlock;
 
     [MenuItem("Tools/IsometricTool")]
-    public static void Init()
+    public static void SetInit()
     {
         GetWindow<IsometricTool>("IsometricTool");
     }
@@ -355,14 +370,14 @@ public class IsometricTool : EditorWindow
         QUnityEditor.SetLabel(m_curson.Pos.HInt.ToString(), QUnityEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
         QUnityEditor.SetHorizontalEnd();
         //
-        if (m_focus != null)
+        if (m_Blockfocus != null)
         {
             QUnityEditor.SetHorizontalBegin();
             QUnityEditor.SetBackground(Color.white);
             QUnityEditor.SetLabel("FOCUS: ", QUnityEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
-            QUnityEditor.SetLabel(m_focus.Pos.XInt.ToString(), QUnityEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
-            QUnityEditor.SetLabel(m_focus.Pos.YInt.ToString(), QUnityEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
-            QUnityEditor.SetLabel(m_focus.Pos.HInt.ToString(), QUnityEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
+            QUnityEditor.SetLabel(m_Blockfocus.Pos.XInt.ToString(), QUnityEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
+            QUnityEditor.SetLabel(m_Blockfocus.Pos.YInt.ToString(), QUnityEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
+            QUnityEditor.SetLabel(m_Blockfocus.Pos.HInt.ToString(), QUnityEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
             QUnityEditor.SetHorizontalEnd();
         }
         //
@@ -385,11 +400,11 @@ public class IsometricTool : EditorWindow
     {
         if (QUnityEditor.SetButton("FOCUS", QUnityEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, WidthPercent)))
         {
-            IsometricBlock BlockFocus = m_manager.World.Current.GetBlockPrimary(m_curson.Pos);
+            IsometricBlock BlockFocus = BlockCurson;
             if (BlockFocus != null)
             {
                 QGameObject.SetFocus(BlockFocus.gameObject);
-                m_focus = BlockFocus;
+                m_Blockfocus = BlockFocus;
             }
         }
     }
@@ -398,8 +413,8 @@ public class IsometricTool : EditorWindow
     {
         if (QUnityEditor.SetButton("BACK", QUnityEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, WidthPercent)))
         {
-            if (m_focus != null)
-                m_curson.Pos = m_focus.Pos;
+            if (m_Blockfocus != null)
+                m_curson.Pos = m_Blockfocus.Pos;
         }
     }
 
@@ -561,7 +576,7 @@ public class IsometricTool : EditorWindow
     {
         if (m_check)
         {
-            IsometricBlock BlockFocus = m_manager.World.Current.GetBlockPrimary(m_curson.Pos);
+            IsometricBlock BlockFocus = BlockCurson;
             if (BlockFocus != null)
                 QGameObject.SetFocus(BlockFocus.gameObject);
         }

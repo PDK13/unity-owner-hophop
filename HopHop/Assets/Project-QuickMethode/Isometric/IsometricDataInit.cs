@@ -13,4 +13,12 @@ public class IsometricDataInit : MonoBehaviour
     {
         Data = Value.Data;
     }
+
+    public void SetValue(string Value, bool Force = false)
+    {
+        if (!Force && Data.Contains(Value))
+            return;
+        //
+        Data.Add(Value);
+    }
 }

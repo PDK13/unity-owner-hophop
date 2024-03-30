@@ -9,13 +9,6 @@ public class BodySwitch : MonoBehaviour, IBodySwitch
     private string m_switchIdentity;
     private string m_switchIdentityCheck;
     //
-#if UNITY_EDITOR
-
-    [SerializeField] private string m_eSwitchIdentity;
-    [SerializeField] private string m_eSwitchIdentityCheck;
-
-#endif
-    //
     private IsometricBlock m_block;
     //
     protected virtual void Awake()
@@ -74,9 +67,15 @@ public class BodySwitch : MonoBehaviour, IBodySwitch
 
     public void SetEditorSwitchIdentity()
     {
-        m_block = GetComponent<IsometricBlock>();
-        m_eSwitchIdentity = GameConfigInit.GetKey(GameConfigInit.Key.SwitchIdentity) + "-" + m_block.Pos.ToString();
-        m_eSwitchIdentityCheck = GameConfigInit.GetKey(GameConfigInit.Key.SwitchIdentityCheck) + "-" + m_block.Pos.ToString();
+        m_block = QComponent.GetComponent<IsometricBlock>(this);
+        IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
+        BlockInit.SetValue(GameConfigInit.GetKey(GameConfigInit.Key.SwitchIdentity) + "-" + m_block.Pos.ToString());
+    }
+
+    public void SetEditorSwitchIdentityCheck(IsometricBlock BlockFollow)
+    {
+        IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
+        BlockInit.SetValue(GameConfigInit.GetKey(GameConfigInit.Key.SwitchIdentityCheck) + "-" + BlockFollow.Pos.ToString());
     }
 
 #endif
@@ -90,28 +89,19 @@ public class BodySwitchEditor : Editor
 {
     private BodySwitch m_target;
 
-    private SerializedProperty m_eSwitchIdentity;
-    private SerializedProperty m_eSwitchIdentityCheck;
-
     private void OnEnable()
     {
         m_target = target as BodySwitch;
-
-        m_eSwitchIdentity = QUnityEditorCustom.GetField(this, "m_eSwitchIdentity");
-        m_eSwitchIdentityCheck = QUnityEditorCustom.GetField(this, "m_eSwitchIdentityCheck");
     }
 
     public override void OnInspectorGUI()
     {
-        QUnityEditorCustom.SetUpdate(this);
+        base.OnInspectorGUI();
+        //QUnityEditorCustom.SetUpdate(this);
         //
-        QUnityEditorCustom.SetField(m_eSwitchIdentity);
-        QUnityEditorCustom.SetField(m_eSwitchIdentityCheck);
+        //...
         //
-        if (QUnityEditor.SetButton("Editor Generate"))
-            m_target.SetEditorSwitchIdentity();
-        //
-        QUnityEditorCustom.SetApply(this);
+        //QUnityEditorCustom.SetApply(this);
     }
 }
 
