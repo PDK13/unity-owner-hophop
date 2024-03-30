@@ -34,30 +34,57 @@ public class IsometricToolCustom : IsometricTool
             return;
         //
         if (BlockFocus == BlockCurson)
-            return;
-        //
-        BodyMoveStatic BlockFocusMoveStatic = BlockFocus.GetComponent<BodyMoveStatic>();
-        BodyMoveStatic BlockCursonMoveStatic = BlockCurson.GetComponent<BodyMoveStatic>();
-        if (BlockFocusMoveStatic == null || BlockCursonMoveStatic == null)
-            return;
-        //
-        QUnityEditor.SetHorizontalBegin();
-        QUnityEditor.SetBackground(Color.white);
-        QUnityEditor.SetLabel("MOVE-ST: ", QUnityEditor.GetGUILabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
-        bool MoveStaticFollow = BlockCursonMoveStatic.GetEditorFollowIdentity();
-        if (QUnityEditor.SetButton(!MoveStaticFollow ? "FOLLOW" : "REMOVE", QUnityEditor.GetGUIButton(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
         {
-            if (!MoveStaticFollow)
+            BodyMoveStatic BlockFocusMoveStatic = BlockFocus.GetComponent<BodyMoveStatic>();
+            if (BlockFocusMoveStatic == null)
+                return;
+            //
+            QUnityEditor.SetHorizontalBegin();
+            QUnityEditor.SetBackground(Color.white);
+            QUnityEditor.SetLabel("MOVE-ST: ", QUnityEditor.GetGUILabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
+            bool MoveStaticFollow = BlockFocusMoveStatic.GetEditorFollowIdentity();
+            if (MoveStaticFollow)
             {
-                BlockFocusMoveStatic.SetEditorFollowIdentity();
-                BlockCursonMoveStatic.SetEditorFollowIdentityCheck(BlockFocus);
+                if (QUnityEditor.SetButton("REMOVE", QUnityEditor.GetGUIButton(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
+                {
+                    BlockFocusMoveStatic.SetEditorFollowIdentityRemove();
+                }
+                QUnityEditor.SetLabel("", QUnityEditor.GetGUILabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
+                QUnityEditor.SetLabel("", QUnityEditor.GetGUILabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
             }
             else
-                BlockCursonMoveStatic.SetEditorFollowIdentityRemove();
+            {
+                QUnityEditor.SetLabel("", QUnityEditor.GetGUILabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
+                QUnityEditor.SetLabel("", QUnityEditor.GetGUILabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
+                QUnityEditor.SetLabel("", QUnityEditor.GetGUILabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
+            }
+            QUnityEditor.SetHorizontalEnd();
         }
-        QUnityEditor.SetLabel("", QUnityEditor.GetGUILabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
-        QUnityEditor.SetLabel("", QUnityEditor.GetGUILabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
-        QUnityEditor.SetHorizontalEnd();
+        else
+        {
+            BodyMoveStatic BlockFocusMoveStatic = BlockFocus.GetComponent<BodyMoveStatic>();
+            BodyMoveStatic BlockCursonMoveStatic = BlockCurson.GetComponent<BodyMoveStatic>();
+            if (BlockFocusMoveStatic == null || BlockCursonMoveStatic == null)
+                return;
+            //
+            QUnityEditor.SetHorizontalBegin();
+            QUnityEditor.SetBackground(Color.white);
+            QUnityEditor.SetLabel("MOVE-ST: ", QUnityEditor.GetGUILabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
+            bool MoveStaticFollow = BlockCursonMoveStatic.GetEditorFollowIdentity();
+            if (QUnityEditor.SetButton(!MoveStaticFollow ? "FOLLOW" : "REMOVE", QUnityEditor.GetGUIButton(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
+            {
+                if (!MoveStaticFollow)
+                {
+                    BlockFocusMoveStatic.SetEditorFollowIdentity();
+                    BlockCursonMoveStatic.SetEditorFollowIdentityCheck(BlockFocus);
+                }
+                else
+                    BlockCursonMoveStatic.SetEditorFollowIdentityRemove();
+            }
+            QUnityEditor.SetLabel("", QUnityEditor.GetGUILabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
+            QUnityEditor.SetLabel("", QUnityEditor.GetGUILabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
+            QUnityEditor.SetHorizontalEnd();
+        }
     }
 
     private void SetGUIBodyMovePhysic()
