@@ -103,13 +103,13 @@ public class IsometricTool : EditorWindow
     {
         if (Application.isPlaying)
         {
-            QUnityEditor.SetLabel("(Not avaible when playing)", QUnityEditor.GetGUILabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this));
+            QUnityEditor.SetLabel("[Not avaible when playing]", QUnityEditor.GetGUILabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this));
             return;
         }
         //
         if (!SetInitFind())
         {
-            QUnityEditor.SetLabel("(Not found isometric manager)", QUnityEditor.GetGUILabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this));
+            QUnityEditor.SetLabel("[Not found isometric manager]", QUnityEditor.GetGUILabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this));
             return;
         }
         //
@@ -124,7 +124,7 @@ public class IsometricTool : EditorWindow
         //
         if (m_manager.World.Current == null)
         {
-            QUnityEditor.SetLabel("(Not found current map)", QUnityEditor.GetGUILabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this));
+            QUnityEditor.SetLabel("[Not found current map]", QUnityEditor.GetGUILabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this));
             return;
         }
         //
@@ -713,13 +713,13 @@ public class IsometricTool : EditorWindow
     {
         if (m_listTag.Count == 0)
         {
-            QUnityEditor.SetLabel("(Not found tag(s) list)", QUnityEditor.GetGUILabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this));
+            QUnityEditor.SetLabel("[Not found tag(s) list]", QUnityEditor.GetGUILabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this));
             return;
         }
         //
         if (m_manager.List.BlockList.Count == 0)
         {
-            QUnityEditor.SetLabel("(Not found block(s) list)", QUnityEditor.GetGUILabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this));
+            QUnityEditor.SetLabel("[Not found block(s) list]", QUnityEditor.GetGUILabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this));
             return;
         }
         //
@@ -777,7 +777,7 @@ public class IsometricTool : EditorWindow
 
     protected virtual void SetEditGUIGroupCustom()
     {
-        QUnityEditor.SetLabel("(Custom script not found)", QUnityEditor.GetGUILabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this));
+        QUnityEditor.SetLabel("[Custom script not found]", QUnityEditor.GetGUILabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this));
     } //Custom!
 }
 
