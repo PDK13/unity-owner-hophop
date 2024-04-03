@@ -4,18 +4,31 @@ using UnityEngine;
 
 public class BodySwitch : MonoBehaviour, IBodyInteractive, IBodySwitch
 {
+    private const string ANIM_ON = "On";
+    private const string ANIM_OFF = "Off";
+    private const string ANIM_SWITCH = "Switch";
+
+    //
+
+    public static Action<string, bool> onSwitch;
+
+    //
+
+    [SerializeField] private bool m_once = false;
     [SerializeField] private bool m_state = true;
 
     public bool State => m_state;
 
-    //
     public Action<bool> onState;
-    //
+
     private string m_switchIdentity;
     private string m_switchIdentityCheck;
-    //
+
+    private Animator m_animator;
     private IsometricBlock m_block;
+
     //
+
     private void Awake()
     {
         m_block = GetComponent<IsometricBlock>();
@@ -27,13 +40,13 @@ public class BodySwitch : MonoBehaviour, IBodyInteractive, IBodySwitch
         m_switchIdentityCheck = GameConfigInit.GetData(GetComponent<IsometricDataInit>(), GameConfigInit.Key.SwitchIdentityCheck, false);
         //
         if (!string.IsNullOrEmpty(m_switchIdentityCheck))
-            GameEvent.onSwitch += ISwitchIdentity;
+            onSwitch += ISwitchIdentity;
     }
 
     private void OnDestroy()
     {
         if (!string.IsNullOrEmpty(m_switchIdentityCheck))
-            GameEvent.onSwitch -= ISwitchIdentity;
+            onSwitch -= ISwitchIdentity;
     }
 
     //
@@ -42,26 +55,58 @@ public class BodySwitch : MonoBehaviour, IBodyInteractive, IBodySwitch
     {
         if (Identity != m_switchIdentityCheck)
             return;
+        //
         m_state = State;
         onState?.Invoke(State);
+        //
+        SetControlAnimation(m_state ? ANIM_ON : ANIM_OFF);
+        SetControlAnimation(ANIM_SWITCH);
     }
 
-    public void ISwitchState(bool State)
+    public void ISwitch(bool State)
     {
+        if (m_once && m_state)
+            return;
+        //
         m_state = State;
         onState?.Invoke(State);
-        GameEvent.SetSwitch(m_switchIdentity, State);
+        //
+        SetControlAnimation(m_state ? ANIM_ON : ANIM_OFF);
+        SetControlAnimation(ANIM_SWITCH);
+        //
+        SetSwitch(m_switchIdentity, State);
     }
 
-    public void ISwitchRevert()
+    public void ISwitch()
     {
-        ISwitchState(!m_state);
+        ISwitch(!m_state);
     }
 
     public bool IInteractive()
     {
-        ISwitchRevert();
+        if (m_once)
+            ISwitch(true);
+        else
+            ISwitch();
         return true;
+    }
+
+    //
+
+    public static void SetSwitch(string Identity, bool State)
+    {
+        if (string.IsNullOrEmpty(Identity))
+            return;
+        //
+        onSwitch?.Invoke(Identity, State);
+    }
+
+    //Animation
+
+    private void SetControlAnimation(string Name)
+    {
+        m_animator.SetTrigger(Name);
+        //m_animator.ResetTrigger(Name);
     }
 
 #if UNITY_EDITOR

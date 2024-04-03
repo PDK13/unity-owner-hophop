@@ -119,10 +119,10 @@ public class BodyCharacter : MonoBehaviour
             SetAnimation(TRIGGER_JUMP);
         //
         else
-        if (From.Tag.Contains(GameConfigTag.Water))
+        if (From.GetTag(GameConfigTag.Water))
         {
             //Move from BLOCK WATER!!
-            if (To.Tag.Contains(GameConfigTag.Water))
+            if (To.GetTag(GameConfigTag.Water))
                 //Move from BLOCK WATER to BLOCK WATER!!
                 SetAnimation(TRIGGER_SWIM);
             else
@@ -130,11 +130,11 @@ public class BodyCharacter : MonoBehaviour
                 SetAnimation(TRIGGER_JUMP);
         }
         else
-        if (From.Tag.Contains(GameConfigTag.Slow))
+        if (From.GetTag(GameConfigTag.Slow))
             //Move from BLOCK SLOW!!
             SetAnimation(TRIGGER_JUMP);
         else
-        if (From.Tag.Contains(GameConfigTag.Slip))
+        if (From.GetTag(GameConfigTag.Slip))
             //Move from BLOCK SLIP!!
             SetAnimation(TRIGGER_JUMP);
         else
@@ -145,19 +145,19 @@ public class BodyCharacter : MonoBehaviour
                 //Character Cat!!
                 SetAnimation(TRIGGER_JUMP);
             else
-            if (To.Tag.Contains(GameConfigTag.Water))
+            if (To.GetTag(GameConfigTag.Water))
                 //Move from BLOCK NORMAL to BLOCK WATER!!
                 SetAnimation(TRIGGER_JUMP);
             else
-            if (To.Tag.Contains(GameConfigTag.Slow))
+            if (To.GetTag(GameConfigTag.Slow))
                 //Move from BLOCK NORMAL to BLOCK SLOW!!
                 SetAnimation(TRIGGER_JUMP);
             else
-            if (To.Tag.Contains(GameConfigTag.Slip))
+            if (To.GetTag(GameConfigTag.Slip))
                 //Move from BLOCK NORMAL to BLOCK SLIP!!
                 SetAnimation(TRIGGER_JUMP);
             else
-            if (To.Tag.Contains(GameConfigTag.Bullet))
+            if (To.GetTag(GameConfigTag.Bullet))
                 //Move from BLOCK NORMAL to OBJECT BULLET!!
                 SetAnimation(TRIGGER_JUMP);
             else
@@ -175,7 +175,7 @@ public class BodyCharacter : MonoBehaviour
             SetAnimation(TRIGGER_JUMP);
         //
         else
-        if (On.Tag.Contains(GameConfigTag.Water))
+        if (On.GetTag(GameConfigTag.Water))
             //Stand on WATER BLOCK!!
             SetAnimation(TRIGGER_SWIM);
         else

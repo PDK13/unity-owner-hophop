@@ -1,11 +1,15 @@
 using DG.Tweening;
 using UnityEngine;
 
-public class BodyBullet : MonoBehaviour, ITurnManager
+public class BodyBullet : MonoBehaviour, ITurnManager, IBodyBullet
 {
     private const string ANIM_BLOW = "Blow";
 
+    //
+
     private const float DESTROY_DELAY = 0.3f;
+
+    //
 
     private int m_speed = 1;
 
@@ -21,25 +25,7 @@ public class BodyBullet : MonoBehaviour, ITurnManager
     private BodyPhysic m_body;
     private IsometricBlock m_block;
 
-    public void SetInit(IsometricVector Dir, int Speed)
-    {
-        m_animator = GetComponent<Animator>();
-        m_body = GetComponent<BodyPhysic>();
-        m_block = GetComponent<IsometricBlock>();
-        //
-        TurnManager.SetInit(TurnType.Bullet, this);
-        TurnManager.Instance.onTurn += ISetTurn;
-        TurnManager.Instance.onStepStart += ISetStepStart;
-        TurnManager.Instance.onStepEnd += ISetStepEnd;
-        //
-        if (m_body != null)
-            m_body.onGravity += SetGravity;
-        //
-        m_speed = Speed;
-        m_turnDir = Dir;
-        //
-        m_turnActive = false;
-    }
+    //
 
     private void OnDestroy()
     {
@@ -52,7 +38,7 @@ public class BodyBullet : MonoBehaviour, ITurnManager
             m_body.onGravity -= SetGravity;
     }
 
-    #region Turn
+    //Turn
 
     public bool TurnActive
     {
@@ -82,9 +68,40 @@ public class BodyBullet : MonoBehaviour, ITurnManager
 
     public void ISetStepEnd(string Step) { }
 
-    #endregion
+    public void IInit(IsometricVector Dir, int Speed)
+    {
+        m_animator = GetComponent<Animator>();
+        m_body = GetComponent<BodyPhysic>();
+        m_block = GetComponent<IsometricBlock>();
+        //
+        TurnManager.SetInit(TurnType.Bullet, this);
+        TurnManager.Instance.onTurn += ISetTurn;
+        TurnManager.Instance.onStepStart += ISetStepStart;
+        TurnManager.Instance.onStepEnd += ISetStepEnd;
+        //
+        if (m_body != null)
+            m_body.onGravity += SetGravity;
+        //
+        m_speed = Speed;
+        m_turnDir = Dir;
+        //
+        m_turnActive = false;
+    }
 
-    #region Move
+    public void IHit()
+    {
+        m_turnActive = false;
+        TurnManager.SetEndStep(TurnType.Bullet, this);
+        TurnManager.SetRemove(TurnType.Bullet, this);
+        TurnManager.Instance.onTurn -= ISetTurn;
+        TurnManager.Instance.onStepStart -= ISetStepStart;
+        TurnManager.Instance.onStepEnd -= ISetStepEnd;
+        //
+        SetControlAnimation(ANIM_BLOW);
+        m_block.WorldManager.World.Current.SetBlockRemoveInstant(m_block, DESTROY_DELAY);
+    }
+
+    //Move
 
     private void SetControlMove()
     {
@@ -99,17 +116,17 @@ public class BodyBullet : MonoBehaviour, ITurnManager
         IsometricBlock BlockAhead = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + m_turnDir);
         if (BlockAhead != null)
         {
-            if (BlockAhead.Tag.Contains(GameConfigTag.Player))
+            if (BlockAhead.GetTag(GameConfigTag.Player))
             {
                 Debug.Log("[Debug] Bullet hit Player!!");
             }
             else
-            if (BlockAhead.Tag.Contains(GameConfigTag.Enermy))
+            if (BlockAhead.GetTag(GameConfigTag.Enermy))
             {
                 Debug.Log("[Debug] Bullet hit Enermy!!");
             }
             //
-            SetHit();
+            IHit();
             //
             return;
         }
@@ -153,20 +170,7 @@ public class BodyBullet : MonoBehaviour, ITurnManager
             });
     }
 
-    public void SetHit()
-    {
-        m_turnActive = false;
-        TurnManager.SetEndStep(TurnType.Bullet, this);
-        TurnManager.SetRemove(TurnType.Bullet, this);
-        TurnManager.Instance.onTurn -= ISetTurn;
-        TurnManager.Instance.onStepStart -= ISetStepStart;
-        TurnManager.Instance.onStepEnd -= ISetStepEnd;
-        //
-        SetControlAnimation(ANIM_BLOW);
-        m_block.WorldManager.World.Current.SetBlockRemoveInstant(m_block, DESTROY_DELAY);
-    } //This is touched by other object!!
-
-    public void SetStandOn()
+    private void SetStandOn()
     {
         if (m_body != null)
         {
@@ -176,21 +180,20 @@ public class BodyBullet : MonoBehaviour, ITurnManager
                 return;
             }
             //
-            if (BlockBot.Tag.Contains(GameConfigTag.Player))
+            if (BlockBot.GetTag(GameConfigTag.Player))
             {
                 Debug.Log("[Debug] Bullet hit Player!!");
+                IHit();
             }
             //
-            if (!BlockBot.Tag.Contains(GameConfigTag.Block))
+            if (!BlockBot.GetTag(GameConfigTag.Block))
             {
-                SetHit();
+                IHit();
             }
         }
     }
 
-    #endregion
-
-    #region Body
+    //Body
 
     private void SetGravity(bool State)
     {
@@ -200,15 +203,11 @@ public class BodyBullet : MonoBehaviour, ITurnManager
         }
     }
 
-    #endregion
-
-    #region Animation
+    //Animation
 
     private void SetControlAnimation(string Name)
     {
         m_animator.SetTrigger(Name);
         //m_animator.ResetTrigger(Name);
     }
-
-    #endregion
 }

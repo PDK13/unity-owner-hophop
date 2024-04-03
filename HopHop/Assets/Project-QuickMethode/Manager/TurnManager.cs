@@ -179,7 +179,7 @@ public class TurnManager : SingletonManager<TurnManager>
     /// </summary>
     public static void SetStart()
     {
-        SetDebug("[START]", DebugType.None);
+        SetDebug("[START]", DebugType.Primary);
         //
         Instance.m_turnPass = 0;
         Instance.m_stepQueue.RemoveAll(t => t.Step == "");
@@ -220,7 +220,7 @@ public class TurnManager : SingletonManager<TurnManager>
         {
             //NOTE: New TURN occured!
             //
-            SetDebug(string.Format("[TURN] '{0}'", m_turnPass), DebugType.None);
+            SetDebug(string.Format("[TURN] '{0}'", m_turnPass), DebugType.Primary);
             //
             DelayNewStep = false;
             //

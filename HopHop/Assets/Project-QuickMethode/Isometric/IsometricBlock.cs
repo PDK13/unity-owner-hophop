@@ -49,7 +49,7 @@ public class IsometricBlock : MonoBehaviour
 
     private void Update()
     {
-        SetIsoTransform();
+        SetIsometricTransform();
     }
 
 #endif
@@ -62,11 +62,16 @@ public class IsometricBlock : MonoBehaviour
 
     public List<string> Tag => m_tag;
 
-    public IsometricVector Pos { get => m_pos; set { m_pos = value; SetIsoTransform(); } }
+    public IsometricVector Pos { get => m_pos; set { m_pos = value; SetIsometricTransform(); } }
 
     public IsometricPosType PosType => m_posType;
 
     public IsometricVector PosPrimary { get => m_posPrimary; set => m_posPrimary = value; }
+
+    public bool GetTag(string Tag)
+    {
+        return m_tag.Contains(Tag);
+    }
 
     #endregion
 
@@ -86,7 +91,7 @@ public class IsometricBlock : MonoBehaviour
 
     #region ================================================================== Scene Manager
 
-    private Vector3 GetIsoTransform(IsometricVector Pos)
+    private Vector3 GetIsometricTransform(IsometricVector Pos)
     {
         IsometricVector PosCentre = m_sceneData.Centre;
         float Angle = 0;
@@ -153,14 +158,14 @@ public class IsometricBlock : MonoBehaviour
         return PosTransform;
     }
 
-    private void SetIsoTransform()
+    private void SetIsometricTransform()
     {
         if (WorldManager != null)
         {
             m_sceneData = WorldManager.Scene;
         }
 
-        Vector3 PosTransform = GetIsoTransform(m_pos);
+        Vector3 PosTransform = GetIsometricTransform(m_pos);
 
         PosTransform += m_centre;
 

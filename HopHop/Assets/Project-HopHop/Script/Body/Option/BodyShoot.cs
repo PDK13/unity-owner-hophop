@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-public class BodyShoot : MonoBehaviour, ITurnManager
+public class BodyShoot : MonoBehaviour, ITurnManager, IBodyShoot
 {
     [SerializeField] private BodyBullet m_bullet;
 
@@ -26,6 +26,8 @@ public class BodyShoot : MonoBehaviour, ITurnManager
     [SerializeField] private string m_eShoot;
 
 #endif
+
+    //
 
     private void Awake()
     {
@@ -62,7 +64,7 @@ public class BodyShoot : MonoBehaviour, ITurnManager
         }
     }
 
-    #region Turn
+    //Turn
 
     public bool TurnActive
     {
@@ -89,9 +91,25 @@ public class BodyShoot : MonoBehaviour, ITurnManager
 
     public void ISetStepEnd(string Step) { }
 
-    #endregion
+    public void IShoot(IsometricVector DirSpawm, IsometricVector DirMove, int Speed)
+    {
+        IsometricBlock Block = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + DirSpawm);
+        if (Block != null)
+        {
+            if (Block.GetTag(GameConfigTag.Player))
+            {
+                Debug.Log("[Debug] Bullet hit Player!!");
+            }
+            //
+            //Surely can't spawm bullet here!!
+            return;
+        }
+        //
+        IsometricBlock Bullet = m_block.WorldManager.World.Current.SetBlockCreate(m_block.Pos + DirSpawm, m_bullet.gameObject, false);
+        Bullet.GetComponent<IBodyBullet>().IInit(DirMove, Speed);
+    }
 
-    #region Move
+    //Move
 
     private void SetControlAction()
     {
@@ -107,7 +125,7 @@ public class BodyShoot : MonoBehaviour, ITurnManager
                     IsometricVector DirSpawm = IsometricVector.GetDirDeEncypt(Command[1]);
                     IsometricVector DirMove = IsometricVector.GetDirDeEncypt(Command[2]);
                     int Speed = int.Parse(Command[3]);
-                    SetShoot(DirSpawm, DirMove, Speed);
+                    IShoot(DirSpawm, DirMove, Speed);
                     break;
             }
         }
@@ -124,26 +142,6 @@ public class BodyShoot : MonoBehaviour, ITurnManager
         m_turnControl = false;
         TurnManager.SetEndStep(TurnType.Shoot, this);
     }
-
-    private void SetShoot(IsometricVector DirSpawm, IsometricVector DirMove, int Speed)
-    {
-        IsometricBlock Block = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + DirSpawm);
-        if (Block != null)
-        {
-            if (Block.Tag.Contains(GameConfigTag.Player))
-            {
-                Debug.Log("[Debug] Bullet hit Player!!");
-            }
-            //
-            //Surely can't spawm bullet here!!
-            return;
-        }
-        //
-        IsometricBlock Bullet = m_block.WorldManager.World.Current.SetBlockCreate(m_block.Pos + DirSpawm, m_bullet.gameObject, false);
-        Bullet.GetComponent<BodyBullet>().SetInit(DirMove, Speed);
-    } //Shoot Bullet!!
-
-    #endregion
 
 #if UNITY_EDITOR
 

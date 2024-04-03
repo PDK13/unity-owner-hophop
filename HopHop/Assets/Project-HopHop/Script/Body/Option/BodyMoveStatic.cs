@@ -1,5 +1,7 @@
 using DG.Tweening;
 using UnityEngine;
+using System;
+
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -7,20 +9,26 @@ using UnityEditor;
 
 public class BodyMoveStatic : MonoBehaviour, ITurnManager
 {
+    public static Action<string, IsometricVector> onFollow;
+
+    //
+
     protected bool m_turnActive = false;
 
     private IsometricDataMove m_move;
     private string m_followIdentity;
     private string m_followIdentityCheck;
-    //
+
     private IsometricVector m_turnDir;
     private int m_turnLength = 0;
     private int m_turnLengthCurrent = 0;
 
     private bool TurnEnd => m_turnLengthCurrent == m_turnLength && m_turnLength != 0;
-    //
+
     private IsometricBlock m_block;
+
     //
+
     private void Awake()
     {
         m_block = GetComponent<IsometricBlock>();
@@ -44,7 +52,7 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
         }
         //
         if (!string.IsNullOrEmpty(m_followIdentityCheck))
-            GameEvent.onFollow += SetControlFollow;
+            onFollow += SetControlFollow;
     }
 
     protected void OnDestroy()
@@ -61,10 +69,10 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
         }
         //
         if (!string.IsNullOrEmpty(m_followIdentityCheck))
-            GameEvent.onFollow -= SetControlFollow;
+            onFollow -= SetControlFollow;
     }
 
-    #region Turn
+    //Turn
 
     public bool TurnActive
     {
@@ -94,9 +102,7 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
 
     public void ISetStepEnd(string Step) { }
 
-    #endregion
-
-    #region Move
+    //Move
 
     private void SetControlMove()
     {
@@ -140,7 +146,7 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
             });
         //
         if (!string.IsNullOrEmpty(m_followIdentity))
-            GameEvent.SetFollow(m_followIdentity, m_turnDir);
+            SetFollow(m_followIdentity, m_turnDir);
         //
         SetMovePush(m_turnDir);
         //
@@ -220,7 +226,17 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
         }
     }
 
-    #endregion
+    //
+
+    public static void SetFollow(string Identity, IsometricVector Dir)
+    {
+        if (string.IsNullOrEmpty(Identity))
+            return;
+        //
+        onFollow?.Invoke(Identity, Dir);
+    }
+
+    //
 
 #if UNITY_EDITOR
 

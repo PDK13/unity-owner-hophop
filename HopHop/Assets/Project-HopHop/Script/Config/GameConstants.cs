@@ -171,6 +171,7 @@ public class GameConfigTag
 
     public const string Bullet = "bullet";
     public const string Trap = "trap";
+    public const string Switch = "switch";
 }
 
 public enum TurnType

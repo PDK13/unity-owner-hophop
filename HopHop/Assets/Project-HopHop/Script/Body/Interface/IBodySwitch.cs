@@ -1,8 +1,8 @@
 public interface IBodySwitch
 {
-    void ISwitchIdentity(string Identity, bool State);
+    void ISwitchIdentity(string Identity, bool State); //Check!
 
-    void ISwitchState(bool State);
+    void ISwitch(bool State); //Active!
 
-    void ISwitchRevert();
+    void ISwitch();
 }

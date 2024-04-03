@@ -1,4 +1,9 @@
 public interface IBodyInteractive
 {
-    bool IInteractive(); //Use this to interactive object!
+    bool IInteractive();
+}
+
+public interface IBodyInteractiveActive
+{
+    bool IInteractive(IsometricVector Dir);
 }

@@ -139,7 +139,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
         IsometricBlock Block = GetCheckDir(Dir, IsometricVector.Bot);
         if (Block != null)
         {
-            if (Block.Tag.Contains(GameConfigTag.Bullet))
+            if (Block.GetTag(GameConfigTag.Bullet))
             {
                 //Will touch OBJECT BULLET later!!
             }
@@ -168,11 +168,11 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
         IsometricBlock Block = GetCheckDir(IsometricVector.Bot);
         if (Block != null)
         {
-            if (Block.Tag.Contains(GameConfigTag.Bullet))
+            if (Block.GetTag(GameConfigTag.Bullet))
             {
                 Debug.Log("[Debug] Bullet hit Player!!");
                 //
-                Block.GetComponent<BodyBullet>().SetHit();
+                Block.GetComponent<IBodyBullet>().IHit();
             }
             else
             {
@@ -356,12 +356,12 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
             return;
         }
         //
-        if (GetCheckDir(IsometricVector.Bot).Tag.Contains(GameConfigTag.Slow))
+        if (GetCheckDir(IsometricVector.Bot).GetTag(GameConfigTag.Slow))
         {
             MoveForceXY = IsometricVector.None;
         }
         else
-        if (GetCheckDir(IsometricVector.Bot).Tag.Contains(GameConfigTag.Slip))
+        if (GetCheckDir(IsometricVector.Bot).GetTag(GameConfigTag.Slip))
         {
             MoveForceXY = MoveLastXY;
         }

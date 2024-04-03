@@ -140,11 +140,11 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic
         IsometricBlock Block = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + Dir * Length);
         if (Block != null)
         {
-            if (Block.Tag.Contains(GameConfigTag.Bullet))
+            if (Block.GetTag(GameConfigTag.Bullet))
             {
                 Debug.Log("[Debug] Bullet hit Enermy!!");
                 //
-                Block.GetComponent<BodyBullet>().SetHit();
+                Block.GetComponent<IBodyBullet>().IHit();
             }
             else
             if (m_moveCheckAhead)

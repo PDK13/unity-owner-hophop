@@ -1,11 +1,15 @@
 using UnityEngine;
 
-public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic
+public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInteractiveActive
 {
     private bool m_turnActive = false;
 
+    private bool m_interactive = false;
+
     private BodyPhysic m_body;
     private IsometricBlock m_block;
+
+    //
 
     private void Awake()
     {
@@ -54,23 +58,43 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic
         if (!m_turnActive)
             return;
         //
-        if (Input.GetKey(KeyCode.UpArrow))
-            IMove(IsometricVector.Up);
-        //
-        if (Input.GetKey(KeyCode.DownArrow))
-            IMove(IsometricVector.Down);
-        //
-        if (Input.GetKey(KeyCode.LeftArrow))
-            IMove(IsometricVector.Left);
-        //
-        if (Input.GetKey(KeyCode.RightArrow))
-            IMove(IsometricVector.Right);
-        //
-        if (Input.GetKeyDown(KeyCode.Space))
-            IMove(IsometricVector.None);
+        if (Input.GetKeyDown(KeyCode.E))
+            m_interactive = !m_interactive;
+        else
+        if (m_interactive)
+        {
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+                IInteractive(IsometricVector.Up);
+            //
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+                IInteractive(IsometricVector.Down);
+            //
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+                IInteractive(IsometricVector.Left);
+            //
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+                IInteractive(IsometricVector.Right);
+        }
+        else
+        {
+            if (Input.GetKey(KeyCode.UpArrow))
+                IMove(IsometricVector.Up);
+            //
+            if (Input.GetKey(KeyCode.DownArrow))
+                IMove(IsometricVector.Down);
+            //
+            if (Input.GetKey(KeyCode.LeftArrow))
+                IMove(IsometricVector.Left);
+            //
+            if (Input.GetKey(KeyCode.RightArrow))
+                IMove(IsometricVector.Right);
+            //
+            if (Input.GetKeyDown(KeyCode.Space))
+                IMove(IsometricVector.None);
+        }
     }
 
-    #region Turn
+    //Turn
 
     public bool TurnActive
     {
@@ -98,9 +122,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic
 
     public void ISetStepEnd(string Step) { }
 
-    #endregion
-
-    #region Move
+    //Move
 
     public void IMoveForce(bool State, IsometricVector Dir)
     {
@@ -131,11 +153,11 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic
         IsometricBlock Block = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + Dir * Length);
         if (Block != null)
         {
-            if (Block.Tag.Contains(GameConfigTag.Bullet))
+            if (Block.GetTag(GameConfigTag.Bullet))
             {
                 Debug.Log("[Debug] Bullet hit Player!!");
                 //
-                Block.GetComponent<BodyBullet>().SetHit();
+                Block.GetComponent<IBodyBullet>().IHit();
             }
             else
             {
@@ -167,5 +189,29 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic
         //...
     }
 
-    #endregion
+    public bool IInteractive(IsometricVector Dir)
+    {
+        IsometricBlock Block = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + Dir * 1);
+        if (Block != null)
+        {
+            if (Block.GetTag(GameConfigTag.Switch))
+            {
+                if (Block.GetComponent<IBodyInteractive>().IInteractive())
+                {
+                    m_interactive = false;
+                    //
+                    m_turnActive = false;
+                    TurnManager.SetEndStep(TurnType.Player, this);
+                    //
+                    return true;
+                }
+            }
+            else
+            {
+                //...
+            }
+        }
+        //
+        return false;
+    }
 }
