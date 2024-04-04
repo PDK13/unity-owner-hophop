@@ -17,12 +17,24 @@ public class BodySwitch : MonoBehaviour, IBodyInteractive, IBodySwitch
     [SerializeField] private bool m_once = false;
     [SerializeField] private bool m_state = true;
 
-    public bool State => m_state;
+    public bool State => m_avaible ? m_state : true; //Value base on state when avaible, else always true
+
+    //
+
+    private bool m_avaible = false; //This switch curret on check identity
+
+    public bool Avaible => m_avaible;
+
+    //
 
     public Action<bool> onState;
 
+    //
+
     private string m_switchIdentity;
     private string m_switchIdentityCheck;
+
+    //
 
     private Animator m_animator;
     private IsometricBlock m_block;
@@ -39,7 +51,9 @@ public class BodySwitch : MonoBehaviour, IBodyInteractive, IBodySwitch
         m_switchIdentity = GameConfigInit.GetData(GetComponent<IsometricDataInit>(), GameConfigInit.Key.SwitchIdentity, false);
         m_switchIdentityCheck = GameConfigInit.GetData(GetComponent<IsometricDataInit>(), GameConfigInit.Key.SwitchIdentityCheck, false);
         //
-        if (!string.IsNullOrEmpty(m_switchIdentityCheck))
+        m_avaible = string.IsNullOrEmpty(m_switchIdentityCheck);
+        //
+        if (!m_avaible)
             onSwitch += ISwitchIdentity;
     }
 

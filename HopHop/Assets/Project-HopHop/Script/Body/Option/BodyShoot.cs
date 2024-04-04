@@ -9,13 +9,14 @@ public class BodyShoot : MonoBehaviour, ITurnManager, IBodyShoot
 {
     [SerializeField] private BodyBullet m_bullet;
 
-    private bool m_turnControl = false;
+    private bool m_turnActive = false;
 
     private IsometricDataAction m_dataAction;
 
     private List<string> m_turnCommand;
 
     private IsometricBlock m_block;
+    private BodySwitch m_switch;
 
 #if UNITY_EDITOR
 
@@ -32,6 +33,7 @@ public class BodyShoot : MonoBehaviour, ITurnManager, IBodyShoot
     private void Awake()
     {
         m_block = GetComponent<IsometricBlock>();
+        m_switch = GetComponent<BodySwitch>();
     }
 
     private void Start()
@@ -68,23 +70,30 @@ public class BodyShoot : MonoBehaviour, ITurnManager, IBodyShoot
 
     public bool TurnActive
     {
-        get => m_turnControl;
-        set => m_turnControl = value;
+        get => m_turnActive;
+        set => m_turnActive = value;
     }
 
     public void ISetTurn(int Turn)
     {
         //Reset!!
-        m_turnControl = true;
+        m_turnActive = true;
     }
 
     public void ISetStepStart(string Step)
     {
-        if (!m_turnControl)
+        if (!m_turnActive)
             return;
         //
         if (Step != TurnType.Shoot.ToString())
             return;
+        //
+        if (!m_switch.State)
+        {
+            m_turnActive = false;
+            TurnManager.SetEndStep(TurnType.MoveStatic, this);
+            return;
+        }
         //
         SetControlAction();
     }
@@ -139,7 +148,7 @@ public class BodyShoot : MonoBehaviour, ITurnManager, IBodyShoot
     {
         yield return new WaitForSeconds(GameManager.TimeMove * 1);
         //
-        m_turnControl = false;
+        m_turnActive = false;
         TurnManager.SetEndStep(TurnType.Shoot, this);
     }
 

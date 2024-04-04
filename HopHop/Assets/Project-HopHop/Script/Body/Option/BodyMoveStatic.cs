@@ -26,12 +26,14 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
     private bool TurnEnd => m_turnLengthCurrent == m_turnLength && m_turnLength != 0;
 
     private IsometricBlock m_block;
+    private BodySwitch m_switch;
 
     //
 
     private void Awake()
     {
         m_block = GetComponent<IsometricBlock>();
+        m_switch = GetComponent<BodySwitch>();
     }
 
     protected void Start()
@@ -96,6 +98,13 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
         //
         if (Step != TurnType.MoveStatic.ToString())
             return;
+        //
+        if (!m_switch.State)
+        {
+            m_turnActive = false;
+            TurnManager.SetEndStep(TurnType.MoveStatic, this);
+            return;
+        }
         //
         SetControlMove();
     }
