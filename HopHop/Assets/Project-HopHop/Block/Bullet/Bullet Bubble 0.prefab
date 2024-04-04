@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1455909166595997231}
   - component: {fileID: 3430691712157824425}
   - component: {fileID: 1455909166595997230}
+  - component: {fileID: 8607123185667623508}
   - component: {fileID: 1261736322470851628}
   m_Layer: 0
   m_Name: Bullet Bubble 0
@@ -144,6 +145,19 @@ MonoBehaviour:
       Y: 1
       H: 1
   m_centre: {x: 0, y: 0, z: 0}
+--- !u!114 &8607123185667623508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1455909166595997217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9cb57068c4358d40a947c9cc174fa05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_turn: 3
 --- !u!114 &1261736322470851628
 MonoBehaviour:
   m_ObjectHideFlags: 0

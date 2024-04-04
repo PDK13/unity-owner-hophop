@@ -5,23 +5,31 @@ using UnityEditor;
 
 public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic
 {
-    protected bool m_turnActive = false;
+    private bool m_turnActive = false;
+
+    public bool State => m_switch != null ? State : true;
+
+    public TurnType Turn => m_turn != null ? m_turn.Turn : TurnType.MovePhysic;
 
     private IsometricDataMove m_dataMove;
 
-    protected bool m_moveCheckAhead = false;
-    protected bool m_moveCheckAheadBot = false;
+    private bool m_moveCheckAhead = false;
+    private bool m_moveCheckAheadBot = false;
 
-    protected BodyPhysic m_body;
-    protected IsometricBlock m_block;
+    private IsometricBlock m_block;
+    private BodyTurn m_turn;
+    private BodyPhysic m_body;
+    private BodySwitch m_switch;
 
-    protected void Awake()
+    private void Awake()
     {
-        m_body = GetComponent<BodyPhysic>();
         m_block = GetComponent<IsometricBlock>();
+        m_turn = GetComponent<BodyTurn>();
+        m_body = GetComponent<BodyPhysic>();
+        m_switch = GetComponent<BodySwitch>();
     }
 
-    protected void Start()
+    private void Start()
     {
         m_dataMove = GetComponent<IsometricDataMove>();
         //
@@ -29,7 +37,7 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic
         {
             if (m_dataMove.Data.Count > 0)
             {
-                TurnManager.SetInit(TurnType.MovePhysic, this);
+                TurnManager.SetInit(Turn, this); //Move-Physic
                 TurnManager.Instance.onTurn += ISetTurn;
                 TurnManager.Instance.onStepStart += ISetStepStart;
                 TurnManager.Instance.onStepEnd += ISetStepEnd;
@@ -46,13 +54,13 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic
         m_body.onPush += IPush;
     }
 
-    protected void OnDestroy()
+    private void OnDestroy()
     {
         if (m_dataMove != null)
         {
             if (m_dataMove.Data.Count > 0)
             {
-                TurnManager.SetRemove(TurnType.MovePhysic, this);
+                TurnManager.SetRemove(Turn, this);
                 TurnManager.Instance.onTurn -= ISetTurn;
                 TurnManager.Instance.onStepStart -= ISetStepStart;
                 TurnManager.Instance.onStepEnd -= ISetStepEnd;
@@ -84,8 +92,15 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic
         if (!m_turnActive)
             return;
         //
-        if (Step != TurnType.MovePhysic.ToString())
+        if (Step != m_turn.Turn.ToString())
             return;
+        //
+        if (!State)
+        {
+            m_turnActive = false;
+            TurnManager.SetEndStep(Turn, this);
+            return;
+        }
         //
         if (!m_body.SetControlMoveForce())
         {
@@ -99,7 +114,7 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic
                     m_dataMove.SetDirNext();
                     //
                     m_turnActive = false;
-                    TurnManager.SetEndStep(TurnType.MovePhysic, this);
+                    TurnManager.SetEndStep(Turn, this);
                 }
             }
         }
@@ -116,7 +131,7 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic
         if (!State)
         {
             m_turnActive = false;
-            TurnManager.SetEndStep(TurnType.MovePhysic, this);
+            TurnManager.SetEndStep(Turn, this);
         }
     }
 
@@ -130,7 +145,7 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic
         if (m_dataMove.DirCombineCurrent == IsometricVector.None)
         {
             m_turnActive = false;
-            TurnManager.SetEndStep(TurnType.MovePhysic, this); //Follow Enermy (!)
+            TurnManager.SetEndStep(Turn, this); //Follow Enermy (!)
             return true;
         }
         //

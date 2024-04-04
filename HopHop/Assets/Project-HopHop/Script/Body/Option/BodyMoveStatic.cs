@@ -15,6 +15,10 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
 
     protected bool m_turnActive = false;
 
+    public bool State => m_switch != null ? State : true;
+
+    public TurnType Turn => m_turn != null ? m_turn.Turn : TurnType.MoveStatic;
+
     private IsometricDataMove m_move;
     private string m_followIdentity;
     private string m_followIdentityCheck;
@@ -26,6 +30,7 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
     private bool TurnEnd => m_turnLengthCurrent == m_turnLength && m_turnLength != 0;
 
     private IsometricBlock m_block;
+    private BodyTurn m_turn;
     private BodySwitch m_switch;
 
     //
@@ -33,6 +38,7 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
     private void Awake()
     {
         m_block = GetComponent<IsometricBlock>();
+        m_turn = GetComponent<BodyTurn>();
         m_switch = GetComponent<BodySwitch>();
     }
 
@@ -46,7 +52,7 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
         {
             if (m_move.Data.Count > 0)
             {
-                TurnManager.SetInit(TurnType.MoveStatic, this);
+                TurnManager.SetInit(Turn, this); //Move-Static
                 TurnManager.Instance.onTurn += ISetTurn;
                 TurnManager.Instance.onStepStart += ISetStepStart;
                 TurnManager.Instance.onStepEnd += ISetStepEnd;
@@ -63,7 +69,7 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
         {
             if (m_move.Data.Count > 0)
             {
-                TurnManager.SetRemove(TurnType.MoveStatic, this);
+                TurnManager.SetRemove(Turn, this);
                 TurnManager.Instance.onTurn -= ISetTurn;
                 TurnManager.Instance.onStepStart -= ISetStepStart;
                 TurnManager.Instance.onStepEnd -= ISetStepEnd;
@@ -96,13 +102,13 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
         if (!m_turnActive)
             return;
         //
-        if (Step != TurnType.MoveStatic.ToString())
+        if (Step != m_turn.Turn.ToString())
             return;
         //
-        if (!m_switch.State)
+        if (!State)
         {
             m_turnActive = false;
-            TurnManager.SetEndStep(TurnType.MoveStatic, this);
+            TurnManager.SetEndStep(Turn, this);
             return;
         }
         //
@@ -144,13 +150,13 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
                 if (TurnEnd)
                 {
                     m_turnActive = false;
-                    TurnManager.SetEndStep(TurnType.MoveStatic, this);
+                    TurnManager.SetEndStep(Turn, this);
                     //
                     m_turnDir = IsometricVector.None;
                 }
                 else
                 {
-                    TurnManager.SetEndMove(TurnType.MoveStatic, this);
+                    TurnManager.SetEndMove(Turn, this);
                 }
             });
         //

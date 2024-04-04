@@ -4,22 +4,26 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
 {
     private bool m_turnActive = false;
 
+    public TurnType Turn => m_turn != null ? m_turn.Turn : TurnType.Player;
+
     private bool m_interactive = false;
 
-    private BodyPhysic m_body;
     private IsometricBlock m_block;
+    private BodyTurn m_turn;
+    private BodyPhysic m_body;
 
     //
 
     private void Awake()
     {
-        m_body = GetComponent<BodyPhysic>();
         m_block = GetComponent<IsometricBlock>();
+        m_turn = GetComponent<BodyTurn>();
+        m_body = GetComponent<BodyPhysic>();
     }
 
     private void Start()
     {
-        TurnManager.SetInit(TurnType.Player, this);
+        TurnManager.SetInit(Turn, this); //Player
         TurnManager.Instance.onTurn += ISetTurn;
         TurnManager.Instance.onStepStart += ISetStepStart;
         TurnManager.Instance.onStepEnd += ISetStepEnd;
@@ -37,7 +41,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
 
     private void OnDestroy()
     {
-        TurnManager.SetRemove(TurnType.Player, this);
+        TurnManager.SetRemove(Turn, this);
         TurnManager.Instance.onTurn -= ISetTurn;
         TurnManager.Instance.onStepStart -= ISetStepStart;
         TurnManager.Instance.onStepEnd -= ISetStepEnd;
@@ -111,7 +115,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
 
     public void ISetStepStart(string Step)
     {
-        if (Step != TurnType.Player.ToString())
+        if (Step != m_turn.Turn.ToString())
             return;
         //
         if (m_body.SetControlMoveForce())
@@ -129,7 +133,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
         if (!State)
         {
             m_turnActive = false;
-            TurnManager.SetEndStep(TurnType.Player, this);
+            TurnManager.SetEndStep(Turn, this);
         }
     }
 
@@ -143,7 +147,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
         if (Dir == IsometricVector.None)
         {
             m_turnActive = false;
-            TurnManager.SetEndStep(TurnType.Player, this); //Follow Player (!)
+            TurnManager.SetEndStep(Turn, this); //Follow Player (!)
             return false;
         }
         //
@@ -201,7 +205,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
                     m_interactive = false;
                     //
                     m_turnActive = false;
-                    TurnManager.SetEndStep(TurnType.Player, this);
+                    TurnManager.SetEndStep(Turn, this);
                     //
                     return true;
                 }
