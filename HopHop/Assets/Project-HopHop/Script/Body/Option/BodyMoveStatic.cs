@@ -1,8 +1,6 @@
 using DG.Tweening;
 using UnityEngine;
 using System;
-
-
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
