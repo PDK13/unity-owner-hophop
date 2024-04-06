@@ -70,10 +70,10 @@ public class IsometricToolCustom : IsometricTool
             QUnityEditor.SetHorizontalBegin();
             QUnityEditor.SetBackground(Color.white);
             QUnityEditor.SetLabel("MOVE-ST: ", QUnityEditor.GetGUILabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
-            bool MoveStaticFollow = BlockCursonMoveStatic.GetEditorFollowIdentity();
-            if (QUnityEditor.SetButton(!MoveStaticFollow ? "FOLLOW" : "REMOVE", QUnityEditor.GetGUIButton(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
+            bool CursonCheckFollow = BlockCursonMoveStatic.GetEditorFollowIdentity();
+            if (QUnityEditor.SetButton(!CursonCheckFollow ? "FOLLOW" : "REMOVE", QUnityEditor.GetGUIButton(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
             {
-                if (!MoveStaticFollow)
+                if (!CursonCheckFollow)
                 {
                     BlockFocusMoveStatic.SetEditorFollowIdentity();
                     BlockCursonMoveStatic.SetEditorFollowIdentityCheck(BlockFocus);
@@ -99,18 +99,18 @@ public class IsometricToolCustom : IsometricTool
         QUnityEditor.SetHorizontalBegin();
         QUnityEditor.SetBackground(Color.white);
         QUnityEditor.SetLabel("MOVE-PH: ", QUnityEditor.GetGUILabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
-        bool MoveCheckAhead = BlockCursonMovePhysic.GetEditorMoveCheckAhead();
-        if (QUnityEditor.SetButton("AHEAD", QUnityEditor.GetGUIButton(MoveCheckAhead ? FontStyle.Bold : FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
+        bool CursonCheckAhead = BlockCursonMovePhysic.GetEditorMoveCheckAhead();
+        if (QUnityEditor.SetButton("AHEAD", QUnityEditor.GetGUIButton(CursonCheckAhead ? FontStyle.Bold : FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
         {
-            if (MoveCheckAhead)
+            if (CursonCheckAhead)
                 BlockCursonMovePhysic.SetEditorMoveCheckAheadRemove();
             else
                 BlockCursonMovePhysic.SetEditorMoveCheckAhead();
         }
-        bool MoveCheckAheadBot = BlockCursonMovePhysic.GetEditorMoveCheckAheadBot();
-        if (QUnityEditor.SetButton("AHEAD BOT", QUnityEditor.GetGUIButton(MoveCheckAheadBot ? FontStyle.Bold : FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
+        bool CursonCheckAheadBot = BlockCursonMovePhysic.GetEditorMoveCheckAheadBot();
+        if (QUnityEditor.SetButton("AHEAD BOT", QUnityEditor.GetGUIButton(CursonCheckAheadBot ? FontStyle.Bold : FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
         {
-            if (MoveCheckAhead)
+            if (CursonCheckAhead)
                 BlockCursonMovePhysic.SetEditorMoveCheckAheadBotRemove();
             else
                 BlockCursonMovePhysic.SetEditorMoveCheckAheadBot();
@@ -131,10 +131,10 @@ public class IsometricToolCustom : IsometricTool
         QUnityEditor.SetHorizontalBegin();
         QUnityEditor.SetBackground(Color.white);
         QUnityEditor.SetLabel("BODY-PH: ", QUnityEditor.GetGUILabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
-        bool BodyStatic = BlockCursonBodyStatic.GetEditorBodyStatic();
-        if (QUnityEditor.SetButton("STATIC", QUnityEditor.GetGUIButton(BodyStatic ? FontStyle.Bold : FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
+        bool CursonCheckStatic = BlockCursonBodyStatic.GetEditorBodyStatic();
+        if (QUnityEditor.SetButton("STATIC", QUnityEditor.GetGUIButton(CursonCheckStatic ? FontStyle.Bold : FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
         {
-            if (BodyStatic)
+            if (CursonCheckStatic)
                 BlockCursonBodyStatic.SetEditorBodyStaticRemove();
             else
                 BlockCursonBodyStatic.SetEditorBodyStatic();
@@ -160,10 +160,16 @@ public class IsometricToolCustom : IsometricTool
         QUnityEditor.SetHorizontalBegin();
         QUnityEditor.SetBackground(Color.white);
         QUnityEditor.SetLabel("SWITCH: ", QUnityEditor.GetGUILabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
-        if (QUnityEditor.SetButton("FOLLOW", QUnityEditor.GetGUIButton(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
+        bool CursonCheckFollow = BlockCursonSwitch.GetEditorSwitchCheck();
+        if (QUnityEditor.SetButton(!CursonCheckFollow ? "FOLLOW" : "REMOVE", QUnityEditor.GetGUIButton(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
         {
-            BlockFocusSwitch.SetEditorSwitchIdentity();
-            BlockCursonSwitch.SetEditorSwitchIdentityCheck(BlockFocus);
+            if (!CursonCheckFollow)
+            {
+                BlockFocusSwitch.SetEditorSwitchIdentity();
+                BlockCursonSwitch.SetEditorSwitchIdentityCheck(BlockFocus);
+            }
+            else
+                BlockCursonSwitch.SetEditorSwitchCheckRemove();
         }
         QUnityEditor.SetLabel("", QUnityEditor.GetGUILabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
         QUnityEditor.SetLabel("", QUnityEditor.GetGUILabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));

@@ -25,6 +25,8 @@ MonoBehaviour:
       - {fileID: 44393240911007880, guid: f852dd5ef6629984eb5b60401fb9ecb6, type: 3}
       - {fileID: 44393240911007880, guid: 5a84e1888d2e3c249a15ec44aebb815c, type: 3}
       - {fileID: 44393240911007880, guid: ef6dded9a5ceae549bb45d45fcae1a05, type: 3}
+      - {fileID: 44393240911007880, guid: 73293198e4fd7674eb8d9f4f3b359032, type: 3}
+      - {fileID: 44393240911007880, guid: bce713bc048be8346ba016e4e0517991, type: 3}
       - {fileID: 1455909166595997230, guid: 218a42f8b9ed39b42a68cce7d36b4e7c, type: 3}
     - Tag: Bullet
       Block:
@@ -76,6 +78,7 @@ MonoBehaviour:
     - Tag: Switch
       Block:
       - {fileID: 44393240911007880, guid: f3796a1a3a0f27c46aebeae5a7e0d2e0, type: 3}
+      - {fileID: 44393240911007880, guid: 8b040da6f934b6e45918e2afab2f2d05, type: 3}
   Map:
     m_assetsPath: Assets/Project-HopHop/Map
     m_list:

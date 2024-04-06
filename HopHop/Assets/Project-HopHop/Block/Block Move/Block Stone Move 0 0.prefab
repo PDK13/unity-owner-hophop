@@ -10,12 +10,14 @@ GameObject:
   m_Component:
   - component: {fileID: 44393240911007886}
   - component: {fileID: 44393240911007887}
+  - component: {fileID: 536537136417931024}
   - component: {fileID: 44393240911007880}
   - component: {fileID: -4606707519078502234}
   - component: {fileID: 7308499327604363182}
+  - component: {fileID: 7857018107588736247}
   - component: {fileID: 3161287631550058017}
   m_Layer: 0
-  m_Name: Block Stone Move 0
+  m_Name: Block Stone Move 0 0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,7 +80,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 323484da8f7aabc4e85312bb77f04dbc, type: 3}
+  m_Sprite: {fileID: 1360926790, guid: e52d03e0575f1d04c91b01e339193024, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -89,6 +91,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &536537136417931024
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 44393240911007885}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e8b825c6df76c1f49a0548aee7bae6f7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &44393240911007880
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,8 +124,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88b51ca1839d85a47a182808b3636847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_name: Block Stone 0
+  m_name: Block Stone 0 0
   m_tag:
+  - move
   - block
   m_posType: 0
   m_pos:
@@ -150,6 +174,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 175f4de9ab9620849aadeea229f07786, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7857018107588736247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 44393240911007885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af1afe5531318d14890319fffe12f688, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_once: 0
+  m_state: 0
+  m_follow: 0
 --- !u!114 &3161287631550058017
 MonoBehaviour:
   m_ObjectHideFlags: 0

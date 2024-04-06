@@ -13,9 +13,17 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
 
     protected bool m_turnActive = false;
 
-    public bool State => m_switch != null ? State : true;
+    public bool State => m_switch != null ? m_switch.State : true;
 
     public TurnType Turn => m_turn != null ? m_turn.Turn : TurnType.MoveStatic;
+
+    //
+
+    private bool m_avaibleFollow = false; //This follow current on check identity!
+
+    public bool AvaibleSwitch => m_avaibleFollow;
+
+    //
 
     private IsometricDataMove m_move;
     private string m_followIdentity;
@@ -46,6 +54,8 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
         m_followIdentity = GameConfigInit.GetData(GetComponent<IsometricDataInit>(), GameConfigInit.Key.FollowIdentity, false);
         m_followIdentityCheck = GameConfigInit.GetData(GetComponent<IsometricDataInit>(), GameConfigInit.Key.FollowIdentityCheck, false);
         //
+        m_avaibleFollow = !string.IsNullOrEmpty(m_followIdentityCheck);
+        //
         if (m_move != null)
         {
             if (m_move.Data.Count > 0)
@@ -57,7 +67,7 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
             }
         }
         //
-        if (!string.IsNullOrEmpty(m_followIdentityCheck))
+        if (m_avaibleFollow)
             onFollow += SetControlFollow;
     }
 
@@ -74,7 +84,7 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
             }
         }
         //
-        if (!string.IsNullOrEmpty(m_followIdentityCheck))
+        if (m_avaibleFollow)
             onFollow -= SetControlFollow;
     }
 

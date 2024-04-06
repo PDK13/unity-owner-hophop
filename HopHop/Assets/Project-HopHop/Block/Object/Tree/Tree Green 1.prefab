@@ -102,6 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_name: Object Tree Green 1
   m_tag:
+  - decorate
   - tree
   - object
   m_posType: 0

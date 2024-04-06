@@ -38,10 +38,6 @@ Object Flower Blue 0
 Object Flower Blue 0
 #BLOCK-END
 
-[1;2;0]
-Object Switch Stone 0
-#BLOCK-END
-
 [-3;2;0]
 Object Flower Blue 0
 #BLOCK-END
@@ -70,12 +66,12 @@ Object Flower Blue 0
 Object Flower Blue 0
 #BLOCK-END
 
-[1;-1;0]
-Block Stone 0
-#BLOCK-MOVE
+[-1;-1;0]
+Object Switch Stone 0 0
+#BLOCK-INIT
 2
-1
-2|D
+switch-identity-[-1,-1,0]
+follow-identity-check-[1,-1,-1]
 #BLOCK-END
 
 [-3;-1;0]
@@ -151,23 +147,23 @@ Block Normal 0
 #BLOCK-END
 
 [2;2;-1]
-Block Stone 0
+Block Normal 0
 #BLOCK-END
 
 [1;2;-1]
-Block Stone 0
+Block Normal 0
 #BLOCK-END
 
 [0;2;-1]
-Block Stone 0
+Block Normal 0
 #BLOCK-END
 
 [-1;2;-1]
-Block Stone 0
+Block Normal 0
 #BLOCK-END
 
 [-2;2;-1]
-Block Stone 0
+Block Normal 0
 #BLOCK-END
 
 [-3;2;-1]
@@ -179,7 +175,7 @@ Block Normal 0
 #BLOCK-END
 
 [2;1;-1]
-Block Stone 0
+Block Normal 0
 #BLOCK-END
 
 [1;1;-1]
@@ -195,7 +191,7 @@ Block Normal 0
 #BLOCK-END
 
 [-2;1;-1]
-Block Stone 0
+Block Normal 0
 #BLOCK-END
 
 [-3;1;-1]
@@ -207,7 +203,7 @@ Block Normal 0
 #BLOCK-END
 
 [2;0;-1]
-Block Stone 0
+Block Normal 0
 #BLOCK-END
 
 [1;0;-1]
@@ -223,7 +219,7 @@ Block Normal 0
 #BLOCK-END
 
 [-2;0;-1]
-Block Stone 0
+Block Normal 0
 #BLOCK-END
 
 [-3;0;-1]
@@ -235,23 +231,38 @@ Block Normal 0
 #BLOCK-END
 
 [2;-1;-1]
-Block Stone 0
+Block Normal 0
 #BLOCK-END
 
 [1;-1;-1]
-Block Normal 0
+Block Stone 0 0
+#BLOCK-INIT
+2
+switch-identity-check-[-1,-1,0]
+follow-identity-[1,-1,-1]
+#BLOCK-MOVE
+1
+2
+1|B
+1|T
 #BLOCK-END
 
 [0;-1;-1]
-Block Normal 0
+Block Stone 0
+#BLOCK-INIT
+1
+follow-identity-check-[1,-1,-1]
 #BLOCK-END
 
 [-1;-1;-1]
-Block Normal 0
+Block Stone 0
+#BLOCK-INIT
+1
+follow-identity-check-[1,-1,-1]
 #BLOCK-END
 
 [-2;-1;-1]
-Block Stone 0
+Block Normal 0
 #BLOCK-END
 
 [-3;-1;-1]
@@ -263,23 +274,23 @@ Block Normal 0
 #BLOCK-END
 
 [2;-2;-1]
-Block Stone 0
+Block Normal 0
 #BLOCK-END
 
 [1;-2;-1]
-Block Stone 0
+Block Normal 0
 #BLOCK-END
 
 [0;-2;-1]
-Block Stone 0
+Block Normal 0
 #BLOCK-END
 
 [-1;-2;-1]
-Block Stone 0
+Block Normal 0
 #BLOCK-END
 
 [-2;-2;-1]
-Block Stone 0
+Block Normal 0
 #BLOCK-END
 
 [-3;-2;-1]

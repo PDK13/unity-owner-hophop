@@ -22,7 +22,7 @@ public class GameConfigInit
     public const string FollowIdentity = "follow-identity"; //follow-identity-[identity]
     public const string FollowIdentityCheck = "follow-identity-check"; //follow-identity-check-[identity]
 
-    //Follow
+    //Switch
     public const string SwitchIdentity = "switch-identity"; //switch-identity-[identity]
     public const string SwitchIdentityCheck = "switch-identity-check"; //switch-identity-check-[identity]
 
@@ -80,6 +80,11 @@ public class GameConfigInit
                 return FollowIdentity;
             case Key.FollowIdentityCheck:
                 return FollowIdentityCheck;
+            //Switch
+            case Key.SwitchIdentity:
+                return SwitchIdentity;
+            case Key.SwitchIdentityCheck:
+                return SwitchIdentityCheck;
             //Move
             case Key.MoveCheckAhead:
                 return MoveCheckAhead;

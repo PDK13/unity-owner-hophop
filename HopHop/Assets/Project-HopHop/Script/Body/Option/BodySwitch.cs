@@ -6,7 +6,6 @@ public class BodySwitch : MonoBehaviour, IBodyInteractive, IBodySwitch
 {
     private const string ANIM_ON = "On";
     private const string ANIM_OFF = "Off";
-    private const string ANIM_SWITCH = "Switch";
 
     //
 
@@ -14,16 +13,17 @@ public class BodySwitch : MonoBehaviour, IBodyInteractive, IBodySwitch
 
     //
 
-    [SerializeField] private bool m_once = false;
+    [SerializeField] private bool m_once = false; //Switch only trigged once time!
     [SerializeField] private bool m_state = true;
+    [SerializeField] private bool m_follow = true; //Switch follow value of base switch!
 
-    public bool State => m_avaible ? m_state : true; //Value base on state when avaible, else always true
+    public bool State => m_avaibleSwitch ? m_state : true; //Value base on state when avaible, else always true!
 
     //
 
-    private bool m_avaible = false; //This switch curret on check identity
+    private bool m_avaibleSwitch = false; //This switch current on check identity!
 
-    public bool Avaible => m_avaible;
+    public bool AvaibleSwitch => m_avaibleSwitch;
 
     //
 
@@ -52,15 +52,17 @@ public class BodySwitch : MonoBehaviour, IBodyInteractive, IBodySwitch
         m_switchIdentity = GameConfigInit.GetData(GetComponent<IsometricDataInit>(), GameConfigInit.Key.SwitchIdentity, false);
         m_switchIdentityCheck = GameConfigInit.GetData(GetComponent<IsometricDataInit>(), GameConfigInit.Key.SwitchIdentityCheck, false);
         //
-        m_avaible = string.IsNullOrEmpty(m_switchIdentityCheck);
+        m_avaibleSwitch = !string.IsNullOrEmpty(m_switchIdentity);
         //
-        if (!m_avaible)
+        if (m_avaibleSwitch)
             onSwitch += ISwitchIdentity;
+        //
+        SetControlAnimation();
     }
 
     private void OnDestroy()
     {
-        if (!string.IsNullOrEmpty(m_switchIdentityCheck))
+        if (m_avaibleSwitch)
             onSwitch -= ISwitchIdentity;
     }
 
@@ -71,11 +73,13 @@ public class BodySwitch : MonoBehaviour, IBodyInteractive, IBodySwitch
         if (Identity != m_switchIdentityCheck)
             return;
         //
-        m_state = State;
-        onState?.Invoke(State);
+        if (m_follow)
+            m_state = State;
+        else
+            m_state = !m_state;
+        onState?.Invoke(m_state);
         //
-        SetControlAnimation(m_state ? ANIM_ON : ANIM_OFF);
-        SetControlAnimation(ANIM_SWITCH);
+        SetControlAnimation();
     }
 
     public void ISwitch(bool State)
@@ -84,10 +88,9 @@ public class BodySwitch : MonoBehaviour, IBodyInteractive, IBodySwitch
             return;
         //
         m_state = State;
-        onState?.Invoke(State);
+        onState?.Invoke(m_state);
         //
-        SetControlAnimation(m_state ? ANIM_ON : ANIM_OFF);
-        SetControlAnimation(ANIM_SWITCH);
+        SetControlAnimation();
         //
         SetSwitch(m_switchIdentity, State);
     }
@@ -118,17 +121,16 @@ public class BodySwitch : MonoBehaviour, IBodyInteractive, IBodySwitch
 
     //Animation
 
-    private void SetControlAnimation(string Name)
+    private void SetControlAnimation()
     {
-        m_animator.SetTrigger(Name);
-        //m_animator.ResetTrigger(Name);
+        m_animator.SetTrigger(m_state ? ANIM_ON : ANIM_OFF);
     }
 
 #if UNITY_EDITOR
 
     public void SetEditorSwitchIdentity()
     {
-        SetEditorMoveCheckAheadRemove();
+        SetEditorSwitchCheckRemove();
         //
         m_block = QComponent.GetComponent<IsometricBlock>(this);
         IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
@@ -137,22 +139,22 @@ public class BodySwitch : MonoBehaviour, IBodyInteractive, IBodySwitch
 
     public void SetEditorSwitchIdentityCheck(IsometricBlock BlockFollow)
     {
-        SetEditorMoveCheckAheadRemove();
+        SetEditorSwitchCheckRemove();
         //
         IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
         BlockInit.SetValue(GameConfigInit.GetKey(GameConfigInit.Key.SwitchIdentityCheck) + "-" + BlockFollow.Pos.ToString());
     }
 
-    public void SetEditorMoveCheckAheadRemove()
+    public void SetEditorSwitchCheckRemove()
     {
         IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
         BlockInit.Data.RemoveAll(t => t.Contains(GameConfigInit.GetKey(GameConfigInit.Key.SwitchIdentity)));
     }
 
-    public bool GetEditorMoveCheckAhead()
+    public bool GetEditorSwitchCheck()
     {
         IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
-        return BlockInit.Data.Contains(GameConfigInit.GetKey(GameConfigInit.Key.SwitchIdentity));
+        return BlockInit.Data.Exists(t => t.Contains(GameConfigInit.GetKey(GameConfigInit.Key.SwitchIdentity)));
     }
 
 #endif

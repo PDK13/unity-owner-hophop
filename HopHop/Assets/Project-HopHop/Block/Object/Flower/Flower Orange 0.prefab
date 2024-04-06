@@ -102,6 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_name: Object Flower Orange 0
   m_tag:
+  - decorate
   - flower
   - object
   m_posType: 0

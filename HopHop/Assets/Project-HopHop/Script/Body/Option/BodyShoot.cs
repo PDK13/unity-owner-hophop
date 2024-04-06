@@ -11,7 +11,7 @@ public class BodyShoot : MonoBehaviour, ITurnManager, IBodyShoot
 
     private bool m_turnActive = false;
 
-    public bool State => m_switch != null ? State : true;
+    public bool State => m_switch != null ? m_switch.State : true;
 
     public TurnType Turn => m_turn != null ? m_turn.Turn : TurnType.Shoot;
 

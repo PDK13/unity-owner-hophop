@@ -207,6 +207,7 @@ public class IsometricBlock : MonoBehaviour
 #if UNITY_EDITOR
 
 [CustomEditor(typeof(IsometricBlock))]
+[CanEditMultipleObjects]
 public class IsometricBlockEditor : Editor
 {
     private IsometricBlock m_target;
