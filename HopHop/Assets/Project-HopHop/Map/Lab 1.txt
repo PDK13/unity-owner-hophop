@@ -49,8 +49,9 @@ Object Flower Blue 0
 [-1;1;0]
 Object Switch Stone 0 1
 #BLOCK-INIT
-1
+2
 switch-identity-[-1,1,0]
+switch-identity-check-[-1,-1,0]
 #BLOCK-END
 
 [-3;1;0]
