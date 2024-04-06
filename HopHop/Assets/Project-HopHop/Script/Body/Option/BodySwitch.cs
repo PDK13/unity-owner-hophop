@@ -37,6 +37,10 @@ public class BodySwitch : MonoBehaviour, IBodyInteractive, IBodySwitch
 
     //
 
+    private bool m_activeSwitch = false;
+
+    //
+
     private Animator m_animator;
     private IsometricBlock m_block;
 
@@ -58,6 +62,8 @@ public class BodySwitch : MonoBehaviour, IBodyInteractive, IBodySwitch
         if (m_avaibleSwitch)
             onSwitch += ISwitchIdentity;
         //
+        TurnManager.Instance.onTurn += SetSwitchReset;
+        //
         SetControlAnimation();
     }
 
@@ -65,6 +71,8 @@ public class BodySwitch : MonoBehaviour, IBodyInteractive, IBodySwitch
     {
         if (m_avaibleSwitch)
             onSwitch -= ISwitchIdentity;
+        //
+        TurnManager.Instance.onTurn -= SetSwitchReset;
     }
 
     //
@@ -73,6 +81,10 @@ public class BodySwitch : MonoBehaviour, IBodyInteractive, IBodySwitch
     {
         if (!m_switchIdentityCheck.Exists(t => t == Identity))
             return;
+        //
+        if (m_activeSwitch)
+            return;
+        m_activeSwitch = true;
         //
         if (m_follow)
             m_state = State;
@@ -89,6 +101,10 @@ public class BodySwitch : MonoBehaviour, IBodyInteractive, IBodySwitch
     {
         if (m_once && m_state)
             return;
+        //
+        if (m_activeSwitch)
+            return;
+        m_activeSwitch = true;
         //
         m_state = State;
         onState?.Invoke(m_state);
@@ -114,7 +130,12 @@ public class BodySwitch : MonoBehaviour, IBodyInteractive, IBodySwitch
 
     //
 
-    public static void SetSwitch(string Identity, bool State)
+    private void SetSwitchReset(int Turn)
+    {
+        m_activeSwitch = false;
+    }
+
+    private void SetSwitch(string Identity, bool State)
     {
         if (string.IsNullOrEmpty(Identity))
             return;
