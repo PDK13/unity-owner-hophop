@@ -91,7 +91,7 @@ public class BodyShoot : MonoBehaviour, ITurnManager, IBodyShoot
         if (!m_turnActive)
             return;
         //
-        if (Step != m_turn.Turn.ToString())
+        if (Step != Turn.ToString())
             return;
         //
         if (!State)

@@ -43,6 +43,7 @@ public class BodySwitch : MonoBehaviour, IBodyInteractive, IBodySwitch
 
     private void Awake()
     {
+        m_animator = GetComponent<Animator>();
         m_block = GetComponent<IsometricBlock>();
     }
 

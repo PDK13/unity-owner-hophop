@@ -63,7 +63,10 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
             return;
         //
         if (Input.GetKeyDown(KeyCode.E))
+        {
             m_interactive = !m_interactive;
+            SetInteractiveCheck(m_interactive);
+        }
         else
         if (m_interactive)
         {
@@ -115,7 +118,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
 
     public void ISetStepStart(string Step)
     {
-        if (Step != m_turn.Turn.ToString())
+        if (Step != Turn.ToString())
             return;
         //
         if (m_body.SetControlMoveForce())
@@ -193,6 +196,8 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
         //...
     }
 
+    //Interactive
+
     public bool IInteractive(IsometricVector Dir)
     {
         IsometricBlock Block = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + Dir * 1);
@@ -203,6 +208,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
                 if (Block.GetComponent<IBodyInteractive>().IInteractive())
                 {
                     m_interactive = false;
+                    SetInteractiveCheck(false);
                     //
                     m_turnActive = false;
                     TurnManager.SetEndStep(Turn, this);
@@ -217,5 +223,31 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
         }
         //
         return false;
+    }
+
+    private void SetInteractiveCheck(bool State)
+    {
+        SetInteractiveCheck(State, IsometricVector.Up);
+        SetInteractiveCheck(State, IsometricVector.Down);
+        SetInteractiveCheck(State, IsometricVector.Left);
+        SetInteractiveCheck(State, IsometricVector.Right);
+    }
+
+    private void SetInteractiveCheck(bool State, IsometricVector Dir)
+    {
+        IsometricBlock Block = IsometricManager.Instance.World.Current.GetBlockCurrent(this.m_block.Pos + Dir);
+        //
+        if (Block == null)
+            return;
+        //
+        if (State)
+        {
+            if (Block.GetTag(GameConfigTag.Interactive))
+                Block.GetComponent<BodyChild>().Square.SetBlue();
+            else
+                Block.GetComponent<BodyChild>().Square.SetGrid();
+        }
+        else
+            Block.GetComponent<BodyChild>().Square.SetNone();
     }
 }

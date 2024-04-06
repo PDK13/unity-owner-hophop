@@ -171,6 +171,8 @@ public class GameConfigTag
 
     public const string Bullet = "bullet";
     public const string Trap = "trap";
+
+    public const string Interactive = "interactive";
     public const string Switch = "switch";
 }
 
