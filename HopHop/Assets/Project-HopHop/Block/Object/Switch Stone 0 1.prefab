@@ -187,6 +187,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_once: 0
   m_state: 1
+  m_follow: 0
 --- !u!1001 &3020635026423678642
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 public class GameConfigInit
 {
     public enum Key
@@ -69,6 +71,26 @@ public class GameConfigInit
         }
         //
         return None;
+    }
+
+    public static List<string> GetDataList(IsometricDataInit Data, Key Key, bool Full = true)
+    {
+        if (Data == null || Key == Key.None)
+            return null;
+        //
+        List<string> DataList = new List<string>();
+        //
+        string KeyCheck = GetKey(Key);
+        //
+        foreach (string DataCheck in Data.Data)
+        {
+            if (!DataCheck.Contains(KeyCheck))
+                continue;
+            //
+            DataList.Add(Full ? DataCheck : DataCheck.Replace(KeyCheck, ""));
+        }
+        //
+        return DataList;
     }
 
     public static string GetKey(Key Key)
@@ -148,6 +170,26 @@ public class GameConfigAction
         }
         //
         return None;
+    }
+
+    public static List<string> GetDataList(IsometricDataInit Data, Key Key, bool Full = true)
+    {
+        if (Data == null || Key == Key.None)
+            return null;
+        //
+        List<string> DataList = new List<string>();
+        //
+        string KeyCheck = GetKey(Key);
+        //
+        foreach (string DataCheck in Data.Data)
+        {
+            if (!DataCheck.Contains(KeyCheck))
+                continue;
+            //
+            DataList.Add(Full ? DataCheck : DataCheck.Replace(KeyCheck, ""));
+        }
+        //
+        return DataList;
     }
 
     public static string GetKey(Key Key)

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -32,7 +33,7 @@ public class BodySwitch : MonoBehaviour, IBodyInteractive, IBodySwitch
     //
 
     private string m_switchIdentity;
-    private string m_switchIdentityCheck;
+    private List<string> m_switchIdentityCheck;
 
     //
 
@@ -50,7 +51,7 @@ public class BodySwitch : MonoBehaviour, IBodyInteractive, IBodySwitch
     private void Start()
     {
         m_switchIdentity = GameConfigInit.GetData(GetComponent<IsometricDataInit>(), GameConfigInit.Key.SwitchIdentity, false);
-        m_switchIdentityCheck = GameConfigInit.GetData(GetComponent<IsometricDataInit>(), GameConfigInit.Key.SwitchIdentityCheck, false);
+        m_switchIdentityCheck = GameConfigInit.GetDataList(GetComponent<IsometricDataInit>(), GameConfigInit.Key.SwitchIdentityCheck, false);
         //
         m_avaibleSwitch = !string.IsNullOrEmpty(m_switchIdentity);
         //
@@ -70,7 +71,7 @@ public class BodySwitch : MonoBehaviour, IBodyInteractive, IBodySwitch
 
     public void ISwitchIdentity(string Identity, bool State)
     {
-        if (Identity != m_switchIdentityCheck)
+        if (!m_switchIdentityCheck.Exists(t => t == Identity))
             return;
         //
         if (m_follow)
@@ -80,6 +81,8 @@ public class BodySwitch : MonoBehaviour, IBodyInteractive, IBodySwitch
         onState?.Invoke(m_state);
         //
         SetControlAnimation();
+        //
+        SetSwitch(m_switchIdentity, m_state);
     }
 
     public void ISwitch(bool State)
