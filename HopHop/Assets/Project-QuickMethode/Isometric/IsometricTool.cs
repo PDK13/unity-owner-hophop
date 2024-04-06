@@ -524,6 +524,15 @@ public class IsometricTool : EditorWindow
                 }
             }
         }
+        //
+        if (m_manager.World.Current != null)
+        {
+            if (QUnityEditor.SetButton("Q.Save", QUnityEditor.GetGUIButton(FontStyle.Bold, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
+            {
+                IsometricDataFile.SetFileWrite(m_manager, QPath.GetPath(QPath.PathType.None, m_pathSave));
+                QUnityAssets.SetRefresh();
+            }
+        }
         QUnityEditor.SetHorizontalEnd();
     }
 
@@ -633,6 +642,8 @@ public class IsometricTool : EditorWindow
             {
                 QGameObject.SetFocus(BlockFocus.gameObject);
                 m_blockFocus = BlockFocus;
+                SetCursonMaskXY();
+                SetCursonHiddenH();
             }
         }
     }

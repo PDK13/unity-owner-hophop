@@ -160,7 +160,7 @@ public class IsometricToolCustom : IsometricTool
         QUnityEditor.SetHorizontalBegin();
         QUnityEditor.SetBackground(Color.white);
         QUnityEditor.SetLabel("SWITCH: ", QUnityEditor.GetGUILabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
-        bool CursonCheckFollow = BlockCursonSwitch.GetEditorSwitchCheck();
+        bool CursonCheckFollow = BlockCursonSwitch.GetEditorSwitchCheck(BlockFocus.Pos);
         if (QUnityEditor.SetButton(!CursonCheckFollow ? "FOLLOW" : "REMOVE", QUnityEditor.GetGUIButton(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
         {
             if (!CursonCheckFollow)
@@ -169,9 +169,16 @@ public class IsometricToolCustom : IsometricTool
                 BlockCursonSwitch.SetEditorSwitchIdentityCheck(BlockFocus);
             }
             else
-                BlockCursonSwitch.SetEditorSwitchCheckRemove();
+                BlockCursonSwitch.SetEditorSwitchCheckRemove(BlockFocus.Pos);
         }
-        QUnityEditor.SetLabel("", QUnityEditor.GetGUILabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
+        bool CursonCheckFollowExist = BlockCursonSwitch.GetEditorSwitchCheck();
+        if (CursonCheckFollowExist)
+        {
+            if (QUnityEditor.SetButton("CLEAR", QUnityEditor.GetGUIButton(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
+            {
+                BlockCursonSwitch.SetEditorSwitchCheckRemove();
+            }
+        }
         QUnityEditor.SetLabel("", QUnityEditor.GetGUILabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
         QUnityEditor.SetHorizontalEnd();
     }
