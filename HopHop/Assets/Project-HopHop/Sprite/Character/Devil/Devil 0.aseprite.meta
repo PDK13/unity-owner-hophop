@@ -128,7 +128,7 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 80
+      width: 56
       height: 88
     spriteID: ab9d764f659323444a688d9d232ce8d7
     spriteBone: []
@@ -148,7 +148,7 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 100
-      width: 80
+      width: 56
       height: 88
     spriteID: 1e2b7e93155a5124f99ee81d0c0d7558
     spriteBone: []
@@ -161,15 +161,15 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 100}
   - name: Devil 0_Frame_6
     originalName: 
-    pivot: {x: 0.5, y: -0.2857143}
+    pivot: {x: 0.5, y: -0.5}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 92
-      y: 388
-      width: 80
-      height: 84
+      x: 132
+      y: 371
+      width: 56
+      height: 64
     spriteID: 0b38c93183939d14ab7e0c8fc3f4ced5
     spriteBone: []
     spriteOutline: []
@@ -178,7 +178,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 92, y: 388}
+    uvTransform: {x: 132, y: 371}
   - name: Devil 0_Frame_7
     originalName: 
     pivot: {x: 0.5, y: -0.2857143}
@@ -186,9 +186,9 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 180
-      y: 4
-      width: 80
+      x: 68
+      y: 388
+      width: 56
       height: 84
     spriteID: 9f64cc713903a334abff372b872a7469
     spriteBone: []
@@ -198,18 +198,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 180, y: 4}
+    uvTransform: {x: 68, y: 388}
   - name: Devil 0_Frame_12
     originalName: 
-    pivot: {x: 0.5, y: -0.27272728}
+    pivot: {x: 0.5, y: -0.2857143}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 4
-      y: 196
-      width: 80
-      height: 88
+      x: 132
+      y: 4
+      width: 56
+      height: 84
     spriteID: e3aa4dcd9a6aa474384e9e31b48d79e3
     spriteBone: []
     spriteOutline: []
@@ -218,7 +218,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 196}
+    uvTransform: {x: 132, y: 4}
   - name: Devil 0_Frame_13
     originalName: 
     pivot: {x: 0.5, y: -0.27272728}
@@ -227,8 +227,8 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 4
-      y: 292
-      width: 80
+      y: 196
+      width: 56
       height: 88
     spriteID: f3e84872ee1fa0f44b103090a684e110
     spriteBone: []
@@ -238,7 +238,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 292}
+    uvTransform: {x: 4, y: 196}
   - name: Devil 0_Frame_18
     originalName: 
     pivot: {x: 0.5, y: -0.27272728}
@@ -247,8 +247,8 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 4
-      y: 388
-      width: 80
+      y: 292
+      width: 56
       height: 88
     spriteID: 1621da06b036c7a40891a1e9dee860d5
     spriteBone: []
@@ -258,18 +258,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 388}
+    uvTransform: {x: 4, y: 292}
   - name: Devil 0_Frame_19
     originalName: 
-    pivot: {x: 0.5, y: -0.43373492}
+    pivot: {x: 0.5, y: -0.27272728}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 180
-      y: 280
-      width: 80
-      height: 83
+      x: 4
+      y: 388
+      width: 56
+      height: 88
     spriteID: e8e3f3fbff2389a4e82043174d5a99a5
     spriteBone: []
     spriteOutline: []
@@ -278,18 +278,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 180, y: 280}
+    uvTransform: {x: 4, y: 388}
   - name: Devil 0_Frame_24
     originalName: 
-    pivot: {x: 0.5, y: -0.27272728}
+    pivot: {x: 0.5, y: -0.43373492}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 92
-      y: 4
-      width: 80
-      height: 88
+      x: 132
+      y: 280
+      width: 56
+      height: 83
     spriteID: 7c77b0d7596fd0a4e8f3deaa73c9bc6d
     spriteBone: []
     spriteOutline: []
@@ -298,18 +298,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 92, y: 4}
+    uvTransform: {x: 132, y: 280}
   - name: Devil 0_Frame_25
     originalName: 
-    pivot: {x: 0.5, y: -0.2857143}
+    pivot: {x: 0.5, y: -0.27272728}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 180
-      y: 96
-      width: 80
-      height: 84
+      x: 68
+      y: 4
+      width: 56
+      height: 88
     spriteID: 63e6b0ce16b172642ab3d12c6d6f02c0
     spriteBone: []
     spriteOutline: []
@@ -318,18 +318,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 180, y: 96}
+    uvTransform: {x: 68, y: 4}
   - name: Devil 0_Frame_26
     originalName: 
-    pivot: {x: 0.5, y: -0.27272728}
+    pivot: {x: 0.5, y: -0.2857143}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 92
-      y: 100
-      width: 80
-      height: 88
+      x: 132
+      y: 96
+      width: 56
+      height: 84
     spriteID: 5bb9aff0c519a0843bca0d9b0523ee6f
     spriteBone: []
     spriteOutline: []
@@ -338,7 +338,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 92, y: 100}
+    uvTransform: {x: 132, y: 96}
   - name: Devil 0_Frame_27
     originalName: 
     pivot: {x: 0.5, y: -0.27272728}
@@ -346,9 +346,9 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 92
-      y: 196
-      width: 80
+      x: 68
+      y: 100
+      width: 56
       height: 88
     spriteID: b3001bfdc512fd4448fbfc6eff56e48e
     spriteBone: []
@@ -358,18 +358,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 92, y: 196}
+    uvTransform: {x: 68, y: 100}
   - name: Devil 0_Frame_28
     originalName: 
-    pivot: {x: 0.5, y: -0.2857143}
+    pivot: {x: 0.5, y: -0.27272728}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 180
-      y: 188
-      width: 80
-      height: 84
+      x: 68
+      y: 196
+      width: 56
+      height: 88
     spriteID: 7f9c2cef5cdfb0849863c827e3aa5ad4
     spriteBone: []
     spriteOutline: []
@@ -378,18 +378,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 180, y: 188}
+    uvTransform: {x: 68, y: 196}
   - name: Devil 0_Frame_29
     originalName: 
-    pivot: {x: 0.5, y: -0.27272728}
+    pivot: {x: 0.5, y: -0.2857143}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 92
-      y: 292
-      width: 80
-      height: 88
+      x: 132
+      y: 188
+      width: 56
+      height: 84
     spriteID: 94e328f518afcef4ca6816255b7b9d12
     spriteBone: []
     spriteOutline: []
@@ -398,7 +398,27 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 92, y: 292}
+    uvTransform: {x: 132, y: 188}
+  - name: Devil 0_Frame_29
+    originalName: 
+    pivot: {x: 0.5, y: -0.27272728}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 68
+      y: 292
+      width: 56
+      height: 88
+    spriteID: c64cde734f4c37946980f4d9ae7c7200
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 68, y: 292}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
@@ -411,115 +431,123 @@ ScriptedImporter:
     - name: Devil 0_Frame_0
       frameIndex: 0
       cellRect:
-        x: 24
+        x: 36
         y: 24
-        width: 80
+        width: 56
         height: 88
       spriteId: ab9d764f659323444a688d9d232ce8d7
     - name: Devil 0_Frame_1
       frameIndex: 1
       cellRect:
-        x: 24
+        x: 36
         y: 24
-        width: 80
+        width: 56
         height: 88
       spriteId: 1e2b7e93155a5124f99ee81d0c0d7558
+    - name: Devil 0_Frame_3
+      frameIndex: 3
+      cellRect:
+        x: 36
+        y: 32
+        width: 56
+        height: 64
+      spriteId: 0b38c93183939d14ab7e0c8fc3f4ced5
     - name: Devil 0_Frame_6
       frameIndex: 6
       cellRect:
-        x: 24
+        x: 36
         y: 24
-        width: 80
+        width: 56
         height: 84
-      spriteId: 0b38c93183939d14ab7e0c8fc3f4ced5
+      spriteId: 9f64cc713903a334abff372b872a7469
     - name: Devil 0_Frame_7
       frameIndex: 7
       cellRect:
-        x: 24
+        x: 36
         y: 24
-        width: 80
+        width: 56
         height: 84
-      spriteId: 9f64cc713903a334abff372b872a7469
+      spriteId: e3aa4dcd9a6aa474384e9e31b48d79e3
     - name: Devil 0_Frame_12
       frameIndex: 12
       cellRect:
-        x: 24
+        x: 36
         y: 24
-        width: 80
+        width: 56
         height: 88
-      spriteId: e3aa4dcd9a6aa474384e9e31b48d79e3
+      spriteId: f3e84872ee1fa0f44b103090a684e110
     - name: Devil 0_Frame_13
       frameIndex: 13
       cellRect:
-        x: 24
+        x: 36
         y: 24
-        width: 80
+        width: 56
         height: 88
-      spriteId: f3e84872ee1fa0f44b103090a684e110
+      spriteId: 1621da06b036c7a40891a1e9dee860d5
     - name: Devil 0_Frame_18
       frameIndex: 18
       cellRect:
-        x: 24
+        x: 36
         y: 24
-        width: 80
+        width: 56
         height: 88
-      spriteId: 1621da06b036c7a40891a1e9dee860d5
+      spriteId: e8e3f3fbff2389a4e82043174d5a99a5
     - name: Devil 0_Frame_19
       frameIndex: 19
       cellRect:
-        x: 24
+        x: 36
         y: 36
-        width: 80
+        width: 56
         height: 83
-      spriteId: e8e3f3fbff2389a4e82043174d5a99a5
+      spriteId: 7c77b0d7596fd0a4e8f3deaa73c9bc6d
     - name: Devil 0_Frame_24
       frameIndex: 24
       cellRect:
-        x: 24
+        x: 36
         y: 24
-        width: 80
+        width: 56
         height: 88
-      spriteId: 7c77b0d7596fd0a4e8f3deaa73c9bc6d
+      spriteId: 63e6b0ce16b172642ab3d12c6d6f02c0
     - name: Devil 0_Frame_25
       frameIndex: 25
       cellRect:
-        x: 24
+        x: 36
         y: 24
-        width: 80
+        width: 56
         height: 84
-      spriteId: 63e6b0ce16b172642ab3d12c6d6f02c0
+      spriteId: 5bb9aff0c519a0843bca0d9b0523ee6f
     - name: Devil 0_Frame_26
       frameIndex: 26
       cellRect:
-        x: 24
+        x: 36
         y: 24
-        width: 80
+        width: 56
         height: 88
-      spriteId: 5bb9aff0c519a0843bca0d9b0523ee6f
+      spriteId: b3001bfdc512fd4448fbfc6eff56e48e
     - name: Devil 0_Frame_27
       frameIndex: 27
       cellRect:
-        x: 24
+        x: 36
         y: 24
-        width: 80
+        width: 56
         height: 88
-      spriteId: b3001bfdc512fd4448fbfc6eff56e48e
+      spriteId: 7f9c2cef5cdfb0849863c827e3aa5ad4
     - name: Devil 0_Frame_28
       frameIndex: 28
       cellRect:
-        x: 24
+        x: 36
         y: 24
-        width: 80
+        width: 56
         height: 84
-      spriteId: 7f9c2cef5cdfb0849863c827e3aa5ad4
+      spriteId: 94e328f518afcef4ca6816255b7b9d12
     - name: Devil 0_Frame_29
       frameIndex: 29
       cellRect:
-        x: 24
+        x: 36
         y: 24
-        width: 80
+        width: 56
         height: 88
-      spriteId: 94e328f518afcef4ca6816255b7b9d12
+      spriteId: c64cde734f4c37946980f4d9ae7c7200
     linkedCells: []
     parentIndex: -1
   platformSettings: []

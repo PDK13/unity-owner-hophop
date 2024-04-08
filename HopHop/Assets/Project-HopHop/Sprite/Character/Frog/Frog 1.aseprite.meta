@@ -161,15 +161,15 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 98}
   - name: Frog 1_Frame_6
     originalName: 
-    pivot: {x: 0.5, y: -0.29268292}
+    pivot: {x: 0.5, y: -0.516129}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 72
-      y: 380
+      x: 140
+      y: 364
       width: 60
-      height: 82
+      height: 62
     spriteID: 1a57b191eb7155c41971ad11cbaa03d1
     spriteBone: []
     spriteOutline: []
@@ -178,7 +178,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 72, y: 380}
+    uvTransform: {x: 140, y: 364}
   - name: Frog 1_Frame_7
     originalName: 
     pivot: {x: 0.5, y: -0.29268292}
@@ -186,8 +186,8 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 140
-      y: 4
+      x: 72
+      y: 380
       width: 60
       height: 82
     spriteID: 11be2193256685949bf1698ea13f5999
@@ -198,18 +198,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 140, y: 4}
+    uvTransform: {x: 72, y: 380}
   - name: Frog 1_Frame_12
     originalName: 
-    pivot: {x: 0.5, y: -0.27906978}
+    pivot: {x: 0.5, y: -0.29268292}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 4
-      y: 192
+      x: 140
+      y: 4
       width: 60
-      height: 86
+      height: 82
     spriteID: f59bf30e506b0f34aac919d3161560a0
     spriteBone: []
     spriteOutline: []
@@ -218,7 +218,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 192}
+    uvTransform: {x: 140, y: 4}
   - name: Frog 1_Frame_13
     originalName: 
     pivot: {x: 0.5, y: -0.27906978}
@@ -227,7 +227,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 4
-      y: 286
+      y: 192
       width: 60
       height: 86
     spriteID: fb499b92ad6ce614a9fb9009ecee7dc4
@@ -238,7 +238,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 286}
+    uvTransform: {x: 4, y: 192}
   - name: Frog 1_Frame_18
     originalName: 
     pivot: {x: 0.5, y: -0.27906978}
@@ -247,7 +247,7 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 4
-      y: 380
+      y: 286
       width: 60
       height: 86
     spriteID: 2bf005420f787f1408130a26878d104f
@@ -258,8 +258,28 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 380}
+    uvTransform: {x: 4, y: 286}
   - name: Frog 1_Frame_19
+    originalName: 
+    pivot: {x: 0.5, y: -0.27906978}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 380
+      width: 60
+      height: 86
+    spriteID: 96a12f1b3e3f3834f8322b43ac02bfe4
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 380}
+  - name: Frog 1_Frame_24
     originalName: 
     pivot: {x: 0.5, y: -0.4390244}
     alignment: 9
@@ -270,7 +290,7 @@ ScriptedImporter:
       y: 94
       width: 60
       height: 82
-    spriteID: 96a12f1b3e3f3834f8322b43ac02bfe4
+    spriteID: 9834791e3655df846bae753c555a9332
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -279,7 +299,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 140, y: 94}
-  - name: Frog 1_Frame_24
+  - name: Frog 1_Frame_25
     originalName: 
     pivot: {x: 0.5, y: -0.27906978}
     alignment: 9
@@ -290,7 +310,7 @@ ScriptedImporter:
       y: 4
       width: 60
       height: 86
-    spriteID: 9834791e3655df846bae753c555a9332
+    spriteID: 64d27b619fe2f964f8a26223d2cbf137
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -299,7 +319,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 72, y: 4}
-  - name: Frog 1_Frame_25
+  - name: Frog 1_Frame_26
     originalName: 
     pivot: {x: 0.5, y: -0.29268292}
     alignment: 9
@@ -310,7 +330,7 @@ ScriptedImporter:
       y: 184
       width: 60
       height: 82
-    spriteID: 64d27b619fe2f964f8a26223d2cbf137
+    spriteID: 0a70b7e7f0cfce942ad641a6b7d02759
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -319,7 +339,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 140, y: 184}
-  - name: Frog 1_Frame_26
+  - name: Frog 1_Frame_27
     originalName: 
     pivot: {x: 0.5, y: -0.27906978}
     alignment: 9
@@ -330,7 +350,7 @@ ScriptedImporter:
       y: 98
       width: 60
       height: 86
-    spriteID: 0a70b7e7f0cfce942ad641a6b7d02759
+    spriteID: 318514fe4bb870449ac88886fcb9b697
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -339,7 +359,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 72, y: 98}
-  - name: Frog 1_Frame_27
+  - name: Frog 1_Frame_28
     originalName: 
     pivot: {x: 0.5, y: -0.27906978}
     alignment: 9
@@ -350,7 +370,7 @@ ScriptedImporter:
       y: 192
       width: 60
       height: 86
-    spriteID: 318514fe4bb870449ac88886fcb9b697
+    spriteID: 8c55192650c30c647939e17605a4e234
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -359,7 +379,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 72, y: 192}
-  - name: Frog 1_Frame_28
+  - name: Frog 1_Frame_29
     originalName: 
     pivot: {x: 0.5, y: -0.29268292}
     alignment: 9
@@ -370,7 +390,7 @@ ScriptedImporter:
       y: 274
       width: 60
       height: 82
-    spriteID: 8c55192650c30c647939e17605a4e234
+    spriteID: d5a4070a39aa08c48966df08e2587dd0
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -390,7 +410,7 @@ ScriptedImporter:
       y: 286
       width: 60
       height: 86
-    spriteID: d5a4070a39aa08c48966df08e2587dd0
+    spriteID: c0851f923c2cbde4ea929772988c01e5
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -424,6 +444,14 @@ ScriptedImporter:
         width: 60
         height: 86
       spriteId: 7fc44735e2e845b489df919ae77075bc
+    - name: Frog 1_Frame_3
+      frameIndex: 3
+      cellRect:
+        x: 34
+        y: 32
+        width: 60
+        height: 62
+      spriteId: 1a57b191eb7155c41971ad11cbaa03d1
     - name: Frog 1_Frame_6
       frameIndex: 6
       cellRect:
@@ -431,7 +459,7 @@ ScriptedImporter:
         y: 24
         width: 60
         height: 82
-      spriteId: 1a57b191eb7155c41971ad11cbaa03d1
+      spriteId: 11be2193256685949bf1698ea13f5999
     - name: Frog 1_Frame_7
       frameIndex: 7
       cellRect:
@@ -439,7 +467,7 @@ ScriptedImporter:
         y: 24
         width: 60
         height: 82
-      spriteId: 11be2193256685949bf1698ea13f5999
+      spriteId: f59bf30e506b0f34aac919d3161560a0
     - name: Frog 1_Frame_12
       frameIndex: 12
       cellRect:
@@ -447,7 +475,7 @@ ScriptedImporter:
         y: 24
         width: 60
         height: 86
-      spriteId: f59bf30e506b0f34aac919d3161560a0
+      spriteId: fb499b92ad6ce614a9fb9009ecee7dc4
     - name: Frog 1_Frame_13
       frameIndex: 13
       cellRect:
@@ -455,7 +483,7 @@ ScriptedImporter:
         y: 24
         width: 60
         height: 86
-      spriteId: fb499b92ad6ce614a9fb9009ecee7dc4
+      spriteId: 2bf005420f787f1408130a26878d104f
     - name: Frog 1_Frame_18
       frameIndex: 18
       cellRect:
@@ -463,7 +491,7 @@ ScriptedImporter:
         y: 24
         width: 60
         height: 86
-      spriteId: 2bf005420f787f1408130a26878d104f
+      spriteId: 96a12f1b3e3f3834f8322b43ac02bfe4
     - name: Frog 1_Frame_19
       frameIndex: 19
       cellRect:
@@ -471,7 +499,7 @@ ScriptedImporter:
         y: 36
         width: 60
         height: 82
-      spriteId: 96a12f1b3e3f3834f8322b43ac02bfe4
+      spriteId: 9834791e3655df846bae753c555a9332
     - name: Frog 1_Frame_24
       frameIndex: 24
       cellRect:
@@ -479,7 +507,7 @@ ScriptedImporter:
         y: 24
         width: 60
         height: 86
-      spriteId: 9834791e3655df846bae753c555a9332
+      spriteId: 64d27b619fe2f964f8a26223d2cbf137
     - name: Frog 1_Frame_25
       frameIndex: 25
       cellRect:
@@ -487,7 +515,7 @@ ScriptedImporter:
         y: 24
         width: 60
         height: 82
-      spriteId: 64d27b619fe2f964f8a26223d2cbf137
+      spriteId: 0a70b7e7f0cfce942ad641a6b7d02759
     - name: Frog 1_Frame_26
       frameIndex: 26
       cellRect:
@@ -495,7 +523,7 @@ ScriptedImporter:
         y: 24
         width: 60
         height: 86
-      spriteId: 0a70b7e7f0cfce942ad641a6b7d02759
+      spriteId: 318514fe4bb870449ac88886fcb9b697
     - name: Frog 1_Frame_27
       frameIndex: 27
       cellRect:
@@ -503,7 +531,7 @@ ScriptedImporter:
         y: 24
         width: 60
         height: 86
-      spriteId: 318514fe4bb870449ac88886fcb9b697
+      spriteId: 8c55192650c30c647939e17605a4e234
     - name: Frog 1_Frame_28
       frameIndex: 28
       cellRect:
@@ -511,7 +539,7 @@ ScriptedImporter:
         y: 24
         width: 60
         height: 82
-      spriteId: 8c55192650c30c647939e17605a4e234
+      spriteId: d5a4070a39aa08c48966df08e2587dd0
     - name: Frog 1_Frame_29
       frameIndex: 29
       cellRect:
@@ -519,7 +547,7 @@ ScriptedImporter:
         y: 24
         width: 60
         height: 86
-      spriteId: d5a4070a39aa08c48966df08e2587dd0
+      spriteId: c0851f923c2cbde4ea929772988c01e5
     linkedCells: []
     parentIndex: -1
   platformSettings: []

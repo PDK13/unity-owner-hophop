@@ -128,7 +128,7 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 80
+      width: 56
       height: 92
     spriteID: 351ebda87c0133744bdec908f299d1b7
     spriteBone: []
@@ -148,7 +148,7 @@ ScriptedImporter:
       serializedVersion: 2
       x: 4
       y: 104
-      width: 80
+      width: 56
       height: 92
     spriteID: 1cdbcbb0a48705944b0650b32ff0bcd9
     spriteBone: []
@@ -161,15 +161,15 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 104}
   - name: Angel 1_Frame_6
     originalName: 
-    pivot: {x: 0.5, y: -0.27272728}
+    pivot: {x: 0.5, y: -0.47058824}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 92
-      y: 404
-      width: 80
-      height: 88
+      x: 132
+      y: 388
+      width: 56
+      height: 68
     spriteID: 7e93de68294e8bc408a4f5fd4bc2c852
     spriteBone: []
     spriteOutline: []
@@ -178,7 +178,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 92, y: 404}
+    uvTransform: {x: 132, y: 388}
   - name: Angel 1_Frame_7
     originalName: 
     pivot: {x: 0.5, y: -0.27272728}
@@ -186,9 +186,9 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 180
-      y: 4
-      width: 80
+      x: 68
+      y: 404
+      width: 56
       height: 88
     spriteID: 2c3a5021c61776c45b1b3dbad7bc48e2
     spriteBone: []
@@ -198,18 +198,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 180, y: 4}
+    uvTransform: {x: 68, y: 404}
   - name: Angel 1_Frame_12
     originalName: 
-    pivot: {x: 0.5, y: -0.26086956}
+    pivot: {x: 0.5, y: -0.27272728}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 4
-      y: 204
-      width: 80
-      height: 92
+      x: 132
+      y: 4
+      width: 56
+      height: 88
     spriteID: f6effe6bf8597ff4eba03e2a61535c9d
     spriteBone: []
     spriteOutline: []
@@ -218,7 +218,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 204}
+    uvTransform: {x: 132, y: 4}
   - name: Angel 1_Frame_13
     originalName: 
     pivot: {x: 0.5, y: -0.26086956}
@@ -227,8 +227,8 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 4
-      y: 304
-      width: 80
+      y: 204
+      width: 56
       height: 92
     spriteID: 39fda7ffe63343f4d88439387eda078a
     spriteBone: []
@@ -238,7 +238,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 304}
+    uvTransform: {x: 4, y: 204}
   - name: Angel 1_Frame_18
     originalName: 
     pivot: {x: 0.5, y: -0.26086956}
@@ -247,8 +247,8 @@ ScriptedImporter:
     rect:
       serializedVersion: 2
       x: 4
-      y: 404
-      width: 80
+      y: 304
+      width: 56
       height: 92
     spriteID: 0e2314cec51021245833728d43eda53c
     spriteBone: []
@@ -258,18 +258,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 404}
+    uvTransform: {x: 4, y: 304}
   - name: Angel 1_Frame_19
     originalName: 
-    pivot: {x: 0.5, y: -0.40909094}
+    pivot: {x: 0.5, y: -0.26086956}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 180
-      y: 100
-      width: 80
-      height: 88
+      x: 4
+      y: 404
+      width: 56
+      height: 92
     spriteID: b54fd747da440c747bce1f32f7db54d0
     spriteBone: []
     spriteOutline: []
@@ -278,18 +278,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 180, y: 100}
+    uvTransform: {x: 4, y: 404}
   - name: Angel 1_Frame_24
     originalName: 
-    pivot: {x: 0.5, y: -0.26086956}
+    pivot: {x: 0.5, y: -0.40909094}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 92
-      y: 4
-      width: 80
-      height: 92
+      x: 132
+      y: 100
+      width: 56
+      height: 88
     spriteID: 00a1bbb89e974c44d9827f588b2f2538
     spriteBone: []
     spriteOutline: []
@@ -298,18 +298,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 92, y: 4}
+    uvTransform: {x: 132, y: 100}
   - name: Angel 1_Frame_25
     originalName: 
-    pivot: {x: 0.5, y: -0.27272728}
+    pivot: {x: 0.5, y: -0.26086956}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 180
-      y: 196
-      width: 80
-      height: 88
+      x: 68
+      y: 4
+      width: 56
+      height: 92
     spriteID: de2a37f6f576a2d4ab6562a8f863603d
     spriteBone: []
     spriteOutline: []
@@ -318,18 +318,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 180, y: 196}
+    uvTransform: {x: 68, y: 4}
   - name: Angel 1_Frame_26
     originalName: 
-    pivot: {x: 0.5, y: -0.26086956}
+    pivot: {x: 0.5, y: -0.27272728}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 92
-      y: 104
-      width: 80
-      height: 92
+      x: 132
+      y: 196
+      width: 56
+      height: 88
     spriteID: a048b30a8ecdd2545a03f283d49cad1f
     spriteBone: []
     spriteOutline: []
@@ -338,7 +338,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 92, y: 104}
+    uvTransform: {x: 132, y: 196}
   - name: Angel 1_Frame_27
     originalName: 
     pivot: {x: 0.5, y: -0.26086956}
@@ -346,9 +346,9 @@ ScriptedImporter:
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 92
-      y: 204
-      width: 80
+      x: 68
+      y: 104
+      width: 56
       height: 92
     spriteID: 669f5645718d0d54cb1323cffb29090a
     spriteBone: []
@@ -358,18 +358,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 92, y: 204}
+    uvTransform: {x: 68, y: 104}
   - name: Angel 1_Frame_28
     originalName: 
-    pivot: {x: 0.5, y: -0.27272728}
+    pivot: {x: 0.5, y: -0.26086956}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 180
-      y: 292
-      width: 80
-      height: 88
+      x: 68
+      y: 204
+      width: 56
+      height: 92
     spriteID: b9c5597b2d7543348aad70c75e8afd33
     spriteBone: []
     spriteOutline: []
@@ -378,18 +378,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 180, y: 292}
+    uvTransform: {x: 68, y: 204}
   - name: Angel 1_Frame_29
     originalName: 
-    pivot: {x: 0.5, y: -0.26086956}
+    pivot: {x: 0.5, y: -0.27272728}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 92
-      y: 304
-      width: 80
-      height: 92
+      x: 132
+      y: 292
+      width: 56
+      height: 88
     spriteID: 126fc809f72a27a4d9a5b98f7056b4b8
     spriteBone: []
     spriteOutline: []
@@ -398,7 +398,27 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 92, y: 304}
+    uvTransform: {x: 132, y: 292}
+  - name: Angel 1_Frame_29
+    originalName: 
+    pivot: {x: 0.5, y: -0.26086956}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 68
+      y: 304
+      width: 56
+      height: 92
+    spriteID: 8d1afc1f81138634094d7943d31842d6
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 68, y: 304}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
@@ -411,115 +431,123 @@ ScriptedImporter:
     - name: Angel 1_Frame_0
       frameIndex: 0
       cellRect:
-        x: 24
+        x: 36
         y: 24
-        width: 80
+        width: 56
         height: 92
       spriteId: 351ebda87c0133744bdec908f299d1b7
     - name: Angel 1_Frame_1
       frameIndex: 1
       cellRect:
-        x: 24
+        x: 36
         y: 24
-        width: 80
+        width: 56
         height: 92
       spriteId: 1cdbcbb0a48705944b0650b32ff0bcd9
+    - name: Angel 1_Frame_3
+      frameIndex: 3
+      cellRect:
+        x: 36
+        y: 32
+        width: 56
+        height: 68
+      spriteId: 7e93de68294e8bc408a4f5fd4bc2c852
     - name: Angel 1_Frame_6
       frameIndex: 6
       cellRect:
-        x: 24
+        x: 36
         y: 24
-        width: 80
+        width: 56
         height: 88
-      spriteId: 7e93de68294e8bc408a4f5fd4bc2c852
+      spriteId: 2c3a5021c61776c45b1b3dbad7bc48e2
     - name: Angel 1_Frame_7
       frameIndex: 7
       cellRect:
-        x: 24
+        x: 36
         y: 24
-        width: 80
+        width: 56
         height: 88
-      spriteId: 2c3a5021c61776c45b1b3dbad7bc48e2
+      spriteId: f6effe6bf8597ff4eba03e2a61535c9d
     - name: Angel 1_Frame_12
       frameIndex: 12
       cellRect:
-        x: 24
+        x: 36
         y: 24
-        width: 80
+        width: 56
         height: 92
-      spriteId: f6effe6bf8597ff4eba03e2a61535c9d
+      spriteId: 39fda7ffe63343f4d88439387eda078a
     - name: Angel 1_Frame_13
       frameIndex: 13
       cellRect:
-        x: 24
+        x: 36
         y: 24
-        width: 80
+        width: 56
         height: 92
-      spriteId: 39fda7ffe63343f4d88439387eda078a
+      spriteId: 0e2314cec51021245833728d43eda53c
     - name: Angel 1_Frame_18
       frameIndex: 18
       cellRect:
-        x: 24
+        x: 36
         y: 24
-        width: 80
+        width: 56
         height: 92
-      spriteId: 0e2314cec51021245833728d43eda53c
+      spriteId: b54fd747da440c747bce1f32f7db54d0
     - name: Angel 1_Frame_19
       frameIndex: 19
       cellRect:
-        x: 24
+        x: 36
         y: 36
-        width: 80
+        width: 56
         height: 88
-      spriteId: b54fd747da440c747bce1f32f7db54d0
+      spriteId: 00a1bbb89e974c44d9827f588b2f2538
     - name: Angel 1_Frame_24
       frameIndex: 24
       cellRect:
-        x: 24
+        x: 36
         y: 24
-        width: 80
+        width: 56
         height: 92
-      spriteId: 00a1bbb89e974c44d9827f588b2f2538
+      spriteId: de2a37f6f576a2d4ab6562a8f863603d
     - name: Angel 1_Frame_25
       frameIndex: 25
       cellRect:
-        x: 24
+        x: 36
         y: 24
-        width: 80
+        width: 56
         height: 88
-      spriteId: de2a37f6f576a2d4ab6562a8f863603d
+      spriteId: a048b30a8ecdd2545a03f283d49cad1f
     - name: Angel 1_Frame_26
       frameIndex: 26
       cellRect:
-        x: 24
+        x: 36
         y: 24
-        width: 80
+        width: 56
         height: 92
-      spriteId: a048b30a8ecdd2545a03f283d49cad1f
+      spriteId: 669f5645718d0d54cb1323cffb29090a
     - name: Angel 1_Frame_27
       frameIndex: 27
       cellRect:
-        x: 24
+        x: 36
         y: 24
-        width: 80
+        width: 56
         height: 92
-      spriteId: 669f5645718d0d54cb1323cffb29090a
+      spriteId: b9c5597b2d7543348aad70c75e8afd33
     - name: Angel 1_Frame_28
       frameIndex: 28
       cellRect:
-        x: 24
+        x: 36
         y: 24
-        width: 80
+        width: 56
         height: 88
-      spriteId: b9c5597b2d7543348aad70c75e8afd33
+      spriteId: 126fc809f72a27a4d9a5b98f7056b4b8
     - name: Angel 1_Frame_29
       frameIndex: 29
       cellRect:
-        x: 24
+        x: 36
         y: 24
-        width: 80
+        width: 56
         height: 92
-      spriteId: 126fc809f72a27a4d9a5b98f7056b4b8
+      spriteId: 8d1afc1f81138634094d7943d31842d6
     linkedCells: []
     parentIndex: -1
   platformSettings: []
