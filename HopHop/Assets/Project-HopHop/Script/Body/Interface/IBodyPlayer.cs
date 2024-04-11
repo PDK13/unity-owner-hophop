@@ -4,5 +4,4 @@ using UnityEngine;
 
 public interface IBodyPlayer
 {
-    void IMove(IsometricVector Dir);
 }
