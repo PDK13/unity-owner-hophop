@@ -7,10 +7,6 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic
 {
     private bool m_turnActive = false;
 
-    public bool State => m_switch != null ? m_switch.State : true;
-
-    public TurnType Turn => m_turn != null ? m_turn.Turn : TurnType.MovePhysic;
-
     private IsometricDataMove m_dataMove;
 
     private bool m_moveCheckAhead = false;
@@ -20,6 +16,14 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic
     private BodyTurn m_turn;
     private BodyPhysic m_body;
     private BodySwitch m_switch;
+
+    //
+
+    public bool State => m_switch != null ? m_switch.State : true;
+
+    public TurnType Turn => m_turn != null ? m_turn.Turn : TurnType.MovePhysic;
+
+    //
 
     private void Awake()
     {
@@ -179,7 +183,7 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic
         //
         m_turnActive = false;
         //
-        m_body.SetControlMove(Dir);
+        m_body.SetControlMove(Dir, true);
         //
         m_dataMove.SetDirNext();
         //

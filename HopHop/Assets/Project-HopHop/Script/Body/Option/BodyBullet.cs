@@ -5,32 +5,27 @@ public class BodyBullet : MonoBehaviour, ITurnManager, IBodyBullet
 {
     private const string ANIM_BLOW = "Blow";
 
-    //
-
     private const float DESTROY_DELAY = 0.3f;
 
     //
 
     private bool m_turnActive = false;
 
-    public TurnType Turn => m_turn != null ? m_turn.Turn : TurnType.Bullet;
-
-    //
-
-    private int m_speed = 1;
-
     private IsometricVector m_turnDir;
+    private int m_speed = 1;
     private int m_moveStep = 0;
     private int m_moveStepCurrent = 0;
-
-    private bool TurnEnd => m_moveStepCurrent == m_moveStep && m_moveStep != 0;
-
-    //
 
     private Animator m_animator;
     private IsometricBlock m_block;
     private BodyPhysic m_body;
     private BodyTurn m_turn;
+
+    //
+
+    public TurnType Turn => m_turn != null ? m_turn.Turn : TurnType.Bullet;
+
+    private bool TurnEnd => m_moveStepCurrent == m_moveStep && m_moveStep > 0;
 
     //
 

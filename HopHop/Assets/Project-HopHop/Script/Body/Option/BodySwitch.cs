@@ -12,37 +12,29 @@ public class BodySwitch : MonoBehaviour, IBodyInteractive, IBodySwitch
 
     public static Action<string, bool> onSwitch;
 
+    public Action<bool> onState;
+
     //
 
     [SerializeField] private bool m_once = false; //Switch only trigged once time!
     [SerializeField] private bool m_state = true;
     [SerializeField] private bool m_follow = true; //Switch follow value of base switch!
 
-    public bool State => m_avaibleSwitch ? m_state : true; //Value base on state when avaible, else always true!
-
-    //
-
     private bool m_avaibleSwitch = false; //This switch current on check identity!
-
-    public bool AvaibleSwitch => m_avaibleSwitch;
-
-    //
-
-    public Action<bool> onState;
-
-    //
 
     private string m_switchIdentity;
     private List<string> m_switchIdentityCheck;
 
-    //
-
     private bool m_activeSwitch = false;
-
-    //
 
     private Animator m_animator;
     private IsometricBlock m_block;
+
+    //
+
+    public bool State => m_avaibleSwitch ? m_state : true; //Value base on state when avaible, else always true!
+
+    public bool AvaibleSwitch => m_avaibleSwitch;
 
     //
 

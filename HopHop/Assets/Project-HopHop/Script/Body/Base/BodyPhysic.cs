@@ -7,30 +7,26 @@ using UnityEditor;
 
 public class BodyPhysic : MonoBehaviour, ITurnManager
 {
-    private bool m_turnActive = false;
-
-    //
-
     public Action<bool, IsometricVector> onMove;                    //State
     public Action<bool, IsometricVector> onMoveForce;               //State
     public Action<bool> onGravity;                                  //State
     public Action<bool, IsometricVector> onForce;                   //State, Dir
     public Action<bool, IsometricVector, IsometricVector> onPush;   //State, Dir, From
-    
+
     //
+
+    private bool m_turnActive = false;
 
     [SerializeField] private bool m_bodyStatic = false;
-
-    //
 
     private IsometricVector m_moveLastXY;
     private IsometricVector? m_moveForceXY;
 
-    public IsometricVector MoveLastXY => m_moveLastXY;
+    private IsometricBlock m_block;
 
     //
 
-    private IsometricBlock m_block;
+    public IsometricVector MoveLastXY => m_moveLastXY;
 
     //
 
@@ -72,12 +68,13 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
         m_moveLastXY = IsometricVector.None;
     }
 
-    public void SetControlMove(IsometricVector Dir)
+    public void SetControlMove(IsometricVector Dir, bool Gravity)
     {
         if (Dir == IsometricVector.None)
             return;
         //
-        SetCheckGravity(Dir);
+        if (Gravity)
+            SetCheckGravity(Dir);
         //
         m_moveLastXY = Dir;
         //

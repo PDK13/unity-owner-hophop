@@ -11,10 +11,6 @@ public class BodyShoot : MonoBehaviour, ITurnManager, IBodyShoot
 
     private bool m_turnActive = false;
 
-    public bool State => m_switch != null ? m_switch.State : true;
-
-    public TurnType Turn => m_turn != null ? m_turn.Turn : TurnType.Shoot;
-
     private IsometricDataAction m_dataAction;
 
     private List<string> m_turnCommand;
@@ -22,6 +18,14 @@ public class BodyShoot : MonoBehaviour, ITurnManager, IBodyShoot
     private IsometricBlock m_block;
     private BodyTurn m_turn;
     private BodySwitch m_switch;
+
+    //
+
+    public bool State => m_switch != null ? m_switch.State : true;
+
+    public TurnType Turn => m_turn != null ? m_turn.Turn : TurnType.Shoot;
+
+    //
 
 #if UNITY_EDITOR
 

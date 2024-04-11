@@ -7,8 +7,6 @@ public class BodyCharacter : MonoBehaviour
     private const int INDEX_MOVE = 0;
     private const int INDEX_ACTION = 1;
 
-    //
-
     private const string TRIGGER_LAND = "Land";
     private const string TRIGGER_JUMP = "Jump";
     private const string TRIGGER_MOVE = "Move";
@@ -24,17 +22,11 @@ public class BodyCharacter : MonoBehaviour
 
     private string m_animatorName = TRIGGER_IDLE;
 
-    //
-
     [Space]
     [SerializeField] private CharacterType m_character = CharacterType.Angel;
     [SerializeField] private int m_characterSkin = 0;
 
-    //
-
     private CharacterConfigData m_configCharacter;
-
-    //
 
     private IsometricBlock m_block;
     private BodyPhysic m_body;
@@ -103,16 +95,10 @@ public class BodyCharacter : MonoBehaviour
         {
             switch (m_character)
             {
-                case CharacterType.Angel:
-                    return 1;
                 case CharacterType.Bunny:
                     return 2;
                 case CharacterType.Cat:
                     return 2;
-                case CharacterType.Frog:
-                    return 1;
-                case CharacterType.Mow:
-                    return 1;
             }
             return 1;
         }
@@ -122,20 +108,25 @@ public class BodyCharacter : MonoBehaviour
     {
         get
         {
-            switch(m_character)
+            switch (m_character)
             {
-                case CharacterType.Angel:
-                    return true;
                 case CharacterType.Bunny:
                     return false;
-                case CharacterType.Cat:
-                    return true;
-                case CharacterType.Frog:
-                    return true;
-                case CharacterType.Mow:
-                    return true;
             }
             return true;
+        }
+    }
+
+    public bool MoveFloat
+    {
+        get
+        {
+            switch (m_character)
+            {
+                case CharacterType.Cat:
+                    return true;
+            }
+            return false;
         }
     }
 

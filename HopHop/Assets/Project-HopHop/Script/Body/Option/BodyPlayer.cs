@@ -4,24 +4,22 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
 {
     private bool m_turnActive = false;
 
-    public TurnType Turn => m_turn != null ? m_turn.Turn : TurnType.Player;
-
-    //
-
     private int m_moveStepCurrent = 0;
 
-    private bool TurnEnd => m_moveStepCurrent == m_character.MoveStep && m_character.MoveStep != 0;
-
-    //
-
     private bool m_interactive = false;
-
-    //
 
     private IsometricBlock m_block;
     private BodyTurn m_turn;
     private BodyPhysic m_body;
     private BodyCharacter m_character;
+
+    //
+
+    public TurnType Turn => m_turn != null ? m_turn.Turn : TurnType.Player;
+
+    private bool TurnEnd => m_moveStepCurrent == m_character.MoveStep && m_character.MoveStep > 0;
+
+    private bool TurnLast => m_moveStepCurrent == m_character.MoveStep - 1 && m_character.MoveStep > 0;
 
     //
 
@@ -174,7 +172,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
         //
         m_turnActive = false;
         //
-        m_body.SetControlMove(Dir);
+        m_body.SetControlMove(Dir, TurnLast || !m_character.MoveFloat);
         //
         return true;
     }
