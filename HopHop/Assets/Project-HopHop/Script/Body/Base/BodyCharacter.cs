@@ -34,6 +34,53 @@ public class BodyCharacter : MonoBehaviour
 
     //
 
+    public CharacterType Character => m_character;
+
+    public int CharacterSkin => m_characterSkin;
+
+    public int MoveStep
+    {
+        get
+        {
+            switch (m_character)
+            {
+                case CharacterType.Bunny:
+                    return 2;
+                case CharacterType.Cat:
+                    return 2;
+            }
+            return 1;
+        }
+    }
+
+    public bool MoveLock
+    {
+        get
+        {
+            switch (m_character)
+            {
+                case CharacterType.Bunny:
+                    return false;
+            }
+            return true;
+        }
+    }
+
+    public bool MoveFloat
+    {
+        get
+        {
+            switch (m_character)
+            {
+                case CharacterType.Cat:
+                    return true;
+            }
+            return false;
+        }
+    }
+
+    //
+
     private void Awake()
     {
         m_block = GetComponent<IsometricBlock>();
@@ -82,53 +129,6 @@ public class BodyCharacter : MonoBehaviour
     }
 
 #endif
-
-    //Imformation
-
-    public CharacterType Character => m_character;
-
-    public int CharacterSkin => m_characterSkin;
-
-    public int MoveStep
-    {
-        get
-        {
-            switch (m_character)
-            {
-                case CharacterType.Bunny:
-                    return 2;
-                case CharacterType.Cat:
-                    return 2;
-            }
-            return 1;
-        }
-    }
-
-    public bool MoveLock
-    {
-        get
-        {
-            switch (m_character)
-            {
-                case CharacterType.Bunny:
-                    return false;
-            }
-            return true;
-        }
-    }
-
-    public bool MoveFloat
-    {
-        get
-        {
-            switch (m_character)
-            {
-                case CharacterType.Cat:
-                    return true;
-            }
-            return false;
-        }
-    }
 
     //Animator
 
