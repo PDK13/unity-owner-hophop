@@ -74,12 +74,6 @@ public class BodyShoot : MonoBehaviour, ITurnManager, IBodyShoot
 
     //Turn
 
-    public bool TurnActive
-    {
-        get => m_turnActive;
-        set => m_turnActive = value;
-    }
-
     public void ISetTurn(int Turn)
     {
         //Reset!!

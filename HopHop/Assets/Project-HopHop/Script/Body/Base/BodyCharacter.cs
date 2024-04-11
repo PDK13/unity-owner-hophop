@@ -6,7 +6,9 @@ public class BodyCharacter : MonoBehaviour
 {
     private const int INDEX_MOVE = 0;
     private const int INDEX_ACTION = 1;
+
     //
+
     private const string TRIGGER_LAND = "Land";
     private const string TRIGGER_JUMP = "Jump";
     private const string TRIGGER_MOVE = "Move";
@@ -17,22 +19,28 @@ public class BodyCharacter : MonoBehaviour
     private const string TRIGGER_SIT = "Sit";
     private const string TRIGGER_HURT = "Hurt";
     private const string TRIGGER_HAPPY = "Happy";
+
     //
+
     private string m_animatorName = TRIGGER_IDLE;
+
     //
+
     [Space]
     [SerializeField] private CharacterType m_character = CharacterType.Angel;
-    [SerializeField] private int m_skin = 0;
+    [SerializeField] private int m_characterSkin = 0;
 
-    public CharacterType Character => m_character;
     //
+
     private CharacterConfigData m_configCharacter;
+
     //
-    public int Skin => m_skin;
-    //
+
     private IsometricBlock m_block;
     private BodyPhysic m_body;
     private Animator m_animator;
+
+    //
 
     private void Awake()
     {
@@ -43,7 +51,7 @@ public class BodyCharacter : MonoBehaviour
 
     private void Start()
     {
-        SetCharacter(m_character, m_skin);
+        SetCharacter(m_character, m_characterSkin);
         //
         m_body.onMove += SetOnMove;
         m_body.onMoveForce += SetOnMove;
@@ -83,6 +91,54 @@ public class BodyCharacter : MonoBehaviour
 
 #endif
 
+    //Imformation
+
+    public CharacterType Character => m_character;
+
+    public int CharacterSkin => m_characterSkin;
+
+    public int MoveStep
+    {
+        get
+        {
+            switch (m_character)
+            {
+                case CharacterType.Angel:
+                    return 1;
+                case CharacterType.Bunny:
+                    return 2;
+                case CharacterType.Cat:
+                    return 2;
+                case CharacterType.Frog:
+                    return 1;
+                case CharacterType.Mow:
+                    return 1;
+            }
+            return 1;
+        }
+    }
+
+    public bool MoveLock
+    {
+        get
+        {
+            switch(m_character)
+            {
+                case CharacterType.Angel:
+                    return true;
+                case CharacterType.Bunny:
+                    return false;
+                case CharacterType.Cat:
+                    return true;
+                case CharacterType.Frog:
+                    return true;
+                case CharacterType.Mow:
+                    return true;
+            }
+            return true;
+        }
+    }
+
     //Animator
 
     public void SetCharacter(CharacterType Character, int Skin = 0)
@@ -99,12 +155,12 @@ public class BodyCharacter : MonoBehaviour
         if (Skin > m_configCharacter.Skin.Count - 1)
         {
             m_animator.runtimeAnimatorController = m_configCharacter.Skin.Last().Animator;
-            m_skin = m_configCharacter.Skin.Count - 1;
+            m_characterSkin = m_configCharacter.Skin.Count - 1;
         }
         else
         {
             m_animator.runtimeAnimatorController = m_configCharacter.Skin[Skin].Animator;
-            m_skin = Skin;
+            m_characterSkin = Skin;
         }
     }
 

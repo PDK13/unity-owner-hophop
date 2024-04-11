@@ -6,11 +6,22 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
 
     public TurnType Turn => m_turn != null ? m_turn.Turn : TurnType.Player;
 
+    //
+
+    private int m_moveStepCurrent = 0;
+
+    private bool TurnEnd => m_moveStepCurrent == m_character.MoveStep && m_character.MoveStep != 0;
+
+    //
+
     private bool m_interactive = false;
+
+    //
 
     private IsometricBlock m_block;
     private BodyTurn m_turn;
     private BodyPhysic m_body;
+    private BodyCharacter m_character;
 
     //
 
@@ -19,6 +30,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
         m_block = GetComponent<IsometricBlock>();
         m_turn = GetComponent<BodyTurn>();
         m_body = GetComponent<BodyPhysic>();
+        m_character = GetComponent<BodyCharacter>();
     }
 
     private void Start()
@@ -28,9 +40,9 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
         TurnManager.Instance.onStepStart += ISetStepStart;
         TurnManager.Instance.onStepEnd += ISetStepEnd;
         //
-        m_body.onMove += IMoveForce;
+        m_body.onMove += IMove;
         m_body.onForce += IForce;
-        m_body.onMoveForce += IMoveForce;
+        m_body.onMoveForce += IMove;
         m_body.onGravity += IGravity;
         m_body.onPush += IPush;
         //
@@ -46,9 +58,9 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
         TurnManager.Instance.onStepStart -= ISetStepStart;
         TurnManager.Instance.onStepEnd -= ISetStepEnd;
         //
-        m_body.onMove -= IMoveForce;
+        m_body.onMove -= IMove;
         m_body.onForce -= IForce;
-        m_body.onMoveForce -= IMoveForce;
+        m_body.onMoveForce -= IMove;
         m_body.onGravity -= IGravity;
         m_body.onPush -= IPush;
         //
@@ -85,35 +97,29 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
         else
         {
             if (Input.GetKey(KeyCode.UpArrow))
-                IMove(IsometricVector.Up);
+                IControl(IsometricVector.Up);
             //
             if (Input.GetKey(KeyCode.DownArrow))
-                IMove(IsometricVector.Down);
+                IControl(IsometricVector.Down);
             //
             if (Input.GetKey(KeyCode.LeftArrow))
-                IMove(IsometricVector.Left);
+                IControl(IsometricVector.Left);
             //
             if (Input.GetKey(KeyCode.RightArrow))
-                IMove(IsometricVector.Right);
+                IControl(IsometricVector.Right);
             //
             if (Input.GetKeyDown(KeyCode.Space))
-                IMove(IsometricVector.None);
+                IControl(IsometricVector.None);
         }
     }
 
     //Turn
 
-    public bool TurnActive
-    {
-        get => m_turnActive;
-        set => m_turnActive = value;
-    }
-
     public void ISetTurn(int Turn)
     {
         //Reset!!
         //
-        //...
+        m_moveStepCurrent = 0;
     }
 
     public void ISetStepStart(string Step)
@@ -131,33 +137,19 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
 
     //Move
 
-    public void IMoveForce(bool State, IsometricVector Dir)
-    {
-        if (!State)
-        {
-            m_turnActive = false;
-            TurnManager.SetEndStep(Turn, this);
-        }
-    }
-
-    public void IForce(bool State, IsometricVector Dir)
-    {
-        //...
-    }
-
-    public bool IMove(IsometricVector Dir)
+    public bool IControl(IsometricVector Dir)
     {
         if (Dir == IsometricVector.None)
         {
             m_turnActive = false;
-            TurnManager.SetEndStep(Turn, this); //Follow Player (!)
+            m_body.SetControlMoveReset();
+            TurnManager.SetEndStep(Turn, this);
             return false;
         }
         //
-        int Length = 1; //Follow Character (!)
-        //
         //Check if there is a Block ahead?!
-        IsometricBlock Block = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + Dir * Length);
+        //
+        IsometricBlock Block = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + Dir * 1);
         if (Block != null)
         {
             if (Block.GetTag(GameConfigTag.Bullet))
@@ -177,6 +169,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
                 }
             }
         }
+        //
         //Fine to continue move to pos ahead!!
         //
         m_turnActive = false;
@@ -184,6 +177,53 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
         m_body.SetControlMove(Dir);
         //
         return true;
+    }
+
+    public void IMove(bool State, IsometricVector Dir)
+    {
+        if (State)
+        {
+            //Start Move!
+            m_moveStepCurrent++;
+        }
+        else
+        {
+            //End Move!
+            //
+            if (TurnEnd)
+            {
+                //End Turn!
+                //
+                m_turnActive = false;
+                TurnManager.SetEndStep(Turn, this);
+            }
+            else
+            {
+                //End Move!
+                TurnManager.SetEndMove(Turn, this);
+                //
+                //Still Turn!
+                //
+                if (m_character.MoveLock)
+                {
+                    //Lock Move!
+                    //
+                    m_turnActive = false;
+                    IControl(m_body.MoveLastXY);
+                }
+                else
+                {
+                    //Freely Move!
+                    //
+                    m_turnActive = true;
+                }
+            }
+        }
+    }
+
+    public void IForce(bool State, IsometricVector Dir)
+    {
+        //...
     }
 
     public void IGravity(bool State)
@@ -250,4 +290,6 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
         else
             Block.GetComponent<BodyChild>().Square.SetNone();
     }
+
+    //
 }

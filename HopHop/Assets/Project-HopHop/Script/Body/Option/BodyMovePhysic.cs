@@ -47,9 +47,9 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic
         m_moveCheckAhead = GameConfigInit.GetExist(GetComponent<IsometricDataInit>(), GameConfigInit.Key.MoveCheckAhead);
         m_moveCheckAheadBot = GameConfigInit.GetExist(GetComponent<IsometricDataInit>(), GameConfigInit.Key.MoveCheckAheadBot);
         //
-        m_body.onMove += IMoveForce;
+        m_body.onMove += IMove;
         m_body.onForce += IForce;
-        m_body.onMoveForce += IMoveForce;
+        m_body.onMoveForce += IMove;
         m_body.onGravity += IGravity;
         m_body.onPush += IPush;
     }
@@ -67,9 +67,9 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic
             }
         }
         //
-        m_body.onMove -= IMoveForce;
+        m_body.onMove -= IMove;
         m_body.onForce -= IForce;
-        m_body.onMoveForce -= IMoveForce;
+        m_body.onMoveForce -= IMove;
         m_body.onGravity -= IGravity;
         m_body.onPush -= IPush;
     }
@@ -104,11 +104,11 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic
         //
         if (!m_body.SetControlMoveForce())
         {
-            if (!IMove(m_dataMove.DirCombineCurrent))
+            if (!IControl(m_dataMove.DirCombineCurrent))
             {
                 m_dataMove.SetDirRevert();
                 m_dataMove.SetDirNext();
-                if (!IMove(m_dataMove.DirCombineCurrent))
+                if (!IControl(m_dataMove.DirCombineCurrent))
                 {
                     m_dataMove.SetDirRevert();
                     m_dataMove.SetDirNext();
@@ -126,21 +126,7 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic
 
     //
 
-    public void IMoveForce(bool State, IsometricVector Dir)
-    {
-        if (!State)
-        {
-            m_turnActive = false;
-            TurnManager.SetEndStep(Turn, this);
-        }
-    }
-
-    public void IForce(bool State, IsometricVector Dir)
-    {
-        //...
-    }
-
-    public bool IMove(IsometricVector Dir)
+    public bool IControl(IsometricVector Dir)
     {
         if (m_dataMove.DirCombineCurrent == IsometricVector.None)
         {
@@ -198,6 +184,20 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic
         m_dataMove.SetDirNext();
         //
         return true;
+    }
+
+    public void IMove(bool State, IsometricVector Dir)
+    {
+        if (!State)
+        {
+            m_turnActive = false;
+            TurnManager.SetEndStep(Turn, this);
+        }
+    }
+
+    public void IForce(bool State, IsometricVector Dir)
+    {
+        //...
     }
 
     public void IGravity(bool State)

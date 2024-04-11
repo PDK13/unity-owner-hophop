@@ -30,10 +30,10 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
     private string m_followIdentityCheck;
 
     private IsometricVector m_turnDir;
-    private int m_turnLength = 0;
-    private int m_turnLengthCurrent = 0;
+    private int m_moveStep = 0;
+    private int m_moveStepCurrent = 0;
 
-    private bool TurnEnd => m_turnLengthCurrent == m_turnLength && m_turnLength != 0;
+    private bool TurnEnd => m_moveStepCurrent == m_moveStep && m_moveStep != 0;
 
     private IsometricBlock m_block;
     private BodyTurn m_turn;
@@ -90,17 +90,11 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
 
     //Turn
 
-    public bool TurnActive
-    {
-        get => m_turnActive;
-        set => m_turnActive = value;
-    }
-
     public void ISetTurn(int Turn)
     {
         //Reset!!
-        m_turnLength = 0;
-        m_turnLengthCurrent = 0;
+        m_moveStep = 0;
+        m_moveStepCurrent = 0;
         //
         m_turnActive = true;
     }
@@ -129,15 +123,15 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
 
     private void SetControlMove()
     {
-        if (m_turnLength == 0)
+        if (m_moveStep == 0)
         {
             m_turnDir = m_move.DirCombineCurrent;
-            m_turnLength = m_move.Data[m_move.Index].Duration;
-            m_turnLength = Mathf.Clamp(m_turnLength, 1, m_turnLength); //Avoid bug by duration 0 value!
-            m_turnLengthCurrent = 0;
+            m_moveStep = m_move.Data[m_move.Index].Duration;
+            m_moveStep = Mathf.Clamp(m_moveStep, 1, m_moveStep); //Avoid bug by duration 0 value!
+            m_moveStepCurrent = 0;
         }
         //
-        m_turnLengthCurrent++;
+        m_moveStepCurrent++;
         //
         Vector3 MoveDir = IsometricVector.GetVector(m_turnDir);
         Vector3 MoveStart = IsometricVector.GetVector(m_block.Pos);
@@ -186,10 +180,10 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
             return;
         }
         //
-        Vector3 MoveDir = IsometricVector.GetVector(Dir);
-        Vector3 MoveStart = IsometricVector.GetVector(m_block.Pos);
-        Vector3 MoveEnd = IsometricVector.GetVector(m_block.Pos) + MoveDir * 1;
-        DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameManager.TimeMove * 1)
+        Vector3 MoveVectorDir = IsometricVector.GetVector(Dir);
+        Vector3 MoveVectorStart = IsometricVector.GetVector(m_block.Pos);
+        Vector3 MoveVectorEnd = IsometricVector.GetVector(m_block.Pos) + MoveVectorDir * 1;
+        DOTween.To(() => MoveVectorStart, x => MoveVectorEnd = x, MoveVectorEnd, GameManager.TimeMove * 1)
             .SetEase(Ease.Linear)
             .OnStart(() =>
             {
@@ -197,7 +191,7 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
             })
             .OnUpdate(() =>
             {
-                m_block.Pos = new IsometricVector(MoveEnd);
+                m_block.Pos = new IsometricVector(MoveVectorEnd);
             })
             .OnComplete(() =>
             {

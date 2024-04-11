@@ -11,25 +11,32 @@ public class BodyBullet : MonoBehaviour, ITurnManager, IBodyBullet
 
     //
 
-    private int m_speed = 1;
-
     private bool m_turnActive = false;
 
-    private IsometricVector m_turnDir;
-    private int m_turnLength = 0;
-    private int m_turnLengthCurrent = 0;
+    public TurnType Turn => m_turn != null ? m_turn.Turn : TurnType.Bullet;
 
-    private bool TurnEnd => m_turnLengthCurrent == m_turnLength && m_turnLength != 0;
+    //
+
+    private int m_speed = 1;
+
+    private IsometricVector m_turnDir;
+    private int m_moveStep = 0;
+    private int m_moveStepCurrent = 0;
+
+    private bool TurnEnd => m_moveStepCurrent == m_moveStep && m_moveStep != 0;
+
+    //
 
     private Animator m_animator;
-    private BodyPhysic m_body;
     private IsometricBlock m_block;
+    private BodyPhysic m_body;
+    private BodyTurn m_turn;
 
     //
 
     private void OnDestroy()
     {
-        TurnManager.SetRemove(TurnType.Bullet, this);
+        TurnManager.SetRemove(Turn, this);
         TurnManager.Instance.onTurn -= ISetTurn;
         TurnManager.Instance.onStepStart -= ISetStepStart;
         TurnManager.Instance.onStepEnd -= ISetStepEnd;
@@ -40,17 +47,11 @@ public class BodyBullet : MonoBehaviour, ITurnManager, IBodyBullet
 
     //Turn
 
-    public bool TurnActive
-    {
-        get => m_turnActive;
-        set => m_turnActive = value;
-    }
-
     public void ISetTurn(int Turn)
     {
         //Reset!!
-        m_turnLength = 0;
-        m_turnLengthCurrent = 0;
+        m_moveStep = 0;
+        m_moveStepCurrent = 0;
         //
         m_turnActive = true;
     }
@@ -60,7 +61,7 @@ public class BodyBullet : MonoBehaviour, ITurnManager, IBodyBullet
         if (!m_turnActive)
             return;
         //
-        if (Step != TurnType.Bullet.ToString())
+        if (Step != Turn.ToString())
             return;
         //
         SetControlMove();
@@ -71,10 +72,11 @@ public class BodyBullet : MonoBehaviour, ITurnManager, IBodyBullet
     public void IInit(IsometricVector Dir, int Speed)
     {
         m_animator = GetComponent<Animator>();
-        m_body = GetComponent<BodyPhysic>();
         m_block = GetComponent<IsometricBlock>();
+        m_turn = GetComponent<BodyTurn>();
+        m_body = GetComponent<BodyPhysic>();
         //
-        TurnManager.SetInit(TurnType.Bullet, this);
+        TurnManager.SetInit(Turn, this);
         TurnManager.Instance.onTurn += ISetTurn;
         TurnManager.Instance.onStepStart += ISetStepStart;
         TurnManager.Instance.onStepEnd += ISetStepEnd;
@@ -91,8 +93,8 @@ public class BodyBullet : MonoBehaviour, ITurnManager, IBodyBullet
     public void IHit()
     {
         m_turnActive = false;
-        TurnManager.SetEndStep(TurnType.Bullet, this);
-        TurnManager.SetRemove(TurnType.Bullet, this);
+        TurnManager.SetEndStep(Turn, this);
+        TurnManager.SetRemove(Turn, this);
         TurnManager.Instance.onTurn -= ISetTurn;
         TurnManager.Instance.onStepStart -= ISetStepStart;
         TurnManager.Instance.onStepEnd -= ISetStepEnd;
@@ -105,13 +107,13 @@ public class BodyBullet : MonoBehaviour, ITurnManager, IBodyBullet
 
     private void SetControlMove()
     {
-        if (m_turnLength == 0)
+        if (m_moveStep == 0)
         {
-            m_turnLength = m_speed;
-            m_turnLengthCurrent = 0;
+            m_moveStep = m_speed;
+            m_moveStepCurrent = 0;
         }
         //
-        m_turnLengthCurrent++;
+        m_moveStepCurrent++;
         //
         IsometricBlock BlockAhead = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + m_turnDir);
         if (BlockAhead != null)
@@ -136,10 +138,10 @@ public class BodyBullet : MonoBehaviour, ITurnManager, IBodyBullet
             m_body.SetCheckGravity(m_turnDir);
         }
         //
-        Vector3 MoveDir = IsometricVector.GetVector(m_turnDir);
-        Vector3 MoveStart = IsometricVector.GetVector(m_block.Pos);
-        Vector3 MoveEnd = IsometricVector.GetVector(m_block.Pos) + MoveDir * 1;
-        DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameManager.TimeMove * 1)
+        Vector3 MoveVectorDir = IsometricVector.GetVector(m_turnDir);
+        Vector3 MoveVectorStart = IsometricVector.GetVector(m_block.Pos);
+        Vector3 MoveVectorEnd = IsometricVector.GetVector(m_block.Pos) + MoveVectorDir * 1;
+        DOTween.To(() => MoveVectorStart, x => MoveVectorEnd = x, MoveVectorEnd, GameManager.TimeMove * 1)
             .SetEase(Ease.Linear)
             .OnStart(() =>
             {
@@ -147,7 +149,7 @@ public class BodyBullet : MonoBehaviour, ITurnManager, IBodyBullet
             })
             .OnUpdate(() =>
             {
-                m_block.Pos = new IsometricVector(MoveEnd);
+                m_block.Pos = new IsometricVector(MoveVectorEnd);
             })
             .OnComplete(() =>
             {
@@ -156,11 +158,11 @@ public class BodyBullet : MonoBehaviour, ITurnManager, IBodyBullet
                 if (TurnEnd)
                 {
                     m_turnActive = false;
-                    TurnManager.SetEndStep(TurnType.Bullet, this);
+                    TurnManager.SetEndStep(Turn, this);
                 }
                 else
                 {
-                    TurnManager.SetEndMove(TurnType.Bullet, this);
+                    TurnManager.SetEndMove(Turn, this);
                 }
                 //
                 //Check if Bot can't stand on!!
