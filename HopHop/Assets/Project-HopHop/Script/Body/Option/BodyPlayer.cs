@@ -179,6 +179,13 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
 
     public void IMove(bool State, IsometricVector Dir)
     {
+        if (TurnManager.Instance.StepCurrent.Step != Turn.ToString() && !State)
+        {
+            m_turnActive = false;
+            TurnManager.SetEndStep(Turn, this);
+            return;
+        }
+        //
         if (State)
         {
             //Start Move!
