@@ -38,46 +38,11 @@ public class BodyCharacter : MonoBehaviour
 
     public int CharacterSkin => m_characterSkin;
 
-    public int MoveStep
-    {
-        get
-        {
-            switch (m_character)
-            {
-                case CharacterType.Bunny:
-                    return 2;
-                case CharacterType.Cat:
-                    return 2;
-            }
-            return 1;
-        }
-    }
+    public int MoveStep => GameManager.CharacterConfig.GetConfig(Character).MoveStep;
 
-    public bool MoveLock
-    {
-        get
-        {
-            switch (m_character)
-            {
-                case CharacterType.Bunny:
-                    return false;
-            }
-            return true;
-        }
-    }
+    public bool MoveLock => GameManager.CharacterConfig.GetConfig(Character).MoveLock;
 
-    public bool MoveFloat
-    {
-        get
-        {
-            switch (m_character)
-            {
-                case CharacterType.Cat:
-                    return true;
-            }
-            return false;
-        }
-    }
+    public bool MoveFloat => GameManager.CharacterConfig.GetConfig(Character).MoveFloat;
 
     //
 
