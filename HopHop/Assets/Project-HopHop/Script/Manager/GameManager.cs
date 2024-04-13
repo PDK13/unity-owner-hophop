@@ -1,23 +1,34 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : SingletonManager<GameManager>
 {
-    public static CharacterConfig CharacterConfig;
-    //
+    //Config
+
     [SerializeField] private CharacterConfig m_characterConfig;
-    //
-    [Space]
-    [SerializeField] private IsometricManager m_isometricManager;
 
-    #region Varible: Time
+    //Time
 
+    private static float m_timeScale = 1f;
     private static float m_timeMove = 1.2f;
     private static float m_timeRatio = 1f * 0.5f;
 
-    public static float TimeMove => m_timeMove * m_timeRatio;
+    //Character
 
-    #endregion
+    private List<CharacterType> m_character = new List<CharacterType>();
+
+    //
+
+    public static CharacterConfig CharacterConfig => Instance.m_characterConfig;
+
+    public static float TimeScale { get => m_timeScale; set => m_timeScale = value; }
+
+    public static float TimeMove => m_timeMove * m_timeRatio * m_timeScale;
+
+    public static CharacterType[] Character => Instance.m_character.ToArray();
+
+    //
 
     protected override void Awake()
     {
@@ -29,30 +40,10 @@ public class GameManager : SingletonManager<GameManager>
         Application.targetFrameRate = 60;
         Screen.SetResolution(1920, 1080, true);
         //
-        CharacterConfig = m_characterConfig;
-        //
         SetWorldLoad(IsometricManager.Instance.Config.Map.ListAssets[0]);
     }
 
-    //
-
-    public void SetCameraFollow(Transform Target)
-    {
-        if (Camera.main == null)
-        {
-            Debug.Log("[Manager] Main camera not found, so can't change target!");
-            return;
-        }
-        //
-        if (Target == null)
-            Camera.main.transform.parent = this.transform;
-        else
-            Camera.main.transform.parent = Target;
-        //
-        Camera.main.transform.localPosition = Vector3.back * 100f;
-    }
-
-    //
+    //World
 
     private void SetWorldLoad(TextAsset WorldData)
     {
@@ -65,7 +56,7 @@ public class GameManager : SingletonManager<GameManager>
         //
         yield return new WaitForSeconds(1f);
         //
-        IsometricDataFile.SetFileRead(m_isometricManager, WorldData);
+        IsometricDataFile.SetFileRead(IsometricManager.Instance, WorldData);
         //
         yield return new WaitForSeconds(1f);
         //
@@ -74,10 +65,41 @@ public class GameManager : SingletonManager<GameManager>
         TurnManager.SetStart();
     }
 
-    //
+    //Camera
 
-    public static void SetTimeRatio(float TimeRatio = 1.0f)
+    public static void SetCameraFollow(Transform Target)
     {
-        m_timeRatio = TimeRatio;
+        if (Camera.main == null)
+        {
+            Debug.Log("[Manager] Main camera not found, so can't change target!");
+            return;
+        }
+        //
+        if (Target == null)
+            Camera.main.transform.parent = Instance.transform;
+        else
+            Camera.main.transform.parent = Target;
+        //
+        Camera.main.transform.localPosition = Vector3.back * 100f;
+    }
+
+    public static void SetCameraShake() { }
+
+    //Character
+
+    public static bool SetCharacterAdd(CharacterType Type)
+    {
+        if (Instance.m_character.Exists(t => t == Type))
+            return false;
+        Instance.m_character.Add(Type);
+        return true;
+    }
+
+    public static bool SetCharacterRemove(CharacterType Type)
+    {
+        if (!Instance.m_character.Exists(t => t == Type))
+            return false;
+        Instance.m_character.RemoveAll(t => t == Type);
+        return true;
     }
 }

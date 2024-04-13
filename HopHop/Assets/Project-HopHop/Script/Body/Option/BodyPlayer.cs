@@ -45,8 +45,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
         m_body.onPush += IPush;
         //
         //Camera:
-        if (GameManager.Instance != null)
-            GameManager.Instance.SetCameraFollow(this.transform);
+        GameManager.SetCameraFollow(this.transform);
     }
 
     private void OnDestroy()
@@ -63,8 +62,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
         m_body.onPush -= IPush;
         //
         //Camera:
-        if (GameManager.Instance != null)
-            GameManager.Instance.SetCameraFollow(null);
+        GameManager.SetCameraFollow(null);
     }
 
     private void Update()
