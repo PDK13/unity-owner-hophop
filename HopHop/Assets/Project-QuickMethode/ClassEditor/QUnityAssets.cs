@@ -52,10 +52,10 @@ public class QUnityAssets
             SetRefresh();
             return AssetDatabase.GUIDToAssetPath(GUID); //GUID not emty is success!!
         }
-        catch 
+        catch
         {
             //Something went wrong when created folder?!
-            return ""; 
+            return "";
         }
     }
 
@@ -229,6 +229,27 @@ public class QUnityAssets
         {
             string AssetsSinglePath = AssetDatabase.GUIDToAssetPath(GUIDPath);
             Texture ObjectFound = AssetDatabase.LoadAssetAtPath<Texture>(AssetsSinglePath);
+            ObjectsFound.Add(ObjectFound);
+        }
+        //
+        return ObjectsFound;
+    }
+
+    ///<summary><b>(UnityEditorOnly)</b></summary>
+    public static List<Texture2D> GetTexture2D(string NameSpecial, params string[] PathChildInAssets)
+    {
+        List<Texture2D> ObjectsFound = new List<Texture2D>();
+        //
+        string[] GUIDPathUnityFound;
+        if (PathChildInAssets.Length == 0 || (PathChildInAssets.Length == 1 && PathChildInAssets[0] == ""))
+            GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:Texture2D"));
+        else
+            GUIDPathUnityFound = AssetDatabase.FindAssets(string.Format("{0} {1}", NameSpecial, "t:Texture2D"), PathChildInAssets);
+        //
+        foreach (string GUIDPath in GUIDPathUnityFound)
+        {
+            string AssetsSinglePath = AssetDatabase.GUIDToAssetPath(GUIDPath);
+            Texture2D ObjectFound = AssetDatabase.LoadAssetAtPath<Texture2D>(AssetsSinglePath);
             ObjectsFound.Add(ObjectFound);
         }
         //

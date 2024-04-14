@@ -1,59 +1,69 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : SingletonManager<GameManager>
 {
+    //Action
+
+    public Action onCharacter;
+
     //Config
 
     [SerializeField] private CharacterConfig m_characterConfig;
 
     //Time
 
-    private static float m_timeScale = 1f;
-    private static float m_timeMove = 1.2f;
-    private static float m_timeRatio = 1f * 0.5f;
+    private float m_timeScale = 1f;
+    private float m_timeMove = 1.2f;
+    private float m_timeRatio = 1f * 0.5f;
 
     //Character
 
-    private List<CharacterType> m_character = new List<CharacterType>();
+    private int m_characterIndex = 0;
+    private CharacterType m_characterCurrent = CharacterType.Angel;
+    private List<CharacterType> m_characterParty = new List<CharacterType>()
+    {
+        CharacterType.Angel,
+        CharacterType.Bunny,
+        CharacterType.Cat,
+        CharacterType.Frog,
+        CharacterType.Mow,
+    };
 
     //
 
-    public static CharacterConfig CharacterConfig => Instance.m_characterConfig;
+    public CharacterConfig CharacterConfig => m_characterConfig;
 
-    public static float TimeScale { get => m_timeScale; set => m_timeScale = value; }
+    public float TimeScale { get => m_timeScale; set => m_timeScale = value; }
 
-    public static float TimeMove => m_timeMove * m_timeRatio * m_timeScale;
+    public float TimeMove => m_timeMove * m_timeRatio * m_timeScale;
 
-    public static CharacterType[] Character => Instance.m_character.ToArray();
+    public CharacterType CharacterCurrent => m_characterParty[m_characterIndex];
+
+    public CharacterType[] CharacterParty => m_characterParty.ToArray();
 
     //
 
     private void Start()
     {
-        Application.targetFrameRate = 60;
-        Screen.SetResolution(1920, 1080, true);
-        //
-        SetWorldLoad(IsometricManager.Instance.Config.Map.ListAssets[0]);
+        SetInit();
+        SetInitWorld(IsometricManager.Instance.Config.Map.ListAssets[0]);
     }
 
     //World
 
-    private void SetWorldLoad(TextAsset WorldData)
+    private void SetInit()
     {
-        StartCoroutine(ISetWorldLoad(WorldData));
+        Application.targetFrameRate = 60;
+        Screen.SetResolution(1920, 1080, true);
+        //
+        IsometricManager.Instance.SetInit();
     }
 
-    private IEnumerator ISetWorldLoad(TextAsset WorldData)
+    private void SetInitWorld(TextAsset WorldData)
     {
-        IsometricManager.Instance.SetInit();
-        //
-        yield return new WaitForSeconds(1f);
-        //
         IsometricDataFile.SetFileRead(IsometricManager.Instance, WorldData);
-        //
-        yield return new WaitForSeconds(1f);
         //
         TurnManager.SetAutoRemove(TurnType.None);
         TurnManager.SetAutoRemove(TurnType.Gravity);
@@ -62,7 +72,7 @@ public class GameManager : SingletonManager<GameManager>
 
     //Camera
 
-    public static void SetCameraFollow(Transform Target)
+    public void SetCameraFollow(Transform Target)
     {
         if (Camera.main == null)
         {
@@ -71,30 +81,73 @@ public class GameManager : SingletonManager<GameManager>
         }
         //
         if (Target == null)
-            Camera.main.transform.parent = Instance.transform;
+            Camera.main.transform.parent = null;
         else
             Camera.main.transform.parent = Target;
         //
         Camera.main.transform.localPosition = Vector3.back * 100f;
     }
 
-    public static void SetCameraShake() { }
+    public void SetCameraShake() { }
 
     //Character
 
-    public static bool SetCharacterAdd(CharacterType Type)
+    public bool SetCharacterCurrent(CharacterType Character)
     {
-        if (Instance.m_character.Exists(t => t == Type))
+        if (!Instance.m_characterParty.Exists(t => t == Character))
             return false;
-        Instance.m_character.Add(Type);
+        Instance.m_characterCurrent = Character;
+        Instance.m_characterIndex = Instance.m_characterParty.FindIndex(t => t == Character);
+        //
+        onCharacter?.Invoke();
+        //
         return true;
     }
 
-    public static bool SetCharacterRemove(CharacterType Type)
+    public void SetCharacterCurrent(int Index)
     {
-        if (!Instance.m_character.Exists(t => t == Type))
+        Instance.m_characterIndex = Mathf.Clamp(Index, 0, Instance.m_characterParty.Count - 1);
+        Instance.m_characterCurrent = CharacterCurrent;
+        //
+        onCharacter?.Invoke();
+        //
+    }
+
+    public void SetCharacterNext()
+    {
+        Instance.m_characterIndex++;
+        if (Instance.m_characterIndex > Instance.m_characterParty.Count - 1)
+            Instance.m_characterIndex = 0;
+        Instance.m_characterCurrent = CharacterCurrent;
+        //
+        onCharacter?.Invoke();
+        //
+    }
+
+    public void SetCharacterPrev()
+    {
+        Instance.m_characterIndex--;
+        if (Instance.m_characterIndex < 0)
+            Instance.m_characterIndex = Instance.m_characterParty.Count - 1;
+        Instance.m_characterCurrent = CharacterCurrent;
+        //
+        onCharacter?.Invoke();
+        //
+    }
+
+    public bool SetCharacterPartyAdd(CharacterType Character)
+    {
+        if (Instance.m_characterParty.Exists(t => t == Character))
             return false;
-        Instance.m_character.RemoveAll(t => t == Type);
+        Instance.m_characterParty.Add(Character);
+        return true;
+    }
+
+    public bool SetCharacterPartyRemove(CharacterType Character)
+    {
+        if (!Instance.m_characterParty.Exists(t => t == Character))
+            return false;
+        Instance.m_characterParty.RemoveAll(t => t == Character);
         return true;
     }
 }

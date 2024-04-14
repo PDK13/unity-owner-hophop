@@ -430,7 +430,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: avt 0
+      name: avt pig 1
       rect:
         serializedVersion: 2
         x: 384
@@ -461,7 +461,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      avt 0: -1457950549
+      avt pig 1: -1457950549
       hurt 0: 1132716906
       hurt 1: 498971208
       idle 0: 873272090

@@ -150,7 +150,7 @@ public class BodyShoot : MonoBehaviour, ITurnManager, IBodyShoot
 
     private IEnumerator ISetDelay()
     {
-        yield return new WaitForSeconds(GameManager.TimeMove * 1);
+        yield return new WaitForSeconds(GameManager.Instance.TimeMove * 1);
         //
         m_turnActive = false;
         TurnManager.SetEndStep(Turn, this);

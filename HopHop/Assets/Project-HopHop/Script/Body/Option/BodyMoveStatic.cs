@@ -134,7 +134,7 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
         Vector3 MoveDir = IsometricVector.GetVector(m_turnDir);
         Vector3 MoveStart = IsometricVector.GetVector(m_block.Pos);
         Vector3 MoveEnd = IsometricVector.GetVector(m_block.Pos) + MoveDir * 1;
-        DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameManager.TimeMove * 1)
+        DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameManager.Instance.TimeMove * 1)
             .SetEase(Ease.Linear)
             .OnStart(() =>
             {
@@ -181,7 +181,7 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
         Vector3 MoveVectorDir = IsometricVector.GetVector(Dir);
         Vector3 MoveVectorStart = IsometricVector.GetVector(m_block.Pos);
         Vector3 MoveVectorEnd = IsometricVector.GetVector(m_block.Pos) + MoveVectorDir * 1;
-        DOTween.To(() => MoveVectorStart, x => MoveVectorEnd = x, MoveVectorEnd, GameManager.TimeMove * 1)
+        DOTween.To(() => MoveVectorStart, x => MoveVectorEnd = x, MoveVectorEnd, GameManager.Instance.TimeMove * 1)
             .SetEase(Ease.Linear)
             .OnStart(() =>
             {

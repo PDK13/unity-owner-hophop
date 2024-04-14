@@ -17,9 +17,9 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
 
     public TurnType Turn => m_turn != null ? m_turn.Turn : TurnType.Player;
 
-    private bool TurnEnd => m_moveStepCurrent == m_character.MoveStep && m_character.MoveStep > 0;
+    private bool TurnEnd => m_moveStepCurrent >= m_character.MoveStep && m_character.MoveStep > 0;
 
-    private bool TurnLast => m_moveStepCurrent == m_character.MoveStep - 1 && m_character.MoveStep > 0;
+    private bool TurnLast => m_moveStepCurrent >= m_character.MoveStep - 1 && m_character.MoveStep > 0;
 
     //
 
@@ -33,6 +33,8 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
 
     private void Start()
     {
+        GameManager.Instance.onCharacter += SetCharacter;
+        //
         TurnManager.SetInit(Turn, this); //Player
         TurnManager.Instance.onTurn += ISetTurn;
         TurnManager.Instance.onStepStart += ISetStepStart;
@@ -45,11 +47,13 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
         m_body.onPush += IPush;
         //
         //Camera:
-        GameManager.SetCameraFollow(this.transform);
+        GameManager.Instance.SetCameraFollow(this.transform);
     }
 
     private void OnDestroy()
     {
+        GameManager.Instance.onCharacter -= SetCharacter;
+        //
         TurnManager.SetRemove(Turn, this);
         TurnManager.Instance.onTurn -= ISetTurn;
         TurnManager.Instance.onStepStart -= ISetStepStart;
@@ -62,7 +66,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
         m_body.onPush -= IPush;
         //
         //Camera:
-        GameManager.SetCameraFollow(null);
+        GameManager.Instance.SetCameraFollow(null);
     }
 
     private void Update()
@@ -70,7 +74,13 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
         if (!m_turnActive)
             return;
         //
+        if (Input.GetKeyDown(KeyCode.Q))
+            GameManager.Instance.SetCharacterPrev();
+        //
         if (Input.GetKeyDown(KeyCode.E))
+            GameManager.Instance.SetCharacterNext();
+        //
+        if (Input.GetKeyDown(KeyCode.Z))
         {
             m_interactive = !m_interactive;
             SetInteractiveCheck(m_interactive);
@@ -107,6 +117,13 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
             if (Input.GetKeyDown(KeyCode.Space))
                 IControl(IsometricVector.None);
         }
+    }
+
+    //Character
+
+    private void SetCharacter()
+    {
+        m_character.SetCharacter(GameManager.Instance.CharacterCurrent);
     }
 
     //Turn

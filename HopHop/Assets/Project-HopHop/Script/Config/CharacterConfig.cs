@@ -9,7 +9,8 @@ using UnityEditor;
 public class CharacterConfig : ScriptableObject
 {
     [Tooltip("Find all animator got true name exist in their name")]
-    [SerializeField] private string m_animatorPath = "Assets/Project-HopHop/Animation";
+    [SerializeField] private string m_animatorPath = "Assets/Project-HopHop/Animation/Character";
+    [SerializeField] private string m_avatarPath = "Assets/Project-HopHop/Sprite/Character";
 
     [Space]
     public CharacterConfigData Angel;
@@ -90,9 +91,10 @@ public class CharacterConfig : ScriptableObject
     private void SetRefreshCharacter(CharacterType Type, string Name)
     {
         GetConfig(Type).Skin.Clear();
-        List<RuntimeAnimatorController> AssetsGet = QUnityAssets.GetAnimatorController(Name, m_animatorPath);
-        for (int i = 0; i < AssetsGet.Count; i++)
-            GetConfig(Type).Skin.Add(new CharacterConfigSkinData(null, AssetsGet[i]));
+        List<RuntimeAnimatorController> AssetsAnimation = QUnityAssets.GetAnimatorController(Name, m_animatorPath);
+        List<Sprite> AssetsAvatar = QUnityAssets.GetSprite(string.Format("avt {0}", Name), m_avatarPath);
+        for (int i = 0; i < AssetsAnimation.Count; i++)
+            GetConfig(Type).Skin.Add(new CharacterConfigSkinData(AssetsAvatar[i], AssetsAnimation[i]));
     }
 
 #endif

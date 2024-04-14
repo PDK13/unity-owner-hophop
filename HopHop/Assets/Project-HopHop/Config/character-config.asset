@@ -12,114 +12,115 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e6b9d668513edc4c9d87c86dc2b5268, type: 3}
   m_Name: character-config
   m_EditorClassIdentifier: 
-  m_animatorPath: Assets/Project-HopHop/Animation
-  Alphaca:
-    MoveStep: 1
-    MoveLock: 1
-    MoveFloat: 0
-    Skin:
-    - Avartar: {fileID: 0}
-      Animator: {fileID: 9100000, guid: 6a76a5cfddd148d41b104179338ee3d6, type: 2}
-    - Avartar: {fileID: 0}
-      Animator: {fileID: 9100000, guid: 7ecc24d4b94a4fa4d8cfd9e250e6f773, type: 2}
+  m_animatorPath: Assets/Project-HopHop/Animation/Character
+  m_avatarPath: Assets/Project-HopHop/Sprite/Character
   Angel:
     MoveStep: 1
     MoveLock: 1
     MoveFloat: 0
     Skin:
-    - Avartar: {fileID: 0}
+    - Avartar: {fileID: -1549862626, guid: e3adc795097a9dd48ac13fddccb8d63b, type: 3}
       Animator: {fileID: 9100000, guid: d9ce07e8a67f3d04a987c339c3948962, type: 2}
-    - Avartar: {fileID: 0}
+    - Avartar: {fileID: 165088058, guid: 0e2944dc5727adc48a29f16f8062d011, type: 3}
       Animator: {fileID: 9100000, guid: 27c4e6e3c49f36842a26726b301de8e2, type: 2}
-  Bug:
+  Devil:
     MoveStep: 1
     MoveLock: 1
     MoveFloat: 0
     Skin:
-    - Avartar: {fileID: 0}
-      Animator: {fileID: 9100000, guid: d587e54e567514142ba7a7f664c102ff, type: 2}
-    - Avartar: {fileID: 0}
-      Animator: {fileID: 9100000, guid: 706410e708f2f9c469a6570a9d9ebf4b, type: 2}
+    - Avartar: {fileID: -510339602, guid: 449e25ad76b53f94c81413bae2dbf84f, type: 3}
+      Animator: {fileID: 9100000, guid: 220f323e7036aec48b73b03ce9043351, type: 2}
+    - Avartar: {fileID: -1201179440, guid: 3ae571ecc34e7ab4dacacdac44e6524f, type: 3}
+      Animator: {fileID: 9100000, guid: bb1fc8fa23fd90e4c9a348ccf7d57ee4, type: 2}
   Bunny:
     MoveStep: 2
     MoveLock: 0
     MoveFloat: 0
     Skin:
-    - Avartar: {fileID: 0}
+    - Avartar: {fileID: -1753934497, guid: 408c5f2a55c9f514f84c18114738db1f, type: 3}
       Animator: {fileID: 9100000, guid: eaae9b6aca96aac49aeba87cde9d9c70, type: 2}
-    - Avartar: {fileID: 0}
+    - Avartar: {fileID: -1852590628, guid: bce89a30eb6c90e4bb481a1f8f2fdf25, type: 3}
       Animator: {fileID: 9100000, guid: dba520fff63227045b8740ca44f5d860, type: 2}
   Cat:
     MoveStep: 2
     MoveLock: 1
     MoveFloat: 1
     Skin:
-    - Avartar: {fileID: 0}
+    - Avartar: {fileID: -279351752, guid: 33f3d55067887144f9064e82557ec7dd, type: 3}
       Animator: {fileID: 9100000, guid: c5c52f62c16f46046b45d83e26d51c7d, type: 2}
-    - Avartar: {fileID: 0}
+    - Avartar: {fileID: 258785459, guid: ba391f6a15dffac44899f7fcce1eeb14, type: 3}
       Animator: {fileID: 9100000, guid: ffe6224090dd1ba4d95e525c56709bf5, type: 2}
-  Devil:
-    MoveStep: 1
-    MoveLock: 1
-    MoveFloat: 0
-    Skin:
-    - Avartar: {fileID: 0}
-      Animator: {fileID: 9100000, guid: 220f323e7036aec48b73b03ce9043351, type: 2}
-    - Avartar: {fileID: 0}
-      Animator: {fileID: 9100000, guid: bb1fc8fa23fd90e4c9a348ccf7d57ee4, type: 2}
-  Fish:
-    MoveStep: 1
-    MoveLock: 1
-    MoveFloat: 0
-    Skin:
-    - Avartar: {fileID: 0}
-      Animator: {fileID: 9100000, guid: 9ceb856e51ddf854f8d4d6084b7ce99d, type: 2}
-    - Avartar: {fileID: 0}
-      Animator: {fileID: 9100000, guid: 550bc960256cb7e4dbebe4c84094b57d, type: 2}
   Frog:
     MoveStep: 1
     MoveLock: 1
     MoveFloat: 0
     Skin:
-    - Avartar: {fileID: 0}
+    - Avartar: {fileID: 414951024, guid: f3068cf885263da4dbc62096fab8245c, type: 3}
       Animator: {fileID: 9100000, guid: 46552a8f7ca6b914da94a17a96d01f1d, type: 2}
-    - Avartar: {fileID: 0}
+    - Avartar: {fileID: -1659743701, guid: 006777efb6a4684448491f72a10de460, type: 3}
       Animator: {fileID: 9100000, guid: 25b19ebd4e637ea4c9f6e2b89b8cb7df, type: 2}
-  Mole:
-    MoveStep: 1
-    MoveLock: 1
-    MoveFloat: 0
-    Skin:
-    - Avartar: {fileID: 0}
-      Animator: {fileID: 9100000, guid: 05eed05d9d2b6d94092c7ff7aaa1fd1e, type: 2}
-    - Avartar: {fileID: 0}
-      Animator: {fileID: 9100000, guid: 924b7ce92a13e6f43adba13d57863957, type: 2}
   Mow:
     MoveStep: 1
     MoveLock: 1
     MoveFloat: 0
     Skin:
-    - Avartar: {fileID: 0}
-      Animator: {fileID: 9100000, guid: fa8ac882b20aa9648a37b902fc47fa9a, type: 2}
-    - Avartar: {fileID: 0}
+    - Avartar: {fileID: 283337811, guid: 21585573013a44340a963d315aad9e28, type: 3}
       Animator: {fileID: 9100000, guid: 8caaef81a23c6ba44a844d3ce6f81bca, type: 2}
+    - Avartar: {fileID: -2000931812, guid: 67b62dc1ed368af4abf53b49f1fd7ffd, type: 3}
+      Animator: {fileID: 9100000, guid: fa8ac882b20aa9648a37b902fc47fa9a, type: 2}
+  Alphaca:
+    MoveStep: 1
+    MoveLock: 1
+    MoveFloat: 0
+    Skin:
+    - Avartar: {fileID: 1209903665, guid: 05859c7a8cfb2a941aa494ec2b49d60e, type: 3}
+      Animator: {fileID: 9100000, guid: 6a76a5cfddd148d41b104179338ee3d6, type: 2}
+    - Avartar: {fileID: 2098507333, guid: a83d5cefb72b8ee45becb0a9040835ba, type: 3}
+      Animator: {fileID: 9100000, guid: 7ecc24d4b94a4fa4d8cfd9e250e6f773, type: 2}
+  Bug:
+    MoveStep: 1
+    MoveLock: 1
+    MoveFloat: 0
+    Skin:
+    - Avartar: {fileID: 1539420457, guid: c5cc65d242e928d45a9b4a01eff72a80, type: 3}
+      Animator: {fileID: 9100000, guid: d587e54e567514142ba7a7f664c102ff, type: 2}
+    - Avartar: {fileID: 876519678, guid: 4524ab9a7be872849a7385ea6d98b9b0, type: 3}
+      Animator: {fileID: 9100000, guid: 706410e708f2f9c469a6570a9d9ebf4b, type: 2}
+  Fish:
+    MoveStep: 1
+    MoveLock: 1
+    MoveFloat: 0
+    Skin:
+    - Avartar: {fileID: -626731698, guid: c0c3da9dc95588244832b39b5e62c039, type: 3}
+      Animator: {fileID: 9100000, guid: 9ceb856e51ddf854f8d4d6084b7ce99d, type: 2}
+    - Avartar: {fileID: 237021209, guid: ced538b1ca3464742a6c164241a2dfbf, type: 3}
+      Animator: {fileID: 9100000, guid: 550bc960256cb7e4dbebe4c84094b57d, type: 2}
+  Mole:
+    MoveStep: 1
+    MoveLock: 1
+    MoveFloat: 0
+    Skin:
+    - Avartar: {fileID: 1699165970, guid: 303270b775a31a4489562b509816e38a, type: 3}
+      Animator: {fileID: 9100000, guid: 05eed05d9d2b6d94092c7ff7aaa1fd1e, type: 2}
+    - Avartar: {fileID: 1383828276, guid: e12532163c350824ba1d639e927efa7f, type: 3}
+      Animator: {fileID: 9100000, guid: 924b7ce92a13e6f43adba13d57863957, type: 2}
   Pig:
     MoveStep: 1
     MoveLock: 1
     MoveFloat: 0
     Skin:
-    - Avartar: {fileID: 0}
+    - Avartar: {fileID: -282547367, guid: 545b93d88346a97489937ec7616bee1d, type: 3}
       Animator: {fileID: 9100000, guid: 91b0766fc4c66d2419d9eb12386ed861, type: 2}
-    - Avartar: {fileID: 0}
+    - Avartar: {fileID: -1457950549, guid: 925fdf987ecfdb549bc77701b5fcce95, type: 3}
       Animator: {fileID: 9100000, guid: e900d696c6fef7d429a93d9d7cf5322d, type: 2}
   Wolf:
     MoveStep: 1
     MoveLock: 1
     MoveFloat: 0
     Skin:
-    - Avartar: {fileID: 0}
+    - Avartar: {fileID: 1950377435, guid: fbe3c657dd2918f49876160e319d56cf, type: 3}
       Animator: {fileID: 9100000, guid: 98a5d29bbcfb4b54bae83dd4f05c0ef8, type: 2}
-    - Avartar: {fileID: 0}
+    - Avartar: {fileID: 1094604264, guid: 6f10180601f938740b848e1a7743e96d, type: 3}
       Animator: {fileID: 9100000, guid: e0673ec5ef38769458c6beb0bf5dd9a9, type: 2}
-    - Avartar: {fileID: 0}
+    - Avartar: {fileID: 1674348346, guid: 53271d375406da3429b81530d35a74f4, type: 3}
       Animator: {fileID: 9100000, guid: 0fce74d2ae69ff94498aca0b2dfc6eea, type: 2}

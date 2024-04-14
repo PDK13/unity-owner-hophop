@@ -188,7 +188,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_character: 10
-  m_skin: 0
+  m_characterSkin: 0
 --- !u!114 &-8500036855850058856
 MonoBehaviour:
   m_ObjectHideFlags: 0

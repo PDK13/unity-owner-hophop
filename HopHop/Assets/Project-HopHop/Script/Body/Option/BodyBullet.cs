@@ -136,7 +136,7 @@ public class BodyBullet : MonoBehaviour, ITurnManager, IBodyBullet
         Vector3 MoveVectorDir = IsometricVector.GetVector(m_turnDir);
         Vector3 MoveVectorStart = IsometricVector.GetVector(m_block.Pos);
         Vector3 MoveVectorEnd = IsometricVector.GetVector(m_block.Pos) + MoveVectorDir * 1;
-        DOTween.To(() => MoveVectorStart, x => MoveVectorEnd = x, MoveVectorEnd, GameManager.TimeMove * 1)
+        DOTween.To(() => MoveVectorStart, x => MoveVectorEnd = x, MoveVectorEnd, GameManager.Instance.TimeMove * 1)
             .SetEase(Ease.Linear)
             .OnStart(() =>
             {

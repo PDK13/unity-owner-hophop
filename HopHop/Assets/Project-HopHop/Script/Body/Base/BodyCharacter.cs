@@ -38,11 +38,11 @@ public class BodyCharacter : MonoBehaviour
 
     public int CharacterSkin => m_characterSkin;
 
-    public int MoveStep => GameManager.CharacterConfig.GetConfig(Character).MoveStep;
+    public int MoveStep => GameManager.Instance.CharacterConfig.GetConfig(Character).MoveStep;
 
-    public bool MoveLock => GameManager.CharacterConfig.GetConfig(Character).MoveLock;
+    public bool MoveLock => GameManager.Instance.CharacterConfig.GetConfig(Character).MoveLock;
 
-    public bool MoveFloat => GameManager.CharacterConfig.GetConfig(Character).MoveFloat;
+    public bool MoveFloat => GameManager.Instance.CharacterConfig.GetConfig(Character).MoveFloat;
 
     //
 
@@ -81,10 +81,10 @@ public class BodyCharacter : MonoBehaviour
             return;
         //
         if (Input.GetKeyDown(KeyCode.Alpha1))
-            m_animator.runtimeAnimatorController = GameManager.CharacterConfig.Angel.Skin[0].Animator;
+            m_animator.runtimeAnimatorController = GameManager.Instance.CharacterConfig.Angel.Skin[0].Animator;
         //
         if (Input.GetKeyDown(KeyCode.Alpha2))
-            m_animator.runtimeAnimatorController = GameManager.CharacterConfig.Angel.Skin[1].Animator;
+            m_animator.runtimeAnimatorController = GameManager.Instance.CharacterConfig.Angel.Skin[1].Animator;
         //
         if (Input.GetKeyDown(KeyCode.Alpha3))
             SetAnimationAction(CharacterActionType.Happy);
@@ -99,7 +99,7 @@ public class BodyCharacter : MonoBehaviour
 
     public void SetCharacter(CharacterType Character, int Skin = 0)
     {
-        m_configCharacter = GameManager.CharacterConfig.GetConfig(Character);
+        m_configCharacter = GameManager.Instance.CharacterConfig.GetConfig(Character);
         //
         m_character = Character;
         //
