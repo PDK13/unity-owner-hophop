@@ -4,47 +4,47 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-[CreateAssetMenu(fileName = "message-text-config", menuName = "QConfig/Message Text", order = 1)]
-public class MessageDataConfigText : ScriptableObject
+[CreateAssetMenu(fileName = "dialogue-single-config", menuName = "QConfig/Dialogue Single", order = 1)]
+public class DialogueSingleConfig : ScriptableObject
 {
-    public List<MessageDataText> Message = new List<MessageDataText>();
+    public List<DialogueDataText> Dialogue = new List<DialogueDataText>();
 
-    public List<MessageDataChoice> Choice = new List<MessageDataChoice>();
+    public List<DialogueDataChoice> Choice = new List<DialogueDataChoice>();
 
     public bool ChoiceAvaible => Choice == null ? false : Choice.Count > 0;
 }
 
 #if UNITY_EDITOR
 
-[CustomEditor(typeof(MessageDataConfigText))]
-public class MessageDataConfigTextEditor : Editor
+[CustomEditor(typeof(DialogueSingleConfig))]
+public class DialogueSingleConfigEditor : Editor
 {
     private const float POPUP_HEIGHT = 150f * 2;
     private const float LABEL_WIDTH = 65f;
 
-    private MessageDataConfigText m_target;
+    private DialogueSingleConfig m_target;
 
-    private MessageDataConfig m_messageConfig;
+    private DialogueConfig m_dialogueConfig;
     private string m_debugError = "";
 
-    private int m_messageCount = 0;
+    private int m_dialogueCount = 0;
     private int m_choiceCount = 0;
 
     private List<string> m_authorName;
-    private List<bool> m_messageDelayShow;
-    private List<bool> m_messageTriggerShow;
+    private List<bool> m_dialogueDelayShow;
+    private List<bool> m_dialogueTriggerShow;
     private List<bool> m_choiceAuthorShow;
     private List<bool> m_choiceTriggerShow;
 
-    private Vector2 m_scrollMessage;
+    private Vector2 m_scrollDialogue;
     private Vector2 m_scrollChoice;
 
     private void OnEnable()
     {
-        m_target = target as MessageDataConfigText;
+        m_target = target as DialogueSingleConfig;
         //
-        m_messageCount = m_target.Message.Count;
-        m_choiceCount = m_target.Message.Count;
+        m_dialogueCount = m_target.Dialogue.Count;
+        m_choiceCount = m_target.Dialogue.Count;
         //
         SetConfigFind();
     }
@@ -57,7 +57,7 @@ public class MessageDataConfigTextEditor : Editor
             return;
         }
         //
-        SetGUIGroupMessage();
+        SetGUIGroupDialogue();
         //
         QUnityEditor.SetSpace(10f);
         //
@@ -70,46 +70,46 @@ public class MessageDataConfigTextEditor : Editor
 
     private void SetConfigFind()
     {
-        if (m_messageConfig != null)
+        if (m_dialogueConfig != null)
             return;
         //
-        var AuthorConfigFound = QUnityAssets.GetScriptableObject<MessageDataConfig>("");
+        var AuthorConfigFound = QUnityAssets.GetScriptableObject<DialogueConfig>("");
         //
         if (AuthorConfigFound == null)
         {
             m_debugError = "Config not found, please create one";
-            Debug.Log("[Message] " + m_debugError);
+            Debug.Log("[Dialogue] " + m_debugError);
             return;
         }
         //
         if (AuthorConfigFound.Count == 0)
         {
             m_debugError = "Config not found, please create one";
-            Debug.Log("[Message] " + m_debugError);
+            Debug.Log("[Dialogue] " + m_debugError);
             return;
         }
         //
         if (AuthorConfigFound.Count > 1)
-            Debug.Log("[Message] Config found more than one, get the first one found");
+            Debug.Log("[Dialogue] Config found more than one, get the first one found");
         //
-        m_messageConfig = AuthorConfigFound[0];
+        m_dialogueConfig = AuthorConfigFound[0];
         //
-        if (m_messageConfig.Author.Count == 0)
+        if (m_dialogueConfig.Author.Count == 0)
         {
             m_debugError = "Author Config not have any data, please add one";
-            Debug.Log("[Message] " + m_debugError);
+            Debug.Log("[Dialogue] " + m_debugError);
             return;
         }
         //
         //CONTINUE:
         //
-        m_authorName = m_messageConfig.AuthorName;
+        m_authorName = m_dialogueConfig.AuthorName;
         //
-        m_messageDelayShow = new List<bool>();
-        while (m_messageDelayShow.Count < m_target.Message.Count) m_messageDelayShow.Add(false);
+        m_dialogueDelayShow = new List<bool>();
+        while (m_dialogueDelayShow.Count < m_target.Dialogue.Count) m_dialogueDelayShow.Add(false);
         //
-        m_messageTriggerShow = new List<bool>();
-        while (m_messageTriggerShow.Count < m_target.Message.Count) m_messageTriggerShow.Add(false);
+        m_dialogueTriggerShow = new List<bool>();
+        while (m_dialogueTriggerShow.Count < m_target.Dialogue.Count) m_dialogueTriggerShow.Add(false);
         //
         m_choiceAuthorShow = new List<bool>();
         while (m_choiceAuthorShow.Count < m_target.Choice.Count) m_choiceAuthorShow.Add(false);
@@ -120,47 +120,47 @@ public class MessageDataConfigTextEditor : Editor
         m_debugError = "";
     }
 
-    private void SetGUIGroupMessage()
+    private void SetGUIGroupDialogue()
     {
-        QUnityEditor.SetLabel("MESSAGE", QUnityEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter));
+        QUnityEditor.SetLabel("DIALOGUE", QUnityEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter));
         //
         //COUNT:
         QUnityEditor.SetHorizontalBegin();
         QUnityEditor.SetLabel("Count", null, QUnityEditor.GetGUIWidth(LABEL_WIDTH));
         //
-        m_messageCount = QUnityEditor.SetField(m_messageCount);
+        m_dialogueCount = QUnityEditor.SetField(m_dialogueCount);
         //
         if (QUnityEditor.SetButton("+"))
-            m_messageCount++;
+            m_dialogueCount++;
         //
         if (QUnityEditor.SetButton("-"))
-            if (m_messageCount > 0)
-                m_messageCount--;
+            if (m_dialogueCount > 0)
+                m_dialogueCount--;
         //
         QUnityEditor.SetHorizontalEnd();
         //COUNT:
         //
-        while (m_messageCount > m_target.Message.Count)
+        while (m_dialogueCount > m_target.Dialogue.Count)
         {
-            m_target.Message.Add(new MessageDataText(m_messageConfig.MessageTextDelayDefault));
-            m_messageDelayShow.Add(false);
-            m_messageTriggerShow.Add(false);
+            m_target.Dialogue.Add(new DialogueDataText(m_dialogueConfig.DelayDefault));
+            m_dialogueDelayShow.Add(false);
+            m_dialogueTriggerShow.Add(false);
             m_choiceAuthorShow.Add(false);
             m_choiceTriggerShow.Add(false);
         }
-        while (m_messageCount < m_target.Message.Count)
+        while (m_dialogueCount < m_target.Dialogue.Count)
         {
-            m_target.Message.RemoveAt(m_target.Message.Count - 1);
-            m_messageDelayShow.RemoveAt(m_messageDelayShow.Count - 1);
-            m_messageTriggerShow.RemoveAt(m_messageTriggerShow.Count - 1);
+            m_target.Dialogue.RemoveAt(m_target.Dialogue.Count - 1);
+            m_dialogueDelayShow.RemoveAt(m_dialogueDelayShow.Count - 1);
+            m_dialogueTriggerShow.RemoveAt(m_dialogueTriggerShow.Count - 1);
             m_choiceAuthorShow.RemoveAt(m_choiceAuthorShow.Count - 1);
             m_choiceTriggerShow.RemoveAt(m_choiceTriggerShow.Count - 1);
         }
         //
         QUnityEditor.SetSpace(10);
         //
-        m_scrollMessage = QUnityEditor.SetScrollViewBegin(m_scrollMessage, QUnityEditor.GetGUIHeight(POPUP_HEIGHT));
-        for (int i = 0; i < m_target.Message.Count; i++)
+        m_scrollDialogue = QUnityEditor.SetScrollViewBegin(m_scrollDialogue, QUnityEditor.GetGUIHeight(POPUP_HEIGHT));
+        for (int i = 0; i < m_target.Dialogue.Count; i++)
         {
             //ITEM:
             //
@@ -175,46 +175,46 @@ public class MessageDataConfigTextEditor : Editor
             //ITEM - AUTHOR
             QUnityEditor.SetHorizontalBegin();
             QUnityEditor.SetLabel("Author", null, QUnityEditor.GetGUIWidth(LABEL_WIDTH));
-            m_target.Message[i].AuthorIndex = QUnityEditor.SetPopup(m_target.Message[i].AuthorIndex, m_authorName);
+            m_target.Dialogue[i].AuthorIndex = QUnityEditor.SetPopup(m_target.Dialogue[i].AuthorIndex, m_authorName);
             QUnityEditor.SetHorizontalEnd();
             //ITEM - AUTHOR
             //
-            //ITEM - MESSAGE:
+            //ITEM - Dialogue:
             QUnityEditor.SetHorizontalBegin();
-            QUnityEditor.SetLabel("Message", null, QUnityEditor.GetGUIWidth(LABEL_WIDTH));
-            m_target.Message[i].Message = QUnityEditor.SetField(m_target.Message[i].Message);
+            QUnityEditor.SetLabel("Dialogue", null, QUnityEditor.GetGUIWidth(LABEL_WIDTH));
+            m_target.Dialogue[i].Dialogue = QUnityEditor.SetField(m_target.Dialogue[i].Dialogue);
             QUnityEditor.SetHorizontalEnd();
-            //ITEM - MESSAGE:
+            //ITEM - Dialogue:
             //
             //ITEM - DELAY
             QUnityEditor.SetHorizontalBegin();
             if (QUnityEditor.SetButton("Delay", null, QUnityEditor.GetGUIWidth(LABEL_WIDTH)))
-                m_messageDelayShow[i] = !m_messageDelayShow[i];
-            if (m_messageDelayShow[i])
+                m_dialogueDelayShow[i] = !m_dialogueDelayShow[i];
+            if (m_dialogueDelayShow[i])
             {
                 QUnityEditor.SetVerticalBegin();
                 //
                 QUnityEditor.SetHorizontalBegin();
                 QUnityEditor.SetLabel("Alpha", null, QUnityEditor.GetGUIWidth(LABEL_WIDTH));
-                m_target.Message[i].DelayAlpha = QUnityEditor.SetField(m_target.Message[i].DelayAlpha);
+                m_target.Dialogue[i].Delay.Alpha = QUnityEditor.SetField(m_target.Dialogue[i].Delay.Alpha);
                 QUnityEditor.SetHorizontalEnd();
                 //
                 QUnityEditor.SetHorizontalBegin();
                 QUnityEditor.SetLabel("Space", null, QUnityEditor.GetGUIWidth(LABEL_WIDTH));
-                m_target.Message[i].DelaySpace = QUnityEditor.SetField(m_target.Message[i].DelaySpace);
+                m_target.Dialogue[i].Delay.Space = QUnityEditor.SetField(m_target.Dialogue[i].Delay.Space);
                 QUnityEditor.SetHorizontalEnd();
                 //
                 QUnityEditor.SetHorizontalBegin();
                 QUnityEditor.SetLabel("Mark", null, QUnityEditor.GetGUIWidth(LABEL_WIDTH));
-                m_target.Message[i].DelayMark = QUnityEditor.SetField(m_target.Message[i].DelayMark);
+                m_target.Dialogue[i].Delay.Mark = QUnityEditor.SetField(m_target.Dialogue[i].Delay.Mark);
                 QUnityEditor.SetHorizontalEnd();
                 QUnityEditor.SetVerticalEnd();
             }
             else
             {
-                QUnityEditor.SetLabel("Alpha: " + m_target.Message[i].DelayAlpha, null, QUnityEditor.GetGUIWidth(LABEL_WIDTH * 1.25f));
-                QUnityEditor.SetLabel("Space: " + m_target.Message[i].DelaySpace, null, QUnityEditor.GetGUIWidth(LABEL_WIDTH * 1.25f));
-                QUnityEditor.SetLabel("Mark: " + m_target.Message[i].DelayMark, null, QUnityEditor.GetGUIWidth(LABEL_WIDTH * 1.25f));
+                QUnityEditor.SetLabel("Alpha: " + m_target.Dialogue[i].Delay.Alpha, null, QUnityEditor.GetGUIWidth(LABEL_WIDTH * 1.25f));
+                QUnityEditor.SetLabel("Space: " + m_target.Dialogue[i].Delay.Space, null, QUnityEditor.GetGUIWidth(LABEL_WIDTH * 1.25f));
+                QUnityEditor.SetLabel("Mark: " + m_target.Dialogue[i].Delay.Mark, null, QUnityEditor.GetGUIWidth(LABEL_WIDTH * 1.25f));
             }
             QUnityEditor.SetHorizontalEnd();
             //ITEM - DELAY
@@ -222,28 +222,28 @@ public class MessageDataConfigTextEditor : Editor
             //ITEM - TRIGGER:
             QUnityEditor.SetHorizontalBegin();
             if (QUnityEditor.SetButton("Trigger", null, QUnityEditor.GetGUIWidth(LABEL_WIDTH)))
-                m_messageTriggerShow[i] = !m_messageTriggerShow[i];
+                m_dialogueTriggerShow[i] = !m_dialogueTriggerShow[i];
             //
-            if (m_messageTriggerShow[i])
+            if (m_dialogueTriggerShow[i])
             {
                 QUnityEditor.SetVerticalBegin();
                 //
                 QUnityEditor.SetHorizontalBegin();
                 QUnityEditor.SetLabel("Code", null, QUnityEditor.GetGUIWidth(LABEL_WIDTH));
-                m_target.Message[i].TriggerCode = QUnityEditor.SetField(m_target.Message[i].TriggerCode);
+                m_target.Dialogue[i].TriggerCode = QUnityEditor.SetField(m_target.Dialogue[i].TriggerCode);
                 QUnityEditor.SetHorizontalEnd();
                 //
                 QUnityEditor.SetHorizontalBegin();
                 QUnityEditor.SetLabel("Object", null, QUnityEditor.GetGUIWidth(LABEL_WIDTH));
-                m_target.Message[i].TriggerObject = QUnityEditor.SetField(m_target.Message[i].TriggerObject);
+                m_target.Dialogue[i].TriggerObject = QUnityEditor.SetField(m_target.Dialogue[i].TriggerObject);
                 QUnityEditor.SetHorizontalEnd();
                 //
                 QUnityEditor.SetVerticalEnd();
             }
             else
             {
-                QUnityEditor.SetLabel("Code: " + m_target.Message[i].TriggerCode, null, QUnityEditor.GetGUIWidth(LABEL_WIDTH * 2 + 4));
-                QUnityEditor.SetLabel("" + (m_target.Message[i].TriggerObject != null ? m_target.Message[i].TriggerObject.name : ""));
+                QUnityEditor.SetLabel("Code: " + m_target.Dialogue[i].TriggerCode, null, QUnityEditor.GetGUIWidth(LABEL_WIDTH * 2 + 4));
+                QUnityEditor.SetLabel("" + (m_target.Dialogue[i].TriggerObject != null ? m_target.Dialogue[i].TriggerObject.name : ""));
             }
             QUnityEditor.SetHorizontalEnd();
             //ITEM - TRIGGER:
@@ -281,7 +281,7 @@ public class MessageDataConfigTextEditor : Editor
         //COUNT:
         //
         while (m_choiceCount > m_target.Choice.Count)
-            m_target.Choice.Add(new MessageDataChoice());
+            m_target.Choice.Add(new DialogueDataChoice());
         while (m_choiceCount < m_target.Choice.Count)
             m_target.Choice.RemoveAt(m_target.Choice.Count - 1);
         //
@@ -299,17 +299,17 @@ public class MessageDataConfigTextEditor : Editor
             //
             //ITEM - MAIN:
             QUnityEditor.SetVerticalBegin();
-            //ITEM - MESSAGE:
+            //ITEM - Dialogue:
             QUnityEditor.SetHorizontalBegin();
             QUnityEditor.SetLabel("Text", null, QUnityEditor.GetGUIWidth(LABEL_WIDTH));
             m_target.Choice[i].Text = QUnityEditor.SetField(m_target.Choice[i].Text);
             QUnityEditor.SetHorizontalEnd();
-            //ITEM - MESSAGE:
+            //ITEM - Dialogue:
             //
             //ITEM - NEXT:
             QUnityEditor.SetHorizontalBegin();
             QUnityEditor.SetLabel("Next", null, QUnityEditor.GetGUIWidth(LABEL_WIDTH));
-            m_target.Choice[i].Next = QUnityEditor.SetField<MessageDataConfigText>(m_target.Choice[i].Next);
+            m_target.Choice[i].Next = QUnityEditor.SetField<DialogueSingleConfig>(m_target.Choice[i].Next);
             QUnityEditor.SetHorizontalEnd();
             //ITEM - NEXT:
             //
@@ -328,15 +328,15 @@ public class MessageDataConfigTextEditor : Editor
                 QUnityEditor.SetHorizontalEnd();
                 //
                 QUnityEditor.SetHorizontalBegin();
-                QUnityEditor.SetLabel("Message", null, QUnityEditor.GetGUIWidth(LABEL_WIDTH));
-                m_target.Choice[i].Message = QUnityEditor.SetField(m_target.Choice[i].Message);
+                QUnityEditor.SetLabel("Dialogue", null, QUnityEditor.GetGUIWidth(LABEL_WIDTH));
+                m_target.Choice[i].Dialogue = QUnityEditor.SetField(m_target.Choice[i].Dialogue);
                 QUnityEditor.SetHorizontalEnd();
                 //
                 QUnityEditor.SetVerticalEnd();
             }
             else
             {
-                QUnityEditor.SetLabel(string.Format("{0} : {1}", m_authorName[m_target.Choice[i].AuthorIndex], m_target.Choice[i].Message), null);
+                QUnityEditor.SetLabel(string.Format("{0} : {1}", m_authorName[m_target.Choice[i].AuthorIndex], m_target.Choice[i].Dialogue), null);
             }
             //
             QUnityEditor.SetHorizontalEnd();

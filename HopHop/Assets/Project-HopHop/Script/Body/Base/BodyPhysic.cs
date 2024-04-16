@@ -37,7 +37,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
 
     private void Start()
     {
-        m_bodyStatic = m_bodyStatic || GameConfigInit.GetExist(GetComponent<IsometricDataInit>(), GameConfigInit.Key.BodyStatic);
+        m_bodyStatic = m_bodyStatic || KeyInit.GetExist(GetComponent<IsometricDataInit>(), KeyInit.Key.BodyStatic);
     }
 
     #region Turn
@@ -147,7 +147,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
         IsometricBlock Block = GetCheckDir(Dir, IsometricVector.Bot);
         if (Block != null)
         {
-            if (Block.GetTag(GameConfigTag.Bullet))
+            if (Block.GetTag(KeyTag.Bullet))
             {
                 //Will touch OBJECT BULLET later!!
             }
@@ -176,7 +176,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
         IsometricBlock Block = GetCheckDir(IsometricVector.Bot);
         if (Block != null)
         {
-            if (Block.GetTag(GameConfigTag.Bullet))
+            if (Block.GetTag(KeyTag.Bullet))
             {
                 Debug.Log("[Debug] Bullet hit Player!!");
                 //
@@ -364,12 +364,12 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
             return;
         }
         //
-        if (GetCheckDir(IsometricVector.Bot).GetTag(GameConfigTag.Slow))
+        if (GetCheckDir(IsometricVector.Bot).GetTag(KeyTag.Slow))
         {
             m_moveForceXY = IsometricVector.None;
         }
         else
-        if (GetCheckDir(IsometricVector.Bot).GetTag(GameConfigTag.Slip))
+        if (GetCheckDir(IsometricVector.Bot).GetTag(KeyTag.Slip))
         {
             m_moveForceXY = m_moveLastXY;
         }
@@ -401,19 +401,19 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
     {
         m_block = QComponent.GetComponent<IsometricBlock>(this);
         IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
-        BlockInit.SetValue(GameConfigInit.GetKey(GameConfigInit.Key.BodyStatic));
+        BlockInit.SetValue(KeyInit.GetKey(KeyInit.Key.BodyStatic));
     }
 
     public void SetEditorBodyStaticRemove()
     {
         IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
-        BlockInit.Data.RemoveAll(t => t.Contains(GameConfigInit.GetKey(GameConfigInit.Key.BodyStatic)));
+        BlockInit.Data.RemoveAll(t => t.Contains(KeyInit.GetKey(KeyInit.Key.BodyStatic)));
     }
 
     public bool GetEditorBodyStatic()
     {
         IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
-        return BlockInit.Data.Contains(GameConfigInit.GetKey(GameConfigInit.Key.BodyStatic));
+        return BlockInit.Data.Contains(KeyInit.GetKey(KeyInit.Key.BodyStatic));
     }
 
 #endif

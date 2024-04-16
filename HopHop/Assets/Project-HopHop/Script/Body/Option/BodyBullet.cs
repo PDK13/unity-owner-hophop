@@ -113,12 +113,12 @@ public class BodyBullet : MonoBehaviour, ITurnManager, IBodyBullet
         IsometricBlock BlockAhead = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + m_turnDir);
         if (BlockAhead != null)
         {
-            if (BlockAhead.GetTag(GameConfigTag.Player))
+            if (BlockAhead.GetTag(KeyTag.Player))
             {
                 Debug.Log("[Debug] Bullet hit Player!!");
             }
             else
-            if (BlockAhead.GetTag(GameConfigTag.Enermy))
+            if (BlockAhead.GetTag(KeyTag.Enermy))
             {
                 Debug.Log("[Debug] Bullet hit Enermy!!");
             }
@@ -177,13 +177,13 @@ public class BodyBullet : MonoBehaviour, ITurnManager, IBodyBullet
                 return;
             }
             //
-            if (BlockBot.GetTag(GameConfigTag.Player))
+            if (BlockBot.GetTag(KeyTag.Player))
             {
                 Debug.Log("[Debug] Bullet hit Player!!");
                 IHit();
             }
             //
-            if (!BlockBot.GetTag(GameConfigTag.Block))
+            if (!BlockBot.GetTag(KeyTag.Block))
             {
                 IHit();
             }

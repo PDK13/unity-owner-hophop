@@ -151,3 +151,15 @@ public class GameManager : SingletonManager<GameManager>
         return true;
     }
 }
+
+public enum TurnType
+{
+    None,
+    //
+    Gravity,
+    Player,
+    Bullet,
+    Shoot,
+    MovePhysic,
+    MoveStatic,
+}

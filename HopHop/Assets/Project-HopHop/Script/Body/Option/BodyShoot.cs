@@ -109,7 +109,7 @@ public class BodyShoot : MonoBehaviour, ITurnManager, IBodyShoot
         IsometricBlock Block = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + DirSpawm);
         if (Block != null)
         {
-            if (Block.GetTag(GameConfigTag.Player))
+            if (Block.GetTag(KeyTag.Player))
             {
                 Debug.Log("[Debug] Bullet hit Player!!");
             }
@@ -133,7 +133,7 @@ public class BodyShoot : MonoBehaviour, ITurnManager, IBodyShoot
             //
             switch (Command[0])
             {
-                case GameConfigAction.Shoot:
+                case KeyAction.Shoot:
                     //shoot-[1]-[2]-[3]
                     IsometricVector DirSpawm = IsometricVector.GetDirDeEncypt(Command[1]);
                     IsometricVector DirMove = IsometricVector.GetDirDeEncypt(Command[2]);
@@ -160,7 +160,7 @@ public class BodyShoot : MonoBehaviour, ITurnManager, IBodyShoot
 
     public void SetEditorShoot()
     {
-        m_eShoot = string.Format("{0}-{1}-{2}-{3}", GameConfigAction.Shoot, IsometricVector.GetDirEncypt(m_eSpawm), IsometricVector.GetDirEncypt(m_eMove), m_eSpeed);
+        m_eShoot = string.Format("{0}-{1}-{2}-{3}", KeyAction.Shoot, IsometricVector.GetDirEncypt(m_eSpawm), IsometricVector.GetDirEncypt(m_eMove), m_eSpeed);
     }
 
 #endif

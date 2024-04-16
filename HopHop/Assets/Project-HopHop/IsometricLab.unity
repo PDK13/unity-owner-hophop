@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.3731193, g: 0.38073996, b: 0.35872698, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -50763,7 +50763,7 @@ GameObject:
   - component: {fileID: 2047179452}
   - component: {fileID: 2047179451}
   m_Layer: 0
-  m_Name: MessageManager
+  m_Name: DialogueManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -50781,12 +50781,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68b2541f31f5d6444856a50dc609c18c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_messageConfig: {fileID: 11400000, guid: 44960a29c90827f4ea8b0086a70dcb14, type: 2}
+  m_dialogueConfig: {fileID: 11400000, guid: 61e3f95f4427ea648ac6aacdda53f8c5, type: 2}
   m_stringConfig: {fileID: 11400000, guid: 30a4b23d4142fa5479febd36bc32087d, type: 2}
   m_debug: 0
   m_command: 1
   m_currentData: {fileID: 0}
-  m_currentMessage: 
+  m_currentDialogue: 
   m_currentActive: 0
   m_currentChoice: 0
   m_tmp: {fileID: 0}

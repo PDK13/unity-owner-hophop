@@ -131,10 +131,10 @@ public class BodyCharacter : MonoBehaviour
             SetAnimation(TRIGGER_JUMP);
         //
         else
-        if (From.GetTag(GameConfigTag.Water))
+        if (From.GetTag(KeyTag.Water))
         {
             //Move from BLOCK WATER!!
-            if (To.GetTag(GameConfigTag.Water))
+            if (To.GetTag(KeyTag.Water))
                 //Move from BLOCK WATER to BLOCK WATER!!
                 SetAnimation(TRIGGER_SWIM);
             else
@@ -142,11 +142,11 @@ public class BodyCharacter : MonoBehaviour
                 SetAnimation(TRIGGER_JUMP);
         }
         else
-        if (From.GetTag(GameConfigTag.Slow))
+        if (From.GetTag(KeyTag.Slow))
             //Move from BLOCK SLOW!!
             SetAnimation(TRIGGER_JUMP);
         else
-        if (From.GetTag(GameConfigTag.Slip))
+        if (From.GetTag(KeyTag.Slip))
             //Move from BLOCK SLIP!!
             SetAnimation(TRIGGER_JUMP);
         else
@@ -157,19 +157,19 @@ public class BodyCharacter : MonoBehaviour
                 //Character Cat!!
                 SetAnimation(TRIGGER_JUMP);
             else
-            if (To.GetTag(GameConfigTag.Water))
+            if (To.GetTag(KeyTag.Water))
                 //Move from BLOCK NORMAL to BLOCK WATER!!
                 SetAnimation(TRIGGER_JUMP);
             else
-            if (To.GetTag(GameConfigTag.Slow))
+            if (To.GetTag(KeyTag.Slow))
                 //Move from BLOCK NORMAL to BLOCK SLOW!!
                 SetAnimation(TRIGGER_JUMP);
             else
-            if (To.GetTag(GameConfigTag.Slip))
+            if (To.GetTag(KeyTag.Slip))
                 //Move from BLOCK NORMAL to BLOCK SLIP!!
                 SetAnimation(TRIGGER_JUMP);
             else
-            if (To.GetTag(GameConfigTag.Bullet))
+            if (To.GetTag(KeyTag.Bullet))
                 //Move from BLOCK NORMAL to OBJECT BULLET!!
                 SetAnimation(TRIGGER_JUMP);
             else
@@ -187,7 +187,7 @@ public class BodyCharacter : MonoBehaviour
             SetAnimation(TRIGGER_JUMP);
         //
         else
-        if (On.GetTag(GameConfigTag.Water))
+        if (On.GetTag(KeyTag.Water))
             //Stand on WATER BLOCK!!
             SetAnimation(TRIGGER_SWIM);
         else

@@ -48,8 +48,8 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic
             }
         }
         //
-        m_moveCheckAhead = GameConfigInit.GetExist(GetComponent<IsometricDataInit>(), GameConfigInit.Key.MoveCheckAhead);
-        m_moveCheckAheadBot = GameConfigInit.GetExist(GetComponent<IsometricDataInit>(), GameConfigInit.Key.MoveCheckAheadBot);
+        m_moveCheckAhead = KeyInit.GetExist(GetComponent<IsometricDataInit>(), KeyInit.Key.MoveCheckAhead);
+        m_moveCheckAheadBot = KeyInit.GetExist(GetComponent<IsometricDataInit>(), KeyInit.Key.MoveCheckAheadBot);
         //
         m_body.onMove += IMove;
         m_body.onForce += IForce;
@@ -145,7 +145,7 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic
         IsometricBlock Block = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + Dir * Length);
         if (Block != null)
         {
-            if (Block.GetTag(GameConfigTag.Bullet))
+            if (Block.GetTag(KeyTag.Bullet))
             {
                 Debug.Log("[Debug] Bullet hit Enermy!!");
                 //
@@ -220,19 +220,19 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic
     {
         m_block ??= QComponent.GetComponent<IsometricBlock>(this);
         IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
-        BlockInit.SetValue(GameConfigInit.GetKey(GameConfigInit.Key.MoveCheckAhead));
+        BlockInit.SetValue(KeyInit.GetKey(KeyInit.Key.MoveCheckAhead));
     }
 
     public void SetEditorMoveCheckAheadRemove()
     {
         IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
-        BlockInit.Data.RemoveAll(t => t.Contains(GameConfigInit.GetKey(GameConfigInit.Key.MoveCheckAhead)));
+        BlockInit.Data.RemoveAll(t => t.Contains(KeyInit.GetKey(KeyInit.Key.MoveCheckAhead)));
     }
 
     public bool GetEditorMoveCheckAhead()
     {
         IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
-        return BlockInit.Data.Contains(GameConfigInit.GetKey(GameConfigInit.Key.MoveCheckAhead));
+        return BlockInit.Data.Contains(KeyInit.GetKey(KeyInit.Key.MoveCheckAhead));
     }
 
     //
@@ -241,19 +241,19 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic
     {
         m_block = QComponent.GetComponent<IsometricBlock>(this);
         IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
-        BlockInit.SetValue(GameConfigInit.GetKey(GameConfigInit.Key.MoveCheckAheadBot));
+        BlockInit.SetValue(KeyInit.GetKey(KeyInit.Key.MoveCheckAheadBot));
     }
 
     public void SetEditorMoveCheckAheadBotRemove()
     {
         IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
-        BlockInit.Data.RemoveAll(t => t.Contains(GameConfigInit.GetKey(GameConfigInit.Key.MoveCheckAheadBot)));
+        BlockInit.Data.RemoveAll(t => t.Contains(KeyInit.GetKey(KeyInit.Key.MoveCheckAheadBot)));
     }
 
     public bool GetEditorMoveCheckAheadBot()
     {
         IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
-        return BlockInit.Data.Contains(GameConfigInit.GetKey(GameConfigInit.Key.MoveCheckAheadBot));
+        return BlockInit.Data.Contains(KeyInit.GetKey(KeyInit.Key.MoveCheckAheadBot));
     }
 
 #endif

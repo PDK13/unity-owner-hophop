@@ -49,8 +49,8 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
     protected void Start()
     {
         m_move = GetComponent<IsometricDataMove>();
-        m_followIdentity = GameConfigInit.GetData(GetComponent<IsometricDataInit>(), GameConfigInit.Key.FollowIdentity, false);
-        m_followIdentityCheck = GameConfigInit.GetData(GetComponent<IsometricDataInit>(), GameConfigInit.Key.FollowIdentityCheck, false);
+        m_followIdentity = KeyInit.GetData(GetComponent<IsometricDataInit>(), KeyInit.Key.FollowIdentity, false);
+        m_followIdentityCheck = KeyInit.GetData(GetComponent<IsometricDataInit>(), KeyInit.Key.FollowIdentityCheck, false);
         //
         m_avaibleFollow = !string.IsNullOrEmpty(m_followIdentityCheck);
         //
@@ -261,7 +261,7 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
         //
         m_block = QComponent.GetComponent<IsometricBlock>(this);
         IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
-        BlockInit.SetValue(GameConfigInit.GetKey(GameConfigInit.Key.FollowIdentity) + "-" + m_block.Pos.ToString());
+        BlockInit.SetValue(KeyInit.GetKey(KeyInit.Key.FollowIdentity) + "-" + m_block.Pos.ToString());
     }
 
     public void SetEditorFollowIdentityCheck(IsometricBlock BlockFollow)
@@ -269,19 +269,19 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
         SetEditorFollowIdentityRemove();
         //
         IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
-        BlockInit.SetValue(GameConfigInit.GetKey(GameConfigInit.Key.FollowIdentityCheck) + "-" + BlockFollow.Pos.ToString());
+        BlockInit.SetValue(KeyInit.GetKey(KeyInit.Key.FollowIdentityCheck) + "-" + BlockFollow.Pos.ToString());
     }
 
     public void SetEditorFollowIdentityRemove()
     {
         IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
-        BlockInit.Data.RemoveAll(t => t.Contains(GameConfigInit.GetKey(GameConfigInit.Key.FollowIdentity)) || t.Contains(GameConfigInit.GetKey(GameConfigInit.Key.FollowIdentityCheck)));
+        BlockInit.Data.RemoveAll(t => t.Contains(KeyInit.GetKey(KeyInit.Key.FollowIdentity)) || t.Contains(KeyInit.GetKey(KeyInit.Key.FollowIdentityCheck)));
     }
 
     public bool GetEditorFollowIdentity()
     {
         IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
-        return BlockInit.Data.Exists(t => t.Contains(GameConfigInit.GetKey(GameConfigInit.Key.FollowIdentity)) || t.Contains(GameConfigInit.GetKey(GameConfigInit.Key.FollowIdentityCheck)));
+        return BlockInit.Data.Exists(t => t.Contains(KeyInit.GetKey(KeyInit.Key.FollowIdentity)) || t.Contains(KeyInit.GetKey(KeyInit.Key.FollowIdentityCheck)));
     }
 
 #endif

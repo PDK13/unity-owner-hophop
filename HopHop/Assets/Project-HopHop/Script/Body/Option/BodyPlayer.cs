@@ -165,7 +165,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
         IsometricBlock Block = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + Dir * 1);
         if (Block != null)
         {
-            if (Block.GetTag(GameConfigTag.Bullet))
+            if (Block.GetTag(KeyTag.Bullet))
             {
                 Debug.Log("[Debug] Bullet hit Player!!");
                 //
@@ -263,7 +263,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
         IsometricBlock Block = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + Dir * 1);
         if (Block != null)
         {
-            if (Block.GetTag(GameConfigTag.Switch))
+            if (Block.GetTag(KeyTag.Switch))
             {
                 if (Block.GetComponent<IBodyInteractive>().IInteractive())
                 {
@@ -302,7 +302,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
         //
         if (State)
         {
-            if (Block.GetTag(GameConfigTag.Interactive))
+            if (Block.GetTag(KeyTag.Interactive))
                 Block.GetComponent<BodyChild>().Square.SetBlue();
             else
                 Block.GetComponent<BodyChild>().Square.SetGrid();
