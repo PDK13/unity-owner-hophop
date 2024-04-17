@@ -6,7 +6,7 @@ public class DialogueDataChoice
 {
     public string Text;
     //
-    public DialogueSingleConfig Next;
+    public DialogueConfigSingle Next;
     //
     public int AuthorIndex; //Use index for 'AuthorName' and 'AuthorAvatar'!!
     public string Dialogue;

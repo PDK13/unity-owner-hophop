@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-[CreateAssetMenu(fileName = "isometric-config", menuName = "QConfig/Isometric Block", order = 0)]
+[CreateAssetMenu(fileName = "isometric-config", menuName = "Isometric/Isometric Config", order = 0)]
 public class IsometricConfig : ScriptableObject
 {
     public IsometricConfigBlockData Block = new IsometricConfigBlockData();

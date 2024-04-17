@@ -12,7 +12,7 @@ public class DialogueManager : SingletonManager<DialogueManager>
     #region Varible: Setting
 
     [SerializeField] private DialogueConfig m_dialogueConfig;
-    [SerializeField] private StringCodeConfig m_stringConfig;
+    [SerializeField] private StringConfig m_stringConfig;
 
     private string m_debugError = "";
 
@@ -65,7 +65,7 @@ public class DialogueManager : SingletonManager<DialogueManager>
     }
 
     [SerializeField] private DialogueCommandType m_command = DialogueCommandType.Text;
-    [SerializeField] private DialogueSingleConfig m_currentData;
+    [SerializeField] private DialogueConfigSingle m_currentData;
     [SerializeField] private string m_currentDialogue = "";
     [SerializeField] private bool m_currentActive = false;
     [SerializeField] private bool m_currentChoice = false;
@@ -140,7 +140,7 @@ public class DialogueManager : SingletonManager<DialogueManager>
     /// </summary>
     /// <param name="Tmp"></param>
     /// <param name="DialogueData"></param>
-    public void SetStart(DialogueSingleConfig DialogueData)
+    public void SetStart(DialogueConfigSingle DialogueData)
     {
         if (m_currentActive)
             return;
@@ -148,7 +148,7 @@ public class DialogueManager : SingletonManager<DialogueManager>
         StartCoroutine(ISetDialogueShow(DialogueData));
     }
 
-    private IEnumerator ISetDialogueShow(DialogueSingleConfig DialogueData, bool WaitForNextDialogue = false)
+    private IEnumerator ISetDialogueShow(DialogueConfigSingle DialogueData, bool WaitForNextDialogue = false)
     {
         m_currentData = DialogueData;
         //

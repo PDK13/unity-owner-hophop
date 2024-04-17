@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-[CreateAssetMenu(fileName = "dialogue-single-config", menuName = "QConfig/Dialogue Single", order = 1)]
-public class DialogueSingleConfig : ScriptableObject
+[CreateAssetMenu(fileName = "dialogue-config-single", menuName = "Dialogue/Dialogue Config Single", order = 1)]
+public class DialogueConfigSingle : ScriptableObject
 {
     public List<DialogueDataText> Dialogue = new List<DialogueDataText>();
 
@@ -16,13 +16,13 @@ public class DialogueSingleConfig : ScriptableObject
 
 #if UNITY_EDITOR
 
-[CustomEditor(typeof(DialogueSingleConfig))]
+[CustomEditor(typeof(DialogueConfigSingle))]
 public class DialogueSingleConfigEditor : Editor
 {
     private const float POPUP_HEIGHT = 150f * 2;
     private const float LABEL_WIDTH = 65f;
 
-    private DialogueSingleConfig m_target;
+    private DialogueConfigSingle m_target;
 
     private DialogueConfig m_dialogueConfig;
     private string m_debugError = "";
@@ -41,7 +41,7 @@ public class DialogueSingleConfigEditor : Editor
 
     private void OnEnable()
     {
-        m_target = target as DialogueSingleConfig;
+        m_target = target as DialogueConfigSingle;
         //
         m_dialogueCount = m_target.Dialogue.Count;
         m_choiceCount = m_target.Dialogue.Count;
@@ -59,7 +59,7 @@ public class DialogueSingleConfigEditor : Editor
         //
         SetGUIGroupDialogue();
         //
-        QUnityEditor.SetSpace(10f);
+        QUnityEditor.SetSpace();
         //
         SetGUIGroupChoice();
         //
@@ -125,39 +125,21 @@ public class DialogueSingleConfigEditor : Editor
         QUnityEditor.SetLabel("DIALOGUE", QUnityEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter));
         //
         //COUNT:
-        QUnityEditor.SetHorizontalBegin();
-        QUnityEditor.SetLabel("Count", null, QUnityEditor.GetGUIWidth(LABEL_WIDTH));
+        m_dialogueCount = QUnityEditor.SetGroupNumberChangeLimitMin(m_dialogueCount, 0);
         //
-        m_dialogueCount = QUnityEditor.SetField(m_dialogueCount);
-        //
-        if (QUnityEditor.SetButton("+"))
-            m_dialogueCount++;
-        //
-        if (QUnityEditor.SetButton("-"))
-            if (m_dialogueCount > 0)
-                m_dialogueCount--;
-        //
-        QUnityEditor.SetHorizontalEnd();
         //COUNT:
-        //
         while (m_dialogueCount > m_target.Dialogue.Count)
         {
             m_target.Dialogue.Add(new DialogueDataText(m_dialogueConfig.DelayDefault));
             m_dialogueDelayShow.Add(false);
             m_dialogueTriggerShow.Add(false);
-            m_choiceAuthorShow.Add(false);
-            m_choiceTriggerShow.Add(false);
         }
         while (m_dialogueCount < m_target.Dialogue.Count)
         {
             m_target.Dialogue.RemoveAt(m_target.Dialogue.Count - 1);
             m_dialogueDelayShow.RemoveAt(m_dialogueDelayShow.Count - 1);
             m_dialogueTriggerShow.RemoveAt(m_dialogueTriggerShow.Count - 1);
-            m_choiceAuthorShow.RemoveAt(m_choiceAuthorShow.Count - 1);
-            m_choiceTriggerShow.RemoveAt(m_choiceTriggerShow.Count - 1);
         }
-        //
-        QUnityEditor.SetSpace(10);
         //
         m_scrollDialogue = QUnityEditor.SetScrollViewBegin(m_scrollDialogue, QUnityEditor.GetGUIHeight(POPUP_HEIGHT));
         for (int i = 0; i < m_target.Dialogue.Count; i++)
@@ -255,7 +237,7 @@ public class DialogueSingleConfigEditor : Editor
             //ITEM:
             //
             //NEXT:
-            QUnityEditor.SetSpace(10);
+            QUnityEditor.SetSpace();
         }
         QUnityEditor.SetScrollViewEnd();
     }
@@ -265,27 +247,21 @@ public class DialogueSingleConfigEditor : Editor
         QUnityEditor.SetLabel("CHOICE", QUnityEditor.GetGUILabel(FontStyle.Bold, TextAnchor.MiddleCenter));
         //
         //COUNT:
-        QUnityEditor.SetHorizontalBegin();
-        QUnityEditor.SetLabel("Count", null, QUnityEditor.GetGUIWidth(LABEL_WIDTH));
+        m_choiceCount = QUnityEditor.SetGroupNumberChangeLimitMin(m_choiceCount, 0);
         //
-        m_choiceCount = QUnityEditor.SetField(m_choiceCount);
-        //
-        if (QUnityEditor.SetButton("+"))
-            m_choiceCount++;
-        //
-        if (QUnityEditor.SetButton("-"))
-            if (m_choiceCount > 0)
-                m_choiceCount--;
-        //
-        QUnityEditor.SetHorizontalEnd();
         //COUNT:
-        //
         while (m_choiceCount > m_target.Choice.Count)
+        {
             m_target.Choice.Add(new DialogueDataChoice());
+            m_choiceAuthorShow.Add(false);
+            m_choiceTriggerShow.Add(false);
+        }
         while (m_choiceCount < m_target.Choice.Count)
+        {
             m_target.Choice.RemoveAt(m_target.Choice.Count - 1);
-        //
-        QUnityEditor.SetSpace(10);
+            m_choiceAuthorShow.RemoveAt(m_choiceAuthorShow.Count - 1);
+            m_choiceTriggerShow.RemoveAt(m_choiceTriggerShow.Count - 1);
+        }
         //
         m_scrollChoice = QUnityEditor.SetScrollViewBegin(m_scrollChoice, QUnityEditor.GetGUIHeight(POPUP_HEIGHT));
         for (int i = 0; i < m_target.Choice.Count; i++)
@@ -309,7 +285,7 @@ public class DialogueSingleConfigEditor : Editor
             //ITEM - NEXT:
             QUnityEditor.SetHorizontalBegin();
             QUnityEditor.SetLabel("Next", null, QUnityEditor.GetGUIWidth(LABEL_WIDTH));
-            m_target.Choice[i].Next = QUnityEditor.SetField<DialogueSingleConfig>(m_target.Choice[i].Next);
+            m_target.Choice[i].Next = QUnityEditor.SetField<DialogueConfigSingle>(m_target.Choice[i].Next);
             QUnityEditor.SetHorizontalEnd();
             //ITEM - NEXT:
             //
@@ -378,7 +354,7 @@ public class DialogueSingleConfigEditor : Editor
             //ITEM:
             //
             //NEXT:
-            QUnityEditor.SetSpace(10);
+            QUnityEditor.SetSpace();
         }
         QUnityEditor.SetScrollViewEnd();
     }

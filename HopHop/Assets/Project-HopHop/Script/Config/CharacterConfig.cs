@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-[CreateAssetMenu(fileName = "character-config", menuName = "", order = 0)]
+[CreateAssetMenu(fileName = "character-config", menuName = "HopHop/Character Config", order = 0)]
 public class CharacterConfig : ScriptableObject
 {
     [Tooltip("Find all animator got true name exist in their name")]
@@ -155,7 +155,7 @@ public class CharacterConfigEditor : Editor
     {
         base.OnInspectorGUI();
         //
-        QUnityEditor.SetSpace(10);
+        QUnityEditor.SetSpace();
         //
         if (QUnityEditor.SetButton("Refresh"))
         {

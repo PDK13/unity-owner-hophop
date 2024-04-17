@@ -76,7 +76,7 @@ public class PlayerRefsTool : EditorWindow
         }
         QUnityEditor.SetHorizontalEnd();
         //
-        QUnityEditor.SetSpace(10f);
+        QUnityEditor.SetSpace();
     }
 
     #endregion
@@ -96,7 +96,7 @@ public class PlayerRefsTool : EditorWindow
         }
         QUnityEditor.SetHorizontalEnd();
         //
-        QUnityEditor.SetSpace(10f);
+        QUnityEditor.SetSpace();
     }
 
     private void SetGUIButtonSet()

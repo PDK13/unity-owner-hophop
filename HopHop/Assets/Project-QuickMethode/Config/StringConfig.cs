@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "string-code-config", menuName = "QConfig/String Code", order = 0)]
-public class StringCodeConfig : ScriptableObject
+[CreateAssetMenu(fileName = "string-config", menuName = "String/String Config", order = 0)]
+public class StringConfig : ScriptableObject
 {
     [SerializeField] private string m_colorClear = "#clear";
     [SerializeField]

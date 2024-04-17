@@ -10,7 +10,8 @@ using UnityEditor.UIElements;
 
 #if UNITY_EDITOR
 
-///<summary><b>(UnityEditorOnly)</b></summary>
+///<summary>Used for any Unity Editor</summary>
+///<remarks><b>UnityEditorOnly</b></remarks>
 public class QUnityEditor
 {
     #region ==================================== GUI Group
@@ -187,7 +188,7 @@ public class QUnityEditor
         }
     }
 
-    //Number
+    //Value
 
     public static int SetField(int Value, GUIStyle GUIStyle = null, params GUILayoutOption[] GUILayoutOption)
     {
@@ -314,7 +315,7 @@ public class QUnityEditor
         GUI.backgroundColor = Color;
     }
 
-    public static void SetSpace(float Space = 10)
+    public static void SetSpace(float Space = 20)
     {
         GUILayout.Space(Space);
     }
@@ -327,14 +328,19 @@ public class QUnityEditor
 
     #region ------------------------------------ GUI Panel Size Value
 
-    public static GUILayoutOption GetGUIWidth(float Width = 10f)
+    public static GUILayoutOption GetGUIWidth(float Width = 20f)
     {
         return GUILayout.Width(Width);
     }
 
-    public static GUILayoutOption GetGUIHeight(float Height = 10)
+    public static GUILayoutOption GetGUIHeight(float Height = 20)
     {
         return GUILayout.Height(Height);
+    }
+
+    public static GUILayoutOption[] GetGUISize(float Width = 20f, float Height = 20)
+    {
+        return new GUILayoutOption[2] { GUILayout.Width(Width), GUILayout.Height(Height) };
     }
 
     #endregion
@@ -412,10 +418,70 @@ public class QUnityEditor
     }
 
     #endregion
+
+    #region ==================================== GUI Quick
+
+    public static int SetGroupNumberChange(int Value)
+    {
+        SetHorizontalBegin();
+        Value = SetField(Value, null, GetGUIWidth(50));
+        if (SetButton("+", null, GetGUISize()))
+            Value++;
+        if (SetButton("-", null, GetGUISize()))
+            Value--;
+        SetHorizontalEnd();
+        //
+        return Value;
+    }
+
+    public static int SetGroupNumberChangeLimit(int Value, int Max, int Min)
+    {
+        SetHorizontalBegin();
+        Value = SetField(Value, null, GetGUIWidth(50));
+        if (SetButton("+", null, GetGUISize()))
+            if (Value < Max)
+                Value++;
+        if (SetButton("-", null, GetGUISize()))
+            if (Value > Min)
+                Value--;
+        SetHorizontalEnd();
+        //
+        return Value;
+    }
+
+    public static int SetGroupNumberChangeLimitMin(int Value, int Limit)
+    {
+        SetHorizontalBegin();
+        Value = SetField(Value, null, GetGUIWidth(50));
+        if (SetButton("+", null, GetGUISize()))
+            Value++;
+        if (SetButton("-", null, GetGUISize()))
+            if (Value > Limit)
+                Value--;
+        SetHorizontalEnd();
+        //
+        return Value;
+    }
+
+    public static int SetGroupNumberChangeLimitMax(int Value, int Limit)
+    {
+        SetHorizontalBegin();
+        Value = SetField(Value, null, GetGUIWidth(50));
+        if (SetButton("+", null, GetGUISize()))
+            if (Value < Limit)
+                Value++;
+        if (SetButton("-", null, GetGUISize()))
+            Value--;
+        SetHorizontalEnd();
+        //
+        return Value;
+    }
+
+    #endregion
 }
 
-///<summary><b>(UnityEditorOnly)</b></summary>
-///<remarks>Used for Unity Window Panel (EditorWindow) only</remarks>
+///<summary>Used for Unity Window Panel (EditorWindow) only</summary>
+///<remarks><b>UnityEditorOnly</b></remarks>
 public class QUnityEditorWindow
 {
     #region ==================================== GUI Primary
@@ -463,11 +529,11 @@ public class QUnityEditorWindow
     #endregion
 }
 
-///<summary><b>(UnityEditorOnly)</b></summary>
-///<remarks>
+///<summary>
 ///Used for Script (CustomEditor) only<br></br>
 ///If "override void OnGUI" is not running on editor, go to Project Settings/Editor and turn on "Use IMGUI Default Inspector"!
-///</remarks>
+///</summary>
+///<remarks><b>UnityEditorOnly</b></remarks>
 public class QUnityEditorCustom
 {
     //IMPORTANCE: If "override void OnGUI" is not running on editor, go to Project Settings/Editor and turn on "Use IMGUI Default Inspector"!
@@ -522,8 +588,8 @@ public class QUnityEditorCustom
     #endregion
 }
 
-///<summary><b>(UnityEditorOnly)</b></summary>
-///<remarks>Used for Custom Class or Struct (PropertyDrawer) only</remarks>
+///<summary>Used for Custom Class or Struct (PropertyDrawer) only</summary>
+///<remarks><b>UnityEditorOnly</b></remarks>
 public class QUnityEditorObject
 {
     #region ==================================== GUI Primary

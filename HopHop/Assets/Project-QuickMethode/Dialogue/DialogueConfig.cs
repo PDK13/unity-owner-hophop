@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-[CreateAssetMenu(fileName = "dialogue-config", menuName = "QConfig/Dialogue Main", order = 1)]
+[CreateAssetMenu(fileName = "dialogue-config", menuName = "Dialogue/Dialogue Config", order = 1)]
 public class DialogueConfig : ScriptableObject
 {
     public List<DialogueDataAuthor> Author = new List<DialogueDataAuthor>();
