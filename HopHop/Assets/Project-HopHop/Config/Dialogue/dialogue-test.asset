@@ -12,19 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7bfce57071730714a9f8abf641da6e4d, type: 3}
   m_Name: dialogue-test
   m_EditorClassIdentifier: 
-  Dialogue:
-  - AuthorIndex: 0
-    Dialogue: 
-    Delay:
-      Alpha: 0
-      Space: 0
-      Mark: 0
-    TriggerCode: 
-    TriggerObject: {fileID: 0}
-  Choice:
-  - Text: 
-    Next: {fileID: 0}
-    AuthorIndex: 0
-    Dialogue: 
-    TriggerCode: 
-    TriggerObject: {fileID: 0}
+  Dialogue: []
+  Choice: []

@@ -12,9 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 992a39e9c9c80aa499d78cdea93a9675, type: 3}
   m_Name: event-test
   m_EditorClassIdentifier: 
-  Code: 
-  Data:
-  - Dialogue: {fileID: 0}
-    Command:
-    - 
-    - 
+  Data: []

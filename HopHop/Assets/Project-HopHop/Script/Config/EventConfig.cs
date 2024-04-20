@@ -6,7 +6,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "event-config", menuName = "HopHop/Event Config", order = 0)]
 public class EventConfig : ScriptableObject
 {
-    public string Code = "";
     public List<EventConfigSingle> Data = new List<EventConfigSingle>();
 }
 
@@ -49,25 +48,16 @@ public class EventConfigEditor : Editor
 
     public override void OnInspectorGUI()
     {
-        QUnityEditor.SetLabel("EVENT", QUnityEditor.GetGUIStyleLabel(FontStyle.Bold, TextAnchor.MiddleCenter));
-        SetGUICode();
         SetGUIGroupData();
         //
         QUnityEditor.SetDirty(m_target);
     }
 
-    private void SetGUICode()
-    {
-        QUnityEditor.SetHorizontalBegin();
-        QUnityEditor.SetLabel("Code", null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH));
-        m_target.Code = QUnityEditor.SetField(m_target.Code);
-        QUnityEditor.SetHorizontalEnd();
-    }
-
     private void SetGUIGroupData()
     {
+        QUnityEditor.SetLabel("EVENT", QUnityEditor.GetGUIStyleLabel(FontStyle.Bold, TextAnchor.MiddleCenter));
+
         #region COUNT
-        QUnityEditor.SetLabel("Data", null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH));
         m_dataCount = QUnityEditor.SetGroupNumberChangeLimitMin(m_dataCount, 0);
         while (m_dataCount > m_target.Data.Count)
         {
