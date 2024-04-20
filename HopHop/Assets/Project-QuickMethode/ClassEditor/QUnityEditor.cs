@@ -132,7 +132,7 @@ public class QUnityEditor
 
     public static void SetLabel(Sprite Sprite, params GUILayoutOption[] GUILayoutOption)
     {
-        GUILayout.Label(GetImage(Sprite), GUILayoutOption);
+        GUILayout.Label(GetGUIContentImage(Sprite), GUILayoutOption);
     }
 
     #endregion
@@ -153,7 +153,7 @@ public class QUnityEditor
 
     public static bool SetButton(Sprite Sprite, params GUILayoutOption[] GUILayoutOption)
     {
-        return GUILayout.Button(GetImage(Sprite), GUILayoutOption);
+        return GUILayout.Button(GetGUIContentImage(Sprite), GUILayoutOption);
     }
 
     #endregion
@@ -326,19 +326,19 @@ public class QUnityEditor
 
     #region ==================================== GUI Varible
 
-    #region ------------------------------------ GUI Panel Size Value
+    #region ------------------------------------ GUI Layout Option
 
-    public static GUILayoutOption GetGUIWidth(float Width = 20f)
+    public static GUILayoutOption GetGUILayoutWidth(float Width = 20f)
     {
         return GUILayout.Width(Width);
     }
 
-    public static GUILayoutOption GetGUIHeight(float Height = 20)
+    public static GUILayoutOption GetGUILayoutHeight(float Height = 20)
     {
         return GUILayout.Height(Height);
     }
 
-    public static GUILayoutOption[] GetGUISize(float Width = 20f, float Height = 20)
+    public static GUILayoutOption[] GetGUILayoutSize(float Width = 20f, float Height = 20)
     {
         return new GUILayoutOption[2] { GUILayout.Width(Width), GUILayout.Height(Height) };
     }
@@ -347,51 +347,55 @@ public class QUnityEditor
 
     #region ------------------------------------ GUI Style
 
-    public static GUIStyle GetGUILabel(FontStyle FontStyle, TextAnchor Alignment)
+    public static GUIStyle GetGUIStyleLabel(FontStyle FontStyle = FontStyle.Normal, TextAnchor Alignment = TextAnchor.MiddleCenter, int FontSize = 12)
     {
         GUIStyle GUIStyle = new GUIStyle(GUI.skin.label)
         {
             fontStyle = FontStyle,
             alignment = Alignment,
+            fontSize = FontSize,
         };
         return GUIStyle;
     }
 
-    public static GUIStyle GetGUITextField(FontStyle FontStyle, TextAnchor Alignment)
+    public static GUIStyle GetGUIStyleTextField(FontStyle FontStyle = FontStyle.Normal, TextAnchor Alignment = TextAnchor.MiddleCenter, int FontSize = 12)
     {
         GUIStyle GUIStyle = new GUIStyle(GUI.skin.textField)
         {
             fontStyle = FontStyle,
             alignment = Alignment,
+            fontSize = FontSize,
         };
         return GUIStyle;
     }
 
-    public static GUIStyle GetGUITextArea(FontStyle FontStyle, TextAnchor Alignment)
+    public static GUIStyle GetGUIStyleTextArea(FontStyle FontStyle = FontStyle.Normal, TextAnchor Alignment = TextAnchor.MiddleCenter, int FontSize = 12)
     {
         GUIStyle GUIStyle = new GUIStyle(GUI.skin.textArea)
         {
             fontStyle = FontStyle,
             alignment = Alignment,
+            fontSize = FontSize,
         };
         return GUIStyle;
     }
 
-    public static GUIStyle GetGUIButton(FontStyle FontStyle, TextAnchor Alignment)
+    public static GUIStyle GetGUIStyleButton(FontStyle FontStyle = FontStyle.Normal, TextAnchor Alignment = TextAnchor.MiddleCenter, int FontSize = 12)
     {
         GUIStyle GUIStyle = new GUIStyle(GUI.skin.button)
         {
             fontStyle = FontStyle,
             alignment = Alignment,
+            fontSize = FontSize,
         };
         return GUIStyle;
     }
 
     #endregion
 
-    #region ------------------------------------ GUI Image
+    #region ------------------------------------ GUI Content
 
-    public static GUIContent GetImage(Sprite Sprite)
+    public static GUIContent GetGUIContentImage(Sprite Sprite)
     {
         Texture2D Texture = QSprite.GetTextureConvert(Sprite);
 
@@ -421,13 +425,15 @@ public class QUnityEditor
 
     #region ==================================== GUI Quick
 
+    #region ------------------------------------ GUI Quick Number
+
     public static int SetGroupNumberChange(int Value)
     {
         SetHorizontalBegin();
-        Value = SetField(Value, null, GetGUIWidth(50));
-        if (SetButton("+", null, GetGUISize()))
+        Value = SetField(Value, null, GetGUILayoutWidth(50));
+        if (SetButton("+", null, GetGUILayoutSize()))
             Value++;
-        if (SetButton("-", null, GetGUISize()))
+        if (SetButton("-", null, GetGUILayoutSize()))
             Value--;
         SetHorizontalEnd();
         //
@@ -437,11 +443,11 @@ public class QUnityEditor
     public static int SetGroupNumberChangeLimit(int Value, int Max, int Min)
     {
         SetHorizontalBegin();
-        Value = SetField(Value, null, GetGUIWidth(50));
-        if (SetButton("+", null, GetGUISize()))
+        Value = SetField(Value, null, GetGUILayoutWidth(50));
+        if (SetButton("+", null, GetGUILayoutSize()))
             if (Value < Max)
                 Value++;
-        if (SetButton("-", null, GetGUISize()))
+        if (SetButton("-", null, GetGUILayoutSize()))
             if (Value > Min)
                 Value--;
         SetHorizontalEnd();
@@ -452,10 +458,10 @@ public class QUnityEditor
     public static int SetGroupNumberChangeLimitMin(int Value, int Limit)
     {
         SetHorizontalBegin();
-        Value = SetField(Value, null, GetGUIWidth(50));
-        if (SetButton("+", null, GetGUISize()))
+        Value = SetField(Value, null, GetGUILayoutWidth(50));
+        if (SetButton("+", null, GetGUILayoutSize()))
             Value++;
-        if (SetButton("-", null, GetGUISize()))
+        if (SetButton("-", null, GetGUILayoutSize()))
             if (Value > Limit)
                 Value--;
         SetHorizontalEnd();
@@ -466,16 +472,22 @@ public class QUnityEditor
     public static int SetGroupNumberChangeLimitMax(int Value, int Limit)
     {
         SetHorizontalBegin();
-        Value = SetField(Value, null, GetGUIWidth(50));
-        if (SetButton("+", null, GetGUISize()))
+        Value = SetField(Value, null, GetGUILayoutWidth(50));
+        if (SetButton("+", null, GetGUILayoutSize()))
             if (Value < Limit)
                 Value++;
-        if (SetButton("-", null, GetGUISize()))
+        if (SetButton("-", null, GetGUILayoutSize()))
             Value--;
         SetHorizontalEnd();
         //
         return Value;
     }
+
+    #endregion
+
+    #region ------------------------------------ ...
+
+    #endregion
 
     #endregion
 }
@@ -492,22 +504,22 @@ public class QUnityEditorWindow
 
     public static GUILayoutOption GetGUILayoutWidth(EditorWindow This, float WidthPercent = 1, float WidthOffset = 0)
     {
-        return QUnityEditor.GetGUIWidth(GetWindowWidth(This) * WidthPercent - WidthOffset - WIDTH_OFFSET);
+        return QUnityEditor.GetGUILayoutWidth(GetWindowWidth(This) * WidthPercent - WidthOffset - WIDTH_OFFSET);
     }
 
     public static GUILayoutOption GetGUILayoutWidthBaseHeight(EditorWindow This, float HeightPercent = 1, float HeightOffset = 0)
     {
-        return QUnityEditor.GetGUIWidth(GetWindowHeight(This) * HeightPercent - HeightOffset - WIDTH_OFFSET);
+        return QUnityEditor.GetGUILayoutWidth(GetWindowHeight(This) * HeightPercent - HeightOffset - WIDTH_OFFSET);
     }
 
     public static GUILayoutOption GetGUILayoutHeight(EditorWindow This, float HeightPercent = 1, float HeightOffset = 0)
     {
-        return QUnityEditor.GetGUIHeight(GetWindowHeight(This) * HeightPercent - HeightOffset);
+        return QUnityEditor.GetGUILayoutHeight(GetWindowHeight(This) * HeightPercent - HeightOffset);
     }
 
     public static GUILayoutOption GetGUILayoutHeightBaseWidth(EditorWindow This, float WidthPercent = 1, float WidthOffset = 0)
     {
-        return QUnityEditor.GetGUIHeight(GetWindowWidth(This) * WidthPercent - WidthOffset);
+        return QUnityEditor.GetGUILayoutHeight(GetWindowWidth(This) * WidthPercent - WidthOffset);
     }
 
     #endregion
