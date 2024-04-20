@@ -55,7 +55,7 @@ public class EventConfigEditor : Editor
 
     private void SetGUIGroupData()
     {
-        QUnityEditor.SetLabel("EVENT", QUnityEditor.GetGUIStyleLabel(FontStyle.Bold, TextAnchor.MiddleCenter));
+        QUnityEditor.SetLabel("EVENT", QUnityEditor.GetGUIStyleLabel(FontStyle.Bold));
 
         #region COUNT
         m_dataCount = QUnityEditor.SetGroupNumberChangeLimitMin(m_dataCount, 0);
@@ -78,7 +78,7 @@ public class EventConfigEditor : Editor
         {
             #region ITEM
             QUnityEditor.SetHorizontalBegin();
-            QUnityEditor.SetLabel(i.ToString(), QUnityEditor.GetGUIStyleLabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditor.GetGUILayoutWidth(25));
+            QUnityEditor.SetLabel(i.ToString(), QUnityEditor.GetGUIStyleLabel(FontStyle.Normal), QUnityEditor.GetGUILayoutWidth(25));
 
             #region ITEM - MAIN
             QUnityEditor.SetVerticalBegin();
@@ -106,7 +106,7 @@ public class EventConfigEditor : Editor
                 for (int j = 0; j < m_target.Data[i].Command.Count; j++)
                 {
                     QUnityEditor.SetHorizontalBegin();
-                    QUnityEditor.SetLabel(j.ToString(), QUnityEditor.GetGUIStyleLabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditor.GetGUILayoutWidth(25));
+                    QUnityEditor.SetLabel(j.ToString(), QUnityEditor.GetGUIStyleLabel(FontStyle.Normal), QUnityEditor.GetGUILayoutWidth(25));
                     m_target.Data[i].Command[j] = QUnityEditor.SetField(m_target.Data[i].Command[j]);
                     QUnityEditor.SetHorizontalEnd();
                 }

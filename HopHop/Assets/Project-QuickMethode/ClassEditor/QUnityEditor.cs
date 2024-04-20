@@ -347,47 +347,103 @@ public class QUnityEditor
 
     #region ------------------------------------ GUI Style
 
-    public static GUIStyle GetGUIStyleLabel(FontStyle FontStyle = FontStyle.Normal, TextAnchor Alignment = TextAnchor.MiddleCenter, int FontSize = 12)
+    public static GUIStyle GetGUIStyleLabel(FontStyle FontStyle = FontStyle.Normal, TextAnchor Alignment = TextAnchor.MiddleCenter, int? FontSize = null)
     {
-        GUIStyle GUIStyle = new GUIStyle(GUI.skin.label)
+        GUIStyle GUIStyle;
+
+        if (FontSize.HasValue)
         {
-            fontStyle = FontStyle,
-            alignment = Alignment,
-            fontSize = FontSize,
-        };
+            GUIStyle = new GUIStyle(GUI.skin.label)
+            {
+                fontStyle = FontStyle,
+                alignment = Alignment,
+                fontSize = FontSize.Value,
+            };
+        }
+        else
+        {
+            GUIStyle = new GUIStyle(GUI.skin.label)
+            {
+                fontStyle = FontStyle,
+                alignment = Alignment,
+            };
+        }
+
         return GUIStyle;
     }
 
-    public static GUIStyle GetGUIStyleTextField(FontStyle FontStyle = FontStyle.Normal, TextAnchor Alignment = TextAnchor.MiddleCenter, int FontSize = 12)
+    public static GUIStyle GetGUIStyleTextField(FontStyle FontStyle = FontStyle.Normal, TextAnchor Alignment = TextAnchor.MiddleCenter, int? FontSize = null)
     {
-        GUIStyle GUIStyle = new GUIStyle(GUI.skin.textField)
+        GUIStyle GUIStyle;
+
+        if (FontSize.HasValue)
         {
-            fontStyle = FontStyle,
-            alignment = Alignment,
-            fontSize = FontSize,
-        };
+            GUIStyle = new GUIStyle(GUI.skin.textField)
+            {
+                fontStyle = FontStyle,
+                alignment = Alignment,
+                fontSize = FontSize.Value,
+            };
+        }
+        else
+        {
+            GUIStyle = new GUIStyle(GUI.skin.textField)
+            {
+                fontStyle = FontStyle,
+                alignment = Alignment,
+            };
+        }
+
         return GUIStyle;
     }
 
-    public static GUIStyle GetGUIStyleTextArea(FontStyle FontStyle = FontStyle.Normal, TextAnchor Alignment = TextAnchor.MiddleCenter, int FontSize = 12)
+    public static GUIStyle GetGUIStyleTextArea(FontStyle FontStyle = FontStyle.Normal, TextAnchor Alignment = TextAnchor.MiddleCenter, int? FontSize = null)
     {
-        GUIStyle GUIStyle = new GUIStyle(GUI.skin.textArea)
+        GUIStyle GUIStyle;
+
+        if (FontSize.HasValue)
         {
-            fontStyle = FontStyle,
-            alignment = Alignment,
-            fontSize = FontSize,
-        };
+            GUIStyle = new GUIStyle(GUI.skin.textArea)
+            {
+                fontStyle = FontStyle,
+                alignment = Alignment,
+                fontSize = FontSize.Value,
+            };
+        }
+        else
+        {
+            GUIStyle = new GUIStyle(GUI.skin.textArea)
+            {
+                fontStyle = FontStyle,
+                alignment = Alignment,
+            };
+        }
+
         return GUIStyle;
     }
 
-    public static GUIStyle GetGUIStyleButton(FontStyle FontStyle = FontStyle.Normal, TextAnchor Alignment = TextAnchor.MiddleCenter, int FontSize = 12)
+    public static GUIStyle GetGUIStyleButton(FontStyle FontStyle = FontStyle.Normal, TextAnchor Alignment = TextAnchor.MiddleCenter, int? FontSize = null)
     {
-        GUIStyle GUIStyle = new GUIStyle(GUI.skin.button)
+        GUIStyle GUIStyle;
+
+        if (FontSize.HasValue)
         {
-            fontStyle = FontStyle,
-            alignment = Alignment,
-            fontSize = FontSize,
-        };
+            GUIStyle = new GUIStyle(GUI.skin.button)
+            {
+                fontStyle = FontStyle,
+                alignment = Alignment,
+                fontSize = FontSize.Value,
+            };
+        }
+        else
+        {
+            GUIStyle = new GUIStyle(GUI.skin.button)
+            {
+                fontStyle = FontStyle,
+                alignment = Alignment,
+            };
+        }
+
         return GUIStyle;
     }
 

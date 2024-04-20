@@ -53,25 +53,25 @@ public class PlayerRefsTool : EditorWindow
 
     private void SetGUIRef()
     {
-        QUnityEditor.SetLabel("REF", QUnityEditor.GetGUIStyleLabel(FontStyle.Bold, TextAnchor.MiddleCenter));
+        QUnityEditor.SetLabel("REF", QUnityEditor.GetGUIStyleLabel(FontStyle.Bold));
         //
         QUnityEditor.SetHorizontalBegin();
         {
-            QUnityEditor.SetLabel("Type", QUnityEditor.GetGUIStyleLabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.2f));
+            QUnityEditor.SetLabel("Type", QUnityEditor.GetGUIStyleLabel(FontStyle.Normal), QUnityEditorWindow.GetGUILayoutWidth(this, 0.2f));
             m_type = (VaribleType)QUnityEditor.SetPopup<VaribleType>((int)m_type, QUnityEditorWindow.GetGUILayoutWidth(this, 0.775f));
         }
         QUnityEditor.SetHorizontalEnd();
         //
         QUnityEditor.SetHorizontalBegin();
         {
-            QUnityEditor.SetLabel("Name", QUnityEditor.GetGUIStyleLabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.2f));
+            QUnityEditor.SetLabel("Name", QUnityEditor.GetGUIStyleLabel(FontStyle.Normal), QUnityEditorWindow.GetGUILayoutWidth(this, 0.2f));
             m_name = QUnityEditor.SetField(m_name, null, QUnityEditorWindow.GetGUILayoutWidth(this, 0.775f));
         }
         QUnityEditor.SetHorizontalEnd();
         //
         QUnityEditor.SetHorizontalBegin();
         {
-            QUnityEditor.SetLabel("Value", QUnityEditor.GetGUIStyleLabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.2f));
+            QUnityEditor.SetLabel("Value", QUnityEditor.GetGUIStyleLabel(FontStyle.Normal), QUnityEditorWindow.GetGUILayoutWidth(this, 0.2f));
             m_value = QUnityEditor.SetField(m_value, null, QUnityEditorWindow.GetGUILayoutWidth(this, 0.775f));
         }
         QUnityEditor.SetHorizontalEnd();
@@ -85,7 +85,7 @@ public class PlayerRefsTool : EditorWindow
 
     private void SetGUIOpption()
     {
-        QUnityEditor.SetLabel("OPPTION", QUnityEditor.GetGUIStyleLabel(FontStyle.Bold, TextAnchor.MiddleCenter));
+        QUnityEditor.SetLabel("OPPTION", QUnityEditor.GetGUIStyleLabel(FontStyle.Bold));
         //
         QUnityEditor.SetHorizontalBegin();
         {
@@ -233,9 +233,9 @@ public class PlayerRefsTool : EditorWindow
 
     private void SetGUIListShow()
     {
-        QUnityEditor.SetLabel("LIST", QUnityEditor.GetGUIStyleLabel(FontStyle.Bold, TextAnchor.MiddleCenter));
+        QUnityEditor.SetLabel("LIST", QUnityEditor.GetGUIStyleLabel(FontStyle.Bold));
         //
-        if (QUnityEditor.SetButton("Refresh", QUnityEditor.GetGUIStyleButton(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 1f, 0.25f)))
+        if (QUnityEditor.SetButton("Refresh", QUnityEditor.GetGUIStyleButton(FontStyle.Normal), QUnityEditorWindow.GetGUILayoutWidth(this, 1f, 0.25f)))
         {
             SetListRefresh();
         }
@@ -255,7 +255,7 @@ public class PlayerRefsTool : EditorWindow
                     QUnityEditor.SetDisableGroupBegin();
                 }
                 //
-                if (QUnityEditor.SetButton("[New]", QUnityEditor.GetGUIStyleButton(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 1f, 0.25f)))
+                if (QUnityEditor.SetButton("[New]", QUnityEditor.GetGUIStyleButton(FontStyle.Normal), QUnityEditorWindow.GetGUILayoutWidth(this, 1f, 0.25f)))
                 {
                     if (m_name != "")
                     {
@@ -276,7 +276,7 @@ public class PlayerRefsTool : EditorWindow
             {
                 //Data Single!!
                 //
-                if (QUnityEditor.SetButton(m_list[i].Name, QUnityEditor.GetGUIStyleButton(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.7f)))
+                if (QUnityEditor.SetButton(m_list[i].Name, QUnityEditor.GetGUIStyleButton(FontStyle.Normal), QUnityEditorWindow.GetGUILayoutWidth(this, 0.7f)))
                 {
                     m_name = m_list[i].Name;
                     m_type = m_list[i].Type;
@@ -289,7 +289,7 @@ public class PlayerRefsTool : EditorWindow
                     SetListSave();
                 }
                 //
-                if (QUnityEditor.SetButton("Del", QUnityEditor.GetGUIStyleButton(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.1f)))
+                if (QUnityEditor.SetButton("Del", QUnityEditor.GetGUIStyleButton(FontStyle.Normal), QUnityEditorWindow.GetGUILayoutWidth(this, 0.1f)))
                 {
                     m_list.RemoveAt(i);
                     SetListSave();

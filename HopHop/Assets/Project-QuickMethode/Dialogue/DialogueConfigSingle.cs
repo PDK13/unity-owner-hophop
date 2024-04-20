@@ -53,7 +53,7 @@ public class DialogueSingleConfigEditor : Editor
     {
         if (m_debugError != "")
         {
-            QUnityEditor.SetLabel(m_debugError, QUnityEditor.GetGUIStyleLabel(FontStyle.Normal, TextAnchor.MiddleCenter));
+            QUnityEditor.SetLabel(m_debugError, QUnityEditor.GetGUIStyleLabel(FontStyle.Normal));
             return;
         }
         //
@@ -122,7 +122,7 @@ public class DialogueSingleConfigEditor : Editor
 
     private void SetGUIGroupDialogue()
     {
-        QUnityEditor.SetLabel("DIALOGUE", QUnityEditor.GetGUIStyleLabel(FontStyle.Bold, TextAnchor.MiddleCenter));
+        QUnityEditor.SetLabel("DIALOGUE", QUnityEditor.GetGUIStyleLabel(FontStyle.Bold));
         //
         //COUNT:
         m_dialogueCount = QUnityEditor.SetGroupNumberChangeLimitMin(m_dialogueCount, 0);
@@ -146,7 +146,7 @@ public class DialogueSingleConfigEditor : Editor
         {
             #region ITEM
             QUnityEditor.SetHorizontalBegin();
-            QUnityEditor.SetLabel(i.ToString(), QUnityEditor.GetGUIStyleLabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditor.GetGUILayoutWidth(25));
+            QUnityEditor.SetLabel(i.ToString(), QUnityEditor.GetGUIStyleLabel(FontStyle.Normal), QUnityEditor.GetGUILayoutWidth(25));
 
             #region ITEM - MAIN
             QUnityEditor.SetVerticalBegin();
@@ -240,7 +240,7 @@ public class DialogueSingleConfigEditor : Editor
 
     private void SetGUIGroupChoice()
     {
-        QUnityEditor.SetLabel("CHOICE", QUnityEditor.GetGUIStyleLabel(FontStyle.Bold, TextAnchor.MiddleCenter));
+        QUnityEditor.SetLabel("CHOICE", QUnityEditor.GetGUIStyleLabel(FontStyle.Bold));
         //
         #region COUNT
         m_choiceCount = QUnityEditor.SetGroupNumberChangeLimitMin(m_choiceCount, 0);
@@ -263,7 +263,7 @@ public class DialogueSingleConfigEditor : Editor
         {
             #region ITEM
             QUnityEditor.SetHorizontalBegin();
-            QUnityEditor.SetLabel(i.ToString(), QUnityEditor.GetGUIStyleLabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditor.GetGUILayoutWidth(25));
+            QUnityEditor.SetLabel(i.ToString(), QUnityEditor.GetGUIStyleLabel(FontStyle.Normal), QUnityEditor.GetGUILayoutWidth(25));
             //
             #region ITEM - MAIN
             QUnityEditor.SetVerticalBegin();
