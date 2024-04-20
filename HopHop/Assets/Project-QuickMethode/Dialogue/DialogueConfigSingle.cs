@@ -53,7 +53,7 @@ public class DialogueSingleConfigEditor : Editor
     {
         if (m_debugError != "")
         {
-            QUnityEditor.SetLabel(m_debugError, QUnityEditor.GetGUIStyleLabel(FontStyle.Normal));
+            QUnityEditor.SetLabel(m_debugError, QUnityEditor.GetGUIStyleLabel());
             return;
         }
         //
@@ -146,7 +146,7 @@ public class DialogueSingleConfigEditor : Editor
         {
             #region ITEM
             QUnityEditor.SetHorizontalBegin();
-            QUnityEditor.SetLabel(i.ToString(), QUnityEditor.GetGUIStyleLabel(FontStyle.Normal), QUnityEditor.GetGUILayoutWidth(25));
+            QUnityEditor.SetLabel(i.ToString(), QUnityEditor.GetGUIStyleLabel(), QUnityEditor.GetGUILayoutWidth(25));
 
             #region ITEM - MAIN
             QUnityEditor.SetVerticalBegin();
@@ -263,7 +263,7 @@ public class DialogueSingleConfigEditor : Editor
         {
             #region ITEM
             QUnityEditor.SetHorizontalBegin();
-            QUnityEditor.SetLabel(i.ToString(), QUnityEditor.GetGUIStyleLabel(FontStyle.Normal), QUnityEditor.GetGUILayoutWidth(25));
+            QUnityEditor.SetLabel(i.ToString(), QUnityEditor.GetGUIStyleLabel(), QUnityEditor.GetGUILayoutWidth(25));
             //
             #region ITEM - MAIN
             QUnityEditor.SetVerticalBegin();

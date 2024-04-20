@@ -103,19 +103,19 @@ public class IsometricTool : EditorWindow
     {
         if (Application.isPlaying)
         {
-            QUnityEditor.SetLabel("[Not avaible when playing]", QUnityEditor.GetGUIStyleLabel(FontStyle.Normal), QUnityEditorWindow.GetGUILayoutWidth(this));
+            QUnityEditor.SetLabel("[Not avaible when playing]", QUnityEditor.GetGUIStyleLabel(), QUnityEditorWindow.GetGUILayoutWidth(this));
             return;
         }
         //
         if (!SetInitFind())
         {
-            QUnityEditor.SetLabel("[Not found isometric manager]", QUnityEditor.GetGUIStyleLabel(FontStyle.Normal), QUnityEditorWindow.GetGUILayoutWidth(this));
+            QUnityEditor.SetLabel("[Not found isometric manager]", QUnityEditor.GetGUIStyleLabel(), QUnityEditorWindow.GetGUILayoutWidth(this));
             return;
         }
         //
         //START TOOL EDITOR:
         //
-        QUnityEditor.SetLabel("ISOMETRIC TOOL", QUnityEditor.GetGUIStyleLabel(FontStyle.Normal), QUnityEditorWindow.GetGUILayoutWidth(this));
+        QUnityEditor.SetLabel("ISOMETRIC TOOL", QUnityEditor.GetGUIStyleLabel(), QUnityEditorWindow.GetGUILayoutWidth(this));
         //
         if (QUnityEditor.SetButton("Refresh"))
             SetInitRefresh();
@@ -124,7 +124,7 @@ public class IsometricTool : EditorWindow
         //
         if (m_manager.World.Current == null)
         {
-            QUnityEditor.SetLabel("[Not found current map]", QUnityEditor.GetGUIStyleLabel(FontStyle.Normal), QUnityEditorWindow.GetGUILayoutWidth(this));
+            QUnityEditor.SetLabel("[Not found current map]", QUnityEditor.GetGUIStyleLabel(), QUnityEditorWindow.GetGUILayoutWidth(this));
             return;
         }
         //
@@ -383,7 +383,7 @@ public class IsometricTool : EditorWindow
                 SetGUIWorldRotate();
             }
             //
-            QUnityEditor.SetLabel("~~~", QUnityEditor.GetGUIStyleLabel(FontStyle.Normal));
+            QUnityEditor.SetLabel("~~~", QUnityEditor.GetGUIStyleLabel());
         }
     }
 
@@ -393,7 +393,7 @@ public class IsometricTool : EditorWindow
     {
         QUnityEditor.SetHorizontalBegin();
         QUnityEditor.SetBackground(Color.white);
-        QUnityEditor.SetLabel("NAME: ", QUnityEditor.GetGUIStyleLabel(FontStyle.Normal), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
+        QUnityEditor.SetLabel("NAME: ", QUnityEditor.GetGUIStyleLabel(), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
         m_mapName = QUnityEditor.SetField(m_mapName, null, QUnityEditorWindow.GetGUILayoutWidth(this, 0.5f, 2.5f));
         if (m_manager.World.Current != null)
         {
@@ -421,7 +421,7 @@ public class IsometricTool : EditorWindow
         //
         QUnityEditor.SetHorizontalBegin();
         QUnityEditor.SetBackground(Color.white);
-        QUnityEditor.SetLabel("", QUnityEditor.GetGUIStyleLabel(FontStyle.Normal), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
+        QUnityEditor.SetLabel("", QUnityEditor.GetGUIStyleLabel(), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
         if (QUnityEditor.SetButton("New", QUnityEditor.GetGUIStyleButton(FontStyle.Bold), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
         {
             SetInitRefresh();
@@ -458,7 +458,7 @@ public class IsometricTool : EditorWindow
         //
         QUnityEditor.SetHorizontalBegin();
         QUnityEditor.SetBackground(Color.white);
-        QUnityEditor.SetLabel("SCENE: ", QUnityEditor.GetGUIStyleLabel(FontStyle.Normal), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
+        QUnityEditor.SetLabel("SCENE: ", QUnityEditor.GetGUIStyleLabel(), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
         m_indexMapScene = QUnityEditor.SetPopup(m_indexMapScene, m_listMapScene, QUnityEditorWindow.GetGUILayoutWidth(this, 0.5f, 2.5f));
         if (QUnityEditor.SetButton("Active", QUnityEditor.GetGUIStyleButton(FontStyle.Bold), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
         {
@@ -479,7 +479,7 @@ public class IsometricTool : EditorWindow
         //
         QUnityEditor.SetHorizontalBegin();
         QUnityEditor.SetBackground(Color.white);
-        QUnityEditor.SetLabel("CONFIG: ", QUnityEditor.GetGUIStyleLabel(FontStyle.Normal), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
+        QUnityEditor.SetLabel("CONFIG: ", QUnityEditor.GetGUIStyleLabel(), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
         m_indexMapFile = QUnityEditor.SetPopup(m_indexMapFile, m_listMapFile, QUnityEditorWindow.GetGUILayoutWidth(this, 0.5f, 2.5f));
         if (QUnityEditor.SetButton("Open", QUnityEditor.GetGUIStyleButton(FontStyle.Bold), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
         {
@@ -500,7 +500,7 @@ public class IsometricTool : EditorWindow
         //
         QUnityEditor.SetHorizontalBegin();
         QUnityEditor.SetBackground(Color.white);
-        QUnityEditor.SetLabel("FILE: ", QUnityEditor.GetGUIStyleLabel(FontStyle.Normal), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
+        QUnityEditor.SetLabel("FILE: ", QUnityEditor.GetGUIStyleLabel(), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
         if (QUnityEditor.SetButton("Open", QUnityEditor.GetGUIStyleButton(FontStyle.Bold), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
         {
             QUnityAssets.SetRefresh();
@@ -550,7 +550,7 @@ public class IsometricTool : EditorWindow
         //
         QUnityEditor.SetHorizontalBegin();
         QUnityEditor.SetBackground(Color.white);
-        QUnityEditor.SetLabel("RENDERER: ", QUnityEditor.GetGUIStyleLabel(FontStyle.Normal), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
+        QUnityEditor.SetLabel("RENDERER: ", QUnityEditor.GetGUIStyleLabel(), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
         m_manager.Scene.Renderer = (IsometricRendererType)QUnityEditor.SetPopup<IsometricRendererType>((int)m_manager.Scene.Renderer, QUnityEditorWindow.GetGUILayoutWidth(this, 0.75f, 2.5f));
         QUnityEditor.SetHorizontalEnd();
     }
@@ -559,7 +559,7 @@ public class IsometricTool : EditorWindow
     {
         QUnityEditor.SetHorizontalBegin();
         QUnityEditor.SetBackground(Color.white);
-        QUnityEditor.SetLabel("ROTATE: ", QUnityEditor.GetGUIStyleLabel(FontStyle.Normal), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
+        QUnityEditor.SetLabel("ROTATE: ", QUnityEditor.GetGUIStyleLabel(), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
         QUnityEditor.SetChanceCheckBegin();
         m_manager.Scene.Rotate = (IsometricRotateType)QUnityEditor.SetPopup<IsometricRotateType>((int)m_manager.Scene.Rotate, QUnityEditorWindow.GetGUILayoutWidth(this, 0.75f, 2.5f));
         if (QUnityEditor.SetChanceCheckEnd())
@@ -591,7 +591,7 @@ public class IsometricTool : EditorWindow
             SetGUIMainPosFocus();
             SetGUIMainCursonOption();
             //
-            QUnityEditor.SetLabel("~~~", QUnityEditor.GetGUIStyleLabel(FontStyle.Normal));
+            QUnityEditor.SetLabel("~~~", QUnityEditor.GetGUIStyleLabel());
         }
     }
 
@@ -601,10 +601,10 @@ public class IsometricTool : EditorWindow
     {
         QUnityEditor.SetHorizontalBegin();
         QUnityEditor.SetBackground(Color.white);
-        QUnityEditor.SetLabel("CURSON: ", QUnityEditor.GetGUIStyleLabel(FontStyle.Normal), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
-        QUnityEditor.SetLabel(m_curson.Pos.XInt.ToString(), QUnityEditor.GetGUIStyleLabel(FontStyle.Normal), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
-        QUnityEditor.SetLabel(m_curson.Pos.YInt.ToString(), QUnityEditor.GetGUIStyleLabel(FontStyle.Normal), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
-        QUnityEditor.SetLabel(m_curson.Pos.HInt.ToString(), QUnityEditor.GetGUIStyleLabel(FontStyle.Normal), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
+        QUnityEditor.SetLabel("CURSON: ", QUnityEditor.GetGUIStyleLabel(), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
+        QUnityEditor.SetLabel(m_curson.Pos.XInt.ToString(), QUnityEditor.GetGUIStyleLabel(), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
+        QUnityEditor.SetLabel(m_curson.Pos.YInt.ToString(), QUnityEditor.GetGUIStyleLabel(), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
+        QUnityEditor.SetLabel(m_curson.Pos.HInt.ToString(), QUnityEditor.GetGUIStyleLabel(), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
         QUnityEditor.SetHorizontalEnd();
     }
 
@@ -614,10 +614,10 @@ public class IsometricTool : EditorWindow
         {
             QUnityEditor.SetHorizontalBegin();
             QUnityEditor.SetBackground(Color.white);
-            QUnityEditor.SetLabel("FOCUS: ", QUnityEditor.GetGUIStyleLabel(FontStyle.Normal), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
-            QUnityEditor.SetLabel(m_blockFocus.Pos.XInt.ToString(), QUnityEditor.GetGUIStyleLabel(FontStyle.Normal), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
-            QUnityEditor.SetLabel(m_blockFocus.Pos.YInt.ToString(), QUnityEditor.GetGUIStyleLabel(FontStyle.Normal), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
-            QUnityEditor.SetLabel(m_blockFocus.Pos.HInt.ToString(), QUnityEditor.GetGUIStyleLabel(FontStyle.Normal), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
+            QUnityEditor.SetLabel("FOCUS: ", QUnityEditor.GetGUIStyleLabel(), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
+            QUnityEditor.SetLabel(m_blockFocus.Pos.XInt.ToString(), QUnityEditor.GetGUIStyleLabel(), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
+            QUnityEditor.SetLabel(m_blockFocus.Pos.YInt.ToString(), QUnityEditor.GetGUIStyleLabel(), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
+            QUnityEditor.SetLabel(m_blockFocus.Pos.HInt.ToString(), QUnityEditor.GetGUIStyleLabel(), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
             QUnityEditor.SetHorizontalEnd();
         }
     }
@@ -643,7 +643,7 @@ public class IsometricTool : EditorWindow
 
     private void SetGUIMainButtonFocus(float WidthPercent)
     {
-        if (QUnityEditor.SetButton("FOCUS", QUnityEditor.GetGUIStyleButton(FontStyle.Normal), QUnityEditorWindow.GetGUILayoutWidth(this, WidthPercent)))
+        if (QUnityEditor.SetButton("FOCUS", QUnityEditor.GetGUIStyleButton(), QUnityEditorWindow.GetGUILayoutWidth(this, WidthPercent)))
         {
             IsometricBlock BlockFocus = BlockCurson;
             if (BlockFocus != null)
@@ -658,7 +658,7 @@ public class IsometricTool : EditorWindow
 
     private void SetGUIMainButtonBack(float WidthPercent)
     {
-        if (QUnityEditor.SetButton("BACK", QUnityEditor.GetGUIStyleButton(FontStyle.Normal), QUnityEditorWindow.GetGUILayoutWidth(this, WidthPercent)))
+        if (QUnityEditor.SetButton("BACK", QUnityEditor.GetGUIStyleButton(), QUnityEditorWindow.GetGUILayoutWidth(this, WidthPercent)))
         {
             if (m_blockFocus != null)
             {
@@ -732,13 +732,13 @@ public class IsometricTool : EditorWindow
     {
         if (m_listTag.Count == 0)
         {
-            QUnityEditor.SetLabel("[Not found tag(s) list]", QUnityEditor.GetGUIStyleLabel(FontStyle.Normal), QUnityEditorWindow.GetGUILayoutWidth(this));
+            QUnityEditor.SetLabel("[Not found tag(s) list]", QUnityEditor.GetGUIStyleLabel(), QUnityEditorWindow.GetGUILayoutWidth(this));
             return;
         }
         //
         if (m_manager.List.BlockList.Count == 0)
         {
-            QUnityEditor.SetLabel("[Not found block(s) list]", QUnityEditor.GetGUIStyleLabel(FontStyle.Normal), QUnityEditorWindow.GetGUILayoutWidth(this));
+            QUnityEditor.SetLabel("[Not found block(s) list]", QUnityEditor.GetGUIStyleLabel(), QUnityEditorWindow.GetGUILayoutWidth(this));
             return;
         }
         //
@@ -746,7 +746,7 @@ public class IsometricTool : EditorWindow
         //
         QUnityEditor.SetHorizontalBegin();
         QUnityEditor.SetBackground(Color.white);
-        QUnityEditor.SetLabel("TAG: ", QUnityEditor.GetGUIStyleLabel(FontStyle.Normal), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
+        QUnityEditor.SetLabel("TAG: ", QUnityEditor.GetGUIStyleLabel(), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
         m_indexTag = QUnityEditor.SetPopup(m_indexTag, m_listTag, QUnityEditorWindow.GetGUILayoutWidth(this, 0.75f, 2.5f));
         if (m_indexTag != m_indexTagLast)
         {
@@ -757,7 +757,7 @@ public class IsometricTool : EditorWindow
         //
         QUnityEditor.SetHorizontalBegin();
         QUnityEditor.SetBackground(Color.white);
-        QUnityEditor.SetLabel("SIZE: ", QUnityEditor.GetGUIStyleLabel(FontStyle.Normal), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
+        QUnityEditor.SetLabel("SIZE: ", QUnityEditor.GetGUIStyleLabel(), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
         m_countNameHorizontal = QUnityEditor.SetField(m_countNameHorizontal, null, QUnityEditorWindow.GetGUILayoutWidth(this, 0.5f));
         m_countNameHorizontal = Mathf.Clamp(m_countNameHorizontal, 0, m_countNameHorizontal);
         if (QUnityEditor.SetButton("Apply", null, QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
@@ -797,7 +797,7 @@ public class IsometricTool : EditorWindow
 
     protected virtual void SetEditGUIGroupCustom()
     {
-        QUnityEditor.SetLabel("[Custom script not found]", QUnityEditor.GetGUIStyleLabel(FontStyle.Normal), QUnityEditorWindow.GetGUILayoutWidth(this));
+        QUnityEditor.SetLabel("[Custom script not found]", QUnityEditor.GetGUIStyleLabel(), QUnityEditorWindow.GetGUILayoutWidth(this));
     } //Custom!
 }
 
