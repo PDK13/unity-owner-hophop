@@ -61,7 +61,7 @@ public class BodyEvent : MonoBehaviour, IBodyInteractive
         if (string.IsNullOrEmpty(m_eventIdentityBase))
             return;
         //
-        var EventConfigFound = QUnityAssets.GetScriptableObject<EventConfigSingle>(m_eventIdentityBase, true);
+        var EventConfigFound = QUnityAssets.GetScriptableObject<EventConfigSingle>(m_eventIdentityBase, false);
         if (EventConfigFound == null ? EventConfigFound.Count == 0 : false)
         {
             m_block = GetComponent<IsometricBlock>();

@@ -79,7 +79,7 @@ public class IsometricConfigBlockData
         //
         foreach (ListData BlockSingle in m_list)
         {
-            AssetsGet = QUnityAssets.GetPrefab<IsometricBlock>(BlockSingle.Tag, true, m_assetsPath);
+            AssetsGet = QUnityAssets.GetPrefab<IsometricBlock>(BlockSingle.Tag, false, m_assetsPath);
             BlockSingle.Block.Clear();
             for (int i = 0; i < AssetsGet.Count; i++)
                 BlockSingle.Block.Add(AssetsGet[i]);
@@ -145,7 +145,7 @@ public class IsometricConfigMapData
         //
         foreach (ListData BlockSingle in m_list)
         {
-            AssetsGet = QUnityAssets.GetTextAsset(BlockSingle.Tag, true, QPath.ExtensionType.txt, m_assetsPath);
+            AssetsGet = QUnityAssets.GetTextAsset(BlockSingle.Tag, false, QPath.ExtensionType.txt, m_assetsPath);
             BlockSingle.Map.Clear();
             for (int i = 0; i < AssetsGet.Count; i++)
                 BlockSingle.Map.Add(AssetsGet[i]);

@@ -91,8 +91,8 @@ public class CharacterConfig : ScriptableObject
     private void SetRefreshCharacter(CharacterType Type, string Name)
     {
         GetConfig(Type).Skin.Clear();
-        List<RuntimeAnimatorController> AssetsAnimation = QUnityAssets.GetAnimatorController(Name, true, m_animatorPath);
-        List<Sprite> AssetsAvatar = QUnityAssets.GetSprite(string.Format("avt {0}", true, Name), true, m_avatarPath);
+        List<RuntimeAnimatorController> AssetsAnimation = QUnityAssets.GetAnimatorController(Name, false, m_animatorPath);
+        List<Sprite> AssetsAvatar = QUnityAssets.GetSprite(string.Format("avt {0}", Name), false, m_avatarPath);
         for (int i = 0; i < AssetsAnimation.Count; i++)
             GetConfig(Type).Skin.Add(new CharacterConfigSkinData(AssetsAvatar[i], AssetsAnimation[i]));
     }

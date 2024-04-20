@@ -73,7 +73,7 @@ public class DialogueSingleConfigEditor : Editor
         if (m_dialogueConfig != null)
             return;
         //
-        var AuthorConfigFound = QUnityAssets.GetScriptableObject<DialogueConfig>("", true);
+        var AuthorConfigFound = QUnityAssets.GetScriptableObject<DialogueConfig>("", false);
         //
         if (AuthorConfigFound == null)
         {
