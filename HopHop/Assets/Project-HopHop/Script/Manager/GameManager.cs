@@ -31,6 +31,10 @@ public class GameManager : SingletonManager<GameManager>
         CharacterType.Mow,
     };
 
+    //Event
+
+    private string m_eventIdentityBaseCurrent;
+
     //
 
     public CharacterConfig CharacterConfig => m_characterConfig;
@@ -149,6 +153,13 @@ public class GameManager : SingletonManager<GameManager>
             return false;
         Instance.m_characterParty.RemoveAll(t => t == Character);
         return true;
+    }
+
+    //Event
+
+    public bool SetEventActive(string Identity)
+    {
+        return false;
     }
 }
 

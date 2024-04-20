@@ -16,7 +16,7 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
     private bool m_avaibleFollow = false; //This follow current on check identity!
 
     private IsometricDataMove m_move;
-    private string m_followIdentity;
+    private string m_followIdentityBase;
     private string m_followIdentityCheck;
 
     private IsometricVector m_turnDir;
@@ -49,7 +49,7 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
     protected void Start()
     {
         m_move = GetComponent<IsometricDataMove>();
-        m_followIdentity = KeyInit.GetData(GetComponent<IsometricDataInit>(), KeyInit.Key.FollowIdentity, false);
+        m_followIdentityBase = KeyInit.GetData(GetComponent<IsometricDataInit>(), KeyInit.Key.FollowIdentityBase, false);
         m_followIdentityCheck = KeyInit.GetData(GetComponent<IsometricDataInit>(), KeyInit.Key.FollowIdentityCheck, false);
         //
         m_avaibleFollow = !string.IsNullOrEmpty(m_followIdentityCheck);
@@ -160,8 +160,8 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
                 }
             });
         //
-        if (!string.IsNullOrEmpty(m_followIdentity))
-            SetFollow(m_followIdentity, m_turnDir);
+        if (!string.IsNullOrEmpty(m_followIdentityBase))
+            SetFollow(m_followIdentityBase, m_turnDir);
         //
         SetMovePush(m_turnDir);
         //
@@ -255,33 +255,33 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
 
 #if UNITY_EDITOR
 
-    public void SetEditorFollowIdentity()
+    public void SetEditorFollowIdentityBase()
     {
-        SetEditorFollowIdentityRemove();
+        SetEditorFollowIdentityBaseRemove();
         //
         m_block = QComponent.GetComponent<IsometricBlock>(this);
         IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
-        BlockInit.SetValue(KeyInit.GetKey(KeyInit.Key.FollowIdentity) + "-" + m_block.Pos.ToString());
+        BlockInit.SetValue(KeyInit.GetKey(KeyInit.Key.FollowIdentityBase) + "-" + m_block.Pos.ToString());
     }
 
-    public void SetEditorFollowIdentityCheck(IsometricBlock BlockFollow)
+    public void SetEditorFollowIdentityBaseCheck(IsometricBlock BlockFollow)
     {
-        SetEditorFollowIdentityRemove();
+        SetEditorFollowIdentityBaseRemove();
         //
         IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
         BlockInit.SetValue(KeyInit.GetKey(KeyInit.Key.FollowIdentityCheck) + "-" + BlockFollow.Pos.ToString());
     }
 
-    public void SetEditorFollowIdentityRemove()
+    public void SetEditorFollowIdentityBaseRemove()
     {
         IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
-        BlockInit.Data.RemoveAll(t => t.Contains(KeyInit.GetKey(KeyInit.Key.FollowIdentity)) || t.Contains(KeyInit.GetKey(KeyInit.Key.FollowIdentityCheck)));
+        BlockInit.Data.RemoveAll(t => t.Contains(KeyInit.GetKey(KeyInit.Key.FollowIdentityBase)) || t.Contains(KeyInit.GetKey(KeyInit.Key.FollowIdentityCheck)));
     }
 
-    public bool GetEditorFollowIdentity()
+    public bool GetEditorFollowIdentityBase()
     {
         IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
-        return BlockInit.Data.Exists(t => t.Contains(KeyInit.GetKey(KeyInit.Key.FollowIdentity)) || t.Contains(KeyInit.GetKey(KeyInit.Key.FollowIdentityCheck)));
+        return BlockInit.Data.Exists(t => t.Contains(KeyInit.GetKey(KeyInit.Key.FollowIdentityBase)) || t.Contains(KeyInit.GetKey(KeyInit.Key.FollowIdentityCheck)));
     }
 
 #endif

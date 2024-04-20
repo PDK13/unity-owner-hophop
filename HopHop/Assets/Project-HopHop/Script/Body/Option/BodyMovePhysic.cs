@@ -48,7 +48,7 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic
             }
         }
         //
-        m_moveCheckAhead = KeyInit.GetExist(GetComponent<IsometricDataInit>(), KeyInit.Key.MoveCheckAhead);
+        m_moveCheckAhead = KeyInit.GetExist(GetComponent<IsometricDataInit>(), KeyInit.Key.MoveCheckAheadSide);
         m_moveCheckAheadBot = KeyInit.GetExist(GetComponent<IsometricDataInit>(), KeyInit.Key.MoveCheckAheadBot);
         //
         m_body.onMove += IMove;
@@ -216,23 +216,23 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic
 
 #if UNITY_EDITOR
 
-    public void SetEditorMoveCheckAhead()
+    public void SetEditorMoveCheckAheadSide()
     {
         m_block ??= QComponent.GetComponent<IsometricBlock>(this);
         IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
-        BlockInit.SetValue(KeyInit.GetKey(KeyInit.Key.MoveCheckAhead));
+        BlockInit.SetValue(KeyInit.GetKey(KeyInit.Key.MoveCheckAheadSide));
     }
 
-    public void SetEditorMoveCheckAheadRemove()
+    public void SetEditorMoveCheckAheadSideRemove()
     {
         IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
-        BlockInit.Data.RemoveAll(t => t.Contains(KeyInit.GetKey(KeyInit.Key.MoveCheckAhead)));
+        BlockInit.Data.RemoveAll(t => t.Contains(KeyInit.GetKey(KeyInit.Key.MoveCheckAheadSide)));
     }
 
-    public bool GetEditorMoveCheckAhead()
+    public bool GetEditorMoveCheckAheadSide()
     {
         IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
-        return BlockInit.Data.Contains(KeyInit.GetKey(KeyInit.Key.MoveCheckAhead));
+        return BlockInit.Data.Contains(KeyInit.GetKey(KeyInit.Key.MoveCheckAheadSide));
     }
 
     //

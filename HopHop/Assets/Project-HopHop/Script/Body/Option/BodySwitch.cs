@@ -22,7 +22,7 @@ public class BodySwitch : MonoBehaviour, IBodyInteractive, IBodySwitch
 
     private bool m_avaibleSwitch = false; //This switch current on check identity!
 
-    private string m_switchIdentity;
+    private string m_switchIdentityBase;
     private List<string> m_switchIdentityCheck;
 
     private bool m_activeSwitch = false;
@@ -46,10 +46,10 @@ public class BodySwitch : MonoBehaviour, IBodyInteractive, IBodySwitch
 
     private void Start()
     {
-        m_switchIdentity = KeyInit.GetData(GetComponent<IsometricDataInit>(), KeyInit.Key.SwitchIdentity, false);
+        m_switchIdentityBase = KeyInit.GetData(GetComponent<IsometricDataInit>(), KeyInit.Key.SwitchIdentityBase, false);
         m_switchIdentityCheck = KeyInit.GetDataList(GetComponent<IsometricDataInit>(), KeyInit.Key.SwitchIdentityCheck, false);
         //
-        m_avaibleSwitch = !string.IsNullOrEmpty(m_switchIdentity);
+        m_avaibleSwitch = !string.IsNullOrEmpty(m_switchIdentityBase);
         //
         if (m_avaibleSwitch)
             onSwitch += ISwitchIdentity;
@@ -86,7 +86,7 @@ public class BodySwitch : MonoBehaviour, IBodyInteractive, IBodySwitch
         //
         SetControlAnimation();
         //
-        SetSwitch(m_switchIdentity, m_state);
+        SetSwitch(m_switchIdentityBase, m_state);
     }
 
     public void ISwitch(bool State)
@@ -103,7 +103,7 @@ public class BodySwitch : MonoBehaviour, IBodyInteractive, IBodySwitch
         //
         SetControlAnimation();
         //
-        SetSwitch(m_switchIdentity, State);
+        SetSwitch(m_switchIdentityBase, State);
     }
 
     public void ISwitch()
@@ -144,14 +144,28 @@ public class BodySwitch : MonoBehaviour, IBodyInteractive, IBodySwitch
 
 #if UNITY_EDITOR
 
-    public void SetEditorSwitchIdentity()
+    public void SetEditorSwitchIdentityBase()
     {
         //SetEditorSwitchCheckRemove();
         //
         m_block = QComponent.GetComponent<IsometricBlock>(this);
         IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
-        BlockInit.SetValue(KeyInit.GetKey(KeyInit.Key.SwitchIdentity) + "-" + m_block.Pos.ToString());
+        BlockInit.SetValue(KeyInit.GetKey(KeyInit.Key.SwitchIdentityBase) + "-" + m_block.Pos.ToString());
     }
+
+    public void SetEditorSwitchCheckBaseRemove()
+    {
+        IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
+        BlockInit.Data.RemoveAll(t => t.Contains(KeyInit.GetKey(KeyInit.Key.SwitchIdentityBase)));
+    }
+
+    public bool GetEditorSwitchBase()
+    {
+        IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
+        return BlockInit.Data.Exists(t => t.Contains(KeyInit.GetKey(KeyInit.Key.SwitchIdentityBase)));
+    }
+
+    //
 
     public void SetEditorSwitchIdentityCheck(IsometricBlock BlockFollow)
     {
@@ -161,22 +175,10 @@ public class BodySwitch : MonoBehaviour, IBodyInteractive, IBodySwitch
         BlockInit.SetValue(KeyInit.GetKey(KeyInit.Key.SwitchIdentityCheck) + "-" + BlockFollow.Pos.ToString());
     }
 
-    public void SetEditorSwitchCheckRemove()
-    {
-        IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
-        BlockInit.Data.RemoveAll(t => t.Contains(KeyInit.GetKey(KeyInit.Key.SwitchIdentity)));
-    }
-
     public void SetEditorSwitchCheckRemove(IsometricVector Pos)
     {
         IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
         BlockInit.Data.RemoveAll(t => t.Contains(KeyInit.GetKey(KeyInit.Key.SwitchIdentityCheck) + "-" + Pos.ToString()));
-    }
-
-    public bool GetEditorSwitchCheck()
-    {
-        IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
-        return BlockInit.Data.Exists(t => t.Contains(KeyInit.GetKey(KeyInit.Key.SwitchIdentity)));
     }
 
     public bool GetEditorSwitchCheck(IsometricVector Pos)

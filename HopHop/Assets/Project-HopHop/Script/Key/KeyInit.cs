@@ -6,34 +6,39 @@ public class KeyInit
     {
         None,
         //Follow
-        FollowIdentity,
+        FollowIdentityBase,
         FollowIdentityCheck,
         //Switch
-        SwitchIdentity,
+        SwitchIdentityBase,
         SwitchIdentityCheck,
         //Move
-        MoveCheckAhead,
+        MoveCheckAheadSide,
         MoveCheckAheadBot,
         //Body
         BodyStatic,
+        //Event
+        EvenIdentitytBase,
     }
 
     public const string None = "";
 
     //Follow
-    public const string FollowIdentity = "follow-identity"; //follow-identity-[identity]
+    public const string FollowIdentityBase = "follow-identity-base"; //follow-identity-base-[identity]
     public const string FollowIdentityCheck = "follow-identity-check"; //follow-identity-check-[identity]
 
     //Switch
-    public const string SwitchIdentity = "switch-identity"; //switch-identity-[identity]
+    public const string SwitchIdentityBase = "switch-identity-base"; //switch-identity-base-[identity]
     public const string SwitchIdentityCheck = "switch-identity-check"; //switch-identity-check-[identity]
 
     //Move
-    public const string MoveCheckAhead = "move-check-ahead";
+    public const string MoveCheckAheadSide = "move-check-ahead-side";
     public const string MoveCheckAheadBot = "move-check-ahead-bot";
 
     //Body
     public const string BodyStatic = "body-static";
+
+    //Event
+    public const string EventIdentityBase = "event-identity-base"; //event-identity-base-[identity]
 
     //
 
@@ -98,23 +103,26 @@ public class KeyInit
         switch (Key)
         {
             //Follow
-            case Key.FollowIdentity:
-                return FollowIdentity;
+            case Key.FollowIdentityBase:
+                return FollowIdentityBase;
             case Key.FollowIdentityCheck:
                 return FollowIdentityCheck;
             //Switch
-            case Key.SwitchIdentity:
-                return SwitchIdentity;
+            case Key.SwitchIdentityBase:
+                return SwitchIdentityBase;
             case Key.SwitchIdentityCheck:
                 return SwitchIdentityCheck;
             //Move
-            case Key.MoveCheckAhead:
-                return MoveCheckAhead;
+            case Key.MoveCheckAheadSide:
+                return MoveCheckAheadSide;
             case Key.MoveCheckAheadBot:
                 return MoveCheckAheadBot;
             //Body
             case Key.BodyStatic:
                 return BodyStatic;
+            //Event
+            case Key.EvenIdentitytBase:
+                return EventIdentityBase;
         }
         return None;
     }
