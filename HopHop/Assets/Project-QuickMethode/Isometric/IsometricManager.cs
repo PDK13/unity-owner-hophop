@@ -33,24 +33,18 @@ public class IsometricManager : SingletonManager<IsometricManager>
         if (this.Config != null)
             return;
         //
-        var Config = QUnityAssets.GetScriptableObject<IsometricConfig>("");
+        var IsometricConfigFound = QUnityAssets.GetScriptableObject<IsometricConfig>("");
         //
-        if (Config == null)
+        if (IsometricConfigFound == null ? IsometricConfigFound.Count == 0 : false)
         {
             Debug.Log("[Message] Config not found, please create one");
             return;
         }
         //
-        if (Config.Count == 0)
-        {
-            Debug.Log("[Message] Config not found, please create one");
-            return;
-        }
-        //
-        if (Config.Count > 1)
+        if (IsometricConfigFound.Count > 1)
             Debug.Log("[Message] Config found more than one, get the first one found");
         //
-        this.Config = Config[0];
+        this.Config = IsometricConfigFound[0];
 #endif
     }
 

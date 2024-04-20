@@ -127,7 +127,7 @@ public class QGameObject
 
     //Prefab
 
-    ///<summary><b>(UnityEditorOnly)</b></summary>
+    ///<remarks><b>UnityEditorOnly</b></remarks>
     public static bool GetCheckPrefab(GameObject From)
     {
         //Check if GameObject is a Prefab?!
@@ -140,13 +140,13 @@ public class QGameObject
 
     //Focus
 
-    ///<summary><b>(UnityEditorOnly)</b></summary>
+    ///<remarks><b>UnityEditorOnly</b></remarks>
     public static GameObject SetFocus(GameObject From)
     {
         return Selection.activeGameObject = From;
     }
 
-    ///<summary><b>(UnityEditorOnly)</b></summary>
+    ///<remarks><b>UnityEditorOnly</b></remarks>
     public static GameObject GetFocus()
     {
         return Selection.activeGameObject;

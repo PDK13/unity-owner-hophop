@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "event-config", menuName = "HopHop/Event Config", order = 0)]
-public class EventConfig : ScriptableObject
+[CreateAssetMenu(fileName = "event-config-single", menuName = "HopHop/Event Config Single", order = 0)]
+public class EventConfigSingle : ScriptableObject
 {
-    public List<EventConfigSingle> Data = new List<EventConfigSingle>();
+    public List<EventConfigSingleData> Data = new List<EventConfigSingleData>();
 }
 
 [Serializable]
-public class EventConfigSingle
+public class EventConfigSingleData
 {
     public DialogueConfigSingle Dialogue;
     public List<string> Command = new List<string>();
@@ -18,13 +18,13 @@ public class EventConfigSingle
 
 #if UNITY_EDITOR
 
-[CustomEditor(typeof(EventConfig))]
+[CustomEditor(typeof(EventConfigSingle))]
 public class EventConfigEditor : Editor
 {
     private const float POPUP_HEIGHT = 150f * 2;
     private const float LABEL_WIDTH = 65f;
 
-    private EventConfig m_target;
+    private EventConfigSingle m_target;
 
     private int m_dataCount;
     private List<int> m_dataCommandCount;
@@ -34,7 +34,7 @@ public class EventConfigEditor : Editor
 
     private void OnEnable()
     {
-        m_target = target as EventConfig;
+        m_target = target as EventConfigSingle;
         //
         m_dataCount = m_target.Data.Count;
         m_dataCommandCount = new List<int>();
@@ -61,7 +61,7 @@ public class EventConfigEditor : Editor
         m_dataCount = QUnityEditor.SetGroupNumberChangeLimitMin(m_dataCount, 0);
         while (m_dataCount > m_target.Data.Count)
         {
-            m_target.Data.Add(new EventConfigSingle());
+            m_target.Data.Add(new EventConfigSingleData());
             m_dataCommandCount.Add(0);
             m_dataCommandShow.Add(false);
         }

@@ -135,7 +135,7 @@ public class QPath
 
     //Open
 
-    ///<summary><b>(UnityEditorOnly)</b></summary>
+    ///<remarks><b>UnityEditorOnly</b></remarks>
     public static (bool Result, string Path, string Name) GetPathFolderOpenPanel(string Title, string PathPrimary = "")
     {
         string Path = EditorUtility.OpenFolderPanel(Title, (PathPrimary == "") ? GetPath(PathType.Assets) : PathPrimary, "");
@@ -143,7 +143,7 @@ public class QPath
         return (Path != "", Path, (PathDencypt.Count > 0) ? PathDencypt[PathDencypt.Count - 1] : "");
     }
 
-    ///<summary><b>(UnityEditorOnly)</b></summary>
+    ///<remarks><b>UnityEditorOnly</b></remarks>
     public static (bool Result, string Path, string Name) GetPathFileOpenPanel(string Title, string Extension, string PathPrimary = "")
     {
         string Path = EditorUtility.OpenFilePanel(Title, (PathPrimary == "") ? GetPath(PathType.Assets) : PathPrimary, Extension);
@@ -153,7 +153,7 @@ public class QPath
 
     //Save
 
-    ///<summary><b>(UnityEditorOnly)</b></summary>
+    ///<remarks><b>UnityEditorOnly</b></remarks>
     public static (bool Result, string Path, string Name) GetPathFolderSavePanel(string Title, string PathPrimary = "")
     {
         string Path = EditorUtility.SaveFolderPanel(Title, (PathPrimary == "") ? GetPath(PathType.Assets) : PathPrimary, "");
@@ -161,7 +161,7 @@ public class QPath
         return (Path != "", Path, (PathDencypt.Count > 0) ? PathDencypt[PathDencypt.Count - 1] : "");
     }
 
-    ///<summary><b>(UnityEditorOnly)</b></summary>
+    ///<remarks><b>UnityEditorOnly</b></remarks>
     public static (bool Result, string Path, string Name) GetPathFileSavePanel(string Title, string Extension, string PathPrimary = "")
     {
         string Path = EditorUtility.SaveFilePanel(Title, (PathPrimary == "") ? GetPath(PathType.Assets) : PathPrimary, "", Extension);

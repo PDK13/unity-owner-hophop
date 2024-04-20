@@ -7,7 +7,7 @@ using UnityEditor;
 
 #if UNITY_EDITOR
 
-///<summary><b>(UnityEditorOnly)</b></summary>
+///<remarks><b>UnityEditorOnly</b></remarks>
 ///<remarks>Excute command(s) of Window and Unity Editor on runtime</remarks>
 public class QUnityAssets
 {
@@ -15,7 +15,7 @@ public class QUnityAssets
 
     #region ==================================== AssetsDatabase : Create Folder
 
-    ///<summary><b>(UnityEditorOnly)</b></summary>
+    ///<remarks><b>UnityEditorOnly</b></remarks>
     public static string SetCreateFolder(params string[] PathChildInAssets)
     {
         Debug.LogFormat("[UnityAssets] Create Folder with path {0}", QPath.GetPath(QPath.PathType.None, PathChildInAssets));
@@ -30,7 +30,7 @@ public class QUnityAssets
         return QPath.GetPath(QPath.PathType.None, PathChildInAssets);
     }
 
-    ///<summary><b>(UnityEditorOnly)</b></summary>
+    ///<remarks><b>UnityEditorOnly</b></remarks>
     private static string SetCreateFolderExist(params string[] PathChildInAssets)
     {
         string PathInAssets = "Assets";
@@ -63,7 +63,7 @@ public class QUnityAssets
 
     #region ==================================== Delete
 
-    ///<summary><b>(UnityEditorOnly)</b></summary>
+    ///<remarks><b>UnityEditorOnly</b></remarks>
     public static void SetDelete(params string[] PathChildInAssets)
     {
         FileUtil.DeleteFileOrDirectory(QPath.GetPath(QPath.PathType.None, PathChildInAssets) + ".meta");
@@ -76,7 +76,7 @@ public class QUnityAssets
 
     #region ==================================== AssetsDatabase : Refresh
 
-    ///<summary><b>(UnityEditorOnly)</b></summary>
+    ///<remarks><b>UnityEditorOnly</b></remarks>
     public static void SetRefresh()
     {
         AssetDatabase.Refresh();
@@ -88,7 +88,7 @@ public class QUnityAssets
 
     //Primary
 
-    ///<summary><b>(UnityEditorOnly)</b></summary>
+    ///<remarks><b>UnityEditorOnly</b></remarks>
     public static List<GameObject> GetPrefab(string NameSpecial, params string[] PathChildInAssets)
     {
         List<GameObject> ObjectsFound = new List<GameObject>();
@@ -109,7 +109,7 @@ public class QUnityAssets
         return ObjectsFound;
     }
 
-    ///<summary><b>(UnityEditorOnly)</b></summary>
+    ///<remarks><b>UnityEditorOnly</b></remarks>
     public static List<AnimationClip> GetAnimationClip(string NameSpecial, params string[] PathChildInAssets)
     {
         List<AnimationClip> ObjectsFound = new List<AnimationClip>();
@@ -130,7 +130,7 @@ public class QUnityAssets
         return ObjectsFound;
     }
 
-    ///<summary><b>(UnityEditorOnly)</b></summary>
+    ///<remarks><b>UnityEditorOnly</b></remarks>
     public static List<AudioClip> GetAudioClip(string NameSpecial, params string[] PathChildInAssets)
     {
         List<AudioClip> ObjectsFound = new List<AudioClip>();
@@ -151,7 +151,7 @@ public class QUnityAssets
         return ObjectsFound;
     }
 
-    ///<summary><b>(UnityEditorOnly)</b></summary>
+    ///<remarks><b>UnityEditorOnly</b></remarks>
     public static List<Font> GetFont(string NameSpecial, params string[] PathChildInAssets)
     {
         List<Font> ObjectsFound = new List<Font>();
@@ -172,7 +172,7 @@ public class QUnityAssets
         return ObjectsFound;
     }
 
-    ///<summary><b>(UnityEditorOnly)</b></summary>
+    ///<remarks><b>UnityEditorOnly</b></remarks>
     public static List<Material> GetMaterial(string NameSpecial, params string[] PathChildInAssets)
     {
         List<Material> ObjectsFound = new List<Material>();
@@ -193,7 +193,7 @@ public class QUnityAssets
         return ObjectsFound;
     }
 
-    ///<summary><b>(UnityEditorOnly)</b></summary>
+    ///<remarks><b>UnityEditorOnly</b></remarks>
     public static List<PhysicMaterial> GetPhysicMaterial(string NameSpecial, params string[] PathChildInAssets)
     {
         List<PhysicMaterial> ObjectsFound = new List<PhysicMaterial>();
@@ -214,7 +214,7 @@ public class QUnityAssets
         return ObjectsFound;
     }
 
-    ///<summary><b>(UnityEditorOnly)</b></summary>
+    ///<remarks><b>UnityEditorOnly</b></remarks>
     public static List<Texture> GetTexture(string NameSpecial, params string[] PathChildInAssets)
     {
         List<Texture> ObjectsFound = new List<Texture>();
@@ -235,7 +235,7 @@ public class QUnityAssets
         return ObjectsFound;
     }
 
-    ///<summary><b>(UnityEditorOnly)</b></summary>
+    ///<remarks><b>UnityEditorOnly</b></remarks>
     public static List<Texture2D> GetTexture2D(string NameSpecial, params string[] PathChildInAssets)
     {
         List<Texture2D> ObjectsFound = new List<Texture2D>();
@@ -256,7 +256,7 @@ public class QUnityAssets
         return ObjectsFound;
     }
 
-    ///<summary><b>(UnityEditorOnly)</b></summary>
+    ///<remarks><b>UnityEditorOnly</b></remarks>
     public static List<VideoClip> GetVideoClip(string NameSpecial, params string[] PathChildInAssets)
     {
         List<VideoClip> ObjectsFound = new List<VideoClip>();
@@ -277,7 +277,7 @@ public class QUnityAssets
         return ObjectsFound;
     }
 
-    ///<summary><b>(UnityEditorOnly)</b></summary>
+    ///<remarks><b>UnityEditorOnly</b></remarks>
     public static List<Sprite> GetSprite(string NameSpecial, params string[] PathChildInAssets)
     {
         List<Sprite> ObjectsFound = new List<Sprite>();
@@ -298,7 +298,7 @@ public class QUnityAssets
         return ObjectsFound;
     }
 
-    ///<summary><b>(UnityEditorOnly)</b></summary>
+    ///<remarks><b>UnityEditorOnly</b></remarks>
     public static List<RuntimeAnimatorController> GetAnimatorController(string NameSpecial, params string[] PathChildInAssets)
     {
         List<RuntimeAnimatorController> ObjectsFound = new List<RuntimeAnimatorController>();
@@ -319,7 +319,7 @@ public class QUnityAssets
         return ObjectsFound;
     }
 
-    ///<summary><b>(UnityEditorOnly)</b></summary>
+    ///<remarks><b>UnityEditorOnly</b></remarks>
     public static List<TextAsset> GetTextAsset(string NameSpecial, QPath.ExtensionType FileExtension, params string[] PathChildInAssets)
     {
         List<TextAsset> ObjectsFound = new List<TextAsset>();
@@ -346,7 +346,7 @@ public class QUnityAssets
 
     //Custom
 
-    ///<summary><b>(UnityEditorOnly)</b></summary>
+    ///<remarks><b>UnityEditorOnly</b></remarks>
     public static List<T> GetPrefab<T>(string NameSpecial, params string[] PathChildInAssets) where T : Component
     {
         List<T> ObjectsFound = new List<T>();
@@ -371,7 +371,7 @@ public class QUnityAssets
         return ObjectsFound;
     }
 
-    ///<summary><b>(UnityEditorOnly)</b></summary>
+    ///<remarks><b>UnityEditorOnly</b></remarks>
     public static List<T> GetScriptableObject<T>(string NameSpecial, params string[] PathChildInAssets) where T : ScriptableObject
     {
         List<T> ObjectsFound = new List<T>();

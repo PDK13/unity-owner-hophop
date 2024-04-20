@@ -17,7 +17,7 @@ public class KeyInit
         //Body
         BodyStatic,
         //Event
-        EvenIdentitytBase,
+        EventIdentitytBase,
     }
 
     public const string None = "";
@@ -121,7 +121,7 @@ public class KeyInit
             case Key.BodyStatic:
                 return BodyStatic;
             //Event
-            case Key.EvenIdentitytBase:
+            case Key.EventIdentitytBase:
                 return EventIdentityBase;
         }
         return None;
