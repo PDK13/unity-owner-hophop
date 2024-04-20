@@ -77,14 +77,16 @@ public class BodyEvent : MonoBehaviour, IBodyInteractive
         m_eventIdentityBase = m_eventIdentityData.name;
     }
 
-    public void SetEditorEventBaseFind()
+    //
+
+    public void SetEditorEventIdentityBaseFind()
     {
         m_eventIdentityBase = KeyInit.GetData(GetComponent<IsometricDataInit>(), KeyInit.Key.EventIdentitytBase, false);
     }
 
     public void SetEditorEventIdentityBase()
     {
-        SetEditorEventCheckBaseRemove();
+        SetEditorEventIdentityBaseRemove();
 
         m_block = QComponent.GetComponent<IsometricBlock>(this);
         IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
@@ -93,13 +95,13 @@ public class BodyEvent : MonoBehaviour, IBodyInteractive
         m_eventIdentityBase = m_eventIdentityData.name;
     }
 
-    public void SetEditorEventCheckBaseRemove()
+    public void SetEditorEventIdentityBaseRemove()
     {
         IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
         BlockInit.Data.RemoveAll(t => t.Contains(KeyInit.GetKey(KeyInit.Key.EventIdentitytBase)));
     }
 
-    public bool GetEditorEventBase()
+    public bool GetEditorEventIdentityBase()
     {
         IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
         return BlockInit.Data.Exists(t => t.Contains(KeyInit.GetKey(KeyInit.Key.EventIdentitytBase)));

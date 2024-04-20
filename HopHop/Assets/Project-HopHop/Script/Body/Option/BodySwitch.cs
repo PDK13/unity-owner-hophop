@@ -146,20 +146,18 @@ public class BodySwitch : MonoBehaviour, IBodyInteractive, IBodySwitch
 
     public void SetEditorSwitchIdentityBase()
     {
-        //SetEditorSwitchCheckRemove();
-        //
         m_block = QComponent.GetComponent<IsometricBlock>(this);
         IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
         BlockInit.SetValue(KeyInit.GetKey(KeyInit.Key.SwitchIdentityBase) + m_block.Pos.ToString());
     }
 
-    public void SetEditorSwitchCheckBaseRemove()
+    public void SetEditorSwitchIdentityBaseRemove()
     {
         IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
         BlockInit.Data.RemoveAll(t => t.Contains(KeyInit.GetKey(KeyInit.Key.SwitchIdentityBase)));
     }
 
-    public bool GetEditorSwitchBase()
+    public bool GetEditorSwitchIdentityBase()
     {
         IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
         return BlockInit.Data.Exists(t => t.Contains(KeyInit.GetKey(KeyInit.Key.SwitchIdentityBase)));
@@ -169,19 +167,17 @@ public class BodySwitch : MonoBehaviour, IBodyInteractive, IBodySwitch
 
     public void SetEditorSwitchIdentityCheck(IsometricBlock BlockFollow)
     {
-        //SetEditorSwitchCheckRemove();
-        //
         IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
         BlockInit.SetValue(KeyInit.GetKey(KeyInit.Key.SwitchIdentityCheck) + BlockFollow.Pos.ToString());
     }
 
-    public void SetEditorSwitchCheckRemove(IsometricVector Pos)
+    public void SetEditorSwitchIdentityCheckRemove(IsometricVector Pos)
     {
         IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
         BlockInit.Data.RemoveAll(t => t.Contains(KeyInit.GetKey(KeyInit.Key.SwitchIdentityCheck) + Pos.ToString()));
     }
 
-    public bool GetEditorSwitchCheck(IsometricVector Pos)
+    public bool GetEditorSwitchIdentityCheck(IsometricVector Pos)
     {
         IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
         return BlockInit.Data.Exists(t => t.Contains(KeyInit.GetKey(KeyInit.Key.SwitchIdentityCheck) + Pos.ToString()));
