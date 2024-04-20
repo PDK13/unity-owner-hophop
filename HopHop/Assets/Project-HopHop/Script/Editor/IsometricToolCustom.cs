@@ -205,7 +205,7 @@ public class IsometricToolCustom : IsometricTool
             QUnityEditor.SetLabel(CursonBodyEvent.EditorEventIdentityBase, null, QUnityEditorWindow.GetGUILayoutWidth(this, 0.75f));
         }
         else
-            QUnityEditor.SetLabel("(No config name found)", null, QUnityEditorWindow.GetGUILayoutWidth(this, 0.75f));
+            QUnityEditor.SetLabel("(No init config found)", null, QUnityEditorWindow.GetGUILayoutWidth(this, 0.75f));
         CursonBodyEvent.EditorEventIdentityData = QUnityEditor.SetField<EventConfigSingle>(CursonBodyEvent.EditorEventIdentityData, QUnityEditorWindow.GetGUILayoutWidth(this, 0.75f));
 
         QUnityEditor.SetHorizontalBegin();

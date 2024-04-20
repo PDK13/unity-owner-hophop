@@ -57,6 +57,10 @@ public class BodyEvent : MonoBehaviour, IBodyInteractive
     public void SetEditorEventDataFind()
     {
         m_eventIdentityBase = KeyInit.GetData(GetComponent<IsometricDataInit>(), KeyInit.Key.EventIdentitytBase, false);
+        //
+        if (string.IsNullOrEmpty(m_eventIdentityBase))
+            return;
+        //
         var EventConfigFound = QUnityAssets.GetScriptableObject<EventConfigSingle>(m_eventIdentityBase, true);
         if (EventConfigFound == null ? EventConfigFound.Count == 0 : false)
         {

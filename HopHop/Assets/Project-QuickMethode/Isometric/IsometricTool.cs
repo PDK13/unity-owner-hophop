@@ -272,11 +272,19 @@ public class IsometricTool : EditorWindow
                         //Block Curson!!
                         case KeyCode.Home:
                             m_manager.World.Current.SetBlockCreate(m_curson.Pos, m_manager.List.BlockList[m_indexTag].Block[m_indexName].gameObject, true);
+                            SetCursonMaskXY();
+                            SetCursonHiddenH();
+                            SetCursonCheck();
+                            SetCameraFollow();
                             m_event.Use();
                             QUnityEditor.SetDirty(m_manager.gameObject);
                             break;
                         case KeyCode.End:
                             m_manager.World.Current.SetBlockRemovePrimary(m_curson.Pos);
+                            SetCursonMaskXY();
+                            SetCursonHiddenH();
+                            SetCursonCheck();
+                            SetCameraFollow();
                             m_event.Use();
                             QUnityEditor.SetDirty(m_manager.gameObject);
                             break;
