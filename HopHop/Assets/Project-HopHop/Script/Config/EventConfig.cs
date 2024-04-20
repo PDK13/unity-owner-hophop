@@ -49,26 +49,26 @@ public class EventConfigEditor : Editor
 
     public override void OnInspectorGUI()
     {
-        SetGUIGroupEvent();
+        QUnityEditor.SetLabel("EVENT", QUnityEditor.GetGUIStyleLabel(FontStyle.Bold, TextAnchor.MiddleCenter));
+        SetGUICode();
+        SetGUIGroupData();
         //
         QUnityEditor.SetDirty(m_target);
     }
 
-    private void SetGUIGroupEvent()
+    private void SetGUICode()
     {
-        QUnityEditor.SetLabel("EVENT", QUnityEditor.GetGUIStyleLabel(FontStyle.Bold, TextAnchor.MiddleCenter));
-        //
-        //CODE:
         QUnityEditor.SetHorizontalBegin();
         QUnityEditor.SetLabel("Code", null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH));
         m_target.Code = QUnityEditor.SetField(m_target.Code);
         QUnityEditor.SetHorizontalEnd();
-        //
-        //COUNT:
+    }
+
+    private void SetGUIGroupData()
+    {
+        #region COUNT
         QUnityEditor.SetLabel("Data", null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH));
         m_dataCount = QUnityEditor.SetGroupNumberChangeLimitMin(m_dataCount, 0);
-        //
-        //COUNT:
         while (m_dataCount > m_target.Data.Count)
         {
             m_target.Data.Add(new EventConfigSingle());
@@ -79,29 +79,28 @@ public class EventConfigEditor : Editor
         {
             m_target.Data.RemoveAt(m_target.Data.Count - 1);
             m_dataCommandCount.RemoveAt(m_dataCommandCount.Count - 1);
-            m_dataCommandShow.RemoveAt(m_dataCommandCount.Count - 1);
+            m_dataCommandShow.RemoveAt(m_dataCommandShow.Count - 1);
         }
-        //
+        #endregion
+
         m_scrollData = QUnityEditor.SetScrollViewBegin(m_scrollData, null);
         for (int i = 0; i < m_target.Data.Count; i++)
         {
-            //ITEM:
-            //
-            //ITEM - NUM:
+            #region ITEM
             QUnityEditor.SetHorizontalBegin();
             QUnityEditor.SetLabel(i.ToString(), QUnityEditor.GetGUIStyleLabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditor.GetGUILayoutWidth(25));
-            //ITEM - NUM:
-            //
-            //ITEM - MAIN:
+
+            #region ITEM - MAIN
             QUnityEditor.SetVerticalBegin();
-            //
-            //ITEM - Dialogue
+
+            #region ITEM - MAIN - DIALOGUE
             QUnityEditor.SetHorizontalBegin();
             QUnityEditor.SetLabel("Dialogue", null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH));
             m_target.Data[i].Dialogue = QUnityEditor.SetField(m_target.Data[i].Dialogue);
             QUnityEditor.SetHorizontalEnd();
-            //
-            //ITEM - Command
+            #endregion
+
+            #region ITEM - MAIN - COMMAND
             if (QUnityEditor.SetButton("Command", QUnityEditor.GetGUIStyleButton(FontStyle.Normal, TextAnchor.MiddleCenter, 10), QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH)))
                 m_dataCommandShow[i] = !m_dataCommandShow[i];
             if (m_dataCommandShow[i])
@@ -123,15 +122,14 @@ public class EventConfigEditor : Editor
                 }
                 QUnityEditor.SetVerticalEnd();
             }
-            //ITEM - Command
-            //
+            #endregion
+
             QUnityEditor.SetHorizontalEnd();
-            //ITEM - MAIN:
-            //
+            #endregion
+
             QUnityEditor.SetVerticalEnd();
-            //ITEM:
-            //
-            //NEXT:
+            #endregion
+
             QUnityEditor.SetSpace();
         }
         QUnityEditor.SetScrollViewEnd();
