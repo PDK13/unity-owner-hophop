@@ -24,6 +24,7 @@ public class IsometricToolCustom : IsometricTool
         SetGUIBodyMovePhysic();
         SetGUIBodyPhysic();
         SetGUIBodySwitch();
+        SetGUIBodyEvent();
     }
 
     //
@@ -35,19 +36,19 @@ public class IsometricToolCustom : IsometricTool
         //
         if (BlockFocus == BlockCurson)
         {
-            BodyMoveStatic BlockFocusMoveStatic = BlockFocus.GetComponent<BodyMoveStatic>();
-            if (BlockFocusMoveStatic == null)
+            BodyMoveStatic FocusBodyMoveStatic = BlockFocus.GetComponent<BodyMoveStatic>();
+            if (FocusBodyMoveStatic == null)
                 return;
             //
             QUnityEditor.SetHorizontalBegin();
             QUnityEditor.SetBackground(Color.white);
             QUnityEditor.SetLabel("MOVE-ST: ", QUnityEditor.GetGUIStyleLabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
-            bool MoveStaticFollow = BlockFocusMoveStatic.GetEditorFollowIdentityBase();
-            if (MoveStaticFollow)
+            bool FocusFollowIdentityBase = FocusBodyMoveStatic.GetEditorFollowIdentityBase();
+            if (FocusFollowIdentityBase)
             {
                 if (QUnityEditor.SetButton("REMOVE", QUnityEditor.GetGUIStyleButton(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
                 {
-                    BlockFocusMoveStatic.SetEditorFollowIdentityBaseRemove();
+                    FocusBodyMoveStatic.SetEditorFollowIdentityBaseRemove();
                 }
                 QUnityEditor.SetLabel("", QUnityEditor.GetGUIStyleLabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
                 QUnityEditor.SetLabel("", QUnityEditor.GetGUIStyleLabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
@@ -62,24 +63,24 @@ public class IsometricToolCustom : IsometricTool
         }
         else
         {
-            BodyMoveStatic BlockFocusMoveStatic = BlockFocus.GetComponent<BodyMoveStatic>();
-            BodyMoveStatic BlockCursonMoveStatic = BlockCurson.GetComponent<BodyMoveStatic>();
-            if (BlockFocusMoveStatic == null || BlockCursonMoveStatic == null)
+            BodyMoveStatic FocusBodyMoveStatic = BlockFocus.GetComponent<BodyMoveStatic>();
+            BodyMoveStatic CursonBodyMoveStatic = BlockCurson.GetComponent<BodyMoveStatic>();
+            if (FocusBodyMoveStatic == null || CursonBodyMoveStatic == null)
                 return;
             //
             QUnityEditor.SetHorizontalBegin();
             QUnityEditor.SetBackground(Color.white);
             QUnityEditor.SetLabel("MOVE-ST: ", QUnityEditor.GetGUIStyleLabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
-            bool CursonCheckFollow = BlockCursonMoveStatic.GetEditorFollowIdentityBase();
-            if (QUnityEditor.SetButton(!CursonCheckFollow ? "FOLLOW" : "REMOVE", QUnityEditor.GetGUIStyleButton(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
+            bool CursonFollowIdentityBase = CursonBodyMoveStatic.GetEditorFollowIdentityBase();
+            if (QUnityEditor.SetButton(!CursonFollowIdentityBase ? "FOLLOW" : "REMOVE", QUnityEditor.GetGUIStyleButton(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
             {
-                if (!CursonCheckFollow)
+                if (!CursonFollowIdentityBase)
                 {
-                    BlockFocusMoveStatic.SetEditorFollowIdentityBase();
-                    BlockCursonMoveStatic.SetEditorFollowIdentityBaseCheck(BlockFocus);
+                    FocusBodyMoveStatic.SetEditorFollowIdentityBase();
+                    CursonBodyMoveStatic.SetEditorFollowIdentityBaseCheck(BlockFocus);
                 }
                 else
-                    BlockCursonMoveStatic.SetEditorFollowIdentityBaseRemove();
+                    CursonBodyMoveStatic.SetEditorFollowIdentityBaseRemove();
             }
             QUnityEditor.SetLabel("", QUnityEditor.GetGUIStyleLabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
             QUnityEditor.SetLabel("", QUnityEditor.GetGUIStyleLabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
@@ -92,28 +93,28 @@ public class IsometricToolCustom : IsometricTool
         if (BlockCurson == null)
             return;
         //
-        BodyMovePhysic BlockCursonMovePhysic = BlockCurson.GetComponent<BodyMovePhysic>();
-        if (BlockCursonMovePhysic == null)
+        BodyMovePhysic CursonBodyMovePhysic = BlockCurson.GetComponent<BodyMovePhysic>();
+        if (CursonBodyMovePhysic == null)
             return;
         //
         QUnityEditor.SetHorizontalBegin();
         QUnityEditor.SetBackground(Color.white);
         QUnityEditor.SetLabel("MOVE-PH: ", QUnityEditor.GetGUIStyleLabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
-        bool CursonCheckAhead = BlockCursonMovePhysic.GetEditorMoveCheckAheadSide();
-        if (QUnityEditor.SetButton("AHEAD SIDE", QUnityEditor.GetGUIStyleButton(CursonCheckAhead ? FontStyle.Bold : FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
+        bool CursonMoveCheckAheadSide = CursonBodyMovePhysic.GetEditorMoveCheckAheadSide();
+        if (QUnityEditor.SetButton("AHEAD SIDE", QUnityEditor.GetGUIStyleButton(CursonMoveCheckAheadSide ? FontStyle.Bold : FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
         {
-            if (CursonCheckAhead)
-                BlockCursonMovePhysic.SetEditorMoveCheckAheadSideRemove();
+            if (CursonMoveCheckAheadSide)
+                CursonBodyMovePhysic.SetEditorMoveCheckAheadSideRemove();
             else
-                BlockCursonMovePhysic.SetEditorMoveCheckAheadSide();
+                CursonBodyMovePhysic.SetEditorMoveCheckAheadSide();
         }
-        bool CursonCheckAheadBot = BlockCursonMovePhysic.GetEditorMoveCheckAheadBot();
-        if (QUnityEditor.SetButton("AHEAD BOT", QUnityEditor.GetGUIStyleButton(CursonCheckAheadBot ? FontStyle.Bold : FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
+        bool CursonMoveCheckAheadBot = CursonBodyMovePhysic.GetEditorMoveCheckAheadBot();
+        if (QUnityEditor.SetButton("AHEAD BOT", QUnityEditor.GetGUIStyleButton(CursonMoveCheckAheadBot ? FontStyle.Bold : FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
         {
-            if (CursonCheckAhead)
-                BlockCursonMovePhysic.SetEditorMoveCheckAheadBotRemove();
+            if (CursonMoveCheckAheadSide)
+                CursonBodyMovePhysic.SetEditorMoveCheckAheadBotRemove();
             else
-                BlockCursonMovePhysic.SetEditorMoveCheckAheadBot();
+                CursonBodyMovePhysic.SetEditorMoveCheckAheadBot();
         }
         QUnityEditor.SetLabel("", QUnityEditor.GetGUIStyleLabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
         QUnityEditor.SetHorizontalEnd();
@@ -124,20 +125,20 @@ public class IsometricToolCustom : IsometricTool
         if (BlockCurson == null)
             return;
         //
-        BodyPhysic BlockCursonBodyStatic = BlockCurson.GetComponent<BodyPhysic>();
-        if (BlockCursonBodyStatic == null)
+        BodyPhysic CursonBodyPhysic = BlockCurson.GetComponent<BodyPhysic>();
+        if (CursonBodyPhysic == null)
             return;
         //
         QUnityEditor.SetHorizontalBegin();
         QUnityEditor.SetBackground(Color.white);
         QUnityEditor.SetLabel("BODY-PH: ", QUnityEditor.GetGUIStyleLabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
-        bool CursonCheckStatic = BlockCursonBodyStatic.GetEditorBodyStatic();
-        if (QUnityEditor.SetButton("STATIC", QUnityEditor.GetGUIStyleButton(CursonCheckStatic ? FontStyle.Bold : FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
+        bool CursonBodyStatic = CursonBodyPhysic.GetEditorBodyStatic();
+        if (QUnityEditor.SetButton("STATIC", QUnityEditor.GetGUIStyleButton(CursonBodyStatic ? FontStyle.Bold : FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
         {
-            if (CursonCheckStatic)
-                BlockCursonBodyStatic.SetEditorBodyStaticRemove();
+            if (CursonBodyStatic)
+                CursonBodyPhysic.SetEditorBodyStaticRemove();
             else
-                BlockCursonBodyStatic.SetEditorBodyStatic();
+                CursonBodyPhysic.SetEditorBodyStatic();
         }
         QUnityEditor.SetLabel("", QUnityEditor.GetGUIStyleLabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
         QUnityEditor.SetLabel("", QUnityEditor.GetGUIStyleLabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
@@ -152,34 +153,70 @@ public class IsometricToolCustom : IsometricTool
         if (BlockFocus == BlockCurson)
             return;
         //
-        BodySwitch BlockFocusSwitch = BlockFocus.GetComponent<BodySwitch>();
-        BodySwitch BlockCursonSwitch = BlockCurson.GetComponent<BodySwitch>();
-        if (BlockFocusSwitch == null || BlockCursonSwitch == null)
+        BodySwitch FocusSwitch = BlockFocus.GetComponent<BodySwitch>();
+        BodySwitch CursonSwitch = BlockCurson.GetComponent<BodySwitch>();
+        if (FocusSwitch == null || CursonSwitch == null)
             return;
         //
         QUnityEditor.SetHorizontalBegin();
         QUnityEditor.SetBackground(Color.white);
         QUnityEditor.SetLabel("SWITCH: ", QUnityEditor.GetGUIStyleLabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
-        bool CursonCheckFollow = BlockCursonSwitch.GetEditorSwitchCheck(BlockFocus.Pos);
-        if (QUnityEditor.SetButton(!CursonCheckFollow ? "FOLLOW" : "REMOVE", QUnityEditor.GetGUIStyleButton(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
+        bool CursonSwitchCheck = CursonSwitch.GetEditorSwitchCheck(BlockFocus.Pos);
+        if (QUnityEditor.SetButton(!CursonSwitchCheck ? "FOLLOW" : "REMOVE", QUnityEditor.GetGUIStyleButton(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
         {
-            if (!CursonCheckFollow)
+            if (!CursonSwitchCheck)
             {
-                BlockFocusSwitch.SetEditorSwitchIdentityBase();
-                BlockCursonSwitch.SetEditorSwitchIdentityCheck(BlockFocus);
+                FocusSwitch.SetEditorSwitchIdentityBase();
+                CursonSwitch.SetEditorSwitchIdentityCheck(BlockFocus);
             }
             else
-                BlockCursonSwitch.SetEditorSwitchCheckRemove(BlockFocus.Pos);
+                CursonSwitch.SetEditorSwitchCheckRemove(BlockFocus.Pos);
         }
-        bool CursonCheckFollowExist = BlockCursonSwitch.GetEditorSwitchBase();
-        if (CursonCheckFollowExist)
+        bool CursonSwitchBase = CursonSwitch.GetEditorSwitchBase();
+        if (CursonSwitchBase)
         {
             if (QUnityEditor.SetButton("CLEAR", QUnityEditor.GetGUIStyleButton(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
             {
-                BlockCursonSwitch.SetEditorSwitchCheckBaseRemove();
+                CursonSwitch.SetEditorSwitchCheckBaseRemove();
             }
         }
         QUnityEditor.SetLabel("", QUnityEditor.GetGUIStyleLabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
+        QUnityEditor.SetHorizontalEnd();
+    }
+
+    private void SetGUIBodyEvent()
+    {
+        if (BlockCurson == null)
+            return;
+
+        BodyEvent CursonBodyEvent = BlockCurson.GetComponent<BodyEvent>();
+        if (CursonBodyEvent == null)
+            return;
+
+        QUnityEditor.SetHorizontalBegin();
+        QUnityEditor.SetBackground(Color.white);
+        QUnityEditor.SetLabel("BODY-EV: ", QUnityEditor.GetGUIStyleLabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
+
+        QUnityEditor.SetVerticalBegin();
+        if (CursonBodyEvent.GetEditorEventBase())
+        {
+            if (string.IsNullOrEmpty(CursonBodyEvent.EditorEventIdentityBase))
+                CursonBodyEvent.SetEditorEventBaseFind();
+            QUnityEditor.SetLabel(CursonBodyEvent.EditorEventIdentityBase, null, QUnityEditorWindow.GetGUILayoutWidth(this, 0.75f));
+        }
+        else
+            QUnityEditor.SetLabel("(No config name found)", null, QUnityEditorWindow.GetGUILayoutWidth(this, 0.75f));
+        CursonBodyEvent.EditorEventIdentityData = QUnityEditor.SetField<EventConfigSingle>(CursonBodyEvent.EditorEventIdentityData, QUnityEditorWindow.GetGUILayoutWidth(this, 0.75f));
+
+        QUnityEditor.SetHorizontalBegin();
+        if (QUnityEditor.SetButton("FIND", null, QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
+            CursonBodyEvent.SetEditorEventDataFind();
+        if (QUnityEditor.SetButton("UPDATE", null, QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
+            CursonBodyEvent.SetEditorEventIdentityBase();
+        QUnityEditor.SetHorizontalEnd();
+
+        QUnityEditor.SetVerticalEnd();
+
         QUnityEditor.SetHorizontalEnd();
     }
 }

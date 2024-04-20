@@ -23,12 +23,12 @@ public class KeyInit
     public const string None = "";
 
     //Follow
-    public const string FollowIdentityBase = "follow-identity-base"; //follow-identity-base-[identity]
-    public const string FollowIdentityCheck = "follow-identity-check"; //follow-identity-check-[identity]
+    public const string FollowIdentityBase = "follow-identity-base-"; //follow-identity-base-[identity]
+    public const string FollowIdentityCheck = "follow-identity-check-"; //follow-identity-check-[identity]
 
     //Switch
-    public const string SwitchIdentityBase = "switch-identity-base"; //switch-identity-base-[identity]
-    public const string SwitchIdentityCheck = "switch-identity-check"; //switch-identity-check-[identity]
+    public const string SwitchIdentityBase = "switch-identity-base-"; //switch-identity-base-[identity]
+    public const string SwitchIdentityCheck = "switch-identity-check-"; //switch-identity-check-[identity]
 
     //Move
     public const string MoveCheckAheadSide = "move-check-ahead-side";
@@ -38,7 +38,7 @@ public class KeyInit
     public const string BodyStatic = "body-static";
 
     //Event
-    public const string EventIdentityBase = "event-identity-base"; //event-identity-base-[identity]
+    public const string EventIdentityBase = "event-identity-base-"; //event-identity-base-[identity]
 
     //
 

@@ -261,7 +261,7 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
         //
         m_block = QComponent.GetComponent<IsometricBlock>(this);
         IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
-        BlockInit.SetValue(KeyInit.GetKey(KeyInit.Key.FollowIdentityBase) + "-" + m_block.Pos.ToString());
+        BlockInit.SetValue(KeyInit.GetKey(KeyInit.Key.FollowIdentityBase) + m_block.Pos.ToString());
     }
 
     public void SetEditorFollowIdentityBaseCheck(IsometricBlock BlockFollow)
@@ -269,7 +269,7 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
         SetEditorFollowIdentityBaseRemove();
         //
         IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
-        BlockInit.SetValue(KeyInit.GetKey(KeyInit.Key.FollowIdentityCheck) + "-" + BlockFollow.Pos.ToString());
+        BlockInit.SetValue(KeyInit.GetKey(KeyInit.Key.FollowIdentityCheck) + BlockFollow.Pos.ToString());
     }
 
     public void SetEditorFollowIdentityBaseRemove()

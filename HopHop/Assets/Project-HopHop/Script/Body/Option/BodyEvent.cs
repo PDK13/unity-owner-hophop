@@ -18,6 +18,14 @@ public class BodyEvent : MonoBehaviour, IBodyInteractive
 
     public bool EventSide => m_eventSide;
 
+#if UNITY_EDITOR
+
+    public string EditorEventIdentityBase => m_eventIdentityBase;
+
+    public EventConfigSingle EditorEventIdentityData { get => m_eventIdentityData; set => m_eventIdentityData = value; }
+
+#endif
+
     //
 
     private void Awake()
@@ -46,39 +54,43 @@ public class BodyEvent : MonoBehaviour, IBodyInteractive
 
 #if UNITY_EDITOR
 
-    public void SetEditorEventDataGet()
+    public void SetEditorEventDataFind()
     {
         m_eventIdentityBase = KeyInit.GetData(GetComponent<IsometricDataInit>(), KeyInit.Key.EventIdentitytBase, false);
-        var EventConfigFound = QUnityAssets.GetScriptableObject<EventConfigSingle>(m_eventIdentityBase);
+        var EventConfigFound = QUnityAssets.GetScriptableObject<EventConfigSingle>(m_eventIdentityBase, true);
         if (EventConfigFound == null ? EventConfigFound.Count == 0 : false)
         {
             m_block = GetComponent<IsometricBlock>();
             Debug.Log("[BodyEvent] " + m_block.Pos.ToString() + " not found config " + m_eventIdentityBase);
             return;
         }
-        //
+
+        EventConfigFound.RemoveAll(t => t.name != m_eventIdentityBase);
+
         if (EventConfigFound.Count > 1)
+        {
+            m_block = GetComponent<IsometricBlock>();
             Debug.Log("[BodyEvent] " + m_block.Pos.ToString() + " found more than one, get the first one found");
-        //
+        }
+
         m_eventIdentityData = EventConfigFound[0];
+        m_eventIdentityBase = m_eventIdentityData.name;
+    }
+
+    public void SetEditorEventBaseFind()
+    {
+        m_eventIdentityBase = KeyInit.GetData(GetComponent<IsometricDataInit>(), KeyInit.Key.EventIdentitytBase, false);
     }
 
     public void SetEditorEventIdentityBase()
     {
         SetEditorEventCheckBaseRemove();
-        //
-        m_block = QComponent.GetComponent<IsometricBlock>(this);
-        IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
-        BlockInit.SetValue(KeyInit.GetKey(KeyInit.Key.EventIdentitytBase) + "-" + m_eventIdentityData.name);
-    }
 
-    public void SetEditorEventIdentityBase(string Name)
-    {
-        SetEditorEventCheckBaseRemove();
-        //
         m_block = QComponent.GetComponent<IsometricBlock>(this);
         IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
-        BlockInit.SetValue(KeyInit.GetKey(KeyInit.Key.EventIdentitytBase) + "-" + Name);
+        BlockInit.SetValue(KeyInit.GetKey(KeyInit.Key.EventIdentitytBase) + m_eventIdentityData.name);
+
+        m_eventIdentityBase = m_eventIdentityData.name;
     }
 
     public void SetEditorEventCheckBaseRemove()

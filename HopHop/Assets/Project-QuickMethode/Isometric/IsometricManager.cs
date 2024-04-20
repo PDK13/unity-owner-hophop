@@ -33,7 +33,7 @@ public class IsometricManager : SingletonManager<IsometricManager>
         if (this.Config != null)
             return;
         //
-        var IsometricConfigFound = QUnityAssets.GetScriptableObject<IsometricConfig>("");
+        var IsometricConfigFound = QUnityAssets.GetScriptableObject<IsometricConfig>("", true);
         //
         if (IsometricConfigFound == null ? IsometricConfigFound.Count == 0 : false)
         {
