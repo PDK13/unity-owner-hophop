@@ -1,14 +1,20 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-public class BodyEvent : MonoBehaviour, IBodyInteractive
+public class BodyEvent : MonoBehaviour, IBodyInteractive, ITurnManager
 {
     [SerializeField] private bool m_eventTop = false;
     [SerializeField] private bool m_eventSide = false;
+
+    [Space]
+    [SerializeField] private bool m_eventPlayer = false;
 
     private string m_eventIdentityBase;
 #if UNITY_EDITOR
     [SerializeField] private EventConfigSingle m_eventIdentityData;
 #endif
+
+    private List<IsometricBlock> m_eventInteract = new List<IsometricBlock>();
 
     private IsometricBlock m_block;
 
@@ -17,6 +23,8 @@ public class BodyEvent : MonoBehaviour, IBodyInteractive
     public bool EventTop => m_eventTop;
 
     public bool EventSide => m_eventSide;
+
+    public bool EventAvaible => !string.IsNullOrEmpty(m_eventIdentityBase);
 
 #if UNITY_EDITOR
 
@@ -36,11 +44,46 @@ public class BodyEvent : MonoBehaviour, IBodyInteractive
     private void Start()
     {
         m_eventIdentityBase = KeyInit.GetData(GetComponent<IsometricDataInit>(), KeyInit.Key.EventIdentitytBase, false);
+
+        if (m_eventTop && EventAvaible)
+        {
+            TurnManager.Instance.onTurn += ISetTurn;
+            TurnManager.Instance.onStepEnd += ISetStepEnd;
+        }
     }
 
     private void OnDestroy()
     {
+        if (m_eventTop && EventAvaible)
+        {
+            TurnManager.Instance.onTurn -= ISetTurn;
+            TurnManager.Instance.onStepEnd -= ISetStepEnd;
+        }
+    }
 
+    //
+
+    public void ISetTurn(int Step)
+    {
+        m_eventInteract.Clear();
+    }
+
+    public void ISetStepStart(string Step) { }
+
+    public void ISetStepEnd(string Step)
+    {
+        List<IsometricBlock> Block = m_block.GetCheck(IsometricVector.Top, 1);
+
+        foreach (var BlockCheck in Block)
+        {
+            if (m_eventInteract.Exists(t => t.Equals(BlockCheck)))
+                continue;
+
+            m_eventInteract.Add(BlockCheck);
+
+            if (BlockCheck.GetTag(KeyTag.Player))
+                IInteractive();
+        }
     }
 
     //

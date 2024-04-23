@@ -159,6 +159,7 @@ public class GameManager : SingletonManager<GameManager>
 
     public bool SetEventActive(string Identity)
     {
+        Debug.Log("[Event] " + Identity);
         return false;
     }
 }
