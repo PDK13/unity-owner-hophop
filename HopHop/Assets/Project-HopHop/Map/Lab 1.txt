@@ -49,10 +49,11 @@ Object Flower Blue 0
 [1;1;0]
 Object Switch Stone 0 0
 #BLOCK-INIT
-3
+4
 switch-identity-check-[-1,1,0]
 switch-identity-check-[-1,-1,0]
 switch-identity-base-[1,1,0]
+switch-identity-check-[1,-1,-1]
 #BLOCK-END
 
 [-1;1;0]

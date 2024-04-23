@@ -46,7 +46,7 @@ public class IsometricToolCustom : IsometricTool
             bool FocusFollowIdentityBase = FocusBodyMoveStatic.GetEditorFollowIdentity();
             if (FocusFollowIdentityBase)
             {
-                if (QUnityEditor.SetButton("REMOVE", QUnityEditor.GetGUIStyleButton(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
+                if (QUnityEditor.SetButton("[F] DEL [F]", QUnityEditor.GetGUIStyleButton(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
                 {
                     FocusBodyMoveStatic.SetEditorFollowIdentityRemove();
                 }
@@ -72,7 +72,7 @@ public class IsometricToolCustom : IsometricTool
             QUnityEditor.SetBackground(Color.white);
             QUnityEditor.SetLabel("MOVE-ST: ", QUnityEditor.GetGUIStyleLabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
             bool CursonFollowIdentityBase = CursonBodyMoveStatic.GetEditorFollowIdentity();
-            if (QUnityEditor.SetButton(!CursonFollowIdentityBase ? "FOLLOW" : "REMOVE", QUnityEditor.GetGUIStyleButton(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
+            if (QUnityEditor.SetButton(!CursonFollowIdentityBase ? "[C] ADD [F]" : "[C] DEL [C]", QUnityEditor.GetGUIStyleButton(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
             {
                 if (!CursonFollowIdentityBase)
                 {
@@ -101,7 +101,7 @@ public class IsometricToolCustom : IsometricTool
         QUnityEditor.SetBackground(Color.white);
         QUnityEditor.SetLabel("MOVE-PH: ", QUnityEditor.GetGUIStyleLabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
         bool CursonMoveCheckAheadSide = CursonBodyMovePhysic.GetEditorMoveCheckAheadSide();
-        if (QUnityEditor.SetButton("AHEAD SIDE", QUnityEditor.GetGUIStyleButton(CursonMoveCheckAheadSide ? FontStyle.Bold : FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
+        if (QUnityEditor.SetButton("[C] AHEAD SIDE", QUnityEditor.GetGUIStyleButton(CursonMoveCheckAheadSide ? FontStyle.Bold : FontStyle.Normal, TextAnchor.MiddleCenter, 8), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
         {
             if (CursonMoveCheckAheadSide)
                 CursonBodyMovePhysic.SetEditorMoveCheckAheadSideRemove();
@@ -109,7 +109,7 @@ public class IsometricToolCustom : IsometricTool
                 CursonBodyMovePhysic.SetEditorMoveCheckAheadSide();
         }
         bool CursonMoveCheckAheadBot = CursonBodyMovePhysic.GetEditorMoveCheckAheadBot();
-        if (QUnityEditor.SetButton("AHEAD BOT", QUnityEditor.GetGUIStyleButton(CursonMoveCheckAheadBot ? FontStyle.Bold : FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
+        if (QUnityEditor.SetButton("[C] AHEAD BOT", QUnityEditor.GetGUIStyleButton(CursonMoveCheckAheadBot ? FontStyle.Bold : FontStyle.Normal, TextAnchor.MiddleCenter, 8), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
         {
             if (CursonMoveCheckAheadSide)
                 CursonBodyMovePhysic.SetEditorMoveCheckAheadBotRemove();
@@ -133,7 +133,7 @@ public class IsometricToolCustom : IsometricTool
         QUnityEditor.SetBackground(Color.white);
         QUnityEditor.SetLabel("BODY-PH: ", QUnityEditor.GetGUIStyleLabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
         bool CursonBodyStatic = CursonBodyPhysic.GetEditorBodyStatic();
-        if (QUnityEditor.SetButton("STATIC", QUnityEditor.GetGUIStyleButton(CursonBodyStatic ? FontStyle.Bold : FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
+        if (QUnityEditor.SetButton("[C] STATIC", QUnityEditor.GetGUIStyleButton(CursonBodyStatic ? FontStyle.Bold : FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
         {
             if (CursonBodyStatic)
                 CursonBodyPhysic.SetEditorBodyStaticRemove();
@@ -162,7 +162,7 @@ public class IsometricToolCustom : IsometricTool
         QUnityEditor.SetBackground(Color.white);
         QUnityEditor.SetLabel("SWITCH: ", QUnityEditor.GetGUIStyleLabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
         bool CursonSwitchCheck = CursonSwitch.GetEditorSwitchIdentityCheck(BlockFocus.Pos);
-        if (QUnityEditor.SetButton(!CursonSwitchCheck ? "FOLLOW" : "REMOVE", QUnityEditor.GetGUIStyleButton(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
+        if (QUnityEditor.SetButton(!CursonSwitchCheck ? "[C] ADD [F]" : "[C] DEL [F]", QUnityEditor.GetGUIStyleButton(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
         {
             if (!CursonSwitchCheck)
             {
@@ -175,7 +175,7 @@ public class IsometricToolCustom : IsometricTool
         bool CursonSwitchBase = CursonSwitch.GetEditorSwitchIdentityBase();
         if (CursonSwitchBase)
         {
-            if (QUnityEditor.SetButton("CLEAR", QUnityEditor.GetGUIStyleButton(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
+            if (QUnityEditor.SetButton("[C] DEL [C]", QUnityEditor.GetGUIStyleButton(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
             {
                 CursonSwitch.SetEditorSwitchIdentityBaseRemove();
             }
@@ -209,11 +209,11 @@ public class IsometricToolCustom : IsometricTool
         CursonBodyEvent.EditorEventIdentityData = QUnityEditor.SetField<EventConfigSingle>(CursonBodyEvent.EditorEventIdentityData, QUnityEditorWindow.GetGUILayoutWidth(this, 0.75f));
 
         QUnityEditor.SetHorizontalBegin();
-        if (QUnityEditor.SetButton("FIND", null, QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
+        if (QUnityEditor.SetButton("[C] FIND", null, QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
             CursonBodyEvent.SetEditorEventDataFind();
-        if (QUnityEditor.SetButton("UPDATE", null, QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
+        if (QUnityEditor.SetButton("[C] UPDATE", null, QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
             CursonBodyEvent.SetEditorEventIdentityBase();
-        if (QUnityEditor.SetButton("REMOVE", null, QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
+        if (QUnityEditor.SetButton("[C] DEL", null, QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
             CursonBodyEvent.SetEditorEventIdentityBaseRemove();
         QUnityEditor.SetHorizontalEnd();
 
