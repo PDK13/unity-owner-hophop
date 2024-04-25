@@ -13,7 +13,14 @@ public class EventConfigSingle : ScriptableObject
 public class EventConfigSingleData
 {
     public DialogueConfigSingle Dialogue;
-    public List<string> Command = new List<string>();
+    public List<string> Command;
+}
+
+[Serializable]
+public class EventConfigSingleDataChoice
+{
+    public string Name;
+    public DialogueConfigSingle Dialogue;
 }
 
 #if UNITY_EDITOR
