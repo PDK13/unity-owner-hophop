@@ -22,7 +22,8 @@ MonoBehaviour:
     Choice:
     - Name: 
       Dialogue: {fileID: 0}
-      EventNext: {fileID: 0}
+      Command: 
+      Next: {fileID: 0}
   - Wait: 0
     Dialogue: {fileID: 0}
     Command: []

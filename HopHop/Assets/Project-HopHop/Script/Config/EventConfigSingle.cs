@@ -42,7 +42,8 @@ public class EventConfigSingleDataChoice
     public string Name;
     public DialogueConfigSingle Dialogue;
 
-    public EventConfigSingle EventNext;
+    public string Command; //NOTE: Check this later!
+    public EventConfigSingle Next;
 }
 
 #if UNITY_EDITOR
@@ -183,10 +184,19 @@ public class EventConfigSingleEditor : Editor
                 QUnityEditor.SetHorizontalEnd();
                 #endregion
 
+                QUnityEditor.SetSpace(10);
+
+                #region ITEM - MAIN - CHOICE - ITEM - MAIN - COMMAND
+                QUnityEditor.SetHorizontalBegin();
+                QUnityEditor.SetLabel("Command", null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH));
+                m_target.Data[i].Choice[j].Command = QUnityEditor.SetField(m_target.Data[i].Choice[j].Command);
+                QUnityEditor.SetHorizontalEnd();
+                #endregion
+
                 #region ITEM - MAIN - CHOICE - ITEM - MAIN - NEXT
                 QUnityEditor.SetHorizontalBegin();
                 QUnityEditor.SetLabel("Next", null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH));
-                m_target.Data[i].Choice[j].EventNext = QUnityEditor.SetField(m_target.Data[i].Choice[j].EventNext);
+                m_target.Data[i].Choice[j].Next = QUnityEditor.SetField(m_target.Data[i].Choice[j].Next);
                 QUnityEditor.SetHorizontalEnd();
                 #endregion
 

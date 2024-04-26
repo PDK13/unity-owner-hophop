@@ -8,6 +8,7 @@ using UnityEditor;
 [CreateAssetMenu(fileName = "event-config", menuName = "HopHop/Event Config", order = 0)]
 public class EventConfig : ScriptableObject
 {
+    public List<string> Type;
     public List<EventConfigSingle> Data;
 }
 
@@ -18,21 +19,25 @@ public class EventConfigEditor : Editor
 {
     private EventConfig m_target;
 
-    private int m_DataCount = 0;
+    private int m_typeCount = 0;
+    private int m_dataCount = 0;
 
+    private Vector2 m_scrollType;
     private Vector2 m_scrollData;
 
     private void OnEnable()
     {
         m_target = target as EventConfig;
 
-        m_DataCount = m_target.Data.Count;
+        m_typeCount = m_target.Type.Count;
+        m_dataCount = m_target.Data.Count;
     }
 
     public override void OnInspectorGUI()
     {
         QUnityEditorCustom.SetUpdate(this);
 
+        SetGUIGroupType();
         SetGUIGroupData();
 
         QUnityEditorCustom.SetApply(this);
@@ -42,17 +47,44 @@ public class EventConfigEditor : Editor
 
     //
 
+    private void SetGUIGroupType()
+    {
+        QUnityEditor.SetLabel("TYPE", QUnityEditor.GetGUIStyleLabel(FontStyle.Bold));
+
+        //COUNT:
+        m_typeCount = QUnityEditor.SetGroupNumberChangeLimitMin("Type", m_typeCount, 0);
+
+        //COUNT:
+        while (m_typeCount > m_target.Type.Count)
+            m_target.Type.Add("");
+        while (m_typeCount < m_target.Type.Count)
+            m_target.Type.RemoveAt(m_target.Type.Count - 1);
+
+        //LIST
+        m_scrollType = QUnityEditor.SetScrollViewBegin(m_scrollType);
+        for (int i = 0; i < m_target.Type.Count; i++)
+        {
+            #region ITEM
+            QUnityEditor.SetHorizontalBegin();
+            QUnityEditor.SetLabel(i.ToString(), QUnityEditor.GetGUIStyleLabel(), QUnityEditor.GetGUILayoutWidth(25));
+            m_target.Type[i] = QUnityEditor.SetField(m_target.Type[i]);
+            QUnityEditor.SetHorizontalEnd();
+            #endregion
+        }
+        QUnityEditor.SetScrollViewEnd();
+    }
+
     private void SetGUIGroupData()
     {
         QUnityEditor.SetLabel("EVENT", QUnityEditor.GetGUIStyleLabel(FontStyle.Bold));
 
         //COUNT:
-        m_DataCount = QUnityEditor.SetGroupNumberChangeLimitMin("Event", m_DataCount, 0);
+        m_dataCount = QUnityEditor.SetGroupNumberChangeLimitMin("Event", m_dataCount, 0);
 
         //COUNT:
-        while (m_DataCount > m_target.Data.Count)
+        while (m_dataCount > m_target.Data.Count)
             m_target.Data.Add(new EventConfigSingle());
-        while (m_DataCount < m_target.Data.Count)
+        while (m_dataCount < m_target.Data.Count)
             m_target.Data.RemoveAt(m_target.Data.Count - 1);
 
         //LIST
