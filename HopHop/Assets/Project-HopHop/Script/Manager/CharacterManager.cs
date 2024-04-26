@@ -1,17 +1,24 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class CharacterManager : SingletonManager<CharacterManager>
 {
+    #region Varible: Action
+
     public Action onCharacter;
 
-    //
+    #endregion
+
+    #region Varible: Config
 
     [SerializeField] private CharacterConfig m_characterConfig;
 
-    //
+    #endregion
+
+    #region Varible: Party
 
     private int m_characterIndex = 0;
     private List<CharacterType> m_characterParty = new List<CharacterType>()
@@ -23,7 +30,9 @@ public class CharacterManager : SingletonManager<CharacterManager>
         CharacterType.Mow,
     };
 
-    //
+    #endregion
+
+    #region Varible: Get
 
     public CharacterConfig CharacterConfig => m_characterConfig;
 
@@ -31,7 +40,42 @@ public class CharacterManager : SingletonManager<CharacterManager>
 
     public CharacterType[] CharacterParty => m_characterParty.ToArray();
 
-    //
+    #endregion
+
+    #region Config
+
+#if UNITY_EDITOR
+
+    public void SetConfigFind()
+    {
+        if (m_characterConfig != null)
+            return;
+
+        var CharacterConfigFound = QUnityAssets.GetScriptableObject<CharacterConfig>("", false);
+
+        if (CharacterConfigFound == null)
+        {
+            Debug.Log("[Character] Config not found, please create one");
+            return;
+        }
+
+        if (CharacterConfigFound.Count == 0)
+        {
+            Debug.Log("[Character] Config not found, please create one");
+            return;
+        }
+
+        if (CharacterConfigFound.Count > 1)
+            Debug.Log("[Character] Config found more than one, get the first one found");
+
+        m_characterConfig = CharacterConfigFound[0];
+
+        QUnityEditor.SetDirty(this);
+    }
+
+#endif
+
+    #endregion
 
     public bool SetCharacterCurrent(CharacterType Character)
     {
@@ -88,3 +132,33 @@ public class CharacterManager : SingletonManager<CharacterManager>
         return true;
     }
 }
+
+#if UNITY_EDITOR
+
+[CustomEditor(typeof(CharacterManager))]
+public class CharacterManagerEditor : Editor
+{
+    private CharacterManager m_target;
+
+    private SerializedProperty m_characterConfig;
+
+    private void OnEnable()
+    {
+        m_target = target as CharacterManager;
+
+        m_characterConfig = QUnityEditorCustom.GetField(this, "m_characterConfig");
+
+        m_target.SetConfigFind();
+    }
+
+    public override void OnInspectorGUI()
+    {
+        QUnityEditorCustom.SetUpdate(this);
+
+        QUnityEditorCustom.SetField(m_characterConfig);
+
+        QUnityEditorCustom.SetApply(this);
+    }
+}
+
+#endif

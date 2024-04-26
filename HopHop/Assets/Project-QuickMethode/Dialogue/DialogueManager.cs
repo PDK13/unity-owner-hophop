@@ -3,18 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using Unity.VisualScripting.FullSerializer;
+
+using Unity.VisualScripting;
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 
 public class DialogueManager : SingletonManager<DialogueManager>
 {
-    #region Varible: Setting
+    #region Varible: Config
 
     [SerializeField] private DialogueConfig m_dialogueConfig;
     [SerializeField] private StringConfig m_stringConfig;
-
-    private string m_debugError = "";
 
     #endregion
 
@@ -97,15 +99,13 @@ public class DialogueManager : SingletonManager<DialogueManager>
 
         if (AuthorConfigFound == null)
         {
-            m_debugError = "Config not found, please create one";
-            Debug.Log("[Dialogue] " + m_debugError);
+            Debug.Log("[Dialogue] Config not found, please create one");
             return;
         }
 
         if (AuthorConfigFound.Count == 0)
         {
-            m_debugError = "Config not found, please create one";
-            Debug.Log("[Dialogue] " + m_debugError);
+            Debug.Log("[Dialogue] Config not found, please create one");
             return;
         }
 
@@ -114,7 +114,7 @@ public class DialogueManager : SingletonManager<DialogueManager>
 
         m_dialogueConfig = AuthorConfigFound[0];
 
-        m_debugError = "";
+        QUnityEditor.SetDirty(this);
     }
 
 #endif
