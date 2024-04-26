@@ -122,7 +122,7 @@ public class DialogueSingleConfigEditor : Editor
             m_dialogueTriggerShow.RemoveAt(m_dialogueTriggerShow.Count - 1);
         }
 
-        m_scrollDialogue = QUnityEditor.SetScrollViewBegin(m_scrollDialogue, QUnityEditor.GetGUILayoutHeight(POPUP_HEIGHT));
+        m_scrollDialogue = QUnityEditor.SetScrollViewBegin(m_scrollDialogue);
         for (int i = 0; i < m_target.Dialogue.Count; i++)
         {
             #region ITEM
