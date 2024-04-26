@@ -8,7 +8,7 @@ using UnityEditor;
 [CreateAssetMenu(fileName = "event-config", menuName = "HopHop/Event Config", order = 0)]
 public class EventConfig : ScriptableObject
 {
-    public List<string> Type;
+    public List<string> Type; //NOTE: Make this to popup in editor
     public List<EventConfigSingle> Data;
 }
 
@@ -38,6 +38,9 @@ public class EventConfigEditor : Editor
         QUnityEditorCustom.SetUpdate(this);
 
         SetGUIGroupType();
+
+        QUnityEditor.SetSpace();
+
         SetGUIGroupData();
 
         QUnityEditorCustom.SetApply(this);
