@@ -64,8 +64,6 @@ public class DialogueConfig : ScriptableObject
     }
 }
 
-//Editor
-
 #if UNITY_EDITOR
 
 [CustomEditor(typeof(DialogueConfig))]
