@@ -11,14 +11,19 @@ public class DialogueManager : SingletonManager<DialogueManager>
     #region Varible: Action
 
     /// <summary>
+    /// Dialogue start and trigger once time only, until end and refresh
+    /// </summary>
+    public Action onStart;
+
+    /// <summary>
     /// Dialogue system stage current active
     /// </summary>
-    public Action<DialogueStageType> onStageActive;
+    public Action<DialogueStageType> onStage;
 
     /// <summary>
     /// Dialogue system current author and trigger active
     /// </summary>
-    public Action<DialogueDataText> onTextActive;
+    public Action<DialogueDataText> onText;
 
     #endregion
 
@@ -26,6 +31,13 @@ public class DialogueManager : SingletonManager<DialogueManager>
 
     [SerializeField] private DialogueConfig m_dialogueConfig;
     [SerializeField] private StringConfig m_stringConfig;
+
+    #endregion
+
+    #region Varible: Setting
+
+    [Space]
+    [SerializeField] private float m_delayStart = 1f;
 
     #endregion
 
@@ -41,15 +53,20 @@ public class DialogueManager : SingletonManager<DialogueManager>
         Skip,
     }
 
-    [SerializeField] private DialogueCommandType m_command = DialogueCommandType.Text;
-    [SerializeField] private DialogueConfigSingle m_currentData;
-    [SerializeField] private string m_currentDialogue = "";
-    [SerializeField] private bool m_currentActive = false;
-    [SerializeField] private TextMeshProUGUI m_tmp;
+    private DialogueCommandType m_command = DialogueCommandType.Text;
+    private DialogueStageType m_stage = DialogueStageType.None;
+
+    private bool m_active = false;
+
+    private DialogueConfigSingle m_dataCurrent;
+
+    private string m_text = "";
+    private TextMeshProUGUI m_tmp;
+
+    private DialogueDataText m_textCurrent;
+    private DialogueDataText m_textNext;
 
     private Coroutine m_iSetDialogueShowSingle;
-
-    [SerializeField] private DialogueStageType m_stage = DialogueStageType.None;
 
     #endregion
 
@@ -61,20 +78,25 @@ public class DialogueManager : SingletonManager<DialogueManager>
     public DialogueStageType Stage => m_stage;
 
     /// <summary>
-    /// Dialogue current data!
+    /// Dialogue current data
     /// </summary>
-    public DialogueDataText Current { private set; get; } = null;
+    public DialogueDataText TextCurrent => m_textCurrent;
 
     /// <summary>
-    /// Dialogue next data!
+    /// Dialogue next data
     /// </summary>
-    public DialogueDataText Next { private set; get; } = null;
+    public DialogueDataText TextNext => m_textNext;
 
     /// <summary>
-    /// Change show dialogue!
+    /// Dialogue last data
+    /// </summary>
+    public DialogueDataText TextLast => m_dataCurrent != null ? m_dataCurrent.Dialogue[m_dataCurrent.Dialogue.Count - 1] : null;
+
+    /// <summary>
+    /// Change show dialogue
     /// </summary>
     /// <param name="Tmp"></param>
-    public TextMeshProUGUI TextMeshPro { get => m_tmp; set => m_tmp = value; }
+    public TextMeshProUGUI Tmp { get => m_tmp; set => m_tmp = value; }
 
     #endregion
 
@@ -135,60 +157,60 @@ public class DialogueManager : SingletonManager<DialogueManager>
     /// <param name="DialogueData"></param>
     public void SetStart(DialogueConfigSingle DialogueData)
     {
-        if (m_currentActive)
+        if (m_active)
             return;
+
+        onStart?.Invoke();
 
         StartCoroutine(ISetDialogueShow(DialogueData));
     }
 
-    private IEnumerator ISetDialogueShow(DialogueConfigSingle DialogueData, bool WaitForNextDialogue = false)
+    private IEnumerator ISetDialogueShow(DialogueConfigSingle DialogueData)
     {
-        m_currentData = DialogueData;
-
-        if (WaitForNextDialogue)
-            //Not check when first show dialogue!!
-            yield return new WaitUntil(() => m_command == DialogueCommandType.Next);
+        m_dataCurrent = DialogueData;
 
         m_command = DialogueCommandType.None;
-        m_currentActive = true;
+        m_active = true;
 
         SetStage(DialogueStageType.Start);
 
+        yield return new WaitForSeconds(m_delayStart);
+
         //START
 
-        for (int i = 0; i < m_currentData.Dialogue.Count; i++)
+        for (int i = 0; i < m_dataCurrent.Dialogue.Count; i++)
         {
-            Current = m_currentData.Dialogue[i];
-            Next = (i < m_currentData.Dialogue.Count - 1) ? m_currentData.Dialogue[i + 1] : null;
+            m_textCurrent = m_dataCurrent.Dialogue[i];
+            m_textNext = (i < m_dataCurrent.Dialogue.Count - 1) ? m_dataCurrent.Dialogue[i + 1] : null;
 
-            m_currentDialogue = m_currentData.Dialogue[i].Dialogue;
+            m_text = m_dataCurrent.Dialogue[i].Dialogue;
 
             //DIALOGUE
-            if (string.IsNullOrEmpty(m_currentDialogue))
+            if (string.IsNullOrEmpty(m_text))
                 m_tmp.text = "...";
             else
             {
                 //BEGIN
-                onTextActive?.Invoke(m_currentData.Dialogue[i]);
+                onText?.Invoke(m_dataCurrent.Dialogue[i]);
 
                 m_tmp.text = "";
                 if (m_stringConfig != null)
-                    m_currentDialogue = m_stringConfig.GetColorHexFormatReplace(m_currentDialogue);
+                    m_text = m_stringConfig.GetColorHexFormatReplace(m_text);
 
                 //PROGESS
                 m_command = DialogueCommandType.Text;
                 SetStage(DialogueStageType.Text);
-                m_iSetDialogueShowSingle = StartCoroutine(ISetDialogueShowSingle(m_currentData.Dialogue[i]));
+                m_iSetDialogueShowSingle = StartCoroutine(ISetDialogueShowSingle(m_dataCurrent.Dialogue[i]));
 
                 //CURRENT
                 yield return new WaitUntil(() => m_command == DialogueCommandType.Skip || m_command == DialogueCommandType.Done);
 
                 //DONE
-                m_tmp.text = m_currentDialogue;
+                m_tmp.text = m_text;
             }
 
             //WAIT
-            if (!string.IsNullOrEmpty(m_currentDialogue) && i < m_currentData.Dialogue.Count - 1)
+            if (!string.IsNullOrEmpty(m_text) && i < m_dataCurrent.Dialogue.Count - 1)
             {
                 //FINAL
                 m_command = DialogueCommandType.Wait;
@@ -201,7 +223,7 @@ public class DialogueManager : SingletonManager<DialogueManager>
         }
 
         m_command = DialogueCommandType.None;
-        m_currentActive = false;
+        m_active = false;
 
         SetStage(DialogueStageType.End);
 
@@ -212,7 +234,7 @@ public class DialogueManager : SingletonManager<DialogueManager>
     {
         bool HtmlFormat = false;
 
-        foreach (char DialogueChar in m_currentDialogue)
+        foreach (char DialogueChar in m_text)
         {
             //TEXT:
             m_tmp.text += DialogueChar;
@@ -260,7 +282,7 @@ public class DialogueManager : SingletonManager<DialogueManager>
     private void SetStage(DialogueStageType Stage)
     {
         m_stage = Stage;
-        onStageActive?.Invoke(Stage);
+        onStage?.Invoke(Stage);
     }
 
     #endregion
@@ -296,17 +318,24 @@ public class DialogueManager : SingletonManager<DialogueManager>
     /// <summary>
     /// Stop dialogue
     /// </summary>
-    public void SetStop()
+    public void SetStop(bool Clear = false)
     {
         StopAllCoroutines();
         StopCoroutine(m_iSetDialogueShowSingle);
 
         m_command = DialogueCommandType.None;
-        m_currentActive = false;
+        m_active = false;
 
         SetStage(DialogueStageType.End);
 
         m_tmp.text = "";
+
+        if (Clear)
+        {
+            m_dataCurrent = null;
+            m_textCurrent = null;
+            m_textNext = null;
+        }
     }
 
     #endregion
@@ -334,12 +363,16 @@ public class DialogueManagerEditor : Editor
     private SerializedProperty m_dialogueConfig;
     private SerializedProperty m_stringConfig;
 
+    private SerializedProperty m_delayStart;
+
     private void OnEnable()
     {
         m_target = target as DialogueManager;
 
         m_dialogueConfig = QUnityEditorCustom.GetField(this, "m_dialogueConfig");
         m_stringConfig = QUnityEditorCustom.GetField(this, "m_stringConfig");
+
+        m_delayStart = QUnityEditorCustom.GetField(this, "m_delayStart");
 
         m_target.SetConfigFind();
     }
@@ -350,6 +383,8 @@ public class DialogueManagerEditor : Editor
 
         QUnityEditorCustom.SetField(m_dialogueConfig);
         QUnityEditorCustom.SetField(m_stringConfig);
+
+        QUnityEditorCustom.SetField(m_delayStart);
 
         QUnityEditorCustom.SetApply(this);
     }

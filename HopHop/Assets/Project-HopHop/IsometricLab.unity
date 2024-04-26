@@ -16859,7 +16859,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_dialogueConfig: {fileID: 11400000, guid: 35f2c5d8e70f2d5439be83eb7d1305f8, type: 2}
   m_stringConfig: {fileID: 11400000, guid: 30a4b23d4142fa5479febd36bc32087d, type: 2}
-  m_debug: 0
   m_command: 1
   m_currentData: {fileID: 0}
   m_currentDialogue: 
@@ -16880,7 +16879,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_delayTurn: 0
   m_delayStep: 0
-  m_debug: 0
   m_stepCurrent:
     Start: 0
     Step: 
@@ -25150,7 +25148,7 @@ GameObject:
   - component: {fileID: 1430668633}
   - component: {fileID: 1430668632}
   m_Layer: 5
-  m_Name: group-message
+  m_Name: group-dialogue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
