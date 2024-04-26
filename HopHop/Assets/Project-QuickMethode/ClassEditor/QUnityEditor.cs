@@ -240,6 +240,18 @@ public class QUnityEditor
         }
     }
 
+    public static bool SetField(bool Value, GUIStyle GUIStyle = null, params GUILayoutOption[] GUILayoutOption)
+    {
+        if (GUIStyle == null)
+        {
+            return EditorGUILayout.Toggle("", Value, GUILayoutOption);
+        }
+        else
+        {
+            return EditorGUILayout.Toggle("", Value, GUIStyle, GUILayoutOption);
+        }
+    }
+
     #endregion
 
     #region Field Vector
