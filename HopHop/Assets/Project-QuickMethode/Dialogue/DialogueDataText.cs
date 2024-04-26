@@ -9,9 +9,6 @@ public class DialogueDataText
 
     public DialogueDataTextDelay Delay;
 
-    public string TriggerCode; //NOTE: Need group this same as 'Author Index'
-    public GameObject TriggerObject;
-
     public DialogueDataText()
     {
         //...

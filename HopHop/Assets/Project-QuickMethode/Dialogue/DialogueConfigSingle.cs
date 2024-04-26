@@ -28,7 +28,6 @@ public class DialogueSingleConfigEditor : Editor
     private int m_dialogueCount = 0;
 
     private List<bool> m_dialogueDelayShow = new List<bool>();
-    private List<bool> m_dialogueTriggerShow = new List<bool>();
 
     private Vector2 m_scrollDialogue;
 
@@ -99,22 +98,18 @@ public class DialogueSingleConfigEditor : Editor
         QUnityEditor.SetLabel("DIALOGUE", QUnityEditor.GetGUIStyleLabel(FontStyle.Bold));
 
         //COUNT:
-        m_dialogueCount = QUnityEditor.SetGroupNumberChangeLimitMin(m_dialogueCount, 0);
+        m_dialogueCount = QUnityEditor.SetGroupNumberChangeLimitMin("Dialogue", m_dialogueCount, 0);
 
         //COUNT:
         while (m_dialogueCount > m_target.Dialogue.Count)
             m_target.Dialogue.Add(new DialogueDataText(m_dialogueConfig.DelayDefault));
         while (m_dialogueCount > m_dialogueDelayShow.Count)
             m_dialogueDelayShow.Add(false);
-        while (m_dialogueCount > m_dialogueTriggerShow.Count) 
-            m_dialogueTriggerShow.Add(false);
 
         while (m_dialogueCount < m_target.Dialogue.Count)
             m_target.Dialogue.RemoveAt(m_target.Dialogue.Count - 1);
         while (m_dialogueCount < m_dialogueDelayShow.Count)
             m_dialogueDelayShow.RemoveAt(m_dialogueDelayShow.Count - 1);
-        while (m_dialogueCount < m_dialogueTriggerShow.Count)
-            m_dialogueTriggerShow.RemoveAt(m_dialogueTriggerShow.Count - 1);
 
         //LIST
         m_scrollDialogue = QUnityEditor.SetScrollViewBegin(m_scrollDialogue);
@@ -171,35 +166,6 @@ public class DialogueSingleConfigEditor : Editor
                 QUnityEditor.SetLabel("Alpha: " + m_target.Dialogue[i].Delay.Alpha, null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH * 1.25f));
                 QUnityEditor.SetLabel("Space: " + m_target.Dialogue[i].Delay.Space, null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH * 1.25f));
                 QUnityEditor.SetLabel("Mark: " + m_target.Dialogue[i].Delay.Mark, null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH * 1.25f));
-            }
-            QUnityEditor.SetHorizontalEnd();
-            #endregion
-
-            #region ITEM - MAIN - TRIGGER
-            QUnityEditor.SetHorizontalBegin();
-            if (QUnityEditor.SetButton("Trigger", null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH)))
-                m_dialogueTriggerShow[i] = !m_dialogueTriggerShow[i];
-            //
-            if (m_dialogueTriggerShow[i])
-            {
-                QUnityEditor.SetVerticalBegin();
-
-                QUnityEditor.SetHorizontalBegin();
-                QUnityEditor.SetLabel("Code", null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH));
-                m_target.Dialogue[i].TriggerCode = QUnityEditor.SetField(m_target.Dialogue[i].TriggerCode);
-                QUnityEditor.SetHorizontalEnd();
-
-                QUnityEditor.SetHorizontalBegin();
-                QUnityEditor.SetLabel("Object", null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH));
-                m_target.Dialogue[i].TriggerObject = QUnityEditor.SetField(m_target.Dialogue[i].TriggerObject);
-                QUnityEditor.SetHorizontalEnd();
-
-                QUnityEditor.SetVerticalEnd();
-            }
-            else
-            {
-                QUnityEditor.SetLabel("Code: " + m_target.Dialogue[i].TriggerCode, null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH * 2 + 4));
-                QUnityEditor.SetLabel("" + (m_target.Dialogue[i].TriggerObject != null ? m_target.Dialogue[i].TriggerObject.name : ""));
             }
             QUnityEditor.SetHorizontalEnd();
             #endregion

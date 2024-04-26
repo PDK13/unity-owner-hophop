@@ -275,7 +275,7 @@ public class QUnityEditor
     public static Sprite SetField(Sprite Value, int? Width = null)
     {
         List<GUILayoutOption> GUILayoutOption = new List<GUILayoutOption>();
-        GUILayoutOption.Add(QUnityEditor.GetGUILayoutHeight(18f));
+        GUILayoutOption.Add(QUnityEditor.GetGUILayoutHeight(18f)); //NOTE: This value currently fixed field size correctly
         if (Width.HasValue)
             GUILayoutOption.Add(QUnityEditor.GetGUILayoutWidth(Width.Value));
         return (Sprite)EditorGUILayout.ObjectField("", Value, typeof(Sprite), true, GUILayoutOption.ToArray());
@@ -494,9 +494,10 @@ public class QUnityEditor
 
     #region ------------------------------------ GUI Quick Number
 
-    public static int SetGroupNumberChange(int Value)
+    public static int SetGroupNumberChange(string Label, int Value, GUIStyle GUIStyle = null, params GUILayoutOption[] GUILayoutOption)
     {
         SetHorizontalBegin();
+        SetLabel(Label, GUIStyle, GUILayoutOption);
         Value = SetField(Value, null, GetGUILayoutWidth(50));
         if (SetButton("+", null, GetGUILayoutSize()))
             Value++;
@@ -507,9 +508,10 @@ public class QUnityEditor
         return Value;
     }
 
-    public static int SetGroupNumberChangeLimit(int Value, int Max, int Min)
+    public static int SetGroupNumberChangeLimit(string Label, int Value, int Max, int Min, GUIStyle GUIStyle = null, params GUILayoutOption[] GUILayoutOption)
     {
         SetHorizontalBegin();
+        SetLabel(Label, GUIStyle, GUILayoutOption);
         Value = SetField(Value, null, GetGUILayoutWidth(50));
         if (SetButton("+", null, GetGUILayoutSize()))
             if (Value < Max)
@@ -522,9 +524,10 @@ public class QUnityEditor
         return Value;
     }
 
-    public static int SetGroupNumberChangeLimitMin(int Value, int Limit)
+    public static int SetGroupNumberChangeLimitMin(string Label, int Value, int Limit, GUIStyle GUIStyle = null, params GUILayoutOption[] GUILayoutOption)
     {
         SetHorizontalBegin();
+        SetLabel(Label, GUIStyle, GUILayoutOption);
         Value = SetField(Value, null, GetGUILayoutWidth(50));
         if (SetButton("+", null, GetGUILayoutSize()))
             Value++;
@@ -536,9 +539,10 @@ public class QUnityEditor
         return Value;
     }
 
-    public static int SetGroupNumberChangeLimitMax(int Value, int Limit)
+    public static int SetGroupNumberChangeLimitMax(string Label, int Value, int Limit, GUIStyle GUIStyle = null, params GUILayoutOption[] GUILayoutOption)
     {
         SetHorizontalBegin();
+        SetLabel(Label, GUIStyle, GUILayoutOption);
         Value = SetField(Value, null, GetGUILayoutWidth(50));
         if (SetButton("+", null, GetGUILayoutSize()))
             if (Value < Limit)

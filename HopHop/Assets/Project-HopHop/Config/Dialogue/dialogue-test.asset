@@ -19,5 +19,9 @@ MonoBehaviour:
       Alpha: 0
       Space: 0
       Mark: 0
-    TriggerCode: 
-    TriggerObject: {fileID: 0}
+  - AuthorIndex: 0
+    Dialogue: 
+    Delay:
+      Alpha: 0
+      Space: 0
+      Mark: 0

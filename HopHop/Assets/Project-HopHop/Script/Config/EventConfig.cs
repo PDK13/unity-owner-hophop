@@ -47,7 +47,7 @@ public class EventConfigEditor : Editor
         QUnityEditor.SetLabel("EVENT", QUnityEditor.GetGUIStyleLabel(FontStyle.Bold));
 
         //COUNT:
-        m_DataCount = QUnityEditor.SetGroupNumberChangeLimitMin(m_DataCount, 0);
+        m_DataCount = QUnityEditor.SetGroupNumberChangeLimitMin("Event", m_DataCount, 0);
 
         //COUNT:
         while (m_DataCount > m_target.Data.Count)

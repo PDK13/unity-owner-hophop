@@ -120,7 +120,7 @@ public class DialogueConfigEditor : Editor
         QUnityEditor.SetLabel("AUTHOR", QUnityEditor.GetGUIStyleLabel(FontStyle.Bold));
 
         //COUNT:
-        m_authorCount = QUnityEditor.SetGroupNumberChangeLimitMin(m_authorCount, 0);
+        m_authorCount = QUnityEditor.SetGroupNumberChangeLimitMin("Author", m_authorCount, 0);
 
         //COUNT:
         while (m_authorCount > m_target.Author.Count)
