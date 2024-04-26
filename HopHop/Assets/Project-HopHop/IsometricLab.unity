@@ -2817,7 +2817,7 @@ GameObject:
   - component: {fileID: 181668305}
   - component: {fileID: 181668304}
   m_Layer: 5
-  m_Name: tmp
+  m_Name: tmp-dialogue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10830,7 +10830,7 @@ GameObject:
   m_Component:
   - component: {fileID: 670176426}
   m_Layer: 5
-  m_Name: group-full
+  m_Name: group-none
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16859,12 +16859,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_dialogueConfig: {fileID: 11400000, guid: 35f2c5d8e70f2d5439be83eb7d1305f8, type: 2}
   m_stringConfig: {fileID: 11400000, guid: 30a4b23d4142fa5479febd36bc32087d, type: 2}
-  m_command: 1
-  m_currentData: {fileID: 0}
-  m_currentDialogue: 
-  m_currentActive: 0
-  m_tmp: {fileID: 0}
-  m_stage: 0
+  m_delayStart: 1
 --- !u!114 &996775721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25147,13 +25142,14 @@ GameObject:
   - component: {fileID: 1430668631}
   - component: {fileID: 1430668633}
   - component: {fileID: 1430668632}
+  - component: {fileID: 1430668634}
   m_Layer: 5
   m_Name: group-dialogue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1430668631
 RectTransform:
   m_ObjectHideFlags: 0
@@ -25213,6 +25209,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1430668630}
   m_CullTransparentMesh: 1
+--- !u!114 &1430668634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1430668630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f3c6d94b4e81154a89b410438f7253e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_dialogueAuthor: {fileID: 1705691271}
+  m_dialogueNone: {fileID: 670176426}
 --- !u!1 &1461992436
 GameObject:
   m_ObjectHideFlags: 0
@@ -29572,7 +29582,7 @@ GameObject:
   - component: {fileID: 1680200515}
   - component: {fileID: 1680200514}
   m_Layer: 5
-  m_Name: tmp
+  m_Name: tmp-dialogue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30203,12 +30213,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1705691271}
   m_Layer: 5
-  m_Name: group-char
+  m_Name: group-author
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1705691271
 RectTransform:
   m_ObjectHideFlags: 0
@@ -39296,7 +39306,7 @@ GameObject:
   - component: {fileID: 2091603038}
   - component: {fileID: 2091603037}
   m_Layer: 5
-  m_Name: img-char
+  m_Name: img-avatar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

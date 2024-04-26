@@ -4,12 +4,12 @@ using UnityEngine;
 [Serializable]
 public class DialogueDataText
 {
-    public int AuthorIndex; //Use index for 'AuthorName' and 'AuthorAvatar'!!
+    public int AuthorIndex; //Use for index of 'AuthorName' and 'AuthorAvatar'
     public string Dialogue;
-    //
+
     public DialogueDataTextDelay Delay;
-    //
-    public string TriggerCode;
+
+    public string TriggerCode; //NOTE: Need group this same as 'Author Index'
     public GameObject TriggerObject;
 
     public DialogueDataText()

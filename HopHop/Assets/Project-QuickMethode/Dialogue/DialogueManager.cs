@@ -11,17 +11,17 @@ public class DialogueManager : SingletonManager<DialogueManager>
     #region Varible: Action
 
     /// <summary>
-    /// Dialogue start and trigger once time only, until end and refresh
+    /// Dialogue system start, trigger once time only, until end and refresh
     /// </summary>
     public Action onStart;
 
     /// <summary>
-    /// Dialogue system stage current active
+    /// Dialogue system stage current active, trigger while system active
     /// </summary>
     public Action<DialogueStageType> onStage;
 
     /// <summary>
-    /// Dialogue system current author and trigger active
+    /// Dialogue imformation current active, trigger while system active
     /// </summary>
     public Action<DialogueDataText> onText;
 
@@ -283,6 +283,20 @@ public class DialogueManager : SingletonManager<DialogueManager>
     {
         m_stage = Stage;
         onStage?.Invoke(Stage);
+    }
+
+    #endregion
+
+    #region Data
+
+    public string GetAuthorName(DialogueDataText Text)
+    {
+        return m_dialogueConfig.AuthorName[Text.AuthorIndex];
+    }
+
+    public Sprite GetAuthorAvatar(DialogueDataText Text)
+    {
+        return m_dialogueConfig.AuthorAvatar[Text.AuthorIndex];
     }
 
     #endregion

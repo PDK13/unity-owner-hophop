@@ -18,18 +18,18 @@ public class DialogueConfig : ScriptableObject
     {
         get
         {
-            List<string> NameFound = new List<string>();
+            List<string> Data = new List<string>();
             //
             if (Author == null)
-                return NameFound;
+                return Data;
             //
             if (Author.Count == 0)
-                return NameFound;
+                return Data;
             //
             foreach (DialogueDataAuthor AuthorItem in Author)
-                NameFound.Add(AuthorItem.Name);
+                Data.Add(AuthorItem.Name);
             //
-            return NameFound;
+            return Data;
         }
     }
 
@@ -43,12 +43,12 @@ public class DialogueConfig : ScriptableObject
             if (Author.Count == 0)
                 return null;
             //
-            List<Sprite> NameFound = new List<Sprite>();
+            List<Sprite> Data = new List<Sprite>();
             //
             foreach (DialogueDataAuthor AuthorItem in Author)
-                NameFound.Add(AuthorItem.Avatar);
+                Data.Add(AuthorItem.Avatar);
             //
-            return NameFound;
+            return Data;
         }
     }
 
