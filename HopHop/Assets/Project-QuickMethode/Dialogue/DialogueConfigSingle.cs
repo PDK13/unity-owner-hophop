@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -25,9 +27,8 @@ public class DialogueSingleConfigEditor : Editor
 
     private int m_dialogueCount = 0;
 
-    private List<string> m_authorName;
-    private List<bool> m_dialogueDelayShow;
-    private List<bool> m_dialogueTriggerShow;
+    private List<bool> m_dialogueDelayShow = new List<bool>();
+    private List<bool> m_dialogueTriggerShow = new List<bool>();
 
     private Vector2 m_scrollDialogue;
 
@@ -90,14 +91,6 @@ public class DialogueSingleConfigEditor : Editor
 
         //CONTINUE:
 
-        m_authorName = m_dialogueConfig.AuthorName;
-
-        m_dialogueDelayShow = new List<bool>();
-        while (m_dialogueDelayShow.Count < m_target.Dialogue.Count) m_dialogueDelayShow.Add(false);
-
-        m_dialogueTriggerShow = new List<bool>();
-        while (m_dialogueTriggerShow.Count < m_target.Dialogue.Count) m_dialogueTriggerShow.Add(false);
-
         m_debugError = "";
     }
 
@@ -110,18 +103,20 @@ public class DialogueSingleConfigEditor : Editor
 
         //COUNT:
         while (m_dialogueCount > m_target.Dialogue.Count)
-        {
             m_target.Dialogue.Add(new DialogueDataText(m_dialogueConfig.DelayDefault));
+        while (m_dialogueCount > m_dialogueDelayShow.Count)
             m_dialogueDelayShow.Add(false);
+        while (m_dialogueCount > m_dialogueTriggerShow.Count) 
             m_dialogueTriggerShow.Add(false);
-        }
-        while (m_dialogueCount < m_target.Dialogue.Count)
-        {
-            m_target.Dialogue.RemoveAt(m_target.Dialogue.Count - 1);
-            m_dialogueDelayShow.RemoveAt(m_dialogueDelayShow.Count - 1);
-            m_dialogueTriggerShow.RemoveAt(m_dialogueTriggerShow.Count - 1);
-        }
 
+        while (m_dialogueCount < m_target.Dialogue.Count)
+            m_target.Dialogue.RemoveAt(m_target.Dialogue.Count - 1);
+        while (m_dialogueCount < m_dialogueDelayShow.Count)
+            m_dialogueDelayShow.RemoveAt(m_dialogueDelayShow.Count - 1);
+        while (m_dialogueCount < m_dialogueTriggerShow.Count)
+            m_dialogueTriggerShow.RemoveAt(m_dialogueTriggerShow.Count - 1);
+
+        //LIST
         m_scrollDialogue = QUnityEditor.SetScrollViewBegin(m_scrollDialogue);
         for (int i = 0; i < m_target.Dialogue.Count; i++)
         {
@@ -135,7 +130,7 @@ public class DialogueSingleConfigEditor : Editor
             #region ITEM - MAIN - AUTHOR
             QUnityEditor.SetHorizontalBegin();
             QUnityEditor.SetLabel("Author", null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH));
-            m_target.Dialogue[i].AuthorIndex = QUnityEditor.SetPopup(m_target.Dialogue[i].AuthorIndex, m_authorName);
+            m_target.Dialogue[i].AuthorIndex = QUnityEditor.SetPopup(m_target.Dialogue[i].AuthorIndex, m_dialogueConfig.AuthorName);
             QUnityEditor.SetHorizontalEnd();
             #endregion
 

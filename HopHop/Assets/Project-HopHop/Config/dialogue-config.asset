@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: dialogue-config
   m_EditorClassIdentifier: 
   Author:
-  - Name: Angel
+  - Name: Angle
+    Avatar: {fileID: 0}
+  - Name: Bunny
     Avatar: {fileID: 0}
   DelayDefault:
     Alpha: 0

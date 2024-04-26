@@ -6,7 +6,14 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "event-config-single", menuName = "HopHop/Event Config Single", order = 0)]
 public class EventConfigSingle : ScriptableObject
 {
-    public List<EventConfigSingleData> Data;
+    [SerializeField] private bool m_base;
+    [SerializeField] private List<EventConfigSingleData> m_data;
+
+    //
+
+    public bool Base => m_base;
+
+    public EventConfigSingleData[] Data => m_data.ToArray();
 }
 
 [Serializable]

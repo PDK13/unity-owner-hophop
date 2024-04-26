@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using System;
 using Object = UnityEngine.Object;
+using Unity.VisualScripting;
+
 #if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.UIElements;
@@ -269,6 +271,15 @@ public class QUnityEditor
     #endregion
 
     #region Field Else
+
+    public static Sprite SetField(Sprite Value, int? Width = null)
+    {
+        List<GUILayoutOption> GUILayoutOption = new List<GUILayoutOption>();
+        GUILayoutOption.Add(QUnityEditor.GetGUILayoutHeight(18f));
+        if (Width.HasValue)
+            GUILayoutOption.Add(QUnityEditor.GetGUILayoutWidth(Width.Value));
+        return (Sprite)EditorGUILayout.ObjectField("", Value, typeof(Sprite), true, GUILayoutOption.ToArray());
+    }
 
     public static Color SetField(Color Value, params GUILayoutOption[] GUILayoutOption)
     {
