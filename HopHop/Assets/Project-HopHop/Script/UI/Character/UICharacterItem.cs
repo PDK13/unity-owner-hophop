@@ -19,7 +19,7 @@ public class UICharacterItem : MonoBehaviour
     public void SetCharacter(CharacterType Character)
     {
         m_character = Character;
-        m_avatar.sprite = GameManager.Instance.CharacterConfig.GetConfig(Character).Skin[0].Avartar;
+        m_avatar.sprite = CharacterManager.Instance.CharacterConfig.GetConfig(Character).Skin[0].Avartar;
     }
 
     public void SetMana(int Mana)

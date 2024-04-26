@@ -90,7 +90,7 @@ public class BodyEvent : MonoBehaviour, IBodyInteractive, ITurnManager
 
     public bool IInteractive()
     {
-        return GameManager.Instance.SetEventActive(m_eventIdentityBase);
+        return EventManager.Instance.SetEventActive(m_eventIdentityBase);
     }
 
     //

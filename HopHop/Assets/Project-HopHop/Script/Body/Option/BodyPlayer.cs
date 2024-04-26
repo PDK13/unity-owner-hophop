@@ -33,7 +33,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
 
     private void Start()
     {
-        GameManager.Instance.onCharacter += SetCharacter;
+        CharacterManager.Instance.onCharacter += SetCharacter;
         //
         TurnManager.SetInit(Turn, this); //Player
         TurnManager.Instance.onTurn += ISetTurn;
@@ -52,7 +52,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
 
     private void OnDestroy()
     {
-        GameManager.Instance.onCharacter -= SetCharacter;
+        CharacterManager.Instance.onCharacter -= SetCharacter;
         //
         TurnManager.SetRemove(Turn, this);
         TurnManager.Instance.onTurn -= ISetTurn;
@@ -75,10 +75,10 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
             return;
         //
         if (Input.GetKeyDown(KeyCode.Q))
-            GameManager.Instance.SetCharacterPrev();
+            CharacterManager.Instance.SetCharacterPrev();
         //
         if (Input.GetKeyDown(KeyCode.E))
-            GameManager.Instance.SetCharacterNext();
+            CharacterManager.Instance.SetCharacterNext();
         //
         if (Input.GetKeyDown(KeyCode.Z))
         {
@@ -123,7 +123,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
 
     private void SetCharacter()
     {
-        m_character.SetCharacter(GameManager.Instance.CharacterCurrent);
+        m_character.SetCharacter(CharacterManager.Instance.CharacterCurrent);
     }
 
     //Turn

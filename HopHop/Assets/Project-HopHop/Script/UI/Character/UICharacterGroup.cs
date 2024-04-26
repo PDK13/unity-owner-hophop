@@ -11,14 +11,14 @@ public class UICharacterGroup : MonoBehaviour
 
     private void Start()
     {
-        GameManager.Instance.onCharacter += SetCharacter;
+        CharacterManager.Instance.onCharacter += SetCharacter;
         //
         SetInit();
     }
 
     private void OnDestroy()
     {
-        GameManager.Instance.onCharacter -= SetCharacter;
+        CharacterManager.Instance.onCharacter -= SetCharacter;
     }
 
     //
@@ -28,9 +28,9 @@ public class UICharacterGroup : MonoBehaviour
         for (int i = 0; i < m_content.childCount; i++)
         {
             UICharacterItem Item = m_content.GetChild(i).GetComponent<UICharacterItem>();
-            Item.SetCharacter(GameManager.Instance.CharacterParty[i]);
+            Item.SetCharacter(CharacterManager.Instance.CharacterParty[i]);
             Item.SetMana(3);
-            Item.SetChoice(GameManager.Instance.CharacterCurrent);
+            Item.SetChoice(CharacterManager.Instance.CharacterCurrent);
             //
             m_list.Add(Item);
         }
@@ -39,6 +39,6 @@ public class UICharacterGroup : MonoBehaviour
     private void SetCharacter()
     {
         for (int i = 0; i < m_list.Count; i++)
-            m_list[i].SetChoice(GameManager.Instance.CharacterCurrent);
+            m_list[i].SetChoice(CharacterManager.Instance.CharacterCurrent);
     }
 }
