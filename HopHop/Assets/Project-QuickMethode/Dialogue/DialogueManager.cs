@@ -1,35 +1,14 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using Unity.VisualScripting.FullSerializer;
-
-using Unity.VisualScripting;
-
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 
 public class DialogueManager : SingletonManager<DialogueManager>
 {
-    #region Varible: Config
-
-    [SerializeField] private DialogueConfig m_dialogueConfig;
-    [SerializeField] private StringConfig m_stringConfig;
-
-    #endregion
-
-    #region Varible: Debug
-
-    private enum DebugType { None = 0, Primary = 1, Full = int.MaxValue, }
-
-    [Space]
-    [SerializeField] private DebugType m_debug = DebugType.Primary;
-
-    #endregion
-
-    #region Event
+    #region Varible: Action
 
     /// <summary>
     /// Dialogue system stage current active
@@ -43,7 +22,14 @@ public class DialogueManager : SingletonManager<DialogueManager>
 
     #endregion
 
-    #region Varible: Dialogue Manager
+    #region Varible: Config
+
+    [SerializeField] private DialogueConfig m_dialogueConfig;
+    [SerializeField] private StringConfig m_stringConfig;
+
+    #endregion
+
+    #region Varible: Dialogue
 
     private enum DialogueCommandType
     {
@@ -65,10 +51,30 @@ public class DialogueManager : SingletonManager<DialogueManager>
 
     [SerializeField] private DialogueStageType m_stage = DialogueStageType.None;
 
+    #endregion
+
+    #region Varible: Get
+
     /// <summary>
     /// Dialogue system stage current
     /// </summary>
     public DialogueStageType Stage => m_stage;
+
+    /// <summary>
+    /// Dialogue current data!
+    /// </summary>
+    public DialogueDataText Current { private set; get; } = null;
+
+    /// <summary>
+    /// Dialogue next data!
+    /// </summary>
+    public DialogueDataText Next { private set; get; } = null;
+
+    /// <summary>
+    /// Change show dialogue!
+    /// </summary>
+    /// <param name="Tmp"></param>
+    public TextMeshProUGUI TextMeshPro { get => m_tmp; set => m_tmp = value; }
 
     #endregion
 
@@ -126,7 +132,6 @@ public class DialogueManager : SingletonManager<DialogueManager>
     /// <summary>
     /// Start dialogue with config data
     /// </summary>
-    /// <param name="Tmp"></param>
     /// <param name="DialogueData"></param>
     public void SetStart(DialogueConfigSingle DialogueData)
     {
@@ -149,7 +154,7 @@ public class DialogueManager : SingletonManager<DialogueManager>
 
         SetStage(DialogueStageType.Start);
 
-        SetDebug("[START]", DebugType.Primary);
+        //START
 
         for (int i = 0; i < m_currentData.Dialogue.Count; i++)
         {
@@ -158,43 +163,39 @@ public class DialogueManager : SingletonManager<DialogueManager>
 
             m_currentDialogue = m_currentData.Dialogue[i].Dialogue;
 
-            //Dialogue:
+            //DIALOGUE
             if (string.IsNullOrEmpty(m_currentDialogue))
                 m_tmp.text = "...";
             else
             {
-                //BEGIN:
+                //BEGIN
                 onTextActive?.Invoke(m_currentData.Dialogue[i]);
 
                 m_tmp.text = "";
-
                 if (m_stringConfig != null)
                     m_currentDialogue = m_stringConfig.GetColorHexFormatReplace(m_currentDialogue);
 
-                //PROGESS:
+                //PROGESS
                 m_command = DialogueCommandType.Text;
-
                 SetStage(DialogueStageType.Text);
-
                 m_iSetDialogueShowSingle = StartCoroutine(ISetDialogueShowSingle(m_currentData.Dialogue[i]));
 
-                SetDebug(string.Format("[Dialogue] Current: '{0}'", m_currentDialogue), DebugType.Full);
-
+                //CURRENT
                 yield return new WaitUntil(() => m_command == DialogueCommandType.Skip || m_command == DialogueCommandType.Done);
 
-                //DONE:
+                //DONE
                 m_tmp.text = m_currentDialogue;
             }
-            //WAIT:
+
+            //WAIT
             if (!string.IsNullOrEmpty(m_currentDialogue) && i < m_currentData.Dialogue.Count - 1)
             {
-                //FINAL:
+                //FINAL
                 m_command = DialogueCommandType.Wait;
 
                 SetStage(DialogueStageType.Wait);
 
-                SetDebug("[Dialogue] Next?", DebugType.Primary);
-
+                //NEXT?
                 yield return new WaitUntil(() => m_command == DialogueCommandType.Next);
             }
         }
@@ -204,18 +205,18 @@ public class DialogueManager : SingletonManager<DialogueManager>
 
         SetStage(DialogueStageType.End);
 
-        SetDebug("[Dialogue] End!", DebugType.Primary);
+        //END:
     }
 
     private IEnumerator ISetDialogueShowSingle(DialogueDataText DialogueSingle)
     {
         bool HtmlFormat = false;
-        //
+
         foreach (char DialogueChar in m_currentDialogue)
         {
             //TEXT:
             m_tmp.text += DialogueChar;
-            //
+
             //COLOR:
             if (!HtmlFormat && DialogueChar == '<')
             {
@@ -228,11 +229,11 @@ public class DialogueManager : SingletonManager<DialogueManager>
                 HtmlFormat = false;
                 continue;
             }
-            //
+
             //DELAY:
             if (HtmlFormat)
                 continue;
-            //
+
             switch (DialogueChar)
             {
                 case '.':
@@ -258,8 +259,6 @@ public class DialogueManager : SingletonManager<DialogueManager>
 
     private void SetStage(DialogueStageType Stage)
     {
-        SetDebug("[Dialogue] [STAGE] " + Stage.ToString(), DebugType.Full);
-        //
         m_stage = Stage;
         onStageActive?.Invoke(Stage);
     }
@@ -267,22 +266,6 @@ public class DialogueManager : SingletonManager<DialogueManager>
     #endregion
 
     #region Control
-
-    /// <summary>
-    /// Dialogue current data!
-    /// </summary>
-    public DialogueDataText Current { private set; get; } = null;
-
-    /// <summary>
-    /// Dialogue next data!
-    /// </summary>
-    public DialogueDataText Next { private set; get; } = null;
-
-    /// <summary>
-    /// Change show dialogue!
-    /// </summary>
-    /// <param name="Tmp"></param>
-    public TextMeshProUGUI TextMeshPro { get => m_tmp; set => m_tmp = value; }
 
     /// <summary>
     /// Next dialogue; or continue dialogue after choice option delay continue dialogue
@@ -294,8 +277,6 @@ public class DialogueManager : SingletonManager<DialogueManager>
             return;
 
         m_command = DialogueCommandType.Next;
-
-        SetDebug("[Dialogue] Next!", DebugType.Primary);
     }
 
     /// <summary>
@@ -310,8 +291,6 @@ public class DialogueManager : SingletonManager<DialogueManager>
         StopCoroutine(m_iSetDialogueShowSingle);
 
         m_command = DialogueCommandType.Skip;
-
-        SetDebug("[Dialogue] Skip!", DebugType.Primary);
     }
 
     /// <summary>
@@ -328,19 +307,9 @@ public class DialogueManager : SingletonManager<DialogueManager>
         SetStage(DialogueStageType.End);
 
         m_tmp.text = "";
-
-        SetDebug("[Dialogue] Stop!", DebugType.Primary);
     }
 
     #endregion
-
-    private static void SetDebug(string Dialogue, DebugType DebugLimit)
-    {
-        if ((int)Instance.m_debug < (int)DebugLimit)
-            return;
-
-        Debug.Log(string.Format("[Dialogue] {0}", Dialogue));
-    }
 }
 
 public enum DialogueStageType
@@ -365,51 +334,23 @@ public class DialogueManagerEditor : Editor
     private SerializedProperty m_dialogueConfig;
     private SerializedProperty m_stringConfig;
 
-    private SerializedProperty m_debug;
-
-    private SerializedProperty m_command;
-    private SerializedProperty m_currentData;
-    private SerializedProperty m_currentDialogue;
-    private SerializedProperty m_stage;
-    private SerializedProperty m_tmp;
-
     private void OnEnable()
     {
         m_target = target as DialogueManager;
-        //
+
         m_dialogueConfig = QUnityEditorCustom.GetField(this, "m_dialogueConfig");
         m_stringConfig = QUnityEditorCustom.GetField(this, "m_stringConfig");
-        //
-        m_debug = QUnityEditorCustom.GetField(this, "m_debug");
-        //
-        m_command = QUnityEditorCustom.GetField(this, "m_command");
-        m_currentData = QUnityEditorCustom.GetField(this, "m_currentData");
-        m_currentDialogue = QUnityEditorCustom.GetField(this, "m_currentDialogue");
-        m_stage = QUnityEditorCustom.GetField(this, "m_stage");
-        m_tmp = QUnityEditorCustom.GetField(this, "m_tmp");
-        //
+
         m_target.SetConfigFind();
     }
 
     public override void OnInspectorGUI()
     {
         QUnityEditorCustom.SetUpdate(this);
-        //
+
         QUnityEditorCustom.SetField(m_dialogueConfig);
         QUnityEditorCustom.SetField(m_stringConfig);
-        //
-        QUnityEditorCustom.SetField(m_debug);
-        //
-        QUnityEditor.SetDisableGroupBegin();
-        //
-        QUnityEditorCustom.SetField(m_command);
-        QUnityEditorCustom.SetField(m_currentData);
-        QUnityEditorCustom.SetField(m_currentDialogue);
-        QUnityEditorCustom.SetField(m_stage);
-        QUnityEditorCustom.SetField(m_tmp);
-        //
-        QUnityEditor.SetDisableGroupEnd();
-        //
+
         QUnityEditorCustom.SetApply(this);
     }
 }
