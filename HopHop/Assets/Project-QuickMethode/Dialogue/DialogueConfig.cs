@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 #if UNITY_EDITOR
@@ -69,9 +68,10 @@ public class DialogueConfig : ScriptableObject
 [CustomEditor(typeof(DialogueConfig))]
 public class DialogueConfigEditor : Editor
 {
-    private DialogueConfig m_target;
+    private const float POPUP_HEIGHT = 150f * 2;
+    private const float LABEL_WIDTH = 65f;
 
-    private SerializedProperty DelayDefault;
+    private DialogueConfig m_target;
 
     private int m_authorCount = 0;
 
@@ -80,8 +80,6 @@ public class DialogueConfigEditor : Editor
     private void OnEnable()
     {
         m_target = target as DialogueConfig;
-
-        DelayDefault = QUnityEditorCustom.GetField(this, "DelayDefault");
 
         m_authorCount = m_target.Author.Count;
 
@@ -135,8 +133,8 @@ public class DialogueConfigEditor : Editor
             #region ITEM
             QUnityEditor.SetHorizontalBegin();
             QUnityEditor.SetLabel(i.ToString(), QUnityEditor.GetGUIStyleLabel(), QUnityEditor.GetGUILayoutWidth(25));
-            m_target.Author[i].Name = QUnityEditor.SetField(m_target.Author[i].Name, null, QUnityEditor.GetGUILayoutWidth(100));
-            m_target.Author[i].Avatar = QUnityEditor.SetField(m_target.Author[i].Avatar, 150);
+            m_target.Author[i].Name = QUnityEditor.SetField(m_target.Author[i].Name);
+            m_target.Author[i].Avatar = QUnityEditor.SetField(m_target.Author[i].Avatar);
             QUnityEditor.SetHorizontalEnd();
             #endregion
         }
@@ -147,7 +145,39 @@ public class DialogueConfigEditor : Editor
     {
         QUnityEditor.SetLabel("SETTING", QUnityEditor.GetGUIStyleLabel(FontStyle.Bold));
 
-        QUnityEditorCustom.SetField(DelayDefault);
+        #region DELAY - DEFAULT
+        QUnityEditor.SetHorizontalBegin();
+        QUnityEditor.SetLabel("Delay Default", null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH * 1.5f));
+
+        #region DELAY - DEFAULT - ITEM
+        QUnityEditor.SetVerticalBegin();
+
+        #region DELAY - DEFAULT - ITEM - ALPHA
+        QUnityEditor.SetHorizontalBegin();
+        QUnityEditor.SetLabel("Alpha", null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH));
+        m_target.DelayDefault.Alpha = QUnityEditor.SetField(m_target.DelayDefault.Alpha);
+        QUnityEditor.SetHorizontalEnd();
+        #endregion
+
+        #region DELAY - DEFAULT - ITEM - SPACE
+        QUnityEditor.SetHorizontalBegin();
+        QUnityEditor.SetLabel("Space", null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH));
+        m_target.DelayDefault.Space = QUnityEditor.SetField(m_target.DelayDefault.Space);
+        QUnityEditor.SetHorizontalEnd();
+        #endregion
+
+        #region DELAY - DEFAULT - ITEM - MARK
+        QUnityEditor.SetHorizontalBegin();
+        QUnityEditor.SetLabel("Mark", null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH));
+        m_target.DelayDefault.Mark = QUnityEditor.SetField(m_target.DelayDefault.Mark);
+        QUnityEditor.SetHorizontalEnd();
+        #endregion
+
+        QUnityEditor.SetVerticalEnd();
+        #endregion
+
+        QUnityEditor.SetHorizontalEnd();
+        #endregion
     }
 
     //

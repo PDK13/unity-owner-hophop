@@ -3,7 +3,6 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using System;
 using Object = UnityEngine.Object;
-using Unity.VisualScripting;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -284,12 +283,11 @@ public class QUnityEditor
 
     #region Field Else
 
-    public static Sprite SetField(Sprite Value, int? Width = null)
+    public static Sprite SetField(Sprite Value, float Width = 125f, float Height = 18f)
     {
         List<GUILayoutOption> GUILayoutOption = new List<GUILayoutOption>();
-        GUILayoutOption.Add(QUnityEditor.GetGUILayoutHeight(18f)); //NOTE: This value currently fixed field size correctly
-        if (Width.HasValue)
-            GUILayoutOption.Add(QUnityEditor.GetGUILayoutWidth(Width.Value));
+        GUILayoutOption.Add(QUnityEditor.GetGUILayoutWidth(Width));
+        GUILayoutOption.Add(QUnityEditor.GetGUILayoutHeight(Height));
         return (Sprite)EditorGUILayout.ObjectField("", Value, typeof(Sprite), true, GUILayoutOption.ToArray());
     }
 

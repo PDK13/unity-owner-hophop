@@ -119,7 +119,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: ui box_Frame_0
+  - name: UI Box_Frame_0
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -130,7 +130,7 @@ ScriptedImporter:
       y: 4
       width: 128
       height: 128
-    spriteID: 79ee4fc3b6b8da9479d373acefc84a29
+    spriteID: f7928cbdeac61394abdcd55e29ea92aa
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -139,7 +139,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-  - name: ui box_Frame_1
+  - name: UI Box_Frame_1
     originalName: 
     pivot: {x: 0.5, y: 0}
     alignment: 9
@@ -150,7 +150,7 @@ ScriptedImporter:
       y: 140
       width: 128
       height: 128
-    spriteID: 3058d567924202944baecab2e889bad1
+    spriteID: 01e8aa35a9a00fd4b8ded5d6feefd218
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -159,7 +159,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 140}
-  - name: ui box_Frame_2
+  - name: UI Box_Frame_2
     originalName: 
     pivot: {x: 0.5, y: -0.06140351}
     alignment: 9
@@ -170,7 +170,7 @@ ScriptedImporter:
       y: 276
       width: 114
       height: 114
-    spriteID: 4f8f582af23d6564298f67d1677bfd3c
+    spriteID: 6e22dee572fd9cd4e92fcc33c0460ebf
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -179,7 +179,7 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 130, y: 276}
-  - name: ui box_Frame_3
+  - name: UI Box_Frame_3
     originalName: 
     pivot: {x: 0.5, y: -0.042372882}
     alignment: 9
@@ -190,7 +190,7 @@ ScriptedImporter:
       y: 276
       width: 118
       height: 118
-    spriteID: 7337487420f645d4582af7d0a1dfc951
+    spriteID: 062ce9337d8184b42a44ae07cfe36de1
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -202,44 +202,44 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -147430423
-    name: ui box
+    guid: 1316755849
+    name: UI Box
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: ui box_Frame_0
+    - name: UI Box_Frame_0
       frameIndex: 0
       cellRect:
         x: 0
         y: 0
         width: 128
         height: 128
-      spriteId: 79ee4fc3b6b8da9479d373acefc84a29
-    - name: ui box_Frame_1
+      spriteId: f7928cbdeac61394abdcd55e29ea92aa
+    - name: UI Box_Frame_1
       frameIndex: 1
       cellRect:
         x: 0
         y: 0
         width: 128
         height: 128
-      spriteId: 3058d567924202944baecab2e889bad1
-    - name: ui box_Frame_2
+      spriteId: 01e8aa35a9a00fd4b8ded5d6feefd218
+    - name: UI Box_Frame_2
       frameIndex: 2
       cellRect:
         x: 7
         y: 7
         width: 114
         height: 114
-      spriteId: 4f8f582af23d6564298f67d1677bfd3c
-    - name: ui box_Frame_3
+      spriteId: 6e22dee572fd9cd4e92fcc33c0460ebf
+    - name: UI Box_Frame_3
       frameIndex: 3
       cellRect:
         x: 5
         y: 5
         width: 118
         height: 118
-      spriteId: 7337487420f645d4582af7d0a1dfc951
+      spriteId: 062ce9337d8184b42a44ae07cfe36de1
     linkedCells: []
     parentIndex: -1
   platformSettings: []
