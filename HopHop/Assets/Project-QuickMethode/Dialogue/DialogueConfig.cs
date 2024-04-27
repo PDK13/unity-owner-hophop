@@ -146,7 +146,6 @@ public class DialogueConfigEditor : Editor
         QUnityEditor.SetLabel("SETTING", QUnityEditor.GetGUIStyleLabel(FontStyle.Bold));
 
         #region DELAY - DEFAULT
-        QUnityEditor.SetHorizontalBegin();
         QUnityEditor.SetLabel("Delay Default", null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH * 1.5f));
 
         #region DELAY - DEFAULT - ITEM
@@ -176,7 +175,6 @@ public class DialogueConfigEditor : Editor
         QUnityEditor.SetVerticalEnd();
         #endregion
 
-        QUnityEditor.SetHorizontalEnd();
         #endregion
     }
 
