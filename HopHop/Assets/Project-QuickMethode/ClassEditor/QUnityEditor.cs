@@ -239,18 +239,6 @@ public class QUnityEditor
         }
     }
 
-    public static bool SetField(bool Value, GUIStyle GUIStyle = null, params GUILayoutOption[] GUILayoutOption)
-    {
-        if (GUIStyle == null)
-        {
-            return EditorGUILayout.Toggle("", Value, GUILayoutOption);
-        }
-        else
-        {
-            return EditorGUILayout.Toggle("", Value, GUIStyle, GUILayoutOption);
-        }
-    }
-
     #endregion
 
     #region Field Vector
@@ -283,17 +271,14 @@ public class QUnityEditor
 
     #region Field Else
 
-    public static Sprite SetField(Sprite Value, float Width = 125f, float Height = 18f)
+    public static T SetField<T>(T Value, params GUILayoutOption[] GUILayoutOption) where T : ScriptableObject
     {
-        List<GUILayoutOption> GUILayoutOption = new List<GUILayoutOption>();
-        GUILayoutOption.Add(QUnityEditor.GetGUILayoutWidth(Width));
-        GUILayoutOption.Add(QUnityEditor.GetGUILayoutHeight(Height));
-        return (Sprite)EditorGUILayout.ObjectField("", Value, typeof(Sprite), true, GUILayoutOption.ToArray());
+        return (T)EditorGUILayout.ObjectField("", Value, typeof(T), true, GUILayoutOption);
     }
 
-    public static Color SetField(Color Value, params GUILayoutOption[] GUILayoutOption)
+    public static Sprite SetField(Sprite Value, params GUILayoutOption[] GUILayoutOption)
     {
-        return EditorGUILayout.ColorField(Value, GUILayoutOption);
+        return (Sprite)EditorGUILayout.ObjectField("", Value, typeof(Sprite), true, GUILayoutOption);
     }
 
     public static GameObject SetField(GameObject Value, params GUILayoutOption[] GUILayoutOption)
@@ -301,9 +286,14 @@ public class QUnityEditor
         return (GameObject)EditorGUILayout.ObjectField("", Value, typeof(GameObject), true, GUILayoutOption);
     }
 
-    public static T SetField<T>(T Value, params GUILayoutOption[] GUILayoutOption) where T : ScriptableObject
+    public static bool SetField(bool Value, params GUILayoutOption[] GUILayoutOption)
     {
-        return (T)EditorGUILayout.ObjectField("", Value, typeof(T), true, GUILayoutOption);
+        return EditorGUILayout.Toggle(Value, GUILayoutOption);
+    }
+
+    public static Color SetField(Color Value, params GUILayoutOption[] GUILayoutOption)
+    {
+        return EditorGUILayout.ColorField(Value, GUILayoutOption);
     }
 
     #endregion
@@ -362,6 +352,18 @@ public class QUnityEditor
     public static GUILayoutOption[] GetGUILayoutSize(float Width = 20f, float Height = 20)
     {
         return new GUILayoutOption[2] { GUILayout.Width(Width), GUILayout.Height(Height) };
+    }
+
+    //
+
+    public static GUILayoutOption[] GetGUILayoutSizeSprite(float Width = 125f, float Height = 18f)
+    {
+        return new GUILayoutOption[2] { GUILayout.Width(Width), GUILayout.Height(Height) };
+    }
+
+    public static GUILayoutOption GetGUILayoutSizeToggle(float Width = 25f)
+    {
+        return GUILayout.Width(Width);
     }
 
     #endregion

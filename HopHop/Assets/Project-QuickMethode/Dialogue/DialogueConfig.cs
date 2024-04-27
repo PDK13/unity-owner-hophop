@@ -134,7 +134,7 @@ public class DialogueConfigEditor : Editor
             QUnityEditor.SetHorizontalBegin();
             QUnityEditor.SetLabel(i.ToString(), QUnityEditor.GetGUIStyleLabel(), QUnityEditor.GetGUILayoutWidth(25));
             m_target.Author[i].Name = QUnityEditor.SetField(m_target.Author[i].Name);
-            m_target.Author[i].Avatar = QUnityEditor.SetField(m_target.Author[i].Avatar);
+            m_target.Author[i].Avatar = QUnityEditor.SetField(m_target.Author[i].Avatar, QUnityEditor.GetGUILayoutSizeSprite());
             QUnityEditor.SetHorizontalEnd();
             #endregion
         }

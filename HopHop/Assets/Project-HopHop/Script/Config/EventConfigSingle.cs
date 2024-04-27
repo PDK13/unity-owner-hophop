@@ -121,7 +121,7 @@ public class EventConfigSingleEditor : Editor
             #region ITEM - MAIN - WAIT
             QUnityEditor.SetHorizontalBegin();
             QUnityEditor.SetLabel("Wait", null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH));
-            m_target.Data[i].Wait = QUnityEditor.SetField(m_target.Data[i].Wait);
+            m_target.Data[i].Wait = QUnityEditor.SetField(m_target.Data[i].Wait, QUnityEditor.GetGUILayoutSizeToggle());
             QUnityEditor.SetHorizontalEnd();
             #endregion
 
