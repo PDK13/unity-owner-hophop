@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -18,7 +18,7 @@ public class EventConfigSingleData
     public List<string> Command = new List<string>();
     public List<EventConfigSingleDataChoice> Choice = new List<EventConfigSingleDataChoice>();
 
-    public bool WaitCheck
+    public bool WaitForce
     {
         get
         {
@@ -40,9 +40,8 @@ public class EventConfigSingleData
 public class EventConfigSingleDataChoice
 {
     public string Name;
+    public int CommandIndex;
     public DialogueConfigSingle Dialogue;
-
-    public string Command; //NOTE: Check this later!
     public EventConfigSingle Next;
 }
 
@@ -56,9 +55,16 @@ public class EventConfigSingleEditor : Editor
 
     private EventConfigSingle m_target;
 
+    private EventConfig m_eventConfig;
+    private string m_debugError = "";
+
     private int m_dataCount;
     private List<int> m_dataCommandCount = new List<int>();
     private List<int> m_dataChoiceCount = new List<int>();
+
+    private bool m_dataArrayCommand = false;
+    private List<bool> m_dataCommandArrayCommand = new List<bool>();
+    private List<bool> m_dataChoiceArrayCommand = new List<bool>();
 
     private Vector2 m_scrollData;
 
@@ -73,14 +79,64 @@ public class EventConfigSingleEditor : Editor
             m_dataCommandCount.Add(Data.Command.Count);
             m_dataChoiceCount.Add(Data.Choice.Count);
         }
+
+        SetConfigFind();
     }
 
     public override void OnInspectorGUI()
     {
+        if (m_debugError != "")
+        {
+            QUnityEditor.SetLabel(m_debugError, QUnityEditor.GetGUIStyleLabel());
+            return;
+        }
+
         SetGUIGroupData();
 
         QUnityEditor.SetDirty(m_target);
     }
+
+    //
+
+    private void SetConfigFind()
+    {
+        if (m_eventConfig != null)
+            return;
+
+        var AuthorConfigFound = QUnityAssets.GetScriptableObject<EventConfig>("", false);
+
+        if (AuthorConfigFound == null)
+        {
+            m_debugError = "Config not found, please create one";
+            Debug.Log("[Event] " + m_debugError);
+            return;
+        }
+
+        if (AuthorConfigFound.Count == 0)
+        {
+            m_debugError = "Config not found, please create one";
+            Debug.Log("[Event] " + m_debugError);
+            return;
+        }
+
+        if (AuthorConfigFound.Count > 1)
+            Debug.Log("[Event] Config found more than one, get the first one found");
+
+        m_eventConfig = AuthorConfigFound[0];
+
+        if (m_eventConfig.Event.Count == 0)
+        {
+            m_debugError = "Event Config not have any data, please add one";
+            Debug.Log("[Event] " + m_debugError);
+            return;
+        }
+
+        //CONTINUE:
+
+        m_debugError = "";
+    }
+
+    //
 
     private void SetGUIGroupData()
     {
@@ -107,13 +163,26 @@ public class EventConfigSingleEditor : Editor
         while (m_dataCount < m_dataChoiceCount.Count)
             m_dataChoiceCount.RemoveAt(m_dataChoiceCount.Count - 1);
 
+        //COUNT - CHOICE - COMMAND:
+        while (m_dataCount > m_dataCommandArrayCommand.Count)
+            m_dataCommandArrayCommand.Add(false);
+        while (m_dataCount < m_dataCommandArrayCommand.Count)
+            m_dataCommandArrayCommand.RemoveAt(m_dataCommandArrayCommand.Count - 1);
+
+        //COUNT - CHOICE - CHOICE:
+        while (m_dataCount > m_dataChoiceArrayCommand.Count)
+            m_dataChoiceArrayCommand.Add(false);
+        while (m_dataCount < m_dataChoiceArrayCommand.Count)
+            m_dataChoiceArrayCommand.RemoveAt(m_dataChoiceArrayCommand.Count - 1);
+
         //LIST
         m_scrollData = QUnityEditor.SetScrollViewBegin(m_scrollData);
         for (int i = 0; i < m_target.Data.Count; i++)
         {
             #region ITEM
             QUnityEditor.SetHorizontalBegin();
-            QUnityEditor.SetLabel(i.ToString(), QUnityEditor.GetGUIStyleLabel(), QUnityEditor.GetGUILayoutWidth(25));
+            if (QUnityEditor.SetButton(i.ToString(), QUnityEditor.GetGUIStyleLabel(), QUnityEditor.GetGUILayoutWidth(25)))
+                m_dataArrayCommand = !m_dataArrayCommand;
 
             #region ITEM - MAIN
             QUnityEditor.SetVerticalBegin();
@@ -122,6 +191,8 @@ public class EventConfigSingleEditor : Editor
             QUnityEditor.SetHorizontalBegin();
             QUnityEditor.SetLabel("Wait", null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH));
             m_target.Data[i].Wait = QUnityEditor.SetField(m_target.Data[i].Wait, QUnityEditor.GetGUILayoutSizeToggle());
+            if (m_target.Data[i].WaitForce)
+                QUnityEditor.SetLabel("Wait force activated");
             QUnityEditor.SetHorizontalEnd();
             #endregion
 
@@ -145,9 +216,32 @@ public class EventConfigSingleEditor : Editor
             {
                 #region ITEM - MAIN - COMMAND - ITEM
                 QUnityEditor.SetHorizontalBegin();
-                QUnityEditor.SetLabel(j.ToString(), QUnityEditor.GetGUIStyleLabel(), QUnityEditor.GetGUILayoutWidth(25));
+                if (QUnityEditor.SetButton(j.ToString(), QUnityEditor.GetGUIStyleLabel(), QUnityEditor.GetGUILayoutWidth(25)))
+                    m_dataCommandArrayCommand[i] = !m_dataCommandArrayCommand[i];
                 m_target.Data[i].Command[j] = QUnityEditor.SetField(m_target.Data[i].Command[j]);
                 QUnityEditor.SetHorizontalEnd();
+                #endregion
+
+                #region ITEM - MAIN - COMMAND - ARRAY
+                if (m_dataCommandArrayCommand[i])
+                {
+                    QUnityEditor.SetHorizontalBegin();
+                    QUnityEditor.SetLabel("", QUnityEditor.GetGUIStyleLabel(), QUnityEditor.GetGUILayoutWidth(25));
+                    if (QUnityEditor.SetButton("↑", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
+                    {
+                        QList.SetSwap(m_target.Data[i].Command, j, j - 1);
+                    }
+                    if (QUnityEditor.SetButton("↓", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
+                    {
+                        QList.SetSwap(m_target.Data[i].Command, j, j + 1);
+                    }
+                    if (QUnityEditor.SetButton("X", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
+                    {
+                        m_target.Data[i].Command.RemoveAt(j);
+                        m_dataCommandCount[i]--;
+                    }
+                    QUnityEditor.SetHorizontalEnd();
+                }
                 #endregion
             }
             #endregion
@@ -165,7 +259,8 @@ public class EventConfigSingleEditor : Editor
             {
                 #region ITEM - MAIN - CHOICE - ITEM
                 QUnityEditor.SetHorizontalBegin();
-                QUnityEditor.SetLabel(j.ToString(), QUnityEditor.GetGUIStyleLabel(), QUnityEditor.GetGUILayoutWidth(25));
+                if (QUnityEditor.SetButton(j.ToString(), QUnityEditor.GetGUIStyleLabel(), QUnityEditor.GetGUILayoutWidth(25)))
+                    m_dataChoiceArrayCommand[i] = !m_dataChoiceArrayCommand[i];
 
                 #region ITEM - MAIN - CHOICE - ITEM - MAIN
                 QUnityEditor.SetVerticalBegin();
@@ -177,19 +272,17 @@ public class EventConfigSingleEditor : Editor
                 QUnityEditor.SetHorizontalEnd();
                 #endregion
 
+                #region ITEM - MAIN - CHOICE - ITEM - MAIN - COMMAND
+                QUnityEditor.SetHorizontalBegin();
+                QUnityEditor.SetLabel("Command", null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH));
+                m_target.Data[i].Choice[j].CommandIndex = QUnityEditor.SetPopup(m_target.Data[i].Choice[j].CommandIndex, m_eventConfig.Event);
+                QUnityEditor.SetHorizontalEnd();
+                #endregion
+
                 #region ITEM - MAIN - CHOICE - ITEM - MAIN - DIALOGUE
                 QUnityEditor.SetHorizontalBegin();
                 QUnityEditor.SetLabel("Dialogue", null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH));
                 m_target.Data[i].Choice[j].Dialogue = QUnityEditor.SetField(m_target.Data[i].Choice[j].Dialogue);
-                QUnityEditor.SetHorizontalEnd();
-                #endregion
-
-                QUnityEditor.SetSpace(10);
-
-                #region ITEM - MAIN - CHOICE - ITEM - MAIN - COMMAND
-                QUnityEditor.SetHorizontalBegin();
-                QUnityEditor.SetLabel("Command", null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH));
-                m_target.Data[i].Choice[j].Command = QUnityEditor.SetField(m_target.Data[i].Choice[j].Command);
                 QUnityEditor.SetHorizontalEnd();
                 #endregion
 
@@ -205,6 +298,30 @@ public class EventConfigSingleEditor : Editor
 
                 QUnityEditor.SetHorizontalEnd();
                 #endregion
+
+                #region ITEM - MAIN - CHOICE - ARRAY
+                if (m_dataChoiceArrayCommand[i])
+                {
+                    QUnityEditor.SetHorizontalBegin();
+                    QUnityEditor.SetLabel("", QUnityEditor.GetGUIStyleLabel(), QUnityEditor.GetGUILayoutWidth(25));
+                    if (QUnityEditor.SetButton("↑", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
+                    {
+                        QList.SetSwap(m_target.Data[i].Choice, j, j - 1);
+                    }
+                    if (QUnityEditor.SetButton("↓", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
+                    {
+                        QList.SetSwap(m_target.Data[i].Choice, j, j + 1);
+                    }
+                    if (QUnityEditor.SetButton("X", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
+                    {
+                        m_target.Data[i].Choice.RemoveAt(j);
+                        m_dataChoiceCount[i]--;
+                    }
+                    QUnityEditor.SetHorizontalEnd();
+                }
+                #endregion
+
+                QUnityEditor.SetSpace(10f);
             }
             #endregion
 
@@ -212,6 +329,34 @@ public class EventConfigSingleEditor : Editor
             #endregion
 
             QUnityEditor.SetHorizontalEnd();
+            #endregion
+
+            #region ARRAY
+            if (m_dataArrayCommand)
+            {
+                QUnityEditor.SetHorizontalBegin();
+                QUnityEditor.SetLabel("", QUnityEditor.GetGUIStyleLabel(), QUnityEditor.GetGUILayoutWidth(25));
+                if (QUnityEditor.SetButton("↑", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
+                {
+                    QList.SetSwap(m_target.Data, i, i - 1);
+                    QList.SetSwap(m_dataCommandCount, i, i - 1);
+                    QList.SetSwap(m_dataChoiceCount, i, i - 1);
+                }
+                if (QUnityEditor.SetButton("↓", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
+                {
+                    QList.SetSwap(m_target.Data, i, i + 1);
+                    QList.SetSwap(m_dataCommandCount, i, i + 1);
+                    QList.SetSwap(m_dataChoiceCount, i, i + 1);
+                }
+                if (QUnityEditor.SetButton("X", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
+                {
+                    m_target.Data.RemoveAt(i);
+                    m_dataCommandCount.RemoveAt(i);
+                    m_dataChoiceCount.RemoveAt(i);
+                    m_dataCount--;
+                }
+                QUnityEditor.SetHorizontalEnd();
+            }
             #endregion
 
             QUnityEditor.SetSpace();

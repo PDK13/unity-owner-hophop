@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -75,6 +75,8 @@ public class DialogueConfigEditor : Editor
 
     private int m_authorCount = 0;
 
+    private bool m_authorArrayCommand = false;
+
     private Vector2 m_scrollAuthor;
 
     private void OnEnable()
@@ -83,17 +85,17 @@ public class DialogueConfigEditor : Editor
 
         m_authorCount = m_target.Author.Count;
 
-        SetConfigAuthorFixed();
+        SetConfigFixed();
     }
 
     private void OnDisable()
     {
-        SetConfigAuthorFixed();
+        SetConfigFixed();
     }
 
     private void OnDestroy()
     {
-        SetConfigAuthorFixed();
+        SetConfigFixed();
     }
 
     public override void OnInspectorGUI()
@@ -109,6 +111,28 @@ public class DialogueConfigEditor : Editor
         QUnityEditorCustom.SetApply(this);
 
         QUnityEditor.SetDirty(m_target);
+    }
+
+    //
+
+    private void SetConfigFixed()
+    {
+        bool RemoveEmty = false;
+        int Index = 0;
+        while (Index < m_target.Author.Count)
+        {
+            if (m_target.Author[Index].Name == "")
+            {
+                RemoveEmty = true;
+                m_target.Author.RemoveAt(Index);
+            }
+            else
+                Index++;
+        }
+        QUnityEditor.SetDirty(m_target);
+        //
+        if (RemoveEmty)
+            Debug.Log("[Dialogue] Author(s) emty have been remove from list");
     }
 
     //
@@ -132,10 +156,33 @@ public class DialogueConfigEditor : Editor
         {
             #region ITEM
             QUnityEditor.SetHorizontalBegin();
-            QUnityEditor.SetLabel(i.ToString(), QUnityEditor.GetGUIStyleLabel(), QUnityEditor.GetGUILayoutWidth(25));
+            if (QUnityEditor.SetButton(i.ToString(), QUnityEditor.GetGUIStyleLabel(), QUnityEditor.GetGUILayoutWidth(25)))
+                m_authorArrayCommand = !m_authorArrayCommand;
             m_target.Author[i].Name = QUnityEditor.SetField(m_target.Author[i].Name);
             m_target.Author[i].Avatar = QUnityEditor.SetField(m_target.Author[i].Avatar, QUnityEditor.GetGUILayoutSizeSprite());
             QUnityEditor.SetHorizontalEnd();
+            #endregion
+
+            #region ARRAY
+            if (m_authorArrayCommand)
+            {
+                QUnityEditor.SetHorizontalBegin();
+                QUnityEditor.SetLabel("", QUnityEditor.GetGUIStyleLabel(), QUnityEditor.GetGUILayoutWidth(25));
+                if (QUnityEditor.SetButton("↑", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
+                {
+                    QList.SetSwap(m_target.Author, i, i - 1);
+                }
+                if (QUnityEditor.SetButton("↓", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
+                {
+                    QList.SetSwap(m_target.Author, i, i + 1);
+                }
+                if (QUnityEditor.SetButton("X", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
+                {
+                    m_target.Author.RemoveAt(i);
+                    m_authorCount--;
+                }
+                QUnityEditor.SetHorizontalEnd();
+            }
             #endregion
         }
         QUnityEditor.SetScrollViewEnd();
@@ -176,28 +223,6 @@ public class DialogueConfigEditor : Editor
         #endregion
 
         #endregion
-    }
-
-    //
-
-    private void SetConfigAuthorFixed()
-    {
-        bool RemoveEmty = false;
-        int Index = 0;
-        while (Index < m_target.Author.Count)
-        {
-            if (m_target.Author[Index].Name == "")
-            {
-                RemoveEmty = true;
-                m_target.Author.RemoveAt(Index);
-            }
-            else
-                Index++;
-        }
-        QUnityEditor.SetDirty(m_target);
-        //
-        if (RemoveEmty)
-            Debug.Log("[Dialogue] Author(s) emty have been remove from list");
     }
 }
 

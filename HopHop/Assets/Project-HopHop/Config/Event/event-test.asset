@@ -14,17 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Base: 0
   Data:
-  - Wait: 0
+  - Wait: 1
     Dialogue: {fileID: 0}
     Command:
-    - 
-    - 
+    - spawm-cat-cat01-3-3-3
+    - move-cat01-L-3
+    Choice: []
+  - Wait: 0
+    Dialogue: {fileID: 11400000, guid: fdd5e527b1f5eca4b83a14b8023bb37a, type: 2}
+    Command: []
     Choice:
     - Name: 
+      CommandIndex: 1
       Dialogue: {fileID: 0}
-      Command: 
       Next: {fileID: 0}
-  - Wait: 0
-    Dialogue: {fileID: 0}
-    Command: []
-    Choice: []
