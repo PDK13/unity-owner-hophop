@@ -61,6 +61,24 @@ public class DialogueConfig : ScriptableObject
     {
         return Author.Find(t => t.Name == Name);
     }
+
+#if UNITY_EDITOR
+
+    public int EditorAuthorListCount
+    {
+        get => Author.Count;
+        set
+        {
+            while (Author.Count > value)
+                Author.RemoveAt(Author.Count - 1);
+            while (Author.Count < value)
+                Author.Add(new DialogueDataAuthor());
+        }
+    }
+
+    public bool EditorAuthorListCommand { get; set; } = false;
+
+#endif
 }
 
 #if UNITY_EDITOR
@@ -73,17 +91,11 @@ public class DialogueConfigEditor : Editor
 
     private DialogueConfig m_target;
 
-    private int m_authorCount = 0;
-
-    private bool m_authorArrayCommand = false;
-
     private Vector2 m_scrollAuthor;
 
     private void OnEnable()
     {
         m_target = target as DialogueConfig;
-
-        m_authorCount = m_target.Author.Count;
 
         SetConfigFixed();
     }
@@ -142,12 +154,12 @@ public class DialogueConfigEditor : Editor
         QUnityEditor.SetLabel("AUTHOR", QUnityEditor.GetGUIStyleLabel(FontStyle.Bold));
 
         //COUNT:
-        m_authorCount = QUnityEditor.SetGroupNumberChangeLimitMin("Author", m_authorCount, 0);
+        m_target.EditorAuthorListCount = QUnityEditor.SetGroupNumberChangeLimitMin("Author", m_target.EditorAuthorListCount, 0);
 
         //COUNT:
-        while (m_authorCount > m_target.Author.Count)
+        while (m_target.EditorAuthorListCount > m_target.Author.Count)
             m_target.Author.Add(new DialogueDataAuthor());
-        while (m_authorCount < m_target.Author.Count)
+        while (m_target.EditorAuthorListCount < m_target.Author.Count)
             m_target.Author.RemoveAt(m_target.Author.Count - 1);
 
         //LIST
@@ -157,14 +169,14 @@ public class DialogueConfigEditor : Editor
             #region ITEM
             QUnityEditor.SetHorizontalBegin();
             if (QUnityEditor.SetButton(i.ToString(), QUnityEditor.GetGUIStyleLabel(), QUnityEditor.GetGUILayoutWidth(25)))
-                m_authorArrayCommand = !m_authorArrayCommand;
+                m_target.EditorAuthorListCommand = !m_target.EditorAuthorListCommand;
             m_target.Author[i].Name = QUnityEditor.SetField(m_target.Author[i].Name);
             m_target.Author[i].Avatar = QUnityEditor.SetField(m_target.Author[i].Avatar, QUnityEditor.GetGUILayoutSizeSprite());
             QUnityEditor.SetHorizontalEnd();
             #endregion
 
             #region ARRAY
-            if (m_authorArrayCommand)
+            if (m_target.EditorAuthorListCommand)
             {
                 QUnityEditor.SetHorizontalBegin();
                 QUnityEditor.SetLabel("", QUnityEditor.GetGUIStyleLabel(), QUnityEditor.GetGUILayoutWidth(25));
@@ -179,7 +191,7 @@ public class DialogueConfigEditor : Editor
                 if (QUnityEditor.SetButton("X", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
                 {
                     m_target.Author.RemoveAt(i);
-                    m_authorCount--;
+                    m_target.EditorAuthorListCount--;
                 }
                 QUnityEditor.SetHorizontalEnd();
             }

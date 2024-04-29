@@ -10,6 +10,37 @@ public class EventConfig : ScriptableObject
 {
     public List<string> Event; //NOTE: Make this to popup in editor
     public List<EventConfigSingle> Data;
+
+#if UNITY_EDITOR
+
+    public int EditorEventListCount
+    {
+        get => Event.Count;
+        set
+        {
+            while (Event.Count > value)
+                Event.RemoveAt(Event.Count - 1);
+            while (Event.Count < value)
+                Event.Add("");
+        }
+    }
+
+    public int EditorDataListCount
+    {
+        get => Data.Count;
+        set
+        {
+            while (Data.Count > value)
+                Data.RemoveAt(Data.Count - 1);
+            while (Data.Count < value)
+                Data.Add(null);
+        }
+    }
+
+    public bool EditorEventListCommand { get; set; } = false;
+    public bool EditorDataListCommand { get; set; } = false;
+
+#endif
 }
 
 #if UNITY_EDITOR
@@ -19,23 +50,12 @@ public class EventConfigEditor : Editor
 {
     private EventConfig m_target;
 
-    private int m_eventCount = 0;
-    private int m_dataCount = 0;
-
-    private bool m_eventArrayCommand = false;
-    private bool m_dataArrayCommand = false;
-
     private Vector2 m_scrollType;
     private Vector2 m_scrollData;
-
-    Event m_event;
 
     private void OnEnable()
     {
         m_target = target as EventConfig;
-
-        m_eventCount = m_target.Event.Count;
-        m_dataCount = m_target.Data.Count;
     }
 
     private void OnDisable()
@@ -92,14 +112,7 @@ public class EventConfigEditor : Editor
         QUnityEditor.SetLabel("EVENT", QUnityEditor.GetGUIStyleLabel(FontStyle.Bold));
 
         //COUNT:
-        m_eventCount = QUnityEditor.SetGroupNumberChangeLimitMin("Event", m_eventCount, 0);
-
-        //COUNT:
-        while (m_eventCount > m_target.Event.Count)
-            m_target.Event.Add("");
-        while (m_eventCount < m_target.Event.Count)
-            m_target.Event.RemoveAt(m_target.Event.Count - 1);
-
+        m_target.EditorEventListCount = QUnityEditor.SetGroupNumberChangeLimitMin("Event", m_target.EditorEventListCount, 0);
         //LIST
         m_scrollType = QUnityEditor.SetScrollViewBegin(m_scrollType);
         for (int i = 0; i < m_target.Event.Count; i++)
@@ -107,7 +120,7 @@ public class EventConfigEditor : Editor
             #region ITEM
             QUnityEditor.SetHorizontalBegin();
             if (QUnityEditor.SetButton(i.ToString(), QUnityEditor.GetGUIStyleLabel(), QUnityEditor.GetGUILayoutWidth(25)))
-                m_eventArrayCommand = !m_eventArrayCommand;
+                m_target.EditorEventListCommand = !m_target.EditorEventListCommand;
 
             m_target.Event[i] = QUnityEditor.SetField(m_target.Event[i]);
 
@@ -115,22 +128,18 @@ public class EventConfigEditor : Editor
             #endregion
 
             #region ARRAY
-            if (m_eventArrayCommand)
+            if (m_target.EditorEventListCommand)
             {
                 QUnityEditor.SetHorizontalBegin();
                 QUnityEditor.SetLabel("", QUnityEditor.GetGUIStyleLabel(), QUnityEditor.GetGUILayoutWidth(25));
                 if (QUnityEditor.SetButton("↑", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
-                {
                     QList.SetSwap(m_target.Event, i, i - 1);
-                }
                 if (QUnityEditor.SetButton("↓", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
-                {
                     QList.SetSwap(m_target.Event, i, i + 1);
-                }
                 if (QUnityEditor.SetButton("X", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
                 {
                     m_target.Event.RemoveAt(i);
-                    m_eventCount--;
+                    m_target.EditorEventListCount--;
                 }
                 QUnityEditor.SetHorizontalEnd();
             }
@@ -144,14 +153,7 @@ public class EventConfigEditor : Editor
         QUnityEditor.SetLabel("DATA", QUnityEditor.GetGUIStyleLabel(FontStyle.Bold));
 
         //COUNT:
-        m_dataCount = QUnityEditor.SetGroupNumberChangeLimitMin("Data", m_dataCount, 0);
-
-        //COUNT:
-        while (m_dataCount > m_target.Data.Count)
-            m_target.Data.Add(new EventConfigSingle());
-        while (m_dataCount < m_target.Data.Count)
-            m_target.Data.RemoveAt(m_target.Data.Count - 1);
-
+        m_target.EditorDataListCount = QUnityEditor.SetGroupNumberChangeLimitMin("Data", m_target.EditorDataListCount, 0);
         //LIST
         m_scrollData = QUnityEditor.SetScrollViewBegin(m_scrollData);
         for (int i = 0; i < m_target.Data.Count; i++)
@@ -159,7 +161,7 @@ public class EventConfigEditor : Editor
             #region ITEM
             QUnityEditor.SetHorizontalBegin();
             if (QUnityEditor.SetButton(i.ToString(), QUnityEditor.GetGUIStyleLabel(), QUnityEditor.GetGUILayoutWidth(25)))
-                m_dataArrayCommand = !m_dataArrayCommand;
+                m_target.EditorDataListCommand = !m_target.EditorDataListCommand;
 
             m_target.Data[i] = QUnityEditor.SetField(m_target.Data[i]);
 
@@ -167,22 +169,18 @@ public class EventConfigEditor : Editor
             #endregion
 
             #region ARRAY
-            if (m_dataArrayCommand)
+            if (m_target.EditorDataListCommand)
             {
                 QUnityEditor.SetHorizontalBegin();
                 QUnityEditor.SetLabel("", QUnityEditor.GetGUIStyleLabel(), QUnityEditor.GetGUILayoutWidth(25));
                 if (QUnityEditor.SetButton("↑", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
-                {
                     QList.SetSwap(m_target.Data, i, i - 1);
-                }
                 if (QUnityEditor.SetButton("↓", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
-                {
                     QList.SetSwap(m_target.Data, i, i + 1);
-                }
                 if (QUnityEditor.SetButton("X", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
                 {
                     m_target.Data.RemoveAt(i);
-                    m_dataCount--;
+                    m_target.EditorDataListCount--;
                 }
                 QUnityEditor.SetHorizontalEnd();
             }

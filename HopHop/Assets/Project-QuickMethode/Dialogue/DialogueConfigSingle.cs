@@ -9,6 +9,24 @@ using UnityEditor;
 public class DialogueConfigSingle : ScriptableObject
 {
     public List<DialogueDataText> Dialogue = new List<DialogueDataText>();
+
+#if UNITY_EDITOR
+
+    public int EditorDialogueListCount
+    {
+        get => Dialogue.Count;
+        set
+        {
+            while (Dialogue.Count > value)
+                Dialogue.RemoveAt(Dialogue.Count - 1);
+            while (Dialogue.Count < value)
+                Dialogue.Add(new DialogueDataText());
+        }
+    }
+
+    public bool EditorDialogueListCommand { get; set; } = false;
+
+#endif
 }
 
 #if UNITY_EDITOR
@@ -24,18 +42,11 @@ public class DialogueSingleConfigEditor : Editor
     private DialogueConfig m_dialogueConfig;
     private string m_debugError = "";
 
-    private int m_dialogueCount = 0;
-
-    private bool m_dialogueArrayCommand = false;
-    private List<bool> m_dialogueDelayShow = new List<bool>();
-
     private Vector2 m_scrollDialogue;
 
     private void OnEnable()
     {
         m_target = target as DialogueConfigSingle;
-
-        m_dialogueCount = m_target.Dialogue.Count;
 
         SetConfigFind();
     }
@@ -100,19 +111,7 @@ public class DialogueSingleConfigEditor : Editor
         QUnityEditor.SetLabel("DIALOGUE", QUnityEditor.GetGUIStyleLabel(FontStyle.Bold));
 
         //COUNT:
-        m_dialogueCount = QUnityEditor.SetGroupNumberChangeLimitMin("Dialogue", m_dialogueCount, 0);
-
-        //COUNT:
-        while (m_dialogueCount > m_target.Dialogue.Count)
-            m_target.Dialogue.Add(new DialogueDataText(m_dialogueConfig.DelayDefault));
-        while (m_dialogueCount > m_dialogueDelayShow.Count)
-            m_dialogueDelayShow.Add(false);
-
-        while (m_dialogueCount < m_target.Dialogue.Count)
-            m_target.Dialogue.RemoveAt(m_target.Dialogue.Count - 1);
-        while (m_dialogueCount < m_dialogueDelayShow.Count)
-            m_dialogueDelayShow.RemoveAt(m_dialogueDelayShow.Count - 1);
-
+        m_target.EditorDialogueListCount = QUnityEditor.SetGroupNumberChangeLimitMin("Dialogue", m_target.EditorDialogueListCount, 0);
         //LIST
         m_scrollDialogue = QUnityEditor.SetScrollViewBegin(m_scrollDialogue);
         for (int i = 0; i < m_target.Dialogue.Count; i++)
@@ -120,7 +119,7 @@ public class DialogueSingleConfigEditor : Editor
             #region ITEM
             QUnityEditor.SetHorizontalBegin();
             if (QUnityEditor.SetButton(i.ToString(), QUnityEditor.GetGUIStyleLabel(), QUnityEditor.GetGUILayoutWidth(25)))
-                m_dialogueArrayCommand = !m_dialogueArrayCommand;
+                m_target.EditorDialogueListCommand = !m_target.EditorDialogueListCommand;
 
             #region ITEM - MAIN
             QUnityEditor.SetVerticalBegin();
@@ -141,9 +140,9 @@ public class DialogueSingleConfigEditor : Editor
 
             #region ITEM - MAIN - DELAY
             QUnityEditor.SetHorizontalBegin();
-            if (QUnityEditor.SetButton("Delay", null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH)))
-                m_dialogueDelayShow[i] = !m_dialogueDelayShow[i];
-            if (m_dialogueDelayShow[i])
+            if (QUnityEditor.SetButton("Delay", QUnityEditor.GetGUIStyleLabel(FontStyle.Normal, TextAnchor.MiddleLeft), QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH)))
+                m_target.Dialogue[i].EditorDelayShow = !m_target.Dialogue[i].EditorDelayShow;
+            if (m_target.Dialogue[i].EditorDelayShow)
             {
                 QUnityEditor.SetVerticalBegin();
 
@@ -180,25 +179,18 @@ public class DialogueSingleConfigEditor : Editor
             #endregion
 
             #region ARRAY
-            if (m_dialogueArrayCommand)
+            if (m_target.EditorDialogueListCommand)
             {
                 QUnityEditor.SetHorizontalBegin();
                 QUnityEditor.SetLabel("", QUnityEditor.GetGUIStyleLabel(), QUnityEditor.GetGUILayoutWidth(25));
                 if (QUnityEditor.SetButton("↑", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
-                {
                     QList.SetSwap(m_target.Dialogue, i, i - 1);
-                    QList.SetSwap(m_dialogueDelayShow, i, i - 1);
-                }
                 if (QUnityEditor.SetButton("↓", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
-                {
                     QList.SetSwap(m_target.Dialogue, i, i + 1);
-                    QList.SetSwap(m_dialogueDelayShow, i, i + 1);
-                }
                 if (QUnityEditor.SetButton("X", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
                 {
                     m_target.Dialogue.RemoveAt(i);
-                    m_dialogueDelayShow.RemoveAt(i);
-                    m_dialogueCount--;
+                    m_target.EditorDialogueListCount--;
                 }
                 QUnityEditor.SetHorizontalEnd();
             }

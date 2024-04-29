@@ -8,6 +8,24 @@ public class EventConfigSingle : ScriptableObject
 {
     public bool Base;
     public List<EventConfigSingleData> Data;
+
+#if UNITY_EDITOR
+
+    public int EditorDataListCount
+    {
+        get => Data.Count;
+        set
+        {
+            while (Data.Count > value)
+                Data.RemoveAt(Data.Count - 1);
+            while (Data.Count < value)
+                Data.Add(new EventConfigSingleData());
+        }
+    }
+
+    public bool EditorDataListCommand { get; set; } = false;
+
+#endif
 }
 
 [Serializable]
@@ -34,6 +52,37 @@ public class EventConfigSingleData
             return false;
         }
     }
+
+#if UNITY_EDITOR
+
+    public int EditorCommandListCount
+    {
+        get => Command.Count;
+        set
+        {
+            while (Command.Count > value)
+                Command.RemoveAt(Command.Count - 1);
+            while (Command.Count < value)
+                Command.Add("");
+        }
+    }
+
+    public int EditorChoiceListCount
+    {
+        get => Choice.Count;
+        set
+        {
+            while (Choice.Count > value)
+                Choice.RemoveAt(Choice.Count - 1);
+            while (Choice.Count < value)
+                Choice.Add(new EventConfigSingleDataChoice());
+        }
+    }
+
+    public bool EditorCommandListCommand { get; set; } = false;
+    public bool EditorChoiceListCommand { get; set; } = false;
+
+#endif
 }
 
 [Serializable]
@@ -58,27 +107,11 @@ public class EventConfigSingleEditor : Editor
     private EventConfig m_eventConfig;
     private string m_debugError = "";
 
-    private int m_dataCount;
-    private List<int> m_dataCommandCount = new List<int>();
-    private List<int> m_dataChoiceCount = new List<int>();
-
-    private bool m_dataArrayCommand = false;
-    private List<bool> m_dataCommandArrayCommand = new List<bool>();
-    private List<bool> m_dataChoiceArrayCommand = new List<bool>();
-
     private Vector2 m_scrollData;
 
     private void OnEnable()
     {
         m_target = target as EventConfigSingle;
-
-        m_dataCount = m_target.Data.Count;
-
-        foreach (var Data in m_target.Data)
-        {
-            m_dataCommandCount.Add(Data.Command.Count);
-            m_dataChoiceCount.Add(Data.Choice.Count);
-        }
 
         SetConfigFind();
     }
@@ -143,38 +176,7 @@ public class EventConfigSingleEditor : Editor
         QUnityEditor.SetLabel("EVENT", QUnityEditor.GetGUIStyleLabel(FontStyle.Bold));
 
         //COUNT:
-        m_dataCount = QUnityEditor.SetGroupNumberChangeLimitMin("Data", m_dataCount, 0);
-
-        //COUNT:
-        while (m_dataCount > m_target.Data.Count)
-            m_target.Data.Add(new EventConfigSingleData());
-        while (m_dataCount < m_target.Data.Count)
-            m_target.Data.RemoveAt(m_target.Data.Count - 1);
-
-        //COUNT - COMMAND:
-        while (m_dataCount > m_dataCommandCount.Count)
-            m_dataCommandCount.Add(0);
-        while (m_dataCount < m_dataCommandCount.Count)
-            m_dataCommandCount.RemoveAt(m_dataCommandCount.Count - 1);
-
-        //COUNT - CHOICE:
-        while (m_dataCount > m_dataChoiceCount.Count)
-            m_dataChoiceCount.Add(0);
-        while (m_dataCount < m_dataChoiceCount.Count)
-            m_dataChoiceCount.RemoveAt(m_dataChoiceCount.Count - 1);
-
-        //COUNT - CHOICE - COMMAND:
-        while (m_dataCount > m_dataCommandArrayCommand.Count)
-            m_dataCommandArrayCommand.Add(false);
-        while (m_dataCount < m_dataCommandArrayCommand.Count)
-            m_dataCommandArrayCommand.RemoveAt(m_dataCommandArrayCommand.Count - 1);
-
-        //COUNT - CHOICE - CHOICE:
-        while (m_dataCount > m_dataChoiceArrayCommand.Count)
-            m_dataChoiceArrayCommand.Add(false);
-        while (m_dataCount < m_dataChoiceArrayCommand.Count)
-            m_dataChoiceArrayCommand.RemoveAt(m_dataChoiceArrayCommand.Count - 1);
-
+        m_target.EditorDataListCount = QUnityEditor.SetGroupNumberChangeLimitMin("Data", m_target.EditorDataListCount, 0);
         //LIST
         m_scrollData = QUnityEditor.SetScrollViewBegin(m_scrollData);
         for (int i = 0; i < m_target.Data.Count; i++)
@@ -182,7 +184,7 @@ public class EventConfigSingleEditor : Editor
             #region ITEM
             QUnityEditor.SetHorizontalBegin();
             if (QUnityEditor.SetButton(i.ToString(), QUnityEditor.GetGUIStyleLabel(), QUnityEditor.GetGUILayoutWidth(25)))
-                m_dataArrayCommand = !m_dataArrayCommand;
+                m_target.EditorDataListCommand = !m_target.EditorDataListCommand;
 
             #region ITEM - MAIN
             QUnityEditor.SetVerticalBegin();
@@ -205,40 +207,31 @@ public class EventConfigSingleEditor : Editor
 
             #region ITEM - MAIN - COMMAND
             //COUNT:
-            m_dataCommandCount[i] = QUnityEditor.SetGroupNumberChangeLimitMin("Command", m_dataCommandCount[i], 0);
-            //COUNT:
-            while (m_dataCommandCount[i] > m_target.Data[i].Command.Count)
-                m_target.Data[i].Command.Add("");
-            while (m_dataCommandCount[i] < m_target.Data[i].Command.Count)
-                m_target.Data[i].Command.RemoveAt(m_target.Data[i].Command.Count - 1);
+            m_target.Data[i].EditorCommandListCount = QUnityEditor.SetGroupNumberChangeLimitMin("Command", m_target.Data[i].EditorCommandListCount, 0);
             //LIST:
             for (int j = 0; j < m_target.Data[i].Command.Count; j++)
             {
                 #region ITEM - MAIN - COMMAND - ITEM
                 QUnityEditor.SetHorizontalBegin();
                 if (QUnityEditor.SetButton(j.ToString(), QUnityEditor.GetGUIStyleLabel(), QUnityEditor.GetGUILayoutWidth(25)))
-                    m_dataCommandArrayCommand[i] = !m_dataCommandArrayCommand[i];
+                    m_target.Data[i].EditorCommandListCommand = !m_target.Data[i].EditorCommandListCommand;
                 m_target.Data[i].Command[j] = QUnityEditor.SetField(m_target.Data[i].Command[j]);
                 QUnityEditor.SetHorizontalEnd();
                 #endregion
 
                 #region ITEM - MAIN - COMMAND - ARRAY
-                if (m_dataCommandArrayCommand[i])
+                if (m_target.Data[i].EditorCommandListCommand)
                 {
                     QUnityEditor.SetHorizontalBegin();
                     QUnityEditor.SetLabel("", QUnityEditor.GetGUIStyleLabel(), QUnityEditor.GetGUILayoutWidth(25));
                     if (QUnityEditor.SetButton("↑", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
-                    {
                         QList.SetSwap(m_target.Data[i].Command, j, j - 1);
-                    }
                     if (QUnityEditor.SetButton("↓", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
-                    {
                         QList.SetSwap(m_target.Data[i].Command, j, j + 1);
-                    }
                     if (QUnityEditor.SetButton("X", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
                     {
                         m_target.Data[i].Command.RemoveAt(j);
-                        m_dataCommandCount[i]--;
+                        m_target.Data[i].EditorCommandListCount--;
                     }
                     QUnityEditor.SetHorizontalEnd();
                 }
@@ -248,19 +241,14 @@ public class EventConfigSingleEditor : Editor
 
             #region ITEM - MAIN - CHOICE
             //COUNT:
-            m_dataChoiceCount[i] = QUnityEditor.SetGroupNumberChangeLimitMin("Choice", m_dataChoiceCount[i], 0);
-            //COUNT:
-            while (m_dataChoiceCount[i] > m_target.Data[i].Choice.Count)
-                m_target.Data[i].Choice.Add(new EventConfigSingleDataChoice());
-            while (m_dataChoiceCount[i] < m_target.Data[i].Choice.Count)
-                m_target.Data[i].Choice.RemoveAt(m_target.Data[i].Choice.Count - 1);
+            m_target.Data[i].EditorChoiceListCount = QUnityEditor.SetGroupNumberChangeLimitMin("Choice", m_target.Data[i].EditorChoiceListCount, 0);
             //LIST:
             for (int j = 0; j < m_target.Data[i].Choice.Count; j++)
             {
                 #region ITEM - MAIN - CHOICE - ITEM
                 QUnityEditor.SetHorizontalBegin();
                 if (QUnityEditor.SetButton(j.ToString(), QUnityEditor.GetGUIStyleLabel(), QUnityEditor.GetGUILayoutWidth(25)))
-                    m_dataChoiceArrayCommand[i] = !m_dataChoiceArrayCommand[i];
+                    m_target.Data[i].EditorChoiceListCommand = !m_target.Data[i].EditorChoiceListCommand;
 
                 #region ITEM - MAIN - CHOICE - ITEM - MAIN
                 QUnityEditor.SetVerticalBegin();
@@ -300,22 +288,18 @@ public class EventConfigSingleEditor : Editor
                 #endregion
 
                 #region ITEM - MAIN - CHOICE - ARRAY
-                if (m_dataChoiceArrayCommand[i])
+                if (m_target.Data[i].EditorChoiceListCommand)
                 {
                     QUnityEditor.SetHorizontalBegin();
                     QUnityEditor.SetLabel("", QUnityEditor.GetGUIStyleLabel(), QUnityEditor.GetGUILayoutWidth(25));
                     if (QUnityEditor.SetButton("↑", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
-                    {
                         QList.SetSwap(m_target.Data[i].Choice, j, j - 1);
-                    }
                     if (QUnityEditor.SetButton("↓", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
-                    {
                         QList.SetSwap(m_target.Data[i].Choice, j, j + 1);
-                    }
                     if (QUnityEditor.SetButton("X", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
                     {
                         m_target.Data[i].Choice.RemoveAt(j);
-                        m_dataChoiceCount[i]--;
+                        m_target.Data[i].EditorChoiceListCount--;
                     }
                     QUnityEditor.SetHorizontalEnd();
                 }
@@ -332,28 +316,18 @@ public class EventConfigSingleEditor : Editor
             #endregion
 
             #region ARRAY
-            if (m_dataArrayCommand)
+            if (m_target.EditorDataListCommand)
             {
                 QUnityEditor.SetHorizontalBegin();
                 QUnityEditor.SetLabel("", QUnityEditor.GetGUIStyleLabel(), QUnityEditor.GetGUILayoutWidth(25));
                 if (QUnityEditor.SetButton("↑", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
-                {
                     QList.SetSwap(m_target.Data, i, i - 1);
-                    QList.SetSwap(m_dataCommandCount, i, i - 1);
-                    QList.SetSwap(m_dataChoiceCount, i, i - 1);
-                }
                 if (QUnityEditor.SetButton("↓", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
-                {
                     QList.SetSwap(m_target.Data, i, i + 1);
-                    QList.SetSwap(m_dataCommandCount, i, i + 1);
-                    QList.SetSwap(m_dataChoiceCount, i, i + 1);
-                }
                 if (QUnityEditor.SetButton("X", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
                 {
                     m_target.Data.RemoveAt(i);
-                    m_dataCommandCount.RemoveAt(i);
-                    m_dataChoiceCount.RemoveAt(i);
-                    m_dataCount--;
+                    m_target.EditorDataListCount--;
                 }
                 QUnityEditor.SetHorizontalEnd();
             }
