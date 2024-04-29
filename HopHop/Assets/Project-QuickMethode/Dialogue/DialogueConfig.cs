@@ -86,7 +86,7 @@ public class DialogueConfig : ScriptableObject
 [CustomEditor(typeof(DialogueConfig))]
 public class DialogueConfigEditor : Editor
 {
-    private const float POPUP_HEIGHT = 150f * 2;
+    private const float POPUP_HEIGHT = 300f;
     private const float LABEL_WIDTH = 65f;
 
     private DialogueConfig m_target;
@@ -156,7 +156,7 @@ public class DialogueConfigEditor : Editor
         //COUNT:
         m_target.EditorAuthorListCount = QUnityEditor.SetGroupNumberChangeLimitMin("Author", m_target.EditorAuthorListCount, 0);
         //LIST
-        m_scrollAuthor = QUnityEditor.SetScrollViewBegin(m_scrollAuthor);
+        m_scrollAuthor = QUnityEditor.SetScrollViewBegin(m_scrollAuthor, QUnityEditor.GetGUILayoutHeight(POPUP_HEIGHT));
         for (int i = 0; i < m_target.Author.Count; i++)
         {
             #region ITEM

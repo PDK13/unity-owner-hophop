@@ -48,6 +48,9 @@ public class EventConfig : ScriptableObject
 [CustomEditor(typeof(EventConfig))]
 public class EventConfigEditor : Editor
 {
+    private const float POPUP_HEIGHT = 300f;
+    private const float LABEL_WIDTH = 65f;
+
     private EventConfig m_target;
 
     private Vector2 m_scrollType;
@@ -114,7 +117,7 @@ public class EventConfigEditor : Editor
         //COUNT:
         m_target.EditorEventListCount = QUnityEditor.SetGroupNumberChangeLimitMin("Event", m_target.EditorEventListCount, 0);
         //LIST
-        m_scrollType = QUnityEditor.SetScrollViewBegin(m_scrollType);
+        m_scrollType = QUnityEditor.SetScrollViewBegin(m_scrollType, QUnityEditor.GetGUILayoutHeight(POPUP_HEIGHT));
         for (int i = 0; i < m_target.Event.Count; i++)
         {
             #region ITEM
@@ -155,7 +158,7 @@ public class EventConfigEditor : Editor
         //COUNT:
         m_target.EditorDataListCount = QUnityEditor.SetGroupNumberChangeLimitMin("Data", m_target.EditorDataListCount, 0);
         //LIST
-        m_scrollData = QUnityEditor.SetScrollViewBegin(m_scrollData);
+        m_scrollData = QUnityEditor.SetScrollViewBegin(m_scrollData, QUnityEditor.GetGUILayoutHeight(POPUP_HEIGHT));
         for (int i = 0; i < m_target.Data.Count; i++)
         {
             #region ITEM

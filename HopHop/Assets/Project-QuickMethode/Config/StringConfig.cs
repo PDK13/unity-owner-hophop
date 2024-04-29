@@ -144,8 +144,12 @@ public class StringCodeSpriteDataConfig
 [CustomEditor(typeof(StringConfig))]
 public class StringConfigEditor : Editor
 {
-    private const float POPUP_HEIGHT = 150f * 2;
+    private const float POPUP_HEIGHT = 165f;
     private const float LABEL_WIDTH = 65f;
+
+    private Vector2 m_scrollColor;
+    private Vector2 m_scrollString;
+    private Vector2 m_scrollSprite;
 
     private StringConfig m_target;
 
@@ -245,7 +249,7 @@ public class StringConfigEditor : Editor
         //COUNT:
         m_target.EditorCodeColorListCount = QUnityEditor.SetGroupNumberChangeLimitMin("Code", m_target.EditorCodeColorListCount, 0);
         //LIST
-        //m_scrollAuthor = QUnityEditor.SetScrollViewBegin(m_scrollAuthor);
+        m_scrollColor = QUnityEditor.SetScrollViewBegin(m_scrollColor, QUnityEditor.GetGUILayoutHeight(POPUP_HEIGHT));
         for (int i = 0; i < m_target.EditorCodeColorListCount; i++)
         {
             #region ITEM
@@ -275,7 +279,7 @@ public class StringConfigEditor : Editor
             }
             #endregion
         }
-        //QUnityEditor.SetScrollViewEnd();
+        QUnityEditor.SetScrollViewEnd();
     }
 
     private void SetGUIGroupString()
@@ -299,7 +303,7 @@ public class StringConfigEditor : Editor
         //COUNT:
         m_target.EditorCodeStringListCount = QUnityEditor.SetGroupNumberChangeLimitMin("Code", m_target.EditorCodeStringListCount, 0);
         //LIST
-        //m_scrollAuthor = QUnityEditor.SetScrollViewBegin(m_scrollAuthor);
+        m_scrollString = QUnityEditor.SetScrollViewBegin(m_scrollString, QUnityEditor.GetGUILayoutHeight(POPUP_HEIGHT));
         for (int i = 0; i < m_target.EditorCodeStringListCount; i++)
         {
             #region ITEM
@@ -329,7 +333,7 @@ public class StringConfigEditor : Editor
             }
             #endregion
         }
-        //QUnityEditor.SetScrollViewEnd();
+        QUnityEditor.SetScrollViewEnd();
     }
 
     private void SetGUIGroupSprite()
@@ -339,7 +343,7 @@ public class StringConfigEditor : Editor
         //COUNT:
         m_target.EditorCodeSpriteListCount = QUnityEditor.SetGroupNumberChangeLimitMin("Code", m_target.EditorCodeSpriteListCount, 0);
         //LIST
-        //m_scrollAuthor = QUnityEditor.SetScrollViewBegin(m_scrollAuthor);
+        m_scrollSprite = QUnityEditor.SetScrollViewBegin(m_scrollSprite, QUnityEditor.GetGUILayoutHeight(POPUP_HEIGHT));
         for (int i = 0; i < m_target.EditorCodeSpriteListCount; i++)
         {
             #region ITEM
@@ -369,7 +373,7 @@ public class StringConfigEditor : Editor
             }
             #endregion
         }
-        //QUnityEditor.SetScrollViewEnd();
+        QUnityEditor.SetScrollViewEnd();
     }
 }
 

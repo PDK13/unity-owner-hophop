@@ -34,7 +34,7 @@ public class DialogueConfigSingle : ScriptableObject
 [CustomEditor(typeof(DialogueConfigSingle))]
 public class DialogueSingleConfigEditor : Editor
 {
-    private const float POPUP_HEIGHT = 150f * 2;
+    private const float POPUP_HEIGHT = 300f;
     private const float LABEL_WIDTH = 65f;
 
     private DialogueConfigSingle m_target;

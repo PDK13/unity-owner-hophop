@@ -99,7 +99,7 @@ public class EventConfigSingleDataChoice
 [CustomEditor(typeof(EventConfigSingle))]
 public class EventConfigSingleEditor : Editor
 {
-    private const float POPUP_HEIGHT = 150f * 2;
+    private const float POPUP_HEIGHT = 300f;
     private const float LABEL_WIDTH = 65f;
 
     private EventConfigSingle m_target;

@@ -28,8 +28,6 @@ MonoBehaviour:
     Color: {r: 0, g: 1, b: 1, a: 1}
   - Code: '#mageta'
     Color: {r: 1, g: 0, b: 1, a: 1}
-  - Code: '#black'
-    Color: {r: 0, g: 0, b: 0, a: 1}
   CodeStringEmty: '#emty'
   CodeStringReturn: '#return'
   CodeString: []
