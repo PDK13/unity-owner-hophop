@@ -155,13 +155,6 @@ public class DialogueConfigEditor : Editor
 
         //COUNT:
         m_target.EditorAuthorListCount = QUnityEditor.SetGroupNumberChangeLimitMin("Author", m_target.EditorAuthorListCount, 0);
-
-        //COUNT:
-        while (m_target.EditorAuthorListCount > m_target.Author.Count)
-            m_target.Author.Add(new DialogueDataAuthor());
-        while (m_target.EditorAuthorListCount < m_target.Author.Count)
-            m_target.Author.RemoveAt(m_target.Author.Count - 1);
-
         //LIST
         m_scrollAuthor = QUnityEditor.SetScrollViewBegin(m_scrollAuthor);
         for (int i = 0; i < m_target.Author.Count; i++)

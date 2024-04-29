@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20896fe8ec525134b998e7b8f4e4c110, type: 3}
   m_Name: string-config
   m_EditorClassIdentifier: 
-  m_colorClear: '#clear'
-  m_color:
+  CodeColorClear: '#clear'
+  CodeColor:
   - Code: '#red'
     Color: {r: 1, g: 0, b: 0, a: 1}
   - Code: '#blue'
@@ -30,7 +30,7 @@ MonoBehaviour:
     Color: {r: 1, g: 0, b: 1, a: 1}
   - Code: '#black'
     Color: {r: 0, g: 0, b: 0, a: 1}
-  m_codeEmty: '#emty'
-  m_codeReturn: '#return'
-  m_code: []
-  m_sprite: []
+  CodeStringEmty: '#emty'
+  CodeStringReturn: '#return'
+  CodeString: []
+  CodeSprite: []
