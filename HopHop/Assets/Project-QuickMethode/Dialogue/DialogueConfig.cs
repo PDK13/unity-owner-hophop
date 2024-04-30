@@ -174,13 +174,9 @@ public class DialogueConfigEditor : Editor
                 QUnityEditor.SetHorizontalBegin();
                 QUnityEditor.SetLabel("", QUnityEditor.GetGUIStyleLabel(), QUnityEditor.GetGUILayoutWidth(25));
                 if (QUnityEditor.SetButton("↑", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
-                {
                     QList.SetSwap(m_target.Author, i, i - 1);
-                }
                 if (QUnityEditor.SetButton("↓", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
-                {
                     QList.SetSwap(m_target.Author, i, i + 1);
-                }
                 if (QUnityEditor.SetButton("X", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
                 {
                     m_target.Author.RemoveAt(i);

@@ -166,7 +166,7 @@ public class EventConfigEditor : Editor
             if (QUnityEditor.SetButton(i.ToString(), QUnityEditor.GetGUIStyleLabel(), QUnityEditor.GetGUILayoutWidth(25)))
                 m_target.EditorDataListCommand = !m_target.EditorDataListCommand;
 
-            m_target.Data[i] = QUnityEditor.SetField(m_target.Data[i]);
+            m_target.Data[i] = QUnityEditor.SetFieldScriptableObject(m_target.Data[i]);
 
             QUnityEditor.SetHorizontalEnd();
             #endregion

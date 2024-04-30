@@ -21,7 +21,7 @@ public class GameManager : SingletonManager<GameManager>
     private void Start()
     {
         SetInit();
-        SetInitWorld(IsometricManager.Instance.Config.Map.ListAssets[0]);
+        SetInitWorld(IsometricManager.Instance.Config.Map.DataAssets[0]);
     }
 
     //World
