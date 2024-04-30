@@ -184,13 +184,19 @@ public class IsometricDataFile
                     {
                         IsometricVector PosPrimary = IsometricVector.GetDencypt(FileIO.GetReadAutoString());
                         string Name = FileIO.GetReadAutoString();
-                        //
+
                         //BLOCK START!!
-                        //
+
                         var Block = Manager.World.Current.SetBlockCreate(PosPrimary, Manager.List.GetList(Name), false);
-                        //
+
+                        if (Block == null)
+                        {
+                            Debug.LogWarningFormat("Block '{0}' created not found", Name);
+                            continue;
+                        }
+
                         bool EndGroupBlock = false;
-                        //
+
                         do
                         {
                             switch (FileIO.GetReadAutoString())
@@ -198,7 +204,7 @@ public class IsometricDataFile
                                 case KEY_BLOCK_INIT:
                                     {
                                         IsometricDataInit BlockData = Block.GetComponent<IsometricDataInit>() ?? Block.AddComponent<IsometricDataInit>();
-                                        //
+
                                         BlockData.Data = new List<string>();
                                         int InitCount = FileIO.GetReadAutoInt();
                                         for (int DataIndex = 0; DataIndex < InitCount; DataIndex++)
@@ -208,7 +214,7 @@ public class IsometricDataFile
                                 case KEY_BLOCK_MOVE:
                                     {
                                         IsometricDataMove BlockData = Block.GetComponent<IsometricDataMove>() ?? Block.AddComponent<IsometricDataMove>();
-                                        //
+
                                         BlockData.Type = FileIO.GetReadAutoEnum<DataBlockType>();
                                         BlockData.SetDataNew();
                                         int MoveCount = FileIO.GetReadAutoInt();
@@ -219,7 +225,7 @@ public class IsometricDataFile
                                 case KEY_BLOCK_ACTION:
                                     {
                                         IsometricDataAction BlockData = Block.GetComponent<IsometricDataAction>() ?? Block.AddComponent<IsometricDataAction>();
-                                        //
+
                                         BlockData.Type = FileIO.GetReadAutoEnum<DataBlockType>();
                                         BlockData.SetDataNew();
                                         int ActionCount = FileIO.GetReadAutoInt();
@@ -230,28 +236,28 @@ public class IsometricDataFile
                                 case KEY_BLOCK_TELEPORT:
                                     {
                                         IsometricDataTeleport BlockData = Block.GetComponent<IsometricDataTeleport>() ?? Block.AddComponent<IsometricDataTeleport>();
-                                        //
+
                                         BlockData.SetValue(IsometricDataTeleport.GetDencypt(FileIO.GetReadAutoString()));
                                     }
                                     break;
                                 case KEY_BLOCK_END:
-                                    //
+
                                     //BLOCK END!!
-                                    //
+
                                     EndGroupBlock = true;
                                     break;
                             }
                         }
                         while (!EndGroupBlock);
-                        //
+
                         //BLOCK END!!
                     }
                     //WORLD BLOCK END!!
                     break;
                 case KEY_WORLD_END:
-                    //
+
                     //WORLD END!!
-                    //
+
                     EndGroupWorld = true;
                     break;
             }
