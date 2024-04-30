@@ -79,8 +79,17 @@ public class EventConfigSingleData
         }
     }
 
+    //
+
     public bool EditorCommandListCommand { get; set; } = false;
+
     public bool EditorChoiceListCommand { get; set; } = false;
+
+    //
+
+    public bool EditorCommandListShow { get; set; } = false;
+
+    public bool EditorChoiceListShow { get; set; } = false;
 
 #endif
 }
@@ -207,105 +216,115 @@ public class EventConfigSingleEditor : Editor
 
             #region ITEM - MAIN - COMMAND
             //COUNT:
-            m_target.Data[i].EditorCommandListCount = QUnityEditor.SetGroupNumberChangeLimitMin("Command", m_target.Data[i].EditorCommandListCount, 0);
+            var CommandEditorShow = QUnityEditor.SetGroupNumberChangeLimitMin("Command", m_target.Data[i].EditorCommandListShow, m_target.Data[i].EditorCommandListCount, 0);
+            m_target.Data[i].EditorCommandListCount = CommandEditorShow.Value;
+            m_target.Data[i].EditorCommandListShow = CommandEditorShow.Switch;
             //LIST:
-            for (int j = 0; j < m_target.Data[i].Command.Count; j++)
+            if (m_target.Data[i].EditorCommandListShow)
             {
-                #region ITEM - MAIN - COMMAND - ITEM
-                QUnityEditor.SetHorizontalBegin();
-                if (QUnityEditor.SetButton(j.ToString(), QUnityEditor.GetGUIStyleLabel(), QUnityEditor.GetGUILayoutWidth(25)))
-                    m_target.Data[i].EditorCommandListCommand = !m_target.Data[i].EditorCommandListCommand;
-                m_target.Data[i].Command[j] = QUnityEditor.SetField(m_target.Data[i].Command[j]);
-                QUnityEditor.SetHorizontalEnd();
-                #endregion
-
-                #region ITEM - MAIN - COMMAND - ARRAY
-                if (m_target.Data[i].EditorCommandListCommand)
+                for (int j = 0; j < m_target.Data[i].Command.Count; j++)
                 {
+                    #region ITEM - MAIN - COMMAND - ITEM
                     QUnityEditor.SetHorizontalBegin();
-                    QUnityEditor.SetLabel("", QUnityEditor.GetGUIStyleLabel(), QUnityEditor.GetGUILayoutWidth(25));
-                    if (QUnityEditor.SetButton("↑", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
-                        QList.SetSwap(m_target.Data[i].Command, j, j - 1);
-                    if (QUnityEditor.SetButton("↓", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
-                        QList.SetSwap(m_target.Data[i].Command, j, j + 1);
-                    if (QUnityEditor.SetButton("X", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
-                    {
-                        m_target.Data[i].Command.RemoveAt(j);
-                        m_target.Data[i].EditorCommandListCount--;
-                    }
+                    if (QUnityEditor.SetButton(j.ToString(), QUnityEditor.GetGUIStyleLabel(), QUnityEditor.GetGUILayoutWidth(25)))
+                        m_target.Data[i].EditorCommandListCommand = !m_target.Data[i].EditorCommandListCommand;
+                    m_target.Data[i].Command[j] = QUnityEditor.SetField(m_target.Data[i].Command[j]);
                     QUnityEditor.SetHorizontalEnd();
+                    #endregion
+
+                    #region ITEM - MAIN - COMMAND - ARRAY
+                    if (m_target.Data[i].EditorCommandListCommand)
+                    {
+                        QUnityEditor.SetHorizontalBegin();
+                        QUnityEditor.SetLabel("", QUnityEditor.GetGUIStyleLabel(), QUnityEditor.GetGUILayoutWidth(25));
+                        if (QUnityEditor.SetButton("↑", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
+                            QList.SetSwap(m_target.Data[i].Command, j, j - 1);
+                        if (QUnityEditor.SetButton("↓", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
+                            QList.SetSwap(m_target.Data[i].Command, j, j + 1);
+                        if (QUnityEditor.SetButton("X", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
+                        {
+                            m_target.Data[i].Command.RemoveAt(j);
+                            m_target.Data[i].EditorCommandListCount--;
+                        }
+                        QUnityEditor.SetHorizontalEnd();
+                    }
+                    #endregion
                 }
-                #endregion
             }
             #endregion
 
             #region ITEM - MAIN - CHOICE
             //COUNT:
-            m_target.Data[i].EditorChoiceListCount = QUnityEditor.SetGroupNumberChangeLimitMin("Choice", m_target.Data[i].EditorChoiceListCount, 0);
+            var SwitchEditorShow = QUnityEditor.SetGroupNumberChangeLimitMin("Choice", m_target.Data[i].EditorChoiceListShow, m_target.Data[i].EditorChoiceListCount, 0);
+            m_target.Data[i].EditorChoiceListCount = SwitchEditorShow.Value;
+            m_target.Data[i].EditorChoiceListShow = SwitchEditorShow.Switch;
             //LIST:
-            for (int j = 0; j < m_target.Data[i].Choice.Count; j++)
+            if (m_target.Data[i].EditorChoiceListShow)
             {
-                #region ITEM - MAIN - CHOICE - ITEM
-                QUnityEditor.SetHorizontalBegin();
-                if (QUnityEditor.SetButton(j.ToString(), QUnityEditor.GetGUIStyleLabel(), QUnityEditor.GetGUILayoutWidth(25)))
-                    m_target.Data[i].EditorChoiceListCommand = !m_target.Data[i].EditorChoiceListCommand;
-
-                #region ITEM - MAIN - CHOICE - ITEM - MAIN
-                QUnityEditor.SetVerticalBegin();
-
-                #region ITEM - MAIN - CHOICE - ITEM - MAIN - NAME
-                QUnityEditor.SetHorizontalBegin();
-                QUnityEditor.SetLabel("Name", null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH));
-                m_target.Data[i].Choice[j].Name = QUnityEditor.SetField(m_target.Data[i].Choice[j].Name);
-                QUnityEditor.SetHorizontalEnd();
-                #endregion
-
-                #region ITEM - MAIN - CHOICE - ITEM - MAIN - COMMAND
-                QUnityEditor.SetHorizontalBegin();
-                QUnityEditor.SetLabel("Command", null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH));
-                m_target.Data[i].Choice[j].CommandIndex = QUnityEditor.SetPopup(m_target.Data[i].Choice[j].CommandIndex, m_eventConfig.Event);
-                QUnityEditor.SetHorizontalEnd();
-                #endregion
-
-                #region ITEM - MAIN - CHOICE - ITEM - MAIN - DIALOGUE
-                QUnityEditor.SetHorizontalBegin();
-                QUnityEditor.SetLabel("Dialogue", null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH));
-                m_target.Data[i].Choice[j].Dialogue = QUnityEditor.SetFieldScriptableObject(m_target.Data[i].Choice[j].Dialogue);
-                QUnityEditor.SetHorizontalEnd();
-                #endregion
-
-                #region ITEM - MAIN - CHOICE - ITEM - MAIN - NEXT
-                QUnityEditor.SetHorizontalBegin();
-                QUnityEditor.SetLabel("Next", null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH));
-                m_target.Data[i].Choice[j].Next = QUnityEditor.SetFieldScriptableObject(m_target.Data[i].Choice[j].Next);
-                QUnityEditor.SetHorizontalEnd();
-                #endregion
-
-                QUnityEditor.SetVerticalEnd();
-                #endregion
-
-                QUnityEditor.SetHorizontalEnd();
-                #endregion
-
-                #region ITEM - MAIN - CHOICE - ARRAY
-                if (m_target.Data[i].EditorChoiceListCommand)
+                for (int j = 0; j < m_target.Data[i].Choice.Count; j++)
                 {
+                    #region ITEM - MAIN - CHOICE - ITEM
                     QUnityEditor.SetHorizontalBegin();
-                    QUnityEditor.SetLabel("", QUnityEditor.GetGUIStyleLabel(), QUnityEditor.GetGUILayoutWidth(25));
-                    if (QUnityEditor.SetButton("↑", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
-                        QList.SetSwap(m_target.Data[i].Choice, j, j - 1);
-                    if (QUnityEditor.SetButton("↓", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
-                        QList.SetSwap(m_target.Data[i].Choice, j, j + 1);
-                    if (QUnityEditor.SetButton("X", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
-                    {
-                        m_target.Data[i].Choice.RemoveAt(j);
-                        m_target.Data[i].EditorChoiceListCount--;
-                    }
-                    QUnityEditor.SetHorizontalEnd();
-                }
-                #endregion
+                    if (QUnityEditor.SetButton(j.ToString(), QUnityEditor.GetGUIStyleLabel(), QUnityEditor.GetGUILayoutWidth(25)))
+                        m_target.Data[i].EditorChoiceListCommand = !m_target.Data[i].EditorChoiceListCommand;
 
-                QUnityEditor.SetSpace(10f);
+                    #region ITEM - MAIN - CHOICE - ITEM - MAIN
+                    QUnityEditor.SetVerticalBegin();
+
+                    #region ITEM - MAIN - CHOICE - ITEM - MAIN - NAME
+                    QUnityEditor.SetHorizontalBegin();
+                    QUnityEditor.SetLabel("Name", null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH));
+                    m_target.Data[i].Choice[j].Name = QUnityEditor.SetField(m_target.Data[i].Choice[j].Name);
+                    QUnityEditor.SetHorizontalEnd();
+                    #endregion
+
+                    #region ITEM - MAIN - CHOICE - ITEM - MAIN - COMMAND
+                    QUnityEditor.SetHorizontalBegin();
+                    QUnityEditor.SetLabel("Command", null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH));
+                    m_target.Data[i].Choice[j].CommandIndex = QUnityEditor.SetPopup(m_target.Data[i].Choice[j].CommandIndex, m_eventConfig.Event);
+                    QUnityEditor.SetHorizontalEnd();
+                    #endregion
+
+                    #region ITEM - MAIN - CHOICE - ITEM - MAIN - DIALOGUE
+                    QUnityEditor.SetHorizontalBegin();
+                    QUnityEditor.SetLabel("Dialogue", null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH));
+                    m_target.Data[i].Choice[j].Dialogue = QUnityEditor.SetFieldScriptableObject(m_target.Data[i].Choice[j].Dialogue);
+                    QUnityEditor.SetHorizontalEnd();
+                    #endregion
+
+                    #region ITEM - MAIN - CHOICE - ITEM - MAIN - NEXT
+                    QUnityEditor.SetHorizontalBegin();
+                    QUnityEditor.SetLabel("Next", null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH));
+                    m_target.Data[i].Choice[j].Next = QUnityEditor.SetFieldScriptableObject(m_target.Data[i].Choice[j].Next);
+                    QUnityEditor.SetHorizontalEnd();
+                    #endregion
+
+                    QUnityEditor.SetVerticalEnd();
+                    #endregion
+
+                    QUnityEditor.SetHorizontalEnd();
+                    #endregion
+
+                    #region ITEM - MAIN - CHOICE - ARRAY
+                    if (m_target.Data[i].EditorChoiceListCommand)
+                    {
+                        QUnityEditor.SetHorizontalBegin();
+                        QUnityEditor.SetLabel("", QUnityEditor.GetGUIStyleLabel(), QUnityEditor.GetGUILayoutWidth(25));
+                        if (QUnityEditor.SetButton("↑", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
+                            QList.SetSwap(m_target.Data[i].Choice, j, j - 1);
+                        if (QUnityEditor.SetButton("↓", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
+                            QList.SetSwap(m_target.Data[i].Choice, j, j + 1);
+                        if (QUnityEditor.SetButton("X", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
+                        {
+                            m_target.Data[i].Choice.RemoveAt(j);
+                            m_target.Data[i].EditorChoiceListCount--;
+                        }
+                        QUnityEditor.SetHorizontalEnd();
+                    }
+                    #endregion
+
+                    QUnityEditor.SetSpace(10f);
+                }
             }
             #endregion
 

@@ -551,7 +551,7 @@ public class QUnityEditor
     public static (int Value, bool Switch) SetGroupNumberChange(string Label, bool Switch, int Value)
     {
         SetHorizontalBegin();
-        if (SetButton(Label, GetGUIStyleLabel(FontStyle.Normal, TextAnchor.MiddleLeft)))
+        if (SetButton(Label, GetGUIStyleLabel(Switch ? FontStyle.Bold : FontStyle.Normal, TextAnchor.MiddleLeft)))
             Switch = !Switch;
         Value = SetField(Value, null, GetGUILayoutWidth(50));
         if (SetButton("+", null, GetGUILayoutSize()))
@@ -566,7 +566,7 @@ public class QUnityEditor
     public static (int Value, bool Switch) SetGroupNumberChangeLimit(string Label, bool Switch, int Value, int Max, int Min)
     {
         SetHorizontalBegin();
-        if (SetButton(Label, GetGUIStyleLabel(FontStyle.Normal, TextAnchor.MiddleLeft)))
+        if (SetButton(Label, GetGUIStyleLabel(Switch ? FontStyle.Bold : FontStyle.Normal, TextAnchor.MiddleLeft)))
             Switch = !Switch;
         Value = SetField(Value, null, GetGUILayoutWidth(50));
         if (SetButton("+", null, GetGUILayoutSize()))
@@ -583,7 +583,7 @@ public class QUnityEditor
     public static (int Value, bool Switch) SetGroupNumberChangeLimitMin(string Label, bool Switch, int Value, int Limit)
     {
         SetHorizontalBegin();
-        if (SetButton(Label, GetGUIStyleLabel(FontStyle.Normal, TextAnchor.MiddleLeft)))
+        if (SetButton(Label, GetGUIStyleLabel(Switch ? FontStyle.Bold : FontStyle.Normal, TextAnchor.MiddleLeft)))
             Switch = !Switch;
         Value = SetField(Value, null, GetGUILayoutWidth(50));
         if (SetButton("+", null, GetGUILayoutSize()))
@@ -599,7 +599,7 @@ public class QUnityEditor
     public static (int Value, bool Switch) SetGroupNumberChangeLimitMax(string Label, bool Switch, int Value, int Limit)
     {
         SetHorizontalBegin();
-        if (SetButton(Label, GetGUIStyleLabel(FontStyle.Normal, TextAnchor.MiddleLeft)))
+        if (SetButton(Label, GetGUIStyleLabel(Switch ? FontStyle.Bold : FontStyle.Normal, TextAnchor.MiddleLeft)))
             Switch = !Switch;
         Value = SetField(Value, null, GetGUILayoutWidth(50));
         if (SetButton("+", null, GetGUILayoutSize()))
