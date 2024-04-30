@@ -14,14 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Dialogue:
   - AuthorIndex: 0
-    Dialogue: 
+    Dialogue: Hello. My name is Angel.
     Delay:
-      Alpha: 0
-      Space: 0
-      Mark: 0
-  - AuthorIndex: 0
-    Dialogue: 
-    Delay:
-      Alpha: 0
-      Space: 0
-      Mark: 0
+      Alpha: 0.05
+      Space: 0.05
+      Mark: 0.2

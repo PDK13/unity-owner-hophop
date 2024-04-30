@@ -8,7 +8,7 @@ using UnityEditor;
 [CreateAssetMenu(fileName = "event-config", menuName = "HopHop/Event Config", order = 0)]
 public class EventConfig : ScriptableObject
 {
-    public List<string> Event; //NOTE: Make this to popup in editor
+    public List<string> Event;
     public List<EventConfigSingle> Data;
 
 #if UNITY_EDITOR
@@ -38,6 +38,7 @@ public class EventConfig : ScriptableObject
     }
 
     public bool EditorEventListCommand { get; set; } = false;
+
     public bool EditorDataListCommand { get; set; } = false;
 
 #endif

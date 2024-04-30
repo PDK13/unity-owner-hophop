@@ -20,7 +20,7 @@ public class DialogueConfigSingle : ScriptableObject
             while (Dialogue.Count > value)
                 Dialogue.RemoveAt(Dialogue.Count - 1);
             while (Dialogue.Count < value)
-                Dialogue.Add(new DialogueDataText());
+                Dialogue.Add(new DialogueDataText(QUnityAssets.GetScriptableObject<DialogueConfig>("", false)[0].DelayDefault));
         }
     }
 

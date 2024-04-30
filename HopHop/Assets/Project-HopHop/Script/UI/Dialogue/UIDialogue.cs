@@ -1,12 +1,10 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UIDialogue : MonoBehaviour
 {
+    [SerializeField] private GameObject m_panel;
     [SerializeField] private Transform m_dialogueAuthor;
     [SerializeField] private Transform m_dialogueNone;
 
@@ -26,6 +24,7 @@ public class UIDialogue : MonoBehaviour
 
     private void Start()
     {
+        m_panel.SetActive(false);
         m_dialogueAuthor.gameObject.SetActive(false);
         m_dialogueNone.gameObject.SetActive(false);
     }
@@ -46,6 +45,7 @@ public class UIDialogue : MonoBehaviour
                 //...
                 break;
             case DialogueStageType.End:
+                m_panel.SetActive(false);
                 m_dialogueAuthor.gameObject.SetActive(false);
                 m_dialogueNone.gameObject.SetActive(false);
                 break;
@@ -54,6 +54,8 @@ public class UIDialogue : MonoBehaviour
 
     private void OnDialogueText(DialogueDataText Text)
     {
+        m_panel.SetActive(true);
+
         Sprite Avatar = DialogueManager.Instance.GetAuthorAvatar(Text);
         if (Avatar != null)
         {

@@ -158,6 +158,12 @@ public class TurnManager : SingletonManager<TurnManager>
         StopAllCoroutines();
         Instance.StopAllCoroutines();
 
+        onTurn = null;
+        onStepStart = null;
+        onStepEnd = null;
+        onStepAdd = null;
+        onStepRemove = null;
+
 #if UNITY_EDITOR
         EditorApplication.playModeStateChanged -= SetPlayModeStateChange;
 #endif

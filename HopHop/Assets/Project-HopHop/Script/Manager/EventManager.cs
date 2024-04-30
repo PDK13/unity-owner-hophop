@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -54,7 +52,16 @@ public class EventManager : SingletonManager<EventManager>
 
     public bool SetEventActive(string Identity)
     {
-        Debug.Log("[Event] " + Identity);
+        EventConfigSingle Event = m_eventConfig.Data.Find(t => t.name == Identity);
+
+        if (Event == null)
+        {
+            Debug.LogWarningFormat("Event '{0}' not found", Identity);
+            return false;
+        }
+
+        DialogueManager.Instance.SetStart(Event.Data[0].Dialogue);
+
         return false;
     }
 }
