@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: isometric-config
   m_EditorClassIdentifier: 
   Block:
-    m_assetsPath: Assets/Project-HopHop/Block
-    m_list:
-    - Tag: Block
+    AssetsPath: Assets/Project-HopHop/Block
+    List:
+    - Name: Block
       Block:
       - {fileID: 44393240911007880, guid: e6a6ef9d35e94824c90d24f0a9f70445, type: 3}
       - {fileID: 1831744179654619829, guid: 7a6b9e287bd724d42a0525893eda16d2, type: 3}
@@ -28,14 +28,11 @@ MonoBehaviour:
       - {fileID: 44393240911007880, guid: 73293198e4fd7674eb8d9f4f3b359032, type: 3}
       - {fileID: 44393240911007880, guid: bce713bc048be8346ba016e4e0517991, type: 3}
       - {fileID: 1455909166595997230, guid: 218a42f8b9ed39b42a68cce7d36b4e7c, type: 3}
-    - Tag: Bullet
+    - Name: Bullet
       Block:
       - {fileID: 1455909166595997230, guid: 740db2b1ad6f89045af8c08341d89a25, type: 3}
       - {fileID: 1455909166595997230, guid: e8ecb6f1ef2f19545b012d49048b273e, type: 3}
-    - Tag: Player
-      Block:
-      - {fileID: 44393240911007880, guid: c7dda824b32fcfe4c88c6bccf01ac4ed, type: 3}
-    - Tag: Light
+    - Name: Light
       Block:
       - {fileID: 44393240911007880, guid: fca164667bfe9994a93ede8464ff1394, type: 3}
       - {fileID: 44393240911007880, guid: 94d3c6a2d5cd46f4cb39eb2d6ef004d7, type: 3}
@@ -49,15 +46,30 @@ MonoBehaviour:
       - {fileID: 44393240911007880, guid: 0a6433aa93900ae468cfdf8fdc45328b, type: 3}
       - {fileID: 44393240911007880, guid: 5f8a4b3194d84f64ab6446fb9fae653d, type: 3}
       - {fileID: 44393240911007880, guid: 00c9dc5fbfb705f46b6f837143a9488e, type: 3}
-    - Tag: Dark
-      Block: []
-    - Tag: Flower
+    - Name: Dark
+      Block:
+      - {fileID: 44393240911007880, guid: 1f3ca127959ec634393a3330b56e8edb, type: 3}
+      - {fileID: 44393240911007880, guid: d5c78afcc68d6a74691a43c51d6841e5, type: 3}
+      - {fileID: 44393240911007880, guid: 94416d34bfa461a408f23b61af09ccf2, type: 3}
+      - {fileID: 44393240911007880, guid: 5c43ff228e7ed14409cb380959f27927, type: 3}
+      - {fileID: 44393240911007880, guid: 5eabcb2a5410dd743b119658683d9498, type: 3}
+      - {fileID: 44393240911007880, guid: c766c0690216fc44c98d1d328f99f485, type: 3}
+      - {fileID: 44393240911007880, guid: b7c53201b837404418fb24239934eb88, type: 3}
+      - {fileID: 44393240911007880, guid: 643354f5a411dd6419529d425b0e9c77, type: 3}
+      - {fileID: 44393240911007880, guid: be279ad9598885c43a7ce447b9d65a62, type: 3}
+      - {fileID: 44393240911007880, guid: e7238b652c57dcd4689b45cf8a627ee5, type: 3}
+      - {fileID: 44393240911007880, guid: 91d9f39a1663454468a23f1c8214e477, type: 3}
+      - {fileID: 44393240911007880, guid: c9943cd2997b1d84eaca2736bc5e502c, type: 3}
+    - Name: Player
+      Block:
+      - {fileID: 44393240911007880, guid: c7dda824b32fcfe4c88c6bccf01ac4ed, type: 3}
+    - Name: Flower
       Block:
       - {fileID: 44393240911007880, guid: 381915d1355f4b145ad52cfe6b536e1d, type: 3}
       - {fileID: 44393240911007880, guid: 4d723acb8bc4b7243b9909ed90f662d3, type: 3}
       - {fileID: 44393240911007880, guid: 376da905a3745de44aa5758eacd1167d, type: 3}
       - {fileID: 44393240911007880, guid: 3a52f7adab0a0a546a53b79e1251424e, type: 3}
-    - Tag: Tree
+    - Name: Tree
       Block:
       - {fileID: 44393240911007880, guid: 8858c6ad8b5774e4faa517d88072b92d, type: 3}
       - {fileID: 44393240911007880, guid: c0c3e781cf7840c43b93ca13edc32d12, type: 3}
@@ -71,18 +83,14 @@ MonoBehaviour:
       - {fileID: 44393240911007880, guid: cb0d3768d5812844980b22d86bbb7aaa, type: 3}
       - {fileID: 44393240911007880, guid: 1bcad9f38dac96c4ab8253cbc943957b, type: 3}
       - {fileID: 44393240911007880, guid: 092e502cf81c5d341b782b5845a078a0, type: 3}
-    - Tag: Trap
+    - Name: Trap
       Block:
       - {fileID: 1455909166595997230, guid: bb1d6f31074e38a4c82d0eaf4f95129c, type: 3}
       - {fileID: 1455909166595997230, guid: cc00723f6326c324aaef48d0264f6f62, type: 3}
-    - Tag: Switch
-      Block:
-      - {fileID: 44393240911007880, guid: f3796a1a3a0f27c46aebeae5a7e0d2e0, type: 3}
-      - {fileID: 44393240911007880, guid: 8b040da6f934b6e45918e2afab2f2d05, type: 3}
   Map:
-    m_assetsPath: Assets/Project-HopHop/Map
-    m_list:
-    - Tag: Lab
+    AssetsPath: Assets/Project-HopHop/Map
+    List:
+    - Name: Lab
       Map:
       - {fileID: 4900000, guid: b2de289a8efade346a26065b3868e81f, type: 3}
       - {fileID: 4900000, guid: 4ac5d56a7d52c574aa3eb6b79febf253, type: 3}

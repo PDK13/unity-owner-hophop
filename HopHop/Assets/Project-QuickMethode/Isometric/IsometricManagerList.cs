@@ -38,7 +38,7 @@ public class IsometricManagerList
         SetList(IsometricConfig.Block.ListAssets, All);
     }
 
-    public void SetList(List<IsometricBlock> BlockList, bool All)
+    public void SetList(IsometricBlock[] BlockList, bool All)
     {
         if (this.BlockList == null)
             this.BlockList = new List<IsometricDataBlockListTag>();
@@ -77,7 +77,7 @@ public class IsometricManagerList
         onListRead?.Invoke();
     }
 
-    public void SetList(List<GameObject> BlockList, bool All)
+    public void SetList(GameObject[] BlockList, bool All)
     {
         if (this.BlockList == null)
             this.BlockList = new List<IsometricDataBlockListTag>();

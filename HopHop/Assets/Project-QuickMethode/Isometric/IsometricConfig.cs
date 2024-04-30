@@ -26,22 +26,17 @@ public class IsometricConfig : ScriptableObject
     }
 }
 
+#region BLOCK
+
 [Serializable]
 public class IsometricConfigBlockData
 {
     [Tooltip("Find all assets got tag exist in their name")]
-    [SerializeField] private string m_assetsPath = "Assets/Project-HopHop/Block";
+    public string AssetsPath = "Assets/Project-HopHop/Block";
 
-    [Serializable]
-    private class ListData
-    {
-        public string Tag;
-        public List<IsometricBlock> Block;
-    }
+    public List<IsometricConfigBlockDataList> List;
 
-    [SerializeField] private List<ListData> m_list;
-
-    public List<IsometricBlock> ListAssets
+    public IsometricBlock[] ListAssets
     {
         get
         {
@@ -49,10 +44,10 @@ public class IsometricConfigBlockData
             SetRefresh();
 #endif
             List<IsometricBlock> BlockList = new List<IsometricBlock>();
-            foreach (ListData DataCheck in m_list)
-                foreach (IsometricBlock BlockCheck in DataCheck.Block)
+            foreach (var DataCheck in List)
+                foreach (var BlockCheck in DataCheck.Block)
                     BlockList.Add(BlockCheck);
-            return BlockList;
+            return BlockList.ToArray();
         }
     }
 
@@ -64,8 +59,8 @@ public class IsometricConfigBlockData
             SetRefresh();
 #endif
             List<string> BlockList = new List<string>();
-            foreach (ListData DataCheck in m_list)
-                foreach (IsometricBlock BlockCheck in DataCheck.Block)
+            foreach (var DataCheck in List)
+                foreach (var BlockCheck in DataCheck.Block)
                     BlockList.Add(BlockCheck.name);
             return BlockList;
         }
@@ -77,9 +72,9 @@ public class IsometricConfigBlockData
     {
         List<IsometricBlock> AssetsGet;
         //
-        foreach (ListData BlockSingle in m_list)
+        foreach (var BlockSingle in List)
         {
-            AssetsGet = QUnityAssets.GetPrefab<IsometricBlock>(BlockSingle.Tag, false, m_assetsPath);
+            AssetsGet = QUnityAssets.GetPrefab<IsometricBlock>(BlockSingle.Name, false, AssetsPath);
             BlockSingle.Block.Clear();
             for (int i = 0; i < AssetsGet.Count; i++)
                 BlockSingle.Block.Add(AssetsGet[i]);
@@ -93,21 +88,25 @@ public class IsometricConfigBlockData
 }
 
 [Serializable]
+public class IsometricConfigBlockDataList
+{
+    public string Name;
+    public List<IsometricBlock> Block = new List<IsometricBlock>();
+}
+
+#endregion
+
+#region MAP
+
+[Serializable]
 public class IsometricConfigMapData
 {
     [Tooltip("Find all assets got tag exist in their name")]
-    [SerializeField] private string m_assetsPath = "Assets/Project-HopHop/Map";
+    public string AssetsPath = "Assets/Project-HopHop/Map";
 
-    [Serializable]
-    private class ListData
-    {
-        public string Tag = "";
-        public List<TextAsset> Map;
-    }
+    public List<IsometricConfigMapDataList> List;
 
-    [SerializeField] private List<ListData> m_list;
-
-    public List<TextAsset> ListAssets
+    public TextAsset[] ListAssets
     {
         get
         {
@@ -115,14 +114,14 @@ public class IsometricConfigMapData
             SetRefresh();
 #endif
             List<TextAsset> BlockList = new List<TextAsset>();
-            foreach (ListData DataCheck in m_list)
-                foreach (TextAsset BlockCheck in DataCheck.Map)
+            foreach (var DataCheck in List)
+                foreach (var BlockCheck in DataCheck.Map)
                     BlockList.Add(BlockCheck);
-            return BlockList;
+            return BlockList.ToArray();
         }
     }
 
-    public List<string> ListName
+    public string[] ListName
     {
         get
         {
@@ -130,10 +129,10 @@ public class IsometricConfigMapData
             SetRefresh();
 #endif
             List<string> BlockList = new List<string>();
-            foreach (ListData DataCheck in m_list)
-                foreach (TextAsset BlockCheck in DataCheck.Map)
+            foreach (var DataCheck in List)
+                foreach (var BlockCheck in DataCheck.Map)
                     BlockList.Add(BlockCheck.name);
-            return BlockList;
+            return BlockList.ToArray();
         }
     }
 
@@ -143,9 +142,9 @@ public class IsometricConfigMapData
     {
         List<TextAsset> AssetsGet;
         //
-        foreach (ListData BlockSingle in m_list)
+        foreach (var BlockSingle in List)
         {
-            AssetsGet = QUnityAssets.GetTextAsset(BlockSingle.Tag, false, QPath.ExtensionType.txt, m_assetsPath);
+            AssetsGet = QUnityAssets.GetTextAsset(BlockSingle.Name, false, QPath.ExtensionType.txt, AssetsPath);
             BlockSingle.Map.Clear();
             for (int i = 0; i < AssetsGet.Count; i++)
                 BlockSingle.Map.Add(AssetsGet[i]);
@@ -157,6 +156,15 @@ public class IsometricConfigMapData
 
 #endif
 }
+
+[Serializable]
+public class IsometricConfigMapDataList
+{
+    public string Name = "";
+    public List<TextAsset> Map;
+}
+
+#endregion
 
 #if UNITY_EDITOR
 

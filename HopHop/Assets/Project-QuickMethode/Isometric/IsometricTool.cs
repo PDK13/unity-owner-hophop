@@ -1,6 +1,7 @@
 #if UNITY_EDITOR
 
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 
@@ -156,7 +157,7 @@ public class IsometricTool : EditorWindow
         m_manager.List.SetList(m_manager.Config, false);
         //
         m_listMapScene = m_manager.World.ListMapName;
-        m_listMapFile = m_manager.Config.Map.ListName;
+        m_listMapFile = m_manager.Config.Map.ListName.ToList();
         m_listTag = m_manager.List.ListTag;
         //
         m_maskXY = false;
@@ -474,7 +475,7 @@ public class IsometricTool : EditorWindow
 
     private void SetGUIWorldConfig()
     {
-        if (m_manager.Config.Map.ListAssets.Count <= 0)
+        if (m_manager.Config.Map.ListAssets.Length <= 0)
             return;
         //
         QUnityEditor.SetHorizontalBegin();
@@ -485,7 +486,7 @@ public class IsometricTool : EditorWindow
         {
             IsometricDataFile.SetFileRead(m_manager, m_manager.Config.Map.ListAssets[m_indexMapFile]);
             m_listMapScene = m_manager.World.ListMapName;
-            m_listMapFile = m_manager.Config.Map.ListName;
+            m_listMapFile = m_manager.Config.Map.ListName.ToList();
             //
             m_mapName = m_manager.World.Current.Name;
             //
@@ -511,7 +512,7 @@ public class IsometricTool : EditorWindow
                 m_pathOpen = Path.Path;
                 IsometricDataFile.SetFileRead(m_manager, QPath.GetPath(QPath.PathType.None, Path.Path));
                 m_listMapScene = m_manager.World.ListMapName;
-                m_listMapFile = m_manager.Config.Map.ListName;
+                m_listMapFile = m_manager.Config.Map.ListName.ToList();
                 //
                 m_mapName = m_manager.World.Current.Name;
                 //
