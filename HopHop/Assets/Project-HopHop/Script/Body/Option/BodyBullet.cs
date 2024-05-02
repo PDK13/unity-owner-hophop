@@ -19,11 +19,10 @@ public class BodyBullet : MonoBehaviour, ITurnManager, IBodyBullet
     private Animator m_animator;
     private IsometricBlock m_block;
     private BodyPhysic m_body;
-    private BodyTurn m_turn;
 
     //
 
-    public TurnType Turn => m_turn != null ? m_turn.Turn : TurnType.Bullet;
+    public TurnType Turn => TurnType.Bullet;
 
     private bool TurnEnd => m_moveStepCurrent == m_moveStep && m_moveStep > 0;
 
@@ -68,7 +67,6 @@ public class BodyBullet : MonoBehaviour, ITurnManager, IBodyBullet
     {
         m_animator = GetComponent<Animator>();
         m_block = GetComponent<IsometricBlock>();
-        m_turn = GetComponent<BodyTurn>();
         m_body = GetComponent<BodyPhysic>();
         //
         TurnManager.SetInit(Turn, this);

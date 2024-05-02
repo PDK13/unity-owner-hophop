@@ -16,14 +16,13 @@ public class BodyShoot : MonoBehaviour, ITurnManager, IBodyShoot
     private List<string> m_turnCommand;
 
     private IsometricBlock m_block;
-    private BodyTurn m_turn;
     private BodySwitch m_switch;
 
     //
 
     public bool State => m_switch != null ? m_switch.State : true;
 
-    public TurnType Turn => m_turn != null ? m_turn.Turn : TurnType.Shoot;
+    public TurnType Turn => TurnType.Shoot;
 
     //
 
@@ -42,7 +41,6 @@ public class BodyShoot : MonoBehaviour, ITurnManager, IBodyShoot
     private void Awake()
     {
         m_block = GetComponent<IsometricBlock>();
-        m_turn = GetComponent<BodyTurn>();
         m_switch = GetComponent<BodySwitch>();
     }
 
@@ -54,7 +52,7 @@ public class BodyShoot : MonoBehaviour, ITurnManager, IBodyShoot
         {
             if (m_dataAction.Data.Count > 0)
             {
-                TurnManager.SetInit(Turn, this); //Shoot
+                TurnManager.SetInit(Turn, this);
                 TurnManager.Instance.onTurn += ISetTurn;
                 TurnManager.Instance.onStepStart += ISetStepStart;
                 TurnManager.Instance.onStepEnd += ISetStepEnd;

@@ -28,16 +28,18 @@ public class GameManager : SingletonManager<GameManager>
     {
         Application.targetFrameRate = 60;
         Screen.SetResolution(1920, 1080, true);
-        //
+
         IsometricManager.Instance.SetInit();
+
+        TurnManager.SetAutoRemove(TurnType.None);
+        TurnManager.SetAutoRemove(TurnType.Gravity);
+        TurnManager.SetAutoRemove(TurnType.Event);
     }
 
     private void SetInitWorld(TextAsset WorldData)
     {
         IsometricDataFile.SetFileRead(IsometricManager.Instance, WorldData);
-        //
-        TurnManager.SetAutoRemove(TurnType.None);
-        TurnManager.SetAutoRemove(TurnType.Gravity);
+
         TurnManager.SetStart();
     }
 
@@ -50,12 +52,12 @@ public class GameManager : SingletonManager<GameManager>
             Debug.Log("[Manager] Main camera not found, so can't change target!");
             return;
         }
-        //
+
         if (Target == null)
             Camera.main.transform.parent = null;
         else
             Camera.main.transform.parent = Target;
-        //
+
         Camera.main.transform.localPosition = Vector3.back * 100f;
     }
 
@@ -65,7 +67,7 @@ public class GameManager : SingletonManager<GameManager>
 public enum TurnType
 {
     None,
-    //
+    Event,
     Gravity,
     Player,
     Bullet,

@@ -1,21 +1,30 @@
+using System;
+using System.Collections;
 using UnityEditor;
 using UnityEngine;
 
-public class EventManager : SingletonManager<EventManager>
+public class EventManager : SingletonManager<EventManager>, ITurnManager
 {
-    #region Varible: Config
+    public Action<bool> onEvent;
+    public Action<bool> onEventDialogue;
+
+    //
 
     [SerializeField] private EventConfig m_eventConfig;
 
-    #endregion
+    //
 
-    #region Varible: Event
+    private void Start()
+    {
+        
+    }
 
-    private EventConfigSingle m_eventCurrent;
+    private void OnDestroy()
+    {
+        
+    }
 
-    #endregion
-
-    #region Config
+    //
 
 #if UNITY_EDITOR
 
@@ -48,7 +57,15 @@ public class EventManager : SingletonManager<EventManager>
 
 #endif
 
-    #endregion
+    //
+
+    public void ISetTurn(int Step) { }
+
+    public void ISetStepStart(string Step) { }
+
+    public void ISetStepEnd(string Step) { }
+
+    //
 
     public bool SetEventActive(string Identity)
     {
@@ -60,9 +77,75 @@ public class EventManager : SingletonManager<EventManager>
             return false;
         }
 
-        DialogueManager.Instance.SetStart(Event.Data[0].Dialogue);
+        StartCoroutine(ISetEventActive(Event));
 
-        return false;
+        return true;
+    }
+
+    private IEnumerator ISetEventActive(EventConfigSingle Event)
+    {
+        TurnManager.SetAdd(TurnType.Event, this);
+        onEvent?.Invoke(true);
+
+        for (int i = 0; i < Event.Data.Count; i++)
+        {
+            if (Event.Data[i] == null)
+            {
+                Debug.LogWarningFormat("Event {0} not found to active", Event.name);
+                continue;
+            }
+
+            if (Event.Data[i].Dialogue != null)
+            {
+                onEventDialogue?.Invoke(true);
+                DialogueManager.Instance.SetStart(Event.Data[i].Dialogue);
+            }
+
+            if (Event.Data[i].Command != null ? Event.Data[i].Command.Count > 0 : false)
+            {
+                //Command event trigger!
+            }
+
+            if (Event.Data[i].Choice != null ? Event.Data[i].Choice.Count > 0 : false)
+            {
+                //Choice event trigger!
+            }
+
+            if (Event.Data[i].WaitForce)
+                //Wait until all event done it's work!
+                yield return new WaitUntil(() => !DialogueManager.Instance.Active);
+        }
+
+        onEvent?.Invoke(false);
+        TurnManager.SetEndStep(TurnType.Event, this);
+    }
+
+    //
+
+    private void SetControlStage(bool Stage)
+    {
+        if (Stage)
+        {
+            SetControlStage(false);
+
+            InputManager.Instance.onEventNext += OnEventNext;
+            InputManager.Instance.onEventSkip += OnEventSkip;
+        }
+        else
+        {
+            InputManager.Instance.onEventNext -= OnEventNext;
+            InputManager.Instance.onEventSkip -= OnEventSkip;
+        }
+    }
+
+    private void OnEventNext()
+    {
+
+    }
+
+    private void OnEventSkip()
+    {
+
     }
 }
 

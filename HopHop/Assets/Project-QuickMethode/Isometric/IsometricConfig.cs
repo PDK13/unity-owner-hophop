@@ -276,6 +276,8 @@ public class IsometricConfigEditor : Editor
         SetGUIGroupMap();
 
         QUnityEditorCustom.SetApply(this);
+
+        QUnityEditor.SetDirty(m_target);
     }
 
     private void SetGUIGroupBlock()

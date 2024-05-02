@@ -7,7 +7,7 @@ using UnityEngine;
 public class EventConfigSingle : ScriptableObject
 {
     public bool Base;
-    public List<EventConfigSingleData> Data;
+    public List<EventConfigSingleData> Data = new List<EventConfigSingleData>();
 
 #if UNITY_EDITOR
 

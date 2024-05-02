@@ -13,7 +13,6 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic
     private bool m_moveCheckAheadBot = false;
 
     private IsometricBlock m_block;
-    private BodyTurn m_turn;
     private BodyPhysic m_body;
     private BodySwitch m_switch;
 
@@ -21,14 +20,13 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic
 
     public bool State => m_switch != null ? m_switch.State : true;
 
-    public TurnType Turn => m_turn != null ? m_turn.Turn : TurnType.MovePhysic;
+    public TurnType Turn => TurnType.MovePhysic;
 
     //
 
     private void Awake()
     {
         m_block = GetComponent<IsometricBlock>();
-        m_turn = GetComponent<BodyTurn>();
         m_body = GetComponent<BodyPhysic>();
         m_switch = GetComponent<BodySwitch>();
     }
@@ -41,7 +39,7 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic
         {
             if (m_dataMove.Data.Count > 0)
             {
-                TurnManager.SetInit(Turn, this); //Move-Physic
+                TurnManager.SetInit(Turn, this);
                 TurnManager.Instance.onTurn += ISetTurn;
                 TurnManager.Instance.onStepStart += ISetStepStart;
                 TurnManager.Instance.onStepEnd += ISetStepEnd;

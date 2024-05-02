@@ -4,16 +4,16 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
 {
     private int m_moveStepCurrent = 0;
 
+    private bool m_control = false;
     private bool m_interacte = false;
 
     private IsometricBlock m_block;
-    private BodyTurn m_turn;
     private BodyPhysic m_body;
     private BodyCharacter m_character;
 
     //
 
-    public TurnType Turn => m_turn != null ? m_turn.Turn : TurnType.Player;
+    public TurnType Turn => TurnType.Player;
 
     private bool TurnEnd => m_moveStepCurrent >= m_character.MoveStep && m_character.MoveStep > 0;
 
@@ -24,14 +24,15 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
     private void Awake()
     {
         m_block = GetComponent<IsometricBlock>();
-        m_turn = GetComponent<BodyTurn>();
         m_body = GetComponent<BodyPhysic>();
         m_character = GetComponent<BodyCharacter>();
     }
 
     private void Start()
     {
-        CharacterManager.Instance.onCharacter += SetCharacter;
+        EventManager.Instance.onEvent += OnEvent;
+
+        CharacterManager.Instance.onCharacter += OnCharacter;
 
         TurnManager.SetInit(Turn, this);
         TurnManager.Instance.onTurn += ISetTurn;
@@ -50,10 +51,11 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
 
     private void OnDestroy()
     {
-        SetControlEvent(false);
-        SetCharacterEvent(false);
+        SetControlStage(false);
 
-        CharacterManager.Instance.onCharacter -= SetCharacter;
+        EventManager.Instance.onEvent -= OnEvent;
+
+        CharacterManager.Instance.onCharacter -= OnCharacter;
 
         TurnManager.SetRemove(Turn, this);
         TurnManager.Instance.onTurn -= ISetTurn;
@@ -70,35 +72,48 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
         GameManager.Instance.SetCameraFollow(null);
     }
 
+    //Event
+
+    private void OnEvent(bool Stage)
+    {
+        SetControlStage(!Stage);
+    }
+
     //Control
 
-    private void SetControlEvent(bool Stage)
+    private void SetControlStage(bool Stage)
     {
         if (Stage)
         {
-            SetControlEvent(false);
+            SetControlStage(false);
 
-            InputManager.Instance.onUp += SetControlUp;
-            InputManager.Instance.onDown += SetControlDown;
-            InputManager.Instance.onLeft += SetControlLeft;
-            InputManager.Instance.onRight += SetControlRight;
-            InputManager.Instance.onStand += SetControlStand;
+            InputManager.Instance.onUp += OnControlUp;
+            InputManager.Instance.onDown += OnControlDown;
+            InputManager.Instance.onLeft += OnControlLeft;
+            InputManager.Instance.onRight += OnControlRight;
+            InputManager.Instance.onStand += OnControlStand;
 
-            InputManager.Instance.onInteracte += SetControlInteracte;
+            InputManager.Instance.onInteracte += OnControlInteracte;
+
+            InputManager.Instance.onCharacterNext += OnCharacterNext;
+            InputManager.Instance.onCharacterPrev += OnCharacterPrev;
         }
         else
         {
-            InputManager.Instance.onUp -= SetControlUp;
-            InputManager.Instance.onDown -= SetControlDown;
-            InputManager.Instance.onLeft -= SetControlLeft;
-            InputManager.Instance.onRight -= SetControlRight;
-            InputManager.Instance.onStand -= SetControlStand;
+            InputManager.Instance.onUp -= OnControlUp;
+            InputManager.Instance.onDown -= OnControlDown;
+            InputManager.Instance.onLeft -= OnControlLeft;
+            InputManager.Instance.onRight -= OnControlRight;
+            InputManager.Instance.onStand -= OnControlStand;
 
-            InputManager.Instance.onInteracte -= SetControlInteracte;
+            InputManager.Instance.onInteracte -= OnControlInteracte;
+
+            InputManager.Instance.onCharacterNext -= OnCharacterNext;
+            InputManager.Instance.onCharacterPrev -= OnCharacterPrev;
         }
     }
 
-    private void SetControlUp() 
+    private void OnControlUp() 
     {
         if (m_interacte)
             IInteractive(IsometricVector.Up);
@@ -106,7 +121,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
             IControl(IsometricVector.Up);
     }
 
-    private void SetControlDown()
+    private void OnControlDown()
     {
         if (m_interacte)
             IInteractive(IsometricVector.Down);
@@ -114,7 +129,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
             IControl(IsometricVector.Down);
     }
 
-    private void SetControlLeft()
+    private void OnControlLeft()
     {
         if (m_interacte)
             IInteractive(IsometricVector.Left);
@@ -122,7 +137,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
             IControl(IsometricVector.Left);
     }
 
-    private void SetControlRight()
+    private void OnControlRight()
     {
         if (m_interacte)
             IInteractive(IsometricVector.Right);
@@ -130,7 +145,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
             IControl(IsometricVector.Right);
     }
 
-    private void SetControlStand() 
+    private void OnControlStand() 
     {
         if (m_interacte)
             IInteractive(IsometricVector.None);
@@ -138,7 +153,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
             IControl(IsometricVector.None);
     }
 
-    private void SetControlInteracte() 
+    private void OnControlInteracte() 
     {
         m_interacte = !m_interacte;
         SetInteractiveCheck(m_interacte);
@@ -146,33 +161,17 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
 
     //Character
 
-    private void SetCharacterEvent(bool Stage)
-    {
-        if (Stage)
-        {
-            SetCharacterEvent(false);
-
-            InputManager.Instance.onCharacterNext += SetCharacterNext;
-            InputManager.Instance.onCharacterPrev += SetCharacterPrev;
-        }
-        else
-        {
-            InputManager.Instance.onCharacterNext -= SetCharacterNext;
-            InputManager.Instance.onCharacterPrev -= SetCharacterPrev;
-        }
-    }
-
-    private void SetCharacter()
+    private void OnCharacter()
     {
         m_character.SetCharacter(CharacterManager.Instance.CharacterCurrent);
     }
 
-    private void SetCharacterNext()
+    private void OnCharacterNext()
     {
         CharacterManager.Instance.SetCharacterPrev();
     }
 
-    private void SetCharacterPrev()
+    private void OnCharacterPrev()
     {
         CharacterManager.Instance.SetCharacterNext();
     }
@@ -194,8 +193,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
         if (m_body.SetControlMoveForce())
             return;
 
-        SetControlEvent(true);
-        SetCharacterEvent(true);
+        SetControlStage(true);
     }
 
     public void ISetStepEnd(string Step) 
@@ -210,8 +208,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
     {
         if (Dir == IsometricVector.None)
         {
-            SetControlEvent(false);
-            SetCharacterEvent(false);
+            SetControlStage(false);
 
             m_body.SetControlMoveReset();
 
@@ -245,8 +242,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
 
         //Fine to continue move to pos ahead!!
 
-        SetControlEvent(false);
-        SetCharacterEvent(false);
+        SetControlStage(false);
 
         m_body.SetControlMove(Dir, TurnLast || !m_character.MoveFloat);
 
@@ -257,8 +253,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
     {
         if (TurnManager.Instance.StepCurrent.Step != Turn.ToString() && !State)
         {
-            SetControlEvent(false);
-            SetCharacterEvent(false);
+            SetControlStage(false);
 
             TurnManager.SetEndStep(Turn, this);
 
@@ -278,8 +273,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
             {
                 //End Turn!
 
-                SetControlEvent(false);
-                SetCharacterEvent(false);
+                SetControlStage(false);
 
                 TurnManager.SetEndStep(Turn, this);
             }
@@ -294,8 +288,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
                 {
                     //Lock Move!
 
-                    SetControlEvent(false);
-                    SetCharacterEvent(false);
+                    SetControlStage(false);
 
                     IControl(m_body.MoveLastXY);
                 }
@@ -303,8 +296,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
                 {
                     //Freely Move!
 
-                    SetControlEvent(true);
-                    SetCharacterEvent(true);
+                    SetControlStage(true);
                 }
             }
         }
@@ -344,8 +336,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
                     m_interacte = false;
                     SetInteractiveCheck(false);
 
-                    SetControlEvent(false);
-                    SetCharacterEvent(false);
+                    SetControlStage(false);
 
                     TurnManager.SetEndStep(Turn, this);
 

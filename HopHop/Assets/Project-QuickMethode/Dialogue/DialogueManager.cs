@@ -73,6 +73,11 @@ public class DialogueManager : SingletonManager<DialogueManager>
     #region Varible: Get
 
     /// <summary>
+    /// Dialogue current active in progess
+    /// </summary>
+    public bool Active => m_active;
+
+    /// <summary>
     /// Dialogue system stage current
     /// </summary>
     public DialogueStageType Stage => m_stage;

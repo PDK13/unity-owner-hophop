@@ -22,6 +22,9 @@ public class InputManager : SingletonManager<InputManager>
     public Action onCharacterNext;
     public Action onCharacterPrev;
 
+    public Action onEventNext;
+    public Action onEventSkip;
+
     //
 
     [SerializeField] private KeyCode m_up = KeyCode.UpArrow;
@@ -60,8 +63,8 @@ public class InputManager : SingletonManager<InputManager>
         SetPress(m_left, onLeft);
         SetPress(m_right, onRight);
 
-        SetPress(m_primary, onInteracte, onAccept);
-        SetPress(m_secondary, onStand, onCancel);
+        SetPress(m_primary, onInteracte, onAccept, onEventNext);
+        SetPress(m_secondary, onStand, onCancel, onEventSkip);
 
         SetPress(m_characterNext, onCharacterNext);
         SetPress(m_characterPrev, onCharacterPrev);
