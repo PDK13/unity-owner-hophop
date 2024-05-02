@@ -31,6 +31,8 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
 
     private void Start()
     {
+        CharacterManager.Instance.onCharacter += SetCharacter;
+
         TurnManager.SetInit(Turn, this);
         TurnManager.Instance.onTurn += ISetTurn;
         TurnManager.Instance.onStepStart += ISetStepStart;
@@ -50,6 +52,8 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
     {
         SetControlEvent(false);
         SetCharacterEvent(false);
+
+        CharacterManager.Instance.onCharacter -= SetCharacter;
 
         TurnManager.SetRemove(Turn, this);
         TurnManager.Instance.onTurn -= ISetTurn;
@@ -148,17 +152,29 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
         {
             SetCharacterEvent(false);
 
-            CharacterManager.Instance.onCharacter += SetCharacter;
+            InputManager.Instance.onCharacterNext += SetCharacterNext;
+            InputManager.Instance.onCharacterPrev += SetCharacterPrev;
         }
         else
         {
-            CharacterManager.Instance.onCharacter -= SetCharacter;
+            InputManager.Instance.onCharacterNext -= SetCharacterNext;
+            InputManager.Instance.onCharacterPrev -= SetCharacterPrev;
         }
     }
 
     private void SetCharacter()
     {
         m_character.SetCharacter(CharacterManager.Instance.CharacterCurrent);
+    }
+
+    private void SetCharacterNext()
+    {
+        CharacterManager.Instance.SetCharacterPrev();
+    }
+
+    private void SetCharacterPrev()
+    {
+        CharacterManager.Instance.SetCharacterNext();
     }
 
     //Turn

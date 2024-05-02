@@ -8,6 +8,9 @@ public class InputManager : SingletonManager<InputManager>
 
     //
 
+    public Action onAccept;
+    public Action onCancel;
+
     public Action onUp;
     public Action onDown;
     public Action onLeft;
@@ -16,8 +19,8 @@ public class InputManager : SingletonManager<InputManager>
 
     public Action onInteracte;
 
-    public Action onAccept;
-    public Action onCancel;
+    public Action onCharacterNext;
+    public Action onCharacterPrev;
 
     //
 
@@ -28,6 +31,9 @@ public class InputManager : SingletonManager<InputManager>
 
     [SerializeField] private KeyCode m_primary = KeyCode.Z;
     [SerializeField] private KeyCode m_secondary = KeyCode.X;
+
+    [SerializeField] private KeyCode m_characterNext = KeyCode.Q;
+    [SerializeField] private KeyCode m_characterPrev = KeyCode.E;
 
     //
 
@@ -49,18 +55,16 @@ public class InputManager : SingletonManager<InputManager>
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
-            CharacterManager.Instance.SetCharacterPrev();
-
-        if (Input.GetKeyDown(KeyCode.E))
-            CharacterManager.Instance.SetCharacterNext();
-
         SetPress(m_up, onUp);
         SetPress(m_down, onDown);
         SetPress(m_left, onLeft);
         SetPress(m_right, onRight);
+
         SetPress(m_primary, onInteracte, onAccept);
         SetPress(m_secondary, onStand, onCancel);
+
+        SetPress(m_characterNext, onCharacterNext);
+        SetPress(m_characterPrev, onCharacterPrev);
     }
 
     //
