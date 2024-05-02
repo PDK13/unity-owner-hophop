@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEditor;
 using UnityEngine;
 
-public class EventManager : SingletonManager<EventManager>, ITurnManager
+public class EventManager : SingletonManager<EventManager>
 {
     public Action<bool> onEvent;
     public Action<bool> onEventDialogue;
@@ -11,6 +11,10 @@ public class EventManager : SingletonManager<EventManager>, ITurnManager
     //
 
     [SerializeField] private EventConfig m_eventConfig;
+
+    //
+
+    public TurnType Turn => TurnType.Event;
 
     //
 
@@ -59,14 +63,6 @@ public class EventManager : SingletonManager<EventManager>, ITurnManager
 
     //
 
-    public void ISetTurn(int Step) { }
-
-    public void ISetStepStart(string Step) { }
-
-    public void ISetStepEnd(string Step) { }
-
-    //
-
     public bool SetEventActive(string Identity)
     {
         EventConfigSingle Event = m_eventConfig.Data.Find(t => t.name == Identity);
@@ -84,7 +80,7 @@ public class EventManager : SingletonManager<EventManager>, ITurnManager
 
     private IEnumerator ISetEventActive(EventConfigSingle Event)
     {
-        TurnManager.SetAdd(TurnType.Event, this);
+        TurnManager.Instance.TurnPause = true;
         onEvent?.Invoke(true);
 
         for (int i = 0; i < Event.Data.Count; i++)
@@ -117,7 +113,7 @@ public class EventManager : SingletonManager<EventManager>, ITurnManager
         }
 
         onEvent?.Invoke(false);
-        TurnManager.SetEndStep(TurnType.Event, this);
+        TurnManager.Instance.TurnPause = false;
     }
 
     //

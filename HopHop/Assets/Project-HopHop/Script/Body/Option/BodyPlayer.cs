@@ -76,7 +76,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
 
     private void OnEvent(bool Stage)
     {
-        SetControlStage(!Stage);
+        //SetControlStage(!Stage);
     }
 
     //Control

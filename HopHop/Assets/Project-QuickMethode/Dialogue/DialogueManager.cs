@@ -191,38 +191,34 @@ public class DialogueManager : SingletonManager<DialogueManager>
             m_text = m_dataCurrent.Dialogue[i].Dialogue;
 
             //DIALOGUE
-            if (string.IsNullOrEmpty(m_text))
-                m_tmp.text = "...";
-            else
+
+            onText?.Invoke(m_dataCurrent.Dialogue[i]);
+
+            m_tmp.text = "";
+            if (m_stringConfig != null)
+                m_text = m_stringConfig.GetColorHexFormatReplace(m_text);
+
+            if (m_command != DialogueCommandType.Skip)
             {
-                //BEGIN
-                onText?.Invoke(m_dataCurrent.Dialogue[i]);
-
-                m_tmp.text = "";
-                if (m_stringConfig != null)
-                    m_text = m_stringConfig.GetColorHexFormatReplace(m_text);
-
                 //PROGESS
                 m_command = DialogueCommandType.Text;
                 SetStage(DialogueStageType.Text);
                 m_iSetDialogueShowSingle = StartCoroutine(ISetDialogueShowSingle(m_dataCurrent.Dialogue[i]));
-
-                //CURRENT
-                yield return new WaitUntil(() => m_command == DialogueCommandType.Skip || m_command == DialogueCommandType.Done);
-
-                //DONE
-                m_tmp.text = m_text;
             }
 
-            //WAIT
-            if (!string.IsNullOrEmpty(m_text) && i < m_dataCurrent.Dialogue.Count - 1)
-            {
-                //FINAL
-                m_command = DialogueCommandType.Wait;
+            //WAIT PROGESS
+            yield return new WaitUntil(() => m_command == DialogueCommandType.Next || m_command == DialogueCommandType.Skip || m_command == DialogueCommandType.Done);
 
+            //DONE
+            m_tmp.text = m_text;
+
+            if (m_command != DialogueCommandType.Skip)
+            {
+                //WAIT
+                m_command = DialogueCommandType.Wait;
                 SetStage(DialogueStageType.Wait);
 
-                //NEXT?
+                //WAIT NEXT
                 yield return new WaitUntil(() => m_command == DialogueCommandType.Next);
             }
         }
@@ -309,33 +305,37 @@ public class DialogueManager : SingletonManager<DialogueManager>
     #region Control
 
     /// <summary>
-    /// Next dialogue; or continue dialogue after choice option delay continue dialogue
+    /// Dialogue quick end current text, or continue next text after text done
     /// </summary>
     public void SetNext()
     {
-        if (m_command != DialogueCommandType.Wait)
-            //When current dialogue in done show up, press Next to move on next dialogue!
-            return;
-
-        m_command = DialogueCommandType.Next;
+        switch (m_command)
+        {
+            case DialogueCommandType.Text:
+            case DialogueCommandType.Wait:
+                StopCoroutine(m_iSetDialogueShowSingle);
+                m_command = DialogueCommandType.Next;
+                break;
+        }
     }
 
     /// <summary>
-    /// Skip current dialogue, until got choice option or end dialogue
+    /// Dialogue quick end current text and continue quick end next text
     /// </summary>
     public void SetSkip()
     {
-        if (m_command != DialogueCommandType.Text)
-            //When current dialogue is showing up, press Next to skip and show full dialogue!
-            return;
-
-        StopCoroutine(m_iSetDialogueShowSingle);
-
-        m_command = DialogueCommandType.Skip;
+        switch (m_command)
+        {
+            case DialogueCommandType.Text:
+            case DialogueCommandType.Wait:
+                StopCoroutine(m_iSetDialogueShowSingle);
+                m_command = DialogueCommandType.Skip;
+                break;
+        }
     }
 
     /// <summary>
-    /// Stop dialogue
+    /// Dialogue quick end all text
     /// </summary>
     public void SetStop(bool Clear = false)
     {

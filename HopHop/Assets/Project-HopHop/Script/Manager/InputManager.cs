@@ -92,7 +92,7 @@ public class InputManager : SingletonManager<InputManager>
 
             if (!m_delay.Exists(t => t.Key == Key))
             {
-                Debug.LogWarningFormat("Input {0} delay not exist to check", Key);
+                //Debug.LogWarningFormat("Input {0} delay not exist to check", Key);
                 return;
             }
 

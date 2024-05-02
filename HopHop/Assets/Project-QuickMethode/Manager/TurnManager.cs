@@ -19,6 +19,7 @@ public class TurnManager : SingletonManager<TurnManager>
 
     //Optionals event for every unit(s) and other progess(s)!
 
+    public Action<bool> onTurnPause;        //<Pause>
     public Action<string> onStepAdd;        //<Step>
     public Action<string> onStepRemove;     //<Step>
 
@@ -36,7 +37,8 @@ public class TurnManager : SingletonManager<TurnManager>
     #region Varible: Turn & Step
 
     private int m_turnPass = 0;
-
+    private bool m_turnPause = false;
+    
     [Serializable]
     private class StepSingle
     {
@@ -110,25 +112,37 @@ public class TurnManager : SingletonManager<TurnManager>
     [SerializeField] private StepSingle m_stepCurrent;
     [SerializeField] private List<StepSingle> m_stepQueue = new List<StepSingle>();
 
+    private List<string> m_stepRemove = new List<string>()
+    {
+        "None"
+    }; //When Step add to this list, they will be auto remove out of Queue when their Steo or Move completed!
+
+    //
+
+    public bool TurnPause 
+    { 
+        get => m_turnPause; 
+        set
+        {
+            m_turnPause = value;
+            onTurnPause?.Invoke(value);
+        }
+    } //Pause current Turn (if end it's Move or Step) before next Turn activated!
+
     public (string Step, int Count) StepCurrent => (m_stepCurrent.Step, m_stepCurrent.Unit.Count);
 
-    public List<(string Step, int Count)> StepQueueCurrent
+    public (string Step, int Count)[] StepQueue
     {
         get
         {
             List<(string Step, int Count)> Queue = new List<(string Step, int Count)>();
             foreach (var StepCheck in m_stepQueue)
                 Queue.Add((StepCheck.Step, StepCheck.Unit.Count));
-            return Queue;
+            return Queue.ToArray();
         }
     }
 
-    //
-
-    public List<string> StepRemove = new List<string>()
-    {
-        "None"
-    }; //When Step add to this list, they will be auto remove out of Queue when their Move complete!
+    public string[] StepRemove => m_stepRemove.ToArray();
 
     #endregion
 
@@ -205,6 +219,8 @@ public class TurnManager : SingletonManager<TurnManager>
 
         yield return null;
 
+        yield return new WaitUntil(() => !m_turnPause);
+
         m_stepCurrent = m_stepQueue[0];
 
         bool DelayNewStep = true;
@@ -271,11 +287,11 @@ public class TurnManager : SingletonManager<TurnManager>
         if (string.IsNullOrEmpty(Step))
             return;
         //
-        if (Add && !Instance.StepRemove.Contains(Step))
-            Instance.StepRemove.Add(Step);
+        if (Add && !Instance.m_stepRemove.Contains(Step))
+            Instance.m_stepRemove.Add(Step);
         else
-        if (!Add && Instance.StepRemove.Contains(Step))
-            Instance.StepRemove.Remove(Step);
+        if (!Add && Instance.m_stepRemove.Contains(Step))
+            Instance.m_stepRemove.Remove(Step);
     }
 
     /// <summary>
@@ -477,7 +493,7 @@ public class TurnManager : SingletonManager<TurnManager>
         if (After > Instance.m_stepQueue.Count - 1)
         {
             Instance.m_stepQueue.Add(new StepSingle(Step, Start, Unit));
-            Instance.m_stepQueue[Instance.m_stepQueue.Count - 1].EndStepRemove = Instance.StepRemove.Contains(Step);
+            Instance.m_stepQueue[Instance.m_stepQueue.Count - 1].EndStepRemove = Instance.m_stepRemove.Contains(Step);
         }
         else
         if (Instance.m_stepQueue[After].Step == Step)
@@ -490,7 +506,7 @@ public class TurnManager : SingletonManager<TurnManager>
         else
         {
             Instance.m_stepQueue.Insert(After, new StepSingle(Step, Start, Unit));
-            Instance.m_stepQueue[After].EndStepRemove = Instance.StepRemove.Contains(Step);
+            Instance.m_stepQueue[After].EndStepRemove = Instance.m_stepRemove.Contains(Step);
         }
 
         Instance.onStepAdd?.Invoke(Step);
@@ -526,7 +542,7 @@ public class TurnManager : SingletonManager<TurnManager>
             else
             {
                 Instance.m_stepQueue.Insert(i, new StepSingle(Step.ToString(), Start, Unit));
-                Instance.m_stepQueue[i].EndStepRemove = Instance.StepRemove.Contains(Step);
+                Instance.m_stepQueue[i].EndStepRemove = Instance.m_stepRemove.Contains(Step);
             }
 
             return;
@@ -647,11 +663,4 @@ public interface ITurnManager
     void ISetStepStart(string Step);
 
     void ISetStepEnd(string Step);
-}
-
-public interface ITurnManagerOptional
-{
-    void ISetStepAdd(string Step);
-
-    void ISetStepRemove(string Step);
 }
