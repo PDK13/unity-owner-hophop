@@ -219,7 +219,7 @@ public class DialogueManager : SingletonManager<DialogueManager>
                 SetStage(DialogueStageType.Wait);
 
                 //WAIT NEXT
-                yield return new WaitUntil(() => m_command == DialogueCommandType.Next);
+                yield return new WaitUntil(() => m_command == DialogueCommandType.Next || m_command == DialogueCommandType.Skip);
             }
         }
 

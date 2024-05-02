@@ -13,8 +13,14 @@ MonoBehaviour:
   m_Name: dialogue-test
   m_EditorClassIdentifier: 
   Dialogue:
-  - AuthorIndex: 0
+  - AuthorIndex: 1
     Dialogue: Hello. My name is Angel.
+    Delay:
+      Alpha: 0.05
+      Space: 0.05
+      Mark: 0.2
+  - AuthorIndex: 0
+    Dialogue: I am talking by myself.
     Delay:
       Alpha: 0.05
       Space: 0.05

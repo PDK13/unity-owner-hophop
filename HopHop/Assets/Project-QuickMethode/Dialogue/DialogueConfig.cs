@@ -7,6 +7,7 @@ using UnityEditor;
 [CreateAssetMenu(fileName = "dialogue-config", menuName = "Dialogue/Dialogue Config", order = 1)]
 public class DialogueConfig : ScriptableObject
 {
+    public string AuthorNone = "None";
     public List<DialogueDataAuthor> Author = new List<DialogueDataAuthor>();
     public DialogueDataTextDelay DelayDefault;
 
@@ -16,17 +17,17 @@ public class DialogueConfig : ScriptableObject
     {
         get
         {
-            List<string> Data = new List<string>();
-            //
             if (Author == null)
                 return null;
-            //
+
             if (Author.Count == 0)
                 return null;
-            //
+
+            List<string> Data = new List<string>() { AuthorNone };
+
             foreach (DialogueDataAuthor AuthorItem in Author)
                 Data.Add(AuthorItem.Name);
-            //
+
             return Data.ToArray();
         }
     }
@@ -37,12 +38,12 @@ public class DialogueConfig : ScriptableObject
         {
             if (Author == null)
                 return null;
-            //
+
             if (Author.Count == 0)
                 return null;
-            //
-            List<Sprite> Data = new List<Sprite>();
-            //
+
+            List<Sprite> Data = new List<Sprite>() { null };
+
             foreach (DialogueDataAuthor AuthorItem in Author)
                 Data.Add(AuthorItem.Avatar);
             //

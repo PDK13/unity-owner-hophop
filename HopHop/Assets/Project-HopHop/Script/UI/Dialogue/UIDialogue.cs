@@ -8,8 +8,6 @@ public class UIDialogue : MonoBehaviour
     [SerializeField] private Transform m_dialogueAuthor;
     [SerializeField] private Transform m_dialogueNone;
 
-    private bool m_active = false;
-
     private Image m_imgDialogueAuthor;
     private TextMeshProUGUI m_tmpDialogueAuthor;
     private TextMeshProUGUI m_tmpDialogueNone;
@@ -61,40 +59,18 @@ public class UIDialogue : MonoBehaviour
 
     private void OnDialogueNext()
     {
-        if (!m_active)
-            SetDialogueHide();
-        else
-            DialogueManager.Instance.SetNext();
+        DialogueManager.Instance.SetNext();
     }
 
     private void OnDialogueSkip()
     {
-        if (!m_active)
-            SetDialogueHide();
-        else
-            DialogueManager.Instance.SetSkip();
+        DialogueManager.Instance.SetSkip();
     }
-
-    private void SetDialogueHide()
-    {
-        m_panel.SetActive(false);
-        m_dialogueAuthor.gameObject.SetActive(false);
-        m_dialogueNone.gameObject.SetActive(false);
-    }
-
-    //
 
     private void OnDialogueStage(DialogueStageType Stage)
     {
-        switch (Stage)
-        {
-            case DialogueStageType.Start:
-                m_active = true;
-                break;
-            case DialogueStageType.End:
-                m_active = false;
-                break;
-        }
+        if (Stage == DialogueStageType.End)
+            SetDialogueHide();
     }
 
     private void OnDialogueText(DialogueDataText Text)
@@ -117,5 +93,14 @@ public class UIDialogue : MonoBehaviour
 
             DialogueManager.Instance.Tmp = m_tmpDialogueNone;
         }
+    }
+
+    //
+
+    private void SetDialogueHide()
+    {
+        m_panel.SetActive(false);
+        m_dialogueAuthor.gameObject.SetActive(false);
+        m_dialogueNone.gameObject.SetActive(false);
     }
 }

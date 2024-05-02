@@ -30,8 +30,6 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
 
     private void Start()
     {
-        EventManager.Instance.onEvent += OnEvent;
-
         CharacterManager.Instance.onCharacter += OnCharacter;
 
         TurnManager.SetInit(Turn, this);
@@ -53,8 +51,6 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
     {
         SetControlStage(false);
 
-        EventManager.Instance.onEvent -= OnEvent;
-
         CharacterManager.Instance.onCharacter -= OnCharacter;
 
         TurnManager.SetRemove(Turn, this);
@@ -70,13 +66,6 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
 
         //Camera
         GameManager.Instance.SetCameraFollow(null);
-    }
-
-    //Event
-
-    private void OnEvent(bool Stage)
-    {
-        //SetControlStage(!Stage);
     }
 
     //Control
@@ -113,7 +102,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
         }
     }
 
-    private void OnControlUp() 
+    private void OnControlUp()
     {
         if (m_interacte)
             IInteractive(IsometricVector.Up);
@@ -145,7 +134,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
             IControl(IsometricVector.Right);
     }
 
-    private void OnControlStand() 
+    private void OnControlStand()
     {
         if (m_interacte)
             IInteractive(IsometricVector.None);
@@ -153,7 +142,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
             IControl(IsometricVector.None);
     }
 
-    private void OnControlInteracte() 
+    private void OnControlInteracte()
     {
         m_interacte = !m_interacte;
         SetInteractiveCheck(m_interacte);
@@ -196,7 +185,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
         SetControlStage(true);
     }
 
-    public void ISetStepEnd(string Step) 
+    public void ISetStepEnd(string Step)
     {
         if (Step != Turn.ToString())
             return;

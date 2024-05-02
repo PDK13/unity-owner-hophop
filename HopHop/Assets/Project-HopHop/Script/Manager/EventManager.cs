@@ -8,27 +8,9 @@ public class EventManager : SingletonManager<EventManager>
     public Action<bool> onEvent;
     public Action<bool> onEventDialogue;
 
-    //
-
     [SerializeField] private EventConfig m_eventConfig;
 
-    //
-
     public TurnType Turn => TurnType.Event;
-
-    //
-
-    private void Start()
-    {
-        
-    }
-
-    private void OnDestroy()
-    {
-        
-    }
-
-    //
 
 #if UNITY_EDITOR
 
@@ -81,6 +63,7 @@ public class EventManager : SingletonManager<EventManager>
     private IEnumerator ISetEventActive(EventConfigSingle Event)
     {
         TurnManager.Instance.TurnPause = true;
+
         onEvent?.Invoke(true);
 
         for (int i = 0; i < Event.Data.Count; i++)
@@ -113,35 +96,8 @@ public class EventManager : SingletonManager<EventManager>
         }
 
         onEvent?.Invoke(false);
+
         TurnManager.Instance.TurnPause = false;
-    }
-
-    //
-
-    private void SetControlStage(bool Stage)
-    {
-        if (Stage)
-        {
-            SetControlStage(false);
-
-            InputManager.Instance.onEventNext += OnEventNext;
-            InputManager.Instance.onEventSkip += OnEventSkip;
-        }
-        else
-        {
-            InputManager.Instance.onEventNext -= OnEventNext;
-            InputManager.Instance.onEventSkip -= OnEventSkip;
-        }
-    }
-
-    private void OnEventNext()
-    {
-
-    }
-
-    private void OnEventSkip()
-    {
-
     }
 }
 
