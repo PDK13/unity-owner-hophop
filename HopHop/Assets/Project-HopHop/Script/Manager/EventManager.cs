@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEditor;
 using UnityEngine;
 
-public class EventManager : SingletonManager<EventManager>
+public class EventManager : SingletonManager<EventManager>, ITurnManager
 {
     public Action<bool> onEvent;
     public Action<bool> onEventDialogue;
@@ -42,6 +42,14 @@ public class EventManager : SingletonManager<EventManager>
     }
 
 #endif
+
+    //
+
+    public void ISetStepEnd(string Step) { }
+
+    public void ISetStepStart(string Step) { }
+
+    public void ISetTurn(int Step) { }
 
     //
 
