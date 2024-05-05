@@ -129,9 +129,9 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
         //
         m_moveStepCurrent++;
         //
-        Vector3 MoveDir = IsometricVector.GetVector(m_turnDir);
-        Vector3 MoveStart = IsometricVector.GetVector(m_block.Pos);
-        Vector3 MoveEnd = IsometricVector.GetVector(m_block.Pos) + MoveDir * 1;
+        Vector3 MoveDir = IsometricVector.GetDirVector(m_turnDir);
+        Vector3 MoveStart = IsometricVector.GetDirVector(m_block.Pos);
+        Vector3 MoveEnd = IsometricVector.GetDirVector(m_block.Pos) + MoveDir * 1;
         DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameManager.Instance.TimeMove * 1)
             .SetEase(Ease.Linear)
             .OnStart(() =>
@@ -176,9 +176,9 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
             return;
         }
         //
-        Vector3 MoveVectorDir = IsometricVector.GetVector(Dir);
-        Vector3 MoveVectorStart = IsometricVector.GetVector(m_block.Pos);
-        Vector3 MoveVectorEnd = IsometricVector.GetVector(m_block.Pos) + MoveVectorDir * 1;
+        Vector3 MoveVectorDir = IsometricVector.GetDirVector(Dir);
+        Vector3 MoveVectorStart = IsometricVector.GetDirVector(m_block.Pos);
+        Vector3 MoveVectorEnd = IsometricVector.GetDirVector(m_block.Pos) + MoveVectorDir * 1;
         DOTween.To(() => MoveVectorStart, x => MoveVectorEnd = x, MoveVectorEnd, GameManager.Instance.TimeMove * 1)
             .SetEase(Ease.Linear)
             .OnStart(() =>

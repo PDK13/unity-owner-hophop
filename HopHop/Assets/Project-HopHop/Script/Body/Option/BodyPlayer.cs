@@ -30,6 +30,8 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
 
     private void Start()
     {
+        WorldManager.Instance.Player = m_block;
+
         CharacterManager.Instance.onCharacter += OnCharacter;
 
         TurnManager.SetInit(Turn, this);

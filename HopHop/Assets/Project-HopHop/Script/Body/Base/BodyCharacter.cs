@@ -106,6 +106,50 @@ public class BodyCharacter : MonoBehaviour
         SetCharacterSkin(Skin);
     }
 
+    public void SetCharacter(string CharacterName, int Skin = 0)
+    {
+        switch (CharacterName)
+        {
+            case KeyCharacter.Angel:
+                SetCharacter(CharacterType.Angel, Skin);
+                break;
+            case KeyCharacter.Devil:
+                SetCharacter(CharacterType.Devil, Skin);
+                break;
+            case KeyCharacter.Bunny:
+                SetCharacter(CharacterType.Bunny, Skin);
+                break;
+            case KeyCharacter.Cat:
+                SetCharacter(CharacterType.Cat, Skin);
+                break;
+            case KeyCharacter.Frog:
+                SetCharacter(CharacterType.Frog, Skin);
+                break;
+            case KeyCharacter.Mow:
+                SetCharacter(CharacterType.Mow, Skin);
+                break;
+            //
+            case KeyCharacter.Alphaca:
+                SetCharacter(CharacterType.Alphaca, Skin);
+                break;
+            case KeyCharacter.Bug:
+                SetCharacter(CharacterType.Bug, Skin);
+                break;
+            case KeyCharacter.Fish:
+                SetCharacter(CharacterType.Fish, Skin);
+                break;
+            case KeyCharacter.Mole:
+                SetCharacter(CharacterType.Mole, Skin);
+                break;
+            case KeyCharacter.Pig:
+                SetCharacter(CharacterType.Pig, Skin);
+                break;
+            case KeyCharacter.Wolf:
+                SetCharacter(CharacterType.Wolf, Skin);
+                break;
+        }
+    }
+
     public void SetCharacterSkin(int Skin = 0)
     {
         if (Skin > m_configCharacter.Skin.Count - 1)

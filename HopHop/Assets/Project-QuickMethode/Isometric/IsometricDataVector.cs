@@ -193,27 +193,27 @@ public struct IsometricVector : IEquatable<IsometricVector>
         return None;
     }
 
-    public static Vector3 GetVector(IsoDir Dir)
+    public static Vector3 GetDirVector(IsoDir Dir)
     {
         switch (Dir)
         {
             case IsoDir.Up:
-                return GetVector(Up);
+                return GetDirVector(Up);
             case IsoDir.Down:
-                return GetVector(Down);
+                return GetDirVector(Down);
             case IsoDir.Left:
-                return GetVector(Left);
+                return GetDirVector(Left);
             case IsoDir.Right:
-                return GetVector(Right);
+                return GetDirVector(Right);
             case IsoDir.Top:
-                return GetVector(Top);
+                return GetDirVector(Top);
             case IsoDir.Bot:
-                return GetVector(Bot);
+                return GetDirVector(Bot);
         }
-        return GetVector(None);
+        return GetDirVector(None);
     }
 
-    public static Vector3 GetVector(IsometricVector Dir)
+    public static Vector3 GetDirVector(IsometricVector Dir)
     {
         return new Vector3(Dir.X, Dir.Y, Dir.H);
     }
@@ -420,11 +420,11 @@ public struct IsometricVector : IEquatable<IsometricVector>
 
     public string Encypt => "[" + QEncypt.GetEncypt(KEY_VECTOR_ENCYPT, X, Y, H) + "]";
 
-    public static IsometricVector GetDencypt(string m_Encypt)
+    public static IsometricVector GetDencypt(string Encypt)
     {
-        m_Encypt = m_Encypt.Replace("[", "");
-        m_Encypt = m_Encypt.Replace("]", "");
-        List<int> DataDencypt = QEncypt.GetDencyptInt(KEY_VECTOR_ENCYPT, m_Encypt);
+        Encypt = Encypt.Replace("[", "");
+        Encypt = Encypt.Replace("]", "");
+        List<int> DataDencypt = QEncypt.GetDencyptInt(KEY_VECTOR_ENCYPT, Encypt);
         return new IsometricVector(DataDencypt[0], DataDencypt[1], DataDencypt[2]);
     }
 

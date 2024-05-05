@@ -16,5 +16,7 @@ MonoBehaviour:
   Data:
   - Wait: 0
     Dialogue: {fileID: 11400000, guid: fdd5e527b1f5eca4b83a14b8023bb37a, type: 2}
-    Command: []
+    Command:
+    - player-character-frog
+    - player-move-u-1
     Choice: []

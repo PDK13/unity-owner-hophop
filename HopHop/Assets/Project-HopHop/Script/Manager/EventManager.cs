@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
@@ -83,15 +84,10 @@ public class EventManager : SingletonManager<EventManager>, ITurnManager
             }
 
             if (Event.Data[i].Dialogue != null)
-            {
-                onEventDialogue?.Invoke(true);
-                DialogueManager.Instance.SetStart(Event.Data[i].Dialogue);
-            }
+                SetEventDialogue(Event.Data[i].Dialogue);
 
             if (Event.Data[i].Command != null ? Event.Data[i].Command.Count > 0 : false)
-            {
-                //Command event trigger!
-            }
+                SetEventCommand(Event.Data[i].Command);
 
             if (Event.Data[i].Choice != null ? Event.Data[i].Choice.Count > 0 : false)
             {
@@ -106,6 +102,42 @@ public class EventManager : SingletonManager<EventManager>, ITurnManager
         onEvent?.Invoke(false);
 
         TurnManager.SetEndStep(TurnType.Event, this);
+    }
+
+    private void SetEventDialogue(DialogueConfigSingle Data)
+    {
+        onEventDialogue?.Invoke(true);
+        DialogueManager.Instance.SetStart(Data);
+    }
+
+    private void SetEventCommand(List<string> Data)
+    {
+        foreach (string DataCheck in Data)
+        {
+            List<string> DataRead = QEncypt.GetDencyptString('-', DataCheck);
+            switch (DataRead[0])
+            {
+                case KeyEvent.Player:
+                    switch (DataRead[1])
+                    {
+                        case KeyEvent.Character:
+                            //player-character-[Character]
+                            WorldManager.Instance.Player.GetComponent<BodyCharacter>().SetCharacter(DataRead[2], 0);
+                            break;
+                        case KeyEvent.Move:
+                            //player-move-[Dir]-[Length]
+                            WorldManager.Instance.Player.GetComponent<BodyPhysic>().SetControlMove(IsometricVector.GetDirDeEncypt(DataRead[2]) * (int.Parse(DataRead[3])), true);
+                            break;
+                    }
+                    break;
+                case KeyEvent.All:
+                    //...
+                    break;
+                default:
+                    //...
+                    break;
+            }
+        }
     }
 }
 
