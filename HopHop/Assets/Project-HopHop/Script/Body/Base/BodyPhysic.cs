@@ -42,7 +42,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
 
     #region Turn
 
-    public void ISetTurn(int Turn) 
+    public void ISetTurn(int Turn)
     {
         if (m_block.GetCheck(IsometricVector.Bot, 1).Count == 0)
             SetForceGravity();
@@ -103,7 +103,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
 
         //NOTE: Not use PUSH option for normal move!
         //SetNextPush(Dir);
-    }
+    } //Move Invoke!
 
     public bool SetControlMoveForce()
     {
@@ -141,7 +141,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
         SetNextPush(m_moveForceXY.Value);
 
         return true;
-    }
+    } //Move Invoke!
 
     #endregion
 
