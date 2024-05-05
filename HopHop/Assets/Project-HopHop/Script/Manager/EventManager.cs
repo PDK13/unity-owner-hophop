@@ -70,7 +70,7 @@ public class EventManager : SingletonManager<EventManager>, ITurnManager
 
     private IEnumerator ISetEventActive(EventConfigSingle Event)
     {
-        TurnManager.Instance.TurnPause = true;
+        TurnManager.SetAdd(TurnType.Event, this); //NOTE: Should not stop Turn Manager because world need Gravity and somethings else...
 
         onEvent?.Invoke(true);
 
@@ -105,7 +105,7 @@ public class EventManager : SingletonManager<EventManager>, ITurnManager
 
         onEvent?.Invoke(false);
 
-        TurnManager.Instance.TurnPause = false;
+        TurnManager.SetEndStep(TurnType.Event, this);
     }
 }
 
