@@ -19,4 +19,6 @@ MonoBehaviour:
     Command:
     - player-character-frog
     - player-move-u-1
+    - player-move-r-3
+    - player-move-d-2
     Choice: []
