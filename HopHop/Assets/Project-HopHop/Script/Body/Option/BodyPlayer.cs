@@ -185,11 +185,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
         SetControlStage(true);
     }
 
-    public void ISetStepEnd(string Step)
-    {
-        if (Step != Turn.ToString())
-            return;
-    }
+    public void ISetStepEnd(string Step) { }
 
     //Move
 
