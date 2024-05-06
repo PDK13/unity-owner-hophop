@@ -153,8 +153,8 @@ public class IsometricToolCustom : IsometricTool
         if (BlockFocus == BlockCurson)
             return;
         //
-        BodySwitch FocusSwitch = BlockFocus.GetComponent<BodySwitch>();
-        BodySwitch CursonSwitch = BlockCurson.GetComponent<BodySwitch>();
+        BodyInteractiveSwitch FocusSwitch = BlockFocus.GetComponent<BodyInteractiveSwitch>();
+        BodyInteractiveSwitch CursonSwitch = BlockCurson.GetComponent<BodyInteractiveSwitch>();
         if (FocusSwitch == null || CursonSwitch == null)
             return;
         //
@@ -189,7 +189,7 @@ public class IsometricToolCustom : IsometricTool
         if (BlockCurson == null)
             return;
 
-        BodyEvent CursonBodyEvent = BlockCurson.GetComponent<BodyEvent>();
+        BodyInteractiveEvent CursonBodyEvent = BlockCurson.GetComponent<BodyInteractiveEvent>();
         if (CursonBodyEvent == null)
             return;
 

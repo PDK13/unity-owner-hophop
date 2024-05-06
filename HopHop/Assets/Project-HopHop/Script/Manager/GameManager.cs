@@ -31,16 +31,17 @@ public class GameManager : SingletonManager<GameManager>
 
         IsometricManager.Instance.SetInit();
 
-        TurnManager.SetAutoRemove(TurnType.None);
-        TurnManager.SetAutoRemove(TurnType.Gravity);
-        TurnManager.SetAutoRemove(TurnType.Event);
+        TurnManager.Instance.SetAutoRemove(StepType.None);
+        TurnManager.Instance.SetAutoRemove(StepType.Gravity);
+        TurnManager.Instance.SetAutoRemove(StepType.Event);
+        TurnManager.Instance.SetAutoRemove(StepType.EventCommand);
     }
 
     private void SetInitWorld(TextAsset WorldData)
     {
         IsometricDataFile.SetFileRead(IsometricManager.Instance, WorldData);
 
-        TurnManager.SetStart();
+        TurnManager.Instance.SetStart();
     }
 
     //Camera
@@ -64,14 +65,17 @@ public class GameManager : SingletonManager<GameManager>
     public void SetCameraShake() { }
 }
 
-public enum TurnType
+public enum StepType
 {
     None,
-    Event,
+    //Base
     Gravity,
     Player,
     Bullet,
     Shoot,
     MovePhysic,
     MoveStatic,
-}
+    //Special
+    Event,
+    EventCommand,
+} //NOTE: Not used this enum as varible choice on editor, because if this list changed, value will wrong

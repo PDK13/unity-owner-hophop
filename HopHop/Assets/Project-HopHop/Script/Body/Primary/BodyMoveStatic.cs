@@ -1,17 +1,21 @@
 using DG.Tweening;
 using UnityEngine;
 using System;
+using System.Collections.Generic;
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 
-public class BodyMoveStatic : MonoBehaviour, ITurnManager
+public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyCommand
 {
+    #region Action
+
     public static Action<string, IsometricVector> onFollow;
 
-    //
+    #endregion
 
-    protected bool m_turnActive = false;
+    #region Move
 
     private bool m_avaibleFollow = false; //This follow current on check identity!
 
@@ -23,25 +27,37 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
     private int m_moveStep = 0;
     private int m_moveStepCurrent = 0;
 
-    private IsometricBlock m_block;
-    private BodySwitch m_switch;
+    #endregion
 
-    //
+    #region Command
+
+    private List<IsometricVector> m_commandMove;
+
+    #endregion
+
+    #region Get
 
     public bool State => m_switch != null ? m_switch.State : true;
 
-    public TurnType Turn => TurnType.MoveStatic;
+    public StepType Step => StepType.MoveStatic;
 
     public bool AvaibleSwitch => m_avaibleFollow;
 
     private bool TurnEnd => m_moveStepCurrent == m_moveStep && m_moveStep > 0;
 
-    //
+    #endregion
+
+    #region Component
+
+    private IsometricBlock m_block;
+    private BodyInteractiveSwitch m_switch;
+
+    #endregion
 
     private void Awake()
     {
         m_block = GetComponent<IsometricBlock>();
-        m_switch = GetComponent<BodySwitch>();
+        m_switch = GetComponent<BodyInteractiveSwitch>();
     }
 
     protected void Start()
@@ -56,7 +72,7 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
         {
             if (m_move.Data.Count > 0)
             {
-                TurnManager.SetInit(Turn, this);
+                TurnManager.Instance.SetInit(Step, this);
                 TurnManager.Instance.onTurn += ISetTurn;
                 TurnManager.Instance.onStepStart += ISetStepStart;
                 TurnManager.Instance.onStepEnd += ISetStepEnd;
@@ -73,7 +89,7 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
         {
             if (m_move.Data.Count > 0)
             {
-                TurnManager.SetRemove(Turn, this);
+                TurnManager.Instance.SetRemove(Step, this);
                 TurnManager.Instance.onTurn -= ISetTurn;
                 TurnManager.Instance.onStepStart -= ISetStepStart;
                 TurnManager.Instance.onStepEnd -= ISetStepEnd;
@@ -84,29 +100,23 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
             onFollow -= SetControlFollow;
     }
 
-    //Turn
+    #region ITurnManager
 
     public void ISetTurn(int Turn)
     {
         //Reset!!
         m_moveStep = 0;
         m_moveStepCurrent = 0;
-        //
-        m_turnActive = true;
     }
 
     public void ISetStepStart(string Step)
     {
-        if (!m_turnActive)
-            return;
-        //
-        if (Step != Turn.ToString())
+        if (Step != this.Step.ToString())
             return;
         //
         if (!State)
         {
-            m_turnActive = false;
-            TurnManager.SetEndStep(Turn, this);
+            TurnManager.Instance.SetEndStep(this.Step, this);
             return;
         }
         //
@@ -115,7 +125,9 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
 
     public void ISetStepEnd(string Step) { }
 
-    //Move
+    #endregion
+
+    #region Move
 
     private void SetControlMove()
     {
@@ -147,14 +159,13 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
                 //End Animation!!
                 if (TurnEnd)
                 {
-                    m_turnActive = false;
-                    TurnManager.SetEndStep(Turn, this);
+                    TurnManager.Instance.SetEndStep(Step, this);
                     //
                     m_turnDir = IsometricVector.None;
                 }
                 else
                 {
-                    TurnManager.SetEndMove(Turn, this);
+                    TurnManager.Instance.SetEndMove(Step, this);
                 }
             });
         //
@@ -239,8 +250,6 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
         }
     }
 
-    //
-
     public static void SetFollow(string Identity, IsometricVector Dir)
     {
         if (string.IsNullOrEmpty(Identity))
@@ -249,7 +258,23 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager
         onFollow?.Invoke(Identity, Dir);
     }
 
-    //
+    #endregion
+
+    #region IBodyCommand
+
+    public void ISetCommandMove(IsometricVector Dir)
+    {
+        //m_commandMove.Add(Dir);
+
+        //if (!m_commandtActive)
+        //{
+        //    m_commandtActive = true;
+        //    TurnManager.Instance.SetAdd(StepType.Event, this);
+        //    m_body.SetControlMove(Dir, Gravity);
+        //}
+    }
+
+    #endregion
 
 #if UNITY_EDITOR
 

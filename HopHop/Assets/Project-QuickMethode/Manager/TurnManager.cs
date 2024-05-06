@@ -9,23 +9,23 @@ using UnityEditor;
 
 public class TurnManager : SingletonManager<TurnManager>
 {
-    #region Varible: Action
+    #region Action
 
     //Main events for every unit(s) and other progess(s)!
 
-    public Action<int> onTurn;              //<Turn>
-    public Action<string> onStepStart;      //<Step>
-    public Action<string> onStepEnd;        //<Step>
+    public Action<int> onTurn;              //Turn
+    public Action<string> onStepStart;      //Step
+    public Action<string> onStepEnd;        //Step
 
     //Optionals event for every unit(s) and other progess(s)!
 
-    public Action<bool> onTurnPause;        //<Pause>
-    public Action<string> onStepAdd;        //<Step>
-    public Action<string> onStepRemove;     //<Step>
+    public Action<bool> onTurnPause;        //Pause
+    public Action<string> onStepAdd;        //Step
+    public Action<string> onStepRemove;     //Step
 
     #endregion
 
-    #region Varible: Setting
+    #region Setting
 
     [SerializeField][Min(0)] private float m_delayTurn = 1f;
     [SerializeField][Min(0)] private float m_delayStep = 1f;
@@ -34,11 +34,11 @@ public class TurnManager : SingletonManager<TurnManager>
 
     //One TURN got many STEP, one STEP got many GameObject that all need to be complete their Move for next STEP or next TURN!!
 
-    #region Varible: Turn & Step
+    #region Turn & Step
 
     private int m_turnPass = 0;
     private bool m_turnPause = false;
-    
+
     [Serializable]
     private class StepSingle
     {
@@ -96,6 +96,9 @@ public class TurnManager : SingletonManager<TurnManager>
         /// <param name="Unit"></param>
         public void SetAdd(ITurnManager Unit)
         {
+            if (UnitWaitAdd.Contains(Unit))
+                return;
+
             UnitWaitAdd.Add(Unit);
         }
 
@@ -119,9 +122,9 @@ public class TurnManager : SingletonManager<TurnManager>
 
     //
 
-    public bool TurnPause 
-    { 
-        get => m_turnPause; 
+    public bool TurnPause
+    {
+        get => m_turnPause;
         set
         {
             m_turnPause = value;
@@ -158,19 +161,19 @@ public class TurnManager : SingletonManager<TurnManager>
     }
 
 #if UNITY_EDITOR
-    private static void SetPlayModeStateChange(PlayModeStateChange State)
+    private void SetPlayModeStateChange(PlayModeStateChange State)
     {
         //NOTE: This used for stop Current Step coroutine called by ended Playing on Editor Mode!!
 
         if (State == PlayModeStateChange.ExitingPlayMode)
-            Instance.m_stop = true;
+            m_stop = true;
     }
 #endif
 
     private void OnDestroy()
     {
         StopAllCoroutines();
-        Instance.StopAllCoroutines();
+        StopAllCoroutines();
 
         onTurn = null;
         onStepStart = null;
@@ -188,38 +191,40 @@ public class TurnManager : SingletonManager<TurnManager>
     /// <summary>
     /// Start main progess!
     /// </summary>
-    public static void SetStart()
+    public void SetStart()
     {
-        Instance.m_turnPass = 0;
-        Instance.m_stepQueue.RemoveAll(t => t.Step == "");
-        Instance.m_stepQueue = Instance.m_stepQueue.OrderBy(t => t.Start).ToList();
+        m_turnPass = 0;
+        m_stepQueue.RemoveAll(t => t.Step == "");
+        m_stepQueue = m_stepQueue.OrderBy(t => t.Start).ToList();
 
         //NOTE: Create a STEP of EMTY to guild Manager know when end of TURN!
-        Instance.m_stepQueue.Insert(0, new StepSingle("", int.MaxValue, null));
+        m_stepQueue.Insert(0, new StepSingle("", int.MaxValue, null));
 
-        Instance.SetCurrent();
+        SetCurrent();
     } //Start!!
 
     //
 
     private void SetCurrent()
     {
+        if (Instance == null)
+            return;
+
 #if UNITY_EDITOR
-        if (Instance.m_stop)
+        if (m_stop)
             return;
 #endif
 
-        if (Instance != null)
-            Instance.StartCoroutine(Instance.ISetCurrent());
+        StartCoroutine(ISetCurrent());
     } //Force Next!!
 
     private IEnumerator ISetCurrent()
     {
-        //NOTE: Delay an Frame to wait for any Object complete Create and Init!!
+        yield return new WaitUntil(() => !m_turnPause);
+
+        //NOTE: Delay to wait for any Object complete Create and Init!!
 
         yield return null;
-
-        yield return new WaitUntil(() => !m_turnPause);
 
         m_stepCurrent = m_stepQueue[0];
 
@@ -237,7 +242,7 @@ public class TurnManager : SingletonManager<TurnManager>
 
             onTurn?.Invoke(m_turnPass);
 
-            Instance.SetWait();
+            SetWait();
 
             yield return null;
 
@@ -271,7 +276,7 @@ public class TurnManager : SingletonManager<TurnManager>
     {
         //NOTE: Add WAIT unit(s) to main queue!
         //
-        foreach (StepSingle StepCheck in Instance.m_stepQueue)
+        foreach (StepSingle StepCheck in m_stepQueue)
             StepCheck.SetWaitAdd();
     }
 
@@ -282,16 +287,16 @@ public class TurnManager : SingletonManager<TurnManager>
     /// </summary>
     /// <param name="Step"></param>
     /// <param name="Add"></param>
-    public static void SetAutoRemove(string Step, bool Add = true)
+    public void SetAutoRemove(string Step, bool Add = true)
     {
         if (string.IsNullOrEmpty(Step))
             return;
         //
-        if (Add && !Instance.m_stepRemove.Contains(Step))
-            Instance.m_stepRemove.Add(Step);
+        if (Add && !m_stepRemove.Contains(Step))
+            m_stepRemove.Add(Step);
         else
-        if (!Add && Instance.m_stepRemove.Contains(Step))
-            Instance.m_stepRemove.Remove(Step);
+        if (!Add && m_stepRemove.Contains(Step))
+            m_stepRemove.Remove(Step);
     }
 
     /// <summary>
@@ -300,7 +305,7 @@ public class TurnManager : SingletonManager<TurnManager>
     /// <typeparam name="T"></typeparam>
     /// <param name="Step"></param>
     /// <param name="Add"></param>
-    public static void SetAutoRemove<T>(T Step, bool Add = true) where T : Enum
+    public void SetAutoRemove<T>(T Step, bool Add = true) where T : Enum
     {
         SetAutoRemove(Step.ToString(), Add);
     }
@@ -315,7 +320,7 @@ public class TurnManager : SingletonManager<TurnManager>
     /// <param name="Step"></param>
     /// <param name="Start"></param>
     /// <param name="Unit"></param>
-    public static void SetInit(string Step, int Start, ITurnManager Unit)
+    public void SetInit(string Step, int Start, ITurnManager Unit)
     {
         if (string.IsNullOrEmpty(Step))
             return;
@@ -323,22 +328,22 @@ public class TurnManager : SingletonManager<TurnManager>
         if (Unit == null)
             return;
 
-        for (int i = 0; i < Instance.m_stepQueue.Count; i++)
+        for (int i = 0; i < m_stepQueue.Count; i++)
         {
-            if (Instance.m_stepQueue[i].Step != Step)
+            if (m_stepQueue[i].Step != Step)
                 continue;
 
-            if (Instance.m_stepQueue[i].Unit.Contains(Unit))
+            if (m_stepQueue[i].Unit.Contains(Unit))
                 return;
 
-            Instance.m_stepQueue[i].UnitWaitAdd.Add(Unit);
+            m_stepQueue[i].UnitWaitAdd.Add(Unit);
 
             return;
         }
 
-        Instance.m_stepQueue.Add(new StepSingle(Step, Start, Unit));
+        m_stepQueue.Add(new StepSingle(Step, Start, Unit));
 
-        Instance.onStepAdd?.Invoke(Step);
+        onStepAdd?.Invoke(Step);
     } //Init on Start!!
 
     /// <summary>
@@ -346,7 +351,7 @@ public class TurnManager : SingletonManager<TurnManager>
     /// </summary>
     /// <param name="Step"></param>
     /// <param name="Unit"></param>
-    public static void SetRemove(string Step, ITurnManager Unit)
+    public void SetRemove(string Step, ITurnManager Unit)
     {
         if (string.IsNullOrEmpty(Step))
             return;
@@ -354,7 +359,7 @@ public class TurnManager : SingletonManager<TurnManager>
         if (Unit == null)
             return;
 
-        var StepFind = Instance.m_stepQueue.Find(t => t.Step == Step);
+        var StepFind = m_stepQueue.Find(t => t.Step == Step);
         if (StepFind == null)
             return;
 
@@ -362,7 +367,7 @@ public class TurnManager : SingletonManager<TurnManager>
         if (UnitFind == null)
             return;
 
-        if (StepFind == Instance.m_stepCurrent)
+        if (StepFind == m_stepCurrent)
         {
             StepFind.Unit.Remove(Unit);
             StepFind.UnitEndMove.Remove(Unit);
@@ -379,7 +384,7 @@ public class TurnManager : SingletonManager<TurnManager>
             StepFind.UnitWaitAdd.Remove(Unit);
         }
 
-        Instance.onStepRemove?.Invoke(Step);
+        onStepRemove?.Invoke(Step);
     } //Remove on Destroy!!
 
     /// <summary>
@@ -387,7 +392,7 @@ public class TurnManager : SingletonManager<TurnManager>
     /// </summary>
     /// <param name="Step"></param>
     /// <param name="Unit"></param>
-    public static void SetEndMove(string Step, ITurnManager Unit)
+    public void SetEndMove(string Step, ITurnManager Unit)
     {
         if (string.IsNullOrEmpty(Step))
             return;
@@ -395,13 +400,13 @@ public class TurnManager : SingletonManager<TurnManager>
         if (Unit == null)
             return;
 
-        if (Instance.m_stepCurrent.Step != Step)
+        if (m_stepCurrent.Step != Step)
             return;
 
-        if (Instance.m_stepCurrent.GetEnd(Unit))
+        if (m_stepCurrent.GetEnd(Unit))
             return;
 
-        Instance.m_stepCurrent.UnitEndMove.Add(Unit);
+        m_stepCurrent.UnitEndMove.Add(Unit);
 
         SetEndCheck(Step);
     } //End!!
@@ -411,7 +416,7 @@ public class TurnManager : SingletonManager<TurnManager>
     /// </summary>
     /// <param name="Step"></param>
     /// <param name="Unit"></param>
-    public static void SetEndStep(string Step, ITurnManager Unit)
+    public void SetEndStep(string Step, ITurnManager Unit)
     {
         if (string.IsNullOrEmpty(Step))
             return;
@@ -419,58 +424,68 @@ public class TurnManager : SingletonManager<TurnManager>
         if (Unit == null)
             return;
 
-        if (Instance.m_stepCurrent.Step != Step)
+        if (m_stepCurrent.Step != Step)
             return;
 
-        if (Instance.m_stepCurrent.GetEnd(Unit))
+        if (m_stepCurrent.GetEnd(Unit))
             return;
 
-        Instance.m_stepCurrent.UnitEndStep.Add(Unit);
+        m_stepCurrent.UnitEndStep.Add(Unit);
 
         SetEndCheck(Step);
     } //End!!
 
-    private static void SetEndCheck(string Step)
+    private void SetEndCheck(string Step)
     {
-        if (Instance.m_stepCurrent.EndStep)
+        if (m_stepCurrent.EndStep)
         {
-            Instance.m_stepCurrent.UnitEndMove.Clear();
-            Instance.m_stepCurrent.UnitEndStep.Clear();
+            m_stepCurrent.UnitEndMove.Clear();
+            m_stepCurrent.UnitEndStep.Clear();
 
-            Instance.onStepEnd?.Invoke(Step.ToString());
+            onStepEnd?.Invoke(Step.ToString());
 
             SetEndSwap(Step);
 
-            Instance.SetCurrent();
+            SetCurrent();
         }
         else
-        if (Instance.m_stepCurrent.EndMove)
+        if (m_stepCurrent.EndMove)
         {
-            Instance.m_stepCurrent.UnitEndMove.Clear();
+            m_stepCurrent.UnitEndMove.Clear();
 
-            Instance.SetCurrent();
+            SetCurrent();
         }
     } //Check End Step or End Move!!
 
-    private static void SetEndSwap(string Step)
+    private void SetEndSwap(string Step)
     {
         //NOTE: Check to remove STEP in check!
 
-        var StepFind = Instance.m_stepQueue.Find(t => t.Step == Step);
+        var StepFind = m_stepQueue.Find(t => t.Step == Step);
         if (StepFind == null)
             return;
 
         if (StepFind.EndStepRemove)
-            Instance.onStepRemove?.Invoke(Step);
+            onStepRemove?.Invoke(Step);
 
-        Instance.m_stepQueue.Remove(StepFind);
+        m_stepQueue.Remove(StepFind);
 
         //NOTE: STEP in check maybe is the current STEP in queue!
 
-        if (!Instance.m_stepCurrent.EndStepRemove)
+        if (!m_stepCurrent.EndStepRemove)
             //NOTE: If not remove STEP at the end current STEP, move current STEP to last in queue!
-            Instance.m_stepQueue.Add(Instance.m_stepCurrent);
+            m_stepQueue.Add(m_stepCurrent);
     } //Swap Current Step to Last!!
+
+    /// <summary>
+    /// Check a unit end stage in current
+    /// </summary>
+    /// <param name="Unit"></param>
+    /// <returns></returns>
+    public bool GetEndCurrent(ITurnManager Unit)
+    {
+        return m_stepCurrent.GetEnd(Unit);
+    }
 
     /// <summary>
     /// Add a unit to main queue after start!
@@ -479,7 +494,7 @@ public class TurnManager : SingletonManager<TurnManager>
     /// <param name="Start"></param>
     /// <param name="Unit"></param>
     /// <param name="After"></param>
-    public static void SetAdd(string Step, int Start, ITurnManager Unit, int After = 0)
+    public void SetAdd(string Step, int Start, ITurnManager Unit, int After = 0)
     {
         if (string.IsNullOrEmpty(Step))
             return;
@@ -490,26 +505,26 @@ public class TurnManager : SingletonManager<TurnManager>
         if (After < 0)
             return;
 
-        if (After > Instance.m_stepQueue.Count - 1)
+        if (After > m_stepQueue.Count - 1)
         {
-            Instance.m_stepQueue.Add(new StepSingle(Step, Start, Unit));
-            Instance.m_stepQueue[Instance.m_stepQueue.Count - 1].EndStepRemove = Instance.m_stepRemove.Contains(Step);
+            m_stepQueue.Add(new StepSingle(Step, Start, Unit));
+            m_stepQueue[m_stepQueue.Count - 1].EndStepRemove = m_stepRemove.Contains(Step);
         }
         else
-        if (Instance.m_stepQueue[After].Step == Step)
+        if (m_stepQueue[After].Step == Step)
         {
-            if (Instance.m_stepQueue[After].Unit.Contains(Unit))
+            if (m_stepQueue[After].Unit.Contains(Unit))
                 return;
 
-            Instance.m_stepQueue[After].SetAdd(Unit);
+            m_stepQueue[After].SetAdd(Unit);
         }
         else
         {
-            Instance.m_stepQueue.Insert(After, new StepSingle(Step, Start, Unit));
-            Instance.m_stepQueue[After].EndStepRemove = Instance.m_stepRemove.Contains(Step);
+            m_stepQueue.Insert(After, new StepSingle(Step, Start, Unit));
+            m_stepQueue[After].EndStepRemove = m_stepRemove.Contains(Step);
         }
 
-        Instance.onStepAdd?.Invoke(Step);
+        onStepAdd?.Invoke(Step);
     } //Add Step Special!!
 
     /// <summary>
@@ -519,7 +534,7 @@ public class TurnManager : SingletonManager<TurnManager>
     /// <param name="Start"></param>
     /// <param name="Unit"></param>
     /// <param name="After"></param>
-    public static void SetAdd(string Step, int Start, ITurnManager Unit, string After)
+    public void SetAdd(string Step, int Start, ITurnManager Unit, string After)
     {
         if (string.IsNullOrEmpty(Step))
             return;
@@ -527,28 +542,28 @@ public class TurnManager : SingletonManager<TurnManager>
         if (Unit == null)
             return;
 
-        for (int i = 0; i < Instance.m_stepQueue.Count; i++)
+        for (int i = 0; i < m_stepQueue.Count; i++)
         {
-            if (Instance.m_stepQueue[i].Step != After)
+            if (m_stepQueue[i].Step != After)
                 continue;
 
-            if (Instance.m_stepQueue[i].Step == Step)
+            if (m_stepQueue[i].Step == Step)
             {
-                if (Instance.m_stepQueue[i].Unit.Contains(Unit))
+                if (m_stepQueue[i].Unit.Contains(Unit))
                     return;
 
-                Instance.m_stepQueue[i].SetAdd(Unit);
+                m_stepQueue[i].SetAdd(Unit);
             }
             else
             {
-                Instance.m_stepQueue.Insert(i, new StepSingle(Step.ToString(), Start, Unit));
-                Instance.m_stepQueue[i].EndStepRemove = Instance.m_stepRemove.Contains(Step);
+                m_stepQueue.Insert(i, new StepSingle(Step.ToString(), Start, Unit));
+                m_stepQueue[i].EndStepRemove = m_stepRemove.Contains(Step);
             }
 
             return;
         }
 
-        Instance.onStepAdd?.Invoke(Step);
+        onStepAdd?.Invoke(Step);
     } //Add Step Special!!
 
     #endregion
@@ -561,7 +576,7 @@ public class TurnManager : SingletonManager<TurnManager>
     /// <param name="Step"></param>
     /// <param name="Start"></param>
     /// <param name="Unit"></param>
-    public static void SetInit<T>(T Step, ITurnManager Unit) where T : Enum
+    public void SetInit<T>(T Step, ITurnManager Unit) where T : Enum
     {
         SetInit(Step.ToString(), Mathf.Clamp(QEnum.GetChoice(Step), 0, int.MaxValue), Unit);
     } //Init on Start!!
@@ -571,7 +586,7 @@ public class TurnManager : SingletonManager<TurnManager>
     /// </summary>
     /// <param name="Step"></param>
     /// <param name="Unit"></param>
-    public static void SetRemove<T>(T Step, ITurnManager Unit) where T : Enum
+    public void SetRemove<T>(T Step, ITurnManager Unit) where T : Enum
     {
         SetRemove(Step.ToString(), Unit);
     } //Remove on Destroy!!
@@ -581,7 +596,7 @@ public class TurnManager : SingletonManager<TurnManager>
     /// </summary>
     /// <param name="Step"></param>
     /// <param name="Unit"></param>
-    public static void SetEndMove<T>(T Step, ITurnManager Unit) where T : Enum
+    public void SetEndMove<T>(T Step, ITurnManager Unit) where T : Enum
     {
         SetEndMove(Step.ToString(), Unit);
     } //End!!
@@ -591,7 +606,7 @@ public class TurnManager : SingletonManager<TurnManager>
     /// </summary>
     /// <param name="Step"></param>
     /// <param name="Unit"></param>
-    public static void SetEndStep<T>(T Step, ITurnManager Unit) where T : Enum
+    public void SetEndStep<T>(T Step, ITurnManager Unit) where T : Enum
     {
         SetEndStep(Step.ToString(), Unit);
     } //End!!
@@ -603,7 +618,7 @@ public class TurnManager : SingletonManager<TurnManager>
     /// <param name="Start"></param>
     /// <param name="Unit"></param>
     /// <param name="After"></param>
-    public static void SetAdd<T>(T Step, ITurnManager Unit, int After = 0) where T : Enum
+    public void SetAdd<T>(T Step, ITurnManager Unit, int After = 0) where T : Enum
     {
         SetAdd(Step.ToString(), Mathf.Clamp(QEnum.GetChoice(Step), 0, int.MaxValue), Unit, After);
     } //Add Step Special!!
@@ -615,7 +630,7 @@ public class TurnManager : SingletonManager<TurnManager>
     /// <param name="Start"></param>
     /// <param name="Unit"></param>
     /// <param name="After"></param>
-    public static void SetAdd<T>(T Step, ITurnManager Unit, string After) where T : Enum
+    public void SetAdd<T>(T Step, ITurnManager Unit, string After) where T : Enum
     {
         SetAdd(Step.ToString(), Mathf.Clamp(QEnum.GetChoice(Step), 0, int.MaxValue), Unit, After);
     } //Add Step Special!!

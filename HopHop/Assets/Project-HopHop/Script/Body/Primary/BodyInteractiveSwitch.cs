@@ -3,18 +3,24 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class BodySwitch : MonoBehaviour, IBodyInteractive, IBodySwitch
+public class BodyInteractiveSwitch : MonoBehaviour, IBodyInteractive, IBodySwitch
 {
+    #region Const
+
     private const string ANIM_ON = "On";
     private const string ANIM_OFF = "Off";
 
-    //
+    #endregion
+
+    #region Action
 
     public static Action<string, bool> onSwitch;
 
     public Action<bool> onState;
 
-    //
+    #endregion
+
+    #region Switch
 
     [SerializeField] private bool m_once = false; //Switch only trigged once time!
     [SerializeField] private bool m_state = true;
@@ -27,16 +33,22 @@ public class BodySwitch : MonoBehaviour, IBodyInteractive, IBodySwitch
 
     private bool m_activeSwitch = false;
 
-    private Animator m_animator;
-    private IsometricBlock m_block;
+    #endregion
 
-    //
+    #region Get
 
     public bool State => m_avaibleSwitch ? m_state : true; //Value base on state when avaible, else always true!
 
     public bool AvaibleSwitch => m_avaibleSwitch;
 
-    //
+    #endregion
+
+    #region Component
+
+    private Animator m_animator;
+    private IsometricBlock m_block;
+
+    #endregion
 
     private void Awake()
     {
@@ -67,7 +79,7 @@ public class BodySwitch : MonoBehaviour, IBodyInteractive, IBodySwitch
         TurnManager.Instance.onTurn -= SetSwitchReset;
     }
 
-    //
+    #region IBodySwitch
 
     public void ISwitchIdentity(string Identity, bool State)
     {
@@ -111,6 +123,10 @@ public class BodySwitch : MonoBehaviour, IBodyInteractive, IBodySwitch
         ISwitch(!m_state);
     }
 
+    #endregion
+
+    #region IBodyInteractive
+
     public bool IInteractive()
     {
         if (m_once)
@@ -120,7 +136,11 @@ public class BodySwitch : MonoBehaviour, IBodyInteractive, IBodySwitch
         return true;
     }
 
-    //
+    public bool IInteractive(IsometricVector Dir) { return false; }
+
+    #endregion
+
+    #region Switch
 
     private void SetSwitchReset(int Turn)
     {
@@ -135,12 +155,16 @@ public class BodySwitch : MonoBehaviour, IBodyInteractive, IBodySwitch
         onSwitch?.Invoke(Identity, State);
     }
 
-    //Animation
+    #endregion
+
+    #region Animation
 
     private void SetControlAnimation()
     {
         m_animator.SetTrigger(m_state ? ANIM_ON : ANIM_OFF);
     }
+
+    #endregion
 
 #if UNITY_EDITOR
 
@@ -188,15 +212,15 @@ public class BodySwitch : MonoBehaviour, IBodyInteractive, IBodySwitch
 
 #if UNITY_EDITOR
 
-[CustomEditor(typeof(BodySwitch))]
+[CustomEditor(typeof(BodyInteractiveSwitch))]
 [CanEditMultipleObjects]
 public class BodySwitchEditor : Editor
 {
-    private BodySwitch m_target;
+    private BodyInteractiveSwitch m_target;
 
     private void OnEnable()
     {
-        m_target = target as BodySwitch;
+        m_target = target as BodyInteractiveSwitch;
     }
 
     public override void OnInspectorGUI()

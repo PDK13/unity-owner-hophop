@@ -7,26 +7,34 @@ using UnityEditor;
 
 public class BodyPhysic : MonoBehaviour, ITurnManager
 {
+    //NOTE: Base Physic controller for all Character(s) and Object(s), included Gravity and Collide
+
+    #region Action
+
     public Action<bool, IsometricVector> onMove;                    //State
     public Action<bool, IsometricVector> onMoveForce;               //State
     public Action<bool> onGravity;                                  //State
     public Action<bool, IsometricVector> onForce;                   //State, Dir
     public Action<bool, IsometricVector, IsometricVector> onPush;   //State, Dir, From
 
-    //
+    #endregion
 
-    private bool m_turnActive = false;
+    #region Turn & Move
 
-    [SerializeField] private bool m_bodyStatic = false;
+    [SerializeField] private bool m_bodyStatic = false; //'Static' in Body Physic mean it can't be Force Move
 
     private IsometricVector m_moveLastXY;
     private IsometricVector? m_moveForceXY;
 
-    private IsometricBlock m_block;
+    #endregion
 
-    //
+    #region Get
 
     public IsometricVector MoveLastXY => m_moveLastXY;
+
+    #endregion
+
+    private IsometricBlock m_block;
 
     //
 
@@ -44,19 +52,14 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
 
     public void ISetTurn(int Turn)
     {
-        if (m_block.GetCheck(IsometricVector.Bot, 1).Count == 0)
+        if (m_block.GetBlock(IsometricVector.Bot * 1).Count == 0)
             SetForceGravity();
     }
 
     public void ISetStepStart(string Step)
     {
-        if (Step != TurnType.Gravity.ToString())
-        {
-            m_turnActive = false;
+        if (Step != StepType.Gravity.ToString())
             return;
-        }
-
-        m_turnActive = true;
 
         SetControlGravity();
     }
@@ -149,7 +152,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
 
     public IsometricBlock SetCheckGravity(IsometricVector Dir)
     {
-        IsometricBlock Block = GetCheckDir(Dir, IsometricVector.Bot);
+        IsometricBlock Block = m_block.GetBlock(Dir, IsometricVector.Bot)[0];
         if (Block != null)
         {
             if (Block.GetTag(KeyTag.Bullet))
@@ -170,7 +173,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
 
     private void SetForceGravity()
     {
-        TurnManager.SetAdd(TurnType.Gravity, this);
+        TurnManager.Instance.SetAdd(StepType.Gravity, this);
         TurnManager.Instance.onTurn += ISetTurn;
         TurnManager.Instance.onStepStart += ISetStepStart;
         TurnManager.Instance.onStepEnd += ISetStepEnd;
@@ -178,7 +181,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
 
     private void SetControlGravity()
     {
-        IsometricBlock Block = GetCheckDir(IsometricVector.Bot);
+        IsometricBlock Block = m_block.GetBlock(IsometricVector.Bot)[0];
         if (Block != null)
         {
             if (Block.GetTag(KeyTag.Bullet))
@@ -189,7 +192,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
             }
             else
             {
-                TurnManager.SetEndStep(TurnType.Gravity, this);
+                TurnManager.Instance.SetEndStep(StepType.Gravity, this);
                 TurnManager.Instance.onTurn -= ISetTurn;
                 TurnManager.Instance.onStepStart -= ISetStepStart;
                 TurnManager.Instance.onStepEnd -= ISetStepEnd;
@@ -197,7 +200,6 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
                 SetStandOnForce();
                 onGravity?.Invoke(false);
 
-                m_turnActive = false;
                 return;
             }
         }
@@ -361,40 +363,25 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
 
     #region Stand On Force
 
-    public void SetStandOnForce()
+    public bool SetStandOnForce()
     {
-        if (GetCheckDir(IsometricVector.Bot) == null)
-        {
-            return;
-        }
+        if (m_block.GetBlock(IsometricVector.Bot) == null)
+            return false;
 
-        if (GetCheckDir(IsometricVector.Bot).GetTag(KeyTag.Slow))
+        if (m_block.GetBlock(IsometricVector.Bot)[0].GetTag(KeyTag.Slow))
         {
             m_moveForceXY = IsometricVector.None;
+            return true;
         }
         else
-        if (GetCheckDir(IsometricVector.Bot).GetTag(KeyTag.Slip))
+        if (m_block.GetBlock(IsometricVector.Bot)[0].GetTag(KeyTag.Slip))
         {
             m_moveForceXY = m_moveLastXY;
+            return true;
         }
-        else
-        {
-            m_moveForceXY = null;
-        }
-    }
 
-    #endregion
-
-    #region Check
-
-    public IsometricBlock GetCheckDir(IsometricVector Dir)
-    {
-        return m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos.Fixed + Dir);
-    }
-
-    public IsometricBlock GetCheckDir(IsometricVector Dir, IsometricVector DirNext)
-    {
-        return m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos.Fixed + Dir + DirNext);
+        m_moveForceXY = null;
+        return false;
     }
 
     #endregion

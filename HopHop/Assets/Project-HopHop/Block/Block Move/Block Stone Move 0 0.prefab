@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 536537136417931024}
   - component: {fileID: 44393240911007880}
   - component: {fileID: 7308499327604363182}
-  - component: {fileID: 7857018107588736247}
   - component: {fileID: 3161287631550058017}
+  - component: {fileID: 7857018107588736247}
   - component: {fileID: 658785866110325511}
   m_Layer: 0
   m_Name: Block Stone Move 0 0
@@ -161,21 +161,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 175f4de9ab9620849aadeea229f07786, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &7857018107588736247
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 44393240911007885}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af1afe5531318d14890319fffe12f688, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_once: 0
-  m_state: 0
-  m_follow: 0
 --- !u!114 &3161287631550058017
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -188,6 +173,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96295c8cd65fb794d978bcf3989ccbf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7857018107588736247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 44393240911007885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 623ab15ade4933d45a7737385938c61f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_once: 0
+  m_state: 1
+  m_follow: 1
 --- !u!114 &658785866110325511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,12 +197,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 44393240911007885}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6f33388a39881e4ab625e94781d0d02, type: 3}
+  m_Script: {fileID: 11500000, guid: 0fa23524d83fe704ab4280130bf0cd9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_eventTop: 1
   m_eventSide: 0
-  m_eventPlayer: 0
+  m_eventPlayer: 1
   m_eventIdentityData: {fileID: 0}
 --- !u!1001 &6271502289364958875
 PrefabInstance:

@@ -5,19 +5,19 @@ using UnityEngine;
 
 public class CharacterManager : SingletonManager<CharacterManager>
 {
-    #region Varible: Action
+    #region Action
 
     public Action onCharacter;
 
     #endregion
 
-    #region Varible: Config
+    #region Config
 
     [SerializeField] private CharacterConfig m_characterConfig;
 
     #endregion
 
-    #region Varible: Party
+    #region Party
 
     private int m_characterIndex = 0;
     private List<CharacterType> m_characterParty = new List<CharacterType>()
@@ -31,7 +31,7 @@ public class CharacterManager : SingletonManager<CharacterManager>
 
     #endregion
 
-    #region Varible: Get
+    #region Get
 
     public CharacterConfig CharacterConfig => m_characterConfig;
 

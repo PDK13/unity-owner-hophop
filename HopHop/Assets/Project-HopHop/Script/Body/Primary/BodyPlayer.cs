@@ -1,25 +1,48 @@
+using System.Collections.Generic;
 using UnityEngine;
 
-public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInteractiveActive
+public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInteractive, IBodyCommand
 {
+    #region Move
+
     private int m_moveStepCurrent = 0;
 
-    private bool m_control = false;
-    private bool m_interacte = false;
+    #endregion
+
+    #region Interactive
+
+    private bool m_interacteActive = false;
+
+    #endregion
+
+    #region Command
+
+    private List<IsometricVector> m_commandMove = new List<IsometricVector>();
+    private int m_commandMoveIndex = 0;
+
+    #endregion
+
+    #region Get
+
+    public StepType Step => StepType.Player;
+
+    private bool StepEnd => m_moveStepCurrent >= m_character.MoveStep && m_character.MoveStep > 0;
+
+    private bool StepLast => m_moveStepCurrent >= m_character.MoveStep - 1 && m_character.MoveStep > 0;
+
+    private bool StepCommandEnd => m_commandMoveIndex >= m_commandMove.Count;
+
+    private bool StepCommandLast => m_moveStepCurrent >= m_character.MoveStep - 1;
+
+    #endregion
+
+    #region Componenet
 
     private IsometricBlock m_block;
     private BodyPhysic m_body;
     private BodyCharacter m_character;
 
-    //
-
-    public TurnType Turn => TurnType.Player;
-
-    private bool TurnEnd => m_moveStepCurrent >= m_character.MoveStep && m_character.MoveStep > 0;
-
-    private bool TurnLast => m_moveStepCurrent >= m_character.MoveStep - 1 && m_character.MoveStep > 0;
-
-    //
+    #endregion
 
     private void Awake()
     {
@@ -34,7 +57,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
 
         CharacterManager.Instance.onCharacter += OnCharacter;
 
-        TurnManager.SetInit(Turn, this);
+        TurnManager.Instance.SetInit(Step, this);
         TurnManager.Instance.onTurn += ISetTurn;
         TurnManager.Instance.onStepStart += ISetStepStart;
         TurnManager.Instance.onStepEnd += ISetStepEnd;
@@ -55,7 +78,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
 
         CharacterManager.Instance.onCharacter -= OnCharacter;
 
-        TurnManager.SetRemove(Turn, this);
+        TurnManager.Instance.SetRemove(Step, this);
         TurnManager.Instance.onTurn -= ISetTurn;
         TurnManager.Instance.onStepStart -= ISetStepStart;
         TurnManager.Instance.onStepEnd -= ISetStepEnd;
@@ -70,7 +93,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
         GameManager.Instance.SetCameraFollow(null);
     }
 
-    //Control
+    #region Control
 
     private void SetControlStage(bool Stage)
     {
@@ -106,7 +129,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
 
     private void OnControlUp()
     {
-        if (m_interacte)
+        if (m_interacteActive)
             IInteractive(IsometricVector.Up);
         else
             IControl(IsometricVector.Up);
@@ -114,7 +137,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
 
     private void OnControlDown()
     {
-        if (m_interacte)
+        if (m_interacteActive)
             IInteractive(IsometricVector.Down);
         else
             IControl(IsometricVector.Down);
@@ -122,7 +145,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
 
     private void OnControlLeft()
     {
-        if (m_interacte)
+        if (m_interacteActive)
             IInteractive(IsometricVector.Left);
         else
             IControl(IsometricVector.Left);
@@ -130,7 +153,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
 
     private void OnControlRight()
     {
-        if (m_interacte)
+        if (m_interacteActive)
             IInteractive(IsometricVector.Right);
         else
             IControl(IsometricVector.Right);
@@ -138,7 +161,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
 
     private void OnControlStand()
     {
-        if (m_interacte)
+        if (m_interacteActive)
             IInteractive(IsometricVector.None);
         else
             IControl(IsometricVector.None);
@@ -146,11 +169,13 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
 
     private void OnControlInteracte()
     {
-        m_interacte = !m_interacte;
-        SetInteractiveCheck(m_interacte);
+        m_interacteActive = !m_interacteActive;
+        SetInteractiveCheck(m_interacteActive);
     }
 
-    //Character
+    #endregion
+
+    #region Character
 
     private void OnCharacter()
     {
@@ -167,29 +192,49 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
         CharacterManager.Instance.SetCharacterNext();
     }
 
-    //Turn
+    #endregion
 
-    public void ISetTurn(int Turn)
-    {
-        //Reset!!
+    #region ITurnManager
 
-        m_moveStepCurrent = 0;
-    }
+    public void ISetTurn(int Turn) { }
 
     public void ISetStepStart(string Step)
     {
-        if (Step != Turn.ToString())
-            return;
+        if (Step == StepType.EventCommand.ToString())
+        {
+            if (!StepCommandEnd)
+            {
+                IControl(m_commandMove[m_commandMoveIndex]);
+                m_commandMoveIndex++;
+            }
+        }
+        else
+        if (Step == this.Step.ToString())
+        {
+            if (m_body.SetControlMoveForce())
+                return;
 
-        if (m_body.SetControlMoveForce())
-            return;
-
-        SetControlStage(true);
+            SetControlStage(true);
+        }
     }
 
-    public void ISetStepEnd(string Step) { }
+    public void ISetStepEnd(string Step)
+    {
+        if (Step == StepType.EventCommand.ToString())
+        {
+            m_commandMove.Clear();
+            m_commandMoveIndex = 0;
+        }
+        else
+        if (Step == this.Step.ToString())
+        {
+            m_moveStepCurrent = 0;
+        }
+    }
 
-    //Move
+    #endregion
+
+    #region IBodyPhysic
 
     public bool IControl(IsometricVector Dir)
     {
@@ -199,7 +244,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
 
             m_body.SetControlMoveReset();
 
-            TurnManager.SetEndStep(Turn, this);
+            TurnManager.Instance.SetEndStep(Step, this);
 
             return false;
         }
@@ -231,80 +276,83 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
 
         SetControlStage(false);
 
-        m_body.SetControlMove(Dir, TurnLast || !m_character.MoveFloat);
+        m_body.SetControlMove(Dir, StepLast || !m_character.MoveFloat);
 
         return true;
     }
 
     public void IMove(bool State, IsometricVector Dir)
     {
-        if (TurnManager.Instance.StepCurrent.Step != Turn.ToString() && !State)
+        if (TurnManager.Instance.StepCurrent.Step == StepType.EventCommand.ToString())
         {
-            SetControlStage(false);
+            if (State)
+            {
 
-            TurnManager.SetEndStep(Turn, this);
-
-            return;
-        }
-
-        if (State)
-        {
-            //Start Move!
-            m_moveStepCurrent++;
+            }
+            else
+            {
+                if (StepCommandEnd)
+                    TurnManager.Instance.SetEndStep(StepType.EventCommand, this);
+                else
+                    TurnManager.Instance.SetEndMove(StepType.EventCommand, this);
+            }
         }
         else
+        if (TurnManager.Instance.StepCurrent.Step == this.Step.ToString())
         {
-            //End Move!
-
-            if (TurnEnd)
+            if (State)
             {
-                //End Turn!
-
+                //Start Move!
+                m_moveStepCurrent++;
+            }
+            else
+            if (StepEnd)
+            {
+                //End Step!
                 SetControlStage(false);
-
-                TurnManager.SetEndStep(Turn, this);
+                TurnManager.Instance.SetEndStep(Step, this);
             }
             else
             {
                 //End Move!
-                TurnManager.SetEndMove(Turn, this);
+                TurnManager.Instance.SetEndMove(Step, this);
 
                 //Still Turn!
-
                 if (m_character.MoveLock)
                 {
                     //Lock Move!
-
                     SetControlStage(false);
-
                     IControl(m_body.MoveLastXY);
                 }
                 else
                 {
                     //Freely Move!
-
                     SetControlStage(true);
                 }
             }
         }
+        else
+        {
+            if (!State)
+            {
+                //NOTE: Check end Step or Move of this when this Move out of owner Step
+                SetControlStage(false);
+                TurnManager.Instance.SetEndStep(Step, this);
+            }
+        }
     }
 
-    public void IForce(bool State, IsometricVector Dir)
-    {
-        //...
-    }
+    public void IForce(bool State, IsometricVector Dir) { }
 
-    public void IGravity(bool State)
-    {
-        //...
-    }
+    public void IGravity(bool State) { }
 
-    public void IPush(bool State, IsometricVector Dir, IsometricVector From)
-    {
-        //...
-    }
+    public void IPush(bool State, IsometricVector Dir, IsometricVector From) { }
 
-    //Interactive
+    #endregion
+
+    #region IBodyInteractiveActive
+
+    public bool IInteractive() { return false; }
 
     public bool IInteractive(IsometricVector Dir)
     {
@@ -320,12 +368,12 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
             {
                 if (Block.GetComponent<IBodyInteractive>().IInteractive())
                 {
-                    m_interacte = false;
+                    m_interacteActive = false;
                     SetInteractiveCheck(false);
 
                     SetControlStage(false);
 
-                    TurnManager.SetEndStep(Turn, this);
+                    TurnManager.Instance.SetEndStep(Step, this);
 
                     return true;
                 }
@@ -338,6 +386,10 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
 
         return false;
     }
+
+    #endregion
+
+    #region Interactive
 
     private void SetInteractiveCheck(bool State)
     {
@@ -364,4 +416,16 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
         else
             Block.GetComponent<BodyChild>().Square.SetNone();
     }
+
+    #endregion
+
+    #region IBodyCommand
+
+    public void ISetCommandMove(IsometricVector Dir)
+    {
+        TurnManager.Instance.SetAdd(StepType.EventCommand, this);
+        m_commandMove.Add(Dir);
+    }
+
+    #endregion
 }

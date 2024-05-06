@@ -159,11 +159,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1455909166595997217}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6f33388a39881e4ab625e94781d0d02, type: 3}
+  m_Script: {fileID: 11500000, guid: 0fa23524d83fe704ab4280130bf0cd9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_eventTop: 1
   m_eventSide: 0
+  m_eventPlayer: 1
   m_eventIdentityData: {fileID: 0}
 --- !u!1001 &8131728755388699675
 PrefabInstance:

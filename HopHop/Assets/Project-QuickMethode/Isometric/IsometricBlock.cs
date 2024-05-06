@@ -7,14 +7,14 @@ using UnityEditor;
 [ExecuteAlways]
 public class IsometricBlock : MonoBehaviour
 {
-    #region Varible: Block Manager
+    #region Block Manager
 
     [SerializeField] private string m_name = "";
     [SerializeField] private List<string> m_tag = new List<string>();
 
     #endregion
 
-    #region Varible: World Manager
+    #region World Manager
 
     [Space]
     [SerializeField] private IsometricPosType m_posType = IsometricPosType.Track;
@@ -27,7 +27,7 @@ public class IsometricBlock : MonoBehaviour
 
     #endregion
 
-    #region Varible: Scene Manager
+    #region Scene Manager
 
     [Space]
     [SerializeField] private IsometricGameDataScene m_sceneData = new IsometricGameDataScene();
@@ -37,7 +37,7 @@ public class IsometricBlock : MonoBehaviour
 
     private IsometricManager m_worldManager;
 
-    #region ================================================================== Mono
+    #region Mono
 
     private void Awake()
     {
@@ -56,7 +56,7 @@ public class IsometricBlock : MonoBehaviour
 
     #endregion
 
-    #region ================================================================== Block Manager
+    #region Block Manager
 
     public string Name => !string.IsNullOrEmpty(m_name) ? m_name : QGameObject.GetNameReplaceClone(name);
 
@@ -75,7 +75,7 @@ public class IsometricBlock : MonoBehaviour
 
     #endregion
 
-    #region ================================================================== World Manager
+    #region World Manager
 
     public IsometricManager WorldManager
     {
@@ -89,7 +89,7 @@ public class IsometricBlock : MonoBehaviour
 
     #endregion
 
-    #region ================================================================== Scene Manager
+    #region Scene Manager
 
     private Vector3 GetIsometricTransform(IsometricVector Pos)
     {
@@ -174,21 +174,21 @@ public class IsometricBlock : MonoBehaviour
 
     #endregion
 
-    #region ================================================================== World Check
+    #region World Check
 
-    public List<IsometricBlock> GetCheck(IsometricVector Dir, int Length)
+    public List<IsometricBlock> GetBlock(IsometricVector Dir, params string[] TagFind)
     {
-        return WorldManager.World.Current.GetBlockCurrentAll(Pos.Fixed + Dir * Length);
+        return WorldManager.World.Current.GetBlockCurrentAll(Pos.Fixed + Dir, TagFind);
     }
 
-    public List<IsometricBlock> GetCheck(IsometricVector Dir, int Length, params string[] TagFind)
+    public List<IsometricBlock> GetBlock(IsometricVector Dir, IsometricVector DirNext, params string[] TagFind)
     {
-        return WorldManager.World.Current.GetBlockCurrentAll(Pos.Fixed + Dir * Length, TagFind);
+        return WorldManager.World.Current.GetBlockCurrentAll(Pos.Fixed + Dir + DirNext, TagFind);
     }
 
     #endregion
 
-    #region ================================================================== World Editor
+    #region World Editor
 
     public void SetSpriteAlpha(float Alpha)
     {

@@ -1,7 +1,6 @@
 public class KeyEvent
 {
     public const string Player = "player";
-    public const string All = "all";
 
     public const string Spawm = "spawm";
     public const string Move = "move";

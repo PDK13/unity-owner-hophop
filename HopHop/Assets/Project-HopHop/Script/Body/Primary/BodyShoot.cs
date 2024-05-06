@@ -7,24 +7,13 @@ using UnityEditor;
 
 public class BodyShoot : MonoBehaviour, ITurnManager, IBodyShoot
 {
-    [SerializeField] private BodyBullet m_bullet;
+    #region Shoot
 
-    private bool m_turnActive = false;
+    [SerializeField] private BodyBullet m_bullet;
 
     private IsometricDataAction m_dataAction;
 
     private List<string> m_turnCommand;
-
-    private IsometricBlock m_block;
-    private BodySwitch m_switch;
-
-    //
-
-    public bool State => m_switch != null ? m_switch.State : true;
-
-    public TurnType Turn => TurnType.Shoot;
-
-    //
 
 #if UNITY_EDITOR
 
@@ -36,12 +25,27 @@ public class BodyShoot : MonoBehaviour, ITurnManager, IBodyShoot
 
 #endif
 
-    //
+    #endregion
+
+    #region Get
+
+    public bool State => m_switch != null ? m_switch.State : true;
+
+    public StepType Step => StepType.Shoot;
+
+    #endregion
+
+    #region Component
+
+    private IsometricBlock m_block;
+    private BodyInteractiveSwitch m_switch;
+
+    #endregion
 
     private void Awake()
     {
         m_block = GetComponent<IsometricBlock>();
-        m_switch = GetComponent<BodySwitch>();
+        m_switch = GetComponent<BodyInteractiveSwitch>();
     }
 
     private void Start()
@@ -52,7 +56,7 @@ public class BodyShoot : MonoBehaviour, ITurnManager, IBodyShoot
         {
             if (m_dataAction.Data.Count > 0)
             {
-                TurnManager.SetInit(Turn, this);
+                TurnManager.Instance.SetInit(Step, this);
                 TurnManager.Instance.onTurn += ISetTurn;
                 TurnManager.Instance.onStepStart += ISetStepStart;
                 TurnManager.Instance.onStepEnd += ISetStepEnd;
@@ -66,7 +70,7 @@ public class BodyShoot : MonoBehaviour, ITurnManager, IBodyShoot
         {
             if (m_dataAction.Data.Count > 0)
             {
-                TurnManager.SetRemove(Turn, this);
+                TurnManager.Instance.SetRemove(Step, this);
                 TurnManager.Instance.onTurn -= ISetTurn;
                 TurnManager.Instance.onStepStart -= ISetStepStart;
                 TurnManager.Instance.onStepEnd -= ISetStepEnd;
@@ -74,26 +78,21 @@ public class BodyShoot : MonoBehaviour, ITurnManager, IBodyShoot
         }
     }
 
-    //Turn
+    #region ITurnManager
 
     public void ISetTurn(int Turn)
     {
         //Reset!!
-        m_turnActive = true;
     }
 
     public void ISetStepStart(string Step)
     {
-        if (!m_turnActive)
-            return;
-        //
-        if (Step != Turn.ToString())
+        if (Step != this.Step.ToString())
             return;
         //
         if (!State)
         {
-            m_turnActive = false;
-            TurnManager.SetEndStep(Turn, this);
+            TurnManager.Instance.SetEndStep(this.Step, this);
             return;
         }
         //
@@ -101,6 +100,10 @@ public class BodyShoot : MonoBehaviour, ITurnManager, IBodyShoot
     }
 
     public void ISetStepEnd(string Step) { }
+
+    #endregion
+
+    #region IBodyShoot
 
     public void IShoot(IsometricVector DirSpawm, IsometricVector DirMove, int Speed)
     {
@@ -120,7 +123,9 @@ public class BodyShoot : MonoBehaviour, ITurnManager, IBodyShoot
         Bullet.GetComponent<IBodyBullet>().IInit(DirMove, Speed);
     }
 
-    //Move
+    #endregion
+
+    #region Shoot
 
     private void SetControlAction()
     {
@@ -149,10 +154,11 @@ public class BodyShoot : MonoBehaviour, ITurnManager, IBodyShoot
     private IEnumerator ISetDelay()
     {
         yield return new WaitForSeconds(GameManager.Instance.TimeMove * 1);
-        //
-        m_turnActive = false;
-        TurnManager.SetEndStep(Turn, this);
+
+        TurnManager.Instance.SetEndStep(Step, this);
     }
+
+    #endregion
 
 #if UNITY_EDITOR
 

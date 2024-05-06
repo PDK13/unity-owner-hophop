@@ -3,34 +3,42 @@ using UnityEngine;
 
 public class BodyBullet : MonoBehaviour, ITurnManager, IBodyBullet
 {
+    #region Const
+
     private const string ANIM_BLOW = "Blow";
 
     private const float DESTROY_DELAY = 0.3f;
 
-    //
+    #endregion
 
-    private bool m_turnActive = false;
+    #region Move
 
-    private IsometricVector m_turnDir;
-    private int m_speed = 1;
+    private IsometricVector m_moveDir;
+    private int m_moveLength = 1;
     private int m_moveStep = 0;
     private int m_moveStepCurrent = 0;
+
+    #endregion
+
+    #region Get
+
+    public StepType Step => StepType.Bullet;
+
+    private bool StepEnd => m_moveStepCurrent == m_moveStep && m_moveStep > 0;
+
+    #endregion
+
+    #region Component
 
     private Animator m_animator;
     private IsometricBlock m_block;
     private BodyPhysic m_body;
 
-    //
-
-    public TurnType Turn => TurnType.Bullet;
-
-    private bool TurnEnd => m_moveStepCurrent == m_moveStep && m_moveStep > 0;
-
-    //
+    #endregion
 
     private void OnDestroy()
     {
-        TurnManager.SetRemove(Turn, this);
+        TurnManager.Instance.SetRemove(Step, this);
         TurnManager.Instance.onTurn -= ISetTurn;
         TurnManager.Instance.onStepStart -= ISetStepStart;
         TurnManager.Instance.onStepEnd -= ISetStepEnd;
@@ -39,23 +47,18 @@ public class BodyBullet : MonoBehaviour, ITurnManager, IBodyBullet
             m_body.onGravity -= SetGravity;
     }
 
-    //Turn
+    #region ITurnManager
 
     public void ISetTurn(int Turn)
     {
         //Reset!!
         m_moveStep = 0;
         m_moveStepCurrent = 0;
-        //
-        m_turnActive = true;
     }
 
     public void ISetStepStart(string Step)
     {
-        if (!m_turnActive)
-            return;
-        //
-        if (Step != Turn.ToString())
+        if (Step != this.Step.ToString())
             return;
         //
         SetControlMove();
@@ -63,13 +66,17 @@ public class BodyBullet : MonoBehaviour, ITurnManager, IBodyBullet
 
     public void ISetStepEnd(string Step) { }
 
+    #endregion
+
+    #region IBodyBullet
+
     public void IInit(IsometricVector Dir, int Speed)
     {
         m_animator = GetComponent<Animator>();
         m_block = GetComponent<IsometricBlock>();
         m_body = GetComponent<BodyPhysic>();
         //
-        TurnManager.SetInit(Turn, this);
+        TurnManager.Instance.SetInit(Step, this);
         TurnManager.Instance.onTurn += ISetTurn;
         TurnManager.Instance.onStepStart += ISetStepStart;
         TurnManager.Instance.onStepEnd += ISetStepEnd;
@@ -77,17 +84,14 @@ public class BodyBullet : MonoBehaviour, ITurnManager, IBodyBullet
         if (m_body != null)
             m_body.onGravity += SetGravity;
         //
-        m_speed = Speed;
-        m_turnDir = Dir;
-        //
-        m_turnActive = false;
+        m_moveLength = Speed;
+        m_moveDir = Dir;
     }
 
     public void IHit()
     {
-        m_turnActive = false;
-        TurnManager.SetEndStep(Turn, this);
-        TurnManager.SetRemove(Turn, this);
+        TurnManager.Instance.SetEndStep(Step, this);
+        TurnManager.Instance.SetRemove(Step, this);
         TurnManager.Instance.onTurn -= ISetTurn;
         TurnManager.Instance.onStepStart -= ISetStepStart;
         TurnManager.Instance.onStepEnd -= ISetStepEnd;
@@ -96,19 +100,21 @@ public class BodyBullet : MonoBehaviour, ITurnManager, IBodyBullet
         m_block.WorldManager.World.Current.SetBlockRemoveInstant(m_block, DESTROY_DELAY);
     }
 
-    //Move
+    #endregion
+
+    #region Move
 
     private void SetControlMove()
     {
         if (m_moveStep == 0)
         {
-            m_moveStep = m_speed;
+            m_moveStep = m_moveLength;
             m_moveStepCurrent = 0;
         }
         //
         m_moveStepCurrent++;
         //
-        IsometricBlock BlockAhead = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + m_turnDir);
+        IsometricBlock BlockAhead = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + m_moveDir);
         if (BlockAhead != null)
         {
             if (BlockAhead.GetTag(KeyTag.Player))
@@ -128,10 +134,10 @@ public class BodyBullet : MonoBehaviour, ITurnManager, IBodyBullet
         //
         if (m_body != null)
         {
-            m_body.SetCheckGravity(m_turnDir);
+            m_body.SetCheckGravity(m_moveDir);
         }
         //
-        Vector3 MoveVectorDir = IsometricVector.GetDirVector(m_turnDir);
+        Vector3 MoveVectorDir = IsometricVector.GetDirVector(m_moveDir);
         Vector3 MoveVectorStart = IsometricVector.GetDirVector(m_block.Pos);
         Vector3 MoveVectorEnd = IsometricVector.GetDirVector(m_block.Pos) + MoveVectorDir * 1;
         DOTween.To(() => MoveVectorStart, x => MoveVectorEnd = x, MoveVectorEnd, GameManager.Instance.TimeMove * 1)
@@ -148,14 +154,13 @@ public class BodyBullet : MonoBehaviour, ITurnManager, IBodyBullet
             {
                 //End Animation!!
                 //
-                if (TurnEnd)
+                if (StepEnd)
                 {
-                    m_turnActive = false;
-                    TurnManager.SetEndStep(Turn, this);
+                    TurnManager.Instance.SetEndStep(Step, this);
                 }
                 else
                 {
-                    TurnManager.SetEndMove(Turn, this);
+                    TurnManager.Instance.SetEndMove(Step, this);
                 }
                 //
                 //Check if Bot can't stand on!!
@@ -169,7 +174,7 @@ public class BodyBullet : MonoBehaviour, ITurnManager, IBodyBullet
     {
         if (m_body != null)
         {
-            IsometricBlock BlockBot = m_body.GetCheckDir(IsometricVector.Bot);
+            IsometricBlock BlockBot = m_block.GetBlock(IsometricVector.Bot)[0];
             if (BlockBot == null)
             {
                 return;
@@ -188,8 +193,6 @@ public class BodyBullet : MonoBehaviour, ITurnManager, IBodyBullet
         }
     }
 
-    //Body
-
     private void SetGravity(bool State)
     {
         if (!State)
@@ -198,11 +201,15 @@ public class BodyBullet : MonoBehaviour, ITurnManager, IBodyBullet
         }
     }
 
-    //Animation
+    #endregion
+
+    #region Animation
 
     private void SetControlAnimation(string Name)
     {
         m_animator.SetTrigger(Name);
         //m_animator.ResetTrigger(Name);
     }
+
+    #endregion
 }

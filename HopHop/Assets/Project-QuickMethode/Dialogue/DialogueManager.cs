@@ -8,7 +8,7 @@ using UnityEditor;
 
 public class DialogueManager : SingletonManager<DialogueManager>
 {
-    #region Varible: Action
+    #region Action
 
     /// <summary>
     /// Dialogue system start, trigger once time only, until end and refresh
@@ -27,21 +27,21 @@ public class DialogueManager : SingletonManager<DialogueManager>
 
     #endregion
 
-    #region Varible: Config
+    #region Config
 
     [SerializeField] private DialogueConfig m_dialogueConfig;
     [SerializeField] private StringConfig m_stringConfig;
 
     #endregion
 
-    #region Varible: Setting
+    #region Setting
 
     [Space]
     [SerializeField] private float m_delayStart = 1f;
 
     #endregion
 
-    #region Varible: Dialogue
+    #region Dialogue
 
     private enum DialogueCommandType
     {
@@ -70,7 +70,7 @@ public class DialogueManager : SingletonManager<DialogueManager>
 
     #endregion
 
-    #region Varible: Get
+    #region Get
 
     /// <summary>
     /// Dialogue current active in progess

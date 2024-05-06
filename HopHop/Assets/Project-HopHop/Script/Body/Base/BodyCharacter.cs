@@ -295,31 +295,31 @@ public class BodyCharacter : MonoBehaviour
     private void SetOnMove(bool State, IsometricVector Dir)
     {
         if (State && Dir != IsometricVector.None && Dir != IsometricVector.Top && Dir != IsometricVector.Bot)
-            SetAnimationMove(m_body.GetCheckDir(IsometricVector.Bot), m_body.GetCheckDir(IsometricVector.Bot, Dir));
+            SetAnimationMove(m_block.GetBlock(IsometricVector.Bot)[0], m_block.GetBlock(IsometricVector.Bot, Dir)[0]);
         else
-            SetAnimationStand(m_body.GetCheckDir(IsometricVector.Bot));
+            SetAnimationStand(m_block.GetBlock(IsometricVector.Bot)[0]);
     }
 
     private void SetOnGravity(bool State)
     {
         if (!State)
-            SetAnimationStand(m_body.GetCheckDir(IsometricVector.Bot));
+            SetAnimationStand(m_block.GetBlock(IsometricVector.Bot)[0]);
     }
 
     private void SetOnPush(bool State, IsometricVector Dir, IsometricVector From)
     {
         if (State && Dir != IsometricVector.None && Dir != IsometricVector.Top && Dir != IsometricVector.Bot && From != IsometricVector.Bot)
-            SetAnimationMove(m_body.GetCheckDir(IsometricVector.Bot), m_body.GetCheckDir(IsometricVector.Bot, Dir));
+            SetAnimationMove(m_block.GetBlock(IsometricVector.Bot)[0], m_block.GetBlock(IsometricVector.Bot, Dir)[0]);
         else
-            SetAnimationStand(m_body.GetCheckDir(IsometricVector.Bot));
+            SetAnimationStand(m_block.GetBlock(IsometricVector.Bot)[0]);
     }
 
     public void SetOnForce(bool State, IsometricVector Dir)
     {
         if (State && Dir != IsometricVector.None && Dir != IsometricVector.Top && Dir != IsometricVector.Bot)
-            SetAnimationMove(m_body.GetCheckDir(IsometricVector.Bot), m_body.GetCheckDir(IsometricVector.Bot, Dir));
+            SetAnimationMove(m_block.GetBlock(IsometricVector.Bot)[0], m_block.GetBlock(IsometricVector.Bot, Dir)[0]);
         else
-            SetAnimationStand(m_body.GetCheckDir(IsometricVector.Bot));
+            SetAnimationStand(m_block.GetBlock(IsometricVector.Bot)[0]);
     }
 }
 

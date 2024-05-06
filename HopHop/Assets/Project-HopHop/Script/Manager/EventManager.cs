@@ -6,12 +6,15 @@ using UnityEngine;
 
 public class EventManager : SingletonManager<EventManager>, ITurnManager
 {
+    private const int COMMAND_IDENTITY = 0;
+    private const int COMMAND_EXCUTE = 1;
+
     public Action<bool> onEvent;
     public Action<bool> onEventDialogue;
 
     [SerializeField] private EventConfig m_eventConfig;
 
-    public TurnType Turn => TurnType.Event;
+    public StepType Step => StepType.Event;
 
 #if UNITY_EDITOR
 
@@ -71,7 +74,8 @@ public class EventManager : SingletonManager<EventManager>, ITurnManager
 
     private IEnumerator ISetEventActive(EventConfigSingle Event)
     {
-        TurnManager.SetAdd(TurnType.Event, this); //NOTE: Should not stop Turn Manager because world need Gravity and somethings else...
+        //NOTE: Should not stop Turn Manager because world need Gravity and somethings else...
+        TurnManager.Instance.SetAdd(StepType.Event, this);
 
         onEvent?.Invoke(true);
 
@@ -87,6 +91,7 @@ public class EventManager : SingletonManager<EventManager>, ITurnManager
                 SetEventDialogue(Event.Data[i].Dialogue);
 
             if (Event.Data[i].Command != null ? Event.Data[i].Command.Count > 0 : false)
+                //NOTE: As Command Event, it will add more event(s) Step before this base event Step
                 SetEventCommand(Event.Data[i].Command);
 
             if (Event.Data[i].Choice != null ? Event.Data[i].Choice.Count > 0 : false)
@@ -95,13 +100,21 @@ public class EventManager : SingletonManager<EventManager>, ITurnManager
             }
 
             if (Event.Data[i].WaitForce)
-                //Wait until all event done it's work!
-                yield return new WaitUntil(() => !DialogueManager.Instance.Active);
+            {
+                TurnManager.Instance.SetEndMove(StepType.Event, this);
+
+                //NOTE: Turn Manager wait 1 frame to wait all another child of it's Step finish their own code, so delay to check this Step later
+                yield return null;
+                yield return null;
+                yield return new WaitUntil(() =>
+                    TurnManager.Instance.StepCurrent.Step == StepType.Event.ToString() &&
+                    !DialogueManager.Instance.Active);
+            }
         }
 
         onEvent?.Invoke(false);
 
-        TurnManager.SetEndStep(TurnType.Event, this);
+        TurnManager.Instance.SetEndStep(StepType.Event, this);
     }
 
     private void SetEventDialogue(DialogueConfigSingle Data)
@@ -115,10 +128,10 @@ public class EventManager : SingletonManager<EventManager>, ITurnManager
         foreach (string DataCheck in Data)
         {
             List<string> DataRead = QEncypt.GetDencyptString('-', DataCheck);
-            switch (DataRead[0])
+            switch (DataRead[COMMAND_IDENTITY])
             {
                 case KeyEvent.Player:
-                    switch (DataRead[1])
+                    switch (DataRead[COMMAND_EXCUTE])
                     {
                         case KeyEvent.Character:
                             //player-character-[Character]
@@ -126,17 +139,14 @@ public class EventManager : SingletonManager<EventManager>, ITurnManager
                             break;
                         case KeyEvent.Move:
                             //player-move-[Dir]-[Length]
-                            WorldManager.Instance.Player.GetComponent<BodyPhysic>().SetControlMove(IsometricVector.GetDirDeEncypt(DataRead[2]) * (int.Parse(DataRead[3])), true);
+                            WorldManager.Instance.Player.GetComponent<IBodyCommand>().ISetCommandMove(IsometricVector.GetDirDeEncypt(DataRead[2]) * (int.Parse(DataRead[3])));
                             break;
                     }
                     break;
-                case KeyEvent.All:
-                    //...
-                    break;
                 default:
-                    //...
+                    string Identity = DataRead[COMMAND_IDENTITY];
                     break;
-            }
+            } //NOTE: First data check identity to excute command
         }
     }
 }

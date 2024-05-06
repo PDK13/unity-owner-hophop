@@ -1,34 +1,49 @@
 using UnityEngine;
+using System.Collections.Generic;
+
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 
-public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic
+public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyCommand
 {
-    private bool m_turnActive = false;
-
-    private IsometricDataMove m_dataMove;
+    #region Move
 
     private bool m_moveCheckAhead = false;
     private bool m_moveCheckAheadBot = false;
 
-    private IsometricBlock m_block;
-    private BodyPhysic m_body;
-    private BodySwitch m_switch;
+    private IsometricDataMove m_dataMove;
 
-    //
+    #endregion
+
+    #region Command
+
+    private List<IsometricVector> m_commandMove;
+
+    #endregion
+
+    #region Get
 
     public bool State => m_switch != null ? m_switch.State : true;
 
-    public TurnType Turn => TurnType.MovePhysic;
+    public StepType Step => StepType.MovePhysic;
 
-    //
+    #endregion
+
+    #region Component
+
+    private IsometricBlock m_block;
+    private BodyPhysic m_body;
+    private BodyInteractiveSwitch m_switch;
+
+    #endregion
 
     private void Awake()
     {
         m_block = GetComponent<IsometricBlock>();
         m_body = GetComponent<BodyPhysic>();
-        m_switch = GetComponent<BodySwitch>();
+        m_switch = GetComponent<BodyInteractiveSwitch>();
     }
 
     private void Start()
@@ -39,7 +54,7 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic
         {
             if (m_dataMove.Data.Count > 0)
             {
-                TurnManager.SetInit(Turn, this);
+                TurnManager.Instance.SetInit(Step, this);
                 TurnManager.Instance.onTurn += ISetTurn;
                 TurnManager.Instance.onStepStart += ISetStepStart;
                 TurnManager.Instance.onStepEnd += ISetStepEnd;
@@ -62,7 +77,7 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic
         {
             if (m_dataMove.Data.Count > 0)
             {
-                TurnManager.SetRemove(Turn, this);
+                TurnManager.Instance.SetRemove(Step, this);
                 TurnManager.Instance.onTurn -= ISetTurn;
                 TurnManager.Instance.onStepStart -= ISetStepStart;
                 TurnManager.Instance.onStepEnd -= ISetStepEnd;
@@ -76,31 +91,18 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic
         m_body.onPush -= IPush;
     }
 
-    //
+    #region ITurnManager
 
-    public bool ITurnActive
-    {
-        get => m_turnActive;
-        set => m_turnActive = value;
-    }
-
-    public void ISetTurn(int Turn)
-    {
-        m_turnActive = true;
-    }
+    public void ISetTurn(int Turn) { }
 
     public void ISetStepStart(string Step)
     {
-        if (!m_turnActive)
-            return;
-        //
-        if (Step != Turn.ToString())
+        if (Step != this.Step.ToString())
             return;
         //
         if (!State)
         {
-            m_turnActive = false;
-            TurnManager.SetEndStep(Turn, this);
+            TurnManager.Instance.SetEndStep(this.Step, this);
             return;
         }
         //
@@ -114,26 +116,24 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic
                 {
                     m_dataMove.SetDirRevert();
                     m_dataMove.SetDirNext();
-                    //
-                    m_turnActive = false;
-                    TurnManager.SetEndStep(Turn, this);
+
+                    TurnManager.Instance.SetEndStep(this.Step, this);
                 }
             }
         }
-        else
-            m_turnActive = false;
     }
 
     public void ISetStepEnd(string Step) { }
 
-    //
+    #endregion
+
+    #region IBodyPhysic
 
     public bool IControl(IsometricVector Dir)
     {
         if (m_dataMove.DirCombineCurrent == IsometricVector.None)
         {
-            m_turnActive = false;
-            TurnManager.SetEndStep(Turn, this); //Follow Enermy (!)
+            TurnManager.Instance.SetEndStep(Step, this); //Follow Enermy (!)
             return true;
         }
         //
@@ -156,9 +156,7 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic
             //else
             {
                 //None Stop Ahead and continue check move ahead!!
-                //
                 BodyPhysic BlockBody = Block.GetComponent<BodyPhysic>();
-                //
                 if (BlockBody == null)
                 {
                     //Surely can't continue move to this Pos, because this Block can't be push!!
@@ -171,20 +169,17 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic
         if (m_moveCheckAheadBot)
         {
             //Continue check move Ahead Bot!!
-            //
             IsometricBlock BlockBot = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + Dir * Length + IsometricVector.Bot);
             if (BlockBot == null)
                 //Stop Ahead because no block ahead bot!!
                 return false;
         }
         //Fine to continue move to pos ahead!!
-        //
-        m_turnActive = false;
-        //
+
         m_body.SetControlMove(Dir, true);
-        //
+
         m_dataMove.SetDirNext();
-        //
+
         return true;
     }
 
@@ -192,8 +187,7 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic
     {
         if (!State)
         {
-            m_turnActive = false;
-            TurnManager.SetEndStep(Turn, this);
+            TurnManager.Instance.SetEndStep(Step, this);
         }
     }
 
@@ -211,6 +205,24 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic
     {
         //...
     }
+
+    #endregion
+
+    #region IBodyCommand
+
+    public void ISetCommandMove(IsometricVector Dir)
+    {
+        //m_commandMove.Add(Dir);
+
+        //if (!m_commandtActive)
+        //{
+        //    m_commandtActive = true;
+        //    TurnManager.Instance.SetAdd(StepType.Event, this);
+        //    m_body.SetControlMove(Dir, Gravity);
+        //}
+    }
+
+    #endregion
 
 #if UNITY_EDITOR
 

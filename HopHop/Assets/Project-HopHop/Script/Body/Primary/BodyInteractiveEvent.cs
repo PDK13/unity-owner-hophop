@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BodyEvent : MonoBehaviour, IBodyInteractive, ITurnManager
+public class BodyInteractiveEvent : MonoBehaviour, IBodyInteractive, ITurnManager
 {
+    #region Event
+
     [SerializeField] private bool m_eventTop = false;
     [SerializeField] private bool m_eventSide = false;
 
@@ -16,9 +18,9 @@ public class BodyEvent : MonoBehaviour, IBodyInteractive, ITurnManager
 
     private List<IsometricBlock> m_eventInteract = new List<IsometricBlock>();
 
-    private IsometricBlock m_block;
+    #endregion
 
-    //
+    #region Get
 
     public bool EventTop => m_eventTop;
 
@@ -34,7 +36,13 @@ public class BodyEvent : MonoBehaviour, IBodyInteractive, ITurnManager
 
 #endif
 
-    //
+    #endregion
+
+    #region Component
+
+    private IsometricBlock m_block;
+
+    #endregion
 
     private void Awake()
     {
@@ -61,7 +69,7 @@ public class BodyEvent : MonoBehaviour, IBodyInteractive, ITurnManager
         }
     }
 
-    //
+    #region ITurnManager
 
     public void ISetTurn(int Step)
     {
@@ -72,7 +80,7 @@ public class BodyEvent : MonoBehaviour, IBodyInteractive, ITurnManager
 
     public void ISetStepEnd(string Step)
     {
-        List<IsometricBlock> Block = m_block.GetCheck(IsometricVector.Top, 1);
+        List<IsometricBlock> Block = m_block.GetBlock(IsometricVector.Top * 1);
 
         foreach (var BlockCheck in Block)
         {
@@ -86,14 +94,18 @@ public class BodyEvent : MonoBehaviour, IBodyInteractive, ITurnManager
         }
     }
 
-    //
+    #endregion
+
+    #region IBodyInteractive
 
     public bool IInteractive()
     {
         return EventManager.Instance.SetEventActive(m_eventIdentityBase);
     }
 
-    //
+    public bool IInteractive(IsometricVector Dir) { return false; }
+
+    #endregion
 
 #if UNITY_EDITOR
 
