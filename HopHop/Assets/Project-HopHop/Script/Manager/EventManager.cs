@@ -139,7 +139,8 @@ public class EventManager : SingletonManager<EventManager>, ITurnManager
                             break;
                         case KeyEvent.Move:
                             //player-move-[Dir]-[Length]
-                            WorldManager.Instance.Player.GetComponent<IBodyCommand>().ISetCommandMove(IsometricVector.GetDirDeEncypt(DataRead[2]) * (int.Parse(DataRead[3])));
+                            for (int j = 0; j < int.Parse(DataRead[3]); j++)
+                                WorldManager.Instance.Player.GetComponent<IBodyCommand>().ISetCommandMove(IsometricVector.GetDirDeEncypt(DataRead[2]));
                             break;
                     }
                     break;
