@@ -1,7 +1,6 @@
 using DG.Tweening;
 using System;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -25,6 +24,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
 
     [SerializeField] private bool m_gravity = true;
     [SerializeField] private bool m_dynamic = true;
+    [SerializeField] private bool m_static = false;
 
     private IsometricVector m_moveLastXY;
     private IsometricVector? m_moveForceXY;
@@ -50,11 +50,11 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
         m_block = GetComponent<IsometricBlock>();
     }
 
-    #region Turn
+    #region ITurnManager
 
     public void ISetTurn(int Turn)
     {
-        if (m_block.GetBlock(IsometricVector.Bot * 1).Count == 0)
+        if (!GetBodyStatic(IsometricVector.Bot))
             SetGravityControl();
     }
 
@@ -80,9 +80,10 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
         if (Dir == IsometricVector.None)
             return true;
 
-        IsometricBlock Block = m_block.GetBlock(Dir)[0];
-        if (Block != null ? Block.GetComponent<BodyPhysic>() == null : false)
+        if (GetBodyStatic(Dir))
             return false;
+
+        SetGravityControl(Dir);
 
         Vector3 MoveDir = IsometricVector.GetDirVector(Dir);
         Vector3 MoveStart = IsometricVector.GetDirVector(m_block.Pos);
@@ -113,12 +114,10 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
             //Fine to continue own control!!
             return false;
 
-        IsometricBlock Block = m_block.GetBlock(m_moveForceXY.Value)[0];
-        if (Block != null ? Block.GetComponent<BodyPhysic>() == null : true)
-        {
-            m_moveForceXY = null;
+        if (GetBodyStatic(m_moveForceXY.Value))
             return false;
-        }
+
+        SetGravityControl(m_moveForceXY.Value);
 
         Vector3 MoveDir = IsometricVector.GetDirVector(m_moveForceXY.Value);
         Vector3 MoveStart = IsometricVector.GetDirVector(m_block.Pos);
@@ -151,8 +150,23 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
         if (!m_gravity)
             return false;
 
-        IsometricBlock Block = m_block.GetBlock(IsometricVector.Bot)[0];
-        if (Block != null ? Block.GetComponent<BodyPhysic>() == null : false)
+        if (GetBodyStatic(IsometricVector.Bot))
+            return false;
+
+        TurnManager.Instance.SetAdd(StepType.Gravity, this);
+        TurnManager.Instance.onTurn += ISetTurn;
+        TurnManager.Instance.onStepStart += ISetStepStart;
+        TurnManager.Instance.onStepEnd += ISetStepEnd;
+
+        return true;
+    }
+
+    private bool SetGravityControl(IsometricVector Dir)
+    {
+        if (!m_gravity)
+            return false;
+
+        if (GetBodyStatic(Dir + IsometricVector.Bot))
             return false;
 
         TurnManager.Instance.SetAdd(StepType.Gravity, this);
@@ -165,8 +179,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
 
     private void SetGravity()
     {
-        IsometricBlock Block = m_block.GetBlock(IsometricVector.Bot)[0];
-        if (Block != null)
+        if (GetBodyStatic(IsometricVector.Bot))
         {
             onGravity?.Invoke(false); //NOTE: Check if this Body can fall thought another Body?
 
@@ -209,8 +222,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
         if (Dir == IsometricVector.None)
             return true;
 
-        IsometricBlock Block = m_block.GetBlock(Dir)[0];
-        if (Block != null ? Block.GetComponent<BodyPhysic>() == null : false)
+        if (GetBodyStatic(Dir))
             return false;
 
         m_moveLastXY = Dir;
@@ -245,29 +257,59 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
         if (!m_dynamic)
             return false;
 
-        IsometricBlock Bot = m_block.GetBlock(IsometricVector.Bot)[0];
+        var Block = m_block.GetBlockAll(IsometricVector.Bot);
+        foreach (var BlockCheck in Block)
+        {
+            if (BlockCheck == null)
+                continue;
 
-        if (Bot == null)
+            if (BlockCheck.GetTag(KeyTag.Slow))
+            {
+                m_moveForceXY = IsometricVector.None;
+                return true;
+            }
+            else
+            if (BlockCheck.GetTag(KeyTag.Slip))
+            {
+                m_moveForceXY = m_moveLastXY;
+                return true;
+            }
+
+            m_moveForceXY = null;
+
             return false;
-
-        if (Bot.GetTag(KeyTag.Slow))
-        {
-            m_moveForceXY = IsometricVector.None;
-            return true;
-        }
-        else
-        if (Bot.GetTag(KeyTag.Slip))
-        {
-            m_moveForceXY = m_moveLastXY;
-            return true;
         }
 
-        m_moveForceXY = null;
         return false;
     }
 
     #endregion
 
+    #region Static
+
+    private bool GetBodyStatic(IsometricVector Dir)
+    {
+        var Block = m_block.GetBlockAll(Dir);
+        foreach (var BlockCheck in Block)
+        {
+            if (BlockCheck == null)
+                continue;
+
+            BodyStatic BodyStatic = BlockCheck.GetComponent<BodyStatic>();
+            if (BodyStatic != null)
+                return true;
+
+            BodyPhysic BodyPhysic = BlockCheck.GetComponent<BodyPhysic>();
+            if (BodyPhysic != null)
+            {
+                if (BodyPhysic.m_static)
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    #endregion
 }
 
 #if UNITY_EDITOR
@@ -278,20 +320,26 @@ public class BaseBodyEditor : Editor
 {
     private BodyPhysic m_target;
 
-    private SerializedProperty m_bodyStatic;
+    private SerializedProperty m_gravity;
+    private SerializedProperty m_dynamic;
+    private SerializedProperty m_static;
 
     private void OnEnable()
     {
         m_target = target as BodyPhysic;
 
-        m_bodyStatic = QUnityEditorCustom.GetField(this, "m_bodyStatic");
+        m_gravity = QUnityEditorCustom.GetField(this, "m_gravity");
+        m_dynamic = QUnityEditorCustom.GetField(this, "m_dynamic");
+        m_static = QUnityEditorCustom.GetField(this, "m_static");
     }
 
     public override void OnInspectorGUI()
     {
         QUnityEditorCustom.SetUpdate(this);
 
-        QUnityEditorCustom.SetField(m_bodyStatic);
+        QUnityEditorCustom.SetField(m_gravity);
+        QUnityEditorCustom.SetField(m_dynamic);
+        QUnityEditorCustom.SetField(m_static);
 
         QUnityEditorCustom.SetApply(this);
     }

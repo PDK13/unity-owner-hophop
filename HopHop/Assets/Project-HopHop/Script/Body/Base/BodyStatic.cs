@@ -1,8 +1,5 @@
 using DG.Tweening;
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class BodyStatic : MonoBehaviour, ITurnManager
@@ -61,23 +58,26 @@ public class BodyStatic : MonoBehaviour, ITurnManager
                 onMove?.Invoke(false, Dir);
             });
 
-        SetPushNext(Dir);
-        SetTopNext(Dir);
+        SetPush(Dir);
+        SetTop(Dir);
     } //Move Invoke!
 
     #endregion
 
     #region Push
 
-    private void SetPushNext(IsometricVector Dir)
+    private void SetPush(IsometricVector Dir)
     {
         if (Dir == IsometricVector.None)
             return;
 
-        IsometricBlock Block = m_block.GetBlock(Dir)[0];
-        if (Block != null)
+        var Block = m_block.GetBlockAll(Dir);
+        foreach (var BlockCheck in Block)
         {
-            BodyPhysic BodyPhysic = Block.GetComponent<BodyPhysic>();
+            if (BlockCheck == null)
+                continue;
+
+            BodyPhysic BodyPhysic = BlockCheck.GetComponent<BodyPhysic>();
             if (BodyPhysic != null)
                 BodyPhysic.SetPushControl(Dir, Dir * -1);
         }
@@ -87,15 +87,18 @@ public class BodyStatic : MonoBehaviour, ITurnManager
 
     #region Top
 
-    private void SetTopNext(IsometricVector Dir)
+    private void SetTop(IsometricVector Dir)
     {
         if (Dir == IsometricVector.None)
             return;
 
-        IsometricBlock Block = m_block.GetBlock(IsometricVector.Top)[0];
-        if (Block != null)
+        var Block = m_block.GetBlockAll(IsometricVector.Top);
+        foreach (var BlockCheck in Block)
         {
-            BodyPhysic BodyPhysic = Block.GetComponent<BodyPhysic>();
+            if (BlockCheck == null)
+                continue;
+
+            BodyPhysic BodyPhysic = BlockCheck.GetComponent<BodyPhysic>();
             if (BodyPhysic != null ? BodyPhysic.Gravity : false)
                 BodyPhysic.SetPushControl(Dir, IsometricVector.Bot);
         }

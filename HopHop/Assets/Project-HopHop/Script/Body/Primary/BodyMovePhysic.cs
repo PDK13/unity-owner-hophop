@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 
 
 
@@ -27,7 +26,7 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyCom
 
     #region Command
 
-    private List<IsometricVector> m_commandMove;
+    private List<IsometricVector> m_commandMove = new List<IsometricVector>();
     private int m_commandMoveIndex = 0;
 
     #endregion
@@ -231,7 +230,7 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyCom
 
     public void IMove(bool State, IsometricVector Dir)
     {
-        if (TurnManager.Instance.StepCurrent.Step == StepType.EventCommand.ToString())
+        if (TurnManager.Instance.StepCurrent.Step == StepType.EventCommand.ToString() && !StepCommandEnd)
         {
             if (State)
             {
@@ -246,23 +245,26 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyCom
             }
         }
         else
-        if (TurnManager.Instance.StepCurrent.Step == this.Step.ToString())
+        if (TurnManager.Instance.StepCurrent.Step == this.Step.ToString() && !StepEnd)
         {
             if (State)
             {
-                m_moveStepCurrent++;
+                //...
             }
             else
             {
-                if (StepEnd || StepGravity || StepForce)
+                m_moveStepCurrent++;
+
+                bool End = StepEnd;
+                bool Gravity = StepGravity;
+                bool Force = StepForce;
+                if (End || Gravity || Force)
                 {
-                    //End Step!
                     TurnManager.Instance.SetEndStep(Step, this);
-                    m_move.SetDirNext(); //Next Move for Next Turn!
+                    m_move.SetDirNext();
                 }
                 else
                 {
-                    //End Move!
                     TurnManager.Instance.SetEndMove(Step, this);
                     IControl(m_body.MoveLastXY);
                 }
@@ -291,14 +293,6 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyCom
         }
         else
         {
-            IsometricBlock Block = m_block.GetBlock(IsometricVector.Bot)[0];
-            if (Block.GetTag(KeyTag.Bullet))
-            {
-                Block.GetComponent<IBodyBullet>().IHit(m_block);
-                m_body.SetGravityControl();
-                return;
-            }
-
             if (m_fallStep >= 10)
             {
                 //...

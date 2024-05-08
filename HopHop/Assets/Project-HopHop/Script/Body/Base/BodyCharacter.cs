@@ -313,31 +313,31 @@ public class BodyCharacter : MonoBehaviour, IBodyPhysic
     public void IMove(bool State, IsometricVector Dir)
     {
         if (State && Dir != IsometricVector.None && Dir != IsometricVector.Top && Dir != IsometricVector.Bot)
-            SetAnimationMove(m_block.GetBlock(IsometricVector.Bot)[0], m_block.GetBlock(IsometricVector.Bot, Dir)[0]);
+            SetAnimationMove(m_block.GetBlock(IsometricVector.Bot), m_block.GetBlock(IsometricVector.Bot, Dir));
         else
-            SetAnimationStand(m_block.GetBlock(IsometricVector.Bot)[0]);
+            SetAnimationStand(m_block.GetBlock(IsometricVector.Bot));
     }
 
     public void IForce(bool State, IsometricVector Dir, IsometricVector From)
     {
         if (State && Dir != IsometricVector.None && Dir != IsometricVector.Top && Dir != IsometricVector.Bot)
-            SetAnimationMove(m_block.GetBlock(IsometricVector.Bot)[0], m_block.GetBlock(IsometricVector.Bot, Dir)[0]);
+            SetAnimationMove(m_block.GetBlock(IsometricVector.Bot), m_block.GetBlock(IsometricVector.Bot, Dir));
         else
-            SetAnimationStand(m_block.GetBlock(IsometricVector.Bot)[0]);
+            SetAnimationStand(m_block.GetBlock(IsometricVector.Bot));
     }
 
     public void IGravity(bool State)
     {
         if (!State)
-            SetAnimationStand(m_block.GetBlock(IsometricVector.Bot)[0]);
+            SetAnimationStand(m_block.GetBlock(IsometricVector.Bot));
     }
 
     public void IPush(bool State, IsometricVector Dir, IsometricVector From)
     {
         if (State && Dir != IsometricVector.None && Dir != IsometricVector.Top && Dir != IsometricVector.Bot && From != IsometricVector.Bot)
-            SetAnimationMove(m_block.GetBlock(IsometricVector.Bot)[0], m_block.GetBlock(IsometricVector.Bot, Dir)[0]);
+            SetAnimationMove(m_block.GetBlock(IsometricVector.Bot), m_block.GetBlock(IsometricVector.Bot, Dir));
         else
-            SetAnimationStand(m_block.GetBlock(IsometricVector.Bot)[0]);
+            SetAnimationStand(m_block.GetBlock(IsometricVector.Bot));
     }
 
     #endregion

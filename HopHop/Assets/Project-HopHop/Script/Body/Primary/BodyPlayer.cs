@@ -284,7 +284,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
 
     public void IMove(bool State, IsometricVector Dir)
     {
-        if (TurnManager.Instance.StepCurrent.Step == StepType.EventCommand.ToString())
+        if (TurnManager.Instance.StepCurrent.Step == StepType.EventCommand.ToString() && !StepCommandEnd)
         {
             if (State)
             {
@@ -299,36 +299,35 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
             }
         }
         else
-        if (TurnManager.Instance.StepCurrent.Step == this.Step.ToString())
+        if (TurnManager.Instance.StepCurrent.Step == this.Step.ToString() && !StepEnd)
         {
             if (State)
             {
-                //Start Move!
-                m_moveStepCurrent++;
+
             }
             else
             {
-                if (StepEnd || StepGravity || StepForce)
+                m_moveStepCurrent++;
+
+                bool End = StepEnd;
+                bool Gravity = StepGravity;
+                bool Force = StepForce;
+                if (End || Gravity || Force)
                 {
-                    //End Step!
                     SetControlStage(false);
                     TurnManager.Instance.SetEndStep(Step, this);
                 }
                 else
                 {
-                    //End Move!
                     TurnManager.Instance.SetEndMove(Step, this);
 
-                    //Still Turn!
                     if (m_character.MoveLock)
                     {
-                        //Lock Move!
                         SetControlStage(false);
                         IControl(m_body.MoveLastXY);
                     }
                     else
                     {
-                        //Freely Move!
                         SetControlStage(true);
                     }
                 }
@@ -366,14 +365,6 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
         }
         else
         {
-            IsometricBlock Block = m_block.GetBlock(IsometricVector.Bot)[0];
-            if (Block.GetTag(KeyTag.Bullet))
-            {
-                Block.GetComponent<IBodyBullet>().IHit(m_block);
-                m_body.SetGravityControl();
-                return;
-            }
-
             if (m_fallStep >= 10)
             {
                 //...

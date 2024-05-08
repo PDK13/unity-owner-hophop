@@ -80,8 +80,7 @@ public class BodyInteractiveEvent : MonoBehaviour, IBodyInteractive, ITurnManage
 
     public void ISetStepEnd(string Step)
     {
-        List<IsometricBlock> Block = m_block.GetBlock(IsometricVector.Top * 1);
-
+        List<IsometricBlock> Block = m_block.GetBlockAll(IsometricVector.Top);
         foreach (var BlockCheck in Block)
         {
             if (m_eventInteract.Exists(t => t.Equals(BlockCheck)))

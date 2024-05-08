@@ -1,9 +1,4 @@
-using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class BodyBulletPhysic : MonoBehaviour, ITurnManager, IBodyBullet, IBodyPhysic
 {
@@ -166,7 +161,7 @@ public class BodyBulletPhysic : MonoBehaviour, ITurnManager, IBodyBullet, IBodyP
 
     public void IMove(bool State, IsometricVector Dir)
     {
-        if (TurnManager.Instance.StepCurrent.Step == this.Step.ToString())
+        if (TurnManager.Instance.StepCurrent.Step == this.Step.ToString() && !StepEnd)
         {
             if (State)
             {
@@ -176,12 +171,16 @@ public class BodyBulletPhysic : MonoBehaviour, ITurnManager, IBodyBullet, IBodyP
             {
                 if (State)
                 {
-                    //Start Move!
-                    m_moveStepCurrent++;
+                    //...
                 }
                 else
                 {
-                    if (StepEnd || StepGravity || StepForce)
+                    m_moveStepCurrent++;
+
+                    bool End = StepEnd;
+                    bool Gravity = StepGravity;
+                    bool Force = StepForce;
+                    if (End || Gravity || Force)
                     {
                         //End Step!
                         TurnManager.Instance.SetEndStep(Step, this);
@@ -200,7 +199,7 @@ public class BodyBulletPhysic : MonoBehaviour, ITurnManager, IBodyBullet, IBodyP
         }
     }
 
-    public void IForce(bool State, IsometricVector Dir, IsometricVector From) 
+    public void IForce(bool State, IsometricVector Dir, IsometricVector From)
     {
         if (State)
         {
@@ -221,21 +220,17 @@ public class BodyBulletPhysic : MonoBehaviour, ITurnManager, IBodyBullet, IBodyP
         }
         else
         {
-            IsometricBlock Block = m_block.GetBlock(IsometricVector.Bot)[0];
-            if (Block.GetTag(KeyTag.Bullet))
+            if (m_fallStep >= 10)
             {
-                Block.GetComponent<IBodyBullet>().IHit(m_block);
-                m_body.SetGravityControl();
-                return;
+                //...
             }
 
-            IHit(Block);
             m_fallStep = 0;
         }
     }
 
-    public void IPush(bool State, IsometricVector Dir, IsometricVector From) 
-    { 
+    public void IPush(bool State, IsometricVector Dir, IsometricVector From)
+    {
         if (State)
         {
 
