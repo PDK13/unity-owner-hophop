@@ -81,24 +81,9 @@ public class BodyInteractiveSwitch : MonoBehaviour, IBodyInteractive, IBodySwitc
 
     #region IBodySwitch
 
-    public void ISwitchIdentity(string Identity, bool State)
+    public void ISwitch()
     {
-        if (!m_switchIdentityCheck.Exists(t => t == Identity))
-            return;
-        //
-        if (m_activeSwitch)
-            return;
-        m_activeSwitch = true;
-        //
-        if (m_follow)
-            m_state = State;
-        else
-            m_state = !m_state;
-        onState?.Invoke(m_state);
-        //
-        SetControlAnimation();
-        //
-        SetSwitch(m_switchIdentityBase, m_state);
+        ISwitch(!m_state);
     }
 
     public void ISwitch(bool State)
@@ -118,9 +103,24 @@ public class BodyInteractiveSwitch : MonoBehaviour, IBodyInteractive, IBodySwitc
         SetSwitch(m_switchIdentityBase, State);
     }
 
-    public void ISwitch()
+    public void ISwitchIdentity(string Identity, bool State)
     {
-        ISwitch(!m_state);
+        if (!m_switchIdentityCheck.Exists(t => t == Identity))
+            return;
+        //
+        if (m_activeSwitch)
+            return;
+        m_activeSwitch = true;
+        //
+        if (m_follow)
+            m_state = State;
+        else
+            m_state = !m_state;
+        onState?.Invoke(m_state);
+        //
+        SetControlAnimation();
+        //
+        SetSwitch(m_switchIdentityBase, m_state);
     }
 
     #endregion

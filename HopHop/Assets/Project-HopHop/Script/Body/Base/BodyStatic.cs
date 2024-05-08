@@ -26,7 +26,7 @@ public class BodyStatic : MonoBehaviour, ITurnManager
 
     private void Start()
     {
-        
+
     }
 
     #region Turn
@@ -41,7 +41,7 @@ public class BodyStatic : MonoBehaviour, ITurnManager
 
     #region Move
 
-    private void SetControlMove(IsometricVector Dir)
+    public void SetControlMove(IsometricVector Dir)
     {
         Vector3 MoveDir = IsometricVector.GetDirVector(Dir);
         Vector3 MoveStart = IsometricVector.GetDirVector(m_block.Pos);
@@ -60,30 +60,26 @@ public class BodyStatic : MonoBehaviour, ITurnManager
             {
                 onMove?.Invoke(false, Dir);
             });
-
-        SetControlPush(Dir);
-
-        SetControlTop(Dir);
+        SetPushNext(Dir);
+        SetTopNext(Dir);
     } //Move Invoke!
 
     #endregion
 
     #region Push
 
-    private void SetControlPush(IsometricVector Dir)
+    private void SetPushNext(IsometricVector Dir)
     {
-        if (Dir == IsometricVector.Top || Dir == IsometricVector.Bot)
-        {
+        if (Dir == IsometricVector.None || Dir == IsometricVector.Top || Dir == IsometricVector.Bot)
             return;
-        }
-        //
+
         IsometricBlock BlockPush = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + Dir);
         if (BlockPush != null)
         {
-            BodyPhysic BodyPush = BlockPush.GetComponent<BodyPhysic>();
-            if (BodyPush != null)
+            BodyPhysic BodyPhysic = BlockPush.GetComponent<BodyPhysic>();
+            if (BodyPhysic != null)
             {
-                BodyPush.SetControlPush(Dir, Dir * -1); //Push!!
+                BodyPhysic.SetPushControl(Dir, Dir * -1); //Push!!
             }
         }
     }
@@ -92,23 +88,19 @@ public class BodyStatic : MonoBehaviour, ITurnManager
 
     #region Top
 
-    private void SetControlTop(IsometricVector Dir)
+    private void SetTopNext(IsometricVector Dir)
     {
         //Top!!
         IsometricBlock BlockTop = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + IsometricVector.Top);
         if (BlockTop != null)
         {
-            BodyPhysic BodyTop = BlockTop.GetComponent<BodyPhysic>();
-            if (BodyTop != null)
+            BodyPhysic BodyPhysic = BlockTop.GetComponent<BodyPhysic>();
+            if (BodyPhysic != null)
             {
                 if (Dir == IsometricVector.Top || Dir == IsometricVector.Bot)
-                {
-                    BodyTop.SetControlForce(Dir); //Force!!
-                }
+                    BodyPhysic.SetForceControl(Dir); //Force!!
                 else
-                {
-                    BodyTop.SetControlPush(Dir, IsometricVector.Bot); //Push!!
-                }
+                    BodyPhysic.SetPushControl(Dir, IsometricVector.Bot); //Push!!
             }
         }
     }

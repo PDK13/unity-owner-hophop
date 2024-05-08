@@ -134,7 +134,7 @@ public class BodyBullet : MonoBehaviour, ITurnManager, IBodyBullet
         //
         if (m_body != null)
         {
-            m_body.SetCheckGravity(m_moveDir);
+            m_body.SetGravityControl(m_moveDir);
         }
         //
         Vector3 MoveVectorDir = IsometricVector.GetDirVector(m_moveDir);

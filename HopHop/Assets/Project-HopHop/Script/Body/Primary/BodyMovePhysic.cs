@@ -119,25 +119,14 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyCom
                 return;
             }
 
-            if (!m_body.SetControlMoveForce())
+            if (!m_body.SetMoveControlForce())
             {
-                if (!IControl(m_dataMove.DirCombineCurrent))
-                {
-                    m_dataMove.SetDirRevert();
-                    m_dataMove.SetDirNext();
-                    if (!IControl(m_dataMove.DirCombineCurrent))
-                    {
-                        m_dataMove.SetDirRevert();
-                        m_dataMove.SetDirNext();
-
-                        TurnManager.Instance.SetEndStep(this.Step, this);
-                    }
-                }
+                IControl();
             }
         }
     }
 
-    public void ISetStepEnd(string Step) 
+    public void ISetStepEnd(string Step)
     {
         if (Step == StepType.EventCommand.ToString())
         {
@@ -149,6 +138,29 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyCom
     #endregion
 
     #region IBodyPhysic
+
+    public bool IControl()
+    {
+        if (IControl(m_dataMove.DirCombineCurrent))
+            //If Move success, then not end step for now!
+            return true;
+
+        m_dataMove.SetDirRevert();
+        m_dataMove.SetDirNext();
+
+        if (IControl(m_dataMove.DirCombineCurrent))
+            //If Move success, then not end step for now!
+            return true;
+
+        //If none of Move success, then end step now!
+
+        m_dataMove.SetDirRevert();
+        m_dataMove.SetDirNext();
+
+        TurnManager.Instance.SetEndStep(this.Step, this);
+
+        return false;
+    }
 
     public bool IControl(IsometricVector Dir)
     {
@@ -177,8 +189,8 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyCom
             //else
             {
                 //None Stop Ahead and continue check move ahead!!
-                BodyPhysic BlockBody = Block.GetComponent<BodyPhysic>();
-                if (BlockBody == null)
+                BodyPhysic BodyPhysic = Block.GetComponent<BodyPhysic>();
+                if (BodyPhysic == null)
                 {
                     //Surely can't continue move to this Pos, because this Block can't be push!!
                     return false;
@@ -197,7 +209,7 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyCom
         }
         //Fine to continue move to pos ahead!!
 
-        m_body.SetControlMove(Dir, true);
+        m_body.SetMoveControl(Dir, true);
 
         m_dataMove.SetDirNext();
 

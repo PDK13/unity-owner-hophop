@@ -211,7 +211,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
         else
         if (Step == this.Step.ToString())
         {
-            if (m_body.SetControlMoveForce())
+            if (m_body.SetMoveControlForce())
                 return;
 
             SetControlStage(true);
@@ -236,13 +236,15 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
 
     #region IBodyPhysic
 
+    public bool IControl() { return false; }
+
     public bool IControl(IsometricVector Dir)
     {
         if (Dir == IsometricVector.None)
         {
             SetControlStage(false);
 
-            m_body.SetControlMoveReset();
+            m_body.SetMoveControlReset();
 
             TurnManager.Instance.SetEndStep(Step, this);
 
@@ -262,9 +264,9 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
             }
             else
             {
-                BodyPhysic BlockBody = Block.GetComponent<BodyPhysic>();
+                BodyPhysic BodyPhysic = Block.GetComponent<BodyPhysic>();
 
-                if (BlockBody == null)
+                if (BodyPhysic == null)
                 {
                     //Surely can't continue move to this Pos, because this Block can't be push!!
                     return false;
@@ -276,7 +278,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
 
         SetControlStage(false);
 
-        m_body.SetControlMove(Dir, StepLast || !m_character.MoveFloat);
+        m_body.SetMoveControl(Dir, StepLast || !m_character.MoveFloat);
 
         return true;
     }

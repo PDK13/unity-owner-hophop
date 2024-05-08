@@ -2,12 +2,14 @@ using DG.Tweening;
 using UnityEngine;
 using System;
 using System.Collections.Generic;
+using System.Security.Principal;
+
 
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 
-public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyStatic, IBodyCommand
+public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyStatic, IBodyFollow, IBodyCommand
 {
     #region Action
 
@@ -23,7 +25,7 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyStatic, IBodyCom
     private string m_followIdentityBase;
     private string m_followIdentityCheck;
 
-    private IsometricVector m_turnDir;
+    private IsometricVector m_turnDir; //Dir Combine in progess!
     private int m_moveStep = 0;
     private int m_moveStepCurrent = 0;
 
@@ -77,6 +79,8 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyStatic, IBodyCom
 
         m_avaibleFollow = !string.IsNullOrEmpty(m_followIdentityCheck);
 
+        m_body.onMove += IMove;
+
         if (m_move != null)
         {
             if (m_move.Data.Count > 0)
@@ -89,11 +93,13 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyStatic, IBodyCom
         }
 
         if (m_avaibleFollow)
-            onFollow += SetControlFollow;
+            onFollow += IFollowIdentity;
     }
 
     protected void OnDestroy()
     {
+        m_body.onMove -= IMove;
+
         if (m_move != null)
         {
             if (m_move.Data.Count > 0)
@@ -106,7 +112,7 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyStatic, IBodyCom
         }
         //
         if (m_avaibleFollow)
-            onFollow -= SetControlFollow;
+            onFollow -= IFollowIdentity;
     }
 
     #region ITurnManager
@@ -137,7 +143,7 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyStatic, IBodyCom
                 return;
             }
 
-            SetControlMove();
+            IControl();
         }
     }
 
@@ -147,7 +153,7 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyStatic, IBodyCom
 
     #region IBodyStatic
 
-    public bool IControl(IsometricVector Dir)
+    public bool IControl()
     {
         if (m_moveStep == 0)
         {
@@ -159,43 +165,19 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyStatic, IBodyCom
 
         m_moveStepCurrent++;
 
-        Vector3 MoveDir = IsometricVector.GetDirVector(Dir);
-        Vector3 MoveStart = IsometricVector.GetDirVector(m_block.Pos);
-        Vector3 MoveEnd = IsometricVector.GetDirVector(m_block.Pos) + MoveDir * 1;
-        DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameManager.Instance.TimeMove * 1)
-            .SetEase(Ease.Linear)
-            .OnStart(() =>
-            {
-                //Start Animation!!
-            })
-            .OnUpdate(() =>
-            {
-                m_block.Pos = new IsometricVector(MoveEnd);
-            })
-            .OnComplete(() =>
-            {
-                //End Animation!!
-                if (StepEnd)
-                {
-                    TurnManager.Instance.SetEndStep(Step, this);
-                    //
-                    m_turnDir = IsometricVector.None;
-                }
-                else
-                {
-                    TurnManager.Instance.SetEndMove(Step, this);
-                }
-            });
-
-        if (!string.IsNullOrEmpty(m_followIdentityBase))
-            SetFollow(m_followIdentityBase, m_turnDir);
-
-        SetMovePush(m_turnDir);
-
-        SetMoveTop(m_turnDir);
+        IControl(m_turnDir);
 
         if (StepEnd)
             m_move.SetDirNext();
+
+        return true;
+    }
+
+    public bool IControl(IsometricVector Dir)
+    {
+        m_body.SetControlMove(m_turnDir);
+
+        IFollow();
 
         return true;
     }
@@ -235,13 +217,15 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyStatic, IBodyCom
                 {
                     //End Step!
                     TurnManager.Instance.SetEndStep(Step, this);
+
+                    m_turnDir = IsometricVector.None;
                 }
                 else
                 {
                     //End Move!
                     TurnManager.Instance.SetEndMove(Step, this);
 
-                    IControl(m_body.MoveLastXY);
+                    IControl();
                 }
             }
         }
@@ -249,135 +233,22 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyStatic, IBodyCom
 
     #endregion
 
-    #region Move
+    #region IBodyFollow
 
-    private void SetControlMove()
+    public void IFollow()
     {
-        if (m_moveStep == 0)
-        {
-            m_turnDir = m_move.DirCombineCurrent;
-            m_moveStep = m_move.Data[m_move.Index].Duration;
-            m_moveStep = Mathf.Clamp(m_moveStep, 1, m_moveStep); //Avoid bug by duration 0 value!
-            m_moveStepCurrent = 0;
-        }
-        //
-        m_moveStepCurrent++;
-        //
-        Vector3 MoveDir = IsometricVector.GetDirVector(m_turnDir);
-        Vector3 MoveStart = IsometricVector.GetDirVector(m_block.Pos);
-        Vector3 MoveEnd = IsometricVector.GetDirVector(m_block.Pos) + MoveDir * 1;
-        DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameManager.Instance.TimeMove * 1)
-            .SetEase(Ease.Linear)
-            .OnStart(() =>
-            {
-                //Start Animation!!
-            })
-            .OnUpdate(() =>
-            {
-                m_block.Pos = new IsometricVector(MoveEnd);
-            })
-            .OnComplete(() =>
-            {
-                //End Animation!!
-                if (StepEnd)
-                {
-                    TurnManager.Instance.SetEndStep(Step, this);
-                    //
-                    m_turnDir = IsometricVector.None;
-                }
-                else
-                {
-                    TurnManager.Instance.SetEndMove(Step, this);
-                }
-            });
-        //
-        if (!string.IsNullOrEmpty(m_followIdentityBase))
-            SetFollow(m_followIdentityBase, m_turnDir);
-        //
-        SetMovePush(m_turnDir);
-        //
-        SetMoveTop(m_turnDir);
-        //
-        if (StepEnd)
-            m_move.SetDirNext();
-    }
-
-    private void SetControlFollow(string Identity, IsometricVector Dir)
-    {
-        if (m_followIdentityCheck == "" || Identity != m_followIdentityCheck)
-        {
+        if (string.IsNullOrEmpty(m_followIdentityBase) || m_turnDir == IsometricVector.None)
             return;
-        }
-        //
-        Vector3 MoveVectorDir = IsometricVector.GetDirVector(Dir);
-        Vector3 MoveVectorStart = IsometricVector.GetDirVector(m_block.Pos);
-        Vector3 MoveVectorEnd = IsometricVector.GetDirVector(m_block.Pos) + MoveVectorDir * 1;
-        DOTween.To(() => MoveVectorStart, x => MoveVectorEnd = x, MoveVectorEnd, GameManager.Instance.TimeMove * 1)
-            .SetEase(Ease.Linear)
-            .OnStart(() =>
-            {
-                //Start Animation!!
-            })
-            .OnUpdate(() =>
-            {
-                m_block.Pos = new IsometricVector(MoveVectorEnd);
-            })
-            .OnComplete(() =>
-            {
-                //End Animation!!
-            });
-        //
-        SetMovePush(Dir);
-        //
-        SetMoveTop(Dir);
-        //
+
+        onFollow?.Invoke(m_followIdentityBase, m_turnDir);
     }
 
-    private void SetMovePush(IsometricVector Dir)
+    public void IFollowIdentity(string Identity, IsometricVector Dir)
     {
-        if (Dir == IsometricVector.Top || Dir == IsometricVector.Bot)
-        {
+        if (string.IsNullOrEmpty(m_followIdentityCheck) || Identity != m_followIdentityCheck)
             return;
-        }
-        //
-        IsometricBlock BlockPush = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + Dir);
-        if (BlockPush != null)
-        {
-            BodyPhysic BodyPush = BlockPush.GetComponent<BodyPhysic>();
-            if (BodyPush != null)
-            {
-                BodyPush.SetControlPush(Dir, Dir * -1); //Push!!
-            }
-        }
-    }
 
-    private void SetMoveTop(IsometricVector Dir)
-    {
-        //Top!!
-        IsometricBlock BlockTop = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + IsometricVector.Top);
-        if (BlockTop != null)
-        {
-            BodyPhysic BodyTop = BlockTop.GetComponent<BodyPhysic>();
-            if (BodyTop != null)
-            {
-                if (Dir == IsometricVector.Top || Dir == IsometricVector.Bot)
-                {
-                    BodyTop.SetControlForce(Dir); //Force!!
-                }
-                else
-                {
-                    BodyTop.SetControlPush(Dir, IsometricVector.Bot); //Push!!
-                }
-            }
-        }
-    }
-
-    public static void SetFollow(string Identity, IsometricVector Dir)
-    {
-        if (string.IsNullOrEmpty(Identity))
-            return;
-        //
-        onFollow?.Invoke(Identity, Dir);
+        m_body.SetControlMove(Dir);
     }
 
     #endregion

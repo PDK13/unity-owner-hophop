@@ -1,5 +1,7 @@
 public interface IBodyPhysic
 {
+    bool IControl();
+
     bool IControl(IsometricVector Dir);
 
     void IMove(bool State, IsometricVector Dir);

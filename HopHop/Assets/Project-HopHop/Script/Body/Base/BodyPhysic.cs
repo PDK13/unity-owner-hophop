@@ -53,15 +53,13 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
     public void ISetTurn(int Turn)
     {
         if (m_block.GetBlock(IsometricVector.Bot * 1).Count == 0)
-            SetForceGravity();
+            SetGravityControl();
     }
 
     public void ISetStepStart(string Step)
     {
-        if (Step != StepType.Gravity.ToString())
-            return;
-
-        SetControlGravity();
+        if (Step == StepType.Gravity.ToString())
+            SetGravity();
     }
 
     public void ISetStepEnd(string Step) { }
@@ -70,18 +68,18 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
 
     #region Move
 
-    public void SetControlMoveReset()
+    public void SetMoveControlReset()
     {
         m_moveLastXY = IsometricVector.None;
     }
 
-    public void SetControlMove(IsometricVector Dir, bool Gravity)
+    public void SetMoveControl(IsometricVector Dir, bool Gravity)
     {
         if (Dir == IsometricVector.None)
             return;
 
         if (Gravity)
-            SetCheckGravity(Dir);
+            SetGravityControl(Dir);
 
         m_moveLastXY = Dir;
 
@@ -100,7 +98,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
             })
             .OnComplete(() =>
             {
-                SetStandOnForce();
+                SetStandControlForce();
                 onMove?.Invoke(false, Dir);
             });
 
@@ -108,7 +106,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
         //SetNextPush(Dir);
     } //Move Invoke!
 
-    public bool SetControlMoveForce()
+    public bool SetMoveControlForce()
     {
         if (!m_moveForceXY.HasValue)
             //Fine to continue own control!!
@@ -120,7 +118,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
             return false;
         }
 
-        SetCheckGravity(m_moveForceXY.Value);
+        SetGravityControl(m_moveForceXY.Value);
 
         Vector3 MoveDir = IsometricVector.GetDirVector(m_moveForceXY.Value);
         Vector3 MoveStart = IsometricVector.GetDirVector(m_block.Pos);
@@ -141,7 +139,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
                 m_moveForceXY = null;
             });
 
-        SetNextPush(m_moveForceXY.Value);
+        SetPushNext(m_moveForceXY.Value);
 
         return true;
     } //Move Invoke!
@@ -150,7 +148,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
 
     #region Gravity
 
-    public IsometricBlock SetCheckGravity(IsometricVector Dir)
+    public IsometricBlock SetGravityControl(IsometricVector Dir)
     {
         IsometricBlock Block = m_block.GetBlock(Dir, IsometricVector.Bot)[0];
         if (Block != null)
@@ -166,12 +164,12 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
             }
         }
 
-        SetForceGravity();
+        SetGravityControl();
 
         return null;
     }
 
-    private void SetForceGravity()
+    private void SetGravityControl()
     {
         TurnManager.Instance.SetAdd(StepType.Gravity, this);
         TurnManager.Instance.onTurn += ISetTurn;
@@ -179,7 +177,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
         TurnManager.Instance.onStepEnd += ISetStepEnd;
     }
 
-    private void SetControlGravity()
+    private void SetGravity()
     {
         IsometricBlock Block = m_block.GetBlock(IsometricVector.Bot)[0];
         if (Block != null)
@@ -197,13 +195,13 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
                 TurnManager.Instance.onStepStart -= ISetStepStart;
                 TurnManager.Instance.onStepEnd -= ISetStepEnd;
 
-                SetStandOnForce();
+                SetStandControlForce();
                 onGravity?.Invoke(false);
 
                 return;
             }
         }
-        //
+
         Vector3 MoveDir = IsometricVector.GetDirVector(IsometricVector.Bot);
         Vector3 MoveStart = IsometricVector.GetDirVector(m_block.Pos.Fixed);
         Vector3 MoveEnd = IsometricVector.GetDirVector(m_block.Pos.Fixed) + MoveDir * 1;
@@ -219,7 +217,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
             })
             .OnComplete(() =>
             {
-                SetControlGravity();
+                SetGravity();
             });
     }
 
@@ -227,7 +225,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
 
     #region Push
 
-    public void SetControlPush(IsometricVector Dir, IsometricVector From)
+    public void SetPushControl(IsometricVector Dir, IsometricVector From)
     {
         if (Dir == IsometricVector.None)
             return;
@@ -239,7 +237,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
             if (BlockNext != null)
             {
                 //When Block Bot end move, surely Bot of this will be emty!!
-                SetForceGravity();
+                SetGravityControl();
                 return;
             }
         }
@@ -255,7 +253,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
             else
             {
                 //Can continue move, so check next pos if it emty at Bot?!
-                SetCheckGravity(Dir);
+                SetGravityControl(Dir);
             }
         }
 
@@ -274,96 +272,32 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
             })
             .OnComplete(() =>
             {
-                SetStandOnForce();
+                SetStandControlForce();
                 onPush?.Invoke(false, Dir, From);
             });
 
-        SetNextPush(Dir);
-    }
+        SetPushNext(Dir);
+    } //Push Invoke!
 
-    private void SetNextPush(IsometricVector Dir)
+    private void SetPushNext(IsometricVector Dir)
     {
         if (Dir == IsometricVector.None || Dir == IsometricVector.Top || Dir == IsometricVector.Bot)
-        {
             return;
-        }
 
-        IsometricBlock BlockPush = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + Dir);
-        if (BlockPush != null)
+        IsometricBlock Block = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + Dir);
+        if (Block != null)
         {
-            BodyPhysic BodyPush = BlockPush.GetComponent<BodyPhysic>();
-            if (BodyPush != null)
-            {
-                BodyPush.SetControlPush(Dir, Dir * -1); //Push!!
-            }
+            BodyPhysic BodyPhysic = Block.GetComponent<BodyPhysic>();
+            if (BodyPhysic != null)
+                BodyPhysic.SetPushControl(Dir, Dir * -1); //Push!!
         }
     }
 
     #endregion
 
-    #region Force
+    #region Stand
 
-    public void SetControlForce(IsometricVector Dir)
-    {
-        if (Dir == IsometricVector.None)
-            return;
-
-        if (Dir != IsometricVector.Top && Dir != IsometricVector.Bot)
-        {
-            m_moveLastXY = Dir;
-        }
-
-        Vector3 MoveVectorDir = IsometricVector.GetDirVector(Dir);
-        Vector3 MoveVectorStart = IsometricVector.GetDirVector(m_block.Pos.Fixed);
-        Vector3 MoveVectorEnd = IsometricVector.GetDirVector(m_block.Pos.Fixed) + MoveVectorDir * 1;
-        DOTween.To(() => MoveVectorStart, x => MoveVectorEnd = x, MoveVectorEnd, GameManager.Instance.TimeMove * 1)
-            .SetEase(Ease.Linear)
-            .OnStart(() =>
-            {
-                onForce?.Invoke(true, Dir);
-            })
-            .OnUpdate(() =>
-            {
-                m_block.Pos = new IsometricVector(MoveVectorEnd);
-            })
-            .OnComplete(() =>
-            {
-                SetStandOnForce();
-                onForce?.Invoke(false, Dir);
-            });
-
-        SetNextForce(Dir);
-    }
-
-    private void SetNextForce(IsometricVector Dir)
-    {
-        if (Dir == IsometricVector.None)
-            return;
-
-        //Top!!
-        IsometricBlock BlockTop = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + IsometricVector.Top);
-        if (BlockTop != null)
-        {
-            BodyPhysic BodyTop = BlockTop.GetComponent<BodyPhysic>();
-            if (BodyTop != null)
-            {
-                if (Dir == IsometricVector.Top || Dir == IsometricVector.Bot)
-                {
-                    BodyTop.SetControlForce(Dir); //Force!!
-                }
-                else
-                {
-                    BodyTop.SetControlPush(Dir, IsometricVector.Bot); //Push!!
-                }
-            }
-        }
-    }
-
-    #endregion
-
-    #region Stand On Force
-
-    public bool SetStandOnForce()
+    public bool SetStandControlForce()
     {
         if (m_block.GetBlock(IsometricVector.Bot) == null)
             return false;
@@ -382,6 +316,60 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
 
         m_moveForceXY = null;
         return false;
+    } //Stand Invoke!
+
+    #endregion
+
+    #region Force
+
+    public void SetForceControl(IsometricVector Dir)
+    {
+        if (Dir == IsometricVector.None)
+            return;
+
+        if (Dir != IsometricVector.Top && Dir != IsometricVector.Bot)
+            m_moveLastXY = Dir;
+
+        Vector3 MoveVectorDir = IsometricVector.GetDirVector(Dir);
+        Vector3 MoveVectorStart = IsometricVector.GetDirVector(m_block.Pos.Fixed);
+        Vector3 MoveVectorEnd = IsometricVector.GetDirVector(m_block.Pos.Fixed) + MoveVectorDir * 1;
+        DOTween.To(() => MoveVectorStart, x => MoveVectorEnd = x, MoveVectorEnd, GameManager.Instance.TimeMove * 1)
+            .SetEase(Ease.Linear)
+            .OnStart(() =>
+            {
+                onForce?.Invoke(true, Dir);
+            })
+            .OnUpdate(() =>
+            {
+                m_block.Pos = new IsometricVector(MoveVectorEnd);
+            })
+            .OnComplete(() =>
+            {
+                SetStandControlForce();
+                onForce?.Invoke(false, Dir);
+            });
+
+        SetForceNext(Dir);
+    } //Force Invoke!
+
+    private void SetForceNext(IsometricVector Dir)
+    {
+        if (Dir == IsometricVector.None)
+            return;
+
+        //Top!!
+        IsometricBlock BlockTop = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + IsometricVector.Top);
+        if (BlockTop != null)
+        {
+            BodyPhysic BodyPhysic = BlockTop.GetComponent<BodyPhysic>();
+            if (BodyPhysic != null)
+            {
+                if (Dir == IsometricVector.Top || Dir == IsometricVector.Bot)
+                    BodyPhysic.SetForceControl(Dir); //Force!!
+                else
+                    BodyPhysic.SetPushControl(Dir, IsometricVector.Bot); //Push!!
+            }
+        }
     }
 
     #endregion
