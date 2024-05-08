@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using UnityEditor;
 #endif
 
-public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyCommand, IBodyStatic
+public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyStatic, IBodyCommand
 {
     #region Action
 
@@ -44,7 +44,9 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyCommand, IBodySt
 
     public bool AvaibleSwitch => m_avaibleFollow;
 
-    private bool TurnEnd => m_moveStepCurrent == m_moveStep && m_moveStep > 0;
+    private bool StepEnd => m_moveStepCurrent >= m_moveStep && m_moveStep > 0;
+
+    private bool StepLast => m_moveStepCurrent >= m_moveStep - 1 && m_moveStep > 0;
 
     private bool StepCommandEnd => m_commandMoveIndex >= m_commandMove.Count;
 
@@ -55,6 +57,7 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyCommand, IBodySt
     #region Component
 
     private IsometricBlock m_block;
+    private BodyStatic m_body;
     private BodyInteractiveSwitch m_switch;
 
     #endregion
@@ -62,6 +65,7 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyCommand, IBodySt
     private void Awake()
     {
         m_block = GetComponent<IsometricBlock>();
+        m_body = GetComponent<BodyStatic>();
         m_switch = GetComponent<BodyInteractiveSwitch>();
     }
 
@@ -70,9 +74,9 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyCommand, IBodySt
         m_move = GetComponent<IsometricDataMove>();
         m_followIdentityBase = KeyInit.GetData(GetComponent<IsometricDataInit>(), KeyInit.Key.FollowIdentityBase, false);
         m_followIdentityCheck = KeyInit.GetData(GetComponent<IsometricDataInit>(), KeyInit.Key.FollowIdentityCheck, false);
-        //
+
         m_avaibleFollow = !string.IsNullOrEmpty(m_followIdentityCheck);
-        //
+
         if (m_move != null)
         {
             if (m_move.Data.Count > 0)
@@ -83,7 +87,7 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyCommand, IBodySt
                 TurnManager.Instance.onStepEnd += ISetStepEnd;
             }
         }
-        //
+
         if (m_avaibleFollow)
             onFollow += SetControlFollow;
     }
@@ -171,7 +175,7 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyCommand, IBodySt
             .OnComplete(() =>
             {
                 //End Animation!!
-                if (TurnEnd)
+                if (StepEnd)
                 {
                     TurnManager.Instance.SetEndStep(Step, this);
                     //
@@ -190,7 +194,7 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyCommand, IBodySt
 
         SetMoveTop(m_turnDir);
 
-        if (TurnEnd)
+        if (StepEnd)
             m_move.SetDirNext();
 
         return true;
@@ -221,7 +225,24 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyCommand, IBodySt
             }
             else
             {
-                TurnManager.Instance.SetEndStep(Step, this);
+                if (State)
+                {
+                    //Start Move!
+                    m_moveStepCurrent++;
+                }
+                else
+                if (StepEnd)
+                {
+                    //End Step!
+                    TurnManager.Instance.SetEndStep(Step, this);
+                }
+                else
+                {
+                    //End Move!
+                    TurnManager.Instance.SetEndMove(Step, this);
+
+                    IControl(m_body.MoveLastXY);
+                }
             }
         }
     }
@@ -258,7 +279,7 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyCommand, IBodySt
             .OnComplete(() =>
             {
                 //End Animation!!
-                if (TurnEnd)
+                if (StepEnd)
                 {
                     TurnManager.Instance.SetEndStep(Step, this);
                     //
@@ -277,7 +298,7 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyCommand, IBodySt
         //
         SetMoveTop(m_turnDir);
         //
-        if (TurnEnd)
+        if (StepEnd)
             m_move.SetDirNext();
     }
 
