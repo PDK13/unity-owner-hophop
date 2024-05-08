@@ -7,6 +7,8 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
 
     private int m_moveStepCurrent = 0;
 
+    private int m_fallStep = 0;
+
     #endregion
 
     #region Interactive
@@ -28,11 +30,11 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
 
     private bool StepEnd => m_moveStepCurrent >= m_character.MoveStep && m_character.MoveStep > 0;
 
-    private bool StepLast => m_moveStepCurrent >= m_character.MoveStep - 1 && m_character.MoveStep > 0;
-
     private bool StepCommandEnd => m_commandMoveIndex >= m_commandMove.Count;
 
-    private bool StepCommandLast => m_commandMoveIndex >= m_commandMove.Count - 1;
+    private bool StepGravity => StepEnd || !m_character.MoveFloat ? m_body.SetGravityControl() : false;
+
+    private bool StepForce => m_body.SetBottomControl();
 
     #endregion
 
@@ -211,10 +213,8 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
         else
         if (Step == this.Step.ToString())
         {
-            if (m_body.SetMoveControlForce())
-                return;
-
-            SetControlStage(true);
+            if (!m_body.SetMoveControlForce())
+                IControl();
         }
     }
 
@@ -236,23 +236,23 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
 
     #region IBodyPhysic
 
-    public bool IControl() { return false; }
+    public bool IControl()
+    {
+        SetControlStage(true);
+        return true;
+    }
 
     public bool IControl(IsometricVector Dir)
     {
         if (Dir == IsometricVector.None)
         {
             SetControlStage(false);
-
             m_body.SetMoveControlReset();
-
             TurnManager.Instance.SetEndStep(Step, this);
-
             return false;
         }
 
-        //Check if there is a Block ahead?!
-
+        //NOTE: Check Move before excute Move
         IsometricBlock Block = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + Dir * 1);
         if (Block != null)
         {
@@ -273,12 +273,11 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
                 }
             }
         }
-
-        //Fine to continue move to pos ahead!!
+        //NOTE: Fine Move to excute Move
 
         SetControlStage(false);
 
-        m_body.SetMoveControl(Dir, StepLast || !m_character.MoveFloat);
+        m_body.SetMoveControl(Dir);
 
         return true;
     }
@@ -308,28 +307,30 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
                 m_moveStepCurrent++;
             }
             else
-            if (StepEnd)
             {
-                //End Step!
-                SetControlStage(false);
-                TurnManager.Instance.SetEndStep(Step, this);
-            }
-            else
-            {
-                //End Move!
-                TurnManager.Instance.SetEndMove(Step, this);
-
-                //Still Turn!
-                if (m_character.MoveLock)
+                if (StepEnd || StepGravity || StepForce)
                 {
-                    //Lock Move!
+                    //End Step!
                     SetControlStage(false);
-                    IControl(m_body.MoveLastXY);
+                    TurnManager.Instance.SetEndStep(Step, this);
                 }
                 else
                 {
-                    //Freely Move!
-                    SetControlStage(true);
+                    //End Move!
+                    TurnManager.Instance.SetEndMove(Step, this);
+
+                    //Still Turn!
+                    if (m_character.MoveLock)
+                    {
+                        //Lock Move!
+                        SetControlStage(false);
+                        IControl(m_body.MoveLastXY);
+                    }
+                    else
+                    {
+                        //Freely Move!
+                        SetControlStage(true);
+                    }
                 }
             }
         }
@@ -344,11 +345,58 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
         }
     }
 
-    public void IForce(bool State, IsometricVector Dir) { }
+    public void IForce(bool State, IsometricVector Dir, IsometricVector From)
+    {
+        if (State)
+        {
 
-    public void IGravity(bool State) { }
+        }
+        else
+        {
+            m_body.SetGravityControl();
+            m_body.SetBottomControl();
+        }
+    }
 
-    public void IPush(bool State, IsometricVector Dir, IsometricVector From) { }
+    public void IGravity(bool State)
+    {
+        if (State)
+        {
+            m_fallStep++;
+        }
+        else
+        {
+            IsometricBlock Block = m_block.GetBlock(IsometricVector.Bot)[0];
+            if (Block.GetTag(KeyTag.Bullet))
+            {
+                Block.GetComponent<IBodyBullet>().IHit(m_block);
+                m_body.SetGravityControl();
+                return;
+            }
+
+            if (m_fallStep >= 10)
+            {
+                //...
+            }
+
+            m_body.SetBottomControl();
+
+            m_fallStep = 0;
+        }
+    }
+
+    public void IPush(bool State, IsometricVector Dir, IsometricVector From)
+    {
+        if (State)
+        {
+
+        }
+        else
+        {
+            m_body.SetGravityControl();
+            m_body.SetBottomControl();
+        }
+    }
 
     #endregion
 

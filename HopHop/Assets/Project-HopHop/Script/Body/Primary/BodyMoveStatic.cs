@@ -119,8 +119,9 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyStatic, IBodyFol
 
     public void ISetTurn(int Turn)
     {
-        //Reset!!
-        m_moveStep = 0;
+        m_turnDir = m_move.DirCombineCurrent;
+        m_moveStep = m_move.Data[m_move.Index].Duration;
+        m_moveStep = Mathf.Clamp(m_moveStep, 1, m_moveStep); //Avoid bug by duration 0 value!
         m_moveStepCurrent = 0;
     }
 
@@ -147,7 +148,14 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyStatic, IBodyFol
         }
     }
 
-    public void ISetStepEnd(string Step) { }
+    public void ISetStepEnd(string Step) 
+    {
+        if (Step == StepType.EventCommand.ToString())
+        {
+            m_commandMove.Clear();
+            m_commandMoveIndex = 0;
+        }
+    }
 
     #endregion
 
@@ -155,29 +163,16 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyStatic, IBodyFol
 
     public bool IControl()
     {
-        if (m_moveStep == 0)
-        {
-            m_turnDir = m_move.DirCombineCurrent;
-            m_moveStep = m_move.Data[m_move.Index].Duration;
-            m_moveStep = Mathf.Clamp(m_moveStep, 1, m_moveStep); //Avoid bug by duration 0 value!
-            m_moveStepCurrent = 0;
-        }
-
-        m_moveStepCurrent++;
-
         IControl(m_turnDir);
-
-        if (StepEnd)
-            m_move.SetDirNext();
 
         return true;
     }
 
     public bool IControl(IsometricVector Dir)
     {
-        m_body.SetControlMove(m_turnDir);
+        m_body.SetMoveControl(Dir);
 
-        IFollow();
+        IFollow(Dir);
 
         return true;
     }
@@ -217,14 +212,12 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyStatic, IBodyFol
                 {
                     //End Step!
                     TurnManager.Instance.SetEndStep(Step, this);
-
-                    m_turnDir = IsometricVector.None;
+                    m_move.SetDirNext(); //Next Move for Next Turn!
                 }
                 else
                 {
                     //End Move!
                     TurnManager.Instance.SetEndMove(Step, this);
-
                     IControl();
                 }
             }
@@ -235,12 +228,12 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyStatic, IBodyFol
 
     #region IBodyFollow
 
-    public void IFollow()
+    public void IFollow(IsometricVector Dir)
     {
-        if (string.IsNullOrEmpty(m_followIdentityBase) || m_turnDir == IsometricVector.None)
+        if (string.IsNullOrEmpty(m_followIdentityBase) || Dir == IsometricVector.None)
             return;
 
-        onFollow?.Invoke(m_followIdentityBase, m_turnDir);
+        onFollow?.Invoke(m_followIdentityBase, Dir);
     }
 
     public void IFollowIdentity(string Identity, IsometricVector Dir)
@@ -248,7 +241,7 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyStatic, IBodyFol
         if (string.IsNullOrEmpty(m_followIdentityCheck) || Identity != m_followIdentityCheck)
             return;
 
-        m_body.SetControlMove(Dir);
+        m_body.SetMoveControl(Dir);
     }
 
     #endregion

@@ -9,7 +9,7 @@ public class BodyShoot : MonoBehaviour, ITurnManager, IBodyShoot
 {
     #region Shoot
 
-    [SerializeField] private BodyBullet m_bullet;
+    [SerializeField] private GameObject m_bullet;
 
     private IsometricDataAction m_dataAction;
 
@@ -114,12 +114,11 @@ public class BodyShoot : MonoBehaviour, ITurnManager, IBodyShoot
             {
                 Debug.Log("[Debug] Bullet hit Player!!");
             }
-            //
             //Surely can't spawm bullet here!!
             return;
         }
-        //
-        IsometricBlock Bullet = m_block.WorldManager.World.Current.SetBlockCreate(m_block.Pos + DirSpawm, m_bullet.gameObject, false);
+
+        IsometricBlock Bullet = m_block.WorldManager.World.Current.SetBlockCreate(m_block.Pos + DirSpawm, m_bullet, false);
         Bullet.GetComponent<IBodyBullet>().IInit(DirMove, Speed);
     }
 

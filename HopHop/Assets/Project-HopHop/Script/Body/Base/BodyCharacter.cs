@@ -2,8 +2,10 @@ using System.Collections;
 using System.Linq;
 using UnityEngine;
 
-public class BodyCharacter : MonoBehaviour
+public class BodyCharacter : MonoBehaviour, IBodyPhysic
 {
+    #region Const
+
     private const int INDEX_MOVE = 0;
     private const int INDEX_ACTION = 1;
 
@@ -18,7 +20,9 @@ public class BodyCharacter : MonoBehaviour
     private const string TRIGGER_HURT = "Hurt";
     private const string TRIGGER_HAPPY = "Happy";
 
-    //
+    #endregion
+
+    #region Character - Animation - Animator
 
     private string m_animatorName = TRIGGER_IDLE;
 
@@ -28,11 +32,9 @@ public class BodyCharacter : MonoBehaviour
 
     private CharacterConfigData m_configCharacter;
 
-    private IsometricBlock m_block;
-    private BodyPhysic m_body;
-    private Animator m_animator;
+    #endregion
 
-    //
+    #region Get
 
     public CharacterType Character => m_character;
 
@@ -44,7 +46,15 @@ public class BodyCharacter : MonoBehaviour
 
     public bool MoveFloat => CharacterManager.Instance.CharacterConfig.GetConfig(Character).MoveFloat;
 
-    //
+    #endregion
+
+    #region Component
+
+    private IsometricBlock m_block;
+    private BodyPhysic m_body;
+    private Animator m_animator;
+
+    #endregion
 
     private void Awake()
     {
@@ -57,20 +67,20 @@ public class BodyCharacter : MonoBehaviour
     {
         SetCharacter(m_character, m_characterSkin);
         //
-        m_body.onMove += SetOnMove;
-        m_body.onMoveForce += SetOnMove;
-        m_body.onGravity += SetOnGravity;
-        m_body.onPush += SetOnPush;
-        m_body.onForce += SetOnForce;
+        m_body.onMove += IMove;
+        m_body.onMoveForce += IMove;
+        m_body.onGravity += IGravity;
+        m_body.onPush += IPush;
+        m_body.onForce += IForce;
     }
 
     private void OnDestroy()
     {
-        m_body.onMove -= SetOnMove;
-        m_body.onMoveForce -= SetOnMove;
-        m_body.onGravity -= SetOnGravity;
-        m_body.onPush -= SetOnPush;
-        m_body.onForce -= SetOnForce;
+        m_body.onMove -= IMove;
+        m_body.onMoveForce -= IMove;
+        m_body.onGravity -= IGravity;
+        m_body.onPush -= IPush;
+        m_body.onForce -= IForce;
     }
 
 #if UNITY_EDITOR
@@ -79,23 +89,23 @@ public class BodyCharacter : MonoBehaviour
     {
         if (m_character != CharacterType.Angel)
             return;
-        //
+
         if (Input.GetKeyDown(KeyCode.Alpha1))
-            m_animator.runtimeAnimatorController = CharacterManager.Instance.CharacterConfig.Angel.Skin[0].Animator;
-        //
+            SetAnimationAction(CharacterActionType.Idle);
+
         if (Input.GetKeyDown(KeyCode.Alpha2))
-            m_animator.runtimeAnimatorController = CharacterManager.Instance.CharacterConfig.Angel.Skin[1].Animator;
-        //
+            SetAnimationAction(CharacterActionType.Sit);
+
         if (Input.GetKeyDown(KeyCode.Alpha3))
-            SetAnimationAction(CharacterActionType.Happy);
-        //
-        if (Input.GetKeyDown(KeyCode.Alpha4))
             SetAnimationAction(CharacterActionType.Hurt);
+
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+            SetAnimationAction(CharacterActionType.Happy);
     }
 
 #endif
 
-    //Animator
+    #region Character - Animator
 
     public void SetCharacter(CharacterType Character, int Skin = 0)
     {
@@ -164,7 +174,9 @@ public class BodyCharacter : MonoBehaviour
         }
     }
 
-    //Animation
+    #endregion
+
+    #region Animation
 
     public void SetAnimationMove(IsometricBlock From, IsometricBlock To)
     {
@@ -290,9 +302,15 @@ public class BodyCharacter : MonoBehaviour
         SetAnimation(To);
     }
 
-    //
+    #endregion
 
-    private void SetOnMove(bool State, IsometricVector Dir)
+    #region IBodyPhysic
+
+    public bool IControl() { return false; }
+
+    public bool IControl(IsometricVector Dir) { return false; }
+
+    public void IMove(bool State, IsometricVector Dir)
     {
         if (State && Dir != IsometricVector.None && Dir != IsometricVector.Top && Dir != IsometricVector.Bot)
             SetAnimationMove(m_block.GetBlock(IsometricVector.Bot)[0], m_block.GetBlock(IsometricVector.Bot, Dir)[0]);
@@ -300,13 +318,21 @@ public class BodyCharacter : MonoBehaviour
             SetAnimationStand(m_block.GetBlock(IsometricVector.Bot)[0]);
     }
 
-    private void SetOnGravity(bool State)
+    public void IForce(bool State, IsometricVector Dir, IsometricVector From)
+    {
+        if (State && Dir != IsometricVector.None && Dir != IsometricVector.Top && Dir != IsometricVector.Bot)
+            SetAnimationMove(m_block.GetBlock(IsometricVector.Bot)[0], m_block.GetBlock(IsometricVector.Bot, Dir)[0]);
+        else
+            SetAnimationStand(m_block.GetBlock(IsometricVector.Bot)[0]);
+    }
+
+    public void IGravity(bool State)
     {
         if (!State)
             SetAnimationStand(m_block.GetBlock(IsometricVector.Bot)[0]);
     }
 
-    private void SetOnPush(bool State, IsometricVector Dir, IsometricVector From)
+    public void IPush(bool State, IsometricVector Dir, IsometricVector From)
     {
         if (State && Dir != IsometricVector.None && Dir != IsometricVector.Top && Dir != IsometricVector.Bot && From != IsometricVector.Bot)
             SetAnimationMove(m_block.GetBlock(IsometricVector.Bot)[0], m_block.GetBlock(IsometricVector.Bot, Dir)[0]);
@@ -314,13 +340,7 @@ public class BodyCharacter : MonoBehaviour
             SetAnimationStand(m_block.GetBlock(IsometricVector.Bot)[0]);
     }
 
-    public void SetOnForce(bool State, IsometricVector Dir)
-    {
-        if (State && Dir != IsometricVector.None && Dir != IsometricVector.Top && Dir != IsometricVector.Bot)
-            SetAnimationMove(m_block.GetBlock(IsometricVector.Bot)[0], m_block.GetBlock(IsometricVector.Bot, Dir)[0]);
-        else
-            SetAnimationStand(m_block.GetBlock(IsometricVector.Bot)[0]);
-    }
+    #endregion
 }
 
 public enum CharacterActionType

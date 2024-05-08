@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+
 
 
 #if UNITY_EDITOR
@@ -13,7 +15,13 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyCom
     private bool m_moveCheckAhead = false;
     private bool m_moveCheckAheadBot = false;
 
-    private IsometricDataMove m_dataMove;
+    private IsometricVector m_turnDir; //Dir Combine in progess!
+    private int m_moveStep = 0;
+    private int m_moveStepCurrent = 0;
+
+    private int m_fallStep = 0;
+
+    private IsometricDataMove m_move;
 
     #endregion
 
@@ -26,13 +34,17 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyCom
 
     #region Get
 
+    public StepType Step => StepType.MovePhysic;
+
     public bool State => m_switch != null ? m_switch.State : true;
 
-    public StepType Step => StepType.MovePhysic;
+    private bool StepEnd => m_moveStepCurrent >= m_moveStep && m_moveStep > 0;
 
     private bool StepCommandEnd => m_commandMoveIndex >= m_commandMove.Count;
 
-    private bool StepCommandLast => m_commandMoveIndex >= m_commandMove.Count - 1;
+    private bool StepGravity => StepEnd || (m_character != null ? !m_character.MoveFloat : true) ? m_body.SetGravityControl() : false;
+
+    private bool StepForce => m_body.SetBottomControl();
 
     #endregion
 
@@ -41,6 +53,7 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyCom
     private IsometricBlock m_block;
     private BodyPhysic m_body;
     private BodyInteractiveSwitch m_switch;
+    private BodyCharacter m_character;
 
     #endregion
 
@@ -48,16 +61,17 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyCom
     {
         m_block = GetComponent<IsometricBlock>();
         m_body = GetComponent<BodyPhysic>();
+        m_character = GetComponent<BodyCharacter>();
         m_switch = GetComponent<BodyInteractiveSwitch>();
     }
 
     private void Start()
     {
-        m_dataMove = GetComponent<IsometricDataMove>();
+        m_move = GetComponent<IsometricDataMove>();
 
-        if (m_dataMove != null)
+        if (m_move != null)
         {
-            if (m_dataMove.Data.Count > 0)
+            if (m_move.Data.Count > 0)
             {
                 TurnManager.Instance.SetInit(Step, this);
                 TurnManager.Instance.onTurn += ISetTurn;
@@ -78,9 +92,9 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyCom
 
     private void OnDestroy()
     {
-        if (m_dataMove != null)
+        if (m_move != null)
         {
-            if (m_dataMove.Data.Count > 0)
+            if (m_move.Data.Count > 0)
             {
                 TurnManager.Instance.SetRemove(Step, this);
                 TurnManager.Instance.onTurn -= ISetTurn;
@@ -98,7 +112,13 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyCom
 
     #region ITurnManager
 
-    public void ISetTurn(int Turn) { }
+    public void ISetTurn(int Turn)
+    {
+        m_turnDir = m_move.DirCombineCurrent;
+        m_moveStep = m_move.Data[m_move.Index].Duration;
+        m_moveStep = Mathf.Clamp(m_moveStep, 1, m_moveStep); //Avoid bug by duration 0 value!
+        m_moveStepCurrent = 0;
+    }
 
     public void ISetStepStart(string Step)
     {
@@ -120,9 +140,7 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyCom
             }
 
             if (!m_body.SetMoveControlForce())
-            {
                 IControl();
-            }
         }
     }
 
@@ -141,21 +159,19 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyCom
 
     public bool IControl()
     {
-        if (IControl(m_dataMove.DirCombineCurrent))
-            //If Move success, then not end step for now!
+        if (IControl(m_turnDir))
             return true;
 
-        m_dataMove.SetDirRevert();
-        m_dataMove.SetDirNext();
+        m_move.SetDirRevert();
+        m_move.SetDirNext();
 
-        if (IControl(m_dataMove.DirCombineCurrent))
-            //If Move success, then not end step for now!
+        m_turnDir = m_move.DirCombineCurrent;
+
+        if (IControl(m_turnDir))
             return true;
 
-        //If none of Move success, then end step now!
-
-        m_dataMove.SetDirRevert();
-        m_dataMove.SetDirNext();
+        m_move.SetDirRevert();
+        m_move.SetDirNext();
 
         TurnManager.Instance.SetEndStep(this.Step, this);
 
@@ -164,16 +180,15 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyCom
 
     public bool IControl(IsometricVector Dir)
     {
-        if (m_dataMove.DirCombineCurrent == IsometricVector.None)
+        if (Dir == IsometricVector.None)
         {
-            TurnManager.Instance.SetEndStep(Step, this); //Follow Enermy (!)
+            m_body.SetMoveControlReset();
+            TurnManager.Instance.SetEndStep(Step, this);
             return true;
         }
 
-        int Length = 1; //Follow Character (!)
-
-        //Check if there is a Block ahead?!
-        IsometricBlock Block = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + Dir * Length);
+        //NOTE: Check Move before excute Move
+        IsometricBlock Block = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + Dir);
         if (Block != null)
         {
             if (Block.GetTag(KeyTag.Bullet))
@@ -202,16 +217,14 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyCom
         if (m_moveCheckAheadBot)
         {
             //Continue check move Ahead Bot!!
-            IsometricBlock BlockBot = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + Dir * Length + IsometricVector.Bot);
+            IsometricBlock BlockBot = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + Dir + IsometricVector.Bot);
             if (BlockBot == null)
                 //Stop Ahead because no block ahead bot!!
                 return false;
         }
-        //Fine to continue move to pos ahead!!
+        //NOTE: Fine Move to excute Move
 
-        m_body.SetMoveControl(Dir, true);
-
-        m_dataMove.SetDirNext();
+        m_body.SetMoveControl(Dir);
 
         return true;
     }
@@ -237,28 +250,77 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyCom
         {
             if (State)
             {
-                //...
+                m_moveStepCurrent++;
             }
             else
             {
-                TurnManager.Instance.SetEndStep(Step, this);
+                if (StepEnd || StepGravity || StepForce)
+                {
+                    //End Step!
+                    TurnManager.Instance.SetEndStep(Step, this);
+                    m_move.SetDirNext(); //Next Move for Next Turn!
+                }
+                else
+                {
+                    //End Move!
+                    TurnManager.Instance.SetEndMove(Step, this);
+                    IControl(m_body.MoveLastXY);
+                }
             }
         }
     }
 
-    public void IForce(bool State, IsometricVector Dir)
+    public void IForce(bool State, IsometricVector Dir, IsometricVector From)
     {
-        //...
+        if (State)
+        {
+
+        }
+        else
+        {
+            m_body.SetGravityControl();
+            m_body.SetBottomControl();
+        }
     }
 
     public void IGravity(bool State)
     {
-        //...
+        if (State)
+        {
+            m_fallStep++;
+        }
+        else
+        {
+            IsometricBlock Block = m_block.GetBlock(IsometricVector.Bot)[0];
+            if (Block.GetTag(KeyTag.Bullet))
+            {
+                Block.GetComponent<IBodyBullet>().IHit(m_block);
+                m_body.SetGravityControl();
+                return;
+            }
+
+            if (m_fallStep >= 10)
+            {
+                //...
+            }
+
+            m_body.SetBottomControl();
+
+            m_fallStep = 0;
+        }
     }
 
     public void IPush(bool State, IsometricVector Dir, IsometricVector From)
     {
-        //...
+        if (State)
+        {
+
+        }
+        else
+        {
+            m_body.SetGravityControl();
+            m_body.SetBottomControl();
+        }
     }
 
     #endregion
