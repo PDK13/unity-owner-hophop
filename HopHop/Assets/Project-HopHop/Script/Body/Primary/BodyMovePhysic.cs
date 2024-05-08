@@ -20,6 +20,7 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyCom
     #region Command
 
     private List<IsometricVector> m_commandMove;
+    private int m_commandMoveIndex = 0;
 
     #endregion
 
@@ -28,6 +29,10 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyCom
     public bool State => m_switch != null ? m_switch.State : true;
 
     public StepType Step => StepType.MovePhysic;
+
+    private bool StepCommandEnd => m_commandMoveIndex >= m_commandMove.Count;
+
+    private bool StepCommandLast => m_commandMoveIndex >= m_commandMove.Count - 1;
 
     #endregion
 
@@ -49,7 +54,7 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyCom
     private void Start()
     {
         m_dataMove = GetComponent<IsometricDataMove>();
-        //
+
         if (m_dataMove != null)
         {
             if (m_dataMove.Data.Count > 0)
@@ -60,10 +65,10 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyCom
                 TurnManager.Instance.onStepEnd += ISetStepEnd;
             }
         }
-        //
+
         m_moveCheckAhead = KeyInit.GetExist(GetComponent<IsometricDataInit>(), KeyInit.Key.MoveCheckAheadSide);
         m_moveCheckAheadBot = KeyInit.GetExist(GetComponent<IsometricDataInit>(), KeyInit.Key.MoveCheckAheadBot);
-        //
+
         m_body.onMove += IMove;
         m_body.onForce += IForce;
         m_body.onMoveForce += IMove;
@@ -83,7 +88,7 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyCom
                 TurnManager.Instance.onStepEnd -= ISetStepEnd;
             }
         }
-        //
+
         m_body.onMove -= IMove;
         m_body.onForce -= IForce;
         m_body.onMoveForce -= IMove;
@@ -97,33 +102,49 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyCom
 
     public void ISetStepStart(string Step)
     {
-        if (Step != this.Step.ToString())
-            return;
-        //
-        if (!State)
+        if (Step == StepType.EventCommand.ToString())
         {
-            TurnManager.Instance.SetEndStep(this.Step, this);
-            return;
-        }
-        //
-        if (!m_body.SetControlMoveForce())
-        {
-            if (!IControl(m_dataMove.DirCombineCurrent))
+            if (!StepCommandEnd)
             {
-                m_dataMove.SetDirRevert();
-                m_dataMove.SetDirNext();
+                IControl(m_commandMove[m_commandMoveIndex]);
+                m_commandMoveIndex++;
+            }
+        }
+        else
+        if (Step == this.Step.ToString())
+        {
+            if (!State)
+            {
+                TurnManager.Instance.SetEndStep(this.Step, this);
+                return;
+            }
+
+            if (!m_body.SetControlMoveForce())
+            {
                 if (!IControl(m_dataMove.DirCombineCurrent))
                 {
                     m_dataMove.SetDirRevert();
                     m_dataMove.SetDirNext();
+                    if (!IControl(m_dataMove.DirCombineCurrent))
+                    {
+                        m_dataMove.SetDirRevert();
+                        m_dataMove.SetDirNext();
 
-                    TurnManager.Instance.SetEndStep(this.Step, this);
+                        TurnManager.Instance.SetEndStep(this.Step, this);
+                    }
                 }
             }
         }
     }
 
-    public void ISetStepEnd(string Step) { }
+    public void ISetStepEnd(string Step) 
+    {
+        if (Step == StepType.EventCommand.ToString())
+        {
+            m_commandMove.Clear();
+            m_commandMoveIndex = 0;
+        }
+    }
 
     #endregion
 
@@ -136,9 +157,9 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyCom
             TurnManager.Instance.SetEndStep(Step, this); //Follow Enermy (!)
             return true;
         }
-        //
+
         int Length = 1; //Follow Character (!)
-        //
+
         //Check if there is a Block ahead?!
         IsometricBlock Block = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + Dir * Length);
         if (Block != null)
@@ -146,7 +167,7 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyCom
             if (Block.GetTag(KeyTag.Bullet))
             {
                 Debug.Log("[Debug] Bullet hit Enermy!!");
-                //
+
                 Block.GetComponent<IBodyBullet>().IHit();
             }
             else
@@ -185,9 +206,31 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyCom
 
     public void IMove(bool State, IsometricVector Dir)
     {
-        if (!State)
+        if (TurnManager.Instance.StepCurrent.Step == StepType.EventCommand.ToString())
         {
-            TurnManager.Instance.SetEndStep(Step, this);
+            if (State)
+            {
+                //...
+            }
+            else
+            {
+                if (StepCommandEnd)
+                    TurnManager.Instance.SetEndStep(StepType.EventCommand, this);
+                else
+                    TurnManager.Instance.SetEndMove(StepType.EventCommand, this);
+            }
+        }
+        else
+        if (TurnManager.Instance.StepCurrent.Step == this.Step.ToString())
+        {
+            if (State)
+            {
+                //...
+            }
+            else
+            {
+                TurnManager.Instance.SetEndStep(Step, this);
+            }
         }
     }
 
@@ -212,14 +255,8 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyCom
 
     public void ISetCommandMove(IsometricVector Dir)
     {
-        //m_commandMove.Add(Dir);
-
-        //if (!m_commandtActive)
-        //{
-        //    m_commandtActive = true;
-        //    TurnManager.Instance.SetAdd(StepType.Event, this);
-        //    m_body.SetControlMove(Dir, Gravity);
-        //}
+        TurnManager.Instance.SetAdd(StepType.EventCommand, this);
+        m_commandMove.Add(Dir);
     }
 
     #endregion

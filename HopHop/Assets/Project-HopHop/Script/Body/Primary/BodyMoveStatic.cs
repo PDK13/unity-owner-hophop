@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using UnityEditor;
 #endif
 
-public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyCommand
+public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyCommand, IBodyStatic
 {
     #region Action
 
@@ -32,6 +32,7 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyCommand
     #region Command
 
     private List<IsometricVector> m_commandMove;
+    private int m_commandMoveIndex = 0;
 
     #endregion
 
@@ -44,6 +45,10 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyCommand
     public bool AvaibleSwitch => m_avaibleFollow;
 
     private bool TurnEnd => m_moveStepCurrent == m_moveStep && m_moveStep > 0;
+
+    private bool StepCommandEnd => m_commandMoveIndex >= m_commandMove.Count;
+
+    private bool StepCommandLast => m_commandMoveIndex >= m_commandMove.Count - 1;
 
     #endregion
 
@@ -111,19 +116,115 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyCommand
 
     public void ISetStepStart(string Step)
     {
-        if (Step != this.Step.ToString())
-            return;
-        //
-        if (!State)
+        if (Step == StepType.EventCommand.ToString())
         {
-            TurnManager.Instance.SetEndStep(this.Step, this);
-            return;
+            if (!StepCommandEnd)
+            {
+                IControl(m_commandMove[m_commandMoveIndex]);
+                m_commandMoveIndex++;
+            }
         }
-        //
-        SetControlMove();
+        else
+        if (Step == this.Step.ToString())
+        {
+            if (!State)
+            {
+                TurnManager.Instance.SetEndStep(this.Step, this);
+                return;
+            }
+
+            SetControlMove();
+        }
     }
 
     public void ISetStepEnd(string Step) { }
+
+    #endregion
+
+    #region IBodyStatic
+
+    public bool IControl(IsometricVector Dir)
+    {
+        if (m_moveStep == 0)
+        {
+            m_turnDir = m_move.DirCombineCurrent;
+            m_moveStep = m_move.Data[m_move.Index].Duration;
+            m_moveStep = Mathf.Clamp(m_moveStep, 1, m_moveStep); //Avoid bug by duration 0 value!
+            m_moveStepCurrent = 0;
+        }
+
+        m_moveStepCurrent++;
+
+        Vector3 MoveDir = IsometricVector.GetDirVector(Dir);
+        Vector3 MoveStart = IsometricVector.GetDirVector(m_block.Pos);
+        Vector3 MoveEnd = IsometricVector.GetDirVector(m_block.Pos) + MoveDir * 1;
+        DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameManager.Instance.TimeMove * 1)
+            .SetEase(Ease.Linear)
+            .OnStart(() =>
+            {
+                //Start Animation!!
+            })
+            .OnUpdate(() =>
+            {
+                m_block.Pos = new IsometricVector(MoveEnd);
+            })
+            .OnComplete(() =>
+            {
+                //End Animation!!
+                if (TurnEnd)
+                {
+                    TurnManager.Instance.SetEndStep(Step, this);
+                    //
+                    m_turnDir = IsometricVector.None;
+                }
+                else
+                {
+                    TurnManager.Instance.SetEndMove(Step, this);
+                }
+            });
+
+        if (!string.IsNullOrEmpty(m_followIdentityBase))
+            SetFollow(m_followIdentityBase, m_turnDir);
+
+        SetMovePush(m_turnDir);
+
+        SetMoveTop(m_turnDir);
+
+        if (TurnEnd)
+            m_move.SetDirNext();
+
+        return true;
+    }
+
+    public void IMove(bool State, IsometricVector Dir)
+    {
+        if (TurnManager.Instance.StepCurrent.Step == StepType.EventCommand.ToString())
+        {
+            if (State)
+            {
+                //...
+            }
+            else
+            {
+                if (StepCommandEnd)
+                    TurnManager.Instance.SetEndStep(StepType.EventCommand, this);
+                else
+                    TurnManager.Instance.SetEndMove(StepType.EventCommand, this);
+            }
+        }
+        else
+        if (TurnManager.Instance.StepCurrent.Step == this.Step.ToString())
+        {
+            if (State)
+            {
+                //...
+            }
+            else
+            {
+                TurnManager.Instance.SetEndStep(Step, this);
+            }
+        }
+    }
 
     #endregion
 
@@ -264,14 +365,8 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyCommand
 
     public void ISetCommandMove(IsometricVector Dir)
     {
-        //m_commandMove.Add(Dir);
-
-        //if (!m_commandtActive)
-        //{
-        //    m_commandtActive = true;
-        //    TurnManager.Instance.SetAdd(StepType.Event, this);
-        //    m_body.SetControlMove(Dir, Gravity);
-        //}
+        TurnManager.Instance.SetAdd(StepType.EventCommand, this);
+        m_commandMove.Add(Dir);
     }
 
     #endregion

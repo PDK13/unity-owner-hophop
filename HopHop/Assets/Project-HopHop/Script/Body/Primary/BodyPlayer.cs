@@ -32,7 +32,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
 
     private bool StepCommandEnd => m_commandMoveIndex >= m_commandMove.Count;
 
-    private bool StepCommandLast => m_moveStepCurrent >= m_character.MoveStep - 1;
+    private bool StepCommandLast => m_commandMoveIndex >= m_commandMove.Count - 1;
 
     #endregion
 
@@ -287,7 +287,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
         {
             if (State)
             {
-
+                //...
             }
             else
             {
