@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 44393240911007887}
   - component: {fileID: 44393240911007880}
   - component: {fileID: -924415115520978885}
+  - component: {fileID: 1876610465081656867}
   - component: {fileID: -4819422869623411208}
   m_Layer: 0
   m_Name: Tree Orange 0
@@ -136,6 +137,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 175f4de9ab9620849aadeea229f07786, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1876610465081656867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 44393240911007885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f90a9444dcb0e540acc27a3251ddef4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &-4819422869623411208
