@@ -207,7 +207,6 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyStatic, IBodyFol
                 else
                 {
                     TurnManager.Instance.SetEndMove(Step, this);
-
                     IControl();
                 }
             }

@@ -320,7 +320,6 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
                 else
                 {
                     TurnManager.Instance.SetEndMove(Step, this);
-
                     if (m_character.MoveLock)
                     {
                         SetControlStage(false);

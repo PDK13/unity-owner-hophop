@@ -169,31 +169,20 @@ public class BodyBulletPhysic : MonoBehaviour, ITurnManager, IBodyBullet, IBodyP
             }
             else
             {
-                if (State)
+                m_moveStepCurrent++;
+
+                bool End = StepEnd;
+                bool Gravity = StepGravity;
+                bool Force = StepForce;
+                if (End || Gravity || Force)
                 {
-                    //...
+                    TurnManager.Instance.SetEndStep(Step, this);
+                    m_turnDir = IsometricVector.None;
                 }
                 else
                 {
-                    m_moveStepCurrent++;
-
-                    bool End = StepEnd;
-                    bool Gravity = StepGravity;
-                    bool Force = StepForce;
-                    if (End || Gravity || Force)
-                    {
-                        //End Step!
-                        TurnManager.Instance.SetEndStep(Step, this);
-
-                        m_turnDir = IsometricVector.None;
-                    }
-                    else
-                    {
-                        //End Move!
-                        TurnManager.Instance.SetEndMove(Step, this);
-
-                        IControl();
-                    }
+                    TurnManager.Instance.SetEndMove(Step, this);
+                    IControl();
                 }
             }
         }
