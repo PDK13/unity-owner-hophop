@@ -100,7 +100,7 @@ public class BodyStatic : MonoBehaviour, ITurnManager
 
             BodyPhysic BodyPhysic = BlockCheck.GetComponent<BodyPhysic>();
             if (BodyPhysic != null ? BodyPhysic.Gravity : false)
-                BodyPhysic.SetPushControl(Dir, IsometricVector.Bot);
+                BodyPhysic.SetForceControl(Dir, IsometricVector.Bot, Dir != IsometricVector.Bot);
         }
     }
 

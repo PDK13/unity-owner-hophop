@@ -87,8 +87,8 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
 
         Vector3 MoveDir = IsometricVector.GetDirVector(Dir);
         Vector3 MoveStart = IsometricVector.GetDirVector(m_block.Pos);
-        Vector3 MoveEnd = IsometricVector.GetDirVector(m_block.Pos) + MoveDir * 1;
-        DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameManager.Instance.TimeMove * 1)
+        Vector3 MoveEnd = IsometricVector.GetDirVector(m_block.Pos) + MoveDir;
+        DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameManager.Instance.TimeMove)
             .SetEase(Ease.Linear)
             .OnStart(() =>
             {
@@ -121,8 +121,8 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
 
         Vector3 MoveDir = IsometricVector.GetDirVector(m_moveForceXY.Value);
         Vector3 MoveStart = IsometricVector.GetDirVector(m_block.Pos);
-        Vector3 MoveEnd = IsometricVector.GetDirVector(m_block.Pos) + MoveDir * 1;
-        DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameManager.Instance.TimeMove * 1)
+        Vector3 MoveEnd = IsometricVector.GetDirVector(m_block.Pos) + MoveDir;
+        DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameManager.Instance.TimeMove)
             .SetEase(Ease.Linear)
             .OnStart(() =>
             {
@@ -193,8 +193,8 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
 
         Vector3 MoveDir = IsometricVector.GetDirVector(IsometricVector.Bot);
         Vector3 MoveStart = IsometricVector.GetDirVector(m_block.Pos.Fixed);
-        Vector3 MoveEnd = IsometricVector.GetDirVector(m_block.Pos.Fixed) + MoveDir * 1;
-        DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameManager.Instance.TimeMove * 1)
+        Vector3 MoveEnd = IsometricVector.GetDirVector(m_block.Pos.Fixed) + MoveDir;
+        DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameManager.Instance.TimeMove)
             .SetEase(Ease.Linear)
             .OnStart(() =>
             {
@@ -225,12 +225,13 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
         if (GetBodyStatic(Dir))
             return false;
 
-        m_moveLastXY = Dir;
+        if (Dir != IsometricVector.Top && From != IsometricVector.Bot)
+            m_moveLastXY = Dir;
 
         Vector3 MoveDir = IsometricVector.GetDirVector(Dir);
         Vector3 MoveStart = IsometricVector.GetDirVector(m_block.Pos.Fixed);
-        Vector3 MoveEnd = IsometricVector.GetDirVector(m_block.Pos.Fixed) + MoveDir * 1;
-        DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameManager.Instance.TimeMove * 1)
+        Vector3 MoveEnd = IsometricVector.GetDirVector(m_block.Pos.Fixed) + MoveDir;
+        DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameManager.Instance.TimeMove)
             .SetEase(Ease.Linear)
             .OnStart(() =>
             {
@@ -243,6 +244,39 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
             .OnComplete(() =>
             {
                 onPush?.Invoke(false, Dir, From);
+            });
+
+        return true;
+    }
+
+    #endregion
+
+    #region Push
+
+    public bool SetForceControl(IsometricVector Dir, IsometricVector From, bool Check = true)
+    {
+        if (Dir == IsometricVector.None)
+            return true;
+
+        if (Check)
+            return SetPushControl(Dir, From);
+
+        Vector3 MoveDir = IsometricVector.GetDirVector(Dir);
+        Vector3 MoveStart = IsometricVector.GetDirVector(m_block.Pos.Fixed);
+        Vector3 MoveEnd = IsometricVector.GetDirVector(m_block.Pos.Fixed) + MoveDir;
+        DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameManager.Instance.TimeMove)
+            .SetEase(Ease.Linear)
+            .OnStart(() =>
+            {
+                onForce?.Invoke(true, Dir, From);
+            })
+            .OnUpdate(() =>
+            {
+                m_block.Pos = new IsometricVector(MoveEnd);
+            })
+            .OnComplete(() =>
+            {
+                onForce?.Invoke(false, Dir, From);
             });
 
         return true;
