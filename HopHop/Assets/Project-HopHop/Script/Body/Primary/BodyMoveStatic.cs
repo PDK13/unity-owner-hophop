@@ -38,13 +38,13 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyStatic, IBodyFol
 
     #region Get
 
-    public bool State => m_switch != null ? m_switch.State : true;
-
     public StepType Step => StepType.MoveStatic;
+
+    public bool State => m_switch != null ? m_switch.State : true;
 
     public bool AvaibleSwitch => m_avaibleFollow;
 
-    private bool StepEnd => m_moveStepCurrent >= m_moveStep;
+    private bool StepEnd => m_moveStepCurrent >= m_moveStep && m_moveStep > 0;
 
     private bool StepCommandEnd => m_commandMoveIndex >= m_commandMove.Count;
 
@@ -124,10 +124,7 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyStatic, IBodyFol
         if (Step == StepType.EventCommand.ToString())
         {
             if (!StepCommandEnd)
-            {
                 IControl(m_commandMove[m_commandMoveIndex]);
-                m_commandMoveIndex++;
-            }
         }
         else
         if (Step == this.Step.ToString())
@@ -182,6 +179,8 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyStatic, IBodyFol
             }
             else
             {
+                m_commandMoveIndex++;
+
                 if (StepCommandEnd)
                     TurnManager.Instance.SetEndStep(StepType.EventCommand, this);
                 else

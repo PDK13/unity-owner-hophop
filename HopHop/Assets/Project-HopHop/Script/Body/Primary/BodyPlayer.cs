@@ -205,10 +205,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
         if (Step == StepType.EventCommand.ToString())
         {
             if (!StepCommandEnd)
-            {
                 IControl(m_commandMove[m_commandMoveIndex]);
-                m_commandMoveIndex++;
-            }
         }
         else
         if (Step == this.Step.ToString())
@@ -292,6 +289,8 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
             }
             else
             {
+                m_commandMoveIndex++;
+
                 if (StepCommandEnd)
                     TurnManager.Instance.SetEndStep(StepType.EventCommand, this);
                 else

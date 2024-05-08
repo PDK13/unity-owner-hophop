@@ -124,10 +124,7 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyCom
         if (Step == StepType.EventCommand.ToString())
         {
             if (!StepCommandEnd)
-            {
                 IControl(m_commandMove[m_commandMoveIndex]);
-                m_commandMoveIndex++;
-            }
         }
         else
         if (Step == this.Step.ToString())
@@ -238,6 +235,8 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyCom
             }
             else
             {
+                m_commandMoveIndex++;
+
                 if (StepCommandEnd)
                     TurnManager.Instance.SetEndStep(StepType.EventCommand, this);
                 else
