@@ -15,7 +15,8 @@ public class KeyInit
         MoveCheckAheadSide,
         MoveCheckAheadBot,
         //Body
-        BodyStatic,
+        BodyGravity,
+        BodyDynamic,
         //Event
         EventIdentitytBase,
     }
@@ -35,7 +36,8 @@ public class KeyInit
     public const string MoveCheckAheadBot = "move-check-ahead-bot";
 
     //Body
-    public const string BodyStatic = "body-static";
+    public const string BodyDynamic = "body-dynamic";
+    public const string BodyGarvity = "body-gravity";
 
     //Event
     public const string EventIdentityBase = "event-identity-base-"; //event-identity-base-[identity]
@@ -118,8 +120,10 @@ public class KeyInit
             case Key.MoveCheckAheadBot:
                 return MoveCheckAheadBot;
             //Body
-            case Key.BodyStatic:
-                return BodyStatic;
+            case Key.BodyGravity:
+                return BodyGarvity;
+            case Key.BodyDynamic:
+                return BodyDynamic;
             //Event
             case Key.EventIdentitytBase:
                 return EventIdentityBase;

@@ -22,7 +22,6 @@ public class IsometricToolCustom : IsometricTool
         //
         SetGUIBodyMoveStatic();
         SetGUIBodyMovePhysic();
-        SetGUIBodyPhysic();
         SetGUIBodySwitch();
         SetGUIBodyEvent();
     }
@@ -116,31 +115,6 @@ public class IsometricToolCustom : IsometricTool
             else
                 CursonBodyMovePhysic.SetEditorMoveCheckAheadBot();
         }
-        QUnityEditor.SetLabel("", QUnityEditor.GetGUIStyleLabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
-        QUnityEditor.SetHorizontalEnd();
-    }
-
-    private void SetGUIBodyPhysic()
-    {
-        if (BlockCurson == null)
-            return;
-        //
-        BodyPhysic CursonBodyPhysic = BlockCurson.GetComponent<BodyPhysic>();
-        if (CursonBodyPhysic == null)
-            return;
-        //
-        QUnityEditor.SetHorizontalBegin();
-        QUnityEditor.SetBackground(Color.white);
-        QUnityEditor.SetLabel("BODY-PH: ", QUnityEditor.GetGUIStyleLabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
-        bool CursonBodyStatic = CursonBodyPhysic.GetEditorBodyStatic();
-        if (QUnityEditor.SetButton("[C] STATIC", QUnityEditor.GetGUIStyleButton(CursonBodyStatic ? FontStyle.Bold : FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
-        {
-            if (CursonBodyStatic)
-                CursonBodyPhysic.SetEditorBodyStaticRemove();
-            else
-                CursonBodyPhysic.SetEditorBodyStatic();
-        }
-        QUnityEditor.SetLabel("", QUnityEditor.GetGUIStyleLabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
         QUnityEditor.SetLabel("", QUnityEditor.GetGUIStyleLabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
         QUnityEditor.SetHorizontalEnd();
     }

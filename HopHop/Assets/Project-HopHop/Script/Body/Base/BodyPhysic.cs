@@ -24,7 +24,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
     #region Turn & Move
 
     [SerializeField] private bool m_gravity = true;
-    [SerializeField] private bool m_force = true;
+    [SerializeField] private bool m_dynamic = true;
 
     private IsometricVector m_moveLastXY;
     private IsometricVector? m_moveForceXY;
@@ -34,6 +34,8 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
     #region Get
 
     public bool Gravity => m_gravity;
+
+    public bool Dynamic => m_dynamic;
 
     public IsometricVector MoveLastXY => m_moveLastXY;
 
@@ -46,11 +48,6 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
     private void Awake()
     {
         m_block = GetComponent<IsometricBlock>();
-    }
-
-    private void Start()
-    {
-        m_force = m_force || KeyInit.GetExist(GetComponent<IsometricDataInit>(), KeyInit.Key.BodyStatic);
     }
 
     #region Turn
@@ -84,7 +81,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
             return true;
 
         IsometricBlock Block = m_block.GetBlock(Dir)[0];
-        if (Block != null ? Block.GetComponent<BodyPhysic>() == null : true)
+        if (Block != null ? Block.GetComponent<BodyPhysic>() == null : false)
             return false;
 
         Vector3 MoveDir = IsometricVector.GetDirVector(Dir);
@@ -155,7 +152,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
             return false;
 
         IsometricBlock Block = m_block.GetBlock(IsometricVector.Bot)[0];
-        if (Block == null)
+        if (Block != null ? Block.GetComponent<BodyPhysic>() == null : false)
             return false;
 
         TurnManager.Instance.SetAdd(StepType.Gravity, this);
@@ -206,23 +203,15 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
 
     public bool SetPushControl(IsometricVector Dir, IsometricVector From)
     {
-        if (!m_force)
+        if (!m_dynamic)
             return false;
 
         if (Dir == IsometricVector.None)
             return true;
 
         IsometricBlock Block = m_block.GetBlock(Dir)[0];
-        if (Block != null)
-        {
-            if (Block.GetComponent<BodyStatic>() != null)
-                return false;
-
-            if (Block.GetComponent<BodyPhysic>() != null)
-            {
-                //Body can be Push thought ahead Body!
-            }
-        }
+        if (Block != null ? Block.GetComponent<BodyPhysic>() == null : false)
+            return false;
 
         m_moveLastXY = Dir;
 
@@ -253,7 +242,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
 
     public bool SetBottomControl()
     {
-        if (!m_force)
+        if (!m_dynamic)
             return false;
 
         IsometricBlock Bot = m_block.GetBlock(IsometricVector.Bot)[0];
@@ -279,28 +268,6 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
 
     #endregion
 
-#if UNITY_EDITOR
-
-    public void SetEditorBodyStatic()
-    {
-        m_block = QComponent.GetComponent<IsometricBlock>(this);
-        IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
-        BlockInit.SetValue(KeyInit.GetKey(KeyInit.Key.BodyStatic));
-    }
-
-    public void SetEditorBodyStaticRemove()
-    {
-        IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
-        BlockInit.Data.RemoveAll(t => t.Contains(KeyInit.GetKey(KeyInit.Key.BodyStatic)));
-    }
-
-    public bool GetEditorBodyStatic()
-    {
-        IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
-        return BlockInit.Data.Contains(KeyInit.GetKey(KeyInit.Key.BodyStatic));
-    }
-
-#endif
 }
 
 #if UNITY_EDITOR

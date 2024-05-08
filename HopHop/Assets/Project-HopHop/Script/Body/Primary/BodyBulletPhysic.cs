@@ -60,7 +60,6 @@ public class BodyBulletPhysic : MonoBehaviour, ITurnManager, IBodyBullet, IBodyP
 
     public void ISetTurn(int Turn)
     {
-        //Reset!!
         m_moveStep = 0;
         m_moveStepCurrent = 0;
     }
