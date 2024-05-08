@@ -75,7 +75,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
         m_moveLastXY = IsometricVector.None;
     }
 
-    public bool SetMoveControl(IsometricVector Dir)
+    public bool SetMoveControl(IsometricVector Dir, bool Gravity = true)
     {
         if (Dir == IsometricVector.None)
             return true;
@@ -83,7 +83,8 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
         if (GetBodyStatic(Dir))
             return false;
 
-        SetGravityControl(Dir);
+        if (Gravity)
+            SetGravityControl(Dir);
 
         Vector3 MoveDir = IsometricVector.GetDirVector(Dir);
         Vector3 MoveStart = IsometricVector.GetDirVector(m_block.Pos);
@@ -108,7 +109,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
         return true;
     }
 
-    public bool SetMoveControlForce()
+    public bool SetMoveControlForce(bool Gravity = true)
     {
         if (!m_moveForceXY.HasValue)
             //Fine to continue own control!!
@@ -117,7 +118,8 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
         if (GetBodyStatic(m_moveForceXY.Value))
             return false;
 
-        SetGravityControl(m_moveForceXY.Value);
+        if (Gravity)
+            SetGravityControl(m_moveForceXY.Value);
 
         Vector3 MoveDir = IsometricVector.GetDirVector(m_moveForceXY.Value);
         Vector3 MoveStart = IsometricVector.GetDirVector(m_block.Pos);

@@ -277,7 +277,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
 
         SetControlStage(false);
 
-        m_body.SetMoveControl(Dir);
+        m_body.SetMoveControl(Dir, !m_character.MoveFloat);
 
         return true;
     }
