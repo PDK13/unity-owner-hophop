@@ -358,10 +358,10 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
             return;
 
         //Top!!
-        IsometricBlock BlockTop = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + IsometricVector.Top);
-        if (BlockTop != null)
+        IsometricBlock Block = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + IsometricVector.Top);
+        if (Block != null)
         {
-            BodyPhysic BodyPhysic = BlockTop.GetComponent<BodyPhysic>();
+            BodyPhysic BodyPhysic = Block.GetComponent<BodyPhysic>();
             if (BodyPhysic != null)
             {
                 if (Dir == IsometricVector.Top || Dir == IsometricVector.Bot)

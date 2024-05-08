@@ -73,10 +73,10 @@ public class BodyStatic : MonoBehaviour, ITurnManager
         if (Dir == IsometricVector.None || Dir == IsometricVector.Top || Dir == IsometricVector.Bot)
             return;
 
-        IsometricBlock BlockPush = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + Dir);
-        if (BlockPush != null)
+        IsometricBlock Block = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + Dir);
+        if (Block != null)
         {
-            BodyPhysic BodyPhysic = BlockPush.GetComponent<BodyPhysic>();
+            BodyPhysic BodyPhysic = Block.GetComponent<BodyPhysic>();
             if (BodyPhysic != null)
             {
                 BodyPhysic.SetPushControl(Dir, Dir * -1); //Push!!
@@ -91,10 +91,10 @@ public class BodyStatic : MonoBehaviour, ITurnManager
     private void SetTopNext(IsometricVector Dir)
     {
         //Top!!
-        IsometricBlock BlockTop = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + IsometricVector.Top);
-        if (BlockTop != null)
+        IsometricBlock Block = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + IsometricVector.Top);
+        if (Block != null)
         {
-            BodyPhysic BodyPhysic = BlockTop.GetComponent<BodyPhysic>();
+            BodyPhysic BodyPhysic = Block.GetComponent<BodyPhysic>();
             if (BodyPhysic != null)
             {
                 if (Dir == IsometricVector.Top || Dir == IsometricVector.Bot)
