@@ -5,7 +5,7 @@ using UnityEngine;
 public class EventConfigOptional : ScriptableObject
 {
     public string Option = "Option";
-    public DialogueConfigSingle Dialogue;
+    public DialogueConfigSingle DialogueTip;
 
     //
 

@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "event-config-trade", menuName = "HopHop/Event Config Trade", order = 0)]
 public class EventConfigTrade : EventConfigOptional
 {
-    public List<string> Item = new List<string>();
+    public List<string> Data = new List<string>();
 
     //
 
@@ -13,7 +13,7 @@ public class EventConfigTrade : EventConfigOptional
 
 #if UNITY_EDITOR
 
-    public override string EditorName => $"{Type.ToString()} : {Option} : {Item.Count}";
+    public override string EditorName => $"{Type.ToString()} : {Option} : {Data.Count}";
 
 #endif
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "event-config-mode", menuName = "HopHop/Event Config Mode", order = 0)]
 public class EventConfigMode : EventConfigOptional
 {
-    public string Mode = "";
+    public string Data = "";
 
     //
 
@@ -13,7 +13,7 @@ public class EventConfigMode : EventConfigOptional
 
 #if UNITY_EDITOR
 
-    public override string EditorName => $"{Type.ToString()} : {Option} : {Mode}";
+    public override string EditorName => $"{Type.ToString()} : {Option} : {Data}";
 
 #endif
 }

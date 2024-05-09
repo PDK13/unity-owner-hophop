@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d5dde66a266649428b8a3ae0e43b4c9, type: 3}
   m_Name: event-config-trade
   m_EditorClassIdentifier: 
-  Item: []
+  Option: Trade
+  Dialogue: {fileID: 0}
+  Data: []

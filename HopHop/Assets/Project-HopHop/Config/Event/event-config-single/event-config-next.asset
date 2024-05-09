@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c83a53c608f0ae46ab487cfd23dd25e, type: 3}
   m_Name: event-config-next
   m_EditorClassIdentifier: 
+  Option: Ask
+  Dialogue: {fileID: 0}
   Data: {fileID: 0}
