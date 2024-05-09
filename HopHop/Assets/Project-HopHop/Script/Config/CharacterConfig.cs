@@ -119,10 +119,15 @@ public enum CharacterType
 [Serializable]
 public class CharacterConfigData
 {
-    [Min(0)] public int MoveStep = 1;
+    [Min(1)] public int MoveStep = 1;
     public bool MoveLock = true;
     public bool MoveFloat = false;
 
+    [Space]
+    public bool BodyGravity = true;
+    public bool BodyDynamic = true;
+
+    [Space]
     public List<CharacterConfigSkinData> Skin;
 }
 

@@ -23,8 +23,8 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
     #region Turn & Move
 
     [SerializeField] private bool m_gravity = true;
-    [SerializeField] private bool m_dynamic = true;
-    [SerializeField] private bool m_static = false;
+    [SerializeField] private bool m_dynamic = true; //If TRUE mean can't be control Move by Push, Bottom, etc
+    [SerializeField] private bool m_static = false; //If TRUE mean this Body can't be Move same pos with others
 
     private IsometricVector m_moveLastXY;
     private IsometricVector? m_moveForceXY;
@@ -33,21 +33,25 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
 
     #region Get
 
-    public bool Gravity => m_gravity;
+    public bool Gravity => m_character == null ? m_gravity : m_character.BodyGravity;
 
-    public bool Dynamic => m_dynamic;
+    public bool Dynamic => m_character == null ? m_dynamic : m_character.BodyDynamic;
 
     public IsometricVector MoveLastXY => m_moveLastXY;
+
+    public IsometricVector? MoveForceXY => m_moveForceXY;
 
     #endregion
 
     private IsometricBlock m_block;
+    private BodyCharacter m_character;
 
     //
 
     private void Awake()
     {
         m_block = GetComponent<IsometricBlock>();
+        m_character = GetComponent<BodyCharacter>();
     }
 
     #region ITurnManager
@@ -149,7 +153,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
 
     public bool SetGravityControl()
     {
-        if (!m_gravity)
+        if (!Gravity)
             return false;
 
         if (GetBodyStatic(IsometricVector.Bot))
@@ -165,7 +169,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
 
     private bool SetGravityControl(IsometricVector Dir)
     {
-        if (!m_gravity)
+        if (!Gravity)
             return false;
 
         if (GetBodyStatic(Dir + IsometricVector.Bot))
@@ -218,14 +222,20 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
 
     public bool SetPushControl(IsometricVector Dir, IsometricVector From)
     {
-        if (!m_dynamic)
-            return false;
-
         if (Dir == IsometricVector.None)
             return true;
 
+        if (Dir != IsometricVector.Top && Dir != IsometricVector.Bot)
+        {
+            if (!Dynamic)
+                return false;
+        }
+
         if (GetBodyStatic(Dir))
+        {
+            Debug.LogWarningFormat("[Body] {0} be Push to Static", this.name);
             return false;
+        }
 
         if (Dir != IsometricVector.Top && From != IsometricVector.Bot)
             m_moveLastXY = Dir;
@@ -290,7 +300,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
 
     public bool SetBottomControl()
     {
-        if (!m_dynamic)
+        if (!Dynamic)
             return false;
 
         var Block = m_block.GetBlockAll(IsometricVector.Bot);

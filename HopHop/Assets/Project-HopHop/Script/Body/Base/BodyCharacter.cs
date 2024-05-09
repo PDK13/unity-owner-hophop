@@ -46,6 +46,10 @@ public class BodyCharacter : MonoBehaviour, IBodyPhysic
 
     public bool MoveFloat => CharacterManager.Instance.CharacterConfig.GetConfig(Character).MoveFloat;
 
+    public bool BodyGravity => CharacterManager.Instance.CharacterConfig.GetConfig(Character).BodyGravity;
+
+    public bool BodyDynamic => CharacterManager.Instance.CharacterConfig.GetConfig(Character).BodyDynamic;
+
     #endregion
 
     #region Component
