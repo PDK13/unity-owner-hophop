@@ -333,7 +333,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
 
     #region Static
 
-    private bool GetBodyStatic(IsometricVector Dir)
+    public bool GetBodyStatic(IsometricVector Dir)
     {
         var Block = m_block.GetBlockAll(Dir);
         foreach (var BlockCheck in Block)
