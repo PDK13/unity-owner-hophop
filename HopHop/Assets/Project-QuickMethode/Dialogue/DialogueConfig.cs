@@ -179,10 +179,7 @@ public class DialogueConfigEditor : Editor
                 if (QUnityEditor.SetButton("↓", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
                     QList.SetSwap(m_target.Author, i, i + 1);
                 if (QUnityEditor.SetButton("X", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
-                {
                     m_target.Author.RemoveAt(i);
-                    m_target.EditorAuthorListCount--;
-                }
                 QUnityEditor.SetHorizontalEnd();
             }
             #endregion

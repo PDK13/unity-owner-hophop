@@ -271,10 +271,7 @@ public class StringConfigEditor : Editor
                 if (QUnityEditor.SetButton("↓", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
                     QList.SetSwap(m_target.CodeColor, i, i + 1);
                 if (QUnityEditor.SetButton("X", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
-                {
                     m_target.CodeColor.RemoveAt(i);
-                    m_target.EditorCodeColorListCount--;
-                }
                 QUnityEditor.SetHorizontalEnd();
             }
             #endregion
@@ -325,10 +322,7 @@ public class StringConfigEditor : Editor
                 if (QUnityEditor.SetButton("↓", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
                     QList.SetSwap(m_target.CodeString, i, i + 1);
                 if (QUnityEditor.SetButton("X", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
-                {
                     m_target.CodeString.RemoveAt(i);
-                    m_target.EditorCodeStringListCount--;
-                }
                 QUnityEditor.SetHorizontalEnd();
             }
             #endregion
@@ -365,10 +359,7 @@ public class StringConfigEditor : Editor
                 if (QUnityEditor.SetButton("↓", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
                     QList.SetSwap(m_target.CodeSprite, i, i + 1);
                 if (QUnityEditor.SetButton("X", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
-                {
                     m_target.CodeSprite.RemoveAt(i);
-                    m_target.EditorCodeSpriteListCount--;
-                }
                 QUnityEditor.SetHorizontalEnd();
             }
             #endregion

@@ -308,7 +308,7 @@ public class QUnityEditor
         GUI.backgroundColor = Color;
     }
 
-    public static void SetSpace(float Space = 20)
+    public static void SetSpace(float Space = 10)
     {
         GUILayout.Space(Space);
     }

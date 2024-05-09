@@ -18,7 +18,7 @@ public class IsometricToolCustom : IsometricTool
 
     protected override void SetEditGUIGroupCustom()
     {
-        QUnityEditor.SetSpace(5f);
+        QUnityEditor.SetSpace();
         //
         SetGUIBodyMoveStatic();
         SetGUIBodyMovePhysic();

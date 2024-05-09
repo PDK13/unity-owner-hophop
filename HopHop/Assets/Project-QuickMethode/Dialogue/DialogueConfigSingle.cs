@@ -124,53 +124,63 @@ public class DialogueSingleConfigEditor : Editor
             #region ITEM - MAIN
             QUnityEditor.SetVerticalBegin();
 
-            #region ITEM - MAIN - AUTHOR
+            #region ITEM - MAIN - AUTHOR (FULL)
             QUnityEditor.SetHorizontalBegin();
-            QUnityEditor.SetLabel("Author", null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH));
-            m_target.Dialogue[i].AuthorIndex = QUnityEditor.SetPopup(m_target.Dialogue[i].AuthorIndex, m_dialogueConfig.AuthorName);
+            if (QUnityEditor.SetButton($"{m_dialogueConfig.AuthorName[m_target.Dialogue[i].AuthorIndex]} : {m_target.Dialogue[i].Dialogue}", QUnityEditor.GetGUIStyleLabel(m_target.Dialogue[i].EditorFull ? FontStyle.Bold : FontStyle.Normal, TextAnchor.MiddleLeft)))
+                m_target.Dialogue[i].EditorFull = !m_target.Dialogue[i].EditorFull;
             QUnityEditor.SetHorizontalEnd();
             #endregion
 
-            #region ITEM - MAIN - DIALOGUE
-            QUnityEditor.SetHorizontalBegin();
-            QUnityEditor.SetLabel("Dialogue", null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH));
-            m_target.Dialogue[i].Dialogue = QUnityEditor.SetField(m_target.Dialogue[i].Dialogue);
-            QUnityEditor.SetHorizontalEnd();
-            #endregion
-
-            #region ITEM - MAIN - DELAY
-            QUnityEditor.SetHorizontalBegin();
-            if (QUnityEditor.SetButton("Delay", QUnityEditor.GetGUIStyleLabel(FontStyle.Normal, TextAnchor.MiddleLeft), QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH)))
-                m_target.Dialogue[i].EditorDelayShow = !m_target.Dialogue[i].EditorDelayShow;
-            if (m_target.Dialogue[i].EditorDelayShow)
+            if (m_target.Dialogue[i].EditorFull)
             {
-                QUnityEditor.SetVerticalBegin();
-
+                #region ITEM - MAIN - AUTHOR
                 QUnityEditor.SetHorizontalBegin();
-                QUnityEditor.SetLabel("Alpha", null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH));
-                m_target.Dialogue[i].Delay.Alpha = QUnityEditor.SetField(m_target.Dialogue[i].Delay.Alpha);
+                QUnityEditor.SetLabel("Author", null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH));
+                m_target.Dialogue[i].AuthorIndex = QUnityEditor.SetPopup(m_target.Dialogue[i].AuthorIndex, m_dialogueConfig.AuthorName);
                 QUnityEditor.SetHorizontalEnd();
+                #endregion
 
+                #region ITEM - MAIN - DIALOGUE
                 QUnityEditor.SetHorizontalBegin();
-                QUnityEditor.SetLabel("Space", null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH));
-                m_target.Dialogue[i].Delay.Space = QUnityEditor.SetField(m_target.Dialogue[i].Delay.Space);
+                QUnityEditor.SetLabel("Dialogue", null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH));
+                m_target.Dialogue[i].Dialogue = QUnityEditor.SetField(m_target.Dialogue[i].Dialogue);
                 QUnityEditor.SetHorizontalEnd();
+                #endregion
 
+                #region ITEM - MAIN - DELAY
                 QUnityEditor.SetHorizontalBegin();
-                QUnityEditor.SetLabel("Mark", null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH));
-                m_target.Dialogue[i].Delay.Mark = QUnityEditor.SetField(m_target.Dialogue[i].Delay.Mark);
-                QUnityEditor.SetHorizontalEnd();
+                if (QUnityEditor.SetButton("Delay", QUnityEditor.GetGUIStyleLabel(FontStyle.Normal, TextAnchor.MiddleLeft), QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH)))
+                    m_target.Dialogue[i].EditorDelayShow = !m_target.Dialogue[i].EditorDelayShow;
+                if (m_target.Dialogue[i].EditorDelayShow)
+                {
+                    QUnityEditor.SetVerticalBegin();
 
-                QUnityEditor.SetVerticalEnd();
+                    QUnityEditor.SetHorizontalBegin();
+                    QUnityEditor.SetLabel("Alpha", null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH));
+                    m_target.Dialogue[i].Delay.Alpha = QUnityEditor.SetField(m_target.Dialogue[i].Delay.Alpha);
+                    QUnityEditor.SetHorizontalEnd();
+
+                    QUnityEditor.SetHorizontalBegin();
+                    QUnityEditor.SetLabel("Space", null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH));
+                    m_target.Dialogue[i].Delay.Space = QUnityEditor.SetField(m_target.Dialogue[i].Delay.Space);
+                    QUnityEditor.SetHorizontalEnd();
+
+                    QUnityEditor.SetHorizontalBegin();
+                    QUnityEditor.SetLabel("Mark", null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH));
+                    m_target.Dialogue[i].Delay.Mark = QUnityEditor.SetField(m_target.Dialogue[i].Delay.Mark);
+                    QUnityEditor.SetHorizontalEnd();
+
+                    QUnityEditor.SetVerticalEnd();
+                }
+                else
+                {
+                    QUnityEditor.SetLabel("Alpha: " + m_target.Dialogue[i].Delay.Alpha, null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH * 1.25f));
+                    QUnityEditor.SetLabel("Space: " + m_target.Dialogue[i].Delay.Space, null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH * 1.25f));
+                    QUnityEditor.SetLabel("Mark: " + m_target.Dialogue[i].Delay.Mark, null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH * 1.25f));
+                }
+                QUnityEditor.SetHorizontalEnd();
+                #endregion
             }
-            else
-            {
-                QUnityEditor.SetLabel("Alpha: " + m_target.Dialogue[i].Delay.Alpha, null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH * 1.25f));
-                QUnityEditor.SetLabel("Space: " + m_target.Dialogue[i].Delay.Space, null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH * 1.25f));
-                QUnityEditor.SetLabel("Mark: " + m_target.Dialogue[i].Delay.Mark, null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH * 1.25f));
-            }
-            QUnityEditor.SetHorizontalEnd();
-            #endregion
 
             QUnityEditor.SetHorizontalEnd();
             #endregion
@@ -188,15 +198,13 @@ public class DialogueSingleConfigEditor : Editor
                 if (QUnityEditor.SetButton("↓", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
                     QList.SetSwap(m_target.Dialogue, i, i + 1);
                 if (QUnityEditor.SetButton("X", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
-                {
                     m_target.Dialogue.RemoveAt(i);
-                    m_target.EditorDialogueListCount--;
-                }
                 QUnityEditor.SetHorizontalEnd();
             }
             #endregion
 
-            QUnityEditor.SetSpace();
+            if (m_target.Dialogue[i].EditorFull)
+                QUnityEditor.SetSpace();
         }
         QUnityEditor.SetScrollViewEnd();
     }

@@ -340,10 +340,7 @@ public class IsometricConfigEditor : Editor
                         if (QUnityEditor.SetButton("↓", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
                             QList.SetSwap(m_target.Block.Data[i].Block, j, j + 1);
                         if (QUnityEditor.SetButton("X", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
-                        {
                             m_target.Block.Data[i].Block.RemoveAt(i);
-                            m_target.Block.Data[i].EditorBlockListCount--;
-                        }
                         QUnityEditor.SetHorizontalEnd();
                     }
                     #endregion
@@ -368,10 +365,7 @@ public class IsometricConfigEditor : Editor
                 if (QUnityEditor.SetButton("↓", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
                     QList.SetSwap(m_target.Block.Data, i, i + 1);
                 if (QUnityEditor.SetButton("X", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
-                {
                     m_target.Block.Data.RemoveAt(i);
-                    m_target.Block.EditorDataListCount--;
-                }
                 QUnityEditor.SetHorizontalEnd();
             }
             #endregion
@@ -441,10 +435,7 @@ public class IsometricConfigEditor : Editor
                         if (QUnityEditor.SetButton("↓", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
                             QList.SetSwap(m_target.Map.Data[i].Map, j, j + 1);
                         if (QUnityEditor.SetButton("X", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
-                        {
                             m_target.Map.Data[i].Map.RemoveAt(i);
-                            m_target.Map.Data[i].EditorMapListCount--;
-                        }
                         QUnityEditor.SetHorizontalEnd();
                     }
                     #endregion
@@ -469,10 +460,7 @@ public class IsometricConfigEditor : Editor
                 if (QUnityEditor.SetButton("↓", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
                     QList.SetSwap(m_target.Map.Data, i, i + 1);
                 if (QUnityEditor.SetButton("X", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
-                {
                     m_target.Map.Data.RemoveAt(i);
-                    m_target.Map.EditorDataListCount--;
-                }
                 QUnityEditor.SetHorizontalEnd();
             }
             #endregion

@@ -122,10 +122,7 @@ public class EventConfigEditor : Editor
                 if (QUnityEditor.SetButton("↓", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
                     QList.SetSwap(m_target.Data, i, i + 1);
                 if (QUnityEditor.SetButton("X", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
-                {
                     m_target.Data.RemoveAt(i);
-                    m_target.EditorDataListCount--;
-                }
                 QUnityEditor.SetHorizontalEnd();
             }
             #endregion
