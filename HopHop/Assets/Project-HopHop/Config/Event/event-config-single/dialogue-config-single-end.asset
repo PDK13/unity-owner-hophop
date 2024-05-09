@@ -9,9 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 798b0d7aa999ca247ba12527a54a7923, type: 3}
-  m_Name: event-config
+  m_Script: {fileID: 11500000, guid: 7bfce57071730714a9f8abf641da6e4d, type: 3}
+  m_Name: dialogue-config-single-end
   m_EditorClassIdentifier: 
-  Data:
-  - {fileID: 11400000, guid: e24c82ec9f6f39e40bbb50d3d664450f, type: 2}
-  - {fileID: 11400000, guid: 723bcf1db60047b40be3f9c53b142809, type: 2}
+  Dialogue:
+  - AuthorIndex: 0
+    Dialogue: Good bye, see you later.
+    Delay:
+      Alpha: 0.05
+      Space: 0.05
+      Mark: 0.2

@@ -9,9 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 798b0d7aa999ca247ba12527a54a7923, type: 3}
-  m_Name: event-config
+  m_Script: {fileID: 11500000, guid: 3d5dde66a266649428b8a3ae0e43b4c9, type: 3}
+  m_Name: event-config-trade
   m_EditorClassIdentifier: 
-  Data:
-  - {fileID: 11400000, guid: e24c82ec9f6f39e40bbb50d3d664450f, type: 2}
-  - {fileID: 11400000, guid: 723bcf1db60047b40be3f9c53b142809, type: 2}
+  Item: []

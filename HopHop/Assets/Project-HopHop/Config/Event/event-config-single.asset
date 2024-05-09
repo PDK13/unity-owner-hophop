@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 992a39e9c9c80aa499d78cdea93a9675, type: 3}
+  m_Name: event-config-single
+  m_EditorClassIdentifier: 
+  Data:
+  - Wait: 1
+    Dialogue: {fileID: 0}
+    Command:
+    - player-character-frog
+    - player-move-u-1
+    - player-move-r-3
+    - player-move-d-2
+    Choice: []
+  - Wait: 0
+    Dialogue: {fileID: 11400000, guid: 10e5891919df3e34cbadfee85b0c945a, type: 2}
+    Command: []
+    Choice: []
+  - Wait: 0
+    Dialogue: {fileID: 0}
+    Command: []
+    Choice:
+    - Name: Play
+      Event: {fileID: 11400000, guid: 17a3cdcc07ee42d4b9d014ad799dad4c, type: 2}
+    - Name: Next
+      Event: {fileID: 11400000, guid: 340e7dd174f72e14da522b8ff0037916, type: 2}
+    - Name: Trade
+      Event: {fileID: 11400000, guid: 72c80da264aa1ef4698abd78144a9bd9, type: 2}
+    - Name: Back
+      Event: {fileID: 0}
+  - Wait: 0
+    Dialogue: {fileID: 11400000, guid: b2a7f19d7cea4954a934db10ad3ce791, type: 2}
+    Command: []
+    Choice: []

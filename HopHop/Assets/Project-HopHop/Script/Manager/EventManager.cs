@@ -16,6 +16,12 @@ public class EventManager : SingletonManager<EventManager>, ITurnManager
 
     public StepType Step => StepType.Event;
 
+    //
+
+    private Coroutine m_iSetEventActive;
+
+    //
+
 #if UNITY_EDITOR
 
     public void SetConfigFind()
@@ -60,25 +66,29 @@ public class EventManager : SingletonManager<EventManager>, ITurnManager
     public bool SetEventActive(string Identity)
     {
         EventConfigSingle Event = m_eventConfig.Data.Find(t => t.name == Identity);
+        return SetEventActive(Event);
+    }
 
+    public bool SetEventActive(EventConfigSingle Event)
+    {
         if (Event == null)
-        {
-            Debug.LogWarningFormat("Event '{0}' not found", Identity);
             return false;
+
+        if (m_iSetEventActive == null)
+        {
+            TurnManager.Instance.SetAdd(StepType.Event, this); //Should not stop Turn Manager because world need Gravity and somethings else...
+            onEvent?.Invoke(true);
         }
 
-        StartCoroutine(ISetEventActive(Event));
+        if (m_iSetEventActive != null)
+            StopCoroutine(m_iSetEventActive);
+        m_iSetEventActive = StartCoroutine(ISetEventActive(Event));
 
         return true;
     }
 
     private IEnumerator ISetEventActive(EventConfigSingle Event)
     {
-        //NOTE: Should not stop Turn Manager because world need Gravity and somethings else...
-        TurnManager.Instance.SetAdd(StepType.Event, this);
-
-        onEvent?.Invoke(true);
-
         for (int i = 0; i < Event.Data.Count; i++)
         {
             if (Event.Data[i] == null)
@@ -112,9 +122,10 @@ public class EventManager : SingletonManager<EventManager>, ITurnManager
             }
         }
 
+        TurnManager.Instance.SetEndStep(StepType.Event, this);
         onEvent?.Invoke(false);
 
-        TurnManager.Instance.SetEndStep(StepType.Event, this);
+        m_iSetEventActive = null;
     }
 
     private void SetEventDialogue(DialogueConfigSingle Data)
@@ -150,6 +161,14 @@ public class EventManager : SingletonManager<EventManager>, ITurnManager
             } //NOTE: First data check identity to excute command
         }
     }
+}
+
+public enum OptionalType
+{
+    None,
+    Next,
+    Trade,
+    Mode,
 }
 
 #if UNITY_EDITOR

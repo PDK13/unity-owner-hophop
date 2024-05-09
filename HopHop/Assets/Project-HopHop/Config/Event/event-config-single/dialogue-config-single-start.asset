@@ -10,17 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7bfce57071730714a9f8abf641da6e4d, type: 3}
-  m_Name: dialogue-test
+  m_Name: dialogue-config-single-start
   m_EditorClassIdentifier: 
   Dialogue:
   - AuthorIndex: 1
-    Dialogue: Hello. My name is Angel.
+    Dialogue: Hello?
     Delay:
       Alpha: 0.05
       Space: 0.05
       Mark: 0.2
   - AuthorIndex: 0
-    Dialogue: I am talking by myself.
+    Dialogue: Hello, how can I help you?
     Delay:
       Alpha: 0.05
       Space: 0.05
