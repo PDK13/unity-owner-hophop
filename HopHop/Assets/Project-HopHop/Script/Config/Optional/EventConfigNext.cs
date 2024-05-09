@@ -9,11 +9,11 @@ public class EventConfigNext : EventConfigOptional
 
     //
 
-    public override OptionalType Type => OptionalType.Mode;
+    public override OptionalType Type => OptionalType.Next;
 
 #if UNITY_EDITOR
 
-    public override string EditorName => $"{Type.ToString()} : {Option} : {Data.name}";
+    public override string EditorName => $"{Type.ToString()} : {Option} : {(Data != null ? Data.name : "")}";
 
 #endif
 }
