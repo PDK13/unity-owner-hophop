@@ -225,7 +225,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
         if (Dir == IsometricVector.None)
             return true;
 
-        if (Dir != IsometricVector.Top && Dir != IsometricVector.Bot)
+        if (From != IsometricVector.Top && From != IsometricVector.Bot)
         {
             if (!Dynamic)
                 return false;
