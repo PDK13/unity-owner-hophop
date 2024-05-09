@@ -130,14 +130,14 @@ public class EventManager : SingletonManager<EventManager>, ITurnManager
             List<string> DataRead = QEncypt.GetDencyptString('-', DataCheck);
             switch (DataRead[COMMAND_IDENTITY])
             {
-                case KeyEvent.Player:
+                case KeyCommand.Player:
                     switch (DataRead[COMMAND_EXCUTE])
                     {
-                        case KeyEvent.Character:
+                        case KeyCommand.Character:
                             //player-character-[Character]
                             WorldManager.Instance.Player.GetComponent<BodyCharacter>().SetCharacter(DataRead[2], 0);
                             break;
-                        case KeyEvent.Move:
+                        case KeyCommand.Move:
                             //player-move-[Dir]-[Length]
                             for (int j = 0; j < int.Parse(DataRead[3]); j++)
                                 WorldManager.Instance.Player.GetComponent<IBodyCommand>().ISetCommandMove(IsometricVector.GetDirDeEncypt(DataRead[2]));

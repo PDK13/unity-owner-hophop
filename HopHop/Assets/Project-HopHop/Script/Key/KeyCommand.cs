@@ -1,4 +1,4 @@
-public class KeyEvent
+public class KeyCommand
 {
     public const string Player = "player";
 

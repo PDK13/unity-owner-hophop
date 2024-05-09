@@ -8,22 +8,9 @@ using UnityEditor;
 [CreateAssetMenu(fileName = "event-config", menuName = "HopHop/Event Config", order = 0)]
 public class EventConfig : ScriptableObject
 {
-    public List<string> Event;
     public List<EventConfigSingle> Data;
 
 #if UNITY_EDITOR
-
-    public int EditorEventListCount
-    {
-        get => Event.Count;
-        set
-        {
-            while (Event.Count > value)
-                Event.RemoveAt(Event.Count - 1);
-            while (Event.Count < value)
-                Event.Add("");
-        }
-    }
 
     public int EditorDataListCount
     {
@@ -36,8 +23,6 @@ public class EventConfig : ScriptableObject
                 Data.Add(null);
         }
     }
-
-    public bool EditorEventListCommand { get; set; } = false;
 
     public bool EditorDataListCommand { get; set; } = false;
 
@@ -76,10 +61,6 @@ public class EventConfigEditor : Editor
     {
         QUnityEditorCustom.SetUpdate(this);
 
-        SetGUIGroupEvent();
-
-        QUnityEditor.SetSpace();
-
         SetGUIGroupData();
 
         QUnityEditorCustom.SetApply(this);
@@ -93,64 +74,23 @@ public class EventConfigEditor : Editor
     {
         bool RemoveEmty = false;
         int Index = 0;
-        while (Index < m_target.Event.Count)
+        while (Index < m_target.Data.Count)
         {
-            if (string.IsNullOrEmpty(m_target.Event[Index]))
+            if (m_target.Data[Index] == null)
             {
                 RemoveEmty = true;
-                m_target.Event.RemoveAt(Index);
+                m_target.Data.RemoveAt(Index);
             }
             else
                 Index++;
         }
         QUnityEditor.SetDirty(m_target);
-        //
+
         if (RemoveEmty)
-            Debug.Log("[Dialogue] Author(s) emty have been remove from list");
+            Debug.Log("[Dialogue] Data(s) emty have been remove from list");
     }
 
     //
-
-    private void SetGUIGroupEvent()
-    {
-        QUnityEditor.SetLabel("EVENT", QUnityEditor.GetGUIStyleLabel(FontStyle.Bold));
-
-        //COUNT:
-        m_target.EditorEventListCount = QUnityEditor.SetGroupNumberChangeLimitMin("Event", m_target.EditorEventListCount, 0);
-        //LIST
-        m_scrollType = QUnityEditor.SetScrollViewBegin(m_scrollType, QUnityEditor.GetGUILayoutHeight(POPUP_HEIGHT));
-        for (int i = 0; i < m_target.Event.Count; i++)
-        {
-            #region ITEM
-            QUnityEditor.SetHorizontalBegin();
-            if (QUnityEditor.SetButton(i.ToString(), QUnityEditor.GetGUIStyleLabel(), QUnityEditor.GetGUILayoutWidth(25)))
-                m_target.EditorEventListCommand = !m_target.EditorEventListCommand;
-
-            m_target.Event[i] = QUnityEditor.SetField(m_target.Event[i]);
-
-            QUnityEditor.SetHorizontalEnd();
-            #endregion
-
-            #region ARRAY
-            if (m_target.EditorEventListCommand)
-            {
-                QUnityEditor.SetHorizontalBegin();
-                QUnityEditor.SetLabel("", QUnityEditor.GetGUIStyleLabel(), QUnityEditor.GetGUILayoutWidth(25));
-                if (QUnityEditor.SetButton("↑", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
-                    QList.SetSwap(m_target.Event, i, i - 1);
-                if (QUnityEditor.SetButton("↓", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
-                    QList.SetSwap(m_target.Event, i, i + 1);
-                if (QUnityEditor.SetButton("X", QUnityEditor.GetGUIStyleButton(), QUnityEditor.GetGUILayoutWidth(25)))
-                {
-                    m_target.Event.RemoveAt(i);
-                    m_target.EditorEventListCount--;
-                }
-                QUnityEditor.SetHorizontalEnd();
-            }
-            #endregion
-        }
-        QUnityEditor.SetScrollViewEnd();
-    }
 
     private void SetGUIGroupData()
     {
@@ -159,7 +99,7 @@ public class EventConfigEditor : Editor
         //COUNT:
         m_target.EditorDataListCount = QUnityEditor.SetGroupNumberChangeLimitMin("Data", m_target.EditorDataListCount, 0);
         //LIST
-        m_scrollData = QUnityEditor.SetScrollViewBegin(m_scrollData, QUnityEditor.GetGUILayoutHeight(POPUP_HEIGHT));
+        m_scrollData = QUnityEditor.SetScrollViewBegin(m_scrollData);
         for (int i = 0; i < m_target.Data.Count; i++)
         {
             #region ITEM

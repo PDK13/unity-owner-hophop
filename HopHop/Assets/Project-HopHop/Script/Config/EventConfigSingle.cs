@@ -98,9 +98,8 @@ public class EventConfigSingleData
 public class EventConfigSingleDataChoice
 {
     public string Name;
-    public int CommandIndex;
+    public EventConfigSingle Event;
     public DialogueConfigSingle Dialogue;
-    public EventConfigSingle Next;
 }
 
 #if UNITY_EDITOR
@@ -165,13 +164,6 @@ public class EventConfigSingleEditor : Editor
             Debug.Log("[Event] Config found more than one, get the first one found");
 
         m_eventConfig = AuthorConfigFound[0];
-
-        if (m_eventConfig.Event.Count == 0)
-        {
-            m_debugError = "Event Config not have any data, please add one";
-            Debug.Log("[Event] " + m_debugError);
-            return;
-        }
 
         //CONTINUE:
 
@@ -278,10 +270,10 @@ public class EventConfigSingleEditor : Editor
                     QUnityEditor.SetHorizontalEnd();
                     #endregion
 
-                    #region ITEM - MAIN - CHOICE - ITEM - MAIN - COMMAND
+                    #region ITEM - MAIN - CHOICE - ITEM - MAIN - EVENT
                     QUnityEditor.SetHorizontalBegin();
-                    QUnityEditor.SetLabel("Command", null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH));
-                    m_target.Data[i].Choice[j].CommandIndex = QUnityEditor.SetPopup(m_target.Data[i].Choice[j].CommandIndex, m_eventConfig.Event);
+                    QUnityEditor.SetLabel("Event", null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH));
+                    m_target.Data[i].Choice[j].Event = QUnityEditor.SetFieldScriptableObject(m_target.Data[i].Choice[j].Event);
                     QUnityEditor.SetHorizontalEnd();
                     #endregion
 
@@ -289,13 +281,6 @@ public class EventConfigSingleEditor : Editor
                     QUnityEditor.SetHorizontalBegin();
                     QUnityEditor.SetLabel("Dialogue", null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH));
                     m_target.Data[i].Choice[j].Dialogue = QUnityEditor.SetFieldScriptableObject(m_target.Data[i].Choice[j].Dialogue);
-                    QUnityEditor.SetHorizontalEnd();
-                    #endregion
-
-                    #region ITEM - MAIN - CHOICE - ITEM - MAIN - NEXT
-                    QUnityEditor.SetHorizontalBegin();
-                    QUnityEditor.SetLabel("Next", null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH));
-                    m_target.Data[i].Choice[j].Next = QUnityEditor.SetFieldScriptableObject(m_target.Data[i].Choice[j].Next);
                     QUnityEditor.SetHorizontalEnd();
                     #endregion
 
