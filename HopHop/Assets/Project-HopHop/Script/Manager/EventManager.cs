@@ -166,7 +166,7 @@ public class EventManager : SingletonManager<EventManager>, ITurnManager
 public enum OptionalType
 {
     None,
-    Next,
+    Event,
     Trade,
     Mode,
 }

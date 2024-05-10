@@ -13,7 +13,7 @@ public class EventConfigTrade : EventConfigOptional
 
 #if UNITY_EDITOR
 
-    public override string EditorName => $"{Type.ToString()} : {Option} : {Data.Count}";
+    public override string EditorName => $"{Type.ToString()} : {Option} : {this.name}";
 
 #endif
 }

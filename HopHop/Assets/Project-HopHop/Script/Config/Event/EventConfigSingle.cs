@@ -4,9 +4,13 @@ using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "event-config-single", menuName = "HopHop/Event Config Single", order = 0)]
-public class EventConfigSingle : ScriptableObject
+public class EventConfigSingle : EventConfigOptional
 {
     public List<EventConfigSingleData> Data = new List<EventConfigSingleData>();
+
+    //
+
+    public override OptionalType Type => OptionalType.Event;
 
 #if UNITY_EDITOR
 
@@ -23,6 +27,8 @@ public class EventConfigSingle : ScriptableObject
     }
 
     public bool EditorDataListCommand { get; set; } = false;
+
+    public override string EditorName => $"{Type.ToString()} : {Option} : {this.name}";
 
 #endif
 }
