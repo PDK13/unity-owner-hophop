@@ -101,13 +101,8 @@ public class EventManager : SingletonManager<EventManager>, ITurnManager
                 SetEventDialogue(Event.Data[i].Dialogue);
 
             if (Event.Data[i].Command != null ? Event.Data[i].Command.Count > 0 : false)
-                //NOTE: As Command Event, it will add more event(s) Step before this base event Step
+                //NOTE: As Command Event, it will add more event(s) Step before this base event Step started
                 SetEventCommand(Event.Data[i].Command);
-
-            if (Event.Data[i].Choice != null ? Event.Data[i].Choice.Count > 0 : false)
-            {
-                //Choice event trigger!
-            }
 
             if (Event.Data[i].WaitForce)
             {
@@ -116,9 +111,15 @@ public class EventManager : SingletonManager<EventManager>, ITurnManager
                 //NOTE: Turn Manager wait 1 frame to wait all another child of it's Step finish their own code, so delay to check this Step later
                 yield return null;
                 yield return null;
-                yield return new WaitUntil(() =>
-                    TurnManager.Instance.StepCurrent.Step == StepType.Event.ToString() &&
-                    !DialogueManager.Instance.Active);
+                yield return new WaitUntil(() => TurnManager.Instance.StepCurrent.Step == StepType.Event.ToString() && !DialogueManager.Instance.Active);
+            }
+
+            if (Event.Data[i].Choice != null ? Event.Data[i].Choice.Count > 0 : false)
+            {
+                SetEventChoice(Event.Data[i].Choice);
+
+                //NOTE: Base on Player choice, next event will be occur!
+                yield return new WaitUntil(() => true);
             }
         }
 
@@ -159,6 +160,28 @@ public class EventManager : SingletonManager<EventManager>, ITurnManager
                     string Identity = DataRead[COMMAND_IDENTITY];
                     break;
             } //NOTE: First data check identity to excute command
+        }
+    }
+
+    private void SetEventChoice(List<EventConfigSingleDataChoice> Data)
+    {
+        foreach(var DataCheck in Data)
+        {
+            switch (DataCheck.Event.Type)
+            {
+                case OptionalType.None:
+                    //...
+                    break;
+                case OptionalType.Event:
+                    //...
+                    break;
+                case OptionalType.Trade:
+                    //...
+                    break;
+                case OptionalType.Mode:
+                    //...
+                    break;
+            }
         }
     }
 }
