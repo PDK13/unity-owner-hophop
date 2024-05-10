@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d61c66183b38f844bb198fca935094f, type: 3}
   m_Name: event-config-mode
   m_EditorClassIdentifier: 
-  Option: Play
-  Dialogue: {fileID: 0}
+  OptionName: Let's play game!
+  OptionalTip: {fileID: 0}
   Data: 

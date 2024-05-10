@@ -28,8 +28,6 @@ public class EventConfigSingle : EventConfigOptional
 
     public bool EditorDataListCommand { get; set; } = false;
 
-    public override string EditorName => $"{Type.ToString()} : {Option} : {this.name}";
-
 #endif
 }
 
@@ -143,6 +141,10 @@ public class EventConfigSingleEditor : Editor
             return;
         }
 
+        SetGUIGroupOptional();
+
+        QUnityEditor.SetSpace();
+
         SetGUIGroupData();
 
         QUnityEditor.SetDirty(m_target);
@@ -182,6 +184,25 @@ public class EventConfigSingleEditor : Editor
     }
 
     //
+
+    public void SetGUIGroupOptional()
+    {
+        QUnityEditor.SetLabel("OPTIONAL", QUnityEditor.GetGUIStyleLabel(FontStyle.Bold));
+
+        #region Optional - Name
+        QUnityEditor.SetHorizontalBegin();
+        QUnityEditor.SetLabel("Name", null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH));
+        m_target.OptionName = QUnityEditor.SetField(m_target.OptionName);
+        QUnityEditor.SetHorizontalEnd();
+        #endregion
+
+        #region Optional - Tip
+        QUnityEditor.SetHorizontalBegin();
+        QUnityEditor.SetLabel("Tip", null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH));
+        m_target.OptionalTip = QUnityEditor.SetFieldScriptableObject(m_target.OptionalTip);
+        QUnityEditor.SetHorizontalEnd();
+        #endregion
+    }
 
     private void SetGUIGroupData()
     {

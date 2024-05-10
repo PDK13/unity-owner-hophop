@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class EventConfigOptional : ScriptableObject
 {
-    public string Option = "Option";
-    public DialogueConfigSingle DialogueTip;
+    public string OptionName = "Option";
+    public DialogueConfigSingle OptionalTip;
 
     //
 
@@ -13,7 +13,7 @@ public class EventConfigOptional : ScriptableObject
 
 #if UNITY_EDITOR
 
-    public virtual string EditorName => $"{Type.ToString()} : {Option}";
+    public virtual string EditorName => $"{(!string.IsNullOrEmpty(OptionName) ? OptionName : "...")} || {Type.ToString()} : {this.name}";
 
 #endif
 }
