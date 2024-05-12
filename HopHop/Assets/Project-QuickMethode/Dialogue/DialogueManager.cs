@@ -25,6 +25,11 @@ public class DialogueManager : SingletonManager<DialogueManager>
     /// </summary>
     public Action<DialogueDataText> onText;
 
+    /// <summary>
+    /// Dialogue system end, trigger once time only, until end and refresh
+    /// </summary>
+    public Action onEnd;
+
     #endregion
 
     #region Config
@@ -105,9 +110,9 @@ public class DialogueManager : SingletonManager<DialogueManager>
 
     #endregion
 
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
+        SetInstance();
 
 #if UNITY_EDITOR
         SetConfigFind();
@@ -165,21 +170,22 @@ public class DialogueManager : SingletonManager<DialogueManager>
         if (m_active)
             return;
 
-        onStart?.Invoke();
-
         StartCoroutine(ISetDialogueShow(DialogueData));
     }
 
     private IEnumerator ISetDialogueShow(DialogueConfigSingle DialogueData)
     {
+        //START
+        onStart?.Invoke();
+
         m_dataCurrent = DialogueData;
 
         m_command = DialogueCommandType.None;
         m_active = true;
 
-        SetStage(DialogueStageType.Start);
-
         yield return new WaitForSeconds(m_delayStart);
+
+        SetStage(DialogueStageType.Start);
 
         //START
 
@@ -229,6 +235,7 @@ public class DialogueManager : SingletonManager<DialogueManager>
         SetStage(DialogueStageType.End);
 
         //END:
+        onEnd?.Invoke();
     }
 
     private IEnumerator ISetDialogueShowSingle(DialogueDataText DialogueSingle)

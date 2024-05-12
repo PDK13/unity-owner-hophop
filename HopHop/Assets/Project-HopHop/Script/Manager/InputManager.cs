@@ -22,8 +22,12 @@ public class InputManager : SingletonManager<InputManager>
     public Action onCharacterNext;
     public Action onCharacterPrev;
 
-    public Action onEventNext;
-    public Action onEventSkip;
+    public Action onDialogueNext;
+    public Action onDialogueSkip;
+
+    public Action onChoiceNext;
+    public Action onChoicePrev;
+    public Action onChoiceInvoke;
 
     //
 
@@ -56,15 +60,20 @@ public class InputManager : SingletonManager<InputManager>
 
     //
 
+    private void Awake()
+    {
+        SetInstance();
+    }
+
     private void Update()
     {
-        SetPress(m_up, onUp);
-        SetPress(m_down, onDown);
+        SetPress(m_up, onUp, onChoicePrev);
+        SetPress(m_down, onDown, onChoiceNext);
         SetPress(m_left, onLeft);
         SetPress(m_right, onRight);
 
-        SetPress(m_primary, onInteracte, onAccept, onEventNext);
-        SetPress(m_secondary, onStand, onCancel, onEventSkip);
+        SetPress(m_primary, onInteracte, onAccept, onDialogueNext, onChoiceInvoke);
+        SetPress(m_secondary, onStand, onCancel, onDialogueSkip);
 
         SetPress(m_characterNext, onCharacterNext);
         SetPress(m_characterPrev, onCharacterPrev);

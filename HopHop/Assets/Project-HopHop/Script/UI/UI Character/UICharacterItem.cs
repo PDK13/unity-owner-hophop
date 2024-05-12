@@ -4,11 +4,11 @@ using UnityEngine.UI;
 
 public class UICharacterItem : MonoBehaviour
 {
-    private CharacterType m_character = CharacterType.Angel;
-
     [SerializeField] private Image m_avatar;
     [SerializeField] private TextMeshProUGUI m_tmpMana;
     [SerializeField] private GameObject m_choice;
+
+    private CharacterType m_character = CharacterType.Angel;
 
     //
 
@@ -27,8 +27,8 @@ public class UICharacterItem : MonoBehaviour
         m_tmpMana.text = Mana.ToString();
     }
 
-    public void SetChoice(CharacterType Character)
+    public void SetChoice(bool Stage)
     {
-        m_choice.SetActive(m_character == Character);
+        m_choice.SetActive(Stage);
     }
 }

@@ -58,10 +58,10 @@ public class CoroutineManager : SingletonManager<CoroutineManager>
 
     private static Dictionary<string, CoroutineTask> m_iCoroutines;
 
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
-        //
+        SetInstance();
+
         m_iCoroutines = new Dictionary<string, CoroutineTask>();
     }
 

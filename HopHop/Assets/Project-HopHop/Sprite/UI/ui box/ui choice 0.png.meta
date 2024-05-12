@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 24569e83c768cde4b91434067a874f82
+guid: 8327816b3c566ce4484a3db5fd8f7918
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 0
   spriteMeshType: 0
   alignment: 0
@@ -136,7 +136,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: UI Box 0
+      name: ui panel 0
       rect:
         serializedVersion: 2
         x: 0
@@ -157,7 +157,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI Box 1
+      name: ui panel 1
       rect:
         serializedVersion: 2
         x: 128
@@ -178,7 +178,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI Box 2
+      name: ui panel 2
       rect:
         serializedVersion: 2
         x: 256
@@ -199,7 +199,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UI Box 3
+      name: ui panel 4
       rect:
         serializedVersion: 2
         x: 384
@@ -230,10 +230,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      UI Box 0: -1482863131
-      UI Box 1: 2138821968
-      UI Box 2: 702011790
-      UI Box 3: -1057629198
+      ui panel 0: -1482863131
+      ui panel 1: 2138821968
+      ui panel 2: 702011790
+      ui panel 4: -1057629198
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

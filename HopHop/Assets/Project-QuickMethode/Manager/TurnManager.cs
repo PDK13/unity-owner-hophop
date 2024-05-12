@@ -151,9 +151,9 @@ public class TurnManager : SingletonManager<TurnManager>
 
     private bool m_stop = false;
 
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
+        SetInstance();
 
 #if UNITY_EDITOR
         EditorApplication.playModeStateChanged += SetPlayModeStateChange;

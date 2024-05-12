@@ -31,10 +31,10 @@ MonoBehaviour:
     Dialogue: {fileID: 0}
     Command: []
     Choice:
-    - Event: {fileID: 11400000, guid: 17a3cdcc07ee42d4b9d014ad799dad4c, type: 2}
-    - Event: {fileID: 11400000}
-    - Event: {fileID: 11400000, guid: 72c80da264aa1ef4698abd78144a9bd9, type: 2}
-    - Event: {fileID: 0}
+    - {fileID: 11400000, guid: 17a3cdcc07ee42d4b9d014ad799dad4c, type: 2}
+    - {fileID: 11400000, guid: 72c80da264aa1ef4698abd78144a9bd9, type: 2}
+    - {fileID: 11400000}
+    - {fileID: 0}
   - Wait: 0
     Dialogue: {fileID: 11400000, guid: b2a7f19d7cea4954a934db10ad3ce791, type: 2}
     Command: []

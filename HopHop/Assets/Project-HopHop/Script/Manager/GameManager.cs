@@ -16,6 +16,11 @@ public class GameManager : SingletonManager<GameManager>
 
     //
 
+    private void Awake()
+    {
+        SetInstance();
+    }
+
     private void Start()
     {
         SetInit();

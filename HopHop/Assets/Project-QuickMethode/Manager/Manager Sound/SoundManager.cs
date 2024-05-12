@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
 using UnityEditor;
 using UnityEngine;
 
@@ -43,6 +42,11 @@ public class SoundManager : SingletonManager<SoundManager>
     [SerializeField] private AudioClip m_audioSound = null;
 
 #endif
+
+    private void Awake()
+    {
+        SetInstance();
+    }
 
     #region Music
 
@@ -202,7 +206,7 @@ public class SoundManager : SingletonManager<SoundManager>
 #if UNITY_EDITOR
 
 [CustomEditor(typeof(SoundManager))]
-public class SoundManagerEditor: Editor
+public class SoundManagerEditor : Editor
 {
     private SoundManager m_target;
 

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EventConfigOptional : ScriptableObject
@@ -14,6 +12,8 @@ public class EventConfigOptional : ScriptableObject
 #if UNITY_EDITOR
 
     public virtual string EditorName => $"{(!string.IsNullOrEmpty(OptionName) ? OptionName : "...")} || {Type.ToString()} : {this.name}";
+
+    public bool EditorFull { get; set; } = false;
 
 #endif
 }

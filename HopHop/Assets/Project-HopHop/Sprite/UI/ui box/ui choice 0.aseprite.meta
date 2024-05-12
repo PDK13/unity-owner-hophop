@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ef2e11a3a87b9024fbb6841730ae1c08
+guid: 774375b30a301d14eae8879b9cc90f42
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -119,18 +119,18 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: ui box_Frame_0
+  - name: ui choice 0
     originalName: 
-    pivot: {x: 0.5, y: 0}
+    pivot: {x: 0.5, y: -0.06140351}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 128
-      height: 128
-    spriteID: 3c84172070b33ff498d25d8088eba02b
+      width: 114
+      height: 114
+    spriteID: 359ee18d36fefe047829f1000d808a1f
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -139,107 +139,23 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
-  - name: ui box_Frame_1
-    originalName: 
-    pivot: {x: 0.5, y: 0}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 140
-      width: 128
-      height: 128
-    spriteID: 1c1f4382b583d6b43813d1ebffef07cc
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 4, y: 140}
-  - name: ui box_Frame_2
-    originalName: 
-    pivot: {x: 0.5, y: -0.06140351}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 130
-      y: 276
-      width: 114
-      height: 114
-    spriteID: c0548c11292dcda46b4e3973d866a49f
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 130, y: 276}
-  - name: ui box_Frame_3
-    originalName: 
-    pivot: {x: 0.5, y: -0.042372882}
-    alignment: 9
-    border: {x: 0, y: 0, z: 0, w: 0}
-    rect:
-      serializedVersion: 2
-      x: 4
-      y: 276
-      width: 118
-      height: 118
-    spriteID: d22ea600662aab347b13e727e69fb015
-    spriteBone: []
-    spriteOutline: []
-    vertices: []
-    spritePhysicsOutline: []
-    indices: 
-    edges: []
-    tessellationDetail: 0
-    uvTransform: {x: 4, y: 276}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -147430423
-    name: ui box
+    guid: -878631657
+    name: ui choice 0
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: ui box_Frame_0
+    - name: ui choice 0
       frameIndex: 0
-      cellRect:
-        x: 0
-        y: 0
-        width: 128
-        height: 128
-      spriteId: 3c84172070b33ff498d25d8088eba02b
-    - name: ui box_Frame_1
-      frameIndex: 1
-      cellRect:
-        x: 0
-        y: 0
-        width: 128
-        height: 128
-      spriteId: 1c1f4382b583d6b43813d1ebffef07cc
-    - name: ui box_Frame_2
-      frameIndex: 2
       cellRect:
         x: 7
         y: 7
         width: 114
         height: 114
-      spriteId: c0548c11292dcda46b4e3973d866a49f
-    - name: ui box_Frame_3
-      frameIndex: 3
-      cellRect:
-        x: 5
-        y: 5
-        width: 118
-        height: 118
-      spriteId: d22ea600662aab347b13e727e69fb015
+      spriteId: 359ee18d36fefe047829f1000d808a1f
     linkedCells: []
     parentIndex: -1
   platformSettings: []

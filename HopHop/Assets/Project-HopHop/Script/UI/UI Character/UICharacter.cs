@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UICharacterGroup : MonoBehaviour
+public class UICharacter : MonoBehaviour
 {
     [SerializeField] private Transform m_content;
 
@@ -28,9 +28,9 @@ public class UICharacterGroup : MonoBehaviour
         for (int i = 0; i < m_content.childCount; i++)
         {
             UICharacterItem Item = m_content.GetChild(i).GetComponent<UICharacterItem>();
-            Item.SetCharacter(CharacterManager.Instance.CharacterParty[i]);
+            Item.SetCharacter(CharacterManager.Instance.Character[i]);
             Item.SetMana(3);
-            Item.SetChoice(CharacterManager.Instance.CharacterCurrent);
+            Item.SetChoice(i == CharacterManager.Instance.CharacterIndex);
             //
             m_list.Add(Item);
         }
@@ -39,6 +39,6 @@ public class UICharacterGroup : MonoBehaviour
     private void SetCharacter()
     {
         for (int i = 0; i < m_list.Count; i++)
-            m_list[i].SetChoice(CharacterManager.Instance.CharacterCurrent);
+            m_list[i].SetChoice(i == CharacterManager.Instance.CharacterIndex);
     }
 }

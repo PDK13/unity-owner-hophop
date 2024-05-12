@@ -23,39 +23,36 @@ public class UIDialogue : MonoBehaviour
     {
         SetDialogueHide();
 
-        EventManager.Instance.onEventDialogue += OnEventDialogue;
+        DialogueManager.Instance.onStage += OnDialogueStage;
+        DialogueManager.Instance.onText += OnDialogueText;
     }
 
     private void OnDestroy()
     {
-        OnEventDialogue(false);
+        SetInputEvent(false);
 
-        EventManager.Instance.onEventDialogue -= OnEventDialogue;
+        DialogueManager.Instance.onStage -= OnDialogueStage;
+        DialogueManager.Instance.onText -= OnDialogueText;
     }
 
     //
 
-    private void OnEventDialogue(bool Stage)
+    private void SetInputEvent(bool Stage)
     {
         if (Stage)
         {
-            OnEventDialogue(false);
-
-            InputManager.Instance.onEventNext += OnDialogueNext;
-            InputManager.Instance.onEventSkip += OnDialogueSkip;
-
-            DialogueManager.Instance.onStage += OnDialogueStage;
-            DialogueManager.Instance.onText += OnDialogueText;
+            SetInputEvent(false);
+            InputManager.Instance.onDialogueNext += OnDialogueNext;
+            InputManager.Instance.onDialogueSkip += OnDialogueSkip;
         }
         else
         {
-            InputManager.Instance.onEventNext -= OnDialogueNext;
-            InputManager.Instance.onEventSkip -= OnDialogueSkip;
-
-            DialogueManager.Instance.onStage -= OnDialogueStage;
-            DialogueManager.Instance.onText -= OnDialogueText;
+            InputManager.Instance.onDialogueNext -= OnDialogueNext;
+            InputManager.Instance.onDialogueSkip -= OnDialogueSkip;
         }
     }
+
+    //
 
     private void OnDialogueNext()
     {
@@ -69,8 +66,16 @@ public class UIDialogue : MonoBehaviour
 
     private void OnDialogueStage(DialogueStageType Stage)
     {
-        if (Stage == DialogueStageType.End)
-            SetDialogueHide();
+        switch (Stage)
+        {
+            case DialogueStageType.Start:
+                SetInputEvent(true);
+                break;
+            case DialogueStageType.End:
+                SetInputEvent(false);
+                SetDialogueHide();
+                break;
+        }
     }
 
     private void OnDialogueText(DialogueDataText Text)

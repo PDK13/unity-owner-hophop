@@ -20,7 +20,7 @@ public class CharacterManager : SingletonManager<CharacterManager>
     #region Party
 
     private int m_characterIndex = 0;
-    private List<CharacterType> m_characterParty = new List<CharacterType>()
+    private List<CharacterType> m_character = new List<CharacterType>()
     {
         CharacterType.Angel,
         CharacterType.Bunny,
@@ -35,11 +35,18 @@ public class CharacterManager : SingletonManager<CharacterManager>
 
     public CharacterConfig CharacterConfig => m_characterConfig;
 
-    public CharacterType CharacterCurrent => m_characterParty[m_characterIndex];
+    public int CharacterIndex => m_characterIndex;
 
-    public CharacterType[] CharacterParty => m_characterParty.ToArray();
+    public CharacterType CharacterCurrent => m_character[m_characterIndex];
+
+    public CharacterType[] Character => m_character.ToArray();
 
     #endregion
+
+    private void Awake()
+    {
+        SetInstance();
+    }
 
     #region Config
 
@@ -78,9 +85,9 @@ public class CharacterManager : SingletonManager<CharacterManager>
 
     public bool SetCharacterCurrent(CharacterType Character)
     {
-        if (!Instance.m_characterParty.Exists(t => t == Character))
+        if (!Instance.m_character.Exists(t => t == Character))
             return false;
-        Instance.m_characterIndex = Instance.m_characterParty.FindIndex(t => t == Character);
+        Instance.m_characterIndex = Instance.m_character.FindIndex(t => t == Character);
         //
         onCharacter?.Invoke();
         //
@@ -89,7 +96,7 @@ public class CharacterManager : SingletonManager<CharacterManager>
 
     public void SetCharacterCurrent(int Index)
     {
-        Instance.m_characterIndex = Mathf.Clamp(Index, 0, Instance.m_characterParty.Count - 1);
+        Instance.m_characterIndex = Mathf.Clamp(Index, 0, Instance.m_character.Count - 1);
         //
         onCharacter?.Invoke();
         //
@@ -98,7 +105,7 @@ public class CharacterManager : SingletonManager<CharacterManager>
     public void SetCharacterNext()
     {
         Instance.m_characterIndex++;
-        if (Instance.m_characterIndex > Instance.m_characterParty.Count - 1)
+        if (Instance.m_characterIndex > Instance.m_character.Count - 1)
             Instance.m_characterIndex = 0;
         //
         onCharacter?.Invoke();
@@ -109,7 +116,7 @@ public class CharacterManager : SingletonManager<CharacterManager>
     {
         Instance.m_characterIndex--;
         if (Instance.m_characterIndex < 0)
-            Instance.m_characterIndex = Instance.m_characterParty.Count - 1;
+            Instance.m_characterIndex = Instance.m_character.Count - 1;
         //
         onCharacter?.Invoke();
         //
@@ -117,17 +124,17 @@ public class CharacterManager : SingletonManager<CharacterManager>
 
     public bool SetCharacterPartyAdd(CharacterType Character)
     {
-        if (Instance.m_characterParty.Exists(t => t == Character))
+        if (Instance.m_character.Exists(t => t == Character))
             return false;
-        Instance.m_characterParty.Add(Character);
+        Instance.m_character.Add(Character);
         return true;
     }
 
     public bool SetCharacterPartyRemove(CharacterType Character)
     {
-        if (!Instance.m_characterParty.Exists(t => t == Character))
+        if (!Instance.m_character.Exists(t => t == Character))
             return false;
-        Instance.m_characterParty.RemoveAll(t => t == Character);
+        Instance.m_character.RemoveAll(t => t == Character);
         return true;
     }
 }

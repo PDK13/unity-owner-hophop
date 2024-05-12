@@ -22,7 +22,7 @@ public class EventConfigSingle : EventConfigOptional
             while (Data.Count > value)
                 Data.RemoveAt(Data.Count - 1);
             while (Data.Count < value)
-                Data.Add(new EventConfigSingleData());
+                Data.Add(null);
         }
     }
 
@@ -37,7 +37,7 @@ public class EventConfigSingleData
     public bool Wait;
     public DialogueConfigSingle Dialogue;
     public List<string> Command = new List<string>();
-    public List<EventConfigSingleDataChoice> Choice = new List<EventConfigSingleDataChoice>();
+    public List<EventConfigOptional> Choice = new List<EventConfigOptional>();
 
     public bool WaitForce
     {
@@ -78,7 +78,7 @@ public class EventConfigSingleData
             while (Choice.Count > value)
                 Choice.RemoveAt(Choice.Count - 1);
             while (Choice.Count < value)
-                Choice.Add(new EventConfigSingleDataChoice());
+                Choice.Add(null);
         }
     }
 
@@ -93,20 +93,6 @@ public class EventConfigSingleData
     public bool EditorCommandListShow { get; set; } = false;
 
     public bool EditorChoiceListShow { get; set; } = false;
-
-#endif
-}
-
-[Serializable]
-public class EventConfigSingleDataChoice
-{
-    public EventConfigOptional Event;
-
-#if UNITY_EDITOR
-
-    public string EditorName => $"{(Event != null ? Event.EditorName : "...")}";
-
-    public bool EditorFull { get; set; } = false;
 
 #endif
 }
@@ -292,19 +278,31 @@ public class EventConfigSingleEditor : Editor
                     #region ITEM - MAIN - CHOICE - ITEM - MAIN
                     QUnityEditor.SetVerticalBegin();
 
-                    #region ITEM - MAIN - CHOICE - ITEM - MAIN - NAME (FULL)
-                    QUnityEditor.SetHorizontalBegin();
-                    if (QUnityEditor.SetButton(m_target.Data[i].Choice[j].EditorName, QUnityEditor.GetGUIStyleLabel(m_target.Data[i].Choice[j].EditorFull ? FontStyle.Bold : FontStyle.Normal, TextAnchor.MiddleLeft)))
-                        m_target.Data[i].Choice[j].EditorFull = !m_target.Data[i].Choice[j].EditorFull;
-                    QUnityEditor.SetHorizontalEnd();
-                    #endregion
+                    if (m_target.Data[i].Choice[j] != null)
+                    {
+                        #region ITEM - MAIN - CHOICE - ITEM - MAIN - NAME (FULL)
+                        QUnityEditor.SetHorizontalBegin();
+                        if (QUnityEditor.SetButton(m_target.Data[i].Choice[j].EditorName, QUnityEditor.GetGUIStyleLabel(m_target.Data[i].Choice[j].EditorFull ? FontStyle.Bold : FontStyle.Normal, TextAnchor.MiddleLeft)))
+                            m_target.Data[i].Choice[j].EditorFull = !m_target.Data[i].Choice[j].EditorFull;
+                        QUnityEditor.SetHorizontalEnd();
+                        #endregion
 
-                    if (m_target.Data[i].Choice[j].EditorFull)
+                        if (m_target.Data[i].Choice[j].EditorFull)
+                        {
+                            #region ITEM - MAIN - CHOICE - ITEM - MAIN - EVENT
+                            QUnityEditor.SetHorizontalBegin();
+                            QUnityEditor.SetLabel("Event", null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH));
+                            m_target.Data[i].Choice[j] = QUnityEditor.SetFieldScriptableObject(m_target.Data[i].Choice[j]);
+                            QUnityEditor.SetHorizontalEnd();
+                            #endregion
+                        }
+                    }
+                    else
                     {
                         #region ITEM - MAIN - CHOICE - ITEM - MAIN - EVENT
                         QUnityEditor.SetHorizontalBegin();
                         QUnityEditor.SetLabel("Event", null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH));
-                        m_target.Data[i].Choice[j].Event = QUnityEditor.SetFieldScriptableObject(m_target.Data[i].Choice[j].Event);
+                        m_target.Data[i].Choice[j] = QUnityEditor.SetFieldScriptableObject(m_target.Data[i].Choice[j]);
                         QUnityEditor.SetHorizontalEnd();
                         #endregion
                     }
@@ -333,7 +331,7 @@ public class EventConfigSingleEditor : Editor
                     }
                     #endregion
 
-                    if (m_target.Data[i].Choice[j].EditorFull)
+                    if (m_target.Data[i].Choice[j] != null ? m_target.Data[i].Choice[j].EditorFull : false)
                         QUnityEditor.SetSpace();
                 }
             }

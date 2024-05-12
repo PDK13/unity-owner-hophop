@@ -22,6 +22,11 @@ public class EventManager : SingletonManager<EventManager>, ITurnManager
 
     //
 
+    private void Awake()
+    {
+        SetInstance();
+    }
+
 #if UNITY_EDITOR
 
     public void SetConfigFind()
@@ -111,7 +116,8 @@ public class EventManager : SingletonManager<EventManager>, ITurnManager
                 //NOTE: Turn Manager wait 1 frame to wait all another child of it's Step finish their own code, so delay to check this Step later
                 yield return null;
                 yield return null;
-                yield return new WaitUntil(() => TurnManager.Instance.StepCurrent.Step == StepType.Event.ToString() && !DialogueManager.Instance.Active);
+                yield return new WaitUntil(() => !DialogueManager.Instance.Active);
+                yield return new WaitUntil(() => TurnManager.Instance.StepCurrent.Step == StepType.Event.ToString());
             }
 
             if (Event.Data[i].Choice != null ? Event.Data[i].Choice.Count > 0 : false)
@@ -119,7 +125,7 @@ public class EventManager : SingletonManager<EventManager>, ITurnManager
                 SetEventChoice(Event.Data[i].Choice);
 
                 //NOTE: Base on Player choice, next event will be occur!
-                yield return new WaitUntil(() => true);
+                yield return new WaitUntil(() => !ChoiceManager.Instance.Active);
             }
         }
 
@@ -163,29 +169,10 @@ public class EventManager : SingletonManager<EventManager>, ITurnManager
         }
     }
 
-    private void SetEventChoice(List<EventConfigSingleDataChoice> Data)
+    private void SetEventChoice(List<EventConfigOptional> Data)
     {
-        foreach (var DataCheck in Data)
-        {
-            if (DataCheck == null ? true : DataCheck.Event == null)
-                continue;
-
-            switch (DataCheck.Event.Type)
-            {
-                case OptionalType.None:
-                    //...
-                    break;
-                case OptionalType.Event:
-                    //...
-                    break;
-                case OptionalType.Trade:
-                    //...
-                    break;
-                case OptionalType.Mode:
-                    //...
-                    break;
-            }
-        }
+        ChoiceManager.Instance.SetInit(Data.ToArray());
+        ChoiceManager.Instance.SetStart();
     }
 }
 

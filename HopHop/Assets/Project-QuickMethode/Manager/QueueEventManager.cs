@@ -1,10 +1,14 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class QueueEventManager : SingletonManager<QueueEventManager>
 {
     public QueueEventData Data { get; } = new QueueEventData();
+
+    private void Awake()
+    {
+        SetInstance();
+    }
 }
 
 [Serializable]
