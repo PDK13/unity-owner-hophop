@@ -2149,11 +2149,11 @@ GameObject:
   m_Component:
   - component: {fileID: 996775719}
   - component: {fileID: 996775718}
+  - component: {fileID: 996775721}
   - component: {fileID: 996775724}
   - component: {fileID: 996775725}
   - component: {fileID: 996775722}
   - component: {fileID: 996775723}
-  - component: {fileID: 996775721}
   - component: {fileID: 996775720}
   - component: {fileID: 996775726}
   m_Layer: 0
