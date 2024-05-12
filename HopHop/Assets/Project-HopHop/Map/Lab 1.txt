@@ -260,12 +260,12 @@ Block Normal 0
 Block Stone 0 0
 #BLOCK-INIT
 6
-event-identity-base-event-test
 follow-identity-base-[1,-1,-1]
 switch-identity-base-[1,-1,-1]
 switch-identity-check-[1,1,0]
 switch-identity-check-[-1,1,0]
 switch-identity-check-[-1,-1,0]
+event-identity-base-event-config-single
 #BLOCK-MOVE
 1
 2

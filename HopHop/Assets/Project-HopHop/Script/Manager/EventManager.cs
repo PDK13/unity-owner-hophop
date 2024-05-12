@@ -165,8 +165,11 @@ public class EventManager : SingletonManager<EventManager>, ITurnManager
 
     private void SetEventChoice(List<EventConfigSingleDataChoice> Data)
     {
-        foreach(var DataCheck in Data)
+        foreach (var DataCheck in Data)
         {
+            if (DataCheck == null ? true : DataCheck.Event == null)
+                continue;
+
             switch (DataCheck.Event.Type)
             {
                 case OptionalType.None:
