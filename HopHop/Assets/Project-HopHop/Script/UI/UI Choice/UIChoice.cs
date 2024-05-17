@@ -7,18 +7,18 @@ public class UIChoice : MonoBehaviour
 
     private void Start()
     {
-        ChoiceManager.Instance.onStart += OnStart;
-        ChoiceManager.Instance.onInit += OnInit;
-        ChoiceManager.Instance.onClear += OnClear;
+        OptionalManager.Instance.onStart += OnStart;
+        OptionalManager.Instance.onInit += OnInit;
+        OptionalManager.Instance.onClear += OnClear;
 
         m_item.SetActive(false);
     }
 
     private void OnDestroy()
     {
-        ChoiceManager.Instance.onStart -= OnStart;
-        ChoiceManager.Instance.onInit -= OnInit;
-        ChoiceManager.Instance.onClear -= OnClear;
+        OptionalManager.Instance.onStart -= OnStart;
+        OptionalManager.Instance.onInit -= OnInit;
+        OptionalManager.Instance.onClear -= OnClear;
     }
 
     //
@@ -47,7 +47,7 @@ public class UIChoice : MonoBehaviour
         SetInputEvent(true);
     }
 
-    private void OnInit(EventConfigOptional Data)
+    private void OnInit(OptionalConfigSingle Data)
     {
         GameObject ItemClone = QGameObject.SetCreate(m_item, m_content);
         ItemClone.gameObject.SetActive(true);
@@ -56,18 +56,18 @@ public class UIChoice : MonoBehaviour
 
     private void OnNext()
     {
-        ChoiceManager.Instance.SetNext();
+        OptionalManager.Instance.SetNext();
     }
 
     private void OnPrev()
     {
-        ChoiceManager.Instance.SetPrev();
+        OptionalManager.Instance.SetPrev();
     }
 
     private void OnInvoke()
     {
-        ChoiceManager.Instance.SetInvoke();
-        ChoiceManager.Instance.SetClear();
+        OptionalManager.Instance.SetInvoke();
+        OptionalManager.Instance.SetClear();
     }
 
     private void OnClear()

@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "event-config-single", menuName = "HopHop/Event Config Single", order = 0)]
-public class EventConfigSingle : EventConfigOptional
+public class EventConfigSingle : OptionalConfigSingle
 {
     public List<EventConfigSingleData> Data = new List<EventConfigSingleData>();
 
@@ -37,7 +37,7 @@ public class EventConfigSingleData
     public bool Wait;
     public DialogueConfigSingle Dialogue;
     public List<string> Command = new List<string>();
-    public List<EventConfigOptional> Choice = new List<EventConfigOptional>();
+    public List<OptionalConfigSingle> Choice = new List<OptionalConfigSingle>();
 
     public bool WaitForce
     {

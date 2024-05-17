@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "event-config-trade", menuName = "HopHop/Event Config Trade", order = 0)]
-public class EventConfigTrade : EventConfigOptional
+public class EventConfigTrade : OptionalConfigSingle
 {
     public List<string> Data = new List<string>();
 

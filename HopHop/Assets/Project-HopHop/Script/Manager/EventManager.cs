@@ -125,7 +125,7 @@ public class EventManager : SingletonManager<EventManager>, ITurnManager
                 SetEventChoice(Event.Data[i].Choice);
 
                 //NOTE: Base on Player choice, next event will be occur!
-                yield return new WaitUntil(() => !ChoiceManager.Instance.Active);
+                yield return new WaitUntil(() => !OptionalManager.Instance.Active);
             }
         }
 
@@ -169,10 +169,10 @@ public class EventManager : SingletonManager<EventManager>, ITurnManager
         }
     }
 
-    private void SetEventChoice(List<EventConfigOptional> Data)
+    private void SetEventChoice(List<OptionalConfigSingle> Data)
     {
-        ChoiceManager.Instance.SetInit(Data.ToArray());
-        ChoiceManager.Instance.SetStart();
+        OptionalManager.Instance.SetInit(Data.ToArray());
+        OptionalManager.Instance.SetStart();
     }
 }
 

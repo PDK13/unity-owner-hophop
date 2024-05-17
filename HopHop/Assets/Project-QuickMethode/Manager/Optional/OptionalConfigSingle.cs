@@ -1,6 +1,7 @@
 using UnityEngine;
 
-public class EventConfigOptional : ScriptableObject
+[CreateAssetMenu(fileName = "optional-config-single", menuName = "HopHop/Optional Config Single", order = 0)]
+public class OptionalConfigSingle : ScriptableObject
 {
     public string OptionName = "Option";
     public DialogueConfigSingle OptionalTip;

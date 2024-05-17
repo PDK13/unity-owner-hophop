@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-public class ChoiceManager : SingletonManager<ChoiceManager>
+public class OptionalManager : SingletonManager<OptionalManager>
 {
     /// <summary>
     /// Choice system start, trigger once when invoke, until end and reset
@@ -11,17 +11,17 @@ public class ChoiceManager : SingletonManager<ChoiceManager>
     /// <summary>
     /// Choice system init, trigger muti when once init occur
     /// </summary>
-    public Action<EventConfigOptional> onInit;
+    public Action<OptionalConfigSingle> onInit;
 
     /// <summary>
     /// Choice system index, trigger when next or prev current choice check
     /// </summary>
-    public Action<int, EventConfigOptional> onIndex;
+    public Action<int, OptionalConfigSingle> onIndex;
 
     /// <summary>
     /// Choice system invoke current choice, trigger once when choice occur
     /// </summary>
-    public Action<int, EventConfigOptional> onInvoke;
+    public Action<int, OptionalConfigSingle> onInvoke;
 
     /// <summary>
     /// Choice system start, trigger once when invoke, until end and reset
@@ -33,7 +33,7 @@ public class ChoiceManager : SingletonManager<ChoiceManager>
     private bool m_active = false;
 
     private int m_choiceIndex = 0;
-    private List<EventConfigOptional> m_choice = new List<EventConfigOptional>();
+    private List<OptionalConfigSingle> m_choice = new List<OptionalConfigSingle>();
 
     //
 
@@ -41,7 +41,7 @@ public class ChoiceManager : SingletonManager<ChoiceManager>
 
     public int ChoiceIndex => m_choiceIndex;
 
-    public EventConfigOptional[] Choice => m_choice.ToArray();
+    public OptionalConfigSingle[] Choice => m_choice.ToArray();
 
     //
 
@@ -68,7 +68,7 @@ public class ChoiceManager : SingletonManager<ChoiceManager>
         onIndex?.Invoke(m_choiceIndex, m_choice[m_choiceIndex]);
     }
 
-    public void SetInit(params EventConfigOptional[] Data)
+    public void SetInit(params OptionalConfigSingle[] Data)
     {
         foreach (var DataCheck in Data)
         {

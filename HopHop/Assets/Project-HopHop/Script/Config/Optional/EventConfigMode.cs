@@ -4,7 +4,7 @@ using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "event-config-mode", menuName = "HopHop/Event Config Mode", order = 0)]
-public class EventConfigMode : EventConfigOptional
+public class EventConfigMode : OptionalConfigSingle
 {
     public string Data = "";
 
