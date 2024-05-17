@@ -126,7 +126,7 @@ public class DialogueSingleConfigEditor : Editor
 
             #region ITEM - MAIN - AUTHOR (FULL)
             QUnityEditor.SetHorizontalBegin();
-            if (QUnityEditor.SetButton($"{m_dialogueConfig.AuthorName[m_target.Dialogue[i].AuthorIndex]} : {m_target.Dialogue[i].Dialogue}", QUnityEditor.GetGUIStyleLabel(m_target.Dialogue[i].EditorFull ? FontStyle.Bold : FontStyle.Normal, TextAnchor.MiddleLeft)))
+            if (QUnityEditor.SetButton(m_target.Dialogue[i].EditorName, QUnityEditor.GetGUIStyleLabel(m_target.Dialogue[i].EditorFull ? FontStyle.Bold : FontStyle.Normal, TextAnchor.MiddleLeft)))
                 m_target.Dialogue[i].EditorFull = !m_target.Dialogue[i].EditorFull;
             QUnityEditor.SetHorizontalEnd();
             #endregion
@@ -136,7 +136,7 @@ public class DialogueSingleConfigEditor : Editor
                 #region ITEM - MAIN - AUTHOR
                 QUnityEditor.SetHorizontalBegin();
                 QUnityEditor.SetLabel("Author", null, QUnityEditor.GetGUILayoutWidth(LABEL_WIDTH));
-                m_target.Dialogue[i].AuthorIndex = QUnityEditor.SetPopup(m_target.Dialogue[i].AuthorIndex, m_dialogueConfig.AuthorName);
+                m_target.Dialogue[i].Author = QUnityEditor.SetPopup(m_target.Dialogue[i].Author, m_dialogueConfig.AuthorName);
                 QUnityEditor.SetHorizontalEnd();
                 #endregion
 

@@ -26,7 +26,7 @@ public class DialogueConfig : ScriptableObject
             List<string> Data = new List<string>() { AuthorNone };
 
             foreach (DialogueDataAuthor AuthorItem in Author)
-                Data.Add(AuthorItem.Name);
+                Data.Add(AuthorItem.Author);
 
             return Data.ToArray();
         }
@@ -60,7 +60,7 @@ public class DialogueConfig : ScriptableObject
 
     public DialogueDataAuthor GetAuthor(string Name)
     {
-        return Author.Find(t => t.Name == Name);
+        return Author.Find(t => t.Author == Name);
     }
 
 #if UNITY_EDITOR
@@ -134,7 +134,7 @@ public class DialogueConfigEditor : Editor
         int Index = 0;
         while (Index < m_target.Author.Count)
         {
-            if (m_target.Author[Index].Name == "")
+            if (m_target.Author[Index].Author == "")
             {
                 RemoveEmty = true;
                 m_target.Author.RemoveAt(Index);
@@ -164,7 +164,7 @@ public class DialogueConfigEditor : Editor
             QUnityEditor.SetHorizontalBegin();
             if (QUnityEditor.SetButton(i.ToString(), QUnityEditor.GetGUIStyleLabel(), QUnityEditor.GetGUILayoutWidth(25)))
                 m_target.EditorAuthorListCommand = !m_target.EditorAuthorListCommand;
-            m_target.Author[i].Name = QUnityEditor.SetField(m_target.Author[i].Name);
+            m_target.Author[i].Author = QUnityEditor.SetField(m_target.Author[i].Author);
             m_target.Author[i].Avatar = QUnityEditor.SetField(m_target.Author[i].Avatar, QUnityEditor.GetGUILayoutSizeSprite());
             QUnityEditor.SetHorizontalEnd();
             #endregion

@@ -4,6 +4,6 @@ using UnityEngine;
 [Serializable]
 public class DialogueDataAuthor
 {
-    public string Name;
+    public string Author;
     public Sprite Avatar;
 }

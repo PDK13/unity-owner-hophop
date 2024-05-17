@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using System;
 using Object = UnityEngine.Object;
-
+using System.Linq;
 #if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.UIElements;
@@ -301,6 +301,8 @@ public class QUnityEditor
 
     #region ------------------------------------ Popup
 
+    //
+
     public static int SetPopup(int IndexChoice, string[] ListChoice, params GUILayoutOption[] GUILayoutOption)
     {
         return EditorGUILayout.Popup("", IndexChoice, ListChoice, GUILayoutOption);
@@ -314,6 +316,24 @@ public class QUnityEditor
     public static int SetPopup<T>(int IndexChoice, params GUILayoutOption[] GUILayoutOption) where T : Enum
     {
         return EditorGUILayout.Popup("", IndexChoice, QEnum.GetListName<T>().ToArray(), GUILayoutOption);
+    }
+
+    //
+
+    public static string SetPopup(string DataChoice, string[] ListChoice, params GUILayoutOption[] GUILayoutOption)
+    {
+        if (!ListChoice.ToList().Exists(t => t == DataChoice))
+            return ListChoice[SetPopup(0, ListChoice, GUILayoutOption)];
+        else
+            return ListChoice[SetPopup(ListChoice.ToList().FindIndex(t => t == DataChoice), ListChoice, GUILayoutOption)];
+    }
+
+    public static string SetPopup(string DataChoice, List<string> ListChoice, params GUILayoutOption[] GUILayoutOption)
+    {
+        if (!ListChoice.Exists(t => t == DataChoice))
+            return ListChoice[SetPopup(0, ListChoice, GUILayoutOption)];
+        else
+            return ListChoice[SetPopup(ListChoice.FindIndex(t => t == DataChoice), ListChoice, GUILayoutOption)];
     }
 
     #endregion

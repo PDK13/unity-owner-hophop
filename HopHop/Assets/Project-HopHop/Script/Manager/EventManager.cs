@@ -10,7 +10,6 @@ public class EventManager : SingletonManager<EventManager>, ITurnManager
     private const int COMMAND_EXCUTE = 1;
 
     public Action<bool> onEvent;
-    public Action<bool> onEventDialogue;
 
     [SerializeField] private EventConfig m_eventConfig;
 
@@ -137,7 +136,6 @@ public class EventManager : SingletonManager<EventManager>, ITurnManager
 
     private void SetEventDialogue(DialogueConfigSingle Data)
     {
-        onEventDialogue?.Invoke(true);
         DialogueManager.Instance.SetStart(Data);
     }
 

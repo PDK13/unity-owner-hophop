@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: dialogue-config-single-start
   m_EditorClassIdentifier: 
   Dialogue:
-  - AuthorIndex: 1
+  - Author: Angel
     Dialogue: Hello?
     Delay:
       Alpha: 0.05
       Space: 0.05
       Mark: 0.2
-  - AuthorIndex: 0
+  - Author: None
     Dialogue: Hello, how can I help you?
     Delay:
       Alpha: 0.05

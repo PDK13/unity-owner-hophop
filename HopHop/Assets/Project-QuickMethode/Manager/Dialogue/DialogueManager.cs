@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -297,14 +298,9 @@ public class DialogueManager : SingletonManager<DialogueManager>
 
     #region Data
 
-    public string GetAuthorName(DialogueDataText Text)
-    {
-        return m_dialogueConfig.AuthorName[Text.AuthorIndex];
-    }
-
     public Sprite GetAuthorAvatar(DialogueDataText Text)
     {
-        return m_dialogueConfig.AuthorAvatar[Text.AuthorIndex];
+        return m_dialogueConfig.Author.Find(t => t.Author == Text.Author).Avatar;
     }
 
     #endregion

@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AuthorNone: None
   Author:
-  - Name: Angel
+  - Author: Angel
     Avatar: {fileID: -1549862626, guid: e3adc795097a9dd48ac13fddccb8d63b, type: 3}
-  - Name: Bunny
+  - Author: Bunny
     Avatar: {fileID: -1753934497, guid: 408c5f2a55c9f514f84c18114738db1f, type: 3}
   DelayDefault:
     Alpha: 0.05
