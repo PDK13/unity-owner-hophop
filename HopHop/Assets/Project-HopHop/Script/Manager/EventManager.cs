@@ -176,14 +176,6 @@ public class EventManager : SingletonManager<EventManager>, ITurnManager
     }
 }
 
-public enum OptionalType
-{
-    None,
-    Event,
-    Trade,
-    Mode,
-}
-
 #if UNITY_EDITOR
 
 [CustomEditor(typeof(EventManager))]

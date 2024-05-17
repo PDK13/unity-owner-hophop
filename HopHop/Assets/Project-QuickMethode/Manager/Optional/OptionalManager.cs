@@ -114,3 +114,11 @@ public class OptionalManager : SingletonManager<OptionalManager>
         onClear?.Invoke();
     }
 }
+
+public enum OptionalType
+{
+    None,
+    Event,
+    Trade,
+    Mode,
+}
