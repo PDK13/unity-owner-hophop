@@ -336,6 +336,16 @@ public class QUnityEditor
             return ListChoice[SetPopup(ListChoice.FindIndex(t => t == DataChoice), ListChoice, GUILayoutOption)];
     }
 
+    public static string SetPopup<T>(string DataChoice, params GUILayoutOption[] GUILayoutOption) where T : Enum
+    {
+        List<string> ListChoice = QEnum.GetListName<T>();
+
+        if (!ListChoice.Exists(t => t == DataChoice))
+            return ListChoice[SetPopup(0, ListChoice, GUILayoutOption)];
+        else
+            return ListChoice[SetPopup(ListChoice.FindIndex(t => t == DataChoice), ListChoice, GUILayoutOption)];
+    }
+
     #endregion
 
     #region ------------------------------------ Else
