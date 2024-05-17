@@ -3,6 +3,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -300,7 +301,10 @@ public class DialogueManager : SingletonManager<DialogueManager>
 
     public Sprite GetAuthorAvatar(DialogueDataText Text)
     {
-        return m_dialogueConfig.Author.Find(t => t.Author == Text.Author).Avatar;
+        if (m_dialogueConfig.Author.Exists(t => t.Author == Text.Author))
+            return m_dialogueConfig.Author.Find(t => t.Author == Text.Author).Avatar;
+        else
+            return null;
     }
 
     #endregion
