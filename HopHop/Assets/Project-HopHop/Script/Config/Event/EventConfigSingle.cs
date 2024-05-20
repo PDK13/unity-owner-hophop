@@ -200,6 +200,9 @@ public class EventConfigSingleEditor : Editor
         m_scrollData = QUnityEditor.SetScrollViewBegin(m_scrollData);
         for (int i = 0; i < m_target.Data.Count; i++)
         {
+            if (m_target.Data[i] == null)
+                continue;
+
             #region ITEM
             QUnityEditor.SetHorizontalBegin();
             if (QUnityEditor.SetButton(i.ToString(), QUnityEditor.GetGUIStyleLabel(), QUnityEditor.GetGUILayoutWidth(25)))

@@ -169,8 +169,29 @@ public class EventManager : SingletonManager<EventManager>, ITurnManager
 
     private void SetEventChoice(List<OptionalConfigSingle> Data)
     {
+        OptionalManager.Instance.onInvoke += OnEventChoiceInvoke;
         OptionalManager.Instance.SetInit(Data.ToArray());
         OptionalManager.Instance.SetStart();
+    }
+
+    private void OnEventChoiceInvoke(int Index, OptionalConfigSingle Optional)
+    {
+        OptionalManager.Instance.onInvoke -= OnEventChoiceInvoke;
+        switch (Optional.Type)
+        {
+            case OptionalType.None:
+                //...
+                break;
+            case OptionalType.Event:
+                SetEventActive(Optional as EventConfigSingle); //NOTE: Scriptable type can be force back to it's original!
+                break;
+            case OptionalType.Trade:
+                //...
+                break;
+            case OptionalType.Mode:
+                //...
+                break;
+        }
     }
 }
 

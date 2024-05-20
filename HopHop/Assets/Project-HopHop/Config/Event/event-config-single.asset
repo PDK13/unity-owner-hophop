@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 992a39e9c9c80aa499d78cdea93a9675, type: 3}
   m_Name: event-config-single
   m_EditorClassIdentifier: 
-  OptionName: I want to go around...
+  OptionName: Optional
   OptionalTip: {fileID: 0}
   Data:
   - Wait: 1
@@ -33,7 +33,7 @@ MonoBehaviour:
     Choice:
     - {fileID: 11400000, guid: 17a3cdcc07ee42d4b9d014ad799dad4c, type: 2}
     - {fileID: 11400000, guid: 72c80da264aa1ef4698abd78144a9bd9, type: 2}
-    - {fileID: 11400000}
+    - {fileID: 11400000, guid: 3f8fa94e58bb3ee46ab940b59e0bdb2c, type: 2}
     - {fileID: 0}
   - Wait: 0
     Dialogue: {fileID: 11400000, guid: b2a7f19d7cea4954a934db10ad3ce791, type: 2}

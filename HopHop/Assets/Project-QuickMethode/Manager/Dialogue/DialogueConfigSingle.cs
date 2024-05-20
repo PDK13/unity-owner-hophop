@@ -116,6 +116,9 @@ public class DialogueSingleConfigEditor : Editor
         m_scrollDialogue = QUnityEditor.SetScrollViewBegin(m_scrollDialogue);
         for (int i = 0; i < m_target.Dialogue.Count; i++)
         {
+            if (m_target.Dialogue[i] == null)
+                continue;
+
             #region ITEM
             QUnityEditor.SetHorizontalBegin();
             if (QUnityEditor.SetButton(i.ToString(), QUnityEditor.GetGUIStyleLabel(), QUnityEditor.GetGUILayoutWidth(25)))

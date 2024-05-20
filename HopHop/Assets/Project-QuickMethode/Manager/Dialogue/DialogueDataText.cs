@@ -24,7 +24,7 @@ public class DialogueDataText
 
     public bool EditorDelayShow { get; set; } = false;
 
-    public virtual string EditorName => $"{(!string.IsNullOrEmpty(Author) ? Author : "...")} : {Dialogue.ToString()}";
+    public virtual string EditorName => $"{(!string.IsNullOrEmpty(Author) ? Author : "...")} : {(Dialogue != null ? Dialogue.ToString() : "...")}";
 
 #endif
 }
