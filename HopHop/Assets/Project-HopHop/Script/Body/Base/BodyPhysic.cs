@@ -37,6 +37,8 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
 
     public bool Dynamic => m_character == null ? m_dynamic : m_character.BodyDynamic;
 
+    public bool Static => m_static;
+
     public IsometricVector MoveLastXY => m_moveLastXY;
 
     public IsometricVector? MoveForceXY => m_moveForceXY;

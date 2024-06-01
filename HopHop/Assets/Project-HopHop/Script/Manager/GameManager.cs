@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class GameManager : SingletonManager<GameManager>
@@ -44,8 +45,14 @@ public class GameManager : SingletonManager<GameManager>
 
     private void SetInitWorld(TextAsset WorldData)
     {
-        IsometricDataFile.SetFileRead(IsometricManager.Instance, WorldData);
+        StartCoroutine(ISetInitWorld(WorldData));
+    }
 
+    private IEnumerator ISetInitWorld(TextAsset WorldData)
+    {
+        IsometricDataFile.SetFileRead(IsometricManager.Instance, WorldData);
+        yield return null;
+        yield return null;
         TurnManager.Instance.SetStart();
     }
 

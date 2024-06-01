@@ -38,6 +38,21 @@ Object Flower Blue 0
 Object Flower Blue 0
 #BLOCK-END
 
+[0;2;0]
+Light Wolf
+#BLOCK-INIT
+1
+
+#BLOCK-MOVE
+2
+5
+1|L
+1|L
+1|L
+1|L
+1|L
+#BLOCK-END
+
 [-3;2;0]
 Object Flower Blue 0
 #BLOCK-END
@@ -265,12 +280,12 @@ Block Normal 0
 Block Stone 0 0
 #BLOCK-INIT
 6
-follow-identity-base-[1,-1,-1]
 switch-identity-base-[1,-1,-1]
 switch-identity-check-[1,1,0]
 switch-identity-check-[-1,1,0]
 switch-identity-check-[-1,-1,0]
 event-identity-base-event-config-single
+follow-identity-base-[1,-1,-1]
 #BLOCK-MOVE
 1
 2

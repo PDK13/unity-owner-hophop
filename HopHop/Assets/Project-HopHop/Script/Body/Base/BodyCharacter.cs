@@ -213,6 +213,18 @@ public class BodyCharacter : MonoBehaviour, IBodyPhysic
         {
             //Move from BLOCK NORMAL!!
             //
+            //Move from BLOCK NORMAL to not STATIC
+            BodyPhysic ToBodyPhysic = To.GetComponent<BodyPhysic>();
+            if (ToBodyPhysic != null)
+            {
+                if (!ToBodyPhysic.Static)
+                {
+                    SetAnimation(TRIGGER_JUMP);
+                    return;
+                }
+            }
+            //
+            //Move from BLOCK NORMAL to STATIC
             if (m_character == CharacterType.Cat)
                 //Character Cat!!
                 SetAnimation(TRIGGER_JUMP);
@@ -229,10 +241,6 @@ public class BodyCharacter : MonoBehaviour, IBodyPhysic
                 //Move from BLOCK NORMAL to BLOCK SLIP!!
                 SetAnimation(TRIGGER_JUMP);
             else
-            if (To.GetTag(KeyTag.Bullet))
-                //Move from BLOCK NORMAL to OBJECT BULLET!!
-                SetAnimation(TRIGGER_JUMP);
-            else
                 //Move from BLOCK NORMAL to BLOCK NORMAL!!
                 SetAnimation(TRIGGER_MOVE);
         }
@@ -242,6 +250,18 @@ public class BodyCharacter : MonoBehaviour, IBodyPhysic
     {
         m_animator.SetLayerWeight(INDEX_ACTION, 0);
         //
+        //STAND on not STATIC
+        BodyPhysic OnBodyPhysic = On.GetComponent<BodyPhysic>();
+        if (OnBodyPhysic != null)
+        {
+            if (!OnBodyPhysic.Static)
+            {
+                SetAnimation(TRIGGER_JUMP);
+                return;
+            }
+        }
+        //
+        //STAND on STATIC
         if (On == null)
             //Stand on NONE BLOCK!!
             SetAnimation(TRIGGER_JUMP);
