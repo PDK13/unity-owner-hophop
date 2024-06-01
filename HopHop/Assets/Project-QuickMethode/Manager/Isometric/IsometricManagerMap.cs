@@ -257,7 +257,7 @@ public class IsometricManagerMap
             //Replace Identity of Block
             if (!string.IsNullOrEmpty(Block.Identity))
                 Debug.LogFormat("Block {0} with identity {1} replaced with {2}", Block.Name, Block.Identity, BlockIdentity);
-            Block.Identity = BlockIdentity;
+            Block.SetIdentity(BlockIdentity, false);
         }
 
         if (!string.IsNullOrEmpty(Block.Identity))
@@ -314,7 +314,7 @@ public class IsometricManagerMap
             //Replace Identity of Block
             if (!string.IsNullOrEmpty(Block.Identity))
                 Debug.LogFormat("Block {0} with identity {1} replaced with {2}", Block.Name, Block.Identity, BlockIdentity);
-            Block.Identity = BlockIdentity;
+            Block.SetIdentity(BlockIdentity, false);
         }
 
         if (!string.IsNullOrEmpty(Block.Identity))

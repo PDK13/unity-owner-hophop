@@ -18,10 +18,11 @@ MonoBehaviour:
   - Wait: 1
     Dialogue: {fileID: 0}
     Command:
-    - character-player-frog
-    - move-player-u-1
-    - move-player-r-3
-    - move-player-d-2
+    - character/player/frog
+    - move/player/U/1
+    - move/player/R/3
+    - move/player/D/2
+    - spawm/Light Bunny/[2;-2;0]/npc
     Choice: []
   - Wait: 0
     Dialogue: {fileID: 11400000, guid: 10e5891919df3e34cbadfee85b0c945a, type: 2}

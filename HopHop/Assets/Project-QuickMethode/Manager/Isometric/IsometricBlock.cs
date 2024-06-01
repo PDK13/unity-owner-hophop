@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
+
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -66,7 +68,14 @@ public class IsometricBlock : MonoBehaviour
 
     public string Name => !string.IsNullOrEmpty(m_name) ? m_name : QGameObject.GetNameReplaceClone(name);
 
-    public string Identity { get => m_identity; set => m_identity = m_worldManager.World.Current.SetBlockUpdateIdentity(this, value); }
+    public string Identity => m_identity;
+
+    public void SetIdentity(string Identity, bool UpdateToManager = true)
+    {
+        m_identity = Identity;
+        if (UpdateToManager)
+            m_worldManager.World.Current.SetBlockUpdateIdentity(this, Identity);
+    }
 
     public List<string> Tag => m_tag;
 

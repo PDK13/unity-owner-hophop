@@ -147,19 +147,19 @@ public class EventManager : SingletonManager<EventManager>, ITurnManager
     {
         foreach (string DataCheck in Data)
         {
-            List<string> DataRead = QEncypt.GetDencyptString('-', DataCheck);
+            List<string> DataRead = QEncypt.GetDencyptString('/', DataCheck);
             switch (DataRead[0])
             {
                 case KeyCommand.Spawm:
-                    //spawm-[BlockName]-[X]-[Y]-[H]-[BlockIdentity]
+                    //spawm/[BlockName]/[X;Y;H]/[BlockIdentity]
                     SetEventCommandSpawm(DataRead.ToArray());
                     break;
                 case KeyCommand.Move:
-                    //move-[BlockIdentity]-[Dir]-[Length]
+                    //move/[BlockIdentity]/[Dir]/[Length]
                     SetEventCommandMove(DataRead.ToArray());
                     break;
                 case KeyCommand.Character:
-                    //character-[BlockIdentity]-[CharacterName]-[SkinIndex]
+                    //character/[BlockIdentity]/[CharacterName]/[SkinIndex]
                     SetEventCommandCharacter(DataRead.ToArray());
                     break;
             }
@@ -168,29 +168,27 @@ public class EventManager : SingletonManager<EventManager>, ITurnManager
 
     private void SetEventCommandSpawm(string[] DataRead)
     {
-        //spawm-[BlockName]-[X]-[Y]-[H]-[BlockIdentity]
+        //spawm/[BlockName]/[X;Y;H]/[BlockIdentity]
         string BlockName = DataRead[1];
-        int X = int.Parse(DataRead[2]);
-        int Y = int.Parse(DataRead[3]);
-        int H = int.Parse(DataRead[4]);
-        string BlockIdentity = DataRead.Length > 5 ? DataRead[5] : "";
-        IsometricManager.Instance.World.Current.SetBlockCreate(new IsometricVector(X, Y, H), IsometricManager.Instance.List.GetList(BlockName), false, BlockIdentity);
+        IsometricVector Pos = IsometricVector.GetDencypt(DataRead[2]);
+        string BlockIdentity = DataRead.Length > 3 ? DataRead[3] : "";
+        IsometricManager.Instance.World.Current.SetBlockCreate(Pos, IsometricManager.Instance.List.GetList(BlockName), false, BlockIdentity);
     }
 
     private void SetEventCommandMove(string[] DataRead)
     {
-        //move-[BlockIdentity]-[Dir]-[Length]
+        //move/[BlockIdentity]/[Dir]/[Length]
         string BlockIdentity = DataRead[1];
         IsometricVector Dir = IsometricVector.GetDirDeEncypt(DataRead[2]);
         int Length = int.Parse(DataRead[3]);
         IsometricBlock Block = IsometricManager.Instance.World.Current.GetBlockByIdentity(BlockIdentity)[0];
-        for (int j = 0; j < Length; j++)
+        for (int i = 0; i < Length; i++)
             Block.GetComponent<IBodyCommand>().ISetCommandMove(Dir);
     }
 
     private void SetEventCommandCharacter(string[] DataRead)
     {
-        //character-[BlockIdentity]-[CharacterName]-[SkinIndex]
+        //character/[BlockIdentity]/[CharacterName]/[SkinIndex]
         string BlockIdentity = DataRead[1];
         string CharacterName = DataRead[2];
         int SkinIndex = DataRead.Length > 3 ? int.Parse(DataRead[3]) : 0;
