@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInteractive, IBodyCommand
 {
+    public const string IDENTITY = "player";
+
     #region Move
 
     private int m_moveStepCurrent = 0;
@@ -55,8 +57,6 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
 
     private void Start()
     {
-        WorldManager.Instance.Player = m_block;
-
         CharacterManager.Instance.onCharacter += OnCharacter;
 
         TurnManager.Instance.SetInit(Step, this);

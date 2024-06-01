@@ -9,8 +9,13 @@ public class IsometricBlock : MonoBehaviour
 {
     #region Block Manager
 
+    [Tooltip("Name of Block that will be saved in file")]
     [SerializeField] private string m_name = "";
+
+    [Tooltip("Block's special identification that can be used to quick get")]
     [SerializeField] private string m_identity = "";
+
+    [Tooltip("Block's special tag that can be used to quick check")]
     [SerializeField] private List<string> m_tag = new List<string>();
 
     #endregion
@@ -61,7 +66,7 @@ public class IsometricBlock : MonoBehaviour
 
     public string Name => !string.IsNullOrEmpty(m_name) ? m_name : QGameObject.GetNameReplaceClone(name);
 
-    public string Identity { get => m_identity; set => m_identity = value; }
+    public string Identity { get => m_identity; set => m_identity = m_worldManager.World.Current.SetBlockUpdateIdentity(this, value); }
 
     public List<string> Tag => m_tag;
 
@@ -228,6 +233,7 @@ public class IsometricBlockEditor : Editor
     private IsometricBlock m_target;
 
     private SerializedProperty m_name;
+    private SerializedProperty m_identity;
     private SerializedProperty m_tag;
 
     private SerializedProperty m_posType;
@@ -242,6 +248,7 @@ public class IsometricBlockEditor : Editor
         m_target = target as IsometricBlock;
         //
         m_name = QUnityEditorCustom.GetField(this, "m_name");
+        m_identity = QUnityEditorCustom.GetField(this, "m_identity");
         m_tag = QUnityEditorCustom.GetField(this, "m_tag");
 
         m_posType = QUnityEditorCustom.GetField(this, "m_posType");
@@ -257,6 +264,7 @@ public class IsometricBlockEditor : Editor
         QUnityEditorCustom.SetUpdate(this);
         //
         QUnityEditorCustom.SetField(m_name);
+        QUnityEditorCustom.SetField(m_identity);
         QUnityEditorCustom.SetField(m_tag);
 
         QUnityEditorCustom.SetField(m_posType);

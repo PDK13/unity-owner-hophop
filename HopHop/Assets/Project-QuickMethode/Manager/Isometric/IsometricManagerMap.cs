@@ -45,7 +45,7 @@ public class IsometricManagerMap
     {
         if (Manager == null)
         {
-            Debug.Log("[Isometric] Manager can't be null!");
+            Debug.Log("Manager can't be null!");
             return;
         }
         m_manager = Manager;
@@ -254,12 +254,19 @@ public class IsometricManagerMap
         //Identity
         if (!string.IsNullOrEmpty(BlockIdentity))
         {
+            //Replace Identity of Block
+            if (!string.IsNullOrEmpty(Block.Identity))
+                Debug.LogFormat("Block {0} with identity {1} replaced with {2}", Block.Name, Block.Identity, BlockIdentity);
             Block.Identity = BlockIdentity;
-            //
-            int IdentityIndex = GetWorldIndexIdentity(BlockIdentity);
+        }
+
+        if (!string.IsNullOrEmpty(Block.Identity))
+        {
+            //Add Identity of Block to list
+            int IdentityIndex = GetWorldIndexIdentity(Block.Identity);
             if (IdentityIndex == -1)
             {
-                Identity.Add(new IsometricDataRoomIdentity("", new List<IsometricBlock>()));
+                Identity.Add(new IsometricDataRoomIdentity(Block.Identity, new List<IsometricBlock>()));
                 IdentityIndex = Identity.Count - 1;
                 Identity[IdentityIndex].Block.Add(Block);
             }
@@ -282,6 +289,51 @@ public class IsometricManagerMap
         }
 
         return Block;
+    }
+
+    #endregion
+
+    #region Block Update
+
+    public string SetBlockUpdateIdentity(IsometricBlock Block, string BlockIdentity)
+    {
+        if (!string.IsNullOrEmpty(Block.Identity))
+        {
+            //Remove Block out of Identity list
+            int IdentityIndex = GetWorldIndexIdentity(Block.Identity);
+            if (IdentityIndex != -1)
+            {
+                Identity[IdentityIndex].Block.Remove(Block);
+                if (Identity[IdentityIndex].Block.Count == 0)
+                    Identity.RemoveAt(IdentityIndex);
+            }
+        }
+
+        if (!string.IsNullOrEmpty(BlockIdentity))
+        {
+            //Replace Identity of Block
+            if (!string.IsNullOrEmpty(Block.Identity))
+                Debug.LogFormat("Block {0} with identity {1} replaced with {2}", Block.Name, Block.Identity, BlockIdentity);
+            Block.Identity = BlockIdentity;
+        }
+
+        if (!string.IsNullOrEmpty(Block.Identity))
+        {
+            //Add Identity of Block to list
+            int IdentityIndex = GetWorldIndexIdentity(Block.Identity);
+            if (IdentityIndex == -1)
+            {
+                Identity.Add(new IsometricDataRoomIdentity(Block.Identity, new List<IsometricBlock>()));
+                IdentityIndex = Identity.Count - 1;
+                Identity[IdentityIndex].Block.Add(Block);
+            }
+            else
+            {
+                Identity[IdentityIndex].Block.Add(Block);
+            }
+        }
+
+        return BlockIdentity;
     }
 
     #endregion
@@ -597,7 +649,7 @@ public class IsometricManagerMap
     {
         if (m_root == null)
         {
-            Debug.LogFormat("[Isometric] Room not exist for excute command!");
+            Debug.LogFormat("Room not exist for excute command!");
             return;
         }
         //
@@ -744,11 +796,13 @@ public class IsometricManagerMap
 
     #region World Progess
 
+    //World
+
     private int GetWorldIndexPosH(int PosH)
     {
         if (m_root == null)
         {
-            Debug.LogFormat("[Isometric] Room not exist for excute command!");
+            Debug.LogFormat("Room not exist for excute command!");
             return 0;
         }
         //
@@ -768,18 +822,33 @@ public class IsometricManagerMap
     {
         if (m_root == null)
         {
-            Debug.LogFormat("[Isometric] Room not exist for excute command!");
+            Debug.LogFormat("Room not exist for excute command!");
             return "";
         }
         //
         return Pos.HInt.ToString();
     }
 
+    public void SetWorldIndexPosHOrder()
+    {
+        if (m_root == null)
+        {
+            Debug.LogFormat("Room not exist for excute command!");
+            return;
+        }
+        //
+        PosH = PosH.OrderByDescending(h => h.PosH).ToList();
+        for (int i = 0; i < PosH.Count; i++)
+            PosH[i] = new IsometricDataRoomPosH(PosH[i].PosH, PosH[i].Block.OrderByDescending(a => a.Pos.X).OrderByDescending(b => b.Pos.Y).ToList());
+    }
+
+    //Tag
+
     private int GetWorldIndexTag(string Tag)
     {
         if (m_root == null)
         {
-            Debug.LogFormat("[Isometric] Room not exist for excute command!");
+            Debug.LogFormat("Room not exist for excute command!");
             return 0;
         }
         //
@@ -792,11 +861,13 @@ public class IsometricManagerMap
         return -1;
     }
 
+    //Identity
+
     private int GetWorldIndexIdentity(string Identity)
     {
         if (m_root == null)
         {
-            Debug.LogFormat("[Isometric] Room not exist for excute command!");
+            Debug.LogFormat("Room not exist for excute command!");
             return 0;
         }
         //
@@ -809,19 +880,6 @@ public class IsometricManagerMap
         return -1;
     }
 
-    public void SetWorldOrder()
-    {
-        if (m_root == null)
-        {
-            Debug.LogFormat("[Isometric] Room not exist for excute command!");
-            return;
-        }
-        //
-        PosH = PosH.OrderByDescending(h => h.PosH).ToList();
-        for (int i = 0; i < PosH.Count; i++)
-            PosH[i] = new IsometricDataRoomPosH(PosH[i].PosH, PosH[i].Block.OrderByDescending(a => a.Pos.X).OrderByDescending(b => b.Pos.Y).ToList());
-    }
-
     #endregion
 
     #endregion
@@ -832,7 +890,7 @@ public class IsometricManagerMap
     {
         if (m_root == null)
         {
-            Debug.LogFormat("[Isometric] Room not exist for excute command!");
+            Debug.LogFormat("Room not exist for excute command!");
             return false;
         }
         //
@@ -868,7 +926,7 @@ public class IsometricManagerMap
     {
         if (m_root == null)
         {
-            Debug.LogFormat("[Isometric] Room not exist for excute command!");
+            Debug.LogFormat("Room not exist for excute command!");
             return;
         }
         //

@@ -49,7 +49,7 @@ public class IsometricManagerWorld
     {
         if (Manager == null)
         {
-            Debug.Log("[Isometric] Manager can't be null!");
+            Debug.Log("Manager can't be null!");
             return;
         }
         m_manager = Manager;

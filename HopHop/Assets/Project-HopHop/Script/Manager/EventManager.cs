@@ -65,7 +65,7 @@ public class EventManager : SingletonManager<EventManager>, ITurnManager
 
     public void ISetTurn(int Step) { }
 
-    //
+    //Event
 
     public bool SetEventActive(string Identity)
     {
@@ -134,38 +134,71 @@ public class EventManager : SingletonManager<EventManager>, ITurnManager
         m_iSetEventActive = null;
     }
 
+    //Event - Dialogue
+
     private void SetEventDialogue(DialogueConfigSingle Data)
     {
         DialogueManager.Instance.SetStart(Data);
     }
+
+    //Event - Command
 
     private void SetEventCommand(List<string> Data)
     {
         foreach (string DataCheck in Data)
         {
             List<string> DataRead = QEncypt.GetDencyptString('-', DataCheck);
-            switch (DataRead[COMMAND_IDENTITY])
+            switch (DataRead[0])
             {
-                case KeyCommand.Player:
-                    switch (DataRead[COMMAND_EXCUTE])
-                    {
-                        case KeyCommand.Character:
-                            //player-character-[Character]
-                            WorldManager.Instance.Player.GetComponent<BodyCharacter>().SetCharacter(DataRead[2], 0);
-                            break;
-                        case KeyCommand.Move:
-                            //player-move-[Dir]-[Length]
-                            for (int j = 0; j < int.Parse(DataRead[3]); j++)
-                                WorldManager.Instance.Player.GetComponent<IBodyCommand>().ISetCommandMove(IsometricVector.GetDirDeEncypt(DataRead[2]));
-                            break;
-                    }
+                case KeyCommand.Spawm:
+                    //spawm-[BlockName]-[X]-[Y]-[H]-[BlockIdentity]
+                    SetEventCommandSpawm(DataRead.ToArray());
                     break;
-                default:
-                    string Identity = DataRead[COMMAND_IDENTITY];
+                case KeyCommand.Move:
+                    //move-[BlockIdentity]-[Dir]-[Length]
+                    SetEventCommandMove(DataRead.ToArray());
                     break;
-            } //NOTE: First data check identity to excute command
+                case KeyCommand.Character:
+                    //character-[BlockIdentity]-[CharacterName]-[SkinIndex]
+                    SetEventCommandCharacter(DataRead.ToArray());
+                    break;
+            }
         }
     }
+
+    private void SetEventCommandSpawm(string[] DataRead)
+    {
+        //spawm-[BlockName]-[X]-[Y]-[H]-[BlockIdentity]
+        string BlockName = DataRead[1];
+        int X = int.Parse(DataRead[2]);
+        int Y = int.Parse(DataRead[3]);
+        int H = int.Parse(DataRead[4]);
+        string BlockIdentity = DataRead.Length > 5 ? DataRead[5] : "";
+        IsometricManager.Instance.World.Current.SetBlockCreate(new IsometricVector(X, Y, H), IsometricManager.Instance.List.GetList(BlockName), false, BlockIdentity);
+    }
+
+    private void SetEventCommandMove(string[] DataRead)
+    {
+        //move-[BlockIdentity]-[Dir]-[Length]
+        string BlockIdentity = DataRead[1];
+        IsometricVector Dir = IsometricVector.GetDirDeEncypt(DataRead[2]);
+        int Length = int.Parse(DataRead[3]);
+        IsometricBlock Block = IsometricManager.Instance.World.Current.GetBlockByIdentity(BlockIdentity)[0];
+        for (int j = 0; j < Length; j++)
+            Block.GetComponent<IBodyCommand>().ISetCommandMove(Dir);
+    }
+
+    private void SetEventCommandCharacter(string[] DataRead)
+    {
+        //character-[BlockIdentity]-[CharacterName]-[SkinIndex]
+        string BlockIdentity = DataRead[1];
+        string CharacterName = DataRead[2];
+        int SkinIndex = DataRead.Length > 3 ? int.Parse(DataRead[3]) : 0;
+        IsometricBlock Block = IsometricManager.Instance.World.Current.GetBlockByIdentity(BlockIdentity)[0];
+        Block.GetComponent<BodyCharacter>().SetCharacter(CharacterName, SkinIndex);
+    }
+
+    //Event - Choice
 
     private void SetEventChoice(List<OptionalConfigSingle> Data)
     {

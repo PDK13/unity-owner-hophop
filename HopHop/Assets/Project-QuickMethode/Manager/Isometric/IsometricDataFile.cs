@@ -35,7 +35,7 @@ public class IsometricDataFile
 
     private static void SetFileWrite(IsometricManager Manager, QDataFile FileIO)
     {
-        Manager.World.Current.SetWorldOrder();
+        Manager.World.Current.SetWorldIndexPosHOrder();
         //
         List<IsometricDataFileBlock> WorldBlocks = new List<IsometricDataFileBlock>();
         for (int i = 0; i < Manager.World.Current.PosH.Count; i++)
