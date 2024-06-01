@@ -252,7 +252,8 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyStatic, IBodyFol
         //
         m_block = QComponent.GetComponent<IsometricBlock>(this);
         IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
-        BlockInit.SetValue(KeyInit.GetKey(KeyInit.Key.FollowIdentityBase) + m_block.Pos.ToString());
+        string Identity = !string.IsNullOrEmpty(m_block.Identity) ? m_block.Identity : m_block.Pos.ToString();
+        BlockInit.SetValue(KeyInit.GetKey(KeyInit.Key.FollowIdentityBase) + Identity);
     }
 
     //
@@ -262,7 +263,8 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyStatic, IBodyFol
         SetEditorFollowIdentityRemove();
         //
         IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
-        BlockInit.SetValue(KeyInit.GetKey(KeyInit.Key.FollowIdentityCheck) + BlockFollow.Pos.ToString());
+        string Identity = !string.IsNullOrEmpty(BlockFollow.Identity) ? BlockFollow.Identity : BlockFollow.Pos.ToString();
+        BlockInit.SetValue(KeyInit.GetKey(KeyInit.Key.FollowIdentityCheck) + Identity);
     }
 
     //

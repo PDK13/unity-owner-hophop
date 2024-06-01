@@ -48,21 +48,24 @@ Object Flower Blue 0
 
 [1;1;0]
 Object Switch Stone 0 0
+BLOCK-IDENTITY
+switch1
 #BLOCK-INIT
 4
-switch-identity-check-[-1,1,0]
 switch-identity-check-[-1,-1,0]
-switch-identity-base-[1,1,0]
 switch-identity-check-[1,-1,-1]
+switch-identity-base-switch1
+switch-identity-check-[-1,1,0]
 #BLOCK-END
 
 [-1;1;0]
 Object Switch Stone 0 1
 #BLOCK-INIT
-3
+4
 switch-identity-check-[1,-1,-1]
-switch-identity-base-[-1,1,0]
 switch-identity-check-[1,1,0]
+switch-identity-check-switch1
+switch-identity-base-[-1,1,0]
 #BLOCK-END
 
 [-3;1;0]
@@ -75,6 +78,8 @@ Object Flower Blue 0
 
 [0;0;0]
 Player Angle
+BLOCK-IDENTITY
+player
 #BLOCK-END
 
 [-3;0;0]

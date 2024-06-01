@@ -172,7 +172,8 @@ public class BodyInteractiveSwitch : MonoBehaviour, IBodyInteractive, IBodySwitc
     {
         m_block = QComponent.GetComponent<IsometricBlock>(this);
         IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
-        BlockInit.SetValue(KeyInit.GetKey(KeyInit.Key.SwitchIdentityBase) + m_block.Pos.ToString());
+        string Identity = !string.IsNullOrEmpty(m_block.Identity) ? m_block.Identity : m_block.Pos.ToString();
+        BlockInit.SetValue(KeyInit.GetKey(KeyInit.Key.SwitchIdentityBase) + Identity);
     }
 
     public void SetEditorSwitchIdentityBaseRemove()
@@ -192,19 +193,22 @@ public class BodyInteractiveSwitch : MonoBehaviour, IBodyInteractive, IBodySwitc
     public void SetEditorSwitchIdentityCheck(IsometricBlock BlockFollow)
     {
         IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
-        BlockInit.SetValue(KeyInit.GetKey(KeyInit.Key.SwitchIdentityCheck) + BlockFollow.Pos.ToString());
+        string Identity = !string.IsNullOrEmpty(BlockFollow.Identity) ? BlockFollow.Identity : BlockFollow.Pos.ToString();
+        BlockInit.SetValue(KeyInit.GetKey(KeyInit.Key.SwitchIdentityCheck) + Identity);
     }
 
-    public void SetEditorSwitchIdentityCheckRemove(IsometricVector Pos)
+    public void SetEditorSwitchIdentityCheckRemove(IsometricBlock BlockFollow)
     {
         IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
-        BlockInit.Data.RemoveAll(t => t.Contains(KeyInit.GetKey(KeyInit.Key.SwitchIdentityCheck) + Pos.ToString()));
+        string BlockCheckIdentity = !string.IsNullOrEmpty(BlockFollow.Identity) ? BlockFollow.Identity : BlockFollow.Pos.ToString();
+        BlockInit.Data.RemoveAll(t => t.Contains(KeyInit.GetKey(KeyInit.Key.SwitchIdentityCheck) + BlockCheckIdentity));
     }
 
-    public bool GetEditorSwitchIdentityCheck(IsometricVector Pos)
+    public bool GetEditorSwitchIdentityCheck(IsometricBlock BlockFollow)
     {
         IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
-        return BlockInit.Data.Exists(t => t.Contains(KeyInit.GetKey(KeyInit.Key.SwitchIdentityCheck) + Pos.ToString()));
+        string BlockCheckIdentity = !string.IsNullOrEmpty(BlockFollow.Identity) ? BlockFollow.Identity : BlockFollow.Pos.ToString();
+        return BlockInit.Data.Exists(t => t.Contains(KeyInit.GetKey(KeyInit.Key.SwitchIdentityCheck) + BlockCheckIdentity));
     }
 
 #endif

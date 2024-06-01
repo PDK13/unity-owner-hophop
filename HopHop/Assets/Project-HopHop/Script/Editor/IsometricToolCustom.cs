@@ -135,7 +135,7 @@ public class IsometricToolCustom : IsometricTool
         QUnityEditor.SetHorizontalBegin();
         QUnityEditor.SetBackground(Color.white);
         QUnityEditor.SetLabel("SWITCH: ", QUnityEditor.GetGUIStyleLabel(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f));
-        bool CursonSwitchCheck = CursonSwitch.GetEditorSwitchIdentityCheck(BlockFocus.Pos);
+        bool CursonSwitchCheck = CursonSwitch.GetEditorSwitchIdentityCheck(BlockFocus);
         if (QUnityEditor.SetButton(!CursonSwitchCheck ? "[C] ADD [F]" : "[C] DEL [F]", QUnityEditor.GetGUIStyleButton(FontStyle.Normal, TextAnchor.MiddleCenter), QUnityEditorWindow.GetGUILayoutWidth(this, 0.25f)))
         {
             if (!CursonSwitchCheck)
@@ -144,7 +144,7 @@ public class IsometricToolCustom : IsometricTool
                 CursonSwitch.SetEditorSwitchIdentityCheck(BlockFocus);
             }
             else
-                CursonSwitch.SetEditorSwitchIdentityCheckRemove(BlockFocus.Pos);
+                CursonSwitch.SetEditorSwitchIdentityCheckRemove(BlockFocus);
         }
         bool CursonSwitchBase = CursonSwitch.GetEditorSwitchIdentityBase();
         if (CursonSwitchBase)
