@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using UnityEditor;
 #endif
 
-public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyStatic, IBodyFollow, IBodyCommand
+public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyStatic, IBodyMove, IBodyCommand
 {
     #region Action
 
@@ -42,7 +42,7 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyStatic, IBodyFol
 
     public bool State => m_switch != null ? m_switch.State : true;
 
-    public bool AvaibleSwitch => m_avaibleFollow;
+    public bool AvaibleFollow => m_avaibleFollow;
 
     private bool StepEnd => m_moveStepCurrent >= m_moveStep && m_moveStep > 0;
 
@@ -87,7 +87,7 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyStatic, IBodyFol
         }
 
         if (m_avaibleFollow)
-            onFollow += IFollowIdentity;
+            onFollow += IMoveIdentity;
     }
 
     protected void OnDestroy()
@@ -106,7 +106,7 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyStatic, IBodyFol
         }
         //
         if (m_avaibleFollow)
-            onFollow -= IFollowIdentity;
+            onFollow -= IMoveIdentity;
     }
 
     #region ITurnManager
@@ -164,7 +164,7 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyStatic, IBodyFol
     {
         m_body.SetMoveControl(Dir);
 
-        IFollow(Dir);
+        IMove(Dir);
 
         return true;
     }
@@ -214,9 +214,9 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyStatic, IBodyFol
 
     #endregion
 
-    #region IBodyFollow
+    #region IBodyMove
 
-    public void IFollow(IsometricVector Dir)
+    public void IMove(IsometricVector Dir)
     {
         if (string.IsNullOrEmpty(m_followIdentityBase) || Dir == IsometricVector.None)
             return;
@@ -224,7 +224,7 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyStatic, IBodyFol
         onFollow?.Invoke(m_followIdentityBase, Dir);
     }
 
-    public void IFollowIdentity(string Identity, IsometricVector Dir)
+    public void IMoveIdentity(string Identity, IsometricVector Dir)
     {
         if (string.IsNullOrEmpty(m_followIdentityCheck) || Identity != m_followIdentityCheck)
             return;
@@ -246,39 +246,47 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyStatic, IBodyFol
 
 #if UNITY_EDITOR
 
-    public void SetEditorFollowIdentityBase()
+    public void SetEditorMoveIdentityBase()
     {
-        SetEditorFollowIdentityRemove();
-        //
         m_block = QComponent.GetComponent<IsometricBlock>(this);
         IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
         string Identity = !string.IsNullOrEmpty(m_block.Identity) ? m_block.Identity : m_block.Pos.ToString();
         BlockInit.SetValue(KeyInit.GetKey(KeyInit.Key.FollowIdentityBase) + Identity);
     }
 
+    public void SetEditorMoveIdentityBaseRemove()
+    {
+        IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
+        BlockInit.Data.RemoveAll(t => t.Contains(KeyInit.GetKey(KeyInit.Key.FollowIdentityBase)));
+    }
+
+    public bool GetEditorMoveIdentityBase()
+    {
+        IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
+        return BlockInit.Data.Exists(t => t.Contains(KeyInit.GetKey(KeyInit.Key.FollowIdentityBase)));
+    }
+
     //
 
-    public void SetEditorFollowIdentityCheck(IsometricBlock BlockFollow)
+    public void SetEditorMoveIdentityCheck(IsometricBlock BlockFollow)
     {
-        SetEditorFollowIdentityRemove();
-        //
         IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
         string Identity = !string.IsNullOrEmpty(BlockFollow.Identity) ? BlockFollow.Identity : BlockFollow.Pos.ToString();
         BlockInit.SetValue(KeyInit.GetKey(KeyInit.Key.FollowIdentityCheck) + Identity);
     }
 
-    //
-
-    public void SetEditorFollowIdentityRemove()
+    public void SetEditorMoveIdentityCheckRemove(IsometricBlock BlockFollow)
     {
         IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
-        BlockInit.Data.RemoveAll(t => t.Contains(KeyInit.GetKey(KeyInit.Key.FollowIdentityBase)) || t.Contains(KeyInit.GetKey(KeyInit.Key.FollowIdentityCheck)));
+        string BlockCheckIdentity = !string.IsNullOrEmpty(BlockFollow.Identity) ? BlockFollow.Identity : BlockFollow.Pos.ToString();
+        BlockInit.Data.RemoveAll(t => t.Contains(KeyInit.GetKey(KeyInit.Key.FollowIdentityCheck) + BlockCheckIdentity));
     }
 
-    public bool GetEditorFollowIdentity()
+    public bool GetEditorMoveIdentityCheck(IsometricBlock BlockFollow)
     {
         IsometricDataInit BlockInit = QComponent.GetComponent<IsometricDataInit>(this);
-        return BlockInit.Data.Exists(t => t.Contains(KeyInit.GetKey(KeyInit.Key.FollowIdentityBase)) || t.Contains(KeyInit.GetKey(KeyInit.Key.FollowIdentityCheck)));
+        string BlockCheckIdentity = !string.IsNullOrEmpty(BlockFollow.Identity) ? BlockFollow.Identity : BlockFollow.Pos.ToString();
+        return BlockInit.Data.Exists(t => t.Contains(KeyInit.GetKey(KeyInit.Key.FollowIdentityCheck) + BlockCheckIdentity));
     }
 
 #endif
