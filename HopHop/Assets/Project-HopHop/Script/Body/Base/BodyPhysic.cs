@@ -265,7 +265,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
 
     #endregion
 
-    #region Push
+    #region Force
 
     public bool SetForceControl(IsometricVector Dir, IsometricVector From, bool Check = true)
     {

@@ -250,6 +250,13 @@ public class BodyCharacter : MonoBehaviour, IBodyPhysic
     {
         m_animator.SetLayerWeight(INDEX_ACTION, 0);
         //
+        if (On == null)
+        {
+            //Stand on NONE BLOCK!!
+            SetAnimation(TRIGGER_JUMP);
+            return;
+        }
+        //
         //STAND on not STATIC
         BodyPhysic OnBodyPhysic = On.GetComponent<BodyPhysic>();
         if (OnBodyPhysic != null)
@@ -262,11 +269,6 @@ public class BodyCharacter : MonoBehaviour, IBodyPhysic
         }
         //
         //STAND on STATIC
-        if (On == null)
-            //Stand on NONE BLOCK!!
-            SetAnimation(TRIGGER_JUMP);
-        //
-        else
         if (On.GetTag(KeyTag.Water))
             //Stand on WATER BLOCK!!
             SetAnimation(TRIGGER_SWIM);
