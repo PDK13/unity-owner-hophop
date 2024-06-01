@@ -10,6 +10,7 @@ public class IsometricBlock : MonoBehaviour
     #region Block Manager
 
     [SerializeField] private string m_name = "";
+    [SerializeField] private string m_identity = "";
     [SerializeField] private List<string> m_tag = new List<string>();
 
     #endregion
@@ -59,6 +60,8 @@ public class IsometricBlock : MonoBehaviour
     #region Block Manager
 
     public string Name => !string.IsNullOrEmpty(m_name) ? m_name : QGameObject.GetNameReplaceClone(name);
+
+    public string Identity { get => m_identity; set => m_identity = value; }
 
     public List<string> Tag => m_tag;
 

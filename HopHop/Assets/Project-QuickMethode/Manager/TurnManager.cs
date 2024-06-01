@@ -112,6 +112,7 @@ public class TurnManager : SingletonManager<TurnManager>
         }
     }
 
+    [Space]
     [SerializeField] private StepSingle m_stepCurrent;
     [SerializeField] private List<StepSingle> m_stepQueue = new List<StepSingle>();
 
@@ -648,12 +649,18 @@ public class GameTurnEditor : Editor
     private SerializedProperty m_delayTurn;
     private SerializedProperty m_delayStep;
 
+    private SerializedProperty m_stepCurrent;
+    private SerializedProperty m_stepQueue;
+
     private void OnEnable()
     {
         Target = target as TurnManager;
 
         m_delayTurn = QUnityEditorCustom.GetField(this, "m_delayTurn");
         m_delayStep = QUnityEditorCustom.GetField(this, "m_delayStep");
+
+        m_stepCurrent = QUnityEditorCustom.GetField(this, "m_stepCurrent");
+        m_stepQueue = QUnityEditorCustom.GetField(this, "m_stepQueue");
     }
 
     public override void OnInspectorGUI()
@@ -662,6 +669,11 @@ public class GameTurnEditor : Editor
 
         QUnityEditorCustom.SetField(m_delayTurn);
         QUnityEditorCustom.SetField(m_delayStep);
+
+        QUnityEditor.SetDisableGroupBegin(true);
+        QUnityEditorCustom.SetField(m_stepCurrent);
+        QUnityEditorCustom.SetField(m_stepQueue);
+        QUnityEditor.SetDisableGroupEnd();
 
         QUnityEditorCustom.SetApply(this);
     }

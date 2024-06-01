@@ -37,6 +37,7 @@ public class IsometricManagerMap
     public List<string> Command = new List<string>();
     public List<IsometricDataRoomPosH> PosH = new List<IsometricDataRoomPosH>();
     public List<IsometricDataRoomTag> Tag = new List<IsometricDataRoomTag>();
+    public List<IsometricDataRoomIdentity> Identity = new List<IsometricDataRoomIdentity>();
 
     public bool Emty => Tag == null ? true : Tag.Count == 0;
 
@@ -50,14 +51,55 @@ public class IsometricManagerMap
         m_manager = Manager;
     }
 
+    #region ======================================================================== Refresh
+
     public void SetRefresh()
     {
-        foreach (var Data in PosH)
-            Data.SetRefresh();
-        //
-        foreach (var Data in Tag)
-            Data.SetRefresh();
+        SetRefreshPosH();
+        SetRefreshTag();
+        SetRefreshIdentity();
     }
+
+    private void SetRefreshPosH()
+    {
+        int Index = 0;
+        while (Index < PosH.Count)
+        {
+            PosH[Index].SetRefresh();
+            if (PosH[Index].Block.Count == 0)
+                PosH.RemoveAt(Index);
+            else
+                Index++;
+        }
+    }
+
+    private void SetRefreshTag()
+    {
+        int Index = 0;
+        while (Index < Tag.Count)
+        {
+            Tag[Index].SetRefresh();
+            if (Tag[Index].Block.Count == 0)
+                Tag.RemoveAt(Index);
+            else
+                Index++;
+        }
+    }
+
+    private void SetRefreshIdentity()
+    {
+        int Index = 0;
+        while (Index < Identity.Count)
+        {
+            Identity[Index].SetRefresh();
+            if (Identity[Index].Block.Count == 0)
+                Identity.RemoveAt(Index);
+            else
+                Index++;
+        }
+    }
+
+    #endregion
 
     #region ======================================================================== Init
 
@@ -97,33 +139,33 @@ public class IsometricManagerMap
 
     #region Block Create
 
-    public IsometricBlock SetBlockCreate(IsometricVector Pos, GameObject BlockPrefab, bool CheckData)
+    public IsometricBlock SetBlockCreate(IsometricVector BlockPos, GameObject BlockPrefab, bool BlockLastData, string BlockIdentity = "")
     {
         if (BlockPrefab == null)
         {
-            Debug.LogWarningFormat("Block {0} not found!", Pos.Encypt);
+            Debug.LogWarningFormat("Block {0} not found!", BlockPos.Encypt);
             return null;
         }
-        //
+
         if (BlockPrefab.GetComponent<IsometricBlock>() == null)
         {
-            Debug.LogWarningFormat("Block {0} {1} not found IsometricBlock!", Pos.Encypt, BlockPrefab.name);
+            Debug.LogWarningFormat("Block {0} {1} not found IsometricBlock!", BlockPos.Encypt, BlockPrefab.name);
             return null;
         }
-        //
+
         //Create
         GameObject BlockObject = QGameObject.SetCreate(BlockPrefab);
-        //
+
         //Block
         IsometricBlock Block = QComponent.GetComponent<IsometricBlock>(BlockObject);
         Block.WorldManager = m_manager;
-        Block.Pos = Pos.Fixed;
-        Block.PosPrimary = Pos.Fixed;
-        //
+        Block.Pos = BlockPos.Fixed;
+        Block.PosPrimary = BlockPos.Fixed;
+
         //Data
-        if (CheckData)
+        if (BlockLastData)
         {
-            IsometricBlock BlockExist = GetBlockCurrent(Pos); //Check old Block exist in current Pos for save it's data to new Block!
+            IsometricBlock BlockExist = GetBlockCurrent(BlockPos); //Check old Block exist in current Pos for save it's data to new Block!
             if (BlockExist != null)
             {
                 foreach (var DataExist in BlockExist.GetComponents<IsometricDataInit>())
@@ -148,7 +190,7 @@ public class IsometricManagerMap
                 }
             }
         }
-        //
+
         //Remove
         if (Block.PosType == IsometricPosType.Free && Application.isPlaying)
         {
@@ -157,13 +199,13 @@ public class IsometricManagerMap
         else
         {
             //Delete
-            SetBlockRemovePrimary(Pos.Fixed);
+            SetBlockRemovePrimary(BlockPos.Fixed);
 
             //World
-            int IndexPosH = GetWorldIndexPosH(Pos.HInt);
+            int IndexPosH = GetWorldIndexPosH(BlockPos.HInt);
             if (IndexPosH == -1)
             {
-                PosH.Add(new IsometricDataRoomPosH(Pos.Fixed.HInt, new List<IsometricBlock>()));
+                PosH.Add(new IsometricDataRoomPosH(BlockPos.Fixed.HInt, new List<IsometricBlock>()));
                 IndexPosH = PosH.Count - 1;
                 PosH[IndexPosH].Block.Add(Block);
             }
@@ -209,15 +251,33 @@ public class IsometricManagerMap
             }
         }
 
+        //Identity
+        if (!string.IsNullOrEmpty(BlockIdentity))
+        {
+            Block.Identity = BlockIdentity;
+            //
+            int IdentityIndex = GetWorldIndexIdentity(BlockIdentity);
+            if (IdentityIndex == -1)
+            {
+                Identity.Add(new IsometricDataRoomIdentity("", new List<IsometricBlock>()));
+                IdentityIndex = Identity.Count - 1;
+                Identity[IdentityIndex].Block.Add(Block);
+            }
+            else
+            {
+                Identity[IdentityIndex].Block.Add(Block);
+            }
+        }
+
         //Scene
-        Transform ParentPosH = m_root.Find(GetWorldNamePosH(Pos.Fixed));
+        Transform ParentPosH = m_root.Find(GetWorldNamePosH(BlockPos.Fixed));
         if (ParentPosH != null)
         {
             Block.transform.SetParent(ParentPosH, true);
         }
         else
         {
-            ParentPosH = QGameObject.SetCreate(GetWorldNamePosH(Pos.Fixed), m_root).transform;
+            ParentPosH = QGameObject.SetCreate(GetWorldNamePosH(BlockPos.Fixed), m_root).transform;
             Block.transform.SetParent(ParentPosH, true);
         }
 
@@ -342,15 +402,23 @@ public class IsometricManagerMap
         return List;
     }
 
-    public List<IsometricBlock> GetBlockCurrentAll(string Tag)
+    public List<IsometricBlock> GetBlockByTag(string Tag)
     {
         foreach (IsometricDataRoomTag Check in this.Tag)
         {
             if (Check.Tag != Tag)
-            {
                 continue;
-            }
+            return Check.Block;
+        }
+        return null;
+    }
 
+    public List<IsometricBlock> GetBlockByIdentity(string Identity)
+    {
+        foreach (IsometricDataRoomIdentity Check in this.Identity)
+        {
+            if (Check.Identity != Identity)
+                continue;
             return Check.Block;
         }
         return null;
@@ -365,50 +433,46 @@ public class IsometricManagerMap
         //World
         int IndexPosH = GetWorldIndexPosH(Pos.Fixed.HInt);
         if (IndexPosH == -1)
-        {
             return;
-        }
 
         for (int i = 0; i < PosH[IndexPosH].Block.Count; i++)
         {
             if (PosH[IndexPosH].Block[i].PosPrimary != Pos.Fixed)
-            {
                 continue;
-            }
 
             IsometricBlock Block = PosH[IndexPosH].Block[i];
 
             //World
             PosH[IndexPosH].Block.Remove(Block);
             if (PosH[IndexPosH].Block.Count == 0)
-            {
                 PosH.RemoveAt(IndexPosH);
-            }
 
             //Tag
-            List<string> TagFind = Block.Tag;
-            foreach (string TagCheck in TagFind)
+            foreach (string TagCheck in Block.Tag)
             {
                 int TagIndex = GetWorldIndexTag(TagCheck);
                 if (TagIndex != -1)
                 {
                     Tag[TagIndex].Block.Remove(Block);
                     if (Tag[TagIndex].Block.Count == 0)
-                    {
                         Tag.RemoveAt(TagIndex);
-                    }
                 }
+            }
+
+            //Identity
+            int IdentityIndex = GetWorldIndexIdentity(Block.Identity);
+            if (IdentityIndex != -1)
+            {
+                Identity[IdentityIndex].Block.Remove(Block);
+                if (Identity[IdentityIndex].Block.Count == 0)
+                    Identity.RemoveAt(IdentityIndex);
             }
 
             //Scene
             if (Application.isEditor && !Application.isPlaying)
-            {
                 GameObject.DestroyImmediate(Block.gameObject);
-            }
             else
-            {
                 GameObject.Destroy(Block.gameObject, Delay);
-            }
 
             break;
         }
@@ -425,18 +489,29 @@ public class IsometricManagerMap
         //Tag
         foreach (string TagCheck in Block.Tag)
         {
-            Tag[GetWorldIndexTag(TagCheck)].Block.Remove(Block);
+            int TagIndex = GetWorldIndexTag(TagCheck);
+            if (TagIndex != -1)
+            {
+                Tag[TagIndex].Block.Remove(Block);
+                if (Tag[TagIndex].Block.Count == 0)
+                    Tag.RemoveAt(TagIndex);
+            }
+        }
+
+        //Identity
+        int IdentityIndex = GetWorldIndexIdentity(Block.Identity);
+        if (IdentityIndex != -1)
+        {
+            Identity[IdentityIndex].Block.Remove(Block);
+            if (Identity[IdentityIndex].Block.Count == 0)
+                Identity.RemoveAt(IdentityIndex);
         }
 
         //Scene
         if (Application.isEditor && !Application.isPlaying)
-        {
             GameObject.DestroyImmediate(Block.gameObject);
-        }
         else
-        {
             GameObject.Destroy(Block.gameObject, Delay);
-        }
     }
 
     #endregion
@@ -543,8 +618,7 @@ public class IsometricManagerMap
         }
 
         //Tag
-        List<string> TagFind = Block.GetComponent<IsometricBlock>().Tag;
-        foreach (string TagCheck in TagFind)
+        foreach (string TagCheck in Block.GetComponent<IsometricBlock>().Tag)
         {
             int TagIndex = GetWorldIndexTag(TagCheck);
             if (TagIndex == -1)
@@ -557,6 +631,19 @@ public class IsometricManagerMap
             {
                 Tag[TagIndex].Block.Add(Block);
             }
+        }
+
+        //Identity
+        int IdentityIndex = GetWorldIndexIdentity(Block.Identity);
+        if (IdentityIndex == -1)
+        {
+            Identity.Add(new IsometricDataRoomIdentity(Block.Identity));
+            IndexPosH = Identity.Count - 1;
+            Identity[IndexPosH].Block.Add(Block);
+        }
+        else
+        {
+            Identity[IdentityIndex].Block.Add(Block);
         }
 
         //Scene
@@ -578,29 +665,24 @@ public class IsometricManagerMap
 
     public void SetWorldRemove(bool Full = false)
     {
+        //PosH
         for (int i = PosH.Count - 1; i >= 0; i--)
         {
             for (int j = PosH[i].Block.Count - 1; j >= 0; j--)
             {
                 IsometricBlock Block = PosH[i].Block[j];
-
                 if (Block == null)
-                {
                     continue;
-                }
 
                 if (Application.isEditor && !Application.isPlaying)
-                {
                     GameObject.DestroyImmediate(Block.gameObject);
-                }
                 else
-                {
                     GameObject.Destroy(Block.gameObject);
-                }
             }
         }
         PosH.Clear();
 
+        //Tag
         for (int i = Tag.Count - 1; i >= 0; i--)
         {
             for (int j = Tag[i].Block.Count - 1; j >= 0; j--)
@@ -608,21 +690,33 @@ public class IsometricManagerMap
                 IsometricBlock Block = Tag[i].Block[j];
 
                 if (Block == null)
-                {
                     continue;
-                }
 
                 if (Application.isEditor && !Application.isPlaying)
-                {
                     GameObject.DestroyImmediate(Block.gameObject);
-                }
                 else
-                {
                     GameObject.Destroy(Block.gameObject);
-                }
             }
         }
         Tag.Clear();
+
+        //Identity
+        for (int i = Identity.Count - 1; i >= 0; i--)
+        {
+            for (int j = Identity[i].Block.Count - 1; j >= 0; j--)
+            {
+                IsometricBlock Block = Identity[i].Block[j];
+
+                if (Block == null)
+                    continue;
+
+                if (Application.isEditor && !Application.isPlaying)
+                    GameObject.DestroyImmediate(Block.gameObject);
+                else
+                    GameObject.Destroy(Block.gameObject);
+            }
+        }
+        Identity.Clear();
 
         if (Full)
         {
@@ -631,23 +725,15 @@ public class IsometricManagerMap
             {
 #if UNITY_EDITOR
                 if (m_root.GetChild(i).gameObject.name == NAME_CURSON)
-                {
                     continue;
-                }
 #endif
                 if (m_root.GetChild(i).GetComponent<Camera>() != null)
-                {
                     continue;
-                }
 
                 if (Application.isEditor && !Application.isPlaying)
-                {
                     GameObject.DestroyImmediate(m_root.GetChild(i).gameObject);
-                }
                 else
-                {
                     GameObject.Destroy(m_root.GetChild(i).gameObject);
-                }
             }
         }
 
@@ -678,6 +764,17 @@ public class IsometricManagerMap
         return -1;
     }
 
+    private string GetWorldNamePosH(IsometricVector Pos)
+    {
+        if (m_root == null)
+        {
+            Debug.LogFormat("[Isometric] Room not exist for excute command!");
+            return "";
+        }
+        //
+        return Pos.HInt.ToString();
+    }
+
     private int GetWorldIndexTag(string Tag)
     {
         if (m_root == null)
@@ -689,24 +786,27 @@ public class IsometricManagerMap
         for (int i = 0; i < this.Tag.Count; i++)
         {
             if (this.Tag[i].Tag != Tag)
-            {
                 continue;
-            }
-
             return i;
         }
         return -1;
     }
 
-    private string GetWorldNamePosH(IsometricVector Pos)
+    private int GetWorldIndexIdentity(string Identity)
     {
         if (m_root == null)
         {
             Debug.LogFormat("[Isometric] Room not exist for excute command!");
-            return "";
+            return 0;
         }
         //
-        return Pos.HInt.ToString();
+        for (int i = 0; i < this.Identity.Count; i++)
+        {
+            if (this.Identity[i].Identity != Identity)
+                continue;
+            return i;
+        }
+        return -1;
     }
 
     public void SetWorldOrder()
@@ -719,9 +819,7 @@ public class IsometricManagerMap
         //
         PosH = PosH.OrderByDescending(h => h.PosH).ToList();
         for (int i = 0; i < PosH.Count; i++)
-        {
             PosH[i] = new IsometricDataRoomPosH(PosH[i].PosH, PosH[i].Block.OrderByDescending(a => a.Pos.X).OrderByDescending(b => b.Pos.Y).ToList());
-        }
     }
 
     #endregion
@@ -813,7 +911,7 @@ public class IsometricDataRoomPosH
 
     public void SetRefresh()
     {
-        Block = Block.Where(x => x == null).ToList();
+        Block = Block.Where(x => x != null).ToList();
     }
 }
 
@@ -837,6 +935,30 @@ public class IsometricDataRoomTag
 
     public void SetRefresh()
     {
-        Block = Block.Where(x => x == null).ToList();
+        Block = Block.Where(x => x != null).ToList();
+    }
+}
+
+[Serializable]
+public class IsometricDataRoomIdentity
+{
+    public string Identity;
+    public List<IsometricBlock> Block;
+
+    public IsometricDataRoomIdentity(string Identity)
+    {
+        this.Identity = Identity;
+        Block = new List<IsometricBlock>();
+    }
+
+    public IsometricDataRoomIdentity(string Identity, List<IsometricBlock> Block)
+    {
+        this.Identity = Identity;
+        this.Block = Block;
+    }
+
+    public void SetRefresh()
+    {
+        Block = Block.Where(x => x != null).ToList();
     }
 }

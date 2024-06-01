@@ -1,0 +1,1 @@
+*.jam is a local file save for "https://www.figma.com/" website.

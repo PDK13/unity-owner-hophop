@@ -61,8 +61,8 @@ public class IsometricManagerWorld
     {
         m_map = m_map.Where(x => x.Root != null).ToList();
         //
-        foreach (IsometricManagerMap BlockSingle in m_map)
-            BlockSingle.SetRefresh();
+        foreach (IsometricManagerMap MapCheck in m_map)
+            MapCheck.SetRefresh();
         //
         for (int i = 0; i < m_manager.transform.childCount; i++)
             SetGenerate(m_manager.transform.GetChild(i));

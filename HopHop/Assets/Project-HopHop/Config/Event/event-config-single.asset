@@ -39,3 +39,7 @@ MonoBehaviour:
     Dialogue: {fileID: 11400000, guid: b2a7f19d7cea4954a934db10ad3ce791, type: 2}
     Command: []
     Choice: []
+  - Wait: 0
+    Dialogue: {fileID: 0}
+    Command: []
+    Choice: []
