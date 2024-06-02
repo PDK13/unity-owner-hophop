@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 
-public class KeyInit
+public class KeyInit : Key
 {
     public enum Key
     {
         None,
+        //Shoot
+        Shoot,
         //Follow
         FollowIdentityBase,
         FollowIdentityCheck,
@@ -22,6 +24,9 @@ public class KeyInit
     }
 
     public const string None = "";
+
+    //Shoot
+    public const string Shoot = "shoot"; //shoot-[spawm]-[move]-[speed]
 
     //Follow
     public const string FollowIdentityBase = "follow-identity-base-"; //follow-identity-base-[identity]
@@ -104,6 +109,9 @@ public class KeyInit
     {
         switch (Key)
         {
+            //Shoot
+            case Key.Shoot:
+                return Shoot;
             //Follow
             case Key.FollowIdentityBase:
                 return FollowIdentityBase;

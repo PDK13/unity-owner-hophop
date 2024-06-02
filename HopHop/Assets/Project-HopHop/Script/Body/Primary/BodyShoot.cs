@@ -135,7 +135,7 @@ public class BodyShoot : MonoBehaviour, ITurnManager, IBodyShoot
             //
             switch (Command[0])
             {
-                case KeyAction.Shoot:
+                case KeyInit.Shoot:
                     //shoot-[1]-[2]-[3]
                     IsometricVector DirSpawm = IsometricVector.GetDirDeEncypt(Command[1]);
                     IsometricVector DirMove = IsometricVector.GetDirDeEncypt(Command[2]);
@@ -163,7 +163,7 @@ public class BodyShoot : MonoBehaviour, ITurnManager, IBodyShoot
 
     public void SetEditorShoot()
     {
-        m_eShoot = string.Format("{0}-{1}-{2}-{3}", KeyAction.Shoot, IsometricVector.GetDirEncypt(m_eSpawm), IsometricVector.GetDirEncypt(m_eMove), m_eSpeed);
+        m_eShoot = string.Format("{0}-{1}-{2}-{3}", KeyInit.Shoot, IsometricVector.GetDirEncypt(m_eSpawm), IsometricVector.GetDirEncypt(m_eMove), m_eSpeed);
     }
 
 #endif
