@@ -3021,8 +3021,7 @@ MonoBehaviour:
       Block:
       - {fileID: 44393240911007880, guid: 73293198e4fd7674eb8d9f4f3b359032, type: 3}
       - {fileID: 44393240911007880, guid: bce713bc048be8346ba016e4e0517991, type: 3}
-      - {fileID: 44393240911007880, guid: 73293198e4fd7674eb8d9f4f3b359032, type: 3}
-      - {fileID: 44393240911007880, guid: bce713bc048be8346ba016e4e0517991, type: 3}
+      - {fileID: 44393240911007880, guid: 87e71768fec73194884b8808e7b01576, type: 3}
     - Tag: bullet
       Block:
       - {fileID: 1455909166595997230, guid: 740db2b1ad6f89045af8c08341d89a25, type: 3}

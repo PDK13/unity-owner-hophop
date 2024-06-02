@@ -123,7 +123,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88b51ca1839d85a47a182808b3636847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_name: Bubble Bullet 1
+  m_name: 
+  m_identity: 
   m_tag:
   - bullet
   m_posType: 1

@@ -1,43 +1,7 @@
 fileFormatVersion: 2
-guid: 85178faa3a43b81449c0de5bbe76d9d6
+guid: bcd6504012eafde4fbdc87c937f1e57c
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: 8872536175340932640
-    second: Flower-0
-  - first:
-      213: 6564256805693606832
-    second: Flower-1
-  - first:
-      213: 5076562754247326269
-    second: Flower-1
-  - first:
-      213: 4835222705502725497
-    second: Flower-3
-  - first:
-      213: -7444653750427353555
-    second: Flower-4
-  - first:
-      213: -1313644821966230370
-    second: Flower-5
-  - first:
-      213: 1803049937402167690
-    second: Flower-6
-  - first:
-      213: -8377902307653790248
-    second: Flower-7
-  - first:
-      213: -3718935884186333308
-    second: Flower-8
-  - first:
-      213: 1431954598142007494
-    second: Flower-9
-  - first:
-      213: 8008811652933460363
-    second: Flower-10
-  - first:
-      213: -4724088227300587123
-    second: Flower-11
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -56,11 +20,12 @@ TextureImporter:
     externalNormalMap: 0
     heightScale: 0.25
     normalMapFilter: 0
+    flipGreenChannel: 0
   isReadable: 1
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
-  ignoreMasterTextureLimit: 0
+  ignoreMipmapLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -74,7 +39,7 @@ TextureImporter:
     mipBias: 0
     wrapU: 1
     wrapV: 1
-    wrapW: 0
+    wrapW: 1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -99,7 +64,8 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
-  cookieLightType: 1
+  swizzle: 50462976
+  cookieLightType: 0
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -111,6 +77,7 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -118,47 +85,12 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: iPhone
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
@@ -166,18 +98,45 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: orange 0
+      name: green 0
       rect:
         serializedVersion: 2
         x: 0
@@ -191,14 +150,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d67c7c82101767b4491c31fae10f0d70
-      internalID: 1601151698
+      spriteID: fb449d287d999b0469e4ee23ffacbf97
+      internalID: 535279077
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: orange 1
+      name: green 1
       rect:
         serializedVersion: 2
         x: 128
@@ -212,14 +171,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: db2b9fa727764984b9e09b7c5af25730
-      internalID: -1464945343
+      spriteID: 21eb39675fb9ea14f96013a738bde85e
+      internalID: -1524033889
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: blue 0
+      name: green 2
       rect:
         serializedVersion: 2
         x: 256
@@ -233,14 +192,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8e1ac3a052e101d46b2ea17e2131e2af
-      internalID: 1927596961
+      spriteID: e71edc8741d37f645bf93df00d350146
+      internalID: -1345158877
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: blue 1
+      name: orange 0
       rect:
         serializedVersion: 2
         x: 384
@@ -254,8 +213,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b27e60fab0541c94999e1820b0191577
-      internalID: 2009489890
+      spriteID: da1422b32dfdc1c40974cd3b2a5a3e01
+      internalID: -1675213919
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: orange 1
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 128
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e75f03516e99f26418f4d0a6274d852f
+      internalID: -1458498049
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: orange 2
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 128
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e88fe15836b5d094bb623bdac53a980c
+      internalID: -1124972738
       vertices: []
       indices: 
       edges: []
@@ -275,8 +276,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 58cb2aadd8550974eb93c63022508a5e
-      internalID: 206563672
+      spriteID: 10713093eb8e5004083e15667ccb95de
+      internalID: -1550698772
       vertices: []
       indices: 
       edges: []
@@ -296,18 +297,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 715c1731b222a6f4499824977d7da705
-      internalID: 2059522003
+      spriteID: 0fc7680e24ec6b34e941749cc83c799a
+      internalID: 573214664
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: lotus 0
+      name: purple 2
       rect:
         serializedVersion: 2
         x: 256
-        y: 0
+        y: 1
         width: 128
         height: 128
       alignment: 0
@@ -317,14 +318,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0f704fe61e357784bbf5652874062440
-      internalID: 139641897
+      spriteID: 265f33eef7ed43f459f3d24c76230131
+      internalID: -1513452125
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: lotus 1
+      name: white 0
       rect:
         serializedVersion: 2
         x: 384
@@ -338,8 +339,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2c481a6d10e3be5429cb0e9c236cd91e
-      internalID: 1468707611
+      spriteID: 9a61202b8e43458459e6f4a958d24c73
+      internalID: 1789974489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white 1
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9479401f0a52a04885ce71915b776f9
+      internalID: -351080302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: white 2
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 0
+        width: 128
+        height: 128
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67b0bc9861ee1af418160447a84cdd3b
+      internalID: 1216886975
       vertices: []
       indices: 
       edges: []
@@ -355,17 +398,20 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      blue 0: 1927596961
-      blue 1: 2009489890
-      lotus 0: 139641897
-      lotus 1: 1468707611
-      orange 0: 1601151698
-      orange 1: -1464945343
-      purple 0: 206563672
-      purple 1: 2059522003
-  spritePackingTag: 
+      green 0: 535279077
+      green 1: -1524033889
+      green 2: -1345158877
+      orange 0: -1675213919
+      orange 1: -1458498049
+      orange 2: -1124972738
+      purple 0: -1550698772
+      purple 1: 573214664
+      purple 2: -1513452125
+      white 0: 1789974489
+      white 1: -351080302
+      white 2: 1216886975
+  mipmapLimitGroupName: 
   pSDRemoveMatte: 0
-  pSDShowRemoveMatteOption: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 

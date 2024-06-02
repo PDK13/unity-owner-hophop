@@ -28,10 +28,6 @@ MonoBehaviour:
       - {fileID: 44393240911007880, guid: 73293198e4fd7674eb8d9f4f3b359032, type: 3}
       - {fileID: 44393240911007880, guid: bce713bc048be8346ba016e4e0517991, type: 3}
       - {fileID: 1455909166595997230, guid: 218a42f8b9ed39b42a68cce7d36b4e7c, type: 3}
-    - Name: Move
-      Block:
-      - {fileID: 44393240911007880, guid: 73293198e4fd7674eb8d9f4f3b359032, type: 3}
-      - {fileID: 44393240911007880, guid: bce713bc048be8346ba016e4e0517991, type: 3}
     - Name: Bullet
       Block:
       - {fileID: 1455909166595997230, guid: 740db2b1ad6f89045af8c08341d89a25, type: 3}
@@ -77,6 +73,7 @@ MonoBehaviour:
       - {fileID: 44393240911007880, guid: 4d723acb8bc4b7243b9909ed90f662d3, type: 3}
       - {fileID: 44393240911007880, guid: 376da905a3745de44aa5758eacd1167d, type: 3}
       - {fileID: 44393240911007880, guid: 3a52f7adab0a0a546a53b79e1251424e, type: 3}
+      - {fileID: 44393240911007880, guid: 87e71768fec73194884b8808e7b01576, type: 3}
     - Name: Tree
       Block:
       - {fileID: 44393240911007880, guid: 8858c6ad8b5774e4faa517d88072b92d, type: 3}
