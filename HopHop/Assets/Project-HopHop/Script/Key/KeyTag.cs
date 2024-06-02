@@ -1,4 +1,4 @@
-public class KeyTag : Key
+public class KeyTag
 {
     public const string Player = "player";
     public const string Enermy = "enermy";

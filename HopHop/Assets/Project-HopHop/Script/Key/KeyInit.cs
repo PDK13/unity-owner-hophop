@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-public class KeyInit : Key
+public class KeyInit
 {
     public enum Key
     {
@@ -29,23 +29,23 @@ public class KeyInit : Key
     public const string Shoot = "shoot"; //shoot-[spawm]-[move]-[speed]
 
     //Follow
-    public const string FollowIdentityBase = "follow-identity-base-"; //follow-identity-base-[identity]
-    public const string FollowIdentityCheck = "follow-identity-check-"; //follow-identity-check-[identity]
+    public const string FollowIdentityBase = "follow-identity-base::"; //follow-identity-base::[identity]
+    public const string FollowIdentityCheck = "follow-identity-check::"; //follow-identity-check::[identity]
 
     //Switch
-    public const string SwitchIdentityBase = "switch-identity-base-"; //switch-identity-base-[identity]
-    public const string SwitchIdentityCheck = "switch-identity-check-"; //switch-identity-check-[identity]
+    public const string SwitchIdentityBase = "switch-identity-base::"; //switch-identity-base::[identity]
+    public const string SwitchIdentityCheck = "switch-identity-check::"; //switch-identity-check::[identity]
 
     //Move
-    public const string MoveCheckAheadSide = "move-check-ahead-side";
-    public const string MoveCheckAheadBot = "move-check-ahead-bot";
+    public const string MoveCheckAheadSide = "move-check-ahead-side::";
+    public const string MoveCheckAheadBot = "move-check-ahead-bot::";
 
     //Body
-    public const string BodyDynamic = "body-dynamic";
-    public const string BodyGarvity = "body-gravity";
+    public const string BodyDynamic = "body-dynamic::";
+    public const string BodyGarvity = "body-gravity::";
 
     //Event
-    public const string EventIdentityBase = "event-identity-base-"; //event-identity-base-[identity]
+    public const string EventIdentityBase = "event-identity-base::"; //event-identity-base::[identity]
 
     //
 

@@ -147,7 +147,7 @@ public class EventManager : SingletonManager<EventManager>, ITurnManager
     {
         foreach (string DataCheck in Data)
         {
-            List<string> DataRead = QString.GetUnSplitString('/', DataCheck);
+            List<string> DataRead = QString.GetUnSplitString("::", DataCheck);
             switch (DataRead[0])
             {
                 case KeyCommand.Spawm:

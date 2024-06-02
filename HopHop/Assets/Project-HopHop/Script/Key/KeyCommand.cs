@@ -1,4 +1,4 @@
-public class KeyCommand : Key
+public class KeyCommand
 {
     public const string Spawm = "spawm";
     public const string Move = "move";

@@ -18,7 +18,7 @@ MonoBehaviour:
   - Wait: 0
     Dialogue: {fileID: 11400000, guid: 8a2047ef21ea6124fb4c766256b492bb, type: 2}
     Command:
-    - character/player/cat
-    - move/player/L/2
-    - move/player/U/2
+    - character::player::cat
+    - move::player::L::2
+    - move::player::U::2
     Choice: []

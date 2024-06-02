@@ -67,20 +67,20 @@ BLOCK-IDENTITY
 switch1
 #BLOCK-INIT
 4
-switch-identity-check-[-1,-1,0]
-switch-identity-check-[1,-1,-1]
-switch-identity-base-switch1
-switch-identity-check-[-1,1,0]
+switch-identity-check::[-1,-1,0]
+switch-identity-check::[1,-1,-1]
+switch-identity-base::switch1
+switch-identity-check::[-1,1,0]
 #BLOCK-END
 
 [-1;1;0]
 Object Switch Stone 0 1
 #BLOCK-INIT
 4
-switch-identity-check-[1,-1,-1]
-switch-identity-check-[1,1,0]
-switch-identity-check-switch1
-switch-identity-base-[-1,1,0]
+switch-identity-check::[1,-1,-1]
+switch-identity-check::[1,1,0]
+switch-identity-check::switch1
+switch-identity-base::[-1,1,0]
 #BLOCK-END
 
 [-3;1;0]
@@ -109,11 +109,11 @@ Object Flower Blue 0
 Object Switch Stone 0 0
 #BLOCK-INIT
 5
-switch-identity-check-[1,-1,-1]
-follow-identity-check-[1,-1,-1]
-switch-identity-check-[-1,1,0]
-switch-identity-base-[-1,-1,0]
-switch-identity-check-[1,1,0]
+switch-identity-check::[1,-1,-1]
+follow-identity-check::[1,-1,-1]
+switch-identity-check::[-1,1,0]
+switch-identity-base::[-1,-1,0]
+switch-identity-check::[1,1,0]
 #BLOCK-END
 
 [-3;-1;0]
@@ -280,12 +280,12 @@ Block Normal 0
 Block Stone 0 0
 #BLOCK-INIT
 6
-switch-identity-base-[1,-1,-1]
-switch-identity-check-[1,1,0]
-switch-identity-check-[-1,1,0]
-switch-identity-check-[-1,-1,0]
-event-identity-base-event-config-single
-follow-identity-base-[1,-1,-1]
+switch-identity-base::[1,-1,-1]
+switch-identity-check::[1,1,0]
+switch-identity-check::[-1,1,0]
+switch-identity-check::[-1,-1,0]
+event-identity-base::event-config-single
+follow-identity-base::[1,-1,-1]
 #BLOCK-MOVE
 1
 2
@@ -297,14 +297,14 @@ follow-identity-base-[1,-1,-1]
 Block Stone 0
 #BLOCK-INIT
 1
-follow-identity-check-[1,-1,-1]
+follow-identity-check::[1,-1,-1]
 #BLOCK-END
 
 [-1;-1;-1]
 Block Stone 0
 #BLOCK-INIT
 1
-follow-identity-check-[1,-1,-1]
+follow-identity-check::[1,-1,-1]
 #BLOCK-END
 
 [-2;-1;-1]

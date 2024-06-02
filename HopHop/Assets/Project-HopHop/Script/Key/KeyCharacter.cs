@@ -1,4 +1,4 @@
-public class KeyCharacter : Key
+public class KeyCharacter
 {
     public const string Angel = "angel";
     public const string Devil = "devil";
