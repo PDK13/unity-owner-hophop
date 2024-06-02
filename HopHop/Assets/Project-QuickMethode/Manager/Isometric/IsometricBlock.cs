@@ -186,7 +186,8 @@ public class IsometricBlock : MonoBehaviour
 
         PosTransform += m_centre;
 
-        transform.position = PosTransform;
+        //transform.position = PosTransform;
+        transform.localPosition = PosTransform;
     }
 
     #endregion
