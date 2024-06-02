@@ -7,7 +7,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
 
     #region Move
 
-    private int m_moveStepCurrent = 0;
+    private int m_moveDurationCurrent = 0;
 
     private int m_fallStep = 0;
 
@@ -22,7 +22,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
     #region Command
 
     private List<IsometricVector> m_commandMove = new List<IsometricVector>();
-    private int m_commandMoveIndex = 0;
+    private int m_commandMoveCurrent = 0;
 
     #endregion
 
@@ -30,13 +30,13 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
 
     public StepType Step => StepType.Player;
 
-    private bool StepEnd => m_moveStepCurrent >= m_character.MoveStep && m_character.MoveStep > 0;
-
-    private bool StepCommandEnd => m_commandMoveIndex >= m_commandMove.Count;
+    public bool StepEnd => m_moveDurationCurrent >= m_character.MoveStep;
 
     private bool StepGravity => StepEnd || !m_character.MoveFloat ? m_body.SetGravityControl() : false;
 
     private bool StepForce => m_body.SetBottomControl();
+
+    public bool CommandEnd => m_commandMoveCurrent >= m_commandMove.Count - 1;
 
     #endregion
 
@@ -60,9 +60,10 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
         CharacterManager.Instance.onCharacter += OnCharacter;
 
         TurnManager.Instance.SetInit(Step, this);
-        TurnManager.Instance.onTurn += ISetTurn;
+        TurnManager.Instance.onTurnStart += ISetTurnStart;
         TurnManager.Instance.onStepStart += ISetStepStart;
         TurnManager.Instance.onStepEnd += ISetStepEnd;
+        TurnManager.Instance.onTurnEnd += ISetTurnEnd;
 
         m_body.onMove += IMove;
         m_body.onForce += IForce;
@@ -81,9 +82,10 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
         CharacterManager.Instance.onCharacter -= OnCharacter;
 
         TurnManager.Instance.SetRemove(Step, this);
-        TurnManager.Instance.onTurn -= ISetTurn;
+        TurnManager.Instance.onTurnStart -= ISetTurnStart;
         TurnManager.Instance.onStepStart -= ISetStepStart;
         TurnManager.Instance.onStepEnd -= ISetStepEnd;
+        TurnManager.Instance.onTurnEnd -= ISetTurnEnd;
 
         m_body.onMove -= IMove;
         m_body.onForce -= IForce;
@@ -198,20 +200,22 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
 
     #region ITurnManager
 
-    public void ISetTurn(int Turn) { }
+    public void ISetTurnStart(int Turn) { }
 
     public void ISetStepStart(string Step)
     {
         if (Step == StepType.EventCommand.ToString())
         {
-            if (!StepCommandEnd)
-                IControl(m_commandMove[m_commandMoveIndex]);
+            if (!CommandEnd)
+                IControl(m_commandMove[m_commandMoveCurrent]);
         }
         else
         if (Step == this.Step.ToString())
         {
             if (!m_body.SetMoveControlForce())
                 IControl();
+            else
+                TurnManager.Instance.SetEndStep(this.Step, this);
         }
     }
 
@@ -220,13 +224,13 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
         if (Step == StepType.EventCommand.ToString())
         {
             m_commandMove.Clear();
-            m_commandMoveIndex = 0;
+            m_commandMoveCurrent = 0;
         }
-        else
-        if (Step == this.Step.ToString())
-        {
-            m_moveStepCurrent = 0;
-        }
+    }
+
+    public void ISetTurnEnd(int Turn)
+    {
+        m_moveDurationCurrent = 0;
     }
 
     #endregion
@@ -281,63 +285,39 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
 
     public void IMove(bool State, IsometricVector Dir)
     {
-        if (TurnManager.Instance.StepCurrent.Step == StepType.EventCommand.ToString() && !StepCommandEnd)
+        if (TurnManager.Instance.StepCurrent.Step == StepType.EventCommand.ToString())
         {
             if (State)
             {
-                //...
+                m_commandMoveCurrent++;
             }
             else
             {
-                m_commandMoveIndex++;
-
-                if (StepCommandEnd)
+                if (CommandEnd)
                     TurnManager.Instance.SetEndStep(StepType.EventCommand, this);
                 else
                     TurnManager.Instance.SetEndMove(StepType.EventCommand, this);
             }
         }
         else
-        if (TurnManager.Instance.StepCurrent.Step == this.Step.ToString() && !StepEnd)
+        if (TurnManager.Instance.StepCurrent.Step == this.Step.ToString())
         {
             if (State)
             {
-
+                m_moveDurationCurrent++;
             }
             else
             {
-                m_moveStepCurrent++;
-
-                bool End = StepEnd;
-                bool Gravity = StepGravity;
-                bool Force = StepForce;
-                if (End || Gravity || Force)
-                {
-                    SetControlStage(false);
+                if (StepEnd || StepGravity || StepForce)
                     TurnManager.Instance.SetEndStep(Step, this);
-                }
                 else
                 {
                     TurnManager.Instance.SetEndMove(Step, this);
                     if (m_character.MoveLock)
-                    {
-                        SetControlStage(false);
                         IControl(m_body.MoveLastXY);
-                    }
                     else
-                    {
                         SetControlStage(true);
-                    }
                 }
-            }
-        }
-        else
-        {
-            if (!State)
-            {
-                //NOTE: Check end Step or Move of this when this Move out of owner Step
-                SetControlStage(false);
-                TurnManager.Instance.SetEndStep(Step, this);
             }
         }
     }

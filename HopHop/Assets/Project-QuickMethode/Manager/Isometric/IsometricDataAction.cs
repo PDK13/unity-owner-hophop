@@ -78,7 +78,7 @@ public class IsometricDataAction : MonoBehaviour
                     break;
                 case DataBlockType.Revert:
                     m_quantity *= -1;
-                    m_index += Quantity;
+                    m_index += m_quantity;
                     break;
             }
         }

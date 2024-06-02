@@ -58,7 +58,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
 
     #region ITurnManager
 
-    public void ISetTurn(int Turn)
+    public void ISetTurnStart(int Turn)
     {
         if (!GetBodyStatic(IsometricVector.Bot))
             SetGravityControl();
@@ -71,6 +71,8 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
     }
 
     public void ISetStepEnd(string Step) { }
+
+    public void ISetTurnEnd(int Turn) { }
 
     #endregion
 
@@ -92,15 +94,13 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
         if (Gravity)
             SetGravityControl(Dir);
 
+        onMove?.Invoke(true, Dir);
+
         Vector3 MoveDir = IsometricVector.GetDirVector(Dir);
         Vector3 MoveStart = IsometricVector.GetDirVector(m_block.Pos);
         Vector3 MoveEnd = IsometricVector.GetDirVector(m_block.Pos) + MoveDir;
         DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameManager.Instance.TimeMove)
             .SetEase(Ease.Linear)
-            .OnStart(() =>
-            {
-                onMove?.Invoke(true, Dir);
-            })
             .OnUpdate(() =>
             {
                 m_block.Pos = new IsometricVector(MoveEnd);
@@ -132,10 +132,6 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
         Vector3 MoveEnd = IsometricVector.GetDirVector(m_block.Pos) + MoveDir;
         DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameManager.Instance.TimeMove)
             .SetEase(Ease.Linear)
-            .OnStart(() =>
-            {
-                onMoveForce?.Invoke(true, m_moveForceXY.Value);
-            })
             .OnUpdate(() =>
             {
                 m_block.Pos = new IsometricVector(MoveEnd);
@@ -145,6 +141,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
                 onMoveForce?.Invoke(false, m_moveForceXY.Value);
                 m_moveForceXY = null;
             });
+        onMoveForce?.Invoke(true, m_moveForceXY.Value);
 
         return true;
     }
@@ -162,9 +159,10 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
             return false;
 
         TurnManager.Instance.SetAdd(StepType.Gravity, this);
-        TurnManager.Instance.onTurn += ISetTurn;
+        TurnManager.Instance.onTurnStart += ISetTurnStart;
         TurnManager.Instance.onStepStart += ISetStepStart;
         TurnManager.Instance.onStepEnd += ISetStepEnd;
+        TurnManager.Instance.onTurnEnd += ISetTurnEnd;
 
         return true;
     }
@@ -178,9 +176,10 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
             return false;
 
         TurnManager.Instance.SetAdd(StepType.Gravity, this);
-        TurnManager.Instance.onTurn += ISetTurn;
+        TurnManager.Instance.onTurnStart += ISetTurnStart;
         TurnManager.Instance.onStepStart += ISetStepStart;
         TurnManager.Instance.onStepEnd += ISetStepEnd;
+        TurnManager.Instance.onTurnEnd += ISetTurnEnd;
 
         return true;
     }
@@ -192,9 +191,10 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
             onGravity?.Invoke(false); //NOTE: Check if this Body can fall thought another Body?
 
             TurnManager.Instance.SetEndStep(StepType.Gravity, this);
-            TurnManager.Instance.onTurn -= ISetTurn;
+            TurnManager.Instance.onTurnStart -= ISetTurnStart;
             TurnManager.Instance.onStepStart -= ISetStepStart;
             TurnManager.Instance.onStepEnd -= ISetStepEnd;
+            TurnManager.Instance.onTurnEnd -= ISetTurnEnd;
 
             return;
         }
@@ -204,10 +204,6 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
         Vector3 MoveEnd = IsometricVector.GetDirVector(m_block.Pos.Fixed) + MoveDir;
         DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameManager.Instance.TimeMove)
             .SetEase(Ease.Linear)
-            .OnStart(() =>
-            {
-                onGravity?.Invoke(true);
-            })
             .OnUpdate(() =>
             {
                 m_block.Pos = new IsometricVector(MoveEnd);
@@ -216,6 +212,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
             {
                 SetGravity();
             });
+        onGravity?.Invoke(true);
     }
 
     #endregion
@@ -247,10 +244,6 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
         Vector3 MoveEnd = IsometricVector.GetDirVector(m_block.Pos.Fixed) + MoveDir;
         DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameManager.Instance.TimeMove)
             .SetEase(Ease.Linear)
-            .OnStart(() =>
-            {
-                onPush?.Invoke(true, Dir, From);
-            })
             .OnUpdate(() =>
             {
                 m_block.Pos = new IsometricVector(MoveEnd);
@@ -259,6 +252,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
             {
                 onPush?.Invoke(false, Dir, From);
             });
+        onPush?.Invoke(true, Dir, From);
 
         return true;
     }
@@ -280,10 +274,6 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
         Vector3 MoveEnd = IsometricVector.GetDirVector(m_block.Pos.Fixed) + MoveDir;
         DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameManager.Instance.TimeMove)
             .SetEase(Ease.Linear)
-            .OnStart(() =>
-            {
-                onForce?.Invoke(true, Dir, From);
-            })
             .OnUpdate(() =>
             {
                 m_block.Pos = new IsometricVector(MoveEnd);
@@ -292,6 +282,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
             {
                 onForce?.Invoke(false, Dir, From);
             });
+        onForce?.Invoke(true, Dir, From);
 
         return true;
     }

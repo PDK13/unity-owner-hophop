@@ -28,11 +28,13 @@ public class BodyStatic : MonoBehaviour, ITurnManager
 
     #region Turn
 
-    public void ISetTurn(int Turn) { }
+    public void ISetTurnStart(int Turn) { }
 
     public void ISetStepStart(string Step) { }
 
     public void ISetStepEnd(string Step) { }
+
+    public void ISetTurnEnd(int Turn) { }
 
     #endregion
 
@@ -45,10 +47,6 @@ public class BodyStatic : MonoBehaviour, ITurnManager
         Vector3 MoveEnd = IsometricVector.GetDirVector(m_block.Pos) + MoveDir * 1;
         DOTween.To(() => MoveStart, x => MoveEnd = x, MoveEnd, GameManager.Instance.TimeMove * 1)
             .SetEase(Ease.Linear)
-            .OnStart(() =>
-            {
-                onMove?.Invoke(true, Dir);
-            })
             .OnUpdate(() =>
             {
                 m_block.Pos = new IsometricVector(MoveEnd);
@@ -57,6 +55,7 @@ public class BodyStatic : MonoBehaviour, ITurnManager
             {
                 onMove?.Invoke(false, Dir);
             });
+        onMove?.Invoke(true, Dir);
 
         SetPush(Dir);
         SetTop(Dir);

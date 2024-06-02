@@ -59,11 +59,13 @@ public class EventManager : SingletonManager<EventManager>, ITurnManager
 
     //
 
+    public void ISetTurnStart(int Step) { }
+
     public void ISetStepEnd(string Step) { }
 
     public void ISetStepStart(string Step) { }
 
-    public void ISetTurn(int Step) { }
+    public void ISetTurnEnd(int Step) { }
 
     //Event
 

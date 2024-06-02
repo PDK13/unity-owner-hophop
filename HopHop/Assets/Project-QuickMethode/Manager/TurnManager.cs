@@ -13,9 +13,10 @@ public class TurnManager : SingletonManager<TurnManager>
 
     //Main events for every unit(s) and other progess(s)!
 
-    public Action<int> onTurn;              //Turn
+    public Action<int> onTurnStart;         //Turn
     public Action<string> onStepStart;      //Step
     public Action<string> onStepEnd;        //Step
+    public Action<int> onTurnEnd;         //Turn
 
     //Optionals event for every unit(s) and other progess(s)!
 
@@ -176,7 +177,7 @@ public class TurnManager : SingletonManager<TurnManager>
         StopAllCoroutines();
         StopAllCoroutines();
 
-        onTurn = null;
+        onTurnStart = null;
         onStepStart = null;
         onStepEnd = null;
         onStepAdd = null;
@@ -239,9 +240,14 @@ public class TurnManager : SingletonManager<TurnManager>
 
             DelayNewStep = false;
 
+            if (m_turnPass > 0)
+                onTurnEnd?.Invoke(m_turnPass);
+
+            yield return null;
+
             m_turnPass++;
 
-            onTurn?.Invoke(m_turnPass);
+            onTurnStart?.Invoke(m_turnPass);
 
             SetWait();
 
@@ -685,9 +691,11 @@ public class GameTurnEditor : Editor
 
 public interface ITurnManager
 {
-    void ISetTurn(int Step);
+    void ISetTurnStart(int Step);
 
     void ISetStepStart(string Step);
 
     void ISetStepEnd(string Step);
+
+    void ISetTurnEnd(int Step);
 }

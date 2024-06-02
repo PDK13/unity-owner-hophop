@@ -66,7 +66,7 @@ public class BodyInteractiveSwitch : MonoBehaviour, IBodyInteractive, IBodySwitc
         if (m_avaibleSwitch)
             onSwitch += ISwitchIdentity;
         //
-        TurnManager.Instance.onTurn += SetSwitchReset;
+        TurnManager.Instance.onTurnEnd += SetSwitchReset;
         //
         SetControlAnimation();
     }
@@ -76,7 +76,7 @@ public class BodyInteractiveSwitch : MonoBehaviour, IBodyInteractive, IBodySwitc
         if (m_avaibleSwitch)
             onSwitch -= ISwitchIdentity;
         //
-        TurnManager.Instance.onTurn -= SetSwitchReset;
+        TurnManager.Instance.onTurnEnd -= SetSwitchReset;
     }
 
     #region IBodySwitch

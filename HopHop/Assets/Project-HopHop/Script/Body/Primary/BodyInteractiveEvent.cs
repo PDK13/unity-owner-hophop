@@ -55,8 +55,10 @@ public class BodyInteractiveEvent : MonoBehaviour, IBodyInteractive, ITurnManage
 
         if (m_eventTop && EventAvaible)
         {
-            TurnManager.Instance.onTurn += ISetTurn;
+            TurnManager.Instance.onTurnStart += ISetTurnStart;
+            TurnManager.Instance.onStepStart += ISetStepStart;
             TurnManager.Instance.onStepEnd += ISetStepEnd;
+            TurnManager.Instance.onTurnEnd += ISetTurnEnd;
         }
     }
 
@@ -64,17 +66,16 @@ public class BodyInteractiveEvent : MonoBehaviour, IBodyInteractive, ITurnManage
     {
         if (m_eventTop && EventAvaible)
         {
-            TurnManager.Instance.onTurn -= ISetTurn;
+            TurnManager.Instance.onTurnStart -= ISetTurnStart;
+            TurnManager.Instance.onStepStart -= ISetStepStart;
             TurnManager.Instance.onStepEnd -= ISetStepEnd;
+            TurnManager.Instance.onTurnEnd -= ISetTurnEnd;
         }
     }
 
     #region ITurnManager
 
-    public void ISetTurn(int Step)
-    {
-        m_eventInteract.Clear();
-    }
+    public void ISetTurnStart(int Step) { }
 
     public void ISetStepStart(string Step) { }
 
@@ -90,7 +91,15 @@ public class BodyInteractiveEvent : MonoBehaviour, IBodyInteractive, ITurnManage
 
             if (BlockCheck.GetTag(KeyTag.Player))
                 IInteractive();
+            else
+            if (!m_eventPlayer)
+                IInteractive();
         }
+    }
+
+    public void ISetTurnEnd(int Step)
+    {
+        m_eventInteract.Clear();
     }
 
     #endregion
