@@ -87,7 +87,7 @@ public class QPath
             PathChild = new string[1] { "" };
         //
         foreach (string PathChildAdd in PathChild)
-            PathFinal = QEncypt.GetEncyptAdd('/', PathFinal, PathChildAdd);
+            PathFinal = QString.GetSplitAdd('/', PathFinal, PathChildAdd);
         //
         return PathFinal;
     }
@@ -139,7 +139,7 @@ public class QPath
     public static (bool Result, string Path, string Name) GetPathFolderOpenPanel(string Title, string PathPrimary = "")
     {
         string Path = EditorUtility.OpenFolderPanel(Title, (PathPrimary == "") ? GetPath(PathType.Assets) : PathPrimary, "");
-        List<string> PathDencypt = QEncypt.GetDencyptString('/', Path);
+        List<string> PathDencypt = QString.GetUnSplitString('/', Path);
         return (Path != "", Path, (PathDencypt.Count > 0) ? PathDencypt[PathDencypt.Count - 1] : "");
     }
 
@@ -147,7 +147,7 @@ public class QPath
     public static (bool Result, string Path, string Name) GetPathFileOpenPanel(string Title, string Extension, string PathPrimary = "")
     {
         string Path = EditorUtility.OpenFilePanel(Title, (PathPrimary == "") ? GetPath(PathType.Assets) : PathPrimary, Extension);
-        List<string> PathDencypt = QEncypt.GetDencyptString('/', Path);
+        List<string> PathDencypt = QString.GetUnSplitString('/', Path);
         return (Path != "", Path, (PathDencypt.Count > 0) ? PathDencypt[PathDencypt.Count - 1] : "");
     }
 
@@ -157,7 +157,7 @@ public class QPath
     public static (bool Result, string Path, string Name) GetPathFolderSavePanel(string Title, string PathPrimary = "")
     {
         string Path = EditorUtility.SaveFolderPanel(Title, (PathPrimary == "") ? GetPath(PathType.Assets) : PathPrimary, "");
-        List<string> PathDencypt = QEncypt.GetDencyptString('/', Path);
+        List<string> PathDencypt = QString.GetUnSplitString('/', Path);
         return (Path != "", Path, (PathDencypt.Count > 0) ? PathDencypt[PathDencypt.Count - 1] : "");
     }
 
@@ -165,7 +165,7 @@ public class QPath
     public static (bool Result, string Path, string Name) GetPathFileSavePanel(string Title, string Extension, string PathPrimary = "")
     {
         string Path = EditorUtility.SaveFilePanel(Title, (PathPrimary == "") ? GetPath(PathType.Assets) : PathPrimary, "", Extension);
-        List<string> PathDencypt = QEncypt.GetDencyptString('/', Path);
+        List<string> PathDencypt = QString.GetUnSplitString('/', Path);
         return (Path != "", Path, (PathDencypt.Count > 0) ? PathDencypt[PathDencypt.Count - 1] : "");
     }
 

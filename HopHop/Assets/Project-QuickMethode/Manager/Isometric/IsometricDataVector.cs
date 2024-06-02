@@ -418,13 +418,13 @@ public struct IsometricVector : IEquatable<IsometricVector>
     [NonSerialized]
     public const char KEY_VECTOR_ENCYPT = ';';
 
-    public string Encypt => "[" + QEncypt.GetEncypt(KEY_VECTOR_ENCYPT, X, Y, H) + "]";
+    public string Encypt => "[" + QString.GetSplit(KEY_VECTOR_ENCYPT, X, Y, H) + "]";
 
-    public static IsometricVector GetDencypt(string Encypt)
+    public static IsometricVector GetUnSplit(string Encypt)
     {
         Encypt = Encypt.Replace("[", "");
         Encypt = Encypt.Replace("]", "");
-        List<int> DataDencypt = QEncypt.GetDencyptInt(KEY_VECTOR_ENCYPT, Encypt);
+        List<int> DataDencypt = QString.GetUnSplitInt(KEY_VECTOR_ENCYPT, Encypt);
         return new IsometricVector(DataDencypt[0], DataDencypt[1], DataDencypt[2]);
     }
 

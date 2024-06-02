@@ -38,7 +38,7 @@ public class QUnityAssets
         //If Root Folder not Exist, then can't Create new Folder from that Root Folder
 
         for (int i = 0; i < PathChildInAssets.Length - 1; i++)
-            PathInAssets = QEncypt.GetEncyptAdd('/', PathInAssets, PathChildInAssets[i]);
+            PathInAssets = QString.GetSplitAdd('/', PathInAssets, PathChildInAssets[i]);
 
         string FolderName = PathChildInAssets[PathChildInAssets.Length - 1];
 

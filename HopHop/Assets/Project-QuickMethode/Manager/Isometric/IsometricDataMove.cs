@@ -111,7 +111,7 @@ public class IsometricDataBlockMoveSingle : IEquatable<IsometricDataBlockMoveSin
     public IsoDir Dir = IsoDir.None;
     public int Duration = 1;
 
-    public string Encypt => QEncypt.GetEncypt(KEY_VALUE_ENCYPT, Duration.ToString(), IsometricVector.GetDirEncypt(Dir));
+    public string Encypt => QString.GetSplit(KEY_VALUE_ENCYPT, Duration.ToString(), IsometricVector.GetDirEncypt(Dir));
 
     public IsometricDataBlockMoveSingle(IsoDir Dir, int Value)
     {
@@ -119,14 +119,14 @@ public class IsometricDataBlockMoveSingle : IEquatable<IsometricDataBlockMoveSin
         Duration = Value;
     }
 
-    public static IsometricDataBlockMoveSingle GetDencypt(string Value)
+    public static IsometricDataBlockMoveSingle GetUnSplit(string Value)
     {
         if (Value == "")
         {
             return null;
         }
         //
-        List<string> DataString = QEncypt.GetDencyptString(KEY_VALUE_ENCYPT, Value);
+        List<string> DataString = QString.GetUnSplitString(KEY_VALUE_ENCYPT, Value);
         return new IsometricDataBlockMoveSingle(IsometricVector.GetDirDeEncyptEnum(DataString[1]), int.Parse(DataString[0]));
     }
 

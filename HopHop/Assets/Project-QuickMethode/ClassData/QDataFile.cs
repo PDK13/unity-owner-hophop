@@ -110,62 +110,62 @@ public class QDataFile
     {
         if (DataWriteText.Length != 0)
             DataWriteText += "\n";
-        DataWriteText += QEncypt.GetEncypt(Key, Value.ToList());
-        DataWriteQueue.Add(QEncypt.GetEncypt(Key, Value.ToList()));
+        DataWriteText += QString.GetSplit(Key, Value.ToList());
+        DataWriteQueue.Add(QString.GetSplit(Key, Value.ToList()));
     }
 
     public void SetWriteAdd(char Key, params int[] Value)
     {
         if (DataWriteText.Length != 0)
             DataWriteText += "\n";
-        DataWriteText += QEncypt.GetEncypt(Key, Value.ToList());
-        DataWriteQueue.Add(QEncypt.GetEncypt(Key, Value.ToList()));
+        DataWriteText += QString.GetSplit(Key, Value.ToList());
+        DataWriteQueue.Add(QString.GetSplit(Key, Value.ToList()));
     }
 
     public void SetWriteAdd(char Key, params float[] Value)
     {
         if (DataWriteText.Length != 0)
             DataWriteText += "\n";
-        DataWriteText += QEncypt.GetEncypt(Key, Value.ToList());
-        DataWriteQueue.Add(QEncypt.GetEncypt(Key, Value.ToList()));
+        DataWriteText += QString.GetSplit(Key, Value.ToList());
+        DataWriteQueue.Add(QString.GetSplit(Key, Value.ToList()));
     }
 
     public void SetWriteAdd(char Key, params bool[] Value)
     {
         if (DataWriteText.Length != 0)
             DataWriteText += "\n";
-        DataWriteText += QEncypt.GetEncypt(Key, Value.ToList());
-        DataWriteQueue.Add(QEncypt.GetEncypt(Key, Value.ToList()));
+        DataWriteText += QString.GetSplit(Key, Value.ToList());
+        DataWriteQueue.Add(QString.GetSplit(Key, Value.ToList()));
     }
 
     public void SetWriteAdd<T>(char Key, params T[] Value) where T : Enum
     {
         if (DataWriteText.Length != 0)
             DataWriteText += "\n";
-        DataWriteText += QEncypt.GetEncypt(Key, Value.ToList());
-        DataWriteQueue.Add(QEncypt.GetEncypt(Key, Value.ToList()));
+        DataWriteText += QString.GetSplit(Key, Value.ToList());
+        DataWriteQueue.Add(QString.GetSplit(Key, Value.ToList()));
     }
 
     //Vector
 
     public void SetWriteAdd(char Key, Vector2 Value)
     {
-        SetWriteAdd(QEncypt.GetEncyptVector2(Key, Value));
+        SetWriteAdd(QString.GetSplitVector2(Key, Value));
     }
 
     public void SetWriteAdd(char Key, Vector2Int Value)
     {
-        SetWriteAdd(QEncypt.GetEncyptVector2Int(Key, Value));
+        SetWriteAdd(QString.GetSplitVector2Int(Key, Value));
     }
 
     public void SetWriteAdd(char Key, Vector3 Value)
     {
-        SetWriteAdd(QEncypt.GetEncyptVector3(Key, Value));
+        SetWriteAdd(QString.GetSplitVector3(Key, Value));
     }
 
     public void SetWriteAdd(char Key, Vector3Int Value)
     {
-        SetWriteAdd(QEncypt.GetEncyptVector3Int(Key, Value));
+        SetWriteAdd(QString.GetSplitVector3Int(Key, Value));
     }
 
     #endregion
@@ -219,7 +219,7 @@ public class QDataFile
         try
         {
             string ReadRun = FileTest.text.Replace("\r\n", "\n");
-            List<string> TextRead = QEncypt.GetDencyptString('\n', ReadRun);
+            List<string> TextRead = QString.GetUnSplitString('\n', ReadRun);
             return TextRead;
         }
         catch
@@ -310,7 +310,7 @@ public class QDataFile
         if (RunRead >= DataReadQueue.Count - 1)
             return new List<string>();
         RunRead++;
-        return QEncypt.GetDencyptString(Key, DataReadQueue[RunRead]);
+        return QString.GetUnSplitString(Key, DataReadQueue[RunRead]);
     }
 
     public List<int> GetReadAutoInt(char Key)
@@ -318,7 +318,7 @@ public class QDataFile
         if (RunRead >= DataReadQueue.Count - 1)
             return new List<int>();
         RunRead++;
-        return QEncypt.GetDencyptInt(Key, DataReadQueue[RunRead]);
+        return QString.GetUnSplitInt(Key, DataReadQueue[RunRead]);
     }
 
     public List<float> GetReadAutoFloat(char Key)
@@ -326,7 +326,7 @@ public class QDataFile
         if (RunRead >= DataReadQueue.Count - 1)
             return new List<float>();
         RunRead++;
-        return QEncypt.GetDencyptFloat(Key, DataReadQueue[RunRead]);
+        return QString.GetUnSplitFloat(Key, DataReadQueue[RunRead]);
     }
 
     public List<bool> GetReadAutoBool(char Key)
@@ -334,7 +334,7 @@ public class QDataFile
         if (RunRead >= DataReadQueue.Count - 1)
             return new List<bool>();
         RunRead++;
-        return QEncypt.GetDencyptBool(Key, DataReadQueue[RunRead]);
+        return QString.GetUnSplitBool(Key, DataReadQueue[RunRead]);
     }
 
     public List<T> GetReadAutoString<T>(char Key) where T : Enum
@@ -342,7 +342,7 @@ public class QDataFile
         if (RunRead >= DataReadQueue.Count - 1)
             return new List<T>();
         RunRead++;
-        return QEncypt.GetDencyptEnum<T>(Key, DataReadQueue[RunRead]);
+        return QString.GetUnSplitEnum<T>(Key, DataReadQueue[RunRead]);
     }
 
     //Vector
@@ -352,7 +352,7 @@ public class QDataFile
         if (RunRead >= DataReadQueue.Count - 1)
             return new Vector2();
         RunRead++;
-        return QEncypt.GetDencyptVector2(Key, DataReadQueue[RunRead]);
+        return QString.GetUnSplitVector2(Key, DataReadQueue[RunRead]);
     }
 
     public Vector2Int GetReadAutoVector2Int(char Key)
@@ -360,7 +360,7 @@ public class QDataFile
         if (RunRead >= DataReadQueue.Count - 1)
             return new Vector2Int();
         RunRead++;
-        return QEncypt.GetDencyptVector2Int(Key, DataReadQueue[RunRead]);
+        return QString.GetUnSplitVector2Int(Key, DataReadQueue[RunRead]);
     }
 
     public Vector3 GetReadAutoVector3(char Key)
@@ -368,7 +368,7 @@ public class QDataFile
         if (RunRead >= DataReadQueue.Count - 1)
             return new Vector3();
         RunRead++;
-        return QEncypt.GetDencyptVector3(Key, DataReadQueue[RunRead]);
+        return QString.GetUnSplitVector3(Key, DataReadQueue[RunRead]);
     }
 
     public Vector3Int GetReadAutoVector3Int(char Key)
@@ -376,7 +376,7 @@ public class QDataFile
         if (RunRead >= DataReadQueue.Count - 1)
             return new Vector3Int();
         RunRead++;
-        return QEncypt.GetDencyptVector3Int(Key, DataReadQueue[RunRead]);
+        return QString.GetUnSplitVector3Int(Key, DataReadQueue[RunRead]);
     }
 
     #endregion

@@ -20,7 +20,7 @@ public class IsometricDataTeleport : MonoBehaviour
 
     //
 
-    public string Encypt => QEncypt.GetEncypt(KEY_VALUE_ENCYPT, Name, Pos.Encypt);
+    public string Encypt => QString.GetSplit(KEY_VALUE_ENCYPT, Name, Pos.Encypt);
 
     public IsometricDataTeleport()
     {
@@ -34,15 +34,15 @@ public class IsometricDataTeleport : MonoBehaviour
         Pos = Value;
     }
 
-    public static IsometricDataTeleport GetDencypt(string Value)
+    public static IsometricDataTeleport GetUnSplit(string Value)
     {
         if (Value == "")
         {
             return null;
         }
         //
-        List<string> DataString = QEncypt.GetDencyptString(KEY_VALUE_ENCYPT, Value);
-        return new IsometricDataTeleport(DataString[0], IsometricVector.GetDencypt(DataString[1]));
+        List<string> DataString = QString.GetUnSplitString(KEY_VALUE_ENCYPT, Value);
+        return new IsometricDataTeleport(DataString[0], IsometricVector.GetUnSplit(DataString[1]));
     }
 
     public bool DataExist => Name == null ? false : Name == "" ? false : true;

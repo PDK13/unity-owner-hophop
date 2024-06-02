@@ -60,25 +60,25 @@ public class QPlayerPrefs
 
     public static void SetValue(string Name, char Key, params string[] Value)
     {
-        PlayerPrefs.SetString(Name, QEncypt.GetEncypt(Key, Value.ToList()));
+        PlayerPrefs.SetString(Name, QString.GetSplit(Key, Value.ToList()));
         PlayerPrefs.Save();
     }
 
     public static void SetValue(string Name, char Key, params int[] Value)
     {
-        PlayerPrefs.SetString(Name, QEncypt.GetEncypt(Key, Value.ToList()));
+        PlayerPrefs.SetString(Name, QString.GetSplit(Key, Value.ToList()));
         PlayerPrefs.Save();
     }
 
     public static void SetValue(string Name, char Key, params float[] Value)
     {
-        PlayerPrefs.SetString(Name, QEncypt.GetEncypt(Key, Value.ToList()));
+        PlayerPrefs.SetString(Name, QString.GetSplit(Key, Value.ToList()));
         PlayerPrefs.Save();
     }
 
     public static void SetValue(string Name, char Key, params bool[] Value)
     {
-        PlayerPrefs.SetString(Name, QEncypt.GetEncypt(Key, Value.ToList()));
+        PlayerPrefs.SetString(Name, QString.GetSplit(Key, Value.ToList()));
         PlayerPrefs.Save();
     }
 
@@ -88,22 +88,22 @@ public class QPlayerPrefs
 
     public static void SetValue(string Name, Vector2 Value)
     {
-        SetValue(Name, QEncypt.GetEncyptVector2(';', Value));
+        SetValue(Name, QString.GetSplitVector2(';', Value));
     }
 
     public static void SetValue(string Name, Vector2Int Value)
     {
-        SetValue(Name, QEncypt.GetEncyptVector2Int(';', Value));
+        SetValue(Name, QString.GetSplitVector2Int(';', Value));
     }
 
     public static void SetValue(string Name, Vector3 Value)
     {
-        SetValue(Name, QEncypt.GetEncyptVector3(';', Value));
+        SetValue(Name, QString.GetSplitVector3(';', Value));
     }
 
     public static void SetValue(string Name, Vector3Int Value)
     {
-        SetValue(Name, QEncypt.GetEncyptVector3Int(';', Value));
+        SetValue(Name, QString.GetSplitVector3Int(';', Value));
     }
 
     #endregion
@@ -122,7 +122,7 @@ public class QPlayerPrefs
 
     public static void SetValueEnum<T>(string Name, char Key, params T[] Value) where T : Enum
     {
-        PlayerPrefs.SetString(Name, QEncypt.GetEncypt(Key, Value.ToList()));
+        PlayerPrefs.SetString(Name, QString.GetSplit(Key, Value.ToList()));
         PlayerPrefs.Save();
     }
 
@@ -182,22 +182,22 @@ public class QPlayerPrefs
 
     public static List<string> GetValueString(string Name, char Key)
     {
-        return QEncypt.GetDencyptString(Key, GetValueString(Name));
+        return QString.GetUnSplitString(Key, GetValueString(Name));
     }
 
     public static List<int> GetValueInt(string Name, char Key)
     {
-        return QEncypt.GetDencyptInt(Key, GetValueString(Name));
+        return QString.GetUnSplitInt(Key, GetValueString(Name));
     }
 
     public static List<float> GetValueFloat(string Name, char Key)
     {
-        return QEncypt.GetDencyptFloat(Key, GetValueString(Name));
+        return QString.GetUnSplitFloat(Key, GetValueString(Name));
     }
 
     public static List<bool> GetValueBool(string Name, char Key)
     {
-        return QEncypt.GetDencyptBool(Key, GetValueString(Name));
+        return QString.GetUnSplitBool(Key, GetValueString(Name));
     }
 
     #endregion
@@ -206,22 +206,22 @@ public class QPlayerPrefs
 
     public static Vector2 SetValueVector2(string Name)
     {
-        return QEncypt.GetDencyptVector2(';', GetValueString(Name));
+        return QString.GetUnSplitVector2(';', GetValueString(Name));
     }
 
     public static Vector2Int SetValueVector2Int(string Name)
     {
-        return QEncypt.GetDencyptVector2Int(';', GetValueString(Name));
+        return QString.GetUnSplitVector2Int(';', GetValueString(Name));
     }
 
     public static Vector3 SetValueVector3(string Name)
     {
-        return QEncypt.GetDencyptVector3(';', GetValueString(Name));
+        return QString.GetUnSplitVector3(';', GetValueString(Name));
     }
 
     public static Vector3Int SetValueVector3Int(string Name)
     {
-        return QEncypt.GetDencyptVector3Int(';', GetValueString(Name));
+        return QString.GetUnSplitVector3Int(';', GetValueString(Name));
     }
 
     #endregion
@@ -239,7 +239,7 @@ public class QPlayerPrefs
 
     public static List<T> GetValueEnum<T>(string Name, char Key) where T : Enum
     {
-        return QEncypt.GetDencyptEnum<T>(Key, GetValueString(Name));
+        return QString.GetUnSplitEnum<T>(Key, GetValueString(Name));
     }
 
     #endregion

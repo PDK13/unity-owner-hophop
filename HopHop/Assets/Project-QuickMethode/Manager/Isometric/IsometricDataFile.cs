@@ -189,7 +189,7 @@ public class IsometricDataFile
                     //WORLD BLOCK START!!
                     while (FileIO.GetReadAutoString() != KEY_WORLD_BLOCK_END)
                     {
-                        IsometricVector PosPrimary = IsometricVector.GetDencypt(FileIO.GetReadAutoString());
+                        IsometricVector PosPrimary = IsometricVector.GetUnSplit(FileIO.GetReadAutoString());
                         string Name = FileIO.GetReadAutoString();
 
                         //BLOCK START!!
@@ -225,7 +225,7 @@ public class IsometricDataFile
                                     BlockDataMove.SetDataNew();
                                     int MoveCount = FileIO.GetReadAutoInt();
                                     for (int DataIndex = 0; DataIndex < MoveCount; DataIndex++)
-                                        BlockDataMove.SetDataAdd(IsometricDataBlockMoveSingle.GetDencypt(FileIO.GetReadAutoString()));
+                                        BlockDataMove.SetDataAdd(IsometricDataBlockMoveSingle.GetUnSplit(FileIO.GetReadAutoString()));
                                     break;
                                 case KEY_BLOCK_ACTION:
                                     IsometricDataAction BlockDataAction = Block.GetComponent<IsometricDataAction>() ?? Block.AddComponent<IsometricDataAction>();
@@ -233,11 +233,11 @@ public class IsometricDataFile
                                     BlockDataAction.SetDataNew();
                                     int ActionCount = FileIO.GetReadAutoInt();
                                     for (int DataIndex = 0; DataIndex < ActionCount; DataIndex++)
-                                        BlockDataAction.SetDataAdd(IsometricDataBlockActionSingle.GetDencypt(FileIO.GetReadAutoString()));
+                                        BlockDataAction.SetDataAdd(IsometricDataBlockActionSingle.GetUnSplit(FileIO.GetReadAutoString()));
                                     break;
                                 case KEY_BLOCK_TELEPORT:
                                     IsometricDataTeleport BlockDataTeleport = Block.GetComponent<IsometricDataTeleport>() ?? Block.AddComponent<IsometricDataTeleport>();
-                                    BlockDataTeleport.SetValue(IsometricDataTeleport.GetDencypt(FileIO.GetReadAutoString()));
+                                    BlockDataTeleport.SetValue(IsometricDataTeleport.GetUnSplit(FileIO.GetReadAutoString()));
                                     break;
                                 case KEY_BLOCK_END:
                                     //BLOCK END!!

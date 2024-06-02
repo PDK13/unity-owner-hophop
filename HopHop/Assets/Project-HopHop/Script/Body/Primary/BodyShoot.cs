@@ -131,7 +131,7 @@ public class BodyShoot : MonoBehaviour, ITurnManager, IBodyShoot
         m_turnCommand = this.m_dataAction.ActionCurrent;
         foreach (string CommandCheck in m_turnCommand)
         {
-            List<string> Command = QEncypt.GetDencyptString('-', CommandCheck);
+            List<string> Command = QString.GetUnSplitString('-', CommandCheck);
             //
             switch (Command[0])
             {

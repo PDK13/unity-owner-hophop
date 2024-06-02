@@ -147,7 +147,7 @@ public class EventManager : SingletonManager<EventManager>, ITurnManager
     {
         foreach (string DataCheck in Data)
         {
-            List<string> DataRead = QEncypt.GetDencyptString('/', DataCheck);
+            List<string> DataRead = QString.GetUnSplitString('/', DataCheck);
             switch (DataRead[0])
             {
                 case KeyCommand.Spawm:
@@ -170,7 +170,7 @@ public class EventManager : SingletonManager<EventManager>, ITurnManager
     {
         //spawm/[BlockName]/[X;Y;H]/[BlockIdentity]
         string BlockName = DataRead[1];
-        IsometricVector Pos = IsometricVector.GetDencypt(DataRead[2]);
+        IsometricVector Pos = IsometricVector.GetUnSplit(DataRead[2]);
         string BlockIdentity = DataRead.Length > 3 ? DataRead[3] : "";
         IsometricManager.Instance.World.Current.SetBlockCreate(Pos, IsometricManager.Instance.List.GetList(BlockName), false, BlockIdentity);
     }

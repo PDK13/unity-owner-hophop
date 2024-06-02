@@ -97,7 +97,7 @@ public class IsometricDataBlockActionSingle
 
     public List<string> Action = new List<string>();
 
-    public string Encypt => QEncypt.GetEncypt(KEY_VALUE_ENCYPT, QEncypt.GetEncypt(KEY_VALUE_ENCYPT, Action));
+    public string Encypt => QString.GetSplit(KEY_VALUE_ENCYPT, QString.GetSplit(KEY_VALUE_ENCYPT, Action));
 
     public IsometricDataBlockActionSingle(List<string> Action)
     {
@@ -109,14 +109,14 @@ public class IsometricDataBlockActionSingle
         this.Action = new List<string>() { ActionSingle };
     }
 
-    public static IsometricDataBlockActionSingle GetDencypt(string Value)
+    public static IsometricDataBlockActionSingle GetUnSplit(string Value)
     {
         if (Value == "")
         {
             return null;
         }
         //
-        List<string> DataString = QEncypt.GetDencyptString(KEY_VALUE_ENCYPT, Value);
+        List<string> DataString = QString.GetUnSplitString(KEY_VALUE_ENCYPT, Value);
         return new IsometricDataBlockActionSingle(DataString);
     }
 }

@@ -6,7 +6,7 @@ using System.Security.Cryptography;
 using System.Text;
 using UnityEngine;
 
-public class QEncypt
+public class QString
 {
     #region ==================================== String Data
 
@@ -16,70 +16,70 @@ public class QEncypt
 
     #region List
 
-    public static string GetEncypt(char Key, List<string> Data)
+    public static string GetSplit(char Key, List<string> Data)
     {
         return string.Join(Key, Data);
     }
 
-    public static string GetEncypt(string Key, List<string> Data)
-    {
-        return string.Join(Key, Data);
-    }
-
-    //
-
-    public static string GetEncypt(char Key, List<int> Data)
-    {
-        return string.Join(Key, Data);
-    }
-
-    public static string GetEncypt(string Key, List<int> Data)
+    public static string GetSplit(string Key, List<string> Data)
     {
         return string.Join(Key, Data);
     }
 
     //
 
-    public static string GetEncypt(char Key, List<float> Data)
+    public static string GetSplit(char Key, List<int> Data)
     {
         return string.Join(Key, Data);
     }
 
-    public static string GetEncypt(string Key, List<float> Data)
+    public static string GetSplit(string Key, List<int> Data)
     {
         return string.Join(Key, Data);
     }
 
     //
 
-    public static string GetEncypt(char Key, List<bool> Data)
+    public static string GetSplit(char Key, List<float> Data)
+    {
+        return string.Join(Key, Data);
+    }
+
+    public static string GetSplit(string Key, List<float> Data)
+    {
+        return string.Join(Key, Data);
+    }
+
+    //
+
+    public static string GetSplit(char Key, List<bool> Data)
     {
         return string.Join(Key, Data.Select(t => t.ToString().ToLower()));
     }
 
-    public static string GetEncypt(string Key, List<bool> Data)
+    public static string GetSplit(string Key, List<bool> Data)
     {
         return string.Join(Key, Data.Select(t => t.ToString().ToLower()));
     }
 
     //
 
-    public static string GetEncypt<T>(char Key, List<T> Data) where T : Enum
+    public static string GetSplit<T>(char Key, List<T> Data) where T : Enum
     {
         string Encypt = "";
         //
         for (int i = 0; i < Data.Count; i++)
-            Encypt = GetEncyptAdd(Key, Encypt, QEnum.GetChoice(Data[i]));
+            Encypt = GetSplitAdd(Key, Encypt, QEnum.GetChoice(Data[i]));
         //
         return Encypt;
     }
 
-    public static string GetEncypt<T>(string Key, List<T> Data) where T : Enum
+    public static string GetSplit<T>(string Key, List<T> Data) where T : Enum
     {
         string Encypt = "";
         //
         for (int i = 0; i < Data.Count; i++)
-            Encypt = GetEncyptAdd(Key, Encypt, QEnum.GetChoice(Data[i]));
+            Encypt = GetSplitAdd(Key, Encypt, QEnum.GetChoice(Data[i]));
         //
         return Encypt;
     }
@@ -88,70 +88,70 @@ public class QEncypt
 
     #region Array - Params
 
-    public static string GetEncypt(char Key, params string[] Data)
+    public static string GetSplit(char Key, params string[] Data)
     {
         return string.Join(Key, Data);
     }
 
-    public static string GetEncypt(string Key, params string[] Data)
-    {
-        return string.Join(Key, Data);
-    }
-
-    //
-
-    public static string GetEncypt(char Key, params int[] Data)
-    {
-        return string.Join(Key, Data);
-    }
-
-    public static string GetEncypt(string Key, params int[] Data)
+    public static string GetSplit(string Key, params string[] Data)
     {
         return string.Join(Key, Data);
     }
 
     //
 
-    public static string GetEncypt(char Key, params float[] Data)
+    public static string GetSplit(char Key, params int[] Data)
     {
         return string.Join(Key, Data);
     }
 
-    public static string GetEncypt(string Key, params float[] Data)
+    public static string GetSplit(string Key, params int[] Data)
     {
         return string.Join(Key, Data);
     }
 
     //
 
-    public static string GetEncypt(char Key, params bool[] Data)
+    public static string GetSplit(char Key, params float[] Data)
+    {
+        return string.Join(Key, Data);
+    }
+
+    public static string GetSplit(string Key, params float[] Data)
+    {
+        return string.Join(Key, Data);
+    }
+
+    //
+
+    public static string GetSplit(char Key, params bool[] Data)
     {
         return string.Join(Key, Data.Select(t => t.ToString().ToLower()));
     }
 
-    public static string GetEncypt(string Key, params bool[] Data)
+    public static string GetSplit(string Key, params bool[] Data)
     {
         return string.Join(Key, Data.Select(t => t.ToString().ToLower()));
     }
 
     //
 
-    public static string GetEncypt<T>(char Key, params T[] Data) where T : Enum
+    public static string GetSplit<T>(char Key, params T[] Data) where T : Enum
     {
         string Encypt = "";
         //
         for (int i = 0; i < Data.Length; i++)
-            Encypt = GetEncyptAdd(Key, Encypt, QEnum.GetChoice(Data[i]));
+            Encypt = GetSplitAdd(Key, Encypt, QEnum.GetChoice(Data[i]));
         //
         return Encypt;
     }
 
-    public static string GetEncypt<T>(string Key, params T[] Data) where T : Enum
+    public static string GetSplit<T>(string Key, params T[] Data) where T : Enum
     {
         string Encypt = "";
         //
         for (int i = 0; i < Data.Length; i++)
-            Encypt = GetEncyptAdd(Key, Encypt, QEnum.GetChoice(Data[i]));
+            Encypt = GetSplitAdd(Key, Encypt, QEnum.GetChoice(Data[i]));
         //
         return Encypt;
     }
@@ -164,60 +164,60 @@ public class QEncypt
 
     #region Single
 
-    public static string GetEncyptAdd(char Key, string Data, string DataAdd)
+    public static string GetSplitAdd(char Key, string Data, string DataAdd)
     {
         return Data + ((Data.Length != 0) ? Key.ToString() : "") + DataAdd;
     }
 
-    public static string GetEncyptAdd(string Key, string Data, string DataAdd)
+    public static string GetSplitAdd(string Key, string Data, string DataAdd)
     {
         return Data + ((Data.Length != 0) ? Key.ToString() : "") + DataAdd;
     }
 
     //
 
-    public static string GetEncyptAdd(char Key, string Data, int DataAdd)
+    public static string GetSplitAdd(char Key, string Data, int DataAdd)
     {
         return Data + ((Data.Length != 0) ? Key.ToString() : "") + DataAdd.ToString();
     }
 
-    public static string GetEncyptAdd(string Key, string Data, int DataAdd)
-    {
-        return Data + ((Data.Length != 0) ? Key.ToString() : "") + DataAdd.ToString();
-    }
-
-    //
-
-    public static string GetEncyptAdd(char Key, string Data, float DataAdd)
-    {
-        return Data + ((Data.Length != 0) ? Key.ToString() : "") + DataAdd.ToString();
-    }
-
-    public static string GetEncyptAdd(string Key, string Data, float DataAdd)
+    public static string GetSplitAdd(string Key, string Data, int DataAdd)
     {
         return Data + ((Data.Length != 0) ? Key.ToString() : "") + DataAdd.ToString();
     }
 
     //
 
-    public static string GetEncyptAdd(char Key, string Data, bool DataAdd)
+    public static string GetSplitAdd(char Key, string Data, float DataAdd)
+    {
+        return Data + ((Data.Length != 0) ? Key.ToString() : "") + DataAdd.ToString();
+    }
+
+    public static string GetSplitAdd(string Key, string Data, float DataAdd)
+    {
+        return Data + ((Data.Length != 0) ? Key.ToString() : "") + DataAdd.ToString();
+    }
+
+    //
+
+    public static string GetSplitAdd(char Key, string Data, bool DataAdd)
     {
         return Data + ((Data.Length != 0) ? Key.ToString() : "") + (DataAdd.ToString().ToLower());
     }
 
-    public static string GetEncyptAdd(string Key, string Data, bool DataAdd)
+    public static string GetSplitAdd(string Key, string Data, bool DataAdd)
     {
         return Data + ((Data.Length != 0) ? Key.ToString() : "") + (DataAdd.ToString().ToLower());
     }
 
     //
 
-    public static string GetEncyptAdd<T>(char Key, string Data, T DataAdd) where T : Enum
+    public static string GetSplitAdd<T>(char Key, string Data, T DataAdd) where T : Enum
     {
         return Data + ((Data.Length != 0) ? Key.ToString() : "") + DataAdd;
     }
 
-    public static string GetEncyptAdd<T>(string Key, string Data, T DataAdd) where T : Enum
+    public static string GetSplitAdd<T>(string Key, string Data, T DataAdd) where T : Enum
     {
         return Data + ((Data.Length != 0) ? Key.ToString() : "") + DataAdd;
     }
@@ -226,62 +226,62 @@ public class QEncypt
 
     #region List
 
-    public static string GetEncyptAdd(char Key, string Data, List<string> DataAdd)
+    public static string GetSplitAdd(char Key, string Data, List<string> DataAdd)
     {
-        return Data + ((Data.Length != 0) ? Key.ToString() : "") + GetEncypt(Key, DataAdd);
+        return Data + ((Data.Length != 0) ? Key.ToString() : "") + GetSplit(Key, DataAdd);
     }
 
-    public static string GetEncyptAdd(string Key, string Data, List<string> DataAdd)
+    public static string GetSplitAdd(string Key, string Data, List<string> DataAdd)
     {
-        return Data + ((Data.Length != 0) ? Key.ToString() : "") + GetEncypt(Key, DataAdd);
-    }
-
-    //
-
-    public static string GetEncyptAdd(char Key, string Data, List<int> DataAdd)
-    {
-        return Data + ((Data.Length != 0) ? Key.ToString() : "") + GetEncypt(Key, DataAdd);
-    }
-
-    public static string GetEncyptAdd(string Key, string Data, List<int> DataAdd)
-    {
-        return Data + ((Data.Length != 0) ? Key.ToString() : "") + GetEncypt(Key, DataAdd);
+        return Data + ((Data.Length != 0) ? Key.ToString() : "") + GetSplit(Key, DataAdd);
     }
 
     //
 
-    public static string GetEncyptAdd(char Key, string Data, List<float> DataAdd)
+    public static string GetSplitAdd(char Key, string Data, List<int> DataAdd)
     {
-        return Data + ((Data.Length != 0) ? Key.ToString() : "") + GetEncypt(Key, DataAdd);
+        return Data + ((Data.Length != 0) ? Key.ToString() : "") + GetSplit(Key, DataAdd);
     }
 
-    public static string GetEncyptAdd(string Key, string Data, List<float> DataAdd)
+    public static string GetSplitAdd(string Key, string Data, List<int> DataAdd)
     {
-        return Data + ((Data.Length != 0) ? Key.ToString() : "") + GetEncypt(Key, DataAdd);
-    }
-
-    //
-
-    public static string GetEncyptAdd(char Key, string Data, List<bool> DataAdd)
-    {
-        return Data + ((Data.Length != 0) ? Key.ToString() : "") + GetEncypt(Key, DataAdd);
-    }
-
-    public static string GetEncyptAdd(string Key, string Data, List<bool> DataAdd)
-    {
-        return Data + ((Data.Length != 0) ? Key.ToString() : "") + GetEncypt(Key, DataAdd);
+        return Data + ((Data.Length != 0) ? Key.ToString() : "") + GetSplit(Key, DataAdd);
     }
 
     //
 
-    public static string GetEncyptAdd<T>(char Key, string Data, List<T> DataAdd) where T : Enum
+    public static string GetSplitAdd(char Key, string Data, List<float> DataAdd)
     {
-        return Data + ((Data.Length != 0) ? Key.ToString() : "") + GetEncypt(Key, DataAdd);
+        return Data + ((Data.Length != 0) ? Key.ToString() : "") + GetSplit(Key, DataAdd);
     }
 
-    public static string GetEncyptAdd<T>(string Key, string Data, List<T> DataAdd) where T : Enum
+    public static string GetSplitAdd(string Key, string Data, List<float> DataAdd)
     {
-        return Data + ((Data.Length != 0) ? Key.ToString() : "") + GetEncypt(Key, DataAdd);
+        return Data + ((Data.Length != 0) ? Key.ToString() : "") + GetSplit(Key, DataAdd);
+    }
+
+    //
+
+    public static string GetSplitAdd(char Key, string Data, List<bool> DataAdd)
+    {
+        return Data + ((Data.Length != 0) ? Key.ToString() : "") + GetSplit(Key, DataAdd);
+    }
+
+    public static string GetSplitAdd(string Key, string Data, List<bool> DataAdd)
+    {
+        return Data + ((Data.Length != 0) ? Key.ToString() : "") + GetSplit(Key, DataAdd);
+    }
+
+    //
+
+    public static string GetSplitAdd<T>(char Key, string Data, List<T> DataAdd) where T : Enum
+    {
+        return Data + ((Data.Length != 0) ? Key.ToString() : "") + GetSplit(Key, DataAdd);
+    }
+
+    public static string GetSplitAdd<T>(string Key, string Data, List<T> DataAdd) where T : Enum
+    {
+        return Data + ((Data.Length != 0) ? Key.ToString() : "") + GetSplit(Key, DataAdd);
     }
 
     #endregion
@@ -290,60 +290,60 @@ public class QEncypt
 
     #region .................................... String Data Main Dencypt
 
-    public static List<string> GetDencyptString(char Key, string Data)
+    public static List<string> GetUnSplitString(char Key, string Data)
     {
         return Data.Split(Key).ToList();
     }
 
-    public static List<string> GetDencyptString(string Key, string Data)
+    public static List<string> GetUnSplitString(string Key, string Data)
     {
         return Data.Split(Key).ToList();
     }
 
     //
 
-    public static List<int> GetDencyptInt(char Key, string Data)
+    public static List<int> GetUnSplitInt(char Key, string Data)
     {
         return Data.Split(Key).ToList().ConvertAll(int.Parse);
     }
 
-    public static List<int> GetDencyptInt(string Key, string Data)
+    public static List<int> GetUnSplitInt(string Key, string Data)
     {
         return Data.Split(Key).ToList().ConvertAll(int.Parse);
     }
 
     //
 
-    public static List<float> GetDencyptFloat(char Key, string Data)
+    public static List<float> GetUnSplitFloat(char Key, string Data)
     {
         return Data.Split(Key).ToList().ConvertAll(float.Parse);
     }
 
-    public static List<float> GetDencyptFloat(string Key, string Data)
+    public static List<float> GetUnSplitFloat(string Key, string Data)
     {
         return Data.Split(Key).ToList().ConvertAll(float.Parse);
     }
 
     //
 
-    public static List<bool> GetDencyptBool(char Key, string Data)
+    public static List<bool> GetUnSplitBool(char Key, string Data)
     {
         return Data.Split(Key).ToList().ConvertAll(bool.Parse);
     }
 
-    public static List<bool> GetDencyptBool(string Key, string Data)
+    public static List<bool> GetUnSplitBool(string Key, string Data)
     {
         return Data.Split(Key).ToList().ConvertAll(bool.Parse);
     }
 
     //
 
-    public static List<T> GetDencyptEnum<T>(char Key, string Data) where T : Enum
+    public static List<T> GetUnSplitEnum<T>(char Key, string Data) where T : Enum
     {
         if (Data.Equals(""))
             return new List<T>();
         //
-        List<string> DataString = GetDencyptString(Key, Data);
+        List<string> DataString = GetUnSplitString(Key, Data);
         //
         List<T> DataEnum = new List<T>();
         //
@@ -353,12 +353,12 @@ public class QEncypt
         return DataEnum;
     }
 
-    public static List<T> GetDencyptEnum<T>(string Key, string Data) where T : Enum
+    public static List<T> GetUnSplitEnum<T>(string Key, string Data) where T : Enum
     {
         if (Data.Equals(""))
             return new List<T>();
         //
-        List<string> DataString = GetDencyptString(Key, Data);
+        List<string> DataString = GetUnSplitString(Key, Data);
         //
         List<T> DataEnum = new List<T>();
         //
@@ -376,114 +376,114 @@ public class QEncypt
 
     #region .................................... String Data Vector Encypt
 
-    public static string GetEncyptVector2(char Key, Vector2 Data)
+    public static string GetSplitVector2(char Key, Vector2 Data)
     {
-        return GetEncypt(Key, Data.x, Data.y);
+        return GetSplit(Key, Data.x, Data.y);
     }
 
-    public static string GetEncyptVector2(string Key, Vector2 Data)
+    public static string GetSplitVector2(string Key, Vector2 Data)
     {
-        return GetEncypt((string)Key, Data.x, Data.y);
-    }
-
-    //
-
-    public static string GetEncyptVector3(char Key, Vector3 Data)
-    {
-        return GetEncypt(Key, Data.x, Data.y, Data.z);
-    }
-
-    public static string GetEncyptVector3(string Key, Vector3 Data)
-    {
-        return GetEncypt(Key, Data.x, Data.y, Data.z);
+        return GetSplit((string)Key, Data.x, Data.y);
     }
 
     //
 
-    public static string GetEncyptVector2Int(char Key, Vector2Int Data)
+    public static string GetSplitVector3(char Key, Vector3 Data)
     {
-        return GetEncypt(Key, Data.x, Data.y);
+        return GetSplit(Key, Data.x, Data.y, Data.z);
     }
 
-    public static string GetEncyptVector2Int(string Key, Vector2Int Data)
+    public static string GetSplitVector3(string Key, Vector3 Data)
     {
-        return GetEncypt(Key, Data.x, Data.y);
+        return GetSplit(Key, Data.x, Data.y, Data.z);
     }
 
     //
 
-    public static string GetEncyptVector3Int(char Key, Vector3Int Data)
+    public static string GetSplitVector2Int(char Key, Vector2Int Data)
     {
-        return GetEncypt(Key, Data.x, Data.y, Data.z);
+        return GetSplit(Key, Data.x, Data.y);
     }
 
-    public static string GetEncyptVector3Int(string Key, Vector3Int Data)
+    public static string GetSplitVector2Int(string Key, Vector2Int Data)
     {
-        return GetEncypt(Key, Data.x, Data.y, Data.z);
+        return GetSplit(Key, Data.x, Data.y);
+    }
+
+    //
+
+    public static string GetSplitVector3Int(char Key, Vector3Int Data)
+    {
+        return GetSplit(Key, Data.x, Data.y, Data.z);
+    }
+
+    public static string GetSplitVector3Int(string Key, Vector3Int Data)
+    {
+        return GetSplit(Key, Data.x, Data.y, Data.z);
     }
 
     #endregion
 
     #region .................................... String Data Vector Dencypt
 
-    public static Vector2 GetDencyptVector2(char Key, string Data)
+    public static Vector2 GetUnSplitVector2(char Key, string Data)
     {
-        List<float> Dencypt = GetDencyptFloat(Key, Data);
+        List<float> Dencypt = GetUnSplitFloat(Key, Data);
         //
         return new Vector2(Dencypt[0], Dencypt[1]);
     }
 
-    public static Vector2 GetDencyptVector2(string Key, string Data)
+    public static Vector2 GetUnSplitVector2(string Key, string Data)
     {
-        List<float> Dencypt = GetDencyptFloat(Key, Data);
+        List<float> Dencypt = GetUnSplitFloat(Key, Data);
         //
         return new Vector2(Dencypt[0], Dencypt[1]);
     }
 
     //
 
-    public static Vector3 GetDencyptVector3(char Key, string Data)
+    public static Vector3 GetUnSplitVector3(char Key, string Data)
     {
-        List<float> Dencypt = GetDencyptFloat(Key, Data);
+        List<float> Dencypt = GetUnSplitFloat(Key, Data);
         //
         return new Vector3(Dencypt[0], Dencypt[1], Dencypt[2]);
     }
 
-    public static Vector3 GetDencyptVector3(string Key, string Data)
+    public static Vector3 GetUnSplitVector3(string Key, string Data)
     {
-        List<float> Dencypt = GetDencyptFloat(Key, Data);
+        List<float> Dencypt = GetUnSplitFloat(Key, Data);
         //
         return new Vector3(Dencypt[0], Dencypt[1], Dencypt[2]);
     }
 
     //
 
-    public static Vector2Int GetDencyptVector2Int(char Key, string Data)
+    public static Vector2Int GetUnSplitVector2Int(char Key, string Data)
     {
-        List<int> Dencypt = GetDencyptInt(Key, Data);
+        List<int> Dencypt = GetUnSplitInt(Key, Data);
         //
         return new Vector2Int(Dencypt[0], Dencypt[1]);
     }
 
-    public static Vector2Int GetDencyptVector2Int(string Key, string Data)
+    public static Vector2Int GetUnSplitVector2Int(string Key, string Data)
     {
-        List<int> Dencypt = GetDencyptInt(Key, Data);
+        List<int> Dencypt = GetUnSplitInt(Key, Data);
         //
         return new Vector2Int(Dencypt[0], Dencypt[1]);
     }
 
     //
 
-    public static Vector3Int GetDencyptVector3Int(char Key, string Data)
+    public static Vector3Int GetUnSplitVector3Int(char Key, string Data)
     {
-        List<int> Dencypt = GetDencyptInt(Key, Data);
+        List<int> Dencypt = GetUnSplitInt(Key, Data);
         //
         return new Vector3Int(Dencypt[0], Dencypt[1], Dencypt[2]);
     }
 
-    public static Vector3Int GetDencyptVector3Int(string Key, string Data)
+    public static Vector3Int GetUnSplitVector3Int(string Key, string Data)
     {
-        List<int> Dencypt = GetDencyptInt(Key, Data);
+        List<int> Dencypt = GetUnSplitInt(Key, Data);
         //
         return new Vector3Int(Dencypt[0], Dencypt[1], Dencypt[2]);
     }
