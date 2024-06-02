@@ -7,7 +7,7 @@ Lab
 #WORLD-BLOCK
 
 [2;2;1]
-Object Flower Blue 0
+Block Stone 0
 #BLOCK-END
 
 [1;2;1]
@@ -15,7 +15,13 @@ Object Flower Blue 0
 #BLOCK-END
 
 [0;2;1]
-Object Flower Blue 0
+Switch Stone 0 0
+BLOCK-IDENTITY
+switch1
+#BLOCK-INIT
+2
+switch-identity-check::switch2
+switch-identity-base::switch1
 #BLOCK-END
 
 [-1;2;1]
@@ -23,29 +29,21 @@ Object Flower Blue 0
 #BLOCK-END
 
 [-2;2;1]
-Object Flower Blue 0
+Block Stone 0
 #BLOCK-END
 
-[0;1;1]
-Switch Stone 0 0
-#BLOCK-INIT
-2
-switch-identity-base::[0,1,1]
-switch-identity-check::[0,-1,1]
+[2;1;1]
+Block Stone 0
+#BLOCK-END
+
+[-2;1;1]
+Block Stone 0
 #BLOCK-END
 
 [0;0;1]
 Player Angle
 BLOCK-IDENTITY
 player
-#BLOCK-END
-
-[0;-1;1]
-Switch Stone 0 1
-#BLOCK-INIT
-2
-switch-identity-base::[0,-1,1]
-switch-identity-check::[0,1,1]
 #BLOCK-END
 
 [2;-2;1]
@@ -57,7 +55,13 @@ Object Flower Blue 0
 #BLOCK-END
 
 [0;-2;1]
-Object Flower Blue 0
+Switch Stone 0 1
+BLOCK-IDENTITY
+switch2
+#BLOCK-INIT
+2
+switch-identity-check::switch1
+switch-identity-base::switch2
 #BLOCK-END
 
 [-1;-2;1]
@@ -92,16 +96,18 @@ Block Normal 0
 Block Stone 0
 #BLOCK-INIT
 1
-follow-identity-check::[1,1,0]
+follow-identity-check::move-block-1
 #BLOCK-END
 
 [1;1;0]
 Block Stone Move 0 1
+BLOCK-IDENTITY
+move-block-1
 #BLOCK-INIT
 3
-follow-identity-base::[1,1,0]
-switch-identity-check::[0,1,1]
-switch-identity-check::[0,-1,1]
+switch-identity-check::switch1
+switch-identity-check::switch2
+follow-identity-base::move-block-1
 #BLOCK-MOVE
 1
 4
@@ -117,11 +123,13 @@ Block Normal 0
 
 [-1;1;0]
 Block Stone Move 0 1
+BLOCK-IDENTITY
+block-move-2
 #BLOCK-INIT
 3
-follow-identity-base::[-1,1,0]
-switch-identity-check::[0,1,1]
-switch-identity-check::[0,-1,1]
+switch-identity-check::switch1
+switch-identity-check::switch2
+follow-identity-base::block-move-2
 #BLOCK-MOVE
 1
 2
@@ -133,7 +141,7 @@ switch-identity-check::[0,-1,1]
 Block Stone 0
 #BLOCK-INIT
 1
-follow-identity-check::[-1,1,0]
+follow-identity-check::block-move-2
 #BLOCK-END
 
 [0;0;0]
@@ -161,6 +169,298 @@ Block Normal 0
 #BLOCK-END
 
 [-2;-2;0]
+Block Normal 0
+#BLOCK-END
+
+[3;3;-3]
+Object Flower Blue 0
+#BLOCK-END
+
+[2;3;-3]
+Object Flower Blue 0
+#BLOCK-END
+
+[1;3;-3]
+Object Flower Blue 0
+#BLOCK-END
+
+[0;3;-3]
+Object Flower Blue 0
+#BLOCK-END
+
+[-1;3;-3]
+Object Flower Blue 0
+#BLOCK-END
+
+[-2;3;-3]
+Object Flower Blue 0
+#BLOCK-END
+
+[-3;3;-3]
+Object Flower Blue 0
+#BLOCK-END
+
+[3;2;-3]
+Object Flower Blue 0
+#BLOCK-END
+
+[-3;2;-3]
+Object Flower Blue 0
+#BLOCK-END
+
+[3;1;-3]
+Object Flower Blue 0
+#BLOCK-END
+
+[-3;1;-3]
+Object Flower Blue 0
+#BLOCK-END
+
+[3;0;-3]
+Object Flower Blue 0
+#BLOCK-END
+
+[-3;0;-3]
+Object Flower Blue 0
+#BLOCK-END
+
+[3;-1;-3]
+Object Flower Blue 0
+#BLOCK-END
+
+[-3;-1;-3]
+Object Flower Blue 0
+#BLOCK-END
+
+[3;-2;-3]
+Object Flower Blue 0
+#BLOCK-END
+
+[-3;-2;-3]
+Object Flower Blue 0
+#BLOCK-END
+
+[3;-3;-3]
+Object Flower Blue 0
+#BLOCK-END
+
+[2;-3;-3]
+Object Flower Blue 0
+#BLOCK-END
+
+[1;-3;-3]
+Object Flower Blue 0
+#BLOCK-END
+
+[0;-3;-3]
+Object Flower Blue 0
+#BLOCK-END
+
+[-1;-3;-3]
+Object Flower Blue 0
+#BLOCK-END
+
+[-2;-3;-3]
+Object Flower Blue 0
+#BLOCK-END
+
+[-3;-3;-3]
+Object Flower Blue 0
+#BLOCK-END
+
+[3;3;-4]
+Block Normal 0
+#BLOCK-END
+
+[2;3;-4]
+Block Normal 0
+#BLOCK-END
+
+[1;3;-4]
+Block Normal 0
+#BLOCK-END
+
+[0;3;-4]
+Block Normal 0
+#BLOCK-END
+
+[-1;3;-4]
+Block Normal 0
+#BLOCK-END
+
+[-2;3;-4]
+Block Normal 0
+#BLOCK-END
+
+[-3;3;-4]
+Block Normal 0
+#BLOCK-END
+
+[3;2;-4]
+Block Normal 0
+#BLOCK-END
+
+[2;2;-4]
+Block Normal 0
+#BLOCK-END
+
+[1;2;-4]
+Block Slip 0
+#BLOCK-END
+
+[0;2;-4]
+Block Slip 0
+#BLOCK-END
+
+[-1;2;-4]
+Block Slip 0
+#BLOCK-END
+
+[-2;2;-4]
+Block Normal 0
+#BLOCK-END
+
+[-3;2;-4]
+Block Normal 0
+#BLOCK-END
+
+[3;1;-4]
+Block Normal 0
+#BLOCK-END
+
+[2;1;-4]
+Block Normal 0
+#BLOCK-END
+
+[1;1;-4]
+Block Normal 0
+#BLOCK-END
+
+[0;1;-4]
+Block Normal 0
+#BLOCK-END
+
+[-1;1;-4]
+Block Normal 0
+#BLOCK-END
+
+[-2;1;-4]
+Block Normal 0
+#BLOCK-END
+
+[-3;1;-4]
+Block Normal 0
+#BLOCK-END
+
+[3;0;-4]
+Block Normal 0
+#BLOCK-END
+
+[2;0;-4]
+Block Normal 0
+#BLOCK-END
+
+[1;0;-4]
+Block Normal 0
+#BLOCK-END
+
+[0;0;-4]
+Block Normal 0
+#BLOCK-END
+
+[-1;0;-4]
+Block Normal 0
+#BLOCK-END
+
+[-2;0;-4]
+Block Normal 0
+#BLOCK-END
+
+[-3;0;-4]
+Block Normal 0
+#BLOCK-END
+
+[3;-1;-4]
+Block Normal 0
+#BLOCK-END
+
+[2;-1;-4]
+Block Normal 0
+#BLOCK-END
+
+[1;-1;-4]
+Block Normal 0
+#BLOCK-END
+
+[0;-1;-4]
+Block Normal 0
+#BLOCK-END
+
+[-1;-1;-4]
+Block Normal 0
+#BLOCK-END
+
+[-2;-1;-4]
+Block Normal 0
+#BLOCK-END
+
+[-3;-1;-4]
+Block Normal 0
+#BLOCK-END
+
+[3;-2;-4]
+Block Normal 0
+#BLOCK-END
+
+[2;-2;-4]
+Block Normal 0
+#BLOCK-END
+
+[1;-2;-4]
+Block Dust 0
+#BLOCK-END
+
+[0;-2;-4]
+Block Dust 0
+#BLOCK-END
+
+[-1;-2;-4]
+Block Dust 0
+#BLOCK-END
+
+[-2;-2;-4]
+Block Normal 0
+#BLOCK-END
+
+[-3;-2;-4]
+Block Normal 0
+#BLOCK-END
+
+[3;-3;-4]
+Block Normal 0
+#BLOCK-END
+
+[2;-3;-4]
+Block Normal 0
+#BLOCK-END
+
+[1;-3;-4]
+Block Normal 0
+#BLOCK-END
+
+[0;-3;-4]
+Block Normal 0
+#BLOCK-END
+
+[-1;-3;-4]
+Block Normal 0
+#BLOCK-END
+
+[-2;-3;-4]
+Block Normal 0
+#BLOCK-END
+
+[-3;-3;-4]
 Block Normal 0
 #BLOCK-END
 #WORLD-BLOCK-END
