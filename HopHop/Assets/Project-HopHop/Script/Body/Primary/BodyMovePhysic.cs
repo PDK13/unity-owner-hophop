@@ -146,8 +146,11 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyCom
 
     public void ISetTurnEnd(int Turn)
     {
-        m_move.SetDirNext();
-        m_moveDurationCurrent = 0;
+        if (State)
+        {
+            m_move.SetDirNext();
+            m_moveDurationCurrent = 0;
+        }
     }
 
     #endregion

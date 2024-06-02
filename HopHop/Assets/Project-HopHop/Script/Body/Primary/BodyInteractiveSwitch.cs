@@ -26,8 +26,6 @@ public class BodyInteractiveSwitch : MonoBehaviour, IBodyInteractive, IBodySwitc
     [SerializeField] private bool m_state = true;
     [SerializeField] private bool m_follow = true; //Switch follow value of base switch!
 
-    private bool m_avaibleSwitch = false; //This switch current on check identity!
-
     private string m_switchIdentityBase;
     private List<string> m_switchIdentityCheck;
 
@@ -37,9 +35,7 @@ public class BodyInteractiveSwitch : MonoBehaviour, IBodyInteractive, IBodySwitc
 
     #region Get
 
-    public bool State => m_avaibleSwitch ? m_state : true; //Value base on state when avaible, else always true!
-
-    public bool AvaibleSwitch => m_avaibleSwitch;
+    public bool State => m_state; //Value base on state when avaible, else always true!
 
     #endregion
 
@@ -60,22 +56,19 @@ public class BodyInteractiveSwitch : MonoBehaviour, IBodyInteractive, IBodySwitc
     {
         m_switchIdentityBase = KeyInit.GetData(GetComponent<IsometricDataInit>(), KeyInit.Key.SwitchIdentityBase, false);
         m_switchIdentityCheck = KeyInit.GetDataList(GetComponent<IsometricDataInit>(), KeyInit.Key.SwitchIdentityCheck, false);
-        //
-        m_avaibleSwitch = !string.IsNullOrEmpty(m_switchIdentityBase);
-        //
-        if (m_avaibleSwitch)
+
+        if (m_switchIdentityCheck.Count > 0)
             onSwitch += ISwitchIdentity;
-        //
+
         TurnManager.Instance.onTurnEnd += SetSwitchReset;
-        //
+
         SetControlAnimation();
     }
 
     private void OnDestroy()
     {
-        if (m_avaibleSwitch)
-            onSwitch -= ISwitchIdentity;
-        //
+        onSwitch -= ISwitchIdentity;
+
         TurnManager.Instance.onTurnEnd -= SetSwitchReset;
     }
 
@@ -90,16 +83,16 @@ public class BodyInteractiveSwitch : MonoBehaviour, IBodyInteractive, IBodySwitc
     {
         if (m_once && m_state)
             return;
-        //
+
         if (m_activeSwitch)
             return;
         m_activeSwitch = true;
-        //
+
         m_state = State;
         onState?.Invoke(m_state);
-        //
+
         SetControlAnimation();
-        //
+
         SetSwitch(m_switchIdentityBase, State);
     }
 
@@ -107,19 +100,19 @@ public class BodyInteractiveSwitch : MonoBehaviour, IBodyInteractive, IBodySwitc
     {
         if (!m_switchIdentityCheck.Exists(t => t == Identity))
             return;
-        //
+
         if (m_activeSwitch)
             return;
         m_activeSwitch = true;
-        //
+
         if (m_follow)
             m_state = State;
         else
             m_state = !m_state;
         onState?.Invoke(m_state);
-        //
+
         SetControlAnimation();
-        //
+
         SetSwitch(m_switchIdentityBase, m_state);
     }
 
@@ -151,7 +144,7 @@ public class BodyInteractiveSwitch : MonoBehaviour, IBodyInteractive, IBodySwitc
     {
         if (string.IsNullOrEmpty(Identity))
             return;
-        //
+
         onSwitch?.Invoke(Identity, State);
     }
 

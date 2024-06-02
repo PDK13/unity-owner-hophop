@@ -138,8 +138,11 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyStatic, IBodyMov
 
     public void ISetTurnEnd(int Turn)
     {
-        m_move.SetDirNext();
-        m_moveDurationCurrent = 0;
+        if (State)
+        {
+            m_move.SetDirNext();
+            m_moveDurationCurrent = 0;
+        }
     }
 
     #endregion
