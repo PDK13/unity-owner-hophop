@@ -1,7 +1,8 @@
 public class KeyTag
 {
     public const string Player = "player";
-    public const string Enermy = "enermy";
+    public const string Light = "dark";
+    public const string Dark = "light";
 
     public const string Character = "character";
     public const string Block = "block";

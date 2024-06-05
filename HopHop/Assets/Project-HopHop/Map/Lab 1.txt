@@ -46,6 +46,14 @@ Object Flower Blue 0
 Object Flower Blue 0
 #BLOCK-END
 
+[1;1;1]
+Dark Alphaca
+#BLOCK-END
+
+[-1;1;1]
+Block Stone 0
+#BLOCK-END
+
 [-3;1;1]
 Object Flower Blue 0
 #BLOCK-END
@@ -69,7 +77,11 @@ Object Flower Blue 0
 #BLOCK-END
 
 [1;-1;1]
-Object Flower Move 0
+Light Alphaca
+#BLOCK-END
+
+[-1;-1;1]
+Bullet Bubble 0
 #BLOCK-END
 
 [-3;-1;1]

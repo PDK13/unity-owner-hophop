@@ -43,6 +43,13 @@ public class BodyBulletPhysic : MonoBehaviour, ITurnManager, IBodyBullet, IBodyP
 
     #endregion
 
+    private void Awake()
+    {
+        m_animator = GetComponent<Animator>();
+        m_block = GetComponent<IsometricBlock>();
+        m_body = GetComponent<BodyPhysic>();
+    }
+
     private void OnDestroy()
     {
         TurnManager.Instance.SetRemove(Step, this);
@@ -210,7 +217,7 @@ public class BodyBulletPhysic : MonoBehaviour, ITurnManager, IBodyBullet, IBodyP
                 Debug.Log("Bullet hit Bullet!");
                 BlockCheck.GetComponent<IBodyBullet>().IHit();
             }
-            if (BlockCheck.Tag.Contains(KeyTag.Enermy))
+            if (BlockCheck.Tag.Contains(KeyTag.Dark))
             {
                 Debug.Log("Bullet hit Enermy");
             }

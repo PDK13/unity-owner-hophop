@@ -322,7 +322,7 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyCom
                 Debug.Log("Body hit Bullet!");
                 BlockCheck.GetComponent<IBodyBullet>().IHit();
             }
-            if (BlockCheck.Tag.Contains(KeyTag.Enermy))
+            if (BlockCheck.Tag.Contains(KeyTag.Dark))
             {
                 Debug.Log("Body hit Enermy");
             }

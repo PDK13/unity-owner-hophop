@@ -359,7 +359,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
                 Debug.Log("Player hit Bullet!");
                 BlockCheck.GetComponent<IBodyBullet>().IHit();
             }
-            if (BlockCheck.Tag.Contains(KeyTag.Enermy))
+            if (BlockCheck.Tag.Contains(KeyTag.Dark))
             {
                 Debug.Log("Player hit Enermy");
             }
