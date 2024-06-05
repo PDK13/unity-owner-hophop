@@ -253,32 +253,11 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
             return false;
         }
 
-        //NOTE: Check Move before excute Move
-        IsometricBlock Block = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + Dir * 1);
-        if (Block != null)
+        if (m_body.SetMoveControl(Dir, !m_character.MoveFloat))
         {
-            if (Block.GetTag(KeyTag.Bullet))
-            {
-                Debug.Log("[Debug] Bullet hit Player!!");
-
-                Block.GetComponent<IBodyBullet>().IHit();
-            }
-            else
-            {
-                BodyPhysic BodyPhysic = Block.GetComponent<BodyPhysic>();
-
-                if (BodyPhysic == null)
-                {
-                    //Surely can't continue move to this Pos, because this Block can't be push!!
-                    return false;
-                }
-            }
+            ICollide(Dir);
+            SetControlStage(false);
         }
-        //NOTE: Fine Move to excute Move
-
-        SetControlStage(false);
-
-        m_body.SetMoveControl(Dir, !m_character.MoveFloat);
 
         return true;
     }
@@ -364,6 +343,26 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
         {
             m_body.SetGravityControl();
             m_body.SetBottomControl();
+        }
+    }
+
+    public void ICollide(IsometricVector Dir)
+    {
+        var Block = m_block.GetBlockAll(Dir);
+        foreach (var BlockCheck in Block)
+        {
+            if (BlockCheck == null)
+                continue;
+
+            if (BlockCheck.Tag.Contains(KeyTag.Bullet))
+            {
+                Debug.Log("Player hit Bullet!");
+                BlockCheck.GetComponent<IBodyBullet>().IHit();
+            }
+            if (BlockCheck.Tag.Contains(KeyTag.Enermy))
+            {
+                Debug.Log("Player hit Enermy");
+            }
         }
     }
 

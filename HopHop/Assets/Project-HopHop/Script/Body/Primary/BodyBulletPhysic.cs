@@ -17,6 +17,8 @@ public class BodyBulletPhysic : MonoBehaviour, ITurnManager, IBodyBullet, IBodyP
 
     private int m_moveDurationCurrent = 0;
 
+    private bool m_hit = false;
+
     private int m_fallStep = 0;
 
     #endregion
@@ -94,33 +96,12 @@ public class BodyBulletPhysic : MonoBehaviour, ITurnManager, IBodyBullet, IBodyP
         m_moveDuration = Speed;
     }
 
-    public bool IHit(IsometricBlock Target)
-    {
-        if (Target == null)
-            return false;
-
-        if (m_fallStep >= 10)
-        {
-            //...
-        }
-
-        if (Target.GetTag(KeyTag.Block))
-        {
-            //...
-        }
-
-        if (Target.GetTag(KeyTag.Player))
-        {
-            Debug.Log("[Debug] Bullet hit Player!!");
-        }
-
-        IHit();
-
-        return true;
-    } //Destroy when Hit after check Target
-
     public void IHit()
     {
+        if (m_hit)
+            return;
+        m_hit = true;
+
         TurnManager.Instance.SetEndStep(Step, this);
         TurnManager.Instance.SetRemove(Step, this);
         TurnManager.Instance.onTurnStart -= ISetTurnStart;
@@ -138,19 +119,13 @@ public class BodyBulletPhysic : MonoBehaviour, ITurnManager, IBodyBullet, IBodyP
 
     public bool IControl()
     {
-        //NOTE: Check Move before excute Move
-        IsometricBlock Block = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + m_moveDir);
-        if (IHit(Block))
-            return false;
-        //NOTE: Fine Move to excute Move
-
         IControl(m_moveDir);
-
         return true;
     }
 
     public bool IControl(IsometricVector Dir)
     {
+        ICollide(Dir);
         m_body.SetMoveControl(Dir);
 
         return true;
@@ -214,6 +189,32 @@ public class BodyBulletPhysic : MonoBehaviour, ITurnManager, IBodyBullet, IBodyP
         {
             m_body.SetGravityControl();
             m_body.SetBottomControl();
+        }
+    }
+
+    public void ICollide(IsometricVector Dir)
+    {
+        var Block = m_block.GetBlockAll(Dir);
+        foreach (var BlockCheck in Block)
+        {
+            if (BlockCheck == null)
+                continue;
+
+            if (BlockCheck.Tag.Contains(KeyTag.Player))
+            {
+                Debug.Log("Bullet hit Player");
+                IHit();
+            }
+            if (BlockCheck.Tag.Contains(KeyTag.Bullet))
+            {
+                Debug.Log("Bullet hit Bullet!");
+                BlockCheck.GetComponent<IBodyBullet>().IHit();
+            }
+            if (BlockCheck.Tag.Contains(KeyTag.Enermy))
+            {
+                Debug.Log("Bullet hit Enermy");
+            }
+            IHit();
         }
     }
 

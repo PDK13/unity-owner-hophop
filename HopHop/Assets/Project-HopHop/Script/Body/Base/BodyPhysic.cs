@@ -94,8 +94,6 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
         if (Gravity)
             SetGravityControl(Dir);
 
-        onMove?.Invoke(true, Dir);
-
         Vector3 MoveDir = IsometricVector.GetDirVector(Dir);
         Vector3 MoveStart = IsometricVector.GetDirVector(m_block.Pos);
         Vector3 MoveEnd = IsometricVector.GetDirVector(m_block.Pos) + MoveDir;
@@ -109,6 +107,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
             {
                 onMove?.Invoke(false, Dir);
             });
+        onMove?.Invoke(true, Dir);
 
         m_moveLastXY = Dir;
 

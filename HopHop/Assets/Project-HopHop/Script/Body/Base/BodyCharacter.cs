@@ -366,6 +366,8 @@ public class BodyCharacter : MonoBehaviour, IBodyPhysic
             SetAnimationStand(m_block.GetBlock(IsometricVector.Bot));
     }
 
+    public void ICollide(IsometricVector Dir) { }
+
     #endregion
 }
 

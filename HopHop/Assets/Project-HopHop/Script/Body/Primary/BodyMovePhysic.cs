@@ -305,6 +305,30 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyCom
         }
     }
 
+    public void ICollide(IsometricVector Dir)
+    {
+        var Block = m_block.GetBlockAll(Dir);
+        foreach (var BlockCheck in Block)
+        {
+            if (BlockCheck == null)
+                continue;
+
+            if (BlockCheck.Tag.Contains(KeyTag.Player))
+            {
+                Debug.Log("Body hit Player!");
+            }
+            if (BlockCheck.Tag.Contains(KeyTag.Bullet))
+            {
+                Debug.Log("Body hit Bullet!");
+                BlockCheck.GetComponent<IBodyBullet>().IHit();
+            }
+            if (BlockCheck.Tag.Contains(KeyTag.Enermy))
+            {
+                Debug.Log("Body hit Enermy");
+            }
+        }
+    }
+
     #endregion
 
     #region IBodyCommand
