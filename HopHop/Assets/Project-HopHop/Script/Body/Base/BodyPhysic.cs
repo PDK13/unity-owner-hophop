@@ -83,6 +83,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
     public void SetMoveControlReset()
     {
         m_moveLastXY = IsometricVector.None;
+        m_moveForceXY = null;
     }
 
     public bool SetMoveControl(IsometricVector Dir)
