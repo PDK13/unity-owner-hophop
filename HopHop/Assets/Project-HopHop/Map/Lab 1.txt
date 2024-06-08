@@ -274,6 +274,11 @@ Block Normal 0
 
 [-2;0;0]
 Object Flower Move 0
+#BLOCK-MOVE
+1
+2
+1|T
+1|B
 #BLOCK-END
 
 [-3;0;0]

@@ -19,7 +19,7 @@ MonoBehaviour:
     MoveLock: 1
     MoveFloat: 0
     BodyGravity: 1
-    BodyDynamic: 1
+    BodyBottom: 1
     Skin:
     - Avartar: {fileID: -1549862626, guid: e3adc795097a9dd48ac13fddccb8d63b, type: 3}
       Animator: {fileID: 9100000, guid: d9ce07e8a67f3d04a987c339c3948962, type: 2}
@@ -30,7 +30,7 @@ MonoBehaviour:
     MoveLock: 1
     MoveFloat: 0
     BodyGravity: 1
-    BodyDynamic: 1
+    BodyBottom: 1
     Skin:
     - Avartar: {fileID: -510339602, guid: 449e25ad76b53f94c81413bae2dbf84f, type: 3}
       Animator: {fileID: 9100000, guid: 220f323e7036aec48b73b03ce9043351, type: 2}
@@ -41,7 +41,7 @@ MonoBehaviour:
     MoveLock: 0
     MoveFloat: 0
     BodyGravity: 1
-    BodyDynamic: 1
+    BodyBottom: 1
     Skin:
     - Avartar: {fileID: -1753934497, guid: 408c5f2a55c9f514f84c18114738db1f, type: 3}
       Animator: {fileID: 9100000, guid: eaae9b6aca96aac49aeba87cde9d9c70, type: 2}
@@ -52,7 +52,7 @@ MonoBehaviour:
     MoveLock: 1
     MoveFloat: 1
     BodyGravity: 1
-    BodyDynamic: 1
+    BodyBottom: 1
     Skin:
     - Avartar: {fileID: -279351752, guid: 33f3d55067887144f9064e82557ec7dd, type: 3}
       Animator: {fileID: 9100000, guid: c5c52f62c16f46046b45d83e26d51c7d, type: 2}
@@ -63,7 +63,7 @@ MonoBehaviour:
     MoveLock: 1
     MoveFloat: 0
     BodyGravity: 1
-    BodyDynamic: 1
+    BodyBottom: 1
     Skin:
     - Avartar: {fileID: 414951024, guid: f3068cf885263da4dbc62096fab8245c, type: 3}
       Animator: {fileID: 9100000, guid: 46552a8f7ca6b914da94a17a96d01f1d, type: 2}
@@ -74,7 +74,7 @@ MonoBehaviour:
     MoveLock: 1
     MoveFloat: 0
     BodyGravity: 1
-    BodyDynamic: 0
+    BodyBottom: 0
     Skin:
     - Avartar: {fileID: 283337811, guid: 21585573013a44340a963d315aad9e28, type: 3}
       Animator: {fileID: 9100000, guid: 8caaef81a23c6ba44a844d3ce6f81bca, type: 2}
@@ -85,7 +85,7 @@ MonoBehaviour:
     MoveLock: 1
     MoveFloat: 0
     BodyGravity: 1
-    BodyDynamic: 1
+    BodyBottom: 1
     Skin:
     - Avartar: {fileID: 1209903665, guid: 05859c7a8cfb2a941aa494ec2b49d60e, type: 3}
       Animator: {fileID: 9100000, guid: 6a76a5cfddd148d41b104179338ee3d6, type: 2}
@@ -96,7 +96,7 @@ MonoBehaviour:
     MoveLock: 1
     MoveFloat: 0
     BodyGravity: 0
-    BodyDynamic: 1
+    BodyBottom: 1
     Skin:
     - Avartar: {fileID: 1539420457, guid: c5cc65d242e928d45a9b4a01eff72a80, type: 3}
       Animator: {fileID: 9100000, guid: d587e54e567514142ba7a7f664c102ff, type: 2}
@@ -107,7 +107,7 @@ MonoBehaviour:
     MoveLock: 1
     MoveFloat: 0
     BodyGravity: 1
-    BodyDynamic: 1
+    BodyBottom: 1
     Skin:
     - Avartar: {fileID: -626731698, guid: c0c3da9dc95588244832b39b5e62c039, type: 3}
       Animator: {fileID: 9100000, guid: 9ceb856e51ddf854f8d4d6084b7ce99d, type: 2}
@@ -118,7 +118,7 @@ MonoBehaviour:
     MoveLock: 1
     MoveFloat: 0
     BodyGravity: 1
-    BodyDynamic: 1
+    BodyBottom: 1
     Skin:
     - Avartar: {fileID: 1699165970, guid: 303270b775a31a4489562b509816e38a, type: 3}
       Animator: {fileID: 9100000, guid: 05eed05d9d2b6d94092c7ff7aaa1fd1e, type: 2}
@@ -129,7 +129,7 @@ MonoBehaviour:
     MoveLock: 1
     MoveFloat: 0
     BodyGravity: 1
-    BodyDynamic: 1
+    BodyBottom: 1
     Skin:
     - Avartar: {fileID: -282547367, guid: 545b93d88346a97489937ec7616bee1d, type: 3}
       Animator: {fileID: 9100000, guid: 91b0766fc4c66d2419d9eb12386ed861, type: 2}
@@ -140,7 +140,7 @@ MonoBehaviour:
     MoveLock: 1
     MoveFloat: 0
     BodyGravity: 1
-    BodyDynamic: 1
+    BodyBottom: 1
     Skin:
     - Avartar: {fileID: 1950377435, guid: fbe3c657dd2918f49876160e319d56cf, type: 3}
       Animator: {fileID: 9100000, guid: 98a5d29bbcfb4b54bae83dd4f05c0ef8, type: 2}

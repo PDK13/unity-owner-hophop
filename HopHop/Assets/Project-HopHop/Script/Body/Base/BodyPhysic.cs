@@ -110,6 +110,12 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
 
         m_moveLastXY = Dir;
 
+        if (Static)
+        {
+            SetPush(Dir);
+            SetForceTop(Dir);
+        }
+
         return true;
     }
 
@@ -137,6 +143,12 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
                 m_moveForceXY = null;
             });
         onMoveForce?.Invoke(true, m_moveForceXY.Value);
+
+        if (Static)
+        {
+            SetPush(m_moveForceXY.Value);
+            SetForceTop(m_moveForceXY.Value);
+        }
 
         return true;
     }
@@ -329,18 +341,77 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
     }
 
     #endregion
+
+    #region Push (Side)
+
+    private void SetPush(IsometricVector Dir)
+    {
+        if (Dir == IsometricVector.None || Dir == IsometricVector.Top || Dir == IsometricVector.Bot)
+            return;
+
+        var Block = m_block.GetBlockAll(Dir);
+        foreach (var BlockCheck in Block)
+        {
+            if (BlockCheck == null)
+                continue;
+
+            BodyPhysic BodyPhysic = BlockCheck.GetComponent<BodyPhysic>();
+            if (BodyPhysic != null)
+                BodyPhysic.SetPushControl(Dir, Dir * -1);
+        }
+    }
+
+    #endregion
+
+    #region Force (Top & Bot)
+
+    private void SetForceTop(IsometricVector Dir)
+    {
+        if (Dir == IsometricVector.None)
+            return;
+
+        var Block = m_block.GetBlockAll(IsometricVector.Top);
+        foreach (var BlockCheck in Block)
+        {
+            if (BlockCheck == null)
+                continue;
+
+            BodyPhysic BodyPhysic = BlockCheck.GetComponent<BodyPhysic>();
+            if (BodyPhysic != null ? BodyPhysic.Gravity : false)
+                BodyPhysic.SetForceControl(Dir, IsometricVector.Bot, Dir != IsometricVector.Bot);
+        }
+    }
+
+    private void SetForceBot(IsometricVector Dir)
+    {
+        if (Dir == IsometricVector.None)
+            return;
+
+        var Block = m_block.GetBlockAll(IsometricVector.Bot);
+        foreach (var BlockCheck in Block)
+        {
+            if (BlockCheck == null)
+                continue;
+
+            BodyPhysic BodyPhysic = BlockCheck.GetComponent<BodyPhysic>();
+            if (BodyPhysic != null ? BodyPhysic.Gravity : false)
+                BodyPhysic.SetForceControl(Dir, IsometricVector.Top, Dir != IsometricVector.Top);
+        }
+    }
+
+    #endregion
 }
 
 #if UNITY_EDITOR
 
-[CustomEditor(typeof(BodyPhysic))]
+//[CustomEditor(typeof(BodyPhysic))]
 [CanEditMultipleObjects]
 public class BaseBodyEditor : Editor
 {
     private BodyPhysic m_target;
 
     private SerializedProperty m_gravity;
-    private SerializedProperty m_dynamic;
+    private SerializedProperty m_bottom;
     private SerializedProperty m_static;
 
     private void OnEnable()
@@ -348,7 +419,7 @@ public class BaseBodyEditor : Editor
         m_target = target as BodyPhysic;
 
         m_gravity = QUnityEditorCustom.GetField(this, "m_gravity");
-        m_dynamic = QUnityEditorCustom.GetField(this, "m_dynamic");
+        m_bottom = QUnityEditorCustom.GetField(this, "m_bottom");
         m_static = QUnityEditorCustom.GetField(this, "m_static");
     }
 
@@ -357,7 +428,7 @@ public class BaseBodyEditor : Editor
         QUnityEditorCustom.SetUpdate(this);
 
         QUnityEditorCustom.SetField(m_gravity);
-        QUnityEditorCustom.SetField(m_dynamic);
+        QUnityEditorCustom.SetField(m_bottom);
         QUnityEditorCustom.SetField(m_static);
 
         QUnityEditorCustom.SetApply(this);

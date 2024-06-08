@@ -125,6 +125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_name: Dark Mow
+  m_identity: 
   m_tag:
   - dark
   - character
@@ -188,7 +189,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_gravity: 1
-  m_dynamic: 0
+  m_bottom: 0
   m_static: 0
 --- !u!114 &196747031335967351
 MonoBehaviour:

@@ -28,7 +28,7 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyCom
 
     #region Get
 
-    public StepType Step => StepType.MovePhysic;
+    public StepType Step => m_body != null ? (m_body.Static ? StepType.MoveStatic : StepType.MovePhysic) : StepType.MovePhysic;
 
     public bool State => m_switch != null ? m_switch.State : true;
 
@@ -120,16 +120,16 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyCom
         else
         if (Step == this.Step.ToString())
         {
+            if (StepEnd)
+                return;
+
             if (!State)
             {
-                TurnManager.Instance.SetEndStep(this.Step, this);
-                return;
-            }
-
-            if (!m_body.SetMoveControlForce())
-                IControl();
-            else
                 m_moveDurationCurrent = int.MaxValue;
+                TurnManager.Instance.SetEndStep(this.Step, this);
+            }
+            else
+                IControl();
         }
     }
 
