@@ -11,6 +11,7 @@ public class KeyTag
     public const string Slip = "slip";
     public const string Slow = "slow";
     public const string Water = "water";
+    public const string Jump = "jump";
 
     public const string Bullet = "bullet";
     public const string Trap = "trap";

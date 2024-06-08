@@ -191,30 +191,34 @@ public class BodyCharacter : MonoBehaviour, IBodyPhysic
         m_land = false;
 
         if (From == null || To == null)
-            //Move from or to NONE BLOCK!!
+            //Move from or to NONE BLOCK
             SetAnimation(TRIGGER_JUMP);
         else
         if (From.GetTag(KeyTag.Water))
         {
-            //Move from BLOCK WATER!!
+            //Move from BLOCK WATER
             if (To.GetTag(KeyTag.Water))
-                //Move from BLOCK WATER to BLOCK WATER!!
+                //Move from BLOCK WATER to BLOCK WATER
                 SetAnimation(TRIGGER_SWIM);
             else
-                //Move from BLOCK WATER to BLOCK NOT WATER!!
+                //Move from BLOCK WATER to BLOCK NOT WATER
                 SetAnimation(TRIGGER_JUMP);
         }
         else
         if (From.GetTag(KeyTag.Slow))
-            //Move from BLOCK SLOW!!
+            //Move from BLOCK SLOW
             SetAnimation(TRIGGER_JUMP);
         else
         if (From.GetTag(KeyTag.Slip))
-            //Move from BLOCK SLIP!!
+            //Move from BLOCK SLIP
+            SetAnimation(TRIGGER_JUMP);
+        else
+        if (From.GetTag(KeyTag.Jump))
+            //Move from BLOCK JUMP
             SetAnimation(TRIGGER_JUMP);
         else
         {
-            //Move from BLOCK NORMAL!!
+            //Move from BLOCK NORMAL
 
             //Move from BLOCK NORMAL to not STATIC
             BodyPhysic ToBodyPhysic = To.GetComponent<BodyPhysic>();
@@ -229,22 +233,26 @@ public class BodyCharacter : MonoBehaviour, IBodyPhysic
 
             //Move from BLOCK NORMAL to STATIC
             if (m_character == CharacterType.Cat)
-                //Character Cat!!
+                //Character Cat
                 SetAnimation(TRIGGER_JUMP);
             else
             if (To.GetTag(KeyTag.Water))
-                //Move from BLOCK NORMAL to BLOCK WATER!!
+                //Move from BLOCK NORMAL to BLOCK WATER
                 SetAnimation(TRIGGER_JUMP);
             else
             if (To.GetTag(KeyTag.Slow))
-                //Move from BLOCK NORMAL to BLOCK SLOW!!
+                //Move from BLOCK NORMAL to BLOCK SLOW
                 SetAnimation(TRIGGER_JUMP);
             else
             if (To.GetTag(KeyTag.Slip))
-                //Move from BLOCK NORMAL to BLOCK SLIP!!
+                //Move from BLOCK NORMAL to BLOCK SLIP
                 SetAnimation(TRIGGER_JUMP);
             else
-                //Move from BLOCK NORMAL to BLOCK NORMAL!!
+            if (To.GetTag(KeyTag.Jump))
+                //Move from BLOCK NORMAL to BLOCK JUMP
+                SetAnimation(TRIGGER_JUMP);
+            else
+                //Move from BLOCK NORMAL to BLOCK NORMAL
                 SetAnimation(TRIGGER_MOVE);
         }
     }
@@ -255,7 +263,7 @@ public class BodyCharacter : MonoBehaviour, IBodyPhysic
 
         if (On == null)
         {
-            //Stand on NONE BLOCK!!
+            //Stand on NONE BLOCK
             SetAnimation(TRIGGER_JUMP);
             return;
         }
@@ -274,7 +282,7 @@ public class BodyCharacter : MonoBehaviour, IBodyPhysic
         //STAND on STATIC
 
         if (On.GetTag(KeyTag.Water))
-            //Stand on WATER BLOCK!!
+            //Stand on WATER BLOCK
             SetAnimation(TRIGGER_SWIM);
         else
         {
@@ -289,7 +297,7 @@ public class BodyCharacter : MonoBehaviour, IBodyPhysic
                 SetAnimation(TRIGGER_LAND);
             }
             else
-                //Stand on ANY BLOCK!!
+                //Stand on ANY BLOCK
                 SetAnimation(TRIGGER_IDLE);
         }
     }

@@ -129,6 +129,7 @@ MonoBehaviour:
   m_tag:
   - move
   - object
+  - jump
   m_posType: 0
   m_pos:
     X: 0
@@ -175,7 +176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_gravity: 0
-  m_dynamic: 1
+  m_bottom: 1
   m_static: 1
 --- !u!114 &2716428844222536966
 MonoBehaviour:

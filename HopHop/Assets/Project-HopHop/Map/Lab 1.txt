@@ -273,7 +273,7 @@ Block Normal 0
 #BLOCK-END
 
 [-2;0;0]
-Block Normal 0
+Object Flower Move 0
 #BLOCK-END
 
 [-3;0;0]
