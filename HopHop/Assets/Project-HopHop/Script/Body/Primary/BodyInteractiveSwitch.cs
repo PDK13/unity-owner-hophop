@@ -27,7 +27,7 @@ public class BodyInteractiveSwitch : MonoBehaviour, IBodyInteractive, IBodySwitc
     [SerializeField] private bool m_follow = true; //Switch follow value of base switch!
 
     private string m_switchIdentityBase;
-    private List<string> m_switchIdentityCheck;
+    private List<string> m_switchIdentityCheck = new List<string>();
 
     private bool m_activeSwitch = false;
 
@@ -57,7 +57,7 @@ public class BodyInteractiveSwitch : MonoBehaviour, IBodyInteractive, IBodySwitc
         m_switchIdentityBase = KeyInit.GetData(GetComponent<IsometricDataInit>(), KeyInit.Key.SwitchIdentityBase, false);
         m_switchIdentityCheck = KeyInit.GetDataList(GetComponent<IsometricDataInit>(), KeyInit.Key.SwitchIdentityCheck, false);
 
-        if (m_switchIdentityCheck.Count > 0)
+        if (m_switchIdentityCheck != null ? m_switchIdentityCheck.Count > 0 : false)
             onSwitch += ISwitchIdentity;
 
         TurnManager.Instance.onTurnEnd += SetSwitchReset;

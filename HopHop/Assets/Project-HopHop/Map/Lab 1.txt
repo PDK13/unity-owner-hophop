@@ -6,6 +6,30 @@ Lab
 
 #WORLD-BLOCK
 
+[2;-1;4]
+Block Normal 0
+#BLOCK-END
+
+[2;-2;4]
+Block Normal 0
+#BLOCK-END
+
+[2;-1;3]
+Block Dust 0
+#BLOCK-END
+
+[2;-2;3]
+Block Dust 0
+#BLOCK-END
+
+[2;-1;2]
+Block Dust 0
+#BLOCK-END
+
+[2;-2;2]
+Block Dust 0
+#BLOCK-END
+
 [3;3;1]
 Object Flower Blue 0
 #BLOCK-END
@@ -46,14 +70,6 @@ Object Flower Blue 0
 Object Flower Blue 0
 #BLOCK-END
 
-[1;1;1]
-Dark Alphaca
-#BLOCK-END
-
-[-1;1;1]
-Block Stone 0
-#BLOCK-END
-
 [-3;1;1]
 Object Flower Blue 0
 #BLOCK-END
@@ -76,12 +92,8 @@ Object Flower Blue 0
 Object Flower Blue 0
 #BLOCK-END
 
-[1;-1;1]
-Light Alphaca
-#BLOCK-END
-
-[-1;-1;1]
-Bullet Bubble 0
+[2;-1;1]
+Block Dust 0
 #BLOCK-END
 
 [-3;-1;1]
@@ -90,6 +102,19 @@ Object Flower Blue 0
 
 [3;-2;1]
 Object Flower Blue 0
+#BLOCK-END
+
+[2;-2;1]
+Block Dust 0
+#BLOCK-END
+
+[1;-2;1]
+Dark Wolf
+#BLOCK-MOVE
+1
+2
+2|D
+2|U
 #BLOCK-END
 
 [-3;-2;1]
@@ -161,7 +186,7 @@ Block Normal 0
 #BLOCK-END
 
 [1;2;0]
-Block Normal 0
+Block Slip 0
 #BLOCK-END
 
 [0;2;0]
@@ -169,7 +194,7 @@ Block Normal 0
 #BLOCK-END
 
 [-1;2;0]
-Block Normal 0
+Block Slow 0
 #BLOCK-END
 
 [-2;2;0]
@@ -213,7 +238,12 @@ Block Normal 0
 #BLOCK-END
 
 [2;0;0]
-Block Normal 0
+Block Stone Move 0 1
+#BLOCK-MOVE
+1
+2
+4|T
+4|B
 #BLOCK-END
 
 [1;0;0]

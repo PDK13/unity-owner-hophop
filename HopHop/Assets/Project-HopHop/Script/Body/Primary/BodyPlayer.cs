@@ -67,7 +67,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
 
         m_body.onMove += IMove;
         m_body.onForce += IForce;
-        m_body.onMoveForce += IMove;
+        m_body.onMoveForce += IMoveForce;
         m_body.onGravity += IGravity;
         m_body.onPush += IPush;
 
@@ -89,7 +89,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
 
         m_body.onMove -= IMove;
         m_body.onForce -= IForce;
-        m_body.onMoveForce -= IMove;
+        m_body.onMoveForce -= IMoveForce;
         m_body.onGravity -= IGravity;
         m_body.onPush -= IPush;
 
@@ -215,7 +215,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
             if (!m_body.SetMoveControlForce())
                 IControl();
             else
-                TurnManager.Instance.SetEndStep(this.Step, this);
+                m_moveDurationCurrent = int.MaxValue;
         }
     }
 
@@ -287,7 +287,10 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
             }
             else
             {
-                if (StepEnd || StepGravity || StepForce)
+                bool End = StepEnd;
+                bool Gravity = StepGravity;
+                bool Force = End || !m_character.MoveFloat ? StepForce : false;
+                if (End || Gravity || Force)
                     TurnManager.Instance.SetEndStep(Step, this);
                 else
                 {
@@ -297,6 +300,23 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
                     else
                         SetControlStage(true);
                 }
+            }
+        }
+    }
+
+    public void IMoveForce(bool State, IsometricVector Dir)
+    {
+        if (TurnManager.Instance.StepCurrent.Step == this.Step.ToString())
+        {
+            if (State)
+            {
+                m_moveDurationCurrent++;
+            }
+            else
+            {
+                bool Gravity = StepGravity;
+                bool Force = StepForce;
+                TurnManager.Instance.SetEndStep(Step, this);
             }
         }
     }

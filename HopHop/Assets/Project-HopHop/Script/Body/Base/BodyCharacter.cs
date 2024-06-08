@@ -72,7 +72,7 @@ public class BodyCharacter : MonoBehaviour, IBodyPhysic
         SetCharacter(m_character, m_characterSkin);
         //
         m_body.onMove += IMove;
-        m_body.onMoveForce += IMove;
+        m_body.onMoveForce += IMoveForce;
         m_body.onGravity += IGravity;
         m_body.onPush += IPush;
         m_body.onForce += IForce;
@@ -81,7 +81,7 @@ public class BodyCharacter : MonoBehaviour, IBodyPhysic
     private void OnDestroy()
     {
         m_body.onMove -= IMove;
-        m_body.onMoveForce -= IMove;
+        m_body.onMoveForce -= IMoveForce;
         m_body.onGravity -= IGravity;
         m_body.onPush -= IPush;
         m_body.onForce -= IForce;
@@ -337,6 +337,14 @@ public class BodyCharacter : MonoBehaviour, IBodyPhysic
     public bool IControl(IsometricVector Dir) { return false; }
 
     public void IMove(bool State, IsometricVector Dir)
+    {
+        if (State && Dir != IsometricVector.None && Dir != IsometricVector.Top && Dir != IsometricVector.Bot)
+            SetAnimationMove(m_block.GetBlock(IsometricVector.Bot), m_block.GetBlock(IsometricVector.Bot, Dir));
+        else
+            SetAnimationStand(m_block.GetBlock(IsometricVector.Bot));
+    }
+
+    public void IMoveForce(bool State, IsometricVector Dir)
     {
         if (State && Dir != IsometricVector.None && Dir != IsometricVector.Top && Dir != IsometricVector.Bot)
             SetAnimationMove(m_block.GetBlock(IsometricVector.Bot), m_block.GetBlock(IsometricVector.Bot, Dir));

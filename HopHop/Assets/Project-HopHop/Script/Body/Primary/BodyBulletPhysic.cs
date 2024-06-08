@@ -50,6 +50,21 @@ public class BodyBulletPhysic : MonoBehaviour, ITurnManager, IBodyBullet, IBodyP
         m_body = GetComponent<BodyPhysic>();
     }
 
+    private void Start()
+    {
+        TurnManager.Instance.SetInit(Step, this);
+        TurnManager.Instance.onTurnStart += ISetTurnStart;
+        TurnManager.Instance.onStepStart += ISetStepStart;
+        TurnManager.Instance.onStepEnd += ISetStepEnd;
+        TurnManager.Instance.onTurnEnd += ISetTurnEnd;
+
+        m_body.onMove += IMove;
+        m_body.onForce += IForce;
+        m_body.onMoveForce += IMoveForce;
+        m_body.onGravity += IGravity;
+        m_body.onPush += IPush;
+    }
+
     private void OnDestroy()
     {
         TurnManager.Instance.SetRemove(Step, this);
@@ -58,7 +73,11 @@ public class BodyBulletPhysic : MonoBehaviour, ITurnManager, IBodyBullet, IBodyP
         TurnManager.Instance.onStepEnd -= ISetStepEnd;
         TurnManager.Instance.onTurnEnd -= ISetTurnEnd;
 
+        m_body.onMove -= IMove;
+        m_body.onForce -= IForce;
+        m_body.onMoveForce -= IMoveForce;
         m_body.onGravity -= IGravity;
+        m_body.onPush -= IPush;
     }
 
     #region ITurnManager
@@ -87,21 +106,9 @@ public class BodyBulletPhysic : MonoBehaviour, ITurnManager, IBodyBullet, IBodyP
 
     public void IInit(IsometricVector Dir, int Speed)
     {
-        m_animator = GetComponent<Animator>();
-        m_block = GetComponent<IsometricBlock>();
-        m_body = GetComponent<BodyPhysic>();
-
-        TurnManager.Instance.SetInit(Step, this);
-        TurnManager.Instance.onTurnStart += ISetTurnStart;
-        TurnManager.Instance.onStepStart += ISetStepStart;
-        TurnManager.Instance.onStepEnd += ISetStepEnd;
-        TurnManager.Instance.onTurnEnd += ISetTurnEnd;
-
-        m_body.onGravity += IGravity;
-
         m_moveDir = Dir;
         m_moveDuration = Speed;
-    }
+    } //Init Bullet moving
 
     public void IHit()
     {
@@ -148,10 +155,30 @@ public class BodyBulletPhysic : MonoBehaviour, ITurnManager, IBodyBullet, IBodyP
             }
             else
             {
-                if (StepEnd || StepGravity || StepForce)
+                bool End = StepEnd;
+                bool Gravity = StepGravity;
+                bool Force = StepForce;
+                if (End || Gravity || Force)
                     TurnManager.Instance.SetEndStep(Step, this);
                 else
                     TurnManager.Instance.SetEndMove(Step, this);
+            }
+        }
+    }
+
+    public void IMoveForce(bool State, IsometricVector Dir)
+    {
+        if (TurnManager.Instance.StepCurrent.Step == this.Step.ToString())
+        {
+            if (State)
+            {
+                m_moveDurationCurrent++;
+            }
+            else
+            {
+                bool Gravity = StepGravity;
+                bool Force = StepForce;
+                TurnManager.Instance.SetEndStep(Step, this);
             }
         }
     }

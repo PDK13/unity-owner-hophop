@@ -6,6 +6,8 @@ public interface IBodyPhysic
 
     void IMove(bool State, IsometricVector Dir);
 
+    void IMoveForce(bool State, IsometricVector Dir);
+
     void IForce(bool State, IsometricVector Dir, IsometricVector From);
 
     void IGravity(bool State);
