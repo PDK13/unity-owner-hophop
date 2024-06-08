@@ -6,6 +6,15 @@ Lab
 
 #WORLD-BLOCK
 
+[3;-2;5]
+Block Stone Move 0 1
+#BLOCK-MOVE
+1
+2
+1|D
+1|U
+#BLOCK-END
+
 [2;-1;4]
 Block Normal 0
 #BLOCK-END
@@ -108,7 +117,7 @@ Object Flower Blue 0
 Block Dust 0
 #BLOCK-END
 
-[1;-2;1]
+[0;-2;1]
 Dark Wolf
 #BLOCK-MOVE
 1

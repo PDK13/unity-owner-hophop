@@ -116,13 +116,15 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyStatic, IBodyMov
         else
         if (Step == this.Step.ToString())
         {
+            if (StepEnd)
+                return;
+
             if (!State)
             {
+                m_moveDurationCurrent = int.MaxValue;
                 TurnManager.Instance.SetEndStep(this.Step, this);
-                return;
             }
-
-            if (!StepEnd)
+            else
                 IControl();
         }
     }
@@ -186,10 +188,12 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyStatic, IBodyMov
         {
             if (State)
             {
+                Debug.Log("Block Start!");
                 m_moveDurationCurrent++;
             }
             else
             {
+                Debug.Log("Block End!");
                 if (StepEnd)
                     TurnManager.Instance.SetEndStep(Step, this);
                 else

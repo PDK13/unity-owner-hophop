@@ -39,6 +39,7 @@ public class TurnManager : SingletonManager<TurnManager>
 
     private int m_turnPass = 0;
     private bool m_turnPause = false;
+    private Coroutine m_iSetCurrent;
 
     [Serializable]
     private class StepSingle
@@ -153,6 +154,8 @@ public class TurnManager : SingletonManager<TurnManager>
 
     private bool m_stop = false;
 
+    //
+
     private void Awake()
     {
         SetInstance();
@@ -175,7 +178,9 @@ public class TurnManager : SingletonManager<TurnManager>
     private void OnDestroy()
     {
         StopAllCoroutines();
-        StopAllCoroutines();
+
+        if (m_iSetCurrent != null)
+            StopCoroutine(m_iSetCurrent);
 
         onTurnStart = null;
         onStepStart = null;
@@ -187,6 +192,8 @@ public class TurnManager : SingletonManager<TurnManager>
         EditorApplication.playModeStateChanged -= SetPlayModeStateChange;
 #endif
     }
+
+    //
 
     #region Main
 
@@ -217,7 +224,9 @@ public class TurnManager : SingletonManager<TurnManager>
             return;
 #endif
 
-        StartCoroutine(ISetCurrent());
+        if (m_iSetCurrent != null)
+            StopCoroutine(m_iSetCurrent);
+        m_iSetCurrent = StartCoroutine(ISetCurrent());
     } //Force Next!!
 
     private IEnumerator ISetCurrent()
@@ -277,6 +286,8 @@ public class TurnManager : SingletonManager<TurnManager>
         onStepStart?.Invoke(m_stepCurrent.Step);
 
         //NOTE: Complete!!
+
+        m_iSetCurrent = null;
     }
 
     private void SetWait()
@@ -605,6 +616,7 @@ public class TurnManager : SingletonManager<TurnManager>
     /// <param name="Unit"></param>
     public void SetEndMove<T>(T Step, ITurnManager Unit) where T : Enum
     {
+        Debug.Log("End Move " + Step + " : " + Unit);
         SetEndMove(Step.ToString(), Unit);
     } //End!!
 
@@ -615,6 +627,7 @@ public class TurnManager : SingletonManager<TurnManager>
     /// <param name="Unit"></param>
     public void SetEndStep<T>(T Step, ITurnManager Unit) where T : Enum
     {
+        Debug.Log("End Step " + Step + " : " + Unit);
         SetEndStep(Step.ToString(), Unit);
     } //End!!
 
