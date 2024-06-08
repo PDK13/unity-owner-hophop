@@ -616,7 +616,6 @@ public class TurnManager : SingletonManager<TurnManager>
     /// <param name="Unit"></param>
     public void SetEndMove<T>(T Step, ITurnManager Unit) where T : Enum
     {
-        Debug.Log("End Move " + Step + " : " + Unit);
         SetEndMove(Step.ToString(), Unit);
     } //End!!
 
@@ -627,7 +626,6 @@ public class TurnManager : SingletonManager<TurnManager>
     /// <param name="Unit"></param>
     public void SetEndStep<T>(T Step, ITurnManager Unit) where T : Enum
     {
-        Debug.Log("End Step " + Step + " : " + Unit);
         SetEndStep(Step.ToString(), Unit);
     } //End!!
 

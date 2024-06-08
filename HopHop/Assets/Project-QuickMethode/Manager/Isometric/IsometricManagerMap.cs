@@ -371,17 +371,13 @@ public class IsometricManagerMap
             {
                 int TagIndex = GetWorldIndexTag(TagFind);
                 if (TagIndex == -1)
-                {
                     //Not exist Tag in Tag List!
                     continue;
-                }
 
                 for (int BlockIndex = 0; BlockIndex < this.Tag[TagIndex].Block.Count; BlockIndex++)
                 {
                     if (this.Tag[TagIndex].Block[BlockIndex].Pos.Fixed != Pos.Fixed)
-                    {
                         continue;
-                    }
 
                     return this.Tag[TagIndex].Block[BlockIndex];
                 }
@@ -395,9 +391,7 @@ public class IsometricManagerMap
                 foreach (IsometricBlock BlockCheck in TagCheck.Block)
                 {
                     if (BlockCheck.Pos.Fixed != Pos.Fixed)
-                    {
                         continue;
-                    }
 
                     return BlockCheck;
                 }
@@ -418,10 +412,8 @@ public class IsometricManagerMap
             {
                 int TagIndex = GetWorldIndexTag(TagFind);
                 if (TagIndex == -1)
-                {
                     //Not exist Tag in Tag List!
                     continue;
-                }
 
                 for (int BlockIndex = 0; BlockIndex < this.Tag[TagIndex].Block.Count; BlockIndex++)
                 {
@@ -430,7 +422,8 @@ public class IsometricManagerMap
                         continue;
                     }
 
-                    List.Add(this.Tag[TagIndex].Block[BlockIndex]);
+                    if (!List.Contains(this.Tag[TagIndex].Block[BlockIndex]))
+                        List.Add(this.Tag[TagIndex].Block[BlockIndex]);
                 }
             }
         }
@@ -442,11 +435,10 @@ public class IsometricManagerMap
                 foreach (IsometricBlock BlockCheck in TagCheck.Block)
                 {
                     if (BlockCheck.Pos.Fixed != Pos.Fixed)
-                    {
                         continue;
-                    }
 
-                    List.Add(BlockCheck);
+                    if (!List.Contains(BlockCheck))
+                        List.Add(BlockCheck);
                 }
             }
         }

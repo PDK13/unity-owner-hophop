@@ -125,7 +125,7 @@ public class CharacterConfigData
 
     [Space]
     public bool BodyGravity = true;
-    public bool BodyDynamic = true;
+    public bool BodyBottom = true;
 
     [Space]
     public List<CharacterConfigSkinData> Skin;

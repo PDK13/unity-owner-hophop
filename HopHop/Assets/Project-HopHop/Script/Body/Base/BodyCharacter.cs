@@ -48,7 +48,7 @@ public class BodyCharacter : MonoBehaviour, IBodyPhysic
 
     public bool BodyGravity => CharacterManager.Instance.CharacterConfig.GetConfig(Character).BodyGravity;
 
-    public bool BodyDynamic => CharacterManager.Instance.CharacterConfig.GetConfig(Character).BodyDynamic;
+    public bool BodyBottom => CharacterManager.Instance.CharacterConfig.GetConfig(Character).BodyBottom;
 
     #endregion
 

@@ -58,16 +58,16 @@ public class BodyStatic : MonoBehaviour, ITurnManager
         onMove?.Invoke(true, Dir);
 
         SetPush(Dir);
-        SetTop(Dir);
+        SetForceTop(Dir);
     } //Move Invoke!
 
     #endregion
 
-    #region Push
+    #region Push (Side)
 
     private void SetPush(IsometricVector Dir)
     {
-        if (Dir == IsometricVector.None)
+        if (Dir == IsometricVector.None || Dir == IsometricVector.Top || Dir == IsometricVector.Bot)
             return;
 
         var Block = m_block.GetBlockAll(Dir);
@@ -84,9 +84,9 @@ public class BodyStatic : MonoBehaviour, ITurnManager
 
     #endregion
 
-    #region Top
+    #region Force (Top & Bot)
 
-    private void SetTop(IsometricVector Dir)
+    private void SetForceTop(IsometricVector Dir)
     {
         if (Dir == IsometricVector.None)
             return;
@@ -100,6 +100,23 @@ public class BodyStatic : MonoBehaviour, ITurnManager
             BodyPhysic BodyPhysic = BlockCheck.GetComponent<BodyPhysic>();
             if (BodyPhysic != null ? BodyPhysic.Gravity : false)
                 BodyPhysic.SetForceControl(Dir, IsometricVector.Bot, Dir != IsometricVector.Bot);
+        }
+    }
+
+    private void SetForceBot(IsometricVector Dir)
+    {
+        if (Dir == IsometricVector.None)
+            return;
+
+        var Block = m_block.GetBlockAll(IsometricVector.Bot);
+        foreach (var BlockCheck in Block)
+        {
+            if (BlockCheck == null)
+                continue;
+
+            BodyPhysic BodyPhysic = BlockCheck.GetComponent<BodyPhysic>();
+            if (BodyPhysic != null ? BodyPhysic.Gravity : false)
+                BodyPhysic.SetForceControl(Dir, IsometricVector.Top, Dir != IsometricVector.Top);
         }
     }
 

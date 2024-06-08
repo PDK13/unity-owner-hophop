@@ -23,12 +23,17 @@ Block Normal 0
 Block Normal 0
 #BLOCK-END
 
-[2;-1;3]
-Block Dust 0
+[1;-1;3]
+Block Stone Move 0 1
+#BLOCK-MOVE
+1
+2
+1|U
+1|D
 #BLOCK-END
 
 [2;-2;3]
-Block Dust 0
+Block Slow 0
 #BLOCK-END
 
 [2;-1;2]

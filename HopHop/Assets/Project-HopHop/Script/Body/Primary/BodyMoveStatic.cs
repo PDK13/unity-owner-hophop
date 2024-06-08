@@ -188,12 +188,10 @@ public class BodyMoveStatic : MonoBehaviour, ITurnManager, IBodyStatic, IBodyMov
         {
             if (State)
             {
-                Debug.Log("Block Start!");
                 m_moveDurationCurrent++;
             }
             else
             {
-                Debug.Log("Block End!");
                 if (StepEnd)
                     TurnManager.Instance.SetEndStep(Step, this);
                 else
