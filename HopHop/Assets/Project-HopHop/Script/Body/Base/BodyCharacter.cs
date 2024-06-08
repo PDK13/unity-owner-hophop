@@ -32,6 +32,8 @@ public class BodyCharacter : MonoBehaviour, IBodyPhysic
 
     private CharacterConfigData m_configCharacter;
 
+    private bool m_land = false;
+
     #endregion
 
     #region Get
@@ -186,10 +188,11 @@ public class BodyCharacter : MonoBehaviour, IBodyPhysic
     {
         m_animator.SetLayerWeight(INDEX_ACTION, 0);
 
+        m_land = false;
+
         if (From == null || To == null)
             //Move from or to NONE BLOCK!!
             SetAnimation(TRIGGER_JUMP);
-
         else
         if (From.GetTag(KeyTag.Water))
         {
@@ -275,9 +278,16 @@ public class BodyCharacter : MonoBehaviour, IBodyPhysic
             SetAnimation(TRIGGER_SWIM);
         else
         {
-            if (FallDuration > 0)
-                //Stand after Fall on BLOCK
+            if (m_land)
+                //Stand after Fall on BLOCK last Step
                 SetAnimation(TRIGGER_LAND);
+            else
+            if (FallDuration > 0)
+            {
+                //Stand after Fall on BLOCK
+                m_land = true;
+                SetAnimation(TRIGGER_LAND);
+            }
             else
                 //Stand on ANY BLOCK!!
                 SetAnimation(TRIGGER_IDLE);
