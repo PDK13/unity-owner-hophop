@@ -251,7 +251,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
             return false;
         }
 
-        if (m_body.SetMoveControl(Dir, !m_character.MoveFloat))
+        if (m_body.SetMoveControl(Dir))
         {
             ICollide(Dir);
             SetControlStage(false);

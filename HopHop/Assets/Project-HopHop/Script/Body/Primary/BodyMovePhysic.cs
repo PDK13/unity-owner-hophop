@@ -183,7 +183,7 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyCom
             return true;
         }
 
-        if (m_body.SetMoveControl(Dir, !m_character.MoveFloat))
+        if (m_body.SetMoveControl(Dir))
         {
             ICollide(Dir);
             return true;

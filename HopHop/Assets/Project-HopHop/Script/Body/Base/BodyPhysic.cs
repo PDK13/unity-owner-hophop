@@ -85,7 +85,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
         m_moveLastXY = IsometricVector.None;
     }
 
-    public bool SetMoveControl(IsometricVector Dir, bool Gravity = true)
+    public bool SetMoveControl(IsometricVector Dir)
     {
         if (Dir == IsometricVector.None)
             return true;
@@ -113,7 +113,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
         return true;
     }
 
-    public bool SetMoveControlForce(bool Gravity = true)
+    public bool SetMoveControlForce()
     {
         if (!m_moveForceXY.HasValue)
             //Fine to continue own control!!
