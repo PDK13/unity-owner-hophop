@@ -10,7 +10,7 @@ public interface IBodyPhysic
 
     void IForce(bool State, IsometricVector Dir, IsometricVector From);
 
-    void IGravity(bool State);
+    void IGravity(bool State, int Duration);
 
     void IPush(bool State, IsometricVector Dir, IsometricVector From);
 

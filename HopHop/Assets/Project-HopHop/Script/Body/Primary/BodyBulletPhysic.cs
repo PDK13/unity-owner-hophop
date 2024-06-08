@@ -19,15 +19,13 @@ public class BodyBulletPhysic : MonoBehaviour, ITurnManager, IBodyBullet, IBodyP
 
     private bool m_hit = false;
 
-    private int m_fallStep = 0;
-
     #endregion
 
     #region Get
 
     public StepType Step => StepType.Bullet;
 
-    private bool StepGravity => m_body.SetGravityControl();
+    private bool StepGravity => m_body.SetGravityBottom();
 
     private bool StepForce => m_body.SetBottomControl();
 
@@ -191,25 +189,23 @@ public class BodyBulletPhysic : MonoBehaviour, ITurnManager, IBodyBullet, IBodyP
         }
         else
         {
-            m_body.SetGravityControl();
+            m_body.SetGravityBottom();
             m_body.SetBottomControl();
         }
     }
 
-    public void IGravity(bool State)
+    public void IGravity(bool State, int Duration)
     {
         if (State)
         {
-            m_fallStep++;
+            //...
         }
         else
         {
-            if (m_fallStep >= 10)
+            if (Duration >= 10)
             {
                 //...
             }
-
-            m_fallStep = 0;
         }
     }
 
@@ -221,7 +217,7 @@ public class BodyBulletPhysic : MonoBehaviour, ITurnManager, IBodyBullet, IBodyP
         }
         else
         {
-            m_body.SetGravityControl();
+            m_body.SetGravityBottom();
             m_body.SetBottomControl();
         }
     }

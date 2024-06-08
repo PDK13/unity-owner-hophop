@@ -360,7 +360,7 @@ public class BodyCharacter : MonoBehaviour, IBodyPhysic
             SetAnimationStand(m_block.GetBlock(IsometricVector.Bot));
     }
 
-    public void IGravity(bool State)
+    public void IGravity(bool State, int Duration)
     {
         if (!State)
             SetAnimationStand(m_block.GetBlock(IsometricVector.Bot));

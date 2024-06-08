@@ -14,7 +14,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
 
     public Action<bool, IsometricVector> onMove;                    //State, Dir
     public Action<bool, IsometricVector> onMoveForce;               //State, Dir
-    public Action<bool> onGravity;                                  //State, Block
+    public Action<bool, int> onGravity;                             //State, Duration
     public Action<bool, IsometricVector, IsometricVector> onForce;  //State, Dir, From
     public Action<bool, IsometricVector, IsometricVector> onPush;   //State, Dir, From
 
@@ -25,6 +25,8 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
     [SerializeField] private bool m_gravity = true;
     [SerializeField] private bool m_dynamic = true; //If TRUE mean can't be control Move by Push, Bottom, etc
     [SerializeField] private bool m_static = false; //If TRUE mean this Body can't be Move same pos with others
+
+    private int m_gravityDurationCurrent = 0;
 
     private IsometricVector m_moveLastXY;
     private IsometricVector? m_moveForceXY;
@@ -61,7 +63,7 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
     public void ISetTurnStart(int Turn)
     {
         if (!GetBodyStatic(IsometricVector.Bot))
-            SetGravityControl();
+            SetGravityBottom();
     }
 
     public void ISetStepStart(string Step)
@@ -90,9 +92,6 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
 
         if (GetBodyStatic(Dir))
             return false;
-
-        if (Gravity)
-            SetGravityControl(Dir);
 
         Vector3 MoveDir = IsometricVector.GetDirVector(Dir);
         Vector3 MoveStart = IsometricVector.GetDirVector(m_block.Pos);
@@ -123,9 +122,6 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
         if (GetBodyStatic(m_moveForceXY.Value))
             return false;
 
-        if (Gravity)
-            SetGravityControl(m_moveForceXY.Value);
-
         Vector3 MoveDir = IsometricVector.GetDirVector(m_moveForceXY.Value);
         Vector3 MoveStart = IsometricVector.GetDirVector(m_block.Pos);
         Vector3 MoveEnd = IsometricVector.GetDirVector(m_block.Pos) + MoveDir;
@@ -149,29 +145,12 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
 
     #region Gravity
 
-    public bool SetGravityControl()
+    public bool SetGravityBottom()
     {
         if (!Gravity)
             return false;
 
         if (GetBodyStatic(IsometricVector.Bot))
-            return false;
-
-        TurnManager.Instance.SetAdd(StepType.Gravity, this);
-        TurnManager.Instance.onTurnStart += ISetTurnStart;
-        TurnManager.Instance.onStepStart += ISetStepStart;
-        TurnManager.Instance.onStepEnd += ISetStepEnd;
-        TurnManager.Instance.onTurnEnd += ISetTurnEnd;
-
-        return true;
-    }
-
-    private bool SetGravityControl(IsometricVector Dir)
-    {
-        if (!Gravity)
-            return false;
-
-        if (GetBodyStatic(Dir + IsometricVector.Bot))
             return false;
 
         TurnManager.Instance.SetAdd(StepType.Gravity, this);
@@ -187,16 +166,21 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
     {
         if (GetBodyStatic(IsometricVector.Bot))
         {
-            onGravity?.Invoke(false); //NOTE: Check if this Body can fall thought another Body?
-
-            TurnManager.Instance.SetEndStep(StepType.Gravity, this);
             TurnManager.Instance.onTurnStart -= ISetTurnStart;
             TurnManager.Instance.onStepStart -= ISetStepStart;
             TurnManager.Instance.onStepEnd -= ISetStepEnd;
             TurnManager.Instance.onTurnEnd -= ISetTurnEnd;
 
+            onGravity?.Invoke(false, m_gravityDurationCurrent);
+
+            TurnManager.Instance.SetEndStep(StepType.Gravity, this);
+
+            m_gravityDurationCurrent = 0; //Reset Fall!
+
             return;
         }
+
+        m_gravityDurationCurrent++;
 
         Vector3 MoveDir = IsometricVector.GetDirVector(IsometricVector.Bot);
         Vector3 MoveStart = IsometricVector.GetDirVector(m_block.Pos.Fixed);
@@ -209,9 +193,9 @@ public class BodyPhysic : MonoBehaviour, ITurnManager
             })
             .OnComplete(() =>
             {
-                SetGravity();
+                TurnManager.Instance.SetEndMove(StepType.Gravity, this);
             });
-        onGravity?.Invoke(true);
+        onGravity?.Invoke(true, m_gravityDurationCurrent);
     }
 
     #endregion

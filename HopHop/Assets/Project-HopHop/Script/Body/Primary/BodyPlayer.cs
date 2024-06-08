@@ -9,8 +9,6 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
 
     private int m_moveDurationCurrent = 0;
 
-    private int m_fallStep = 0;
-
     #endregion
 
     #region Interactive
@@ -32,7 +30,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
 
     public bool StepEnd => m_moveDurationCurrent >= m_character.MoveStep;
 
-    private bool StepGravity => StepEnd || !m_character.MoveFloat ? m_body.SetGravityControl() : false;
+    private bool StepGravity => StepEnd || !m_character.MoveFloat ? m_body.SetGravityBottom() : false;
 
     private bool StepForce => m_body.SetBottomControl();
 
@@ -329,27 +327,25 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
         }
         else
         {
-            m_body.SetGravityControl();
+            m_body.SetGravityBottom();
             m_body.SetBottomControl();
         }
     }
 
-    public void IGravity(bool State)
+    public void IGravity(bool State, int Duration)
     {
         if (State)
         {
-            m_fallStep++;
+            //...
         }
         else
         {
-            if (m_fallStep >= 10)
+            if (Duration >= 10)
             {
                 //...
             }
 
             m_body.SetBottomControl();
-
-            m_fallStep = 0;
         }
     }
 
@@ -361,7 +357,7 @@ public class BodyPlayer : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyInterac
         }
         else
         {
-            m_body.SetGravityControl();
+            m_body.SetGravityBottom();
             m_body.SetBottomControl();
         }
     }

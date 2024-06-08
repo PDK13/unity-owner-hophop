@@ -17,8 +17,6 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyCom
     private bool m_moveCheckAhead = false;
     private bool m_moveCheckAheadBot = false;
 
-    private int m_fallStep = 0;
-
     #endregion
 
     #region Command
@@ -36,7 +34,7 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyCom
 
     public bool StepEnd => m_moveDurationCurrent >= m_move.DurationCurrent;
 
-    private bool StepGravity => StepEnd || (m_character != null ? !m_character.MoveFloat : true) ? m_body.SetGravityControl() : false;
+    private bool StepGravity => StepEnd || (m_character != null ? !m_character.MoveFloat : true) ? m_body.SetGravityBottom() : false;
 
     private bool StepForce => m_body.SetBottomControl();
 
@@ -185,46 +183,13 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyCom
             return true;
         }
 
-        //NOTE: Check Move before excute Move
-        IsometricBlock Block = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + Dir);
-        if (Block != null)
+        if (m_body.SetMoveControl(Dir, !m_character.MoveFloat))
         {
-            if (Block.GetTag(KeyTag.Bullet))
-            {
-                Debug.Log("[Debug] Bullet hit Enermy!!");
-
-                Block.GetComponent<IBodyBullet>().IHit();
-            }
-            else
-            if (m_moveCheckAhead)
-                //Stop Ahead when there is an burden ahead!!
-                return false;
-            //else
-            {
-                //None Stop Ahead and continue check move ahead!!
-                BodyPhysic BodyPhysic = Block.GetComponent<BodyPhysic>();
-                if (BodyPhysic == null)
-                {
-                    //Surely can't continue move to this Pos, because this Block can't be push!!
-                    return false;
-                }
-                //Fine to continue push this Block ahead!!
-            }
+            ICollide(Dir);
+            return true;
         }
-        else
-        if (m_moveCheckAheadBot)
-        {
-            //Continue check move Ahead Bot!!
-            IsometricBlock BlockBot = m_block.WorldManager.World.Current.GetBlockCurrent(m_block.Pos + Dir + IsometricVector.Bot);
-            if (BlockBot == null)
-                //Stop Ahead because no block ahead bot!!
-                return false;
-        }
-        //NOTE: Fine Move to excute Move
 
-        m_body.SetMoveControl(Dir);
-
-        return true;
+        return false;
     }
 
     public void IMove(bool State, IsometricVector Dir)
@@ -288,27 +253,25 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyCom
         }
         else
         {
-            m_body.SetGravityControl();
+            m_body.SetGravityBottom();
             m_body.SetBottomControl();
         }
     }
 
-    public void IGravity(bool State)
+    public void IGravity(bool State, int Duration)
     {
         if (State)
         {
-            m_fallStep++;
+            //...
         }
         else
         {
-            if (m_fallStep >= 10)
+            if (Duration >= 10)
             {
                 //...
             }
 
             m_body.SetBottomControl();
-
-            m_fallStep = 0;
         }
     }
 
@@ -320,7 +283,7 @@ public class BodyMovePhysic : MonoBehaviour, ITurnManager, IBodyPhysic, IBodyCom
         }
         else
         {
-            m_body.SetGravityControl();
+            m_body.SetGravityBottom();
             m_body.SetBottomControl();
         }
     }
