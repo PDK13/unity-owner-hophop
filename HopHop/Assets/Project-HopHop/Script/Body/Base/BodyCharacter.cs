@@ -70,7 +70,7 @@ public class BodyCharacter : MonoBehaviour, IBodyPhysic
     private void Start()
     {
         SetCharacter(m_character, m_characterSkin);
-        //
+
         m_body.onMove += IMove;
         m_body.onMoveForce += IMoveForce;
         m_body.onGravity += IGravity;
@@ -114,9 +114,9 @@ public class BodyCharacter : MonoBehaviour, IBodyPhysic
     public void SetCharacter(CharacterType Character, int Skin = 0)
     {
         m_configCharacter = CharacterManager.Instance.CharacterConfig.GetConfig(Character);
-        //
+
         m_character = Character;
-        //
+
         SetCharacterSkin(Skin);
     }
 
@@ -185,11 +185,11 @@ public class BodyCharacter : MonoBehaviour, IBodyPhysic
     public void SetAnimationMove(IsometricBlock From, IsometricBlock To)
     {
         m_animator.SetLayerWeight(INDEX_ACTION, 0);
-        //
+
         if (From == null || To == null)
             //Move from or to NONE BLOCK!!
             SetAnimation(TRIGGER_JUMP);
-        //
+
         else
         if (From.GetTag(KeyTag.Water))
         {
@@ -212,7 +212,7 @@ public class BodyCharacter : MonoBehaviour, IBodyPhysic
         else
         {
             //Move from BLOCK NORMAL!!
-            //
+
             //Move from BLOCK NORMAL to not STATIC
             BodyPhysic ToBodyPhysic = To.GetComponent<BodyPhysic>();
             if (ToBodyPhysic != null)
@@ -223,7 +223,7 @@ public class BodyCharacter : MonoBehaviour, IBodyPhysic
                     return;
                 }
             }
-            //
+
             //Move from BLOCK NORMAL to STATIC
             if (m_character == CharacterType.Cat)
                 //Character Cat!!
@@ -246,17 +246,17 @@ public class BodyCharacter : MonoBehaviour, IBodyPhysic
         }
     }
 
-    public void SetAnimationStand(IsometricBlock On)
+    public void SetAnimationStand(IsometricBlock On, int FallDuration = 0)
     {
         m_animator.SetLayerWeight(INDEX_ACTION, 0);
-        //
+
         if (On == null)
         {
             //Stand on NONE BLOCK!!
             SetAnimation(TRIGGER_JUMP);
             return;
         }
-        //
+
         //STAND on not STATIC
         BodyPhysic OnBodyPhysic = On.GetComponent<BodyPhysic>();
         if (OnBodyPhysic != null)
@@ -267,14 +267,21 @@ public class BodyCharacter : MonoBehaviour, IBodyPhysic
                 return;
             }
         }
-        //
+
         //STAND on STATIC
+
         if (On.GetTag(KeyTag.Water))
             //Stand on WATER BLOCK!!
             SetAnimation(TRIGGER_SWIM);
         else
-            //Stand on ANY BLOCK!!
-            SetAnimation(TRIGGER_IDLE);
+        {
+            if (FallDuration > 0)
+                //Stand after Fall on BLOCK
+                SetAnimation(TRIGGER_LAND);
+            else
+                //Stand on ANY BLOCK!!
+                SetAnimation(TRIGGER_IDLE);
+        }
     }
 
     //
@@ -362,8 +369,10 @@ public class BodyCharacter : MonoBehaviour, IBodyPhysic
 
     public void IGravity(bool State, int Duration)
     {
-        if (!State)
-            SetAnimationStand(m_block.GetBlock(IsometricVector.Bot));
+        if (State)
+            SetAnimationStand(null);
+        else
+            SetAnimationStand(m_block.GetBlock(IsometricVector.Bot), Duration);
     }
 
     public void IPush(bool State, IsometricVector Dir, IsometricVector From)

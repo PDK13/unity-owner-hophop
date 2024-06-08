@@ -125,6 +125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_name: Light Wolf
+  m_identity: 
   m_tag:
   - light
   - character
@@ -187,7 +188,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19ee9a8a7098dfb489d74c2174becedf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_bodyStatic: 0
+  m_gravity: 1
+  m_bottom: 1
+  m_static: 0
 --- !u!114 &-6766236202990427324
 MonoBehaviour:
   m_ObjectHideFlags: 0
