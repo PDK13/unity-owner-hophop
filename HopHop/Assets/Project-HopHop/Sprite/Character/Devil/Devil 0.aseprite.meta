@@ -281,7 +281,7 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 388}
   - name: Devil 0_Frame_24
     originalName: 
-    pivot: {x: 0.5, y: -0.43373492}
+    pivot: {x: 0.5, y: -0.36144578}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
@@ -496,7 +496,7 @@ ScriptedImporter:
       frameIndex: 19
       cellRect:
         x: 36
-        y: 36
+        y: 30
         width: 56
         height: 83
       spriteId: 7c77b0d7596fd0a4e8f3deaa73c9bc6d

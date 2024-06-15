@@ -281,7 +281,7 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 372}
   - name: Pig 0_Frame_24
     originalName: 
-    pivot: {x: 0.5, y: -0.45000002}
+    pivot: {x: 0.5, y: -0.375}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
@@ -496,7 +496,7 @@ ScriptedImporter:
       frameIndex: 19
       cellRect:
         x: 34
-        y: 36
+        y: 30
         width: 60
         height: 80
       spriteId: 0ea3b6623febce14185015f3c67a4b45

@@ -281,7 +281,7 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 396}
   - name: Fish 0_Frame_24
     originalName: 
-    pivot: {x: 0.5, y: -0.41860464}
+    pivot: {x: 0.5, y: -0.3488372}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
@@ -496,7 +496,7 @@ ScriptedImporter:
       frameIndex: 19
       cellRect:
         x: 26
-        y: 36
+        y: 30
         width: 76
         height: 86
       spriteId: ca92e634292fc214fbdd8eb7ec4b2f28

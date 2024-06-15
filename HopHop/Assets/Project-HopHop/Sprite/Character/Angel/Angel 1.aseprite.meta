@@ -281,7 +281,7 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 404}
   - name: Angel 1_Frame_24
     originalName: 
-    pivot: {x: 0.5, y: -0.40909094}
+    pivot: {x: 0.5, y: -0.3409091}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
@@ -496,7 +496,7 @@ ScriptedImporter:
       frameIndex: 19
       cellRect:
         x: 36
-        y: 36
+        y: 30
         width: 56
         height: 88
       spriteId: 00a1bbb89e974c44d9827f588b2f2538

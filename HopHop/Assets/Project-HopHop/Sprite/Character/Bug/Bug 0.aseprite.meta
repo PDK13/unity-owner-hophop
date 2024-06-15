@@ -281,7 +281,7 @@ ScriptedImporter:
     uvTransform: {x: 72, y: 4}
   - name: Bug 0_Frame_24
     originalName: 
-    pivot: {x: 0.5, y: -0.39130434}
+    pivot: {x: 0.5, y: -0.32608697}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
@@ -496,7 +496,7 @@ ScriptedImporter:
       frameIndex: 19
       cellRect:
         x: 34
-        y: 36
+        y: 30
         width: 60
         height: 92
       spriteId: fc318054e475619499625f0b8c6be112

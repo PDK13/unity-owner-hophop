@@ -281,7 +281,7 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 192}
   - name: Wolf 2_Frame_24
     originalName: 
-    pivot: {x: 0.5, y: -0.4390244}
+    pivot: {x: 0.5, y: -0.36585364}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
@@ -496,7 +496,7 @@ ScriptedImporter:
       frameIndex: 19
       cellRect:
         x: 36
-        y: 36
+        y: 30
         width: 56
         height: 82
       spriteId: 399fb84896e03f54bb985adcc09d15a4

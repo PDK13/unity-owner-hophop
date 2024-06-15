@@ -281,7 +281,7 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 380}
   - name: Mow 1_Frame_24
     originalName: 
-    pivot: {x: 0.5, y: -0.4390244}
+    pivot: {x: 0.5, y: -0.36585364}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
@@ -496,7 +496,7 @@ ScriptedImporter:
       frameIndex: 19
       cellRect:
         x: 34
-        y: 36
+        y: 30
         width: 60
         height: 82
       spriteId: 13ada7a9759fa0548af352e742ab50fb
