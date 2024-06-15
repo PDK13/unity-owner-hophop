@@ -200,7 +200,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_once: 0
-  m_state: 1
+  m_state: 0
   m_follow: 1
 --- !u!114 &658785866110325511
 MonoBehaviour:

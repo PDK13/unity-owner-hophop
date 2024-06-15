@@ -121,7 +121,7 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: Block Slip 0
     originalName: 
-    pivot: {x: 0.5, y: -0.007936508}
+    pivot: {x: 0.5, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
@@ -129,7 +129,7 @@ ScriptedImporter:
       x: 4
       y: 4
       width: 128
-      height: 126
+      height: 128
     spriteID: fe1c7155422be4e42973fc3da6311190
     spriteBone: []
     spriteOutline: []
@@ -139,6 +139,86 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
+  - name: Block Slip 0_Frame_1
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 140
+      width: 128
+      height: 128
+    spriteID: f18796977422d2f48875c42a7b50d42a
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 140}
+  - name: Block Slip 0_Frame_2
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 276
+      width: 128
+      height: 128
+    spriteID: 00391b03c6a26ff4b8638458cf6fdae4
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 276}
+  - name: Block Slip 0_Frame_3
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 140
+      y: 4
+      width: 128
+      height: 128
+    spriteID: 08ba37c6c1456f949a8fdcb907c0132d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 140, y: 4}
+  - name: Block Slip 0_Frame_4
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 140
+      y: 140
+      width: 128
+      height: 128
+    spriteID: 54f281632f0d6ff4d8f943f35e2c474c
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 140, y: 140}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
@@ -148,14 +228,46 @@ ScriptedImporter:
     layerType: 0
     blendMode: 0
     cells:
-    - name: Block Slip 0
+    - name: Block Slip 0_Frame_0
       frameIndex: 0
       cellRect:
         x: 0
-        y: 1
+        y: 0
         width: 128
-        height: 126
+        height: 128
       spriteId: fe1c7155422be4e42973fc3da6311190
+    - name: Block Slip 0_Frame_1
+      frameIndex: 1
+      cellRect:
+        x: 0
+        y: 0
+        width: 128
+        height: 128
+      spriteId: f18796977422d2f48875c42a7b50d42a
+    - name: Block Slip 0_Frame_2
+      frameIndex: 2
+      cellRect:
+        x: 0
+        y: 0
+        width: 128
+        height: 128
+      spriteId: 00391b03c6a26ff4b8638458cf6fdae4
+    - name: Block Slip 0_Frame_3
+      frameIndex: 3
+      cellRect:
+        x: 0
+        y: 0
+        width: 128
+        height: 128
+      spriteId: 08ba37c6c1456f949a8fdcb907c0132d
+    - name: Block Slip 0_Frame_4
+      frameIndex: 4
+      cellRect:
+        x: 0
+        y: 0
+        width: 128
+        height: 128
+      spriteId: 54f281632f0d6ff4d8f943f35e2c474c
     linkedCells: []
     parentIndex: -1
   platformSettings:

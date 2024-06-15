@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -5631870848132559258}
   - component: {fileID: -4452507338415767853}
   m_Layer: 0
-  m_Name: Block Slow 0
+  m_Name: Block Slow 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -639688859, guid: c89f774d38888754eb44cc1b57f21a98, type: 3}
+  m_Sprite: {fileID: 418612, guid: c89f774d38888754eb44cc1b57f21a98, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

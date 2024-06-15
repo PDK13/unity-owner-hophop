@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 0
   spriteMeshType: 0
   alignment: 0
@@ -136,7 +136,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: none
+      name: Block Slow 0_0
       rect:
         serializedVersion: 2
         x: 0
@@ -144,20 +144,20 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4e678f0b4874f0d47893bc3a59c74b7a
-      internalID: -2054281346
+      spriteID: f0ad2e8c0991a494087f0bd9ea446ac7
+      internalID: -639688859
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: grid
+      name: Block Slow 0_1
       rect:
         serializedVersion: 2
         x: 128
@@ -165,20 +165,20 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c306fe803ecaee04699244a455e48df6
-      internalID: -712323484
+      spriteID: f06b1052d88601046a05c39d4a944f49
+      internalID: 418612
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: blue 0
+      name: Block Slow 0_2
       rect:
         serializedVersion: 2
         x: 256
@@ -186,20 +186,20 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6679098f35a57724c8309011597183de
-      internalID: -995191484
+      spriteID: 37515f959845e414b9abd3bfa8f85a67
+      internalID: 1455010867
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: blue 1
+      name: Block Slow 0_3
       rect:
         serializedVersion: 2
         x: 384
@@ -207,20 +207,20 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: daa6e34d56b8149478d792ffad136e68
-      internalID: 266627109
+      spriteID: ece1a61e3acaa1d49a203da7c20e64fe
+      internalID: 784898484
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: red 0
+      name: Block Slow 0_4
       rect:
         serializedVersion: 2
         x: 512
@@ -228,35 +228,14 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e1c373959af80184cad78e18ea4524de
-      internalID: -1933084115
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: red 1
-      rect:
-        serializedVersion: 2
-        x: 640
-        y: 0
-        width: 128
-        height: 128
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1b982253ee711764897ef9d318db5b68
-      internalID: -1325675102
+      spriteID: b26df9941a1905649b6798b5939667d4
+      internalID: 578536058
       vertices: []
       indices: 
       edges: []
@@ -274,12 +253,11 @@ TextureImporter:
     - texture: {fileID: 2800000, guid: 158a8662d2ea2264fa2f2934c7317c9a, type: 3}
       name: _NormalMap
     nameFileIdTable:
-      blue 0: -995191484
-      blue 1: 266627109
-      grid: -712323484
-      none: -2054281346
-      red 0: -1933084115
-      red 1: -1325675102
+      Block Slow 0_0: -639688859
+      Block Slow 0_1: 418612
+      Block Slow 0_2: 1455010867
+      Block Slow 0_3: 784898484
+      Block Slow 0_4: 578536058
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

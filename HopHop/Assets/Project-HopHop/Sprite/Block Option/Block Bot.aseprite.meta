@@ -121,7 +121,7 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: Block Bot_Frame_0
     originalName: 
-    pivot: {x: 0.5, y: -0.015873017}
+    pivot: {x: 0.5, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
@@ -129,7 +129,7 @@ ScriptedImporter:
       x: 4
       y: 4
       width: 128
-      height: 63
+      height: 64
     spriteID: 9dba7e817fe7bd241af6dac0248f0702
     spriteBone: []
     spriteOutline: []
@@ -141,15 +141,15 @@ ScriptedImporter:
     uvTransform: {x: 4, y: 4}
   - name: Block Bot_Frame_1
     originalName: 
-    pivot: {x: 0.5, y: -0.015873017}
+    pivot: {x: 0.5, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
-      y: 75
+      y: 76
       width: 128
-      height: 63
+      height: 64
     spriteID: bc9ce64e91d71484e9ef6ca8d1ae2f77
     spriteBone: []
     spriteOutline: []
@@ -158,18 +158,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 75}
+    uvTransform: {x: 4, y: 76}
   - name: Block Bot_Frame_2
     originalName: 
-    pivot: {x: 0.5, y: -0.015873017}
+    pivot: {x: 0.5, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
-      y: 146
+      y: 148
       width: 128
-      height: 63
+      height: 64
     spriteID: 0377a72546fab5049805dfd311cce8a9
     spriteBone: []
     spriteOutline: []
@@ -178,18 +178,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 146}
+    uvTransform: {x: 4, y: 148}
   - name: Block Bot_Frame_3
     originalName: 
-    pivot: {x: 0.5, y: -0.015873017}
+    pivot: {x: 0.5, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
-      y: 217
+      y: 220
       width: 128
-      height: 63
+      height: 64
     spriteID: b6a356ea3cf202b4dbe2800a70be3999
     spriteBone: []
     spriteOutline: []
@@ -198,18 +198,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 217}
+    uvTransform: {x: 4, y: 220}
   - name: Block Bot_Frame_4
     originalName: 
-    pivot: {x: 0.5, y: -0.015873017}
+    pivot: {x: 0.5, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
-      y: 288
+      y: 292
       width: 128
-      height: 63
+      height: 64
     spriteID: cfd8467d8e1506b40920a9599ad24621
     spriteBone: []
     spriteOutline: []
@@ -218,18 +218,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 288}
+    uvTransform: {x: 4, y: 292}
   - name: Block Bot_Frame_5
     originalName: 
-    pivot: {x: 0.5, y: -0.015873017}
+    pivot: {x: 0.5, y: 0}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
-      y: 359
+      y: 364
       width: 128
-      height: 63
+      height: 64
     spriteID: 510f26a76704e0a429265c8f7370315d
     spriteBone: []
     spriteOutline: []
@@ -238,7 +238,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 359}
+    uvTransform: {x: 4, y: 364}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
@@ -252,49 +252,49 @@ ScriptedImporter:
       frameIndex: 0
       cellRect:
         x: 0
-        y: 1
+        y: 0
         width: 128
-        height: 63
+        height: 64
       spriteId: 9dba7e817fe7bd241af6dac0248f0702
     - name: Block Bot_Frame_1
       frameIndex: 1
       cellRect:
         x: 0
-        y: 1
+        y: 0
         width: 128
-        height: 63
+        height: 64
       spriteId: bc9ce64e91d71484e9ef6ca8d1ae2f77
     - name: Block Bot_Frame_2
       frameIndex: 2
       cellRect:
         x: 0
-        y: 1
+        y: 0
         width: 128
-        height: 63
+        height: 64
       spriteId: 0377a72546fab5049805dfd311cce8a9
     - name: Block Bot_Frame_3
       frameIndex: 3
       cellRect:
         x: 0
-        y: 1
+        y: 0
         width: 128
-        height: 63
+        height: 64
       spriteId: b6a356ea3cf202b4dbe2800a70be3999
     - name: Block Bot_Frame_4
       frameIndex: 4
       cellRect:
         x: 0
-        y: 1
+        y: 0
         width: 128
-        height: 63
+        height: 64
       spriteId: cfd8467d8e1506b40920a9599ad24621
     - name: Block Bot_Frame_5
       frameIndex: 5
       cellRect:
         x: 0
-        y: 1
+        y: 0
         width: 128
-        height: 63
+        height: 64
       spriteId: 510f26a76704e0a429265c8f7370315d
     linkedCells: []
     parentIndex: -1

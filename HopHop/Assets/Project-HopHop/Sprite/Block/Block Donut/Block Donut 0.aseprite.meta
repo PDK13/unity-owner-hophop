@@ -121,15 +121,15 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: Block Donut 0
     originalName: 
-    pivot: {x: 0.5, y: -0.078947365}
+    pivot: {x: 0.5, y: -0.15384616}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 112
-      height: 114
+      width: 96
+      height: 104
     spriteID: 9ed0c6c380840a640824f5fc130e245f
     spriteBone: []
     spriteOutline: []
@@ -139,6 +139,186 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
+  - name: Block Donut 0_Frame_1
+    originalName: 
+    pivot: {x: 0.5, y: -0.15384616}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 116
+      width: 96
+      height: 104
+    spriteID: d30494d3b5bfb49449e43040abce29c8
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 116}
+  - name: Block Donut 0_Frame_2
+    originalName: 
+    pivot: {x: 0.5, y: -0.15384616}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 228
+      width: 96
+      height: 104
+    spriteID: 0ebb96a36b2769a4cafdb5dc4245d210
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 228}
+  - name: Block Donut 0_Frame_3
+    originalName: 
+    pivot: {x: 0.5, y: -0.15384616}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 340
+      width: 96
+      height: 104
+    spriteID: 4fa7076cad130184196da95956bf654c
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 340}
+  - name: Block Donut 0_Frame_4
+    originalName: 
+    pivot: {x: 0.5, y: -0.15384616}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 108
+      y: 4
+      width: 96
+      height: 104
+    spriteID: c904a4045fa4f5546a8b3dc17f954ea5
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 108, y: 4}
+  - name: Block Donut 0_Frame_5
+    originalName: 
+    pivot: {x: 0.5, y: -0.15384616}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 108
+      y: 116
+      width: 96
+      height: 104
+    spriteID: 9c8937d9fb0c2854988ae4ded24d8c78
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 108, y: 116}
+  - name: Block Donut 0_Frame_6
+    originalName: 
+    pivot: {x: 0.5, y: -0.15384616}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 108
+      y: 228
+      width: 96
+      height: 104
+    spriteID: c0aafe09dc0b7434e843b2c6cfccc73d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 108, y: 228}
+  - name: Block Donut 0_Frame_7
+    originalName: 
+    pivot: {x: 0.5, y: -0.15384616}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 108
+      y: 340
+      width: 96
+      height: 104
+    spriteID: 7eaaf9bd195a50a46a23b0928e2dd88a
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 108, y: 340}
+  - name: Block Donut 0_Frame_8
+    originalName: 
+    pivot: {x: 0.5, y: -0.15384616}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 212
+      y: 4
+      width: 96
+      height: 104
+    spriteID: e3c89810ec9e0924cae322046a0b72b5
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 212, y: 4}
+  - name: Block Donut 0_Frame_9
+    originalName: 
+    pivot: {x: 0.5, y: -0.15384616}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 212
+      y: 116
+      width: 96
+      height: 104
+    spriteID: f53406f99c1597e45aa273bd8c98dd4d
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 212, y: 116}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
@@ -148,14 +328,86 @@ ScriptedImporter:
     layerType: 0
     blendMode: 0
     cells:
-    - name: Block Donut 0
+    - name: Block Donut 0_Frame_0
       frameIndex: 0
       cellRect:
-        x: 8
-        y: 9
-        width: 112
-        height: 114
+        x: 16
+        y: 16
+        width: 96
+        height: 104
       spriteId: 9ed0c6c380840a640824f5fc130e245f
+    - name: Block Donut 0_Frame_1
+      frameIndex: 1
+      cellRect:
+        x: 16
+        y: 16
+        width: 96
+        height: 104
+      spriteId: d30494d3b5bfb49449e43040abce29c8
+    - name: Block Donut 0_Frame_2
+      frameIndex: 2
+      cellRect:
+        x: 16
+        y: 16
+        width: 96
+        height: 104
+      spriteId: 0ebb96a36b2769a4cafdb5dc4245d210
+    - name: Block Donut 0_Frame_3
+      frameIndex: 3
+      cellRect:
+        x: 16
+        y: 16
+        width: 96
+        height: 104
+      spriteId: 4fa7076cad130184196da95956bf654c
+    - name: Block Donut 0_Frame_4
+      frameIndex: 4
+      cellRect:
+        x: 16
+        y: 16
+        width: 96
+        height: 104
+      spriteId: c904a4045fa4f5546a8b3dc17f954ea5
+    - name: Block Donut 0_Frame_5
+      frameIndex: 5
+      cellRect:
+        x: 16
+        y: 16
+        width: 96
+        height: 104
+      spriteId: 9c8937d9fb0c2854988ae4ded24d8c78
+    - name: Block Donut 0_Frame_6
+      frameIndex: 6
+      cellRect:
+        x: 16
+        y: 16
+        width: 96
+        height: 104
+      spriteId: c0aafe09dc0b7434e843b2c6cfccc73d
+    - name: Block Donut 0_Frame_7
+      frameIndex: 7
+      cellRect:
+        x: 16
+        y: 16
+        width: 96
+        height: 104
+      spriteId: 7eaaf9bd195a50a46a23b0928e2dd88a
+    - name: Block Donut 0_Frame_8
+      frameIndex: 8
+      cellRect:
+        x: 16
+        y: 16
+        width: 96
+        height: 104
+      spriteId: e3c89810ec9e0924cae322046a0b72b5
+    - name: Block Donut 0_Frame_9
+      frameIndex: 9
+      cellRect:
+        x: 16
+        y: 16
+        width: 96
+        height: 104
+      spriteId: f53406f99c1597e45aa273bd8c98dd4d
     linkedCells: []
     parentIndex: -1
   platformSettings:
