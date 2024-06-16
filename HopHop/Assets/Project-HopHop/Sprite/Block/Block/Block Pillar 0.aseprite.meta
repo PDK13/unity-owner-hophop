@@ -121,15 +121,15 @@ ScriptedImporter:
   animatedSpriteImportData:
   - name: Block Pillar 0_Frame_0
     originalName: 
-    pivot: {x: 0.5, y: -0.071428575}
+    pivot: {x: 0.5, y: 0.35555556}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 4
+      x: 276
       y: 4
-      width: 96
-      height: 112
+      width: 128
+      height: 180
     spriteID: 5a506a1c1e8fc11478b67f38ec1854d1
     spriteBone: []
     spriteOutline: []
@@ -138,18 +138,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 4}
+    uvTransform: {x: 276, y: 4}
   - name: Block Pillar 0_Frame_1
     originalName: 
-    pivot: {x: 0.5, y: -0.071428575}
+    pivot: {x: 0.5, y: 0.3478261}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
-      y: 124
-      width: 96
-      height: 112
+      y: 4
+      width: 128
+      height: 184
     spriteID: be48d00cfc7cca845ac1157c1f0eec95
     spriteBone: []
     spriteOutline: []
@@ -158,18 +158,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 124}
+    uvTransform: {x: 4, y: 4}
   - name: Block Pillar 0_Frame_2
     originalName: 
-    pivot: {x: 0.5, y: -0.071428575}
+    pivot: {x: 0.5, y: 0.3478261}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
-      y: 244
-      width: 96
-      height: 112
+      y: 196
+      width: 128
+      height: 184
     spriteID: 62e89a17b78a64f429dcdbddb0e56d7d
     spriteBone: []
     spriteOutline: []
@@ -178,18 +178,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 244}
+    uvTransform: {x: 4, y: 196}
   - name: Block Pillar 0_Frame_3
     originalName: 
-    pivot: {x: 0.5, y: -0.071428575}
+    pivot: {x: 0.5, y: 0.3478261}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 4
-      y: 364
-      width: 96
-      height: 112
+      x: 140
+      y: 4
+      width: 128
+      height: 184
     spriteID: 1cbedf68883e02c418e4d9eaa5ab76f3
     spriteBone: []
     spriteOutline: []
@@ -198,18 +198,18 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 4, y: 364}
+    uvTransform: {x: 140, y: 4}
   - name: Block Pillar 0_Frame_4
     originalName: 
-    pivot: {x: 0.5, y: -0.071428575}
+    pivot: {x: 0.5, y: 0.3478261}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
-      x: 108
-      y: 4
-      width: 96
-      height: 112
+      x: 140
+      y: 196
+      width: 128
+      height: 184
     spriteID: 0fb605fe8cf48ac4fa1e96ed5c907d58
     spriteBone: []
     spriteOutline: []
@@ -218,7 +218,7 @@ ScriptedImporter:
     indices: 
     edges: []
     tessellationDetail: 0
-    uvTransform: {x: 108, y: 4}
+    uvTransform: {x: 140, y: 196}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
@@ -231,42 +231,42 @@ ScriptedImporter:
     - name: Block Pillar 0_Frame_0
       frameIndex: 0
       cellRect:
-        x: 16
-        y: 8
-        width: 96
-        height: 112
+        x: 0
+        y: -64
+        width: 128
+        height: 180
       spriteId: 5a506a1c1e8fc11478b67f38ec1854d1
     - name: Block Pillar 0_Frame_1
       frameIndex: 1
       cellRect:
-        x: 16
-        y: 8
-        width: 96
-        height: 112
+        x: 0
+        y: -64
+        width: 128
+        height: 184
       spriteId: be48d00cfc7cca845ac1157c1f0eec95
     - name: Block Pillar 0_Frame_2
       frameIndex: 2
       cellRect:
-        x: 16
-        y: 8
-        width: 96
-        height: 112
+        x: 0
+        y: -64
+        width: 128
+        height: 184
       spriteId: 62e89a17b78a64f429dcdbddb0e56d7d
     - name: Block Pillar 0_Frame_3
       frameIndex: 3
       cellRect:
-        x: 16
-        y: 8
-        width: 96
-        height: 112
+        x: 0
+        y: -64
+        width: 128
+        height: 184
       spriteId: 1cbedf68883e02c418e4d9eaa5ab76f3
     - name: Block Pillar 0_Frame_4
       frameIndex: 4
       cellRect:
-        x: 16
-        y: 8
-        width: 96
-        height: 112
+        x: 0
+        y: -64
+        width: 128
+        height: 184
       spriteId: 0fb605fe8cf48ac4fa1e96ed5c907d58
     linkedCells: []
     parentIndex: -1
