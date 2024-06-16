@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -6969728916803925363}
   - component: {fileID: -2416156796086665212}
   m_Layer: 0
-  m_Name: Block Donut 0 3
+  m_Name: Block Donut 0 L2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1558345561, guid: 04a0b8d50495247479afe2e07900b731, type: 3}
+  m_Sprite: {fileID: 1233459939, guid: 04a0b8d50495247479afe2e07900b731, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
