@@ -54,6 +54,10 @@ Block Pillar 0 B 4
 Block Pillar 0 B 4
 #BLOCK-END
 
+[-7;3;1]
+Block Normal 0 0
+#BLOCK-END
+
 [2;2;1]
 Block Pillar 0 B 4
 #BLOCK-END
@@ -86,6 +90,26 @@ Block Pillar 0 B 4
 Block Pillar 0 A 4
 #BLOCK-END
 
+[-7;-4;1]
+Block Normal 0 0
+#BLOCK-END
+
+[-6;4;0]
+Block Normal 0 0
+#BLOCK-END
+
+[-7;4;0]
+Block Normal 0 0
+#BLOCK-END
+
+[-6;3;0]
+Block Normal 0 0
+#BLOCK-END
+
+[-7;3;0]
+Block Normal 0 0
+#BLOCK-END
+
 [2;2;0]
 Block Pillar 0 C 4
 #BLOCK-END
@@ -100,10 +124,6 @@ Block Pillar 0 C 4
 
 [-4;2;0]
 Block Pillar 0 C 4
-#BLOCK-END
-
-[-6;2;0]
-Block Pillar 0 A 4
 #BLOCK-END
 
 [-8;0;0]
@@ -128,8 +148,20 @@ Block Pillar 0 C 4
 Block Pillar 0 C 4
 #BLOCK-END
 
-[-6;-2;0]
-Block Pillar 0 A 4
+[-6;-3;0]
+Block Normal 0 0
+#BLOCK-END
+
+[-7;-3;0]
+Block Normal 0 0
+#BLOCK-END
+
+[-6;-4;0]
+Block Normal 0 0
+#BLOCK-END
+
+[-7;-4;0]
+Block Normal 0 0
 #BLOCK-END
 
 [5;5;-1]
