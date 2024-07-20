@@ -77,6 +77,7 @@ ScriptedImporter:
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
     spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
@@ -89,6 +90,7 @@ ScriptedImporter:
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
     spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
@@ -430,6 +432,7 @@ ScriptedImporter:
     cells:
     - name: Block Tree 0_Frame_0
       frameIndex: 0
+      additiveSortOrder: 0
       cellRect:
         x: 0
         y: 0
@@ -438,6 +441,7 @@ ScriptedImporter:
       spriteId: 94f9ef038f03f3e4c9ea2ebe49fb61ae
     - name: Block Tree 0_Frame_1
       frameIndex: 1
+      additiveSortOrder: 0
       cellRect:
         x: 0
         y: 0
@@ -446,6 +450,7 @@ ScriptedImporter:
       spriteId: 552d2028576e05946af9a0a38ef208b4
     - name: Block Tree 0_Frame_2
       frameIndex: 2
+      additiveSortOrder: 0
       cellRect:
         x: 0
         y: 0
@@ -454,6 +459,7 @@ ScriptedImporter:
       spriteId: ed05db46c46a19540b1b56eb2727c10c
     - name: Block Tree 0_Frame_3
       frameIndex: 3
+      additiveSortOrder: 0
       cellRect:
         x: 0
         y: 0
@@ -462,6 +468,7 @@ ScriptedImporter:
       spriteId: 3442cdc4779f6bb4384b372bd8b577a2
     - name: Block Tree 0_Frame_4
       frameIndex: 4
+      additiveSortOrder: 0
       cellRect:
         x: 0
         y: 0
@@ -470,6 +477,7 @@ ScriptedImporter:
       spriteId: 9cc774d2e01883f47a9099e7bf666093
     - name: Block Tree 0_Frame_5
       frameIndex: 5
+      additiveSortOrder: 0
       cellRect:
         x: 0
         y: 24
@@ -478,6 +486,7 @@ ScriptedImporter:
       spriteId: f4dada35310b67248aa42f126bc89195
     - name: Block Tree 0_Frame_6
       frameIndex: 6
+      additiveSortOrder: 0
       cellRect:
         x: 0
         y: 24
@@ -486,6 +495,7 @@ ScriptedImporter:
       spriteId: cf6cf4a578d898d47ace6a16f48111a7
     - name: Block Tree 0_Frame_7
       frameIndex: 7
+      additiveSortOrder: 0
       cellRect:
         x: 0
         y: 24
@@ -494,6 +504,7 @@ ScriptedImporter:
       spriteId: f7d69714548a89b4dad5e2167767a711
     - name: Block Tree 0_Frame_8
       frameIndex: 8
+      additiveSortOrder: 0
       cellRect:
         x: 0
         y: 24
@@ -502,6 +513,7 @@ ScriptedImporter:
       spriteId: 345a2ea394334ee41bcc52ab3e0a3410
     - name: Block Tree 0_Frame_9
       frameIndex: 9
+      additiveSortOrder: 0
       cellRect:
         x: 0
         y: 24
@@ -510,6 +522,7 @@ ScriptedImporter:
       spriteId: 8589d96d4cf00a54cbe0f97058cee008
     - name: Block Tree 0_Frame_10
       frameIndex: 10
+      additiveSortOrder: 0
       cellRect:
         x: 48
         y: 24
@@ -518,6 +531,7 @@ ScriptedImporter:
       spriteId: 84ba9f4bf9dc54a4e80bc17babf6d5bc
     - name: Block Tree 0_Frame_11
       frameIndex: 11
+      additiveSortOrder: 0
       cellRect:
         x: 48
         y: 24
@@ -526,6 +540,7 @@ ScriptedImporter:
       spriteId: cd56b4a7604513a42915c0cbf5835e47
     - name: Block Tree 0_Frame_12
       frameIndex: 12
+      additiveSortOrder: 0
       cellRect:
         x: 48
         y: 24
@@ -534,6 +549,7 @@ ScriptedImporter:
       spriteId: b28fdc81c64045a41bc4eab8e22a410b
     - name: Block Tree 0_Frame_13
       frameIndex: 13
+      additiveSortOrder: 0
       cellRect:
         x: 48
         y: 24
@@ -542,6 +558,7 @@ ScriptedImporter:
       spriteId: f221a5c899fa7154d8fad3f80f8abfe1
     - name: Block Tree 0_Frame_14
       frameIndex: 14
+      additiveSortOrder: 0
       cellRect:
         x: 48
         y: 24
@@ -611,6 +628,7 @@ ScriptedImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     androidETC2FallbackOverride: 0
+  generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 128, y: 128}

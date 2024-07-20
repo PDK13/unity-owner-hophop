@@ -77,6 +77,7 @@ ScriptedImporter:
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
     spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
@@ -89,6 +90,7 @@ ScriptedImporter:
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
     spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
@@ -430,6 +432,7 @@ ScriptedImporter:
     cells:
     - name: Block Pillar 0_Frame_10
       frameIndex: 10
+      additiveSortOrder: 0
       cellRect:
         x: 0
         y: 0
@@ -438,6 +441,7 @@ ScriptedImporter:
       spriteId: 5a506a1c1e8fc11478b67f38ec1854d1
     - name: Block Pillar 0_Frame_11
       frameIndex: 11
+      additiveSortOrder: 0
       cellRect:
         x: 0
         y: 0
@@ -446,6 +450,7 @@ ScriptedImporter:
       spriteId: be48d00cfc7cca845ac1157c1f0eec95
     - name: Block Pillar 0_Frame_12
       frameIndex: 12
+      additiveSortOrder: 0
       cellRect:
         x: 0
         y: 0
@@ -454,6 +459,7 @@ ScriptedImporter:
       spriteId: 62e89a17b78a64f429dcdbddb0e56d7d
     - name: Block Pillar 0_Frame_13
       frameIndex: 13
+      additiveSortOrder: 0
       cellRect:
         x: 0
         y: 0
@@ -462,6 +468,7 @@ ScriptedImporter:
       spriteId: 1cbedf68883e02c418e4d9eaa5ab76f3
     - name: Block Pillar 0_Frame_14
       frameIndex: 14
+      additiveSortOrder: 0
       cellRect:
         x: 0
         y: 0
@@ -470,6 +477,7 @@ ScriptedImporter:
       spriteId: 0fb605fe8cf48ac4fa1e96ed5c907d58
     - name: Block Pillar 0_Frame_0
       frameIndex: 0
+      additiveSortOrder: 0
       cellRect:
         x: 0
         y: 12
@@ -478,6 +486,7 @@ ScriptedImporter:
       spriteId: a8135080d4a84754cb9d43aece6c7912
     - name: Block Pillar 0_Frame_1
       frameIndex: 1
+      additiveSortOrder: 0
       cellRect:
         x: 0
         y: 12
@@ -486,6 +495,7 @@ ScriptedImporter:
       spriteId: 5805a213094445544a03fb6cf7a096cc
     - name: Block Pillar 0_Frame_2
       frameIndex: 2
+      additiveSortOrder: 0
       cellRect:
         x: 0
         y: 12
@@ -494,6 +504,7 @@ ScriptedImporter:
       spriteId: 97f702cb0c90b2346aa85a1d57df8f37
     - name: Block Pillar 0_Frame_3
       frameIndex: 3
+      additiveSortOrder: 0
       cellRect:
         x: 0
         y: 12
@@ -502,6 +513,7 @@ ScriptedImporter:
       spriteId: 78dec867ac05fd941b29d14be2803e87
     - name: Block Pillar 0_Frame_4
       frameIndex: 4
+      additiveSortOrder: 0
       cellRect:
         x: 0
         y: 12
@@ -510,6 +522,7 @@ ScriptedImporter:
       spriteId: e8ec5d59d60e5b844a84361a572df0b8
     - name: Block Pillar 0_Frame_5
       frameIndex: 5
+      additiveSortOrder: 0
       cellRect:
         x: 24
         y: 12
@@ -518,6 +531,7 @@ ScriptedImporter:
       spriteId: a6d21ef8bbdf5874e84774bd472c4b4d
     - name: Block Pillar 0_Frame_6
       frameIndex: 6
+      additiveSortOrder: 0
       cellRect:
         x: 24
         y: 12
@@ -526,6 +540,7 @@ ScriptedImporter:
       spriteId: 58898cc5558d60c4bbe285ee3b6bd087
     - name: Block Pillar 0_Frame_7
       frameIndex: 7
+      additiveSortOrder: 0
       cellRect:
         x: 24
         y: 12
@@ -534,6 +549,7 @@ ScriptedImporter:
       spriteId: a8843155c21f59940b25777294ab0e82
     - name: Block Pillar 0_Frame_8
       frameIndex: 8
+      additiveSortOrder: 0
       cellRect:
         x: 24
         y: 12
@@ -542,6 +558,7 @@ ScriptedImporter:
       spriteId: 9b9ede55f55e4e4498591c44b19bbc99
     - name: Block Pillar 0_Frame_9
       frameIndex: 9
+      additiveSortOrder: 0
       cellRect:
         x: 24
         y: 12
@@ -611,6 +628,7 @@ ScriptedImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     androidETC2FallbackOverride: 0
+  generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 128, y: 128}

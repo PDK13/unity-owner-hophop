@@ -77,6 +77,7 @@ ScriptedImporter:
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
     spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
@@ -89,6 +90,7 @@ ScriptedImporter:
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
     spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
@@ -430,6 +432,7 @@ ScriptedImporter:
     cells:
     - name: Bunny 1_Frame_0
       frameIndex: 0
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 24
@@ -438,6 +441,7 @@ ScriptedImporter:
       spriteId: 7ef977e36d4651642bfcc5ecf1b5597c
     - name: Bunny 1_Frame_1
       frameIndex: 1
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 24
@@ -446,6 +450,7 @@ ScriptedImporter:
       spriteId: 4d3c1fefcfe47e9489c5af22c3d8a33d
     - name: Bunny 1_Frame_3
       frameIndex: 3
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 32
@@ -454,6 +459,7 @@ ScriptedImporter:
       spriteId: 9622c9bc2166ed947acd14f983c72341
     - name: Bunny 1_Frame_6
       frameIndex: 6
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 24
@@ -462,6 +468,7 @@ ScriptedImporter:
       spriteId: cd3797c46762dd74c828d7aab284181e
     - name: Bunny 1_Frame_7
       frameIndex: 7
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 24
@@ -470,6 +477,7 @@ ScriptedImporter:
       spriteId: 762f1d6a1168d934ba5b75b95e0bc250
     - name: Bunny 1_Frame_12
       frameIndex: 12
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 24
@@ -478,6 +486,7 @@ ScriptedImporter:
       spriteId: 5dc2233c30233374ea15fedaef0de345
     - name: Bunny 1_Frame_13
       frameIndex: 13
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 24
@@ -486,6 +495,7 @@ ScriptedImporter:
       spriteId: 13badc6f364e62e49a453c967708b234
     - name: Bunny 1_Frame_18
       frameIndex: 18
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 24
@@ -494,6 +504,7 @@ ScriptedImporter:
       spriteId: de7a33fa7b14bbb45bbc8f06650ffd6a
     - name: Bunny 1_Frame_19
       frameIndex: 19
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 30
@@ -502,6 +513,7 @@ ScriptedImporter:
       spriteId: c75f5041690c85041b8a5b381b785ea7
     - name: Bunny 1_Frame_24
       frameIndex: 24
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 24
@@ -510,6 +522,7 @@ ScriptedImporter:
       spriteId: 523c2404dc8852c44a45f8db454d3ade
     - name: Bunny 1_Frame_25
       frameIndex: 25
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 24
@@ -518,6 +531,7 @@ ScriptedImporter:
       spriteId: 4b5a23e9719321943affd35b51cb27be
     - name: Bunny 1_Frame_26
       frameIndex: 26
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 24
@@ -526,6 +540,7 @@ ScriptedImporter:
       spriteId: 0b28762c468022f4b87ea5ac32125fbe
     - name: Bunny 1_Frame_27
       frameIndex: 27
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 24
@@ -534,6 +549,7 @@ ScriptedImporter:
       spriteId: 3f441257367434249a5250d79c1e599d
     - name: Bunny 1_Frame_28
       frameIndex: 28
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 24
@@ -542,6 +558,7 @@ ScriptedImporter:
       spriteId: 3f03cf68b356f1349bc7877565655c75
     - name: Bunny 1_Frame_29
       frameIndex: 29
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 24
@@ -551,6 +568,7 @@ ScriptedImporter:
     linkedCells: []
     parentIndex: -1
   platformSettings: []
+  generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 128, y: 128}

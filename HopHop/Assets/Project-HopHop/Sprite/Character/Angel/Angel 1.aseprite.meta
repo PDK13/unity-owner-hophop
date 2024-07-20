@@ -77,6 +77,7 @@ ScriptedImporter:
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
     spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
@@ -89,6 +90,7 @@ ScriptedImporter:
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
     spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
@@ -430,6 +432,7 @@ ScriptedImporter:
     cells:
     - name: Angel 1_Frame_0
       frameIndex: 0
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 24
@@ -438,6 +441,7 @@ ScriptedImporter:
       spriteId: 351ebda87c0133744bdec908f299d1b7
     - name: Angel 1_Frame_1
       frameIndex: 1
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 24
@@ -446,6 +450,7 @@ ScriptedImporter:
       spriteId: 1cdbcbb0a48705944b0650b32ff0bcd9
     - name: Angel 1_Frame_3
       frameIndex: 3
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 32
@@ -454,6 +459,7 @@ ScriptedImporter:
       spriteId: 7e93de68294e8bc408a4f5fd4bc2c852
     - name: Angel 1_Frame_6
       frameIndex: 6
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 24
@@ -462,6 +468,7 @@ ScriptedImporter:
       spriteId: 2c3a5021c61776c45b1b3dbad7bc48e2
     - name: Angel 1_Frame_7
       frameIndex: 7
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 24
@@ -470,6 +477,7 @@ ScriptedImporter:
       spriteId: f6effe6bf8597ff4eba03e2a61535c9d
     - name: Angel 1_Frame_12
       frameIndex: 12
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 24
@@ -478,6 +486,7 @@ ScriptedImporter:
       spriteId: 39fda7ffe63343f4d88439387eda078a
     - name: Angel 1_Frame_13
       frameIndex: 13
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 24
@@ -486,6 +495,7 @@ ScriptedImporter:
       spriteId: 0e2314cec51021245833728d43eda53c
     - name: Angel 1_Frame_18
       frameIndex: 18
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 24
@@ -494,6 +504,7 @@ ScriptedImporter:
       spriteId: b54fd747da440c747bce1f32f7db54d0
     - name: Angel 1_Frame_19
       frameIndex: 19
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 30
@@ -502,6 +513,7 @@ ScriptedImporter:
       spriteId: 00a1bbb89e974c44d9827f588b2f2538
     - name: Angel 1_Frame_24
       frameIndex: 24
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 24
@@ -510,6 +522,7 @@ ScriptedImporter:
       spriteId: de2a37f6f576a2d4ab6562a8f863603d
     - name: Angel 1_Frame_25
       frameIndex: 25
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 24
@@ -518,6 +531,7 @@ ScriptedImporter:
       spriteId: a048b30a8ecdd2545a03f283d49cad1f
     - name: Angel 1_Frame_26
       frameIndex: 26
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 24
@@ -526,6 +540,7 @@ ScriptedImporter:
       spriteId: 669f5645718d0d54cb1323cffb29090a
     - name: Angel 1_Frame_27
       frameIndex: 27
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 24
@@ -534,6 +549,7 @@ ScriptedImporter:
       spriteId: b9c5597b2d7543348aad70c75e8afd33
     - name: Angel 1_Frame_28
       frameIndex: 28
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 24
@@ -542,6 +558,7 @@ ScriptedImporter:
       spriteId: 126fc809f72a27a4d9a5b98f7056b4b8
     - name: Angel 1_Frame_29
       frameIndex: 29
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 24
@@ -551,6 +568,7 @@ ScriptedImporter:
     linkedCells: []
     parentIndex: -1
   platformSettings: []
+  generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 128, y: 128}

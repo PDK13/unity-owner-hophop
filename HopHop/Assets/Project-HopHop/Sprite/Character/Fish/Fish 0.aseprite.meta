@@ -77,6 +77,7 @@ ScriptedImporter:
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
     spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
@@ -89,6 +90,7 @@ ScriptedImporter:
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
     spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
@@ -430,6 +432,7 @@ ScriptedImporter:
     cells:
     - name: Fish 0_Frame_0
       frameIndex: 0
+      additiveSortOrder: 0
       cellRect:
         x: 26
         y: 24
@@ -438,6 +441,7 @@ ScriptedImporter:
       spriteId: fc17cbc082931b74a973abdd4f3db2d3
     - name: Fish 0_Frame_1
       frameIndex: 1
+      additiveSortOrder: 0
       cellRect:
         x: 26
         y: 24
@@ -446,6 +450,7 @@ ScriptedImporter:
       spriteId: df628945b7e927b4b82f39954236b8d9
     - name: Fish 0_Frame_3
       frameIndex: 3
+      additiveSortOrder: 0
       cellRect:
         x: 26
         y: 32
@@ -454,6 +459,7 @@ ScriptedImporter:
       spriteId: 105a8f076740ec4418f8031e6224ec4d
     - name: Fish 0_Frame_6
       frameIndex: 6
+      additiveSortOrder: 0
       cellRect:
         x: 26
         y: 24
@@ -462,6 +468,7 @@ ScriptedImporter:
       spriteId: 0713b73796d63f64b93bdf696254a954
     - name: Fish 0_Frame_7
       frameIndex: 7
+      additiveSortOrder: 0
       cellRect:
         x: 26
         y: 24
@@ -470,6 +477,7 @@ ScriptedImporter:
       spriteId: a0fa14c36c7a2e74899800ab75a3ac9e
     - name: Fish 0_Frame_12
       frameIndex: 12
+      additiveSortOrder: 0
       cellRect:
         x: 26
         y: 24
@@ -478,6 +486,7 @@ ScriptedImporter:
       spriteId: df939ec56ac7d37469fe71b5855fd869
     - name: Fish 0_Frame_13
       frameIndex: 13
+      additiveSortOrder: 0
       cellRect:
         x: 26
         y: 24
@@ -486,6 +495,7 @@ ScriptedImporter:
       spriteId: 88cc817c6fad1c245b47b89e2dacef77
     - name: Fish 0_Frame_18
       frameIndex: 18
+      additiveSortOrder: 0
       cellRect:
         x: 26
         y: 24
@@ -494,6 +504,7 @@ ScriptedImporter:
       spriteId: 903bc3ee5785d064d88ec17149a6ff8e
     - name: Fish 0_Frame_19
       frameIndex: 19
+      additiveSortOrder: 0
       cellRect:
         x: 26
         y: 30
@@ -502,6 +513,7 @@ ScriptedImporter:
       spriteId: ca92e634292fc214fbdd8eb7ec4b2f28
     - name: Fish 0_Frame_24
       frameIndex: 24
+      additiveSortOrder: 0
       cellRect:
         x: 26
         y: 24
@@ -510,6 +522,7 @@ ScriptedImporter:
       spriteId: 9ed3238d00fd1d348a4d8ed3e377a702
     - name: Fish 0_Frame_25
       frameIndex: 25
+      additiveSortOrder: 0
       cellRect:
         x: 26
         y: 24
@@ -518,6 +531,7 @@ ScriptedImporter:
       spriteId: 04ac4361476d8a4439084d7a50cb0dca
     - name: Fish 0_Frame_26
       frameIndex: 26
+      additiveSortOrder: 0
       cellRect:
         x: 26
         y: 24
@@ -526,6 +540,7 @@ ScriptedImporter:
       spriteId: e7dbd893eef83bf4bbc34a5d7c1fa0ff
     - name: Fish 0_Frame_27
       frameIndex: 27
+      additiveSortOrder: 0
       cellRect:
         x: 26
         y: 24
@@ -534,6 +549,7 @@ ScriptedImporter:
       spriteId: bcedaaf87d4288d43b17b86d57ffd229
     - name: Fish 0_Frame_28
       frameIndex: 28
+      additiveSortOrder: 0
       cellRect:
         x: 26
         y: 24
@@ -542,6 +558,7 @@ ScriptedImporter:
       spriteId: 36c53406bbac39947b8f3d213c7338f5
     - name: Fish 0_Frame_29
       frameIndex: 29
+      additiveSortOrder: 0
       cellRect:
         x: 26
         y: 24
@@ -551,6 +568,7 @@ ScriptedImporter:
     linkedCells: []
     parentIndex: -1
   platformSettings: []
+  generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 128, y: 128}

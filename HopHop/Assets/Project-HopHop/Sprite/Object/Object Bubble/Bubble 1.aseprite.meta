@@ -77,6 +77,7 @@ ScriptedImporter:
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
     spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
@@ -89,6 +90,7 @@ ScriptedImporter:
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
     spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
@@ -370,6 +372,7 @@ ScriptedImporter:
     cells:
     - name: Bubble 1_Frame_0
       frameIndex: 0
+      additiveSortOrder: 0
       cellRect:
         x: 58
         y: 60
@@ -378,6 +381,7 @@ ScriptedImporter:
       spriteId: 7016e0a93e31caa4885313354a5ce596
     - name: Bubble 1_Frame_1
       frameIndex: 1
+      additiveSortOrder: 0
       cellRect:
         x: 54
         y: 56
@@ -386,6 +390,7 @@ ScriptedImporter:
       spriteId: 6db07b6fbc93eac49bd5fed30e389fca
     - name: Bubble 1_Frame_2
       frameIndex: 2
+      additiveSortOrder: 0
       cellRect:
         x: 38
         y: 40
@@ -394,6 +399,7 @@ ScriptedImporter:
       spriteId: 605f27a6818d1c3458d3550c77b1c1b8
     - name: Bubble 1_Frame_3
       frameIndex: 3
+      additiveSortOrder: 0
       cellRect:
         x: 30
         y: 32
@@ -402,6 +408,7 @@ ScriptedImporter:
       spriteId: d92c3f671c3669545b2d143b97fda0be
     - name: Bubble 1_Frame_4
       frameIndex: 4
+      additiveSortOrder: 0
       cellRect:
         x: 30
         y: 32
@@ -410,6 +417,7 @@ ScriptedImporter:
       spriteId: 4af83aab6eb5b344997bffe6215c66b5
     - name: Bubble 1_Frame_5
       frameIndex: 5
+      additiveSortOrder: 0
       cellRect:
         x: 30
         y: 31
@@ -418,6 +426,7 @@ ScriptedImporter:
       spriteId: 1a4ccb7f9b35bee44b87136d305d2486
     - name: Bubble 1_Frame_6
       frameIndex: 6
+      additiveSortOrder: 0
       cellRect:
         x: 30
         y: 32
@@ -426,6 +435,7 @@ ScriptedImporter:
       spriteId: 81287162e6713fc428562d6d7e14c020
     - name: Bubble 1_Frame_7
       frameIndex: 7
+      additiveSortOrder: 0
       cellRect:
         x: 30
         y: 33
@@ -434,6 +444,7 @@ ScriptedImporter:
       spriteId: b232ea33003d6a14ea04daa62c9656df
     - name: Bubble 1_Frame_8
       frameIndex: 8
+      additiveSortOrder: 0
       cellRect:
         x: 30
         y: 32
@@ -442,6 +453,7 @@ ScriptedImporter:
       spriteId: 01e7f7c11a2974a4692582b1136b066a
     - name: Bubble 1_Frame_9
       frameIndex: 9
+      additiveSortOrder: 0
       cellRect:
         x: 30
         y: 32
@@ -450,6 +462,7 @@ ScriptedImporter:
       spriteId: 1f27c00b365e95144ab4bf135efe19f6
     - name: Bubble 1_Frame_10
       frameIndex: 10
+      additiveSortOrder: 0
       cellRect:
         x: 30
         y: 32
@@ -458,6 +471,7 @@ ScriptedImporter:
       spriteId: 288dc7f19a5c63a41a2c54ec3e4aa41c
     - name: Bubble 1_Frame_11
       frameIndex: 11
+      additiveSortOrder: 0
       cellRect:
         x: 28
         y: 30
@@ -467,6 +481,7 @@ ScriptedImporter:
     linkedCells: []
     parentIndex: -1
   platformSettings: []
+  generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 128, y: 128}

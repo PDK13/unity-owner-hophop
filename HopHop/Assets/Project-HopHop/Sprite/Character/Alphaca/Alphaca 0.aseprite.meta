@@ -77,6 +77,7 @@ ScriptedImporter:
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
     spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
@@ -89,6 +90,7 @@ ScriptedImporter:
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
     spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
@@ -430,6 +432,7 @@ ScriptedImporter:
     cells:
     - name: Alphaca 0_Frame_0
       frameIndex: 0
+      additiveSortOrder: 0
       cellRect:
         x: 34
         y: 24
@@ -438,6 +441,7 @@ ScriptedImporter:
       spriteId: 14d761d338e08e440a326274e5f6a146
     - name: Alphaca 0_Frame_1
       frameIndex: 1
+      additiveSortOrder: 0
       cellRect:
         x: 34
         y: 24
@@ -446,6 +450,7 @@ ScriptedImporter:
       spriteId: be3b47709bc0a5440ad154fef6e04df8
     - name: Alphaca 0_Frame_3
       frameIndex: 3
+      additiveSortOrder: 0
       cellRect:
         x: 34
         y: 32
@@ -454,6 +459,7 @@ ScriptedImporter:
       spriteId: 1877f349d3fa0b94ebb90878cd379f16
     - name: Alphaca 0_Frame_6
       frameIndex: 6
+      additiveSortOrder: 0
       cellRect:
         x: 34
         y: 24
@@ -462,6 +468,7 @@ ScriptedImporter:
       spriteId: 0861aed9a9101684d80512f2570e05fe
     - name: Alphaca 0_Frame_7
       frameIndex: 7
+      additiveSortOrder: 0
       cellRect:
         x: 34
         y: 24
@@ -470,6 +477,7 @@ ScriptedImporter:
       spriteId: dce2e00aaee939e46a87eea374d85a68
     - name: Alphaca 0_Frame_12
       frameIndex: 12
+      additiveSortOrder: 0
       cellRect:
         x: 34
         y: 24
@@ -478,6 +486,7 @@ ScriptedImporter:
       spriteId: e39755c26dbd3ae4a99ed2f97ce7bcc5
     - name: Alphaca 0_Frame_13
       frameIndex: 13
+      additiveSortOrder: 0
       cellRect:
         x: 34
         y: 24
@@ -486,6 +495,7 @@ ScriptedImporter:
       spriteId: cee0c167f258b5b4182e5e68ee64aa62
     - name: Alphaca 0_Frame_18
       frameIndex: 18
+      additiveSortOrder: 0
       cellRect:
         x: 34
         y: 24
@@ -494,6 +504,7 @@ ScriptedImporter:
       spriteId: 63cfe03516ff5f64fbd98b492c1632e7
     - name: Alphaca 0_Frame_19
       frameIndex: 19
+      additiveSortOrder: 0
       cellRect:
         x: 34
         y: 30
@@ -502,6 +513,7 @@ ScriptedImporter:
       spriteId: ccbb39469ae373b4baa49f4e75a6ea36
     - name: Alphaca 0_Frame_24
       frameIndex: 24
+      additiveSortOrder: 0
       cellRect:
         x: 34
         y: 24
@@ -510,6 +522,7 @@ ScriptedImporter:
       spriteId: 98815a3693b97604fa8c6c5c9a612978
     - name: Alphaca 0_Frame_25
       frameIndex: 25
+      additiveSortOrder: 0
       cellRect:
         x: 34
         y: 24
@@ -518,6 +531,7 @@ ScriptedImporter:
       spriteId: f111809636ba15f43b0613355f077349
     - name: Alphaca 0_Frame_26
       frameIndex: 26
+      additiveSortOrder: 0
       cellRect:
         x: 34
         y: 24
@@ -526,6 +540,7 @@ ScriptedImporter:
       spriteId: 6226917596d913542bce7a9cfa66e5e2
     - name: Alphaca 0_Frame_27
       frameIndex: 27
+      additiveSortOrder: 0
       cellRect:
         x: 34
         y: 24
@@ -534,6 +549,7 @@ ScriptedImporter:
       spriteId: 0bbb5616ea11afe42a139a34c51048d2
     - name: Alphaca 0_Frame_28
       frameIndex: 28
+      additiveSortOrder: 0
       cellRect:
         x: 34
         y: 24
@@ -542,6 +558,7 @@ ScriptedImporter:
       spriteId: d82d5931dbe97114687a20b6205c9e9d
     - name: Alphaca 0_Frame_29
       frameIndex: 29
+      additiveSortOrder: 0
       cellRect:
         x: 34
         y: 24
@@ -551,6 +568,7 @@ ScriptedImporter:
     linkedCells: []
     parentIndex: -1
   platformSettings: []
+  generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 128, y: 128}

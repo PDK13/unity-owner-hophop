@@ -77,6 +77,7 @@ ScriptedImporter:
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
     spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
@@ -89,6 +90,7 @@ ScriptedImporter:
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
     spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
@@ -430,6 +432,7 @@ ScriptedImporter:
     cells:
     - name: Devil 0_Frame_0
       frameIndex: 0
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 24
@@ -438,6 +441,7 @@ ScriptedImporter:
       spriteId: ab9d764f659323444a688d9d232ce8d7
     - name: Devil 0_Frame_1
       frameIndex: 1
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 24
@@ -446,6 +450,7 @@ ScriptedImporter:
       spriteId: 1e2b7e93155a5124f99ee81d0c0d7558
     - name: Devil 0_Frame_3
       frameIndex: 3
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 32
@@ -454,6 +459,7 @@ ScriptedImporter:
       spriteId: 0b38c93183939d14ab7e0c8fc3f4ced5
     - name: Devil 0_Frame_6
       frameIndex: 6
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 24
@@ -462,6 +468,7 @@ ScriptedImporter:
       spriteId: 9f64cc713903a334abff372b872a7469
     - name: Devil 0_Frame_7
       frameIndex: 7
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 24
@@ -470,6 +477,7 @@ ScriptedImporter:
       spriteId: e3aa4dcd9a6aa474384e9e31b48d79e3
     - name: Devil 0_Frame_12
       frameIndex: 12
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 24
@@ -478,6 +486,7 @@ ScriptedImporter:
       spriteId: f3e84872ee1fa0f44b103090a684e110
     - name: Devil 0_Frame_13
       frameIndex: 13
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 24
@@ -486,6 +495,7 @@ ScriptedImporter:
       spriteId: 1621da06b036c7a40891a1e9dee860d5
     - name: Devil 0_Frame_18
       frameIndex: 18
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 24
@@ -494,6 +504,7 @@ ScriptedImporter:
       spriteId: e8e3f3fbff2389a4e82043174d5a99a5
     - name: Devil 0_Frame_19
       frameIndex: 19
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 30
@@ -502,6 +513,7 @@ ScriptedImporter:
       spriteId: 7c77b0d7596fd0a4e8f3deaa73c9bc6d
     - name: Devil 0_Frame_24
       frameIndex: 24
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 24
@@ -510,6 +522,7 @@ ScriptedImporter:
       spriteId: 63e6b0ce16b172642ab3d12c6d6f02c0
     - name: Devil 0_Frame_25
       frameIndex: 25
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 24
@@ -518,6 +531,7 @@ ScriptedImporter:
       spriteId: 5bb9aff0c519a0843bca0d9b0523ee6f
     - name: Devil 0_Frame_26
       frameIndex: 26
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 24
@@ -526,6 +540,7 @@ ScriptedImporter:
       spriteId: b3001bfdc512fd4448fbfc6eff56e48e
     - name: Devil 0_Frame_27
       frameIndex: 27
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 24
@@ -534,6 +549,7 @@ ScriptedImporter:
       spriteId: 7f9c2cef5cdfb0849863c827e3aa5ad4
     - name: Devil 0_Frame_28
       frameIndex: 28
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 24
@@ -542,6 +558,7 @@ ScriptedImporter:
       spriteId: 94e328f518afcef4ca6816255b7b9d12
     - name: Devil 0_Frame_29
       frameIndex: 29
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 24
@@ -551,6 +568,7 @@ ScriptedImporter:
     linkedCells: []
     parentIndex: -1
   platformSettings: []
+  generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 128, y: 128}

@@ -77,6 +77,7 @@ ScriptedImporter:
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
     spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
@@ -89,6 +90,7 @@ ScriptedImporter:
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
     spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
@@ -330,6 +332,7 @@ ScriptedImporter:
     cells:
     - name: Block Donut 0_Frame_0
       frameIndex: 0
+      additiveSortOrder: 0
       cellRect:
         x: 16
         y: 16
@@ -338,6 +341,7 @@ ScriptedImporter:
       spriteId: 9ed0c6c380840a640824f5fc130e245f
     - name: Block Donut 0_Frame_1
       frameIndex: 1
+      additiveSortOrder: 0
       cellRect:
         x: 16
         y: 16
@@ -346,6 +350,7 @@ ScriptedImporter:
       spriteId: d30494d3b5bfb49449e43040abce29c8
     - name: Block Donut 0_Frame_2
       frameIndex: 2
+      additiveSortOrder: 0
       cellRect:
         x: 16
         y: 16
@@ -354,6 +359,7 @@ ScriptedImporter:
       spriteId: 0ebb96a36b2769a4cafdb5dc4245d210
     - name: Block Donut 0_Frame_3
       frameIndex: 3
+      additiveSortOrder: 0
       cellRect:
         x: 16
         y: 16
@@ -362,6 +368,7 @@ ScriptedImporter:
       spriteId: 4fa7076cad130184196da95956bf654c
     - name: Block Donut 0_Frame_4
       frameIndex: 4
+      additiveSortOrder: 0
       cellRect:
         x: 16
         y: 16
@@ -370,6 +377,7 @@ ScriptedImporter:
       spriteId: c904a4045fa4f5546a8b3dc17f954ea5
     - name: Block Donut 0_Frame_5
       frameIndex: 5
+      additiveSortOrder: 0
       cellRect:
         x: 16
         y: 16
@@ -378,6 +386,7 @@ ScriptedImporter:
       spriteId: 9c8937d9fb0c2854988ae4ded24d8c78
     - name: Block Donut 0_Frame_6
       frameIndex: 6
+      additiveSortOrder: 0
       cellRect:
         x: 16
         y: 16
@@ -386,6 +395,7 @@ ScriptedImporter:
       spriteId: c0aafe09dc0b7434e843b2c6cfccc73d
     - name: Block Donut 0_Frame_7
       frameIndex: 7
+      additiveSortOrder: 0
       cellRect:
         x: 16
         y: 16
@@ -394,6 +404,7 @@ ScriptedImporter:
       spriteId: 7eaaf9bd195a50a46a23b0928e2dd88a
     - name: Block Donut 0_Frame_8
       frameIndex: 8
+      additiveSortOrder: 0
       cellRect:
         x: 16
         y: 16
@@ -402,6 +413,7 @@ ScriptedImporter:
       spriteId: e3c89810ec9e0924cae322046a0b72b5
     - name: Block Donut 0_Frame_9
       frameIndex: 9
+      additiveSortOrder: 0
       cellRect:
         x: 16
         y: 16
@@ -471,6 +483,7 @@ ScriptedImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     androidETC2FallbackOverride: 0
+  generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 128, y: 128}

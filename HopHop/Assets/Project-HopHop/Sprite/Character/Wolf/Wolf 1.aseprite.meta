@@ -77,6 +77,7 @@ ScriptedImporter:
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
     spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
@@ -89,6 +90,7 @@ ScriptedImporter:
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
     spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
@@ -430,6 +432,7 @@ ScriptedImporter:
     cells:
     - name: Wolf 1_Frame_0
       frameIndex: 0
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 24
@@ -438,6 +441,7 @@ ScriptedImporter:
       spriteId: c58545ffd1cd51147848490d487aeba2
     - name: Wolf 1_Frame_1
       frameIndex: 1
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 24
@@ -446,6 +450,7 @@ ScriptedImporter:
       spriteId: 3c398f54ec60d284db21b05ee8bd9298
     - name: Wolf 1_Frame_3
       frameIndex: 3
+      additiveSortOrder: 0
       cellRect:
         x: 40
         y: 32
@@ -454,6 +459,7 @@ ScriptedImporter:
       spriteId: 0fbb704ed373aa94db5b2599ff87410b
     - name: Wolf 1_Frame_6
       frameIndex: 6
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 24
@@ -462,6 +468,7 @@ ScriptedImporter:
       spriteId: 9b3b3d76d686745448f87b41ad5aff58
     - name: Wolf 1_Frame_7
       frameIndex: 7
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 24
@@ -470,6 +477,7 @@ ScriptedImporter:
       spriteId: 9a03bdd677337de44822f169f15b1b51
     - name: Wolf 1_Frame_12
       frameIndex: 12
+      additiveSortOrder: 0
       cellRect:
         x: 40
         y: 24
@@ -478,6 +486,7 @@ ScriptedImporter:
       spriteId: 199ffaedd6513704ea72e619b8ec6c83
     - name: Wolf 1_Frame_13
       frameIndex: 13
+      additiveSortOrder: 0
       cellRect:
         x: 40
         y: 24
@@ -486,6 +495,7 @@ ScriptedImporter:
       spriteId: 9868b8d3b14ff684e8ece1f6785bd7ab
     - name: Wolf 1_Frame_18
       frameIndex: 18
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 24
@@ -494,6 +504,7 @@ ScriptedImporter:
       spriteId: 7b84d16c057eef540be5f39280a56334
     - name: Wolf 1_Frame_19
       frameIndex: 19
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 30
@@ -502,6 +513,7 @@ ScriptedImporter:
       spriteId: 13b979736170cc849894ae5a3f2006c2
     - name: Wolf 1_Frame_24
       frameIndex: 24
+      additiveSortOrder: 0
       cellRect:
         x: 40
         y: 24
@@ -510,6 +522,7 @@ ScriptedImporter:
       spriteId: 19d4e99b87e79b049b642157f69e944c
     - name: Wolf 1_Frame_25
       frameIndex: 25
+      additiveSortOrder: 0
       cellRect:
         x: 40
         y: 24
@@ -518,6 +531,7 @@ ScriptedImporter:
       spriteId: 359481395e7bb27419707043f6c4249f
     - name: Wolf 1_Frame_26
       frameIndex: 26
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 24
@@ -526,6 +540,7 @@ ScriptedImporter:
       spriteId: 793bf9f9dad41df4fa2aa49ef35c555b
     - name: Wolf 1_Frame_27
       frameIndex: 27
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 24
@@ -534,6 +549,7 @@ ScriptedImporter:
       spriteId: e2b388758ab9f9248a5295651a3aadf3
     - name: Wolf 1_Frame_28
       frameIndex: 28
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 24
@@ -542,6 +558,7 @@ ScriptedImporter:
       spriteId: 6a546d1726cc9dc4585d55b66785b9bc
     - name: Wolf 1_Frame_29
       frameIndex: 29
+      additiveSortOrder: 0
       cellRect:
         x: 36
         y: 24
@@ -551,6 +568,7 @@ ScriptedImporter:
     linkedCells: []
     parentIndex: -1
   platformSettings: []
+  generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 128, y: 128}

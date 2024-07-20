@@ -77,6 +77,7 @@ ScriptedImporter:
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
     spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
@@ -89,6 +90,7 @@ ScriptedImporter:
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
     spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
@@ -430,6 +432,7 @@ ScriptedImporter:
     cells:
     - name: Mole 0_Frame_0
       frameIndex: 0
+      additiveSortOrder: 0
       cellRect:
         x: 34
         y: 24
@@ -438,6 +441,7 @@ ScriptedImporter:
       spriteId: cd8716907e5b00b44b053788075edbef
     - name: Mole 0_Frame_1
       frameIndex: 1
+      additiveSortOrder: 0
       cellRect:
         x: 34
         y: 24
@@ -446,6 +450,7 @@ ScriptedImporter:
       spriteId: 72ae5a780b93b9f44821c763fcbcbd4c
     - name: Mole 0_Frame_3
       frameIndex: 3
+      additiveSortOrder: 0
       cellRect:
         x: 34
         y: 32
@@ -454,6 +459,7 @@ ScriptedImporter:
       spriteId: 9df540911c6a05c438323f196646e293
     - name: Mole 0_Frame_6
       frameIndex: 6
+      additiveSortOrder: 0
       cellRect:
         x: 34
         y: 24
@@ -462,6 +468,7 @@ ScriptedImporter:
       spriteId: fa54c4d5b9c3a5b4d9bdd95652a04c25
     - name: Mole 0_Frame_7
       frameIndex: 7
+      additiveSortOrder: 0
       cellRect:
         x: 34
         y: 24
@@ -470,6 +477,7 @@ ScriptedImporter:
       spriteId: a456b1cf418f7ee458dff84880beb3c6
     - name: Mole 0_Frame_12
       frameIndex: 12
+      additiveSortOrder: 0
       cellRect:
         x: 34
         y: 24
@@ -478,6 +486,7 @@ ScriptedImporter:
       spriteId: 085266bb01f09ed46bb2d6035b1720ce
     - name: Mole 0_Frame_13
       frameIndex: 13
+      additiveSortOrder: 0
       cellRect:
         x: 34
         y: 24
@@ -486,6 +495,7 @@ ScriptedImporter:
       spriteId: ea044dbe36379954fad1032b2fd1d637
     - name: Mole 0_Frame_18
       frameIndex: 18
+      additiveSortOrder: 0
       cellRect:
         x: 34
         y: 24
@@ -494,6 +504,7 @@ ScriptedImporter:
       spriteId: e64e272a2c924cb408e6889612167506
     - name: Mole 0_Frame_19
       frameIndex: 19
+      additiveSortOrder: 0
       cellRect:
         x: 34
         y: 30
@@ -502,6 +513,7 @@ ScriptedImporter:
       spriteId: afcaec257e09ade42af82256057994d3
     - name: Mole 0_Frame_24
       frameIndex: 24
+      additiveSortOrder: 0
       cellRect:
         x: 34
         y: 24
@@ -510,6 +522,7 @@ ScriptedImporter:
       spriteId: c12cb9fcea2c92244b2567b2f1e99621
     - name: Mole 0_Frame_25
       frameIndex: 25
+      additiveSortOrder: 0
       cellRect:
         x: 34
         y: 24
@@ -518,6 +531,7 @@ ScriptedImporter:
       spriteId: 58a79e64a05c7494c87b21362c17f01f
     - name: Mole 0_Frame_26
       frameIndex: 26
+      additiveSortOrder: 0
       cellRect:
         x: 34
         y: 24
@@ -526,6 +540,7 @@ ScriptedImporter:
       spriteId: 9d33f996b8d006744a8de9642b16e703
     - name: Mole 0_Frame_27
       frameIndex: 27
+      additiveSortOrder: 0
       cellRect:
         x: 34
         y: 24
@@ -534,6 +549,7 @@ ScriptedImporter:
       spriteId: a324d5e0bf28a684d8058ce6ae9b7412
     - name: Mole 0_Frame_28
       frameIndex: 28
+      additiveSortOrder: 0
       cellRect:
         x: 34
         y: 24
@@ -542,6 +558,7 @@ ScriptedImporter:
       spriteId: 8e5fe114e5778b147a940250c97cfbba
     - name: Mole 0_Frame_29
       frameIndex: 29
+      additiveSortOrder: 0
       cellRect:
         x: 34
         y: 24
@@ -551,6 +568,7 @@ ScriptedImporter:
     linkedCells: []
     parentIndex: -1
   platformSettings: []
+  generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 128, y: 128}

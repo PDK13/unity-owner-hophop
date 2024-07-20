@@ -77,6 +77,7 @@ ScriptedImporter:
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
     spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
@@ -89,6 +90,7 @@ ScriptedImporter:
     defaultPivotSpace: 0
     defaultPivotAlignment: 7
     customPivotPosition: {x: 0.5, y: 0.5}
+    mosaicPadding: 4
     spritePadding: 0
     generateModelPrefab: 1
     generateAnimationClips: 1
@@ -410,6 +412,7 @@ ScriptedImporter:
     cells:
     - name: Bug-Temp_Frame_0
       frameIndex: 0
+      additiveSortOrder: 0
       cellRect:
         x: 26
         y: 24
@@ -418,6 +421,7 @@ ScriptedImporter:
       spriteId: 1452005bc6c03344a99c076c5f9876eb
     - name: Bug-Temp_Frame_1
       frameIndex: 1
+      additiveSortOrder: 0
       cellRect:
         x: 26
         y: 24
@@ -426,6 +430,7 @@ ScriptedImporter:
       spriteId: 172b48fd52351514d96a75b292a31b19
     - name: Bug-Temp_Frame_6
       frameIndex: 6
+      additiveSortOrder: 0
       cellRect:
         x: 26
         y: 24
@@ -434,6 +439,7 @@ ScriptedImporter:
       spriteId: 1298451e08934e44987599b228daacec
     - name: Bug-Temp_Frame_7
       frameIndex: 7
+      additiveSortOrder: 0
       cellRect:
         x: 26
         y: 24
@@ -442,6 +448,7 @@ ScriptedImporter:
       spriteId: 9d39437e71e9318408e5edd86918a720
     - name: Bug-Temp_Frame_12
       frameIndex: 12
+      additiveSortOrder: 0
       cellRect:
         x: 26
         y: 24
@@ -450,6 +457,7 @@ ScriptedImporter:
       spriteId: 9ab533029bf38b84d9eb71457cdad705
     - name: Bug-Temp_Frame_13
       frameIndex: 13
+      additiveSortOrder: 0
       cellRect:
         x: 26
         y: 24
@@ -458,6 +466,7 @@ ScriptedImporter:
       spriteId: b7945fddbe6fa154c944c323feeb22da
     - name: Bug-Temp_Frame_18
       frameIndex: 18
+      additiveSortOrder: 0
       cellRect:
         x: 26
         y: 24
@@ -466,6 +475,7 @@ ScriptedImporter:
       spriteId: bee6290138a3db742b2dab45cbaf4a83
     - name: Bug-Temp_Frame_19
       frameIndex: 19
+      additiveSortOrder: 0
       cellRect:
         x: 26
         y: 36
@@ -474,6 +484,7 @@ ScriptedImporter:
       spriteId: 5b7eae56bc71c724a800fc6533fcb2cb
     - name: Bug-Temp_Frame_24
       frameIndex: 24
+      additiveSortOrder: 0
       cellRect:
         x: 26
         y: 24
@@ -482,6 +493,7 @@ ScriptedImporter:
       spriteId: b6e26a370a9d90c4cb895e869569c03a
     - name: Bug-Temp_Frame_25
       frameIndex: 25
+      additiveSortOrder: 0
       cellRect:
         x: 26
         y: 24
@@ -490,6 +502,7 @@ ScriptedImporter:
       spriteId: 968203aefd3d9fd4a8ca2a7d6338fc33
     - name: Bug-Temp_Frame_26
       frameIndex: 26
+      additiveSortOrder: 0
       cellRect:
         x: 26
         y: 24
@@ -498,6 +511,7 @@ ScriptedImporter:
       spriteId: 5f29c5f9ea12b94488330e1dbe61fcad
     - name: Bug-Temp_Frame_27
       frameIndex: 27
+      additiveSortOrder: 0
       cellRect:
         x: 26
         y: 24
@@ -506,6 +520,7 @@ ScriptedImporter:
       spriteId: 214a5ddea60c2d94b8a0536f9dfd382f
     - name: Bug-Temp_Frame_28
       frameIndex: 28
+      additiveSortOrder: 0
       cellRect:
         x: 26
         y: 24
@@ -514,6 +529,7 @@ ScriptedImporter:
       spriteId: a675b200961c53f44896b7d155461a3e
     - name: Bug-Temp_Frame_29
       frameIndex: 29
+      additiveSortOrder: 0
       cellRect:
         x: 26
         y: 24
@@ -523,6 +539,7 @@ ScriptedImporter:
     linkedCells: []
     parentIndex: -1
   platformSettings: []
+  generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
   canvasSize: {x: 128, y: 128}
